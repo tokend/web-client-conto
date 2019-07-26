@@ -167,7 +167,6 @@ export default {
       },
     ),
 
-    // HINT: temp. disabled
     // new SalesPageModule(
     //   {
     //     routerEntry: {
