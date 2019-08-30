@@ -26,13 +26,13 @@
             </router-link>
           </div>
           <!--<div class="auth-page__tip">-->
-            <!--{{ 'auth-pages.forgot-pwd-question' | globalize }}-->
-            <!--<router-link-->
-              <!--class="auth-page__tip-link"-->
-              <!--:to="vueRoutes.kycRecoveryInit"-->
-            <!--&gt;-->
-              <!--{{ 'auth-pages.forgot-pwd-answer' | globalize }}-->
-            <!--</router-link>-->
+          <!--{{ 'auth-pages.forgot-pwd-question' | globalize }}-->
+          <!--<router-link-->
+          <!--class="auth-page__tip-link"-->
+          <!--:to="vueRoutes.kycRecoveryInit"-->
+          <!--&gt;-->
+          <!--{{ 'auth-pages.forgot-pwd-answer' | globalize }}-->
+          <!--</router-link>-->
           <!--</div>-->
         </div>
       </template>
