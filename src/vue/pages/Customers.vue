@@ -19,6 +19,13 @@
         >
           {{ 'customers-page.issue-btn' | globalize }}
         </button>
+        <button
+          v-ripple
+          class="app__button-raised"
+          @click="isSmartContractsDrawerShown = true"
+        >
+          {{ 'customers-page.bonuses' | globalize }}
+        </button>
       </template>
     </top-bar>
 
@@ -42,6 +49,15 @@
       />
     </drawer>
 
+    <drawer :is-shown.sync="isSmartContractsDrawerShown">
+      <template slot="heading">
+        {{ 'customers-page.bonuses' | globalize }}
+      </template>
+      <submodule-importer
+        :submodule="getModule().getSubmodule(SmartContractsModule)"
+      />
+    </drawer>
+
     <router-view />
   </div>
 </template>
@@ -49,10 +65,11 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
-import { vueRoutes } from '@/vue-router/routes'
-
+import SubmoduleImporter from '@/modules-arch/submodule-importer'
 import MassPaymentForm from '@/vue/forms/MassPaymentForm'
 import MassInvitationForm from '@/vue/forms/MassInvitationForm'
+import { vueRoutes } from '@/vue-router/routes'
+import { SmartContractsModule } from '@/vue/modules/smart-contracts/module'
 import { Bus } from '@/js/helpers/event-bus'
 
 export default {
@@ -63,11 +80,14 @@ export default {
     Drawer,
     MassPaymentForm,
     MassInvitationForm,
+    SubmoduleImporter,
   },
 
   data: _ => ({
+    SmartContractsModule,
     isInviteDrawerShown: false,
     isPaymentDrawerShown: false,
+    isSmartContractsDrawerShown: false,
     receivers: [],
     vueRoutes,
   }),

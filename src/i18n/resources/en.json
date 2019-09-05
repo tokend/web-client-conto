@@ -2451,7 +2451,8 @@
       "mass-invitation-drawer-heading": "Invite customers",
       "mass-issuance-drawer-heading": "Mass issuance",
       "mass-payment-drawer-heading": "Mass send",
-      "customers-list-page": "Customers list"
+      "customers-list-page": "Customers list",
+      "bonuses": "Bonuses"
     },
     "mass-issuance-form": {
       "asset-lbl": "Asset",
@@ -2562,6 +2563,21 @@
       "logout-btn": "Logout",
       "first-name-lbl": "First name",
       "last-name-lbl": "Last name"
+    },
+    "smart-contracts": {
+      "info-text": "This asset has automatically added when user add your business",
+      "asset-lbl": "Asset",
+      "amount-lbl": "Amount per person",
+      "number-person-lbl": "Number of persons",
+      "loading-msg": "Loading",
+      "amount-person": "Total amount",
+      "btn-lbl": "Set",
+      "confirm-msg": "Are you sure the data entered is correct?",
+      "set-successful": "New accrual added",
+      "asset-name": "Asset name",
+      "amount-left": "Amount left",
+      "no-accruals-head": "No accruals",
+      "no-accruals": "There are no available accruals"
     }
   }
 }

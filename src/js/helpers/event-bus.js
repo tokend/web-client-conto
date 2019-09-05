@@ -80,6 +80,7 @@ export class EventBus extends Vue {
       createAssetRequestsUpdateList: 'createAssetRequests:updateList',
       atomicSwapsUpdateList: 'atomicSwaps:updateList',
       updateAccountRole: 'updateAccountRole',
+      smartContractSetNew: 'smartContract:setNew',
     }
   }
 

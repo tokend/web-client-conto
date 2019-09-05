@@ -2406,7 +2406,8 @@
       "mass-invitation-drawer-heading": "Пригласите клиентов",
       "mass-issuance-drawer-heading": "Выпустить активы",
       "mass-payment-drawer-heading": "Отправить активы",
-      "customers-list-page": "Список клиентов"
+      "customers-list-page": "Список клиентов",
+      "bonuses": "Бонусы"
     },
     "mass-issuance-form": {
       "asset-lbl": "Актив",
@@ -2566,6 +2567,21 @@
       "logout-btn": "Выйти",
       "first-name-lbl": "Имя",
       "last-name-lbl": "Фамилия"
+    },
+    "smart-contracts": {
+      "info-text": "Этот актив автоматически добавляется, когда пользователь добавляет вашу компанию",
+      "asset-lbl": "Актив",
+      "amount-lbl": "Сумма начисления",
+      "number-person-lbl": "Количество клиентов",
+      "loading-msg": "Загрузка",
+      "amount-person": "Общая сумма",
+      "btn-lbl": "Установить",
+      "confirm-msg": "Вы уверены, что введенные данные верны?",
+      "set-successful": "Новое начисление добавлено",
+      "asset-name": "Имя актива",
+      "amount-left": "Остаток",
+      "no-accruals-head": "Нет начислений",
+      "no-accruals": "Нет доступных начислений"
     }
   }
 }

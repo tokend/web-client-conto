@@ -5,7 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
-for further information about branching and tagging conventions.
+for further i~~~~~~~~~~~~nformation about branching and tagging conventions.
+## [1.0.3-rcunitcity.7] - 2019-09-05
+#### Added
+- Smart contract
+
 ## [1.0.3-rc.6] - 2019-09-04
 #### Added
 - Get data from store for general kyc form
@@ -234,7 +238,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.0.3-rc.6...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.0.3-rcunitcity.7...HEAD
+[1.0.3-rcunitcity.7]: https://github.com/tokend/web-client/compare/1.0.3-rc.6...1.0.3-rc.7
 [1.0.3-rc.6]: https://github.com/tokend/web-client/compare/1.0.3-rc.2...1.0.3-rc.6
 [1.0.3-rc.2]: https://github.com/tokend/web-client/compare/1.0.3-rc.1...1.0.3-rc.2
 [1.0.3-rc.1]: https://github.com/tokend/web-client/compare/1.0.3-rc.0...1.0.3-rc.1

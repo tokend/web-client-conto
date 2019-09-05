@@ -26,6 +26,7 @@ import { BalanceExplorerModule } from '@/vue/modules/assets/balance-explorer/mod
 import { MyAssetsPageModule } from '@/vue/pages/my-assets-page-module'
 import { MyAssetsExplorerModule } from '@/vue/modules/assets/my-assets-explorer/module'
 import { CustomersListPageModule } from '@/vue/pages/customers-list-page-module'
+import { SmartContractsModule } from '@/vue/modules/smart-contracts/module'
 import { BusinessesPageModule } from '@/vue/pages/businesses-page'
 import { BusinessesAllPageModule } from '@/vue/pages/businesses-all-page-module'
 import { BusinessesMyPageModule } from '@/vue/pages/businesses-my-page-module'
@@ -76,6 +77,7 @@ export default {
               new UserMovementsHistoryModule(),
             ],
           }),
+          new SmartContractsModule(),
         ],
       },
     ),
