@@ -27,7 +27,7 @@ $z-tooltip-wrapper: 1;
 $z-skeleton-loader: 1;
 
 $_athensGray: #e9eaed;
-$_pink: #ffdd15;
+$_pink: #c2185c;
 $_white: #ffffff;
 $_concrete: #f2f2f2;
 $_black: #000000;
@@ -41,7 +41,7 @@ $_lightGray: #c6c6c6;
 $_mediumGray: #cccccc;
 $_lightRed: #ef5350;
 $_darkRed: #d6244a;
-$_strongPink: darken($_pink, 10%);
+$_strongPink: #d04078;
 $_deepBlue: #291e93;
 $_green: #33a494;
 $_lightGreen: #51ca90;
@@ -167,8 +167,8 @@ $col-switch-field-enabled-border: darken($col-switch-field-enabled, 10%);
 $col-switch-field-disabled-border: darken($col-switch-field-disabled, 10%);
 
 // other colors
-$col-auth-titles-background-light: darken($_pink, 70%);
-$col-auth-titles-background-dark: darken($_pink, 70%);
+$col-auth-titles-background-light: #b01653;
+$col-auth-titles-background-dark: #480922;
 $col-auth-titles-background-fallback: #332f5c;
 $col-clipboard-background: $_whiteSmoke;
 $col-clipboard-background-darken: darken($col-clipboard-background, 5%);

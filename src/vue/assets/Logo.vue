@@ -1,6 +1,6 @@
 <template>
   <router-link class="logotype" :to="vueRoutes.app">
-    <img :src="logoUrl" alt="Conto">
+    <img :src="logoUrl" alt="UNIT City">
   </router-link>
 </template>
 

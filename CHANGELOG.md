@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [1.0.3-rcunitcity.10] - 2019-09-06
+#### Fixed
+- new color
+
 ## [1.0.3-rcunitcity.9] - 2019-09-06
 #### Fixed
 - logo
@@ -247,7 +251,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.0.3-rcunitcity.9...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.0.3-rcunitcity.10...HEAD
+[1.0.3-rcunitcity.10]: https://github.com/tokend/web-client/compare/1.0.3-rcunitcity.9...1.0.3-rcunitcity.10
 [1.0.3-rcunitcity.9]: https://github.com/tokend/web-client/compare/1.0.3-rcunitcity.8...1.0.3-rcunitcity.9
 [1.0.3-rcunitcity.8]: https://github.com/tokend/web-client/compare/1.0.3-rcunitcity.7...1.0.3-rcunitcity.8
 [1.0.3-rcunitcity.7]: https://github.com/tokend/web-client/compare/1.0.3-rc.6...1.0.3-rcunitcity.7
