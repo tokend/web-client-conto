@@ -31,7 +31,7 @@
             class="accrual-table__cell"
             :title="item.id | formatMoney"
           >
-            {{ item.id | formatMoney }}
+            {{ assetByCode(item.assetCode).name }}
           </th>
           <th
             class="accrual-table__cell"
@@ -83,6 +83,7 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.accountId,
+      vuexTypes.assetByCode,
     ]),
   },
   created () {
