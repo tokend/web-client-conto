@@ -301,7 +301,7 @@ $content-item-right-padding: 2.4rem;
 }
 
 .sidebar__logo {
-  max-width: 9.5rem;
+  max-width: 12.5rem;
   width: 100%;
   height: 3.1rem;
   display: block;
