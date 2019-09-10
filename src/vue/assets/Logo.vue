@@ -1,6 +1,6 @@
 <template>
   <router-link class="logotype" :to="vueRoutes.app">
-    <img :src="logoUrl" alt="Conto">
+    <img :src="logoUrl" alt="Forklog">
   </router-link>
 </template>
 
@@ -8,7 +8,7 @@
 import { vueRoutes } from '@/vue-router/routes'
 import { SchemeRegistry } from '@/modules-arch/scheme-registry'
 
-const DEFAULT_LOGO_URL = '/static/conto-logo.png'
+const DEFAULT_LOGO_URL = '/static/logo-forklog.svg'
 
 export default {
   data: _ => ({
@@ -28,6 +28,5 @@ export default {
   max-height: 4.5rem;
   height: inherit;
   width: inherit;
-  margin-left: -1.1rem;
 }
 </style>

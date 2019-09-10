@@ -201,6 +201,7 @@ export default {
 // take the full width of the aside when recolored
 $content-item-left-padding: 4rem;
 $content-item-right-padding: 2.4rem;
+$color-text: darken($col-sidebar-text, 10%);
 
 .sidebar {
   position: relative;
@@ -339,6 +340,7 @@ $content-item-right-padding: 2.4rem;
 }
 
 .sidebar__links-group-title {
+  color: $color-text;
   padding: 0 $content-item-right-padding 0 $content-item-left-padding;
   opacity: 0.7;
   font-size: 1.4rem;

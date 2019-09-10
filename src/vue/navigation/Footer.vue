@@ -51,19 +51,17 @@ export default {
   flex-wrap: wrap-reverse;
   justify-content: center;
   width: 100%;
+  color: $color-footer-text;
 }
 
 .footer__text,
 .footer__link {
   line-height: 2.5rem;
+  color: $color-footer-text;
 }
 
 .footer__language-picker {
   display: inline-block;
-}
-
-.footer__link {
-  color: $col-link;
 }
 
 .footer__language-picker,
