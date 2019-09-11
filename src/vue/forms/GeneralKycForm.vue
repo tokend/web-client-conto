@@ -175,8 +175,6 @@ export default {
       } catch (e) {
         ErrorHandler.process(e)
       }
-      this.isFormSubmitting = false
-      this.hideConfirmation()
     },
 
     createKycData () {

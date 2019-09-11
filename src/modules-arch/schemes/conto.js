@@ -26,9 +26,6 @@ import { BalanceExplorerModule } from '@/vue/modules/assets/balance-explorer/mod
 import { MyAssetsPageModule } from '@/vue/pages/my-assets-page-module'
 import { MyAssetsExplorerModule } from '@/vue/modules/assets/my-assets-explorer/module'
 import { CustomersListPageModule } from '@/vue/pages/customers-list-page-module'
-import { BusinessesPageModule } from '@/vue/pages/businesses-page'
-import { BusinessesAllPageModule } from '@/vue/pages/businesses-all-page-module'
-import { BusinessesMyPageModule } from '@/vue/pages/businesses-my-page-module'
 import { CurrentBusinessIndicatorModule } from '@/vue/navigation/navbar/current-business-indicator/module'
 import { BusinessOwnershipModule } from '@/vue/navigation/navbar/business-ownership/module'
 import { AtomicSwapsPageModule } from '@/vue/pages/atomic-swaps-page-module'
@@ -75,39 +72,6 @@ export default {
             submodules: [
               new UserMovementsHistoryModule(),
             ],
-          }),
-        ],
-      },
-    ),
-
-    new BusinessesPageModule(
-      {
-        routerEntry: {
-          path: '/businesses',
-          name: vueRoutes.businesses.name,
-          meta: { pageNameTranslationId: 'pages-names.businesses' },
-        },
-        menuButtonTranslationId: 'pages-names.businesses',
-        menuButtonMdiName: 'domain',
-        menuSectionTranslationId: 'sidebar.section-explore',
-        isAutoRedirectToFirstChild: true,
-        isGeneralOnly: true,
-        submodules: [
-          new BusinessesMyPageModule({
-            routerEntry: {
-              path: '/businesses/my',
-              name: vueRoutes.myBusinesses.name,
-              props: true,
-            },
-            isGeneralOnly: true,
-          }),
-          new BusinessesAllPageModule({
-            routerEntry: {
-              path: '/businesses/all',
-              name: vueRoutes.allBusinesses.name,
-              props: true,
-            },
-            isGeneralOnly: true,
           }),
         ],
       },

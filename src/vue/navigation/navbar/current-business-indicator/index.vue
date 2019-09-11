@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import config from '@/config'
 import { BusinessRecord } from '@/js/records/entities/business.record'
 import { Bus } from '@/js/helpers/event-bus'
 import { vueRoutes } from '@/vue-router/routes'
@@ -76,6 +77,9 @@ export default {
   },
 
   created () {
+    if (!this.businessToBrowse) {
+      this.LOAD_BUSINESS_BY_ID(config.BUSINESS_ID)
+    }
     this.listen()
     this.initRouterHooks()
   },
@@ -89,6 +93,7 @@ export default {
 
     ...mapActions([
       vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
+      vuexTypes.LOAD_BUSINESS_BY_ID,
     ]),
 
     listen () {
@@ -146,10 +151,13 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/scss/variables';
+
 .current-business-indicator__browsing-lbl {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.8rem;
+  color: $col-sidebar-text;
 }
 
 .current-business-indicator__attrs {
@@ -166,6 +174,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: $col-sidebar-text;
 }
 
 .current-business-indicator__link-hidden {

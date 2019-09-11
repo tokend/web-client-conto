@@ -154,6 +154,11 @@ export default Object.assign(
      */
     IMG_BUCKET_URL: 'https://conto-images.s3.eu-north-1.amazonaws.com',
 
+    /**
+     * Used only for forklog
+     */
+    BUSINESS_ID: 'GB6RXMSM77D4PAJKAD3LWLZ2YTDB47P72VVU27QCDZ6O4FSHBECQYVCV',
+
   },
   // process.env,
   process.env

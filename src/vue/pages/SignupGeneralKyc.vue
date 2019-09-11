@@ -17,9 +17,12 @@
 
 <script>
 import GeneralKycForm from '@/vue/forms/GeneralKycForm'
+import config from '@/config'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
+import { api } from '@/api'
+import { ErrorHandler } from '@/js/helpers/error-handler'
 
 export default {
   name: 'signup-general-kyc',
@@ -30,6 +33,8 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.walletAccountId,
+      vuexTypes.accountId,
+      vuexTypes.businessToBrowse,
     ]),
   },
 
@@ -37,12 +42,33 @@ export default {
     ...mapActions({
       loadAccount: vuexTypes.LOAD_ACCOUNT,
       logOutAccount: vuexTypes.LOG_OUT,
-
+      loadBusinessById: vuexTypes.LOAD_BUSINESS_BY_ID,
     }),
 
     async submit () {
       await this.loadAccount(this.walletAccountId)
-      this.$router.push(vueRoutes.app)
+      await this.addBusiness() // only for forklog
+      await this.loadBusinessById(config.BUSINESS_ID)
+      this.$router.push({
+        ...vueRoutes.app,
+        query: {
+          owner: this.businessToBrowse.accountId,
+        },
+      })
+    },
+
+    async addBusiness () {
+      try {
+        const endpoint = `/integrations/dns/clients/${this.accountId}/businesses`
+        await api.postWithSignature(endpoint, {
+          data: {
+            id: config.BUSINESS_ID,
+            type: 'businesses',
+          },
+        })
+      } catch (error) {
+        ErrorHandler.process(error)
+      }
     },
 
     logOut () {

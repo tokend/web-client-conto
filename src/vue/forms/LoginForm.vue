@@ -60,6 +60,7 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
+import config from '@/config'
 
 import { required, requiredIf, email } from '@validators'
 import { vuexTypes } from '@/vuex'
@@ -95,6 +96,8 @@ export default {
     ...mapGetters([
       vuexTypes.walletAccountId,
       vuexTypes.walletEmail,
+      vuexTypes.businessToBrowse,
+      vuexTypes.isAccountGeneral,
     ]),
   },
   methods: {
@@ -102,6 +105,7 @@ export default {
       logInAccount: vuexTypes.LOG_IN,
       loadAssets: vuexTypes.LOAD_ASSETS,
       loadBusinessStatsQuoteAsset: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
+      loadBusinessById: vuexTypes.LOAD_BUSINESS_BY_ID,
     }),
     async submit () {
       if (!this.isFormValid()) return
@@ -115,7 +119,14 @@ export default {
         })
         await this.loadAssets()
         await this.loadBusinessStatsQuoteAsset()
-        this.$router.push({ name: 'app' })
+        const to = { name: 'app' }
+        if (this.isAccountGeneral) {
+          await this.loadBusinessById(config.BUSINESS_ID)
+          to.query = {
+            owner: this.businessToBrowse.accountId,
+          }
+        }
+        this.$router.push(to)
       } catch (e) {
         this.processAuthError(e)
         this.enableForm()

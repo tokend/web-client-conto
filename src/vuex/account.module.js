@@ -44,6 +44,13 @@ export const actions = {
     })
     commit(vuexTypes.SET_ACCOUNT, response.data)
   },
+  async [vuexTypes.LOAD_BUSINESS_BY_ID] ({ commit }, businessId) {
+    const response = await api.get(`integrations/dns/businesses/${businessId}`)
+    commit(vuexTypes.SELECT_BUSINESS_TO_BROWSE, response.data)
+    commit(
+      vuexTypes.SET_BUSINESS_STATS_QUOTE_ASSET,
+      response.data.statsQuoteAsset)
+  },
 
   async [vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS] (
     { commit, rootGetters, getters }
