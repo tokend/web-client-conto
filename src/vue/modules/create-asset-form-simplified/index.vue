@@ -17,6 +17,15 @@
         <add-quote-assets-step-form
           v-show="currentStep === STEPS.advanced.number"
           :is-disabled.sync="isDisabled"
+          @update-is-buy-back="setIsBuyBackAsset"
+          @submit="submit"
+        />
+
+        <buy-back-form
+          v-show="currentStep === STEPS.buyBack.number"
+          :is-disabled.sync="isDisabled"
+          :base-asset="collectedAttributes.code"
+          :amount="collectedAttributes.amountToSell"
           @submit="submit"
         />
       </form-stepper>
@@ -41,6 +50,7 @@ import InformationStepForm from './components/information-step-form'
 import AddQuoteAssetsStepForm from './components/add-quote-assets-step-form'
 import SkeletonLoaderStepForm from './components/skeleton-loader-step-form'
 import FormStepper from '@/vue/common/FormStepper'
+import BuyBackForm from '@/vue/forms/BuyBackForm'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -60,6 +70,9 @@ const STEPS = {
   advanced: {
     number: 2,
   },
+  buyBack: {
+    number: 3,
+  },
 }
 
 export default {
@@ -69,6 +82,7 @@ export default {
     SkeletonLoaderStepForm,
     AddQuoteAssetsStepForm,
     FormStepper,
+    BuyBackForm,
   },
   mixins: [ManageAssetRequestMixin],
   props: {
@@ -85,6 +99,7 @@ export default {
     isDisabled: false,
     currentStep: 1,
     isSellableAsset: false,
+    isBuyBackAsset: false,
     STEPS,
   }),
 
@@ -105,6 +120,15 @@ export default {
             advanced: {
               number: 2,
               titleId: 'create-asset-form.advanced-step',
+            },
+          }
+          : {}
+        ),
+        ...(this.isBuyBackAsset
+          ? {
+            buyBack: {
+              number: 3,
+              titleId: 'create-asset-form.buy-back-step',
             },
           }
           : {}
@@ -147,7 +171,7 @@ export default {
     async submit (form) {
       try {
         this.collectAssetAttributes(form)
-        if (form.isSellable) {
+        if (form.isSellable || form.isBuyBack) {
           this.moveToNextStep()
           return
         }
@@ -164,6 +188,10 @@ export default {
 
     setIsSellableAsset (value) {
       this.isSellableAsset = value
+    },
+
+    setIsBuyBackAsset (value) {
+      this.isBuyBackAsset = value
     },
 
     emitSubmitEvents () {

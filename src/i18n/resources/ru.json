@@ -1247,7 +1247,9 @@
       "description-lbl": "Описание актива (необязательно)",
       "price-lbl": "Цена в {{quoteAsset}}",
       "can-be-bought-lbl": "Может быть куплен",
-      "amount-to-sell-lbl": "Количество на продажу"
+      "amount-to-sell-lbl": "Количество на продажу",
+      "buy-back-step": "Выкуп актива",
+      "buy-back-lbl": "Можно выкупить"
     },
     "update-asset-form": {
       "loading-msg": "Загружаем…",
@@ -2405,7 +2407,8 @@
       "address-lbl": "Адрес",
       "card-number-lbl": "Номер карты",
       "asset-lbl": "Актив",
-      "create-btn": "Создать"
+      "create-btn": "Создать",
+      "next-btn": "Далее"
     },
     "customers-page": {
       "invite-btn": "Пригласить клиента",
