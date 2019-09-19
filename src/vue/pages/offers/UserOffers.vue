@@ -4,7 +4,7 @@
       class="user-offers__orders"
       :is-loaded="isLoaded"
       :offers="offers"
-      @select="initFirstPageLoader"
+      @select="selectOffer"
     />
 
     <collection-loader
@@ -34,6 +34,8 @@ export default {
   },
   data: () => ({
     offers: [],
+    selectedOffer: {},
+    isDrawerShown: false,
     isLoaded: false,
     firstPageLoader: _ => {},
   }),
@@ -71,6 +73,11 @@ export default {
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }
+    },
+
+    selectOffer (offer) {
+      this.selectedOffer = offer
+      this.isDrawerShown = true
     },
   },
 }

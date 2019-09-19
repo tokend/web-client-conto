@@ -2586,14 +2586,14 @@
       "buy-back-title": "Buy back"
     },
     "offers-table": {
-      "table-id-header": "Order ID",
-      "table-date-header": "Date",
-      "table-offer-header": "Order",
-      "table-base-amount-header": "Base asset amount",
-      "table-price-header": "Price in quote asset",
+      "id-header": "Order ID",
+      "date-header": "Date",
+      "offer-header": "Order",
+      "base-amount-header": "Base asset amount",
+      "price-header": "Price in quote asset",
+      "total-amount-header": "Total amount",
       "no-data-message": "Here will be the list of open orders",
-      "buy-lbl": "Buy",
-      "sell-lbl": "Sell"
+      "details-btn": "Details"
     }
   }
 }

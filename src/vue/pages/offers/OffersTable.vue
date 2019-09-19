@@ -4,27 +4,21 @@
       class="
         app__table
         app__table--with-shadow
-        app__table--clickable-rows
       "
     >
       <table>
         <thead>
           <tr>
-            <th :title="'offers-table.table-id-header' | globalize">
-              {{ 'offers-table.table-id-header' | globalize }}
+            <th :title="'offers-table.base-amount-header' | globalize">
+              {{ 'offers-table.base-amount-header' | globalize }}
             </th>
-            <th :title="'offers-table.table-date-header' | globalize">
-              {{ 'offers-table.table-date-header' | globalize }}
+            <th :title="'offers-table.price-header' | globalize">
+              {{ 'offers-table.price-header' | globalize }}
             </th>
-            <th :title="'offers-table.table-offer-header' | globalize">
-              {{ 'offers-table.table-offer-header' | globalize }}
+            <th :title="'offers-table.total-amount-header' | globalize">
+              {{ 'offers-table.total-amount-header' | globalize }}
             </th>
-            <th :title="'offers-table.table-base-amount-header' | globalize">
-              {{ 'offers-table.table-base-amount-header' | globalize }}
-            </th>
-            <th :title="'offers-table.table-price-header' | globalize">
-              {{ 'offers-table.table-price-header' | globalize }}
-            </th>
+            <th />
           </tr>
         </thead>
         <tbody
@@ -33,24 +27,23 @@
           <tr
             v-for="(offer, i) in offers"
             :key="`offers-table-row-${i}`"
-            @click="$emit(EVENTS.select, offer)">
-            <td>{{ offer.id }}</td>
-            <td :title="offer.createdAt | formatCalendar">
-              {{ offer.createdAt | formatCalendar }}
-            </td>
-            <td>
-              <template v-if="offer.isBuy">
-                {{ 'trade-open-offers.buy-lbl' | globalize }}
-              </template>
-              <template v-else>
-                {{ 'trade-open-offers.sell-lbl' | globalize }}
-              </template>
-            </td>
+          >
             <td :title="offer.baseAmount | formatMoney">
               {{ offer.baseAmount | formatMoney }}
             </td>
             <td :title="offer.price | formatMoney">
               {{ offer.price | formatMoney }}
+            </td>
+            <td :title="offer.quoteAmount | formatMoney">
+              {{ offer.quoteAmount | formatMoney }}
+            </td>
+            <td>
+              <a
+                class="offers-table__details-btn"
+                @click="$emit(EVENTS.select, offer)"
+              >
+                {{ 'offers-table.details-btn' | globalize }}
+              </a>
             </td>
           </tr>
         </tbody>
@@ -94,4 +87,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@scss/variables';
+
+.offers-table tr td:last-child {
+  width: 3rem;
+  text-align: right;
+}
+
+.offers-table__details-btn {
+  font-size: 1.2rem;
+  color: $col-primary-lighten;
+  cursor: pointer;
+}
 </style>
