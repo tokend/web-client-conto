@@ -63,6 +63,7 @@
                   request-actions__btn--cancel
                   app__button-flat
                 "
+                :disabled="isButtonDisabled"
                 @click="cancelOffer(offer)"
               >
                 {{ 'offers-table.cancel-btn' | globalize }}
@@ -92,6 +93,12 @@ import { formatMoney } from '@/vue/filters/formatMoney'
 import { base } from '@tokend/js-sdk'
 import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
 import { api } from '@/api'
+import { Bus } from '@/js/helpers/event-bus'
+import { ErrorHandler } from '@/js/helpers/error-handler'
+
+const EVENTS = {
+  canceled: 'canceled',
+}
 
 export default {
   name: 'offers-table',
@@ -103,20 +110,33 @@ export default {
     offers: { type: Array, required: true, default: () => [] },
     isLoaded: { type: Boolean, required: true },
   },
+
+  data: _ => ({
+    isButtonDisabled: false,
+  }),
+
   methods: {
     getTableRowTitle (amount, assetName) {
       return `${formatMoney(amount)} ${assetName}`
     },
 
     async cancelOffer (offer) {
-      const cancelOfferOperation = this.buildCancelOfferOperation(offer)
-      await api.postOperations(cancelOfferOperation)
+      this.isButtonDisabled = true
+      try {
+        const cancelOfferOperation = this.buildCancelOfferOperation(offer)
+        await api.postOperations(cancelOfferOperation)
+        Bus.success('offers-table.offer-canceled-msg')
+        this.$emit(EVENTS.canceled)
+      } catch (e) {
+        ErrorHandler.process(e)
+      }
+      this.isButtonDisabled = false
     },
 
     buildCancelOfferOperation (offer) {
       return base.ManageOfferBuilder.cancelOffer({
-        baseBalance: offer.baseBalance,
-        quoteBalance: offer.quoteBalance,
+        baseBalance: offer.baseBalanceId,
+        quoteBalance: offer.quoteBalanceId,
         price: offer.price,
         offerID: offer.id,
         orderBookID: SECONDARY_MARKET_ORDER_BOOK_ID,

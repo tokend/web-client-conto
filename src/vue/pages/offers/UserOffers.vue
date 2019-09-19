@@ -4,6 +4,7 @@
       class="user-offers__orders"
       :is-loaded="isLoaded"
       :offers="offers"
+      @canceled="initFirstPageLoader()"
     />
 
     <collection-loader

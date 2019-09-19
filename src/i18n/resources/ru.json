@@ -2595,7 +2595,8 @@
       "price-header": "Сколько дать взамен",
       "no-data-message": "Здесь будет список открытых предложений",
       "total-amount-header": "Общее количество",
-      "cancel-btn": "Отменить"
+      "cancel-btn": "Отменить",
+      "offer-canceled-msg": "Ваше предложение отменено"
     }
   }
 }

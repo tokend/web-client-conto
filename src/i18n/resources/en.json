@@ -2591,7 +2591,8 @@
       "price-header": "How much to give in return",
       "total-amount-header": "Total amount",
       "no-data-message": "Here will be the list of open orders",
-      "cancel-btn": "Cancel"
+      "cancel-btn": "Cancel",
+      "offer-canceled-msg": "Your offer was successfully cancelled"
     }
   }
 }
