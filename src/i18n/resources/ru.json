@@ -2623,7 +2623,8 @@
       "no-data-message": "Здесь будет список открытых предложений",
       "total-amount-header": "Общее количество",
       "cancel-btn": "Отменить",
-      "offer-canceled-msg": "Ваше предложение отменено"
+      "offer-canceled-msg": "Ваше предложение отменено",
+      "processing-btn": "Выполняем"
     },
     "business-assets-viewer": {
       "asset-name-th": "Имя актива",

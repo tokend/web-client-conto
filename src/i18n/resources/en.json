@@ -2619,7 +2619,8 @@
       "total-amount-header": "Total amount",
       "no-data-message": "Here will be the list of open orders",
       "cancel-btn": "Cancel",
-      "offer-canceled-msg": "Your offer was successfully cancelled"
+      "offer-canceled-msg": "Your offer was successfully cancelled",
+      "processing-btn": "Processing"
     },
     "business-assets-viewer": {
       "asset-name-th": "Asset name",

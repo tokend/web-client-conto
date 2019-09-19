@@ -297,7 +297,7 @@ export default {
         },
         menuButtonTranslationId: 'pages-names.offers',
         menuButtonMdiName: 'finance',
-        isWithBusinessToBrowseOnly: true,
+        isCorporateOnly: true,
       },
     ),
 

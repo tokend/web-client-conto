@@ -64,9 +64,13 @@
                   app__button-flat
                 "
                 :disabled="isButtonDisabled"
-                @click="cancelOffer(offer)"
+                @click="setAndCancelOffer(offer)"
               >
-                {{ 'offers-table.cancel-btn' | globalize }}
+                {{ ( isCancelingOffer(offer)
+                  ? 'offers-table.processing-btn'
+                  :'offers-table.cancel-btn'
+                ) | globalize
+                }}
               </button>
             </td>
           </tr>
@@ -113,11 +117,21 @@ export default {
 
   data: _ => ({
     isButtonDisabled: false,
+    selectedOffer: {},
   }),
 
   methods: {
     getTableRowTitle (amount, assetName) {
       return `${formatMoney(amount)} ${assetName}`
+    },
+
+    isCancelingOffer (offer) {
+      return this.selectedOffer.id === offer.id && this.isButtonDisabled
+    },
+
+    async setAndCancelOffer (offer) {
+      this.selectedOffer = offer
+      await this.cancelOffer(offer)
     },
 
     async cancelOffer (offer) {
