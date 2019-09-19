@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [1.0.3-rc.11] - 2019-09-19
+### "Under the hood" changes
+#### Changed
+- Sponsorship request structure for approve or reject
+
+## [1.0.3-rc.10] - 2019-09-19
+#### Added
+- Sponsorship page
+
 ## [1.0.3-rc.9] - 2019-09-17
 #### Added
 - Pay page
@@ -263,7 +272,9 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.0.3-rc.9...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.0.3-rc.11...HEAD
+[1.0.3-rc.11]: https://github.com/tokend/web-client/compare/1.0.3-rc.10...1.0.3-rc.11
+[1.0.3-rc.10]: https://github.com/tokend/web-client/compare/1.0.3-rc.9...1.0.3-rc.10
 [1.0.3-rc.9]: https://github.com/tokend/web-client/compare/1.0.3-rc.8...1.0.3-rc.9
 [1.0.3-rc.8]: https://github.com/tokend/web-client/compare/1.0.3-rc.7...1.0.3-rc.8
 [1.0.3-rc.7]: https://github.com/tokend/web-client/compare/1.0.3-rc.6...1.0.3-rc.7
