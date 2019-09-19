@@ -63,6 +63,7 @@
                   request-actions__btn--cancel
                   app__button-flat
                 "
+                @click="cancelOffer(offer)"
               >
                 {{ 'offers-table.cancel-btn' | globalize }}
               </button>
@@ -88,6 +89,9 @@
 import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
 import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
 import { formatMoney } from '@/vue/filters/formatMoney'
+import { base } from '@tokend/js-sdk'
+import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
+import { api } from '@/api'
 
 export default {
   name: 'offers-table',
@@ -102,6 +106,21 @@ export default {
   methods: {
     getTableRowTitle (amount, assetName) {
       return `${formatMoney(amount)} ${assetName}`
+    },
+
+    async cancelOffer (offer) {
+      const cancelOfferOperation = this.buildCancelOfferOperation(offer)
+      await api.postOperations(cancelOfferOperation)
+    },
+
+    buildCancelOfferOperation (offer) {
+      return base.ManageOfferBuilder.cancelOffer({
+        baseBalance: offer.baseBalance,
+        quoteBalance: offer.quoteBalance,
+        price: offer.price,
+        offerID: offer.id,
+        orderBookID: SECONDARY_MARKET_ORDER_BOOK_ID,
+      })
     },
   },
 }
