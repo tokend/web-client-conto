@@ -29,8 +29,21 @@
       </div>
     </div>
 
+    <div class="app__form-row">
+      <div class="app__form-field">
+        <tick-field
+          v-model="form.isBuyBack"
+          :disabled="isDisabled"
+          @input="$emit(EVENTS.updateIsBuyBack, form.isBuyBack)"
+        >
+          {{ 'create-asset-form.buy-back-lbl' | globalize }}
+        </tick-field>
+      </div>
+    </div>
+
     <atomic-swap-quote-assets-form
       :is-disabled.sync="isDisabled"
+      :is-next-button="form.isBuyBack"
       @submit="submit"
     />
   </form>
@@ -53,6 +66,7 @@ import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count
 
 const EVENTS = {
   submit: 'submit',
+  updateIsBuyBack: 'update-is-buy-back',
 }
 
 export default {
@@ -69,9 +83,11 @@ export default {
     form: {
       amountToSell: '',
       quoteAssets: [],
+      isBuyBack: false,
     },
     MIN_AMOUNT: config.MIN_AMOUNT,
     MAX_AMOUNT: config.MAX_AMOUNT,
+    EVENTS,
   }),
 
   validations () {

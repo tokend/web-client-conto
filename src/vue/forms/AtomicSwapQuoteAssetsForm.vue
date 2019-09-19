@@ -93,7 +93,11 @@
         class="atomic-swap-quote-assets-form__submit-btn app__button-raised"
         :disabled="isDisabled"
       >
-        {{ 'atomic-swap-quote-assets-form.create-btn' | globalize }}
+        {{ (isNextButton
+          ? 'atomic-swap-quote-assets-form.next-btn'
+          : 'atomic-swap-quote-assets-form.create-btn'
+        ) | globalize
+        }}
       </button>
     </div>
   </form>
@@ -119,6 +123,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
+    isNextButton: { type: Boolean, default: false },
   },
   data: _ => ({
     form: {
