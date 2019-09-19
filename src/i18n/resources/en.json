@@ -768,7 +768,8 @@
       "customers": "Customers",
       "customers-list": "Customers list",
       "businesses": "Businesses",
-      "kyc-recovery": "KYC Recovery"
+      "kyc-recovery": "KYC Recovery",
+      "offers": "Offers"
     },
     "limits": {
       "explore-limits": "Explore limits",
@@ -2576,6 +2577,20 @@
     },
     "asset-viewer": {
       "description-title": "Description"
+    },
+    "offers-page": {
+      "buy-back-btn": "Buy back",
+      "buy-back-title": "Buy back"
+    },
+    "offers-table": {
+      "table-id-header": "Order ID",
+      "table-date-header": "Date",
+      "table-offer-header": "Order",
+      "table-base-amount-header": "Base asset amount",
+      "table-price-header": "Price in quote asset",
+      "no-data-message": "Here will be the list of open orders",
+      "buy-lbl": "Buy",
+      "sell-lbl": "Sell"
     }
   }
 }

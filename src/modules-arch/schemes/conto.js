@@ -36,6 +36,7 @@ import { AtomicSwapFormModule } from '@modules/atomic-swap-form/module'
 import { AtomicSwapsExplorePageModule } from '@/vue/pages/atomic-swaps/atomic-swaps-explore-page-module'
 import { CreateAtomicSwapFormModule } from '@/vue/modules/create-atomic-swap-form/module'
 import { SharesPageModule } from '@/vue/pages/shares-page-module'
+import { OffersPageModule } from '@/vue/pages/offers-page-module'
 
 export default {
   importLanguageResource (lng) {
@@ -280,6 +281,19 @@ export default {
             isCorporateOnly: true,
           }),
         ],
+      },
+    ),
+
+    new OffersPageModule(
+      {
+        routerEntry: {
+          path: '/offers',
+          name: vueRoutes.offers.name,
+          meta: { pageNameTranslationId: 'pages-names.offers' },
+        },
+        menuButtonTranslationId: 'pages-names.offers',
+        menuButtonMdiName: 'finance',
+        isWithBusinessToBrowseOnly: true,
       },
     ),
 

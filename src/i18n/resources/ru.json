@@ -772,7 +772,8 @@
       "customers": "Клиенты",
       "customers-list": "Список клиентов",
       "businesses": "Бизнесы",
-      "kyc-recovery": "Восстановление по KYC"
+      "kyc-recovery": "Восстановление по KYC",
+      "offers": "Предложения"
     },
     "limits": {
       "explore-limits": "Просмотр лимитов",
@@ -2580,6 +2581,20 @@
     },
     "asset-viewer": {
       "description-title": "Описание"
+    },
+    "offers-page": {
+      "buy-back-btn": "Выкупить",
+      "buy-back-title": "Выкуп"
+    },
+    "offers-table": {
+      "table-id-header": "Идентификатор ордера",
+      "table-date-header": "Дата",
+      "table-offer-header": "Предложение",
+      "table-base-amount-header": "Количество базового актива",
+      "table-price-header": "Цена в котируемом активе",
+      "no-data-message": "Здесь будет список открытых предложений",
+      "buy-lbl": "Покупка",
+      "sell-lbl": "Продажа"
     }
   }
 }
