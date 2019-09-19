@@ -2590,14 +2590,12 @@
       "buy-back-title": "Выкуп"
     },
     "offers-table": {
-      "id-header": "Идентификатор ордера",
-      "date-header": "Дата",
       "offer-header": "Предложение",
-      "base-amount-header": "Количество базового актива",
-      "price-header": "Цена в котируемом активе",
+      "base-amount-header": "Количество актива для выкупа",
+      "price-header": "Сколько дать взамен",
       "no-data-message": "Здесь будет список открытых предложений",
       "total-amount-header": "Общее количество",
-      "details-btn": "Детали"
+      "cancel-btn": "Отменить"
     }
   }
 }

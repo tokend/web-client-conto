@@ -4,7 +4,6 @@
       class="user-offers__orders"
       :is-loaded="isLoaded"
       :offers="offers"
-      @select="selectOffer"
     />
 
     <collection-loader
@@ -25,6 +24,7 @@ import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
+import { OfferRecord } from '@/js/records/entities/offer.record'
 
 export default {
   name: 'user-offers',
@@ -35,7 +35,6 @@ export default {
   data: () => ({
     offers: [],
     selectedOffer: {},
-    isDrawerShown: false,
     isLoaded: false,
     firstPageLoader: _ => {},
   }),
@@ -54,10 +53,12 @@ export default {
       this.firstPageLoader = _ => this.loadOffers()
     },
     setOffers (offers) {
-      this.offers = offers
+      this.offers = offers.map(offer => new OfferRecord(offer))
     },
     concatOffers (offers) {
-      this.offers = this.offers.concat(offers)
+      this.offers = this.offers.concat(
+        offers.map(offer => new OfferRecord(offer))
+      )
     },
 
     async loadOffers () {
@@ -73,11 +74,6 @@ export default {
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }
-    },
-
-    selectOffer (offer) {
-      this.selectedOffer = offer
-      this.isDrawerShown = true
     },
   },
 }

@@ -28,29 +28,51 @@
             v-for="(offer, i) in offers"
             :key="`offers-table-row-${i}`"
           >
-            <td :title="offer.baseAmount | formatMoney">
+            <td
+              :title="getTableRowTitle(
+                offer.baseAmount,
+                offer.baseAsset.name
+              )"
+            >
               {{ offer.baseAmount | formatMoney }}
+              {{ offer.baseAsset.name }}
             </td>
-            <td :title="offer.price | formatMoney">
+            <td
+              :title="getTableRowTitle(
+                offer.price,
+                offer.quoteAsset.name
+              )"
+            >
               {{ offer.price | formatMoney }}
+              {{ offer.quoteAsset.name }}
             </td>
-            <td :title="offer.quoteAmount | formatMoney">
+            <td
+              :title="getTableRowTitle(
+                offer.quoteAmount,
+                offer.quoteAsset.name
+              )"
+            >
               {{ offer.quoteAmount | formatMoney }}
+              {{ offer.quoteAsset.name }}
             </td>
             <td>
-              <a
-                class="offers-table__details-btn"
-                @click="$emit(EVENTS.select, offer)"
+              <button
+                v-ripple
+                class="
+                  request-actions__btn
+                  request-actions__btn--cancel
+                  app__button-flat
+                "
               >
-                {{ 'offers-table.details-btn' | globalize }}
-              </a>
+                {{ 'offers-table.cancel-btn' | globalize }}
+              </button>
             </td>
           </tr>
         </tbody>
 
         <empty-tbody-placeholder
           v-else-if="!offers.length && isLoaded"
-          :colspan="5"
+          :colspan="4"
           :message="'offers-table.no-data-message' | globalize"
         />
         <skeleton-loader-table-body
@@ -65,10 +87,7 @@
 <script>
 import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
 import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
-
-const EVENTS = {
-  select: 'select',
-}
+import { formatMoney } from '@/vue/filters/formatMoney'
 
 export default {
   name: 'offers-table',
@@ -80,13 +99,15 @@ export default {
     offers: { type: Array, required: true, default: () => [] },
     isLoaded: { type: Boolean, required: true },
   },
-  data: () => ({
-    EVENTS,
-  }),
+  methods: {
+    getTableRowTitle (amount, assetName) {
+      return `${formatMoney(amount)} ${assetName}`
+    },
+  },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~@scss/variables';
 
 .offers-table tr td:last-child {
