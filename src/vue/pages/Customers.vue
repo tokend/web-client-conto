@@ -1,6 +1,26 @@
 <template>
   <div class="customers-page">
     <top-bar>
+      <template slot="main">
+        <multi-select-field
+          value="1"
+        >
+          <option
+            value="1"
+          >
+            1
+          </option>
+          <option value="2">
+            2
+          </option>
+          <option value="3">
+            3
+          </option>
+          <option value="4">
+            4
+          </option>
+        </multi-select-field>
+      </template>
       <template slot="extra">
         <button
           v-ripple
@@ -54,7 +74,7 @@ import { vueRoutes } from '@/vue-router/routes'
 import MassPaymentForm from '@/vue/forms/MassPaymentForm'
 import MassInvitationForm from '@/vue/forms/MassInvitationForm'
 import { Bus } from '@/js/helpers/event-bus'
-
+import MultiSelectField from '@/vue/fields/MultiSelectField'
 export default {
   name: 'customers-page',
 
@@ -63,6 +83,7 @@ export default {
     Drawer,
     MassPaymentForm,
     MassInvitationForm,
+    MultiSelectField,
   },
 
   data: _ => ({
