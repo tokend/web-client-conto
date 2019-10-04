@@ -55,9 +55,14 @@
             <th :title="'customers-table.status-th' | globalize">
               {{ 'customers-table.status-th' | globalize }}
             </th>
-            <th :title="'customers-table.balances-th' | globalize">
-              {{ 'customers-table.balances-th' | globalize }}
-            </th>
+            <template v-for="balance in selectedBalances">
+              <th
+                :key="balance.value"
+                :title="balance.name"
+              >
+                {{ balance.name }}
+              </th>
+            </template>
             <th class="customers-table__btn-td">
               <!-- actions -->
             </th>
@@ -88,18 +93,19 @@
             <td :title="getCustomerStatusTranslated(customer)">
               {{ getCustomerStatusTranslated(customer) }}
             </td>
+            <template v-for="balance in selectedBalances">
+              <td :key="balance.value">
+                <template v-if="customer.balances && customer.balances.length">
+                  <customers-converted-balances
+                    :customer-account-id="customer.accountId"
+                  />
+                </template>
 
-            <td>
-              <template v-if="customer.balances && customer.balances.length">
-                <customers-converted-balances
-                  :customer-account-id="customer.accountId"
-                />
-              </template>
-
-              <template v-else>
-                &mdash;
-              </template>
-            </td>
+                <template v-else>
+                  &mdash;
+                </template>
+              </td>
+            </template>
 
             <td class="customers-table__btn-td">
               <button
@@ -183,6 +189,7 @@ export default {
     return {
       isIssuanceMode: false,
       issuanceReceivers: [],
+      selectedBalances: [],
       EVENTS,
     }
   },
@@ -201,6 +208,9 @@ export default {
       Bus.on('customers:hideSelect', () => {
         this.isIssuanceMode = false
         this.issuanceReceivers = []
+      })
+      Bus.on('customers:showBalances', payload => {
+        this.selectedBalances = payload || []
       })
     },
 

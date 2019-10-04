@@ -1402,6 +1402,11 @@
       "approved-incoming-msg": "Запрос подтвержден",
       "pending-incoming-msg": "Запрос ждет вашего рассмотрения. Пожалуйста подтвердите или отклоните этот запрос",
       "permanently-rejected-incoming-msg": "Запрос отклонен навсегда"
+    },
+    "multiselect-field": {
+      "select-all": "Выбрать все",
+      "all-selected-lable": "Выбрано все",
+      "select-something-lable": "Выберите что-то..."
     }
   }
 }

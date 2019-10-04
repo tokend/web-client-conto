@@ -3,6 +3,7 @@
     <top-bar>
       <template slot="main">
         <multi-select-field
+          @selected="emitSelectedBalances"
           :options="[
             {
               name: 'Bitcoin',
@@ -113,6 +114,10 @@ export default {
         this.receivers = ((payload || {}).receivers || [])
         this.isPaymentDrawerShown = true
       })
+    },
+
+    emitSelectedBalances (values) {
+      Bus.emit('customers:showBalances', values)
     },
   },
 }
