@@ -1,12 +1,13 @@
 <template>
   <div
+    tabindex="0"
     class="multiselect"
-    @click="isOpen = true"
+    @click="isOpen = !isOpen"
+    @blur="isOpen = false"
   >
     <template v-if="label">
       <label
         class="select-field__label"
-        :class="{ 'select-field__label--minimized': value || isOpen }"
       >
         {{ label }}
       </label>
@@ -24,12 +25,27 @@
         <ul
           class="multiselect__content">
           <li
+            v-if="isNeedAllOption"
             class="multiselect__element"
-            :role="'option'">
-            <span
-              class="multiselect__option">
-              a
-            </span>
+          >
+            <tick-field
+              v-model="checkedValues"
+              :cb-value="options"
+            >
+              All
+            </tick-field>
+          </li>
+          <li
+            v-for="option in options"
+            :key="option.value"
+            class="multiselect__element"
+          >
+            <tick-field
+              v-model="checkedValues"
+              :cb-value="option"
+            >
+              {{ option.name }}
+            </tick-field>
           </li>
         </ul>
       </div>
@@ -38,12 +54,21 @@
 </template>
 
 <script>
+import TickField from '@/vue/fields/TickField'
+
 export default {
   name: 'multi-select-field',
+  components: {
+    TickField,
+  },
+  props: {
+    options: { type: Array, default: () => [] },
+    isNeedAllOption: { type: Boolean, default: true },
+  },
   data: _ => ({
     isOpen: false,
-    value: 'somethimg',
     label: 'somethimg',
+    checkedValues: [],
   }),
 }
 </script>
@@ -60,7 +85,7 @@ export default {
   box-sizing: content-box;
   display: block;
   position: relative;
-  width: 100%;
+  width: 10rem;
   min-height: 4rem;
   text-align: left;
 }

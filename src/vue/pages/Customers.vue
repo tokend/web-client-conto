@@ -3,23 +3,21 @@
     <top-bar>
       <template slot="main">
         <multi-select-field
-          value="1"
-        >
-          <option
-            value="1"
-          >
-            1
-          </option>
-          <option value="2">
-            2
-          </option>
-          <option value="3">
-            3
-          </option>
-          <option value="4">
-            4
-          </option>
-        </multi-select-field>
+          :options="[
+            {
+              name: 'Bitcoin',
+              value: 'BTC'
+            },
+            {
+              name: 'Hruvnya',
+              value: 'UAH'
+            },
+            {
+              name: 'USD dollar',
+              value: 'USD'
+            },
+          ]"
+        />
       </template>
       <template slot="extra">
         <button
