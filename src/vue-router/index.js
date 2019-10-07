@@ -7,6 +7,9 @@ import { resolveRedirect } from '@/vue-router/redirect'
 
 import AppContent from '@/vue/AppContent'
 
+import Pay from '@/vue/pages/Pay'
+import Business from '@/vue/pages/Business'
+
 import Customers from '@/vue/pages/Customers'
 import CustomersList from '@/vue/pages/CustomersList'
 import Businesses from '@/vue/pages/Businesses'
@@ -57,14 +60,15 @@ const router = new Router({
       component: resolve => require(['@/vue/pages/Downloads'], resolve),
     },
     {
-      path: '/ios-installation-guide',
-      name: vueRoutes.iosInstallationGuide.name,
-      component: resolve => require(['@/vue/pages/IosInstallationGuide'], resolve),
-    },
-    {
       path: '/pay',
       name: vueRoutes.pay.name,
-      component: resolve => require(['@/vue/pages/Pay'], resolve),
+      component: Pay,
+    },
+    {
+      path: '/business/:id',
+      name: vueRoutes.business.name,
+      component: Business,
+      props: true,
     },
     {
       path: '/kyc-recovery-management',
@@ -353,8 +357,14 @@ function authPageGuard (to, from, next) {
 function redirectRouteGuard (to, from, next) {
   const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
   const isAccountUnverified = store.getters[vuexTypes.isAccountUnverified]
+
   if (isLoggedIn && !isAccountUnverified) {
-    if (to.name === vueRoutes.app.name) {
+    const isKycRecoveryInProgress = store
+      .getters[vuexTypes.isKycRecoveryInProgress]
+
+    if (isKycRecoveryInProgress) {
+      next(vueRoutes.kycRecoveryManagement)
+    } else if (to.name === vueRoutes.app.name) {
       const isAccountCorporate = store.getters[vuexTypes.isAccountCorporate]
       const isBusinessToBrowse = store.getters[vuexTypes.isBusinessToBrowse]
       const isCustomerUiShown = store.getters[vuexTypes.isCustomerUiShown]
