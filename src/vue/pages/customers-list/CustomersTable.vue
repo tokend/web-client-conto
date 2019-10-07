@@ -86,7 +86,10 @@
               />
             </td>
 
-            <td :title="getCustomerNameOrEmail(customer)">
+            <td
+              :title="getCustomerNameOrEmail(customer)"
+              class="customers-table__customer-td"
+            >
               {{ getCustomerNameOrEmail(customer) }}
             </td>
 
@@ -317,5 +320,9 @@ $disabled-tick-border: #e9e9e9;
   & > button + button {
     margin-left: 1.2rem;
   }
+}
+
+.customers-table__customer-td {
+  max-width: 16rem;
 }
 </style>
