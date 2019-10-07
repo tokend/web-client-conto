@@ -3,8 +3,10 @@
     <top-bar>
       <template slot="main">
         <multi-select-field
+          v-if="selectionOptions.length"
           @selected="emitSelectedBalances"
           :options="selectionOptions"
+          need-select-all-options
         />
       </template>
       <template slot="extra">
