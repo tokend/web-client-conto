@@ -303,7 +303,6 @@ $disabled-tick-border: #e9e9e9;
 }
 
 .customers-table__table {
-  table-layout: fixed;
   min-width: 60rem;
 }
 
