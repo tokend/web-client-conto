@@ -20,8 +20,7 @@
             class="multiselect-field__dropdown-option"
           >
             <tick-field
-              v-model="selectedValues"
-              :value="options"
+              v-model="selectedOptions"
               :cb-value="options"
             >
               {{ 'multiselect-field.select-all' | globalize }}
@@ -33,8 +32,7 @@
             class="multiselect-field__dropdown-option"
           >
             <tick-field
-              v-model="selectedValues"
-              :value="options"
+              v-model="selectedOptions"
               :cb-value="option"
             >
               {{ option.name }}
@@ -51,6 +49,10 @@ import TickField from '@/vue/fields/TickField'
 import { handleClickOutside } from '@/js/helpers/handle-click-outside'
 import { globalize } from '@/vue/filters/globalize'
 
+const EVENTS = {
+  selected: 'selected',
+}
+
 export default {
   name: 'multi-select-field',
   components: {
@@ -63,7 +65,7 @@ export default {
   },
   data: _ => ({
     isDropdownOpen: false,
-    selectedValues: [],
+    selectedOptions: [],
     destructClickOutsideHandler: () => { },
   }),
 
@@ -73,8 +75,10 @@ export default {
 
       if (this.isNeedAllOption && this.isSelectedAllOptions) {
         lable = globalize('multiselect-field.all-selected-lable')
-      } else if (this.selectedValues.length) {
-        lable = this.selectedValues.map(i => i.name).join(', ')
+      } else if (this.selectedOptions.length) {
+        lable = this.selectedOptions.length > 1
+          ? `${this.selectedOptions[0].name}, ...`
+          : this.selectedOptions[0].name
       } else {
         lable = globalize('multiselect-field.select-something-lable')
       }
@@ -82,7 +86,13 @@ export default {
     },
 
     isSelectedAllOptions () {
-      return this.selectedValues.length === this.options.length
+      return this.selectedOptions.length === this.options.length
+    },
+  },
+
+  watch: {
+    selectedOptions (value) {
+      this.$emit(EVENTS.selected, value)
     },
   },
 
@@ -115,7 +125,7 @@ export default {
     },
 
     selectAllOptions () {
-      this.selectedValues = this.options
+      this.selectedOptions = this.options
     },
   },
 }

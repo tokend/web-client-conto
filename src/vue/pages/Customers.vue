@@ -4,20 +4,7 @@
       <template slot="main">
         <multi-select-field
           @selected="emitSelectedBalances"
-          :options="[
-            {
-              name: 'Bitcoin',
-              value: 'BTC'
-            },
-            {
-              name: 'Hruvnya',
-              value: 'UAH'
-            },
-            {
-              name: 'USD dollar',
-              value: 'USD'
-            },
-          ]"
+          :options="selectionOptions"
         />
       </template>
       <template slot="extra">
@@ -68,12 +55,15 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
-import { vueRoutes } from '@/vue-router/routes'
-
+import MultiSelectField from '@/vue/fields/MultiSelectField'
 import MassPaymentForm from '@/vue/forms/MassPaymentForm'
 import MassInvitationForm from '@/vue/forms/MassInvitationForm'
+
 import { Bus } from '@/js/helpers/event-bus'
-import MultiSelectField from '@/vue/fields/MultiSelectField'
+import { mapGetters, mapActions } from 'vuex'
+import { vueRoutes } from '@/vue-router/routes'
+import { vuexTypes } from '@/vuex'
+
 export default {
   name: 'customers-page',
 
@@ -90,7 +80,14 @@ export default {
     isPaymentDrawerShown: false,
     receivers: [],
     vueRoutes,
+    selectionOptions: [],
   }),
+
+  computed: {
+    ...mapGetters({
+      ownedAssets: vuexTypes.ownedAssets,
+    }),
+  },
 
   watch: {
     isPaymentDrawerShown (value) {
@@ -100,11 +97,17 @@ export default {
     },
   },
 
-  created () {
+  async created () {
+    await this.loadAssets()
     this.listen()
+    this.selectionOptions = this.getSelectionOptions()
   },
 
   methods: {
+    ...mapActions({
+      loadAssets: vuexTypes.LOAD_ASSETS,
+    }),
+
     emitUpdateList () {
       Bus.emit('customers:updateList')
     },
@@ -118,6 +121,15 @@ export default {
 
     emitSelectedBalances (values) {
       Bus.emit('customers:showBalances', values)
+    },
+
+    getSelectionOptions () {
+      return this.ownedAssets.map(asset => {
+        return {
+          name: asset.name,
+          value: asset.code,
+        }
+      })
     },
   },
 }

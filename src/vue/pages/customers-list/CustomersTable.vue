@@ -93,18 +93,22 @@
             <td :title="getCustomerStatusTranslated(customer)">
               {{ getCustomerStatusTranslated(customer) }}
             </td>
-            <template v-for="balance in selectedBalances">
-              <td :key="balance.value">
-                <template v-if="customer.balances && customer.balances.length">
-                  <customers-converted-balances
-                    :customer-account-id="customer.accountId"
-                  />
-                </template>
-
-                <template v-else>
+            <template v-for="selectedBalance in selectedBalances">
+              <!-- eslint-disable max-len -->
+              <template v-if="customer.balances && customer.balances.length">
+                <td
+                  :title="getCustomerBalance(customer.balances, selectedBalance.value) | formatMoney"
+                  :key="selectedBalance.value"
+                >
+                  {{ getCustomerBalance(customer.balances, selectedBalance.value) | formatBalance }}
+                </td>
+              </template>
+              <!-- eslint-enable max-len -->
+              <template v-else>
+                <td :key="selectedBalance.value">
                   &mdash;
-                </template>
-              </td>
+                </td>
+              </template>
             </template>
 
             <td class="customers-table__btn-td">
@@ -141,15 +145,14 @@
 </template>
 
 <script>
-import CustomersConvertedBalances from './CustomersConvertedBalances'
-import { CustomerRecord } from '@/js/records/entities/customer.record'
 import TickField from '@/vue/fields/TickField'
-import { Bus } from '@/js/helpers/event-bus'
 import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
 import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { Bus } from '@/js/helpers/event-bus'
+import { CustomerRecord } from '@/js/records/entities/customer.record'
 
 const EVENTS = {
   detailsButtonClicked: 'details-button-clicked',
@@ -162,7 +165,6 @@ export default {
     TickField,
     EmptyTbodyPlaceholder,
     SkeletonLoaderTableBody,
-    CustomersConvertedBalances,
   },
 
   props: {
@@ -249,6 +251,12 @@ export default {
       } else {
         return customer.email
       }
+    },
+
+    getCustomerBalance (customerBalances, selectedBalance) {
+      const balance = customerBalances
+        .find(i => i.assetCode === selectedBalance)
+      return balance.amount
     },
   },
 }
