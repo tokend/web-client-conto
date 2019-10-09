@@ -114,6 +114,7 @@ export default {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.8rem;
+  color: $color-footer-text;
 }
 
 .current-business-indicator__attrs {
@@ -130,6 +131,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: $col-sidebar-text;
 }
 
 .current-business-indicator__link-hidden {

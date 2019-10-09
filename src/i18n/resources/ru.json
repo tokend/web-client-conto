@@ -1365,7 +1365,7 @@
       "no-amount-msg": "Обратитесь к владельцу предложения"
     },
     "pay-form": {
-      "email-lbl":"Имейл получателя в Конто"
+      "email-lbl":"Имейл получателя в UNIT city"
     },
     "asset-viewer": {
       "description-title": "Описание"
