@@ -83,8 +83,6 @@ export default {
 @import '~@scss/variables';
 /* stylelint-disable selector-nested-pattern */
 .business-description__markdown {
-  word-break: break-all;
-
   img {
     max-width: 100%;
     margin: 0.8rem 0;

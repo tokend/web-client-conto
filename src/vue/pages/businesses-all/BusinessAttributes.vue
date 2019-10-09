@@ -97,6 +97,7 @@ export default {
 .business-attributes__logo {
   width: 5rem;
   height: 5rem;
+  min-width: 5rem;
   border-radius: 50%;
 }
 

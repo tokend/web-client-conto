@@ -126,7 +126,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const MAX_FILE_MEGABYTES = 32
-const IMAGE_FILE_EXTENSIONS = ['jpg', 'png']
+const IMAGE_FILE_EXTENSIONS = ['jpg', 'png', 'jpeg']
 
 export default {
   name: 'file-field',

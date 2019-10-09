@@ -3,6 +3,7 @@
     <movements-top-bar
       @asset-code-updated="updateAssetCode"
       @movements-update-required="emitUpdateList('movements:updateList')"
+      @show-no-data-message="showNoDataMessage = true"
     />
 
     <movements-history
@@ -12,7 +13,7 @@
     />
 
     <no-data-message
-      v-else-if="!assetCode"
+      v-else-if="!assetCode && showNoDataMessage"
       icon-name="trending-up"
       :title="'op-pages.no-data-title' | globalize"
       :message="'op-pages.no-data-msg' | globalize"
@@ -47,6 +48,7 @@ export default {
   data: _ => ({
     assetCode: '',
     historyState: 0,
+    showNoDataMessage: false,
   }),
 
   created () {
