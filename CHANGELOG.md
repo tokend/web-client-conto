@@ -6,13 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
-## [Unreleased]
+## [1.1.0-rc.2] - 2019-10-09
 #### Fixed
 - A bug when user can't see balances with zero amount in business account
 - A bug when the name of the industry and company was not fully displayed
 - A bug when don't see loading while switching filter on transactions history page
 - A bug when was no loader on delete asset
 - A bug with text wrapping in the business description
+
+#### Changed
+- `IMAGE_FILE_EXTENSIONS` add jpeg
 
 ## [1.1.0-rc.1] - 2019-10-04
 #### Added
@@ -309,7 +312,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rc.1...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rc.2...HEAD
+[1.1.0-rc.2]: https://github.com/tokend/web-client/compare/1.1.0-rc.1...1.1.0-rc.2
 [1.1.0-rc.1]: https://github.com/tokend/web-client/compare/1.1.0-rc.0...1.1.0-rc.1
 [1.1.0-rc.0]: https://github.com/tokend/web-client/compare/1.0.3-rc.11...1.1.0-rc.0
 [1.0.3-rc.11]: https://github.com/tokend/web-client/compare/1.0.3-rc.10...1.0.3-rc.11

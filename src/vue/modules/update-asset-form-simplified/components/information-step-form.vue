@@ -43,7 +43,6 @@
           name="update-asset-logo"
           v-model="form.logo"
           :note="'update-asset-form-simplified.logo-note' | globalize"
-          :file-extensions="['jpg', 'png']"
           :document-type="DOCUMENT_TYPES.assetLogo"
           :label="'update-asset-form-simplified.logo-lbl' | globalize"
           :min-width="120"
