@@ -8,13 +8,6 @@
         <p class="app__page-explanations app__page-explanations--secondary">
           {{ 'transfer-form.no-assets' | globalize }}
         </p>
-        <router-link
-          :to="vueRoutes.assets.name"
-          tag="button"
-          class="app__button-raised transfer-form__discover-asset-btn"
-        >
-          {{ 'transfer-form.discover-assets-btn' | globalize }}
-        </router-link>
       </template>
 
       <template v-else>

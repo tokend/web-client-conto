@@ -8,6 +8,8 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Fixed
+- A bug when user can't see balances with zero amount in business account
+- A bug when the name of the industry and company was not fully displayed
 - A bug when don't see loading while switching filter on transactions history page
 - A bug when was no loader on delete asset
 
