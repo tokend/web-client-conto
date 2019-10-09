@@ -23,25 +23,27 @@
             </option>
           </select-field>
         </div>
-      </template>
-      <div
-        v-if="isBusinessToBrowse"
-        class="movements-top-bar__actions"
-        slot="extra"
-      >
-        <button
-          v-ripple
-          class="app__button-raised movements-top-bar__actions-btn"
-          @click="isTransferDrawerShown = true"
-          :disabled="!(assetByCode(assetCode).isTransferable && isHaveBalance)"
-          :title="getMessageIdForPolicy(ASSET_POLICIES_STR.isTransferable) |
-            globalize({ asset: assetCode })
-          "
+        <div
+          v-if="isBusinessToBrowse"
+          class="movements-top-bar__actions"
+          slot="extra"
         >
-          <i class="mdi mdi-send movements-top-bar__btn-icon" />
-          {{ 'op-pages.send' | globalize }}
-        </button>
-      </div>
+          <!-- eslint-disable max-len -->
+          <button
+            v-ripple
+            class="app__button-raised movements-top-bar__actions-btn"
+            @click="isTransferDrawerShown = true"
+            :disabled="!(assetByCode(assetCode).isTransferable && isHaveBalance)"
+            :title="getMessageIdForPolicy(ASSET_POLICIES_STR.isTransferable) |
+              globalize({ asset: assetCode })
+            "
+          >
+            <!-- eslint-enable max-len -->
+            <i class="mdi mdi-send movements-top-bar__btn-icon" />
+            {{ 'op-pages.send' | globalize }}
+          </button>
+        </div>
+      </template>
     </top-bar>
 
     <drawer :is-shown.sync="isTransferDrawerShown">
@@ -69,6 +71,7 @@ import TransferForm from '@/vue/forms/TransferForm'
 const EVENTS = {
   assetCodeUpdated: 'asset-code-updated',
   movementsUpdateRequired: 'movements-update-required',
+  showNoDataMessage: 'show-no-data-message',
 }
 
 const ASSET_POLICIES_STR = {
@@ -112,6 +115,10 @@ export default {
         return this.ownedAssets
       }
     },
+
+    isAssetsExists () {
+      return Boolean(this.assets.length)
+    },
   },
   watch: {
     async assetCode (value) {
@@ -125,7 +132,11 @@ export default {
   },
   async created () {
     await this.loadAccountBalancesDetails()
-    this.setDefaultAsset()
+    if (this.isAssetsExists) {
+      this.setDefaultAsset()
+    } else {
+      this.$emit(EVENTS.showNoDataMessage)
+    }
     this.isInitialized = true
   },
   methods: {
