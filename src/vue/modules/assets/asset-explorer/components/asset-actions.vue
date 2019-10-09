@@ -2,6 +2,7 @@
   <div class="asset-actions">
     <button
       v-ripple
+      :disabled="isAssetDeleting"
       class="app__button-raised asset-actions__btn"
       @click="isTransferDrawerShown = true"
     >
@@ -20,6 +21,7 @@
     <button
       v-if="isAssetOwner"
       v-ripple
+      :disabled="isAssetDeleting"
       class="app__button-raised asset-actions__btn"
       @click="$emit(EVENTS.updateAsset)"
     >

@@ -166,7 +166,6 @@ export default {
       const balance = +this.accountBalanceByCode(this.assetCode).balance
       this.isHaveBalance = balance > 0
     },
-
   },
 }
 </script>
