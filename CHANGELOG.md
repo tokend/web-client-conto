@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 - A bug when the name of the industry and company was not fully displayed
 - A bug when don't see loading while switching filter on transactions history page
 - A bug when was no loader on delete asset
+- A bug with text wrapping in the business description
 
 ## [1.1.0-rc.1] - 2019-10-04
 #### Added
