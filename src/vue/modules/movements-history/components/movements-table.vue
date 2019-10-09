@@ -34,19 +34,23 @@
       </tr>
     </thead>
 
-    <movements-table-row
-      v-for="movement in movements"
-      :is-customer-movements="isCustomerMovements"
-      :movement="movement"
-      :key="movement.id"
-    />
-    <empty-tbody-placeholder
-      v-if="!movements.length && isMovementsLoaded"
-      :is-customer-movements="isCustomerMovements"
-    />
+    <template v-if="isMovementsLoaded">
+      <movements-table-row
+        v-for="movement in movements"
+        :is-customer-movements="isCustomerMovements"
+        :movement="movement"
+        :key="movement.id"
+      />
+
+      <empty-tbody-placeholder
+        v-if="!movements.length"
+        :is-customer-movements="isCustomerMovements"
+      />
+    </template>
+
     <template v-for="index in 3">
       <movements-skeleton-loader
-        v-if="!isMovementsLoaded && !movements.length"
+        v-if="!isMovementsLoaded"
         :key="index"
         :is-customer-movements="isCustomerMovements"
       />

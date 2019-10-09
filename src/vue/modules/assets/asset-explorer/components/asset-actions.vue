@@ -29,6 +29,7 @@
     <button
       v-if="isAssetOwner"
       v-ripple
+      :disabled="isAssetDeleting"
       class="app__button-raised asset-actions__btn"
       @click="deleteAsset"
     >
@@ -94,6 +95,7 @@ export default {
     isTransferDrawerShown: false,
     isRedeemDrawerShown: false,
     isPending: false,
+    isAssetDeleting: false,
     EVENTS,
   }),
 
@@ -109,6 +111,7 @@ export default {
 
   methods: {
     async deleteAsset () {
+      this.isAssetDeleting = true
       const operation = base.RemoveAssetOpBuilder
         .removeAssetOp({
           code: this.asset.code,
@@ -121,6 +124,7 @@ export default {
       } catch (error) {
         ErrorHandler.process(error)
       }
+      this.isAssetDeleting = false
     },
     async deleteAssetPairs () {
       const { data } = await api.get('/v3/asset_pairs', {
