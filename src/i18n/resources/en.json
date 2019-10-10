@@ -636,7 +636,8 @@
       "businesses": "Businesses",
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
-      "kyc-recovery": "KYC Recovery"
+      "kyc-recovery": "KYC Recovery",
+      "promocodes": "Promocodes"
     },
     "passport": {
       "account-unverified": "General account",
@@ -1408,6 +1409,24 @@
       "error-title": "There is no such business",
       "shop": "Shop",
       "loading-msg": "Loading..."
+    },
+    "promocodes-page": {
+      "create-btn": "Create",
+      "create-promocode-title": "Create promocode"
+    },
+    "promocode-form": {
+      "create-btn": "Create",
+      "code-lbl": "Code",
+      "description-lbl": "Description",
+      "max-uses-lbl": "Max uses",
+      "discount-lbl": "Discount",
+      "no-offers-msg-title": "No offerings yet",
+      "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create a offer and try again.",
+      "created-successfully-notification": "Promocode successfully created",
+      "name-th": "Name",
+      "amount-th": "Amount",
+      "price-th": "Price",
+      "offers-title": "Offers"
     }
   }
 }

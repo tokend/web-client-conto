@@ -640,7 +640,8 @@
       "businesses": "Бизнесы",
       "sponsorship": "Спонсортсво",
       "atomic-swaps": "Магазин",
-      "kyc-recovery": "Восстановление по KYC"
+      "kyc-recovery": "Восстановление по KYC",
+      "promocodes": "Промокоды"
     },
     "passport": {
       "account-us-accredited": "Аккредитованный инвестор (США)",
@@ -1410,6 +1411,24 @@
       "error-title": "Нет такого бизнеса",
       "shop": "Магазин",
       "loading-msg": "Загрузка..."
+    },
+    "promocodes-page": {
+      "create-btn": "Создать",
+      "create-promocode-title": "Создание промокода"
+    },
+    "promocode-form": {
+      "create-btn": "Создать",
+      "code-lbl": "Код",
+      "description-lbl": "Описание",
+      "max-uses-lbl": "Количество использований",
+      "discount-lbl": "Скидка",
+      "no-offers-msg-title": "Нет предложений",
+      "no-offers-msg-description": "К сожалению, у вас нет предложений. Пожалуйста, создайте предложение и попробуйте снова.",
+      "created-successfully-notification": "Промокод успешно создан",
+      "name-th": "Имя",
+      "amount-th": "Количество",
+      "price-th": "Цена",
+      "offers-title": "Предложения"
     }
   }
 }
