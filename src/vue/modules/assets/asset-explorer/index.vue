@@ -124,11 +124,12 @@ export default {
             ? this.$route.query.owner
             : this.businessToBrowse.accountId
           accountBalances = this.accountBalancesByOwner(accountId)
+            .filter(item => +item.balance > 0)
         } else {
           accountBalances = this.accountOwnedAssetsBalances
         }
 
-        return accountBalances.filter(item => +item.balance > 0)
+        return accountBalances
       } catch (error) {
         console.error(error)
         return []

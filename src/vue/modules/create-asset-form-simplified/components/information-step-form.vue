@@ -71,7 +71,6 @@
           name="create-asset-logo"
           v-model="form.logo"
           :note="'create-asset-form.logo-note' | globalize"
-          :file-extensions="['jpg', 'png']"
           :document-type="DOCUMENT_TYPES.assetLogo"
           :label="'create-asset-form.logo-lbl' | globalize"
           :min-width="120"
