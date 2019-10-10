@@ -1136,7 +1136,8 @@
       "converted-balance-title": "Converted balance",
       "vendor-code": "Vendor code",
       "can-be-base-in-atomic-swap-title": "Can be base in offering",
-      "can-be-quote-in-atomic-swap-title": "Can be quote in offering"
+      "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
+      "delete-asset-message": "Are you sure you want to delete the asset?"
     },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",
