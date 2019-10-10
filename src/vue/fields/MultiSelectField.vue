@@ -1,7 +1,7 @@
 <template>
   <div class="multiselect-field">
-    <div class="multiselect-field__select" @click="toggleDropdown()">
-      <span class="multiselect-field__select-label">{{ getLable }} </span>
+    <div class="multiselect-field__select" @click="toggleDropdown">
+      <span class="multiselect-field__select-label">{{ getLable }}</span>
       <i
         class="multiselect-field__selected-icon mdi mdi-chevron-down"
         :class="{ 'multiselect-field__selected-icon--active': isDropdownOpen }"
@@ -13,8 +13,7 @@
         class="multiselect-field__dropdown"
         v-show="isDropdownOpen"
       >
-        <ul
-          class="multiselect-field__dropdown-wrp">
+        <ul>
           <li
             v-if="needAllOption"
             class="multiselect-field__dropdown-option"
