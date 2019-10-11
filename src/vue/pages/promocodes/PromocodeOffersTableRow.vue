@@ -14,18 +14,28 @@
       </td>
     </template>
     <template v-else-if="isLoading">
-      {{ 'email-getter.loading-msg' | globalize }}
+      <td v-for="item in 3" :key="item">
+        <skeleton-loader
+          template="smallString"
+        />
+      </td>
     </template>
   </tr>
 </template>
 
 <script>
+import SkeletonLoader from '@/vue/common/skeleton-loader/SkeletonLoader'
+
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 
 export default {
   name: 'promocode-offers-table-row',
+
+  components: {
+    SkeletonLoader,
+  },
 
   props: {
     offerId: {

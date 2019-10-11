@@ -1,6 +1,6 @@
 <template>
   <p
-    class="text-logo text-logo--abbr"
+    class="text-logo"
   >
     {{ getFirstLetterOfName }}
   </p>
@@ -29,14 +29,9 @@ export default {
   width: 5.3rem;
   height: 5.3rem;
   border-radius: 50%;
-
-  &--abbr {
-    font-size: 2.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $col-text-logo-background;
-    color: $col-text-logo-text;
-  }
+  font-size: 2.4rem;
+  text-align: center;
+  background: $col-text-logo-background;
+  color: $col-text-logo-text;
 }
 </style>

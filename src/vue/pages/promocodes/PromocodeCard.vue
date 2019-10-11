@@ -11,7 +11,7 @@
       </h3>
 
       <p class="promocode-card__discount">
-        {{ }}
+        {{ promocode.discount }}
       </p>
     </div>
   </div>
