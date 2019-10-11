@@ -1,5 +1,42 @@
 <template>
   <div class="promocodes-list">
+    <template v-if="list.length">
+      <div class="promocodes-list__cards">
+        <div
+          class="promocodes-list__card"
+          v-for="item in list"
+          :key="item.id"
+        >
+          <button
+            class="promocodes-list__card-btn"
+            @click="setPromocodeToBrowse(item)"
+          >
+            <promocode-card :promocode="item" />
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <template v-else-if="!list.length && isLoading">
+      <div class="promocodes-list__cards">
+        <div
+          class="promocodes-list__card"
+          v-for="item in 5"
+          :key="item"
+        >
+          <promocode-card-skeleton />
+        </div>
+      </div>
+    </template>
+
+    <template v-else>
+      <no-data-message
+        icon-name="ticket-percent"
+        :title="'promocodes-list.no-list-title' | globalize"
+        :message="'promocodes-list.no-list-msg' | globalize"
+      />
+    </template>
+
     <collection-loader
       class="promocodes-list__loader"
       :first-page-loader="getList"
@@ -10,12 +47,12 @@
 
     <drawer :is-shown.sync="isDrawerShown">
       <template slot="heading">
-        {{ 'customers-list.customer-drawer-title' | globalize }}
+        {{ 'promocodes-list.promocode-drawer-title' | globalize }}
       </template>
 
-      <customer-attributes
-        :customer="promocodeToBrowse"
-        @close-drawer="isDrawerShown = false"
+      <promocode-viewer
+        :promocode="promocodeToBrowse"
+        @promocode-deleted="closeDrawerAndUpdateList"
       />
     </drawer>
   </div>
@@ -24,12 +61,14 @@
 <script>
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import Drawer from '@/vue/common/Drawer'
+import PromocodeCard from './promocodes/PromocodeCard'
+import PromocodeCardSkeleton from './promocodes/PromocodeCardSkeleton'
+import PromocodeViewer from './promocodes/PromocodeViewer'
+import NoDataMessage from '@/vue/common/NoDataMessage'
 
-import CustomerAttributes from './customers-list/CustomerAttributes'
 import { Bus } from '@/js/helpers/event-bus'
-import { CustomerRecord } from '@/js/records/entities/customer.record'
+import { PromocodeRecord } from '@/js/records/entities/promocode.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -40,7 +79,10 @@ export default {
   components: {
     CollectionLoader,
     Drawer,
-    CustomerAttributes,
+    PromocodeViewer,
+    PromocodeCardSkeleton,
+    PromocodeCard,
+    NoDataMessage,
   },
 
   data () {
@@ -48,6 +90,7 @@ export default {
       list: [],
       isLoaded: false,
       isLoadFailed: false,
+      isLoading: false,
       isDrawerShown: false,
       promocodeToBrowse: {},
     }
@@ -71,6 +114,7 @@ export default {
     },
 
     async getList () {
+      this.isLoading = true
       let result
 
       try {
@@ -84,16 +128,17 @@ export default {
         ErrorHandler.processWithoutFeedback(error)
       }
 
+      this.isLoading = false
       return result
     },
 
     setList (newList) {
-      this.list = newList.map(i => new CustomerRecord(i))
+      this.list = newList.map(i => new PromocodeRecord(i))
     },
 
     concatList (newChunk) {
       this.list = this.list.concat(
-        newChunk.map(i => new CustomerRecord(i))
+        newChunk.map(i => new PromocodeRecord(i))
       )
     },
 
@@ -105,18 +150,53 @@ export default {
       this.promocodeToBrowse = $event
       this.isDrawerShown = true
     },
+
+    closeDrawerAndUpdateList () {
+      this.isDrawerShown = false
+      this.reloadList()
+    },
   },
 }
 </script>
+<style lang="scss" scoped>
+@import '~@scss/mixins.scss';
+@import '~@scss/variables.scss';
 
-<style lang="scss">
-.customers-list__loader {
-  margin-top: 1rem;
+$list-item-margin: 2rem;
+
+.promocodes-list__cards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-.customers-list__user-movements-history-select {
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-  padding: 0 1.6rem;
+.promocodes-list__card {
+  margin: $list-item-margin $list-item-margin 0 0;
+  width: calc(100% + #{$list-item-margin});
+
+  $media-desktop: 1130px;
+  $media-small-desktop: 960px;
+
+  @mixin list-item-width($width) {
+    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
+    max-width: calc(#{$width} - (#{$list-item-margin}));
+  }
+
+  @include list-item-width(25%);
+  @include respond-to-custom($media-desktop) {
+    @include list-item-width(33%);
+  }
+  @include respond-to-custom($media-small-desktop) {
+    @include list-item-width(50%);
+  }
+  @include respond-to-custom($sidebar-hide-bp) {
+    @include list-item-width(50%);
+  }
+  @include respond-to(small) {
+    @include list-item-width(100%);
+  }
+  @include respond-to(xsmall) {
+    @include list-item-width(100%);
+  }
 }
 </style>

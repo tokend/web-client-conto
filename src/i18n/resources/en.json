@@ -119,7 +119,8 @@
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
       "field-error_emailOrPhoneNumber": "This field should be a valid email or phone number",
       "field-error_telegramUsername": "The telegram username is incorrect",
-      "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}"
+      "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
+      "field-error_checked": "checked"
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -1419,10 +1420,22 @@
       "code-lbl": "Code",
       "description-lbl": "Description",
       "max-uses-lbl": "Max uses",
-      "discount-lbl": "Discount",
+      "discount-lbl": "Discount(%)",
       "no-offers-msg-title": "No offerings yet",
       "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create a offer and try again.",
       "created-successfully-notification": "Promocode successfully created",
+      "loading": "Loading"
+    },
+    "promocodes-list": {
+      "no-list-title": "No promocodes yet",
+      "no-list-msg": "Here will be the list of promocodes",
+      "promocode-drawer-title": "Promocode details"
+    },
+    "promocode-viewer": {
+      "delete-btn": "Delete",
+      "promocode-deleted-successfully-notification": "Promocode successfully deleted"
+    },
+    "promocode-offers-table": {
       "name-th": "Name",
       "amount-th": "Amount",
       "price-th": "Price",

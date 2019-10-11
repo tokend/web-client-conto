@@ -1421,10 +1421,22 @@
       "code-lbl": "Код",
       "description-lbl": "Описание",
       "max-uses-lbl": "Количество использований",
-      "discount-lbl": "Скидка",
+      "discount-lbl": "Скидка(%)",
       "no-offers-msg-title": "Нет предложений",
       "no-offers-msg-description": "К сожалению, у вас нет предложений. Пожалуйста, создайте предложение и попробуйте снова.",
       "created-successfully-notification": "Промокод успешно создан",
+      "loading": "Загрузка"
+    },
+    "promocodes-list": {
+      "no-list-title": "Нет промокодов",
+      "no-list-msg": "Здесь будет список промокодов",
+      "promocode-drawer-title": "Детали промокода"
+    },
+    "promocode-viewer": {
+      "delete-btn": "Удалить",
+      "promocode-deleted-successfully-notification": "Промокод успешно удален"
+    },
+    "promocode-offers-table": {
       "name-th": "Имя",
       "amount-th": "Количество",
       "price-th": "Цена",

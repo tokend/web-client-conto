@@ -72,58 +72,15 @@
           </div>
         </div>
 
-        <h3 class="promocode-form__offers-title">
-          {{ 'promocode-form.offers-title' | globalize }}
-        </h3>
+        <promocode-offers-table
+          @update-offers="form.offers = $event"
+          :offers="userOffers"
+        />
 
-        <div class="app__table">
-          <table>
-            <thead>
-              <tr>
-                <th />
-                <th :title="'promocode-form.name-th' | globalize">
-                  {{ 'promocode-form.name-th' | globalize }}
-                </th>
-                <th :title="'promocode-form.amount-th' | globalize">
-                  {{ 'promocode-form.amount-th' | globalize }}
-                </th>
-                <th :title="'promocode-form.price-th' | globalize">
-                  {{ 'promocode-form.price-th' | globalize }}
-                </th>
-              </tr>
-            </thead>
+        <p class="promocode-form__offers-error-message">
+          {{ getFieldErrorMessage('form.offers') }}
+        </p>
 
-            <tbody>
-              <tr
-                v-for="offer in userOffers"
-                :key="offer.id"
-              >
-                <td>
-                  <tick-field
-                    @blur="touchField('form.offers')"
-                    :error-message="getFieldErrorMessage('form.offers')"
-                    v-model="form.offers"
-                    :cb-value="offer"
-                  />
-                </td>
-
-                <td :title="offer.baseAssetName">
-                  {{ offer.baseAssetName }}
-                </td>
-
-                <td :title="offer.amount | formatMoney">
-                  {{ offer.amount | formatBalance }}
-                </td>
-
-                <td :title="offer.price | formatMoney">
-                  {{ offer.price | formatMoney }} {{ offer.priceAsset }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <p>{{ getFieldErrorMessage('form.offers') }}</p>
-        </div>
         <div class="app__form-actions">
           <button
             v-ripple
@@ -137,12 +94,16 @@
       </form>
     </template>
 
-    <template v-else>
-      <no-data-message
-        :title="'promocode-form.no-offers-msg-title' | globalize"
-        :message="'promocode-form.no-offers-msg-description' | globalize"
-      />
-    </template>
+    <loader
+      v-else-if="isLoading"
+      message-id="promocode-form.loading"
+    />
+
+    <no-data-message
+      v-else
+      :title="'promocode-form.no-offers-msg-title' | globalize"
+      :message="'promocode-form.no-offers-msg-description' | globalize"
+    />
   </div>
 </template>
 
@@ -150,6 +111,8 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import config from '@/config'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import PromocodeOffersTable from '@/vue/pages/promocodes/PromocodeOffersTable'
+import Loader from '@/vue/common/Loader'
 
 import { required, integer, minValue, maxValue } from '@validators'
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
@@ -175,6 +138,8 @@ export default {
 
   components: {
     NoDataMessage,
+    PromocodeOffersTable,
+    Loader,
   },
 
   mixins: [FormMixin],
@@ -183,12 +148,13 @@ export default {
     form: {
       code: '',
       discount: '',
-      deescription: '',
+      description: '',
       maxUses: null,
       offers: [],
     },
     userOffers: [],
     isLoaded: false,
+    isLoading: false,
     MAX_INT_32,
     MIN_INTEGER_VALUE,
     MAX_PERCENT,
@@ -232,6 +198,7 @@ export default {
 
   methods: {
     async loadOffers () {
+      this.isLoading = true
       try {
         const { data } = await api.get('/integrations/marketplace/offers', {
           filter: {
@@ -242,6 +209,7 @@ export default {
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }
+      this.isLoading = false
     },
 
     async submit () {
@@ -261,6 +229,14 @@ export default {
     },
 
     buildCreatePromocodeOperation () {
+      const offers = this.form.offers
+        .map((offer) => {
+          return {
+            id: offer.id,
+            type: 'marketplace-offer',
+          }
+        })
+
       return {
         data: {
           type: 'marketplace-create-promocode',
@@ -268,11 +244,11 @@ export default {
             description: this.form.description,
             code: this.form.code,
             max_uses: this.form.maxUses,
-            discount: this.form.discount,
+            discount: String(this.form.discount / 100),
           },
           relationships: {
             offers: {
-              data: [],
+              data: offers,
             },
           },
         },
@@ -283,9 +259,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@scss/variables';
 @import './app-form';
 
-.promocode-form__offers-title {
-  margin-top: 2rem;
+.promocode-form__offers-error-message {
+  color: $col-accent;
+  margin-top: 0.4rem;
+  font-size: 1.2rem;
 }
 </style>
