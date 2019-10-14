@@ -439,6 +439,13 @@ h6.app__page-heading {
       left: inherit;
     }
   }
+
+  &--top {
+    div div {
+      top: auto;
+      bottom: 0;
+    }
+  }
 }
 
 #nprogress {

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Fixed
+- A bug when drop down go out of page boundaries
+- A bug when incorrect error field when enterring recipient email on transfer form
+
 ## [1.1.0] - 2019-10-12
 
 ## [1.1.0-rc.3] - 2019-10-10
