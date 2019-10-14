@@ -31,5 +31,13 @@ export default {
 
   extends: PromocodeCard,
 
+  props: {
+    promocode: {
+      type: Object,
+      required: false,
+      default: null,
+    },
+  },
+
 }
 </script>
