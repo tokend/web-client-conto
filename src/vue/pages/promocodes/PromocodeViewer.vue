@@ -4,19 +4,33 @@
       :promocode="promocode"
     />
 
-    <button
-      v-ripple
-      class="app__button-raised promocode-delete__btn"
-      @click="deletePromocode"
-      :disabled="isSubmitting"
-    >
-      {{ 'promocode-viewer.delete-btn' | globalize }}
-    </button>
+    <form-confirmation
+      v-if="isConfirmationShown"
+      class="promocode-viewer__form-confirmation"
+      message-id="promocode-viewer.delete-promocode-message"
+      ok-button-text-id="promocode-viewer.delete-btn"
+      :is-pending="isPromocodeDeleting"
+      is-danger-color
+      @ok="deletePromocode"
+      @cancel="isConfirmationShown = false"
+    />
+
+    <template v-else>
+      <button
+        v-ripple
+        class="app__button-raised promocode-viewer__delete-btn"
+        @click="isConfirmationShown = true"
+      >
+        {{ 'promocode-viewer.delete-btn' | globalize }}
+      </button>
+    </template>
   </div>
 </template>
 
 <script>
 import PromocodeAttributes from './PromocodeAttributes'
+import FormConfirmation from '@/vue/common/FormConfirmation'
+
 import { PromocodeRecord } from '@/js/records/entities/promocode.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
@@ -31,6 +45,7 @@ export default {
 
   components: {
     PromocodeAttributes,
+    FormConfirmation,
   },
 
   props: {
@@ -41,12 +56,13 @@ export default {
   },
 
   data: _ => ({
-    isSubmitting: false,
+    isPromocodeDeleting: false,
+    isConfirmationShown: false,
   }),
 
   methods: {
     async deletePromocode () {
-      this.isSubmitting = true
+      this.isPromocodeDeleting = true
       try {
         const endpoint = `/integrations/marketplace/promocodes/${this.promocode.id}`
         await api.deleteWithSignature(endpoint)
@@ -56,7 +72,7 @@ export default {
       } catch (error) {
         ErrorHandler.process(error)
       }
-      this.isSubmitting = false
+      this.isPromocodeDeleting = false
     },
   },
 
@@ -64,7 +80,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.promocode-delete__btn {
+.promocode-viewer__delete-btn,
+.promocode-viewer__form-confirmation {
   margin-top: 5rem;
 }
 </style>

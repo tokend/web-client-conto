@@ -1435,7 +1435,8 @@
     },
     "promocode-viewer": {
       "delete-btn": "Delete",
-      "promocode-deleted-successfully-notification": "Promocode successfully deleted"
+      "promocode-deleted-successfully-notification": "Promocode successfully deleted",
+      "delete-promocode-message": "Are you sure you want to delete the promocode?"
     },
     "promocode-offers-table": {
       "name-th": "Name",

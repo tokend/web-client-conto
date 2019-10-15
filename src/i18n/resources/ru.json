@@ -1439,7 +1439,8 @@
     },
     "promocode-viewer": {
       "delete-btn": "Удалить",
-      "promocode-deleted-successfully-notification": "Промокод успешно удален"
+      "promocode-deleted-successfully-notification": "Промокод успешно удален",
+      "delete-promocode-message": "Вы действительно хотите удалить промокод?"
     },
     "promocode-offers-table": {
       "name-th": "Имя",

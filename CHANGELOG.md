@@ -10,6 +10,9 @@ for further information about branching and tagging conventions.
 #### Fixed
 - A bug when the user can not enter a value in input-field with type 'number' on Firefox
 
+#### Added
+- Promocodes
+
 ## [1.1.0] - 2019-10-12
 
 ## [1.1.0-rc.3] - 2019-10-10
