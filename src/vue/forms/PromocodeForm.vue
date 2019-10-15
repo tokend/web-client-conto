@@ -13,7 +13,9 @@
               @blur="touchField('form.code')"
               name="promocode-code"
               :label="'promocode-form.code-lbl' | globalize"
-              :error-message="getFieldErrorMessage('form.code')"
+              :error-message="getFieldErrorMessage('form.code',{
+                length: PROMOCODE_MAX_LENGTH
+              })"
               :disabled="formMixin.isDisabled"
             />
           </div>
@@ -25,7 +27,11 @@
               white-autofill
               v-model="form.description"
               name="promocode-form-description"
+              @blur="touchField('form.description')"
               :label="'promocode-form.description-lbl' | globalize"
+              :error-message="getFieldErrorMessage('form.description',{
+                length: DESCRIPTION_MAX_LENGTH
+              })"
               :disabled="formMixin.isDisabled"
             />
           </div>
@@ -37,12 +43,12 @@
               white-autofill
               @blur="touchField('form.discount')"
               :error-message="getFieldErrorMessage('form.discount',{
-                maxValue: MAX_PERCENT,
+                maxValue: MAX_PERCENT_DISCOUNT,
                 minValue: MIN_PERCENT
               })"
               v-model="form.discount"
               :step="inputStep"
-              :max="MAX_PERCENT"
+              :max="MAX_PERCENT_DISCOUNT"
               :min="MIN_PERCENT"
               type="number"
               name="promocode-form-discount"
@@ -114,12 +120,12 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import PromocodeOffersTable from '@/vue/pages/promocodes/PromocodeOffersTable'
 import Loader from '@/vue/common/Loader'
 
-import { required, integer, minValue, maxValue } from '@validators'
+import { required, integer, minValue, maxValue, maxLength } from '@validators'
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 import {
   MAX_INT_32,
   MIN_INTEGER_VALUE,
-  MAX_PERCENT,
+  MAX_PERCENT_DISCOUNT,
   MIN_PERCENT,
 } from '@/js/const/numbers.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -132,6 +138,9 @@ import { Bus } from '@/js/helpers/event-bus'
 const EVENTS = {
   closeDrawerAndUpdateList: 'close-drawer-and-update-list',
 }
+
+const PROMOCODE_MAX_LENGTH = 12
+const DESCRIPTION_MAX_LENGTH = 255
 
 export default {
   name: 'promocode-form',
@@ -157,8 +166,10 @@ export default {
     isLoading: false,
     MAX_INT_32,
     MIN_INTEGER_VALUE,
-    MAX_PERCENT,
+    MAX_PERCENT_DISCOUNT,
     MIN_PERCENT,
+    PROMOCODE_MAX_LENGTH,
+    DESCRIPTION_MAX_LENGTH,
     config,
   }),
 
@@ -180,7 +191,13 @@ export default {
   validations () {
     return {
       form: {
-        code: { required },
+        code: {
+          required,
+          maxLength: maxLength(PROMOCODE_MAX_LENGTH),
+        },
+        description: {
+          maxLength: maxLength(DESCRIPTION_MAX_LENGTH),
+        },
         maxUses: {
           integer,
           minValue: minValue(MIN_INTEGER_VALUE),
@@ -188,7 +205,7 @@ export default {
         },
         discount: {
           required,
-          maxValue: maxValue(MAX_PERCENT),
+          maxValue: maxValue(MAX_PERCENT_DISCOUNT),
           minValue: minValue(MIN_PERCENT),
         },
         offers: { required },
@@ -243,7 +260,7 @@ export default {
           attributes: {
             description: this.form.description,
             code: this.form.code,
-            max_uses: this.form.maxUses,
+            max_uses: Number(this.form.maxUses) || null,
             discount: String(this.form.discount / 100),
           },
           relationships: {

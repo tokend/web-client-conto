@@ -11,7 +11,8 @@
       </h3>
 
       <p class="promocode-card__discount">
-        {{ promocode.discount }}
+        {{ 'promocode-card.discount' | globalize }}
+        {{ promocode.discount | formatToPercent }}
       </p>
     </div>
   </div>

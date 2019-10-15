@@ -16,7 +16,7 @@
             <td>
               {{ 'promocode-attributes.description-key' | globalize }}
             </td>
-            <td>
+            <td :title="promocode.description">
               {{ promocode.description }}
             </td>
           </tr>
@@ -26,7 +26,7 @@
               {{ 'promocode-attributes.discount-key' | globalize }}
             </td>
             <td>
-              {{ promocode.discount }}
+              {{ promocode.discount | formatToPercent }}
             </td>
           </tr>
 
@@ -39,12 +39,12 @@
             </td>
           </tr>
 
-          <tr v-if="promocode.status">
+          <tr>
             <td>
-              {{ 'promocode-attributes.status-key' | globalize }}
+              {{ 'promocode-attributes.used-key' | globalize }}
             </td>
             <td>
-              {{ promocode.status }}
+              {{ promocode.used }}
             </td>
           </tr>
         </tbody>

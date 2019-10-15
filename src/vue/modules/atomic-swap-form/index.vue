@@ -91,7 +91,8 @@ export default {
         const atomicSwapBid = await this.createAtomicSwapBidOperation(
           this.form.amount,
           this.form.paymentMethodId,
-          this.atomicSwapAsk.id
+          this.atomicSwapAsk.id,
+          this.form.promocode
         )
         if (atomicSwapBid.type === ATOMIC_SWAP_BID_TYPES.redirect) {
           window.location.href = atomicSwapBid.payUrl

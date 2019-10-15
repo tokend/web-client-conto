@@ -199,4 +199,11 @@ $list-item-margin: 2rem;
     @include list-item-width(100%);
   }
 }
+
+.promocodes-list__card-btn {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+}
 </style>

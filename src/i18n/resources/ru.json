@@ -119,7 +119,8 @@
       "field-error_validatePhoneNumber": "Неверный номер телефона",
       "field-error_emailOrPhoneNumber": "Неверный имейл или телефон получателя",
       "field-error_telegramUsername": "Имя пользователя неверное",
-      "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}"
+      "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
+      "field-error_promocodeNotExist": "Такого промокода для этого предложения не существует"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -1285,7 +1286,10 @@
       "error-msg": "Запрос на оплату прошел успешно. Не удается загрузить адрес для оплаты.",
       "load-failed-msg": "Произошла ошибка при загрузке.",
       "loading-msg": "Пожалуйста подождите пока мы загрузим ваши данные.",
-      "asset-description-lbl": "Описание актива"
+      "asset-description-lbl": "Описание актива",
+      "promocode-lbl": "Промокод",
+      "discount": "Скидка",
+      "calculating-msg": "Рассчитываем..."
     },
     "kyc-recovery": {
       "submit-again-lbl": "Отпарвить заново",
@@ -1419,8 +1423,8 @@
     "promocode-form": {
       "create-btn": "Создать",
       "code-lbl": "Код",
-      "description-lbl": "Описание",
-      "max-uses-lbl": "Количество использований",
+      "description-lbl": "Описание(Необязательно)",
+      "max-uses-lbl": "Количество использований(Необязательно)",
       "discount-lbl": "Скидка(%)",
       "no-offers-msg-title": "Нет предложений",
       "no-offers-msg-description": "К сожалению, у вас нет предложений. Пожалуйста, создайте предложение и попробуйте снова.",
@@ -1441,6 +1445,16 @@
       "amount-th": "Количество",
       "price-th": "Цена",
       "offers-title": "Предложения"
+    },
+    "promocode-attributes": {
+      "code-key": "Код",
+      "description-key": "Описание",
+      "discount-key": "Скидка",
+      "max-uses-key": "Количество использований",
+      "used-key": "Использовано"
+    },
+    "promocode-card": {
+      "discount": "Скидка:"
     }
   }
 }

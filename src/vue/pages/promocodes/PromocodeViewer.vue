@@ -49,7 +49,7 @@ export default {
       this.isSubmitting = true
       try {
         const endpoint = `/integrations/marketplace/promocodes/${this.promocode.id}`
-        await api.postWithSignature(endpoint)
+        await api.deleteWithSignature(endpoint)
 
         this.$emit(EVENTS.promocodeDeleted)
         Bus.success('promocode-viewer.promocode-deleted-successfully-notification')

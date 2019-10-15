@@ -30,7 +30,9 @@ export default {
   height: 5.3rem;
   border-radius: 50%;
   font-size: 2.4rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: $col-text-logo-background;
   color: $col-text-logo-text;
 }

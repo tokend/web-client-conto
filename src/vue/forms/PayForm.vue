@@ -110,6 +110,7 @@ export default {
           this.form.amount,
           this.form.paymentMethodId,
           this.atomicSwapAsk.id,
+          this.form.promocode,
           this.form.email
         )
         if (atomicSwapBid.type === ATOMIC_SWAP_BID_TYPES.redirect) {
