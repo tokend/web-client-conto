@@ -8,7 +8,7 @@
     v-else
     class="current-business-logo current-business-logo__code-abbr"
   >
-    {{ business.name | abbreviate }}
+    {{ getFirstLetterOfName }}
   </p>
 </template>
 
@@ -28,6 +28,11 @@ export default {
     url () {
       return documentsManager.getDocumentUrlByKey(this.business.logoKey)
     },
+
+    getFirstLetterOfName () {
+      const name = this.business.name
+      return name.substr(0, 1).toUpperCase()
+    },
   },
 }
 </script>
@@ -38,6 +43,7 @@ export default {
 .current-business-logo {
   width: 4.8rem;
   height: 4.8rem;
+  min-width: 4.8rem;
   border-radius: 50%;
 }
 

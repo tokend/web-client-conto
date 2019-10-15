@@ -11,7 +11,7 @@
             class="current-business-indicator__logo"
             :business="businessToBrowse"
           />
-          <div>
+          <div class="current-business-indicator__description">
             <p class="current-business-indicator__name">
               {{ businessToBrowse.name }}
             </p>
@@ -109,6 +109,12 @@ export default {
 
 <style lang="scss">
 @import '~@scss/variables';
+
+.current-business-indicator__description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .current-business-indicator__browsing-lbl {
   font-size: 1.3rem;

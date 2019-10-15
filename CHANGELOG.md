@@ -9,6 +9,25 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Filter balances for customers
+#### Fixed
+- A bug when the user can not enter a value in input-field with type 'number' on Firefox
+
+## [1.1.0] - 2019-10-12
+
+## [1.1.0-rc.3] - 2019-10-10
+#### Added
+- Confirmation on delete asset
+
+## [1.1.0-rc.2] - 2019-10-09
+#### Fixed
+- A bug when user can't see balances with zero amount in business account
+- A bug when the name of the industry and company was not fully displayed
+- A bug when don't see loading while switching filter on transactions history page
+- A bug when was no loader on delete asset
+- A bug with text wrapping in the business description
+
+#### Changed
+- `IMAGE_FILE_EXTENSIONS` add jpeg
 
 ## [1.1.0-rc.1] - 2019-10-04
 #### Added
@@ -305,7 +324,10 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rc.1...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/tokend/web-client/compare/1.1.0-rc.3...1.1.0
+[1.1.0-rc.3]: https://github.com/tokend/web-client/compare/1.1.0-rc.2...1.1.0-rc.3
+[1.1.0-rc.2]: https://github.com/tokend/web-client/compare/1.1.0-rc.1...1.1.0-rc.2
 [1.1.0-rc.1]: https://github.com/tokend/web-client/compare/1.1.0-rc.0...1.1.0-rc.1
 [1.1.0-rc.0]: https://github.com/tokend/web-client/compare/1.0.3-rc.11...1.1.0-rc.0
 [1.0.3-rc.11]: https://github.com/tokend/web-client/compare/1.0.3-rc.10...1.0.3-rc.11

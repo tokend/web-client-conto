@@ -1,39 +1,51 @@
 <template>
   <div class="asset-actions">
-    <button
-      v-ripple
-      class="app__button-raised asset-actions__btn"
-      @click="isTransferDrawerShown = true"
-    >
-      {{ 'assets.send-btn' | globalize }}
-    </button>
+    <form-confirmation
+      v-if="isConfirmationShown"
+      message-id="assets.delete-asset-message"
+      ok-button-text-id="assets.delete-btn"
+      :is-pending="isAssetDeleting"
+      is-danger-color
+      @ok="deleteAsset"
+      @cancel="isConfirmationShown = false"
+    />
 
-    <button
-      v-if="!isAssetOwner"
-      v-ripple
-      class="app__button-raised asset-actions__btn"
-      @click="isRedeemDrawerShown = true"
-    >
-      {{ 'assets.redeem-btn' | globalize }}
-    </button>
+    <template v-else>
+      <button
+        v-ripple
+        class="app__button-raised asset-actions__btn"
+        @click="isTransferDrawerShown = true"
+      >
+        {{ 'assets.send-btn' | globalize }}
+      </button>
 
-    <button
-      v-if="isAssetOwner"
-      v-ripple
-      class="app__button-raised asset-actions__btn"
-      @click="$emit(EVENTS.updateAsset)"
-    >
-      {{ 'assets.update-btn' | globalize }}
-    </button>
+      <button
+        v-if="!isAssetOwner"
+        v-ripple
+        class="app__button-raised asset-actions__btn"
+        @click="isRedeemDrawerShown = true"
+      >
+        {{ 'assets.redeem-btn' | globalize }}
+      </button>
 
-    <button
-      v-if="isAssetOwner"
-      v-ripple
-      class="app__button-raised asset-actions__btn"
-      @click="deleteAsset"
-    >
-      {{ 'assets.delete-btn' | globalize }}
-    </button>
+      <button
+        v-if="isAssetOwner"
+        v-ripple
+        class="app__button-raised asset-actions__btn"
+        @click="$emit(EVENTS.updateAsset)"
+      >
+        {{ 'assets.update-btn' | globalize }}
+      </button>
+
+      <button
+        v-if="isAssetOwner"
+        v-ripple
+        class="app__button-raised asset-actions__btn"
+        @click="isConfirmationShown = true"
+      >
+        {{ 'assets.delete-btn' | globalize }}
+      </button>
+    </template>
 
     <drawer :is-shown.sync="isTransferDrawerShown">
       <template slot="heading">
@@ -59,18 +71,17 @@
 </template>
 
 <script>
-import { AssetRecord } from '@/js/records/entities/asset.record'
-
-import { mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-
+import FormConfirmation from '@/vue/common/FormConfirmation'
 import TransferForm from '@/vue/forms/TransferForm'
 import RedeemForm from '@/vue/forms/RedeemForm'
 import Drawer from '@/vue/common/Drawer'
+
+import { AssetRecord } from '@/js/records/entities/asset.record'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
-
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const EVENTS = {
@@ -86,6 +97,7 @@ export default {
     TransferForm,
     RedeemForm,
     Drawer,
+    FormConfirmation,
   },
   props: {
     asset: { type: AssetRecord, required: true },
@@ -94,6 +106,8 @@ export default {
     isTransferDrawerShown: false,
     isRedeemDrawerShown: false,
     isPending: false,
+    isAssetDeleting: false,
+    isConfirmationShown: false,
     EVENTS,
   }),
 
@@ -109,6 +123,7 @@ export default {
 
   methods: {
     async deleteAsset () {
+      this.isAssetDeleting = true
       const operation = base.RemoveAssetOpBuilder
         .removeAssetOp({
           code: this.asset.code,
@@ -121,6 +136,7 @@ export default {
       } catch (error) {
         ErrorHandler.process(error)
       }
+      this.isAssetDeleting = false
     },
     async deleteAssetPairs () {
       const { data } = await api.get('/v3/asset_pairs', {
@@ -148,15 +164,12 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: -1rem;
-  margin-left: -1rem;
-  width: calc(100% + 1rem);
 }
 
 .asset-actions__btn {
   max-width: 12rem;
   width: 100%;
   margin-top: 1rem;
-  margin-left: 1rem;
 }
 
 </style>
