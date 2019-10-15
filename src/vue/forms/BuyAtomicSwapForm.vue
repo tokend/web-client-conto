@@ -199,7 +199,6 @@ export default {
     formatToPercent,
 
     submit () {
-      if (!this.isFormValid()) return
       this.$emit(EVENTS.submitted, this.form)
     },
 
