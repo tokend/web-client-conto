@@ -6,7 +6,7 @@
           v-if="selectionOptions.length"
           @selected="emitSelectedBalances"
           :options="selectionOptions"
-          need-select-all-options
+          select-all
         />
       </template>
       <template slot="extra">

@@ -15,7 +15,7 @@
       >
         <ul>
           <li
-            v-if="needAllOption"
+            v-if="enabledOptionAll"
             class="multiselect-field__dropdown-option"
           >
             <tick-field
@@ -59,8 +59,8 @@ export default {
   },
   props: {
     options: { type: Array, required: true },
-    needAllOption: { type: Boolean, default: true },
-    needSelectAllOptions: { type: Boolean, default: false },
+    enabledOptionAll: { type: Boolean, default: true },
+    selectAll: { type: Boolean, default: false },
   },
   data: _ => ({
     isDropdownOpen: false,
@@ -72,7 +72,7 @@ export default {
     getLable () {
       let lable = ''
 
-      if (this.needAllOption && this.isSelectedAllOptions) {
+      if (this.enabledOptionAll && this.isSelectedAll) {
         lable = globalize('multiselect-field.all-selected-lable')
       } else if (this.selectedOptions.length) {
         lable = this.selectedOptions.length > 1
@@ -84,7 +84,7 @@ export default {
       return lable
     },
 
-    isSelectedAllOptions () {
+    isSelectedAll () {
       return this.selectedOptions.length === this.options.length
     },
   },
@@ -96,7 +96,7 @@ export default {
   },
 
   created () {
-    if (this.needSelectAllOptions) {
+    if (this.selectAll) {
       this.selectAllOptions()
     }
   },
