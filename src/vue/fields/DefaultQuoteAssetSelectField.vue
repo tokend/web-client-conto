@@ -10,6 +10,7 @@
         class="
           app__select-with-label--no-border
           app__select-panel--right
+          app__select-panel--top
         "
       >
         <option

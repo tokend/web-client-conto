@@ -8,6 +8,8 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Fixed
+- A bug when drop down go out of page boundaries
+- A bug with incorrect error message after enterring recipient email on transfer form
 - A bug when the user can not enter a value in input-field with type 'number' on Firefox
 
 ## [1.1.0] - 2019-10-12
