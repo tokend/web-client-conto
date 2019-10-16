@@ -9,6 +9,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Filter balances for customers
+
 #### Fixed
 - A bug when the user can not enter a value in input-field with type 'number' on Firefox
 
