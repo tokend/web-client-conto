@@ -9,7 +9,7 @@
       class="promo-code-viewer__form-confirmation"
       message-id="promo-code-viewer.delete-promo-code-message"
       ok-button-text-id="promo-code-viewer.delete-btn"
-      :is-pending="isPromocCodeDeleting"
+      :is-pending="isPromoCodeDeleting"
       is-danger-color
       @ok="deletePromoCode"
       @cancel="isConfirmationShown = false"
