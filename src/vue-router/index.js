@@ -206,7 +206,7 @@ const router = new Router({
           redirect: vueRoutes.promoCodesList,
           children: [
             {
-              path: '/promocodes/list',
+              path: '/promo-codes/list',
               name: vueRoutes.promoCodesList.name,
               component: PromoCodesList,
               beforeEnter: inAppRouteGuard,
