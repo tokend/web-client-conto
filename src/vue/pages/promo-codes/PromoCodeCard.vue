@@ -1,18 +1,18 @@
 <template>
-  <div class="promocode-card">
-    <div class="promocode-card__logo">
+  <div class="promo-code-card">
+    <div class="promo-code-card__logo">
       <text-logo
-        :text="promocode.code"
+        :text="promoCode.code"
       />
     </div>
-    <div class="promocode-card__info">
-      <h3 class="promocode-card__title">
-        {{ promocode.code }}
+    <div class="promo-code-card__info">
+      <h3 class="promo-code-card__title">
+        {{ promoCode.code }}
       </h3>
 
-      <p class="promocode-card__discount">
-        {{ 'promocode-card.discount' | globalize }}
-        {{ promocode.discount | formatToPercent }}
+      <p class="promo-code-card__discount">
+        {{ 'promo-code-card.discount' | globalize }}
+        {{ promoCode.discount | formatPercent }}
       </p>
     </div>
   </div>
@@ -20,19 +20,19 @@
 
 <script>
 import TextLogo from '@/vue/common/TextLogo'
-import { PromocodeRecord } from '@/js/records/entities/promocode.record'
+import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 export default {
-  name: 'promocode-card',
+  name: 'promo-code-card',
   components: {
     TextLogo,
   },
 
   props: {
-    promocode: {
-      type: PromocodeRecord,
+    promoCode: {
+      type: PromoCodeRecord,
       required: true,
     },
   },
@@ -48,9 +48,9 @@ export default {
 @import '~@scss/variables';
 @import '~@scss/mixins';
 
-$promocode-card-header-height: 6.5rem;
+$promo-code-card-header-height: 6.5rem;
 
-.promocode-card {
+.promo-code-card {
   height: 100%;
   border-radius: 0.4rem;
   box-shadow: 0 0.5rem 1rem 0 $col-sale-card-shadow;
@@ -61,32 +61,32 @@ $promocode-card-header-height: 6.5rem;
   overflow: hidden;
 }
 
-.promocode-card__title {
+.promo-code-card__title {
   font-size: 1.6rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.promocode-card__logo {
+.promo-code-card__logo {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-right: 1rem;
   padding-left: 1rem;
-  height: $promocode-card-header-height;
+  height: $promo-code-card-header-height;
   background-color: $col-asset-card-header-background;
 }
 
-.promocode-card__info {
+.promo-code-card__info {
   padding: 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100% - #{$promocode-card-header-height});
+  height: calc(100% - #{$promo-code-card-header-height});
 }
 
-.promocode-card__discount {
+.promo-code-card__discount {
   color: $col-text-secondary;
   font-size: 1.3rem;
   line-height: 1.5;

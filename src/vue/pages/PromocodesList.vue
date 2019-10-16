@@ -1,30 +1,30 @@
 <template>
-  <div class="promocodes-list">
+  <div class="promo-codes-list">
     <template v-if="list.length">
-      <div class="promocodes-list__cards">
+      <div class="promo-codes-list__cards">
         <div
-          class="promocodes-list__card"
+          class="promo-codes-list__card"
           v-for="item in list"
           :key="item.id"
         >
           <button
-            class="promocodes-list__card-btn"
-            @click="setPromocodeToBrowse(item)"
+            class="promo-codes-list__card-btn"
+            @click="setPromoCodeToBrowse(item)"
           >
-            <promocode-card :promocode="item" />
+            <promo-code-card :promo-code="item" />
           </button>
         </div>
       </div>
     </template>
 
     <template v-else-if="!list.length && isLoading">
-      <div class="promocodes-list__cards">
+      <div class="promo-codes-list__cards">
         <div
-          class="promocodes-list__card"
+          class="promo-codes-list__card"
           v-for="item in 5"
           :key="item"
         >
-          <promocode-card-skeleton />
+          <promo-code-card-skeleton />
         </div>
       </div>
     </template>
@@ -32,13 +32,13 @@
     <template v-else>
       <no-data-message
         icon-name="ticket-percent"
-        :title="'promocodes-list.no-list-title' | globalize"
-        :message="'promocodes-list.no-list-msg' | globalize"
+        :title="'promo-codes-list.no-list-title' | globalize"
+        :message="'promo-codes-list.no-list-msg' | globalize"
       />
     </template>
 
     <collection-loader
-      class="promocodes-list__loader"
+      class="promo-codes-list__loader"
       :first-page-loader="getList"
       @first-page-load="setList"
       @next-page-load="concatList"
@@ -47,12 +47,12 @@
 
     <drawer :is-shown.sync="isDrawerShown">
       <template slot="heading">
-        {{ 'promocodes-list.promocode-drawer-title' | globalize }}
+        {{ 'promo-codes-list.promo-code-drawer-title' | globalize }}
       </template>
 
-      <promocode-viewer
-        :promocode="promocodeToBrowse"
-        @promocode-deleted="closeDrawerAndUpdateList"
+      <promo-code-viewer
+        :promo-code="promoCodeToBrowse"
+        @promo-code-deleted="closeDrawerAndUpdateList"
       />
     </drawer>
   </div>
@@ -61,27 +61,27 @@
 <script>
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import Drawer from '@/vue/common/Drawer'
-import PromocodeCard from './promocodes/PromocodeCard'
-import PromocodeCardSkeleton from './promocodes/PromocodeCardSkeleton'
-import PromocodeViewer from './promocodes/PromocodeViewer'
+import PromoCodeCard from './promo-codes/PromoCodeCard'
+import PromoCodeCardSkeleton from './promo-codes/PromoCodeCardSkeleton'
+import PromoCodeViewer from './promo-codes/PromoCodeViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { Bus } from '@/js/helpers/event-bus'
-import { PromocodeRecord } from '@/js/records/entities/promocode.record'
+import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 export default {
-  name: 'promocodes-list',
+  name: 'promo-codes-list',
 
   components: {
     CollectionLoader,
     Drawer,
-    PromocodeViewer,
-    PromocodeCardSkeleton,
-    PromocodeCard,
+    PromoCodeViewer,
+    PromoCodeCardSkeleton,
+    PromoCodeCard,
     NoDataMessage,
   },
 
@@ -92,7 +92,7 @@ export default {
       isLoadFailed: false,
       isLoading: false,
       isDrawerShown: false,
-      promocodeToBrowse: {},
+      promoCodeToBrowse: {},
     }
   },
 
@@ -108,7 +108,7 @@ export default {
 
   methods: {
     listen () {
-      Bus.on('promocodes:updateList', () => {
+      Bus.on('promoCodes:updateList', () => {
         this.reloadList()
       })
     },
@@ -133,12 +133,12 @@ export default {
     },
 
     setList (newList) {
-      this.list = newList.map(i => new PromocodeRecord(i))
+      this.list = newList.map(i => new PromoCodeRecord(i))
     },
 
     concatList (newChunk) {
       this.list = this.list.concat(
-        newChunk.map(i => new PromocodeRecord(i))
+        newChunk.map(i => new PromoCodeRecord(i))
       )
     },
 
@@ -146,8 +146,8 @@ export default {
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 
-    setPromocodeToBrowse ($event) {
-      this.promocodeToBrowse = $event
+    setPromoCodeToBrowse ($event) {
+      this.promoCodeToBrowse = $event
       this.isDrawerShown = true
     },
 
@@ -164,13 +164,13 @@ export default {
 
 $list-item-margin: 2rem;
 
-.promocodes-list__cards {
+.promo-codes-list__cards {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
 }
 
-.promocodes-list__card {
+.promo-codes-list__card {
   margin: $list-item-margin $list-item-margin 0 0;
   width: calc(100% + #{$list-item-margin});
 
@@ -200,7 +200,7 @@ $list-item-margin: 2rem;
   }
 }
 
-.promocodes-list__card-btn {
+.promo-codes-list__card-btn {
   display: block;
   width: 100%;
   max-width: 100%;

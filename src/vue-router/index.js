@@ -29,8 +29,8 @@ import Security from '@/vue/pages/Security'
 import Verification from '@/vue/pages/Verification'
 import VerificationCorporate from '@/vue/pages/VerificationCorporate'
 import VerificationGeneral from '@/vue/pages/VerificationGeneral'
-import Promocodes from '@/vue/pages/Promocodes'
-import PromocodesList from '@/vue/pages/PromocodesList'
+import PromoCodes from '@/vue/pages/PromoCodes'
+import PromoCodesList from '@/vue/pages/PromoCodesList'
 
 Vue.use(Router)
 
@@ -197,18 +197,18 @@ const router = new Router({
           ],
         },
         {
-          path: '/promocodes',
-          name: vueRoutes.promocodes.name,
+          path: '/promo-codes',
+          name: vueRoutes.promoCodes.name,
           meta: {
-            pageNameTranslationId: 'pages-names.promocodes',
+            pageNameTranslationId: 'pages-names.promo-codes',
           },
-          component: Promocodes,
-          redirect: vueRoutes.promocodesList,
+          component: PromoCodes,
+          redirect: vueRoutes.promoCodesList,
           children: [
             {
               path: '/promocodes/list',
-              name: vueRoutes.promocodesList.name,
-              component: PromocodesList,
+              name: vueRoutes.promoCodesList.name,
+              component: PromoCodesList,
               beforeEnter: inAppRouteGuard,
               meta: {
                 isCorporateOnly: true,

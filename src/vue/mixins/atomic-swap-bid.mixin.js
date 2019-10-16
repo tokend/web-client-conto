@@ -15,12 +15,12 @@ export default {
 
   methods: {
     // eslint-disable-next-line max-len
-    async createAtomicSwapBidOperation (amount, paymentMethodId, atomicSwapAskId, promocode, email) {
+    async createAtomicSwapBidOperation (amount, paymentMethodId, atomicSwapAskId, promoCode, email) {
       const atomicSwapBidOperation = this.buildCreateAtomicSwapBidOperation(
         amount,
         paymentMethodId,
         atomicSwapAskId,
-        promocode,
+        promoCode,
         email
       )
       const { data } = await api.post(
@@ -31,7 +31,7 @@ export default {
     },
 
     // eslint-disable-next-line max-len
-    buildCreateAtomicSwapBidOperation (amount, paymentMethodId, atomicSwapAskId, promocode, email) {
+    buildCreateAtomicSwapBidOperation (amount, paymentMethodId, atomicSwapAskId, promoCode, email) {
       return {
         data: {
           type: ATOMIC_SWAP_REQUEST_TYPES.createBuyRequest,
@@ -43,8 +43,8 @@ export default {
               ? { sender_account_id: this.accountId }
               : { sender_email: email }
             ),
-            ...(promocode
-              ? { promocode: promocode }
+            ...(promoCode
+              ? { promocode: promoCode }
               : {}
             ),
           },

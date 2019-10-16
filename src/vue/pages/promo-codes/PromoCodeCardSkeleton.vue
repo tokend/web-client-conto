@@ -1,17 +1,17 @@
 <template>
-  <div class="promocode-card">
-    <div class="promocode-card__logo">
+  <div class="promo-code-card">
+    <div class="promo-code-card__logo">
       <skeleton-loader
         template="bigIcon"
       />
     </div>
 
-    <div class="promocode-card__info">
-      <p class="promocode-card__code">
+    <div class="promo-code-card__info">
+      <p class="promo-code-card__code">
         <skeleton-loader width="45%" template="smallString" />
       </p>
 
-      <p class="promocode-card__discount">
+      <p class="promo-code-card__discount">
         <skeleton-loader width="60%" template="smallString" />
       </p>
     </div>
@@ -20,19 +20,19 @@
 
 <script>
 import SkeletonLoader from '@/vue/common/skeleton-loader/SkeletonLoader'
-import PromocodeCard from './PromocodeCard.vue'
+import PromoCodeCard from './PromoCodeCard.vue'
 
 export default {
-  name: 'promocode-card-skeleton',
+  name: 'promo-code-card-skeleton',
 
   components: {
     SkeletonLoader,
   },
 
-  extends: PromocodeCard,
+  extends: PromoCodeCard,
 
   props: {
-    promocode: {
+    promoCode: {
       type: Object,
       required: false,
       default: null,

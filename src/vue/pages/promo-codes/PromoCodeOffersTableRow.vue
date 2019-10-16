@@ -31,7 +31,7 @@ import { api } from '@/api'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 
 export default {
-  name: 'promocode-offers-table-row',
+  name: 'promo-code-offers-table-row',
 
   components: {
     SkeletonLoader,

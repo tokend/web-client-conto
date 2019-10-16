@@ -1,29 +1,29 @@
 <template>
-  <div class="promocode-offers-table">
-    <h3 class="promocode-offers-table__offers-title">
-      {{ 'promocode-offers-table.offers-title' | globalize }}
+  <div class="promo-code-offers-table">
+    <h3 class="promo-code-offers-table__offers-title">
+      {{ 'promo-code-offers-table.offers-title' | globalize }}
     </h3>
 
     <div class="app__table">
       <table>
         <thead>
           <tr>
-            <th v-if="!isPromocodeAttributesDrawer" />
-            <th :title="'promocode-offers-table.name-th' | globalize">
-              {{ 'promocode-offers-table.name-th' | globalize }}
+            <th v-if="!isPromoCodeAttributesDrawer" />
+            <th :title="'promo-code-offers-table.name-th' | globalize">
+              {{ 'promo-code-offers-table.name-th' | globalize }}
             </th>
-            <th :title="'promocode-offers-table.amount-th' | globalize">
-              {{ 'promocode-offers-table.amount-th' | globalize }}
+            <th :title="'promo-code-offers-table.amount-th' | globalize">
+              {{ 'promo-code-offers-table.amount-th' | globalize }}
             </th>
-            <th :title="'promocode-offers-table.price-th' | globalize">
-              {{ 'promocode-offers-table.price-th' | globalize }}
+            <th :title="'promo-code-offers-table.price-th' | globalize">
+              {{ 'promo-code-offers-table.price-th' | globalize }}
             </th>
           </tr>
         </thead>
 
         <tbody>
-          <template v-if="isPromocodeAttributesDrawer">
-            <promocode-offers-table-row
+          <template v-if="isPromoCodeAttributesDrawer">
+            <promo-code-offers-table-row
               v-for="offer in offers"
               :key="offer.id"
               :offer-id="offer.id"
@@ -61,17 +61,17 @@
 </template>
 
 <script>
-import PromocodeOffersTableRow from '@/vue/pages/promocodes/PromocodeOffersTableRow'
+import PromoCodeOffersTableRow from '@/vue/pages/promo-codes/PromoCodeOffersTableRow'
 import TickField from '@/vue/fields/TickField'
 
 const EVENTS = {
   updateOffers: 'update-offers',
 }
 export default {
-  name: 'promocode-offers-table',
+  name: 'promo-code-offers-table',
 
   components: {
-    PromocodeOffersTableRow,
+    PromoCodeOffersTableRow,
     TickField,
   },
 
@@ -80,7 +80,7 @@ export default {
       type: Array,
       required: true,
     },
-    isPromocodeAttributesDrawer: {
+    isPromoCodeAttributesDrawer: {
       type: Boolean,
       default: false,
     },
@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.promocode-offers-table__offers-title {
+.promo-code-offers-table__offers-title {
   margin-top: 2rem;
 }
 </style>

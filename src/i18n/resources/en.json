@@ -120,7 +120,7 @@
       "field-error_emailOrPhoneNumber": "This field should be a valid email or phone number",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
-      "field-error_promocodeNotExist": "Such promocode for this offer does not exists"
+      "field-error_promoCodeNotExist": "Promo code for this offer does not exists"
 
     },
     "errors": {
@@ -639,7 +639,7 @@
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
       "kyc-recovery": "KYC Recovery",
-      "promocodes": "Promocodes"
+      "promo-codes": "Promo codes"
     },
     "passport": {
       "account-unverified": "General account",
@@ -1201,7 +1201,7 @@
       "load-failed-msg": "There was an error while loading.",
       "loading-msg": "Please wait while we loading your data.",
       "asset-description-lbl": "Asset description",
-      "promocode-lbl": "Promocode",
+      "promo-code-lbl": "Promo code",
       "discount": "Discount",
       "calculating-msg": "Calculating..."
     },
@@ -1413,45 +1413,45 @@
       "shop": "Shop",
       "loading-msg": "Loading..."
     },
-    "promocodes-page": {
+    "promo-codes-page": {
       "create-btn": "Create",
-      "create-promocode-title": "Create promocode"
+      "create-promo-code-title": "Create promo code"
     },
-    "promocode-form": {
+    "promo-code-form": {
       "create-btn": "Create",
       "code-lbl": "Code",
       "description-lbl": "Description(Optional)",
       "max-uses-lbl": "Max uses(Optional)",
       "discount-lbl": "Discount(%)",
       "no-offers-msg-title": "No offerings yet",
-      "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create a offer and try again.",
-      "created-successfully-notification": "Promocode successfully created",
+      "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
+      "created-successfully-notification": "Promo Code was created successfully",
       "loading": "Loading"
     },
-    "promocodes-list": {
-      "no-list-title": "No promocodes yet",
-      "no-list-msg": "Here will be the list of promocodes",
-      "promocode-drawer-title": "Promocode details"
+    "promo-codes-list": {
+      "no-list-title": "No promo codes yet",
+      "no-list-msg": "Here will be the list of promo codes",
+      "promo-code-drawer-title": "Promo code details"
     },
-    "promocode-viewer": {
+    "promo-code-viewer": {
       "delete-btn": "Delete",
-      "promocode-deleted-successfully-notification": "Promocode successfully deleted",
-      "delete-promocode-message": "Are you sure you want to delete the promocode?"
+      "promo-code-deleted-successfully-notification": "Promo code successfully deleted",
+      "delete-promo-code-message": "Are you sure you want to delete the promo code?"
     },
-    "promocode-offers-table": {
+    "promo-code-offers-table": {
       "name-th": "Name",
       "amount-th": "Amount",
       "price-th": "Price",
       "offers-title": "Offers"
     },
-    "promocode-attributes": {
+    "promo-code-attributes": {
       "code-key": "Code",
       "description-key": "Description",
       "discount-key": "Discount",
       "max-uses-key": "Max uses",
       "used-key": "Used"
     },
-    "promocode-card": {
+    "promo-code-card": {
       "discount": "Discount:"
     }
   }

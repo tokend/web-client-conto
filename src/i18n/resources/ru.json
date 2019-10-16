@@ -120,7 +120,7 @@
       "field-error_emailOrPhoneNumber": "Неверный имейл или телефон получателя",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
-      "field-error_promocodeNotExist": "Такого промокода для этого предложения не существует"
+      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -642,7 +642,7 @@
       "sponsorship": "Спонсорство",
       "atomic-swaps": "Магазин",
       "kyc-recovery": "Восстановление по KYC",
-      "promocodes": "Промокоды"
+      "promo-codes": "Промокоды"
     },
     "passport": {
       "account-us-accredited": "Аккредитованный инвестор (США)",
@@ -1288,7 +1288,7 @@
       "load-failed-msg": "Произошла ошибка при загрузке.",
       "loading-msg": "Пожалуйста подождите пока мы загрузим ваши данные.",
       "asset-description-lbl": "Описание актива",
-      "promocode-lbl": "Промокод",
+      "promo-code-lbl": "Промокод",
       "discount": "Скидка",
       "calculating-msg": "Рассчитываем..."
     },
@@ -1417,11 +1417,11 @@
       "shop": "Магазин",
       "loading-msg": "Загрузка..."
     },
-    "promocodes-page": {
+    "promo-codes-page": {
       "create-btn": "Создать",
-      "create-promocode-title": "Создание промокода"
+      "create-promo-code-title": "Создание промокода"
     },
-    "promocode-form": {
+    "promo-code-form": {
       "create-btn": "Создать",
       "code-lbl": "Код",
       "description-lbl": "Описание(Необязательно)",
@@ -1432,30 +1432,30 @@
       "created-successfully-notification": "Промокод успешно создан",
       "loading": "Загрузка"
     },
-    "promocodes-list": {
+    "promo-codes-list": {
       "no-list-title": "Нет промокодов",
       "no-list-msg": "Здесь будет список промокодов",
-      "promocode-drawer-title": "Детали промокода"
+      "promo-code-drawer-title": "Детали промокода"
     },
-    "promocode-viewer": {
+    "promo-code-viewer": {
       "delete-btn": "Удалить",
-      "promocode-deleted-successfully-notification": "Промокод успешно удален",
-      "delete-promocode-message": "Вы действительно хотите удалить промокод?"
+      "promo-code-deleted-successfully-notification": "Промокод успешно удален",
+      "delete-promo-code-message": "Вы действительно хотите удалить промокод?"
     },
-    "promocode-offers-table": {
+    "promo-code-offers-table": {
       "name-th": "Имя",
       "amount-th": "Количество",
       "price-th": "Цена",
       "offers-title": "Предложения"
     },
-    "promocode-attributes": {
+    "promo-code-attributes": {
       "code-key": "Код",
       "description-key": "Описание",
       "discount-key": "Скидка",
       "max-uses-key": "Количество использований",
       "used-key": "Использовано"
     },
-    "promocode-card": {
+    "promo-code-card": {
       "discount": "Скидка:"
     }
   }

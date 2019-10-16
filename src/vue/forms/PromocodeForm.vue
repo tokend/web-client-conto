@@ -1,5 +1,5 @@
 <template>
-  <div class="promocode-form">
+  <div class="promo-code-form">
     <template v-if="isLoaded && userOffers.length">
       <form
         novalidate
@@ -11,8 +11,8 @@
             <input-field
               v-model="form.code"
               @blur="touchField('form.code')"
-              name="promocode-code"
-              :label="'promocode-form.code-lbl' | globalize"
+              name="promo-code-code"
+              :label="'promo-code-form.code-lbl' | globalize"
               :error-message="getFieldErrorMessage('form.code',{
                 length: PROMOCODE_MAX_LENGTH
               })"
@@ -26,9 +26,9 @@
             <input-field
               white-autofill
               v-model="form.description"
-              name="promocode-form-description"
+              name="promo-code-form-description"
               @blur="touchField('form.description')"
-              :label="'promocode-form.description-lbl' | globalize"
+              :label="'promo-code-form.description-lbl' | globalize"
               :error-message="getFieldErrorMessage('form.description',{
                 length: DESCRIPTION_MAX_LENGTH
               })"
@@ -51,8 +51,8 @@
               :max="MAX_PERCENT_DISCOUNT"
               :min="MIN_PERCENT"
               type="number"
-              name="promocode-form-discount"
-              :label="'promocode-form.discount-lbl' | globalize"
+              name="promo-code-form-discount"
+              :label="'promo-code-form.discount-lbl' | globalize"
               :disabled="formMixin.isDisabled"
             />
           </div>
@@ -71,19 +71,19 @@
               :max="MAX_INT_32"
               :min="MIN_INTEGER_VALUE"
               type="number"
-              name="promocode-form-max-uses"
-              :label="'promocode-form.max-uses-lbl' | globalize"
+              name="promo-code-form-max-uses"
+              :label="'promo-code-form.max-uses-lbl' | globalize"
               :disabled="formMixin.isDisabled"
             />
           </div>
         </div>
 
-        <promocode-offers-table
+        <promo-code-offers-table
           @update-offers="form.offers = $event"
           :offers="userOffers"
         />
 
-        <p class="promocode-form__offers-error-message">
+        <p class="promo-code-form__offers-error-message">
           {{ getFieldErrorMessage('form.offers') }}
         </p>
 
@@ -94,7 +94,7 @@
             class="app__button-raised"
             :disabled="formMixin.isDisabled"
           >
-            {{ 'promocode-form.create-btn' | globalize }}
+            {{ 'promo-code-form.create-btn' | globalize }}
           </button>
         </div>
       </form>
@@ -102,13 +102,13 @@
 
     <loader
       v-else-if="isLoading"
-      message-id="promocode-form.loading"
+      message-id="promo-code-form.loading"
     />
 
     <no-data-message
       v-else
-      :title="'promocode-form.no-offers-msg-title' | globalize"
-      :message="'promocode-form.no-offers-msg-description' | globalize"
+      :title="'promo-code-form.no-offers-msg-title' | globalize"
+      :message="'promo-code-form.no-offers-msg-description' | globalize"
     />
   </div>
 </template>
@@ -117,7 +117,7 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import config from '@/config'
 import NoDataMessage from '@/vue/common/NoDataMessage'
-import PromocodeOffersTable from '@/vue/pages/promocodes/PromocodeOffersTable'
+import PromoCodeOffersTable from '@/vue/pages/promo-codes/PromoCodeOffersTable'
 import Loader from '@/vue/common/Loader'
 
 import { required, integer, minValue, maxValue, maxLength } from '@validators'
@@ -143,11 +143,11 @@ const PROMOCODE_MAX_LENGTH = 12
 const DESCRIPTION_MAX_LENGTH = 255
 
 export default {
-  name: 'promocode-form',
+  name: 'promo-code-form',
 
   components: {
     NoDataMessage,
-    PromocodeOffersTable,
+    PromoCodeOffersTable,
     Loader,
   },
 
@@ -233,11 +233,11 @@ export default {
       this.disableForm()
 
       try {
-        const operation = this.buildCreatePromocodeOperation()
+        const operation = this.buildCreatePromoCodeOperation()
         await api.postWithSignature('/integrations/marketplace/promocodes', operation)
 
         this.$emit(EVENTS.closeDrawerAndUpdateList)
-        Bus.success('promocode-form.created-successfully-notification')
+        Bus.success('promo-code-form.created-successfully-notification')
       } catch (error) {
         ErrorHandler.process(error)
       }
@@ -245,7 +245,7 @@ export default {
       this.enableForm()
     },
 
-    buildCreatePromocodeOperation () {
+    buildCreatePromoCodeOperation () {
       const offers = this.form.offers
         .map((offer) => {
           return {
@@ -279,7 +279,7 @@ export default {
 @import '~@scss/variables';
 @import './app-form';
 
-.promocode-form__offers-error-message {
+.promo-code-form__offers-error-message {
   color: $col-accent;
   margin-top: 0.4rem;
   font-size: 1.2rem;

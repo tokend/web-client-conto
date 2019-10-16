@@ -50,11 +50,11 @@
       <div class="app__form-row">
         <div class="app__form-field">
           <input-field
-            v-model="form.promocode"
-            name="buy-atomic-swap-promocode"
-            :label="'buy-atomic-swap-form.promocode-lbl' | globalize"
-            @blur="touchField('form.promocode')"
-            :error-message="getFieldErrorMessage('form.promocode')"
+            v-model="form.promoCode"
+            name="buy-atomic-swap-promo-code"
+            :label="'buy-atomic-swap-form.promo-code-lbl' | globalize"
+            @blur="touchField('form.promoCode')"
+            :error-message="getFieldErrorMessage('form.promoCode')"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@
             v-if="isDiscountExist"
             class="buy-atomic-swap-form__discount"
             :label="'buy-atomic-swap-form.discount' | globalize"
-            :value="`${formatToPercent(discount)}`"
+            :value="`${formatPercent(discount)}`"
           />
 
           <readonly-field
@@ -119,7 +119,7 @@ import {
   required,
 } from '@validators'
 import { globalize } from '@/vue/filters/globalize'
-import { formatToPercent } from '@/vue/filters/formatToPercent'
+import { formatPercent } from '@/vue/filters/formatPercent'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -142,12 +142,12 @@ export default {
         amount: '',
         quoteAssetCode: '',
         paymentMethodId: '',
-        promocode: '',
+        promoCode: '',
       },
       discount: '',
       totalPrice: '',
       isLoadingDiscount: false,
-      isPromocodeExist: false,
+      isPromoCodeExist: false,
       globalize,
     }
   },
@@ -161,8 +161,8 @@ export default {
           ),
           required,
         },
-        promocode: this.form.promocode && this.form.amount
-          ? { promocodeNotExist: () => this.isPromocodeExist }
+        promoCode: this.form.promoCode && this.form.amount
+          ? { promoCodeNotExist: () => this.isPromoCodeExist }
           : {},
       },
     }
@@ -174,7 +174,8 @@ export default {
     ]),
 
     isDiscountExist () {
-      return Number(this.discount)
+      const discount = Number(this.discount)
+      return Boolean(discount)
     },
   },
   watch: {
@@ -183,20 +184,20 @@ export default {
       handler: function () {
         this.totalPrice = 0
         this.discount = 0
-        this.debouncedcalculateDiscountPrice()
+        this.debounceCalculateDiscountPrice()
       },
     },
   },
   created () {
     this.setQuoteAssetCode(this.atomicSwapAsk.quoteAssets[0].asset.code)
-    this.debouncedcalculateDiscountPrice = debounce(
+    this.debounceCalculateDiscountPrice = debounce(
       this.calculateDiscountPrice,
-      1000
+      300
     )
   },
   methods: {
     formatMoney,
-    formatToPercent,
+    formatPercent,
 
     submit () {
       this.$emit(EVENTS.submitted, this.form)
@@ -212,20 +213,20 @@ export default {
       this.isLoadingDiscount = true
       try {
         const { data } = await api.get('/integrations/marketplace/calculate-price', {
-          offer: this.atomicSwapAsk.id,
-          amount: this.form.amount,
+          'offer': this.atomicSwapAsk.id,
+          'amount': this.form.amount,
           'payment-method': this.form.paymentMethodId,
-          promocode: this.form.promocode,
+          'promocode': this.form.promoCode,
         })
         this.discount = data.discount
         this.totalPrice = data.totalPrice
 
-        if (this.form.promocode) {
-          this.isPromocodeExist = true
+        if (this.form.promoCode) {
+          this.isPromoCodeExist = true
         }
       } catch (error) {
         if (error.meta.field === 'promocode') {
-          this.isPromocodeExist = false
+          this.isPromoCodeExist = false
         }
         ErrorHandler.processWithoutFeedback(error)
       }

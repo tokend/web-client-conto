@@ -1,6 +1,6 @@
 import _get from 'lodash/get'
 
-export class PromocodeRecord {
+export class PromoCodeRecord {
   constructor (record) {
     this._record = record
 

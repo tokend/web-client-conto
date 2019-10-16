@@ -7,20 +7,20 @@
       >
         <button
           v-ripple
-          class="promocodes-page__create-btn app__button-raised"
-          @click="isPromocodeDrawerShown = true"
+          class="promo-codes-page__create-btn app__button-raised"
+          @click="isPromoCodeDrawerShown = true"
         >
-          {{ 'promocodes-page.create-btn' | globalize }}
+          {{ 'promo-codes-page.create-btn' | globalize }}
         </button>
       </template>
     </top-bar>
 
-    <drawer :is-shown.sync="isPromocodeDrawerShown">
+    <drawer :is-shown.sync="isPromoCodeDrawerShown">
       <template slot="heading">
-        {{ 'promocodes-page.create-promocode-title' | globalize }}
+        {{ 'promo-codes-page.create-promo-code-title' | globalize }}
       </template>
 
-      <promocode-form
+      <promo-code-form
         @close-drawer-and-update-list="closeDrawerAndUpdateList"
       />
     </drawer>
@@ -33,29 +33,29 @@
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
 import UpdateList from '@/vue/mixins/update-list.mixin'
-import PromocodeForm from '@/vue/forms/PromocodeForm'
+import PromoCodeForm from '@/vue/forms/PromoCodeForm'
 import { vueRoutes } from '@/vue-router/routes'
 
 export default {
-  name: 'promocodes',
+  name: 'promo-codes',
 
   components: {
     TopBar,
     Drawer,
-    PromocodeForm,
+    PromoCodeForm,
   },
 
   mixins: [UpdateList],
 
   data: _ => ({
     vueRoutes,
-    isPromocodeDrawerShown: false,
+    isPromoCodeDrawerShown: false,
   }),
 
   methods: {
     closeDrawerAndUpdateList () {
-      this.isPromocodeDrawerShown = false
-      this.emitUpdateList('promocodes:updateList')
+      this.isPromoCodeDrawerShown = false
+      this.emitUpdateList('promoCodes:updateList')
     },
   },
 }
