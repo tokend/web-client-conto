@@ -1043,6 +1043,10 @@
       "invalid-dimensions-err": "You cannot upload an image with dimensions less than {{minWidth}}x{{minHeight}}",
       "disabled-msg": "This field is disabled"
     },
+    "clipper-field": {
+      "save-lbl": "Save",
+      "cancel-lbl": "Cancel"
+    },
     "whitelist-invite-form": {
       "email-lbl": "User's email",
       "invite-btn": "Invite client",

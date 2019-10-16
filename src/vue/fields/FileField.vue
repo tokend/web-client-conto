@@ -168,6 +168,7 @@ export default {
   watch: {
     'value': function (value) {
       this.document = value
+      this.loadDocumentUrl(this.value)
     },
   },
 
