@@ -211,7 +211,7 @@ export default {
     async calculateDiscountPrice () {
       this.isLoadingDiscount = true
       try {
-        const { data } = await api.getWithSignature('/integrations/marketplace/calculate-price', {
+        const { data } = await api.get('/integrations/marketplace/calculate-price', {
           offer: this.atomicSwapAsk.id,
           amount: this.form.amount,
           'payment-method': this.form.paymentMethodId,
