@@ -27,13 +27,14 @@
         class="app__form-row"
       >
         <div class="app__form-field">
-          <file-field
+          <clipper-field
             v-model="form.avatar"
             name="verification-corporate-avatar"
             :note="'verification-form.image-type-note' | globalize"
             :document-type="DOCUMENT_TYPES.kycAvatar"
             :label="'verification-form.avatar-lbl' | globalize"
             :disabled="formMixin.isDisabled"
+            :ratio="1"
           />
         </div>
       </div>

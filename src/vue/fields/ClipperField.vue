@@ -16,6 +16,15 @@
       @input="upload"
     />
     <template v-if="isEditorOpened">
+      <div
+        class="clipper-field__label"
+        :class="{
+          'clipper-field__label--disabled': $attrs.disabled,
+          'clipper-field__label--error': errorMessage
+        }"
+      >
+        {{ label }}
+      </div>
       <div class="clipper-field__editor">
         <clipper-basic
           class="clipper-field__clipper"
@@ -32,7 +41,7 @@
         <div class="clipper-field__actions">
           <button
             v-if="!$attrs.disabled"
-            :title="'file-field.reset-btn-hint' | globalize"
+            :title="'clipper-field.save-lbl' | globalize"
             class="app__button-flat"
             type="button"
             :disabled="disabled"
@@ -42,7 +51,7 @@
           </button>
           <button
             v-if="!$attrs.disabled"
-            :title="'file-field.reset-btn-hint' | globalize"
+            :title="'clipper-field.cancel-lbl' | globalize"
             class="app__button-flat clipper-field__reset-btn"
             type="button"
             :disabled="disabled"
@@ -155,13 +164,16 @@ export default {
   @import 'scss/variables';
   @import '~@scss/mixins';
 
-  $z-reset-btn: 1;
+  $max-width: 40rem;
 
   .clipper-field {
     width: 100%;
   }
 
   .clipper-field__editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: 0.2rem dashed $file-field-border-color;
     background-color: $file-field-background-color;
     border-radius: 0.4rem;
@@ -169,8 +181,27 @@ export default {
     width: 100%;
     text-align: center;
     position: relative;
-    min-height: 9.8rem;
     padding: 3%;
+  }
+
+  .clipper-field__label {
+    font-size: 1.1rem;
+    color: $field-color-unfocused;
+    margin-bottom: 0.6rem;
+
+    @include label-font-sizes;
+  }
+
+  .clipper-field__label--error {
+    color: $field-color-error;
+  }
+
+  .clipper-field__label--disabled {
+    filter: grayscale(100%);
+  }
+
+  .clipper-field__clipper {
+    max-width: $max-width;
   }
 
   .clipper-field__reset-btn {
@@ -191,6 +222,8 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 2rem;
+    width: 100%;
+    max-width: $max-width;
   }
 
   .clipper-field__no-image {
