@@ -120,6 +120,7 @@ export default {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.8rem;
+  color: $col-text;
 }
 
 .current-business-indicator__attrs {

@@ -224,7 +224,7 @@ export default {
   cursor: pointer;
   white-space: nowrap;
   position: relative;
-  color: $col-text;
+  color: $col-btn;
 
   &:after {
     content: '';
@@ -278,6 +278,5 @@ export default {
 
 .atomic-swap-quote-assets-form__assets-subheading {
   margin-top: 0;
-  color: $col-text;
 }
 </style>

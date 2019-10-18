@@ -6,7 +6,10 @@
           <h1 class="business__title">
             {{ business.name }}
           </h1>
-          <h3 v-if="business.industry">
+          <h3
+            v-if="business.industry"
+            class="business__industry"
+          >
             {{ business.industry }}
           </h3>
         </div>
@@ -227,5 +230,9 @@ export default {
     margin-top: 2.4rem;
     padding: 0 1.6rem;
     width: 100%;
+  }
+
+  .business__industry {
+    color: $col-text;
   }
 </style>
