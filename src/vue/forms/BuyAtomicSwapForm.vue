@@ -174,8 +174,7 @@ export default {
     ]),
 
     isDiscountExist () {
-      const discount = Number(this.discount)
-      return Boolean(discount)
+      return Boolean(+this.discount)
     },
   },
   watch: {
