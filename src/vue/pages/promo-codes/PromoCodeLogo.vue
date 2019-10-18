@@ -1,6 +1,6 @@
 <template>
   <p
-    class="text-logo"
+    class="promo-code-logo"
   >
     {{ getFirstLetterOfName }}
   </p>
@@ -9,14 +9,14 @@
 <script>
 
 export default {
-  name: 'text-logo',
+  name: 'promo-code-logo',
   props: {
-    text: { type: String, required: true },
+    name: { type: String, required: true },
   },
 
   computed: {
     getFirstLetterOfName () {
-      return this.text.substr(0, 1).toUpperCase()
+      return this.name.substr(0, 1).toUpperCase()
     },
   },
 }
@@ -25,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/variables';
 
-.text-logo {
+.promo-code-logo {
   width: 5.3rem;
   height: 5.3rem;
   border-radius: 50%;
@@ -33,7 +33,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $col-text-logo-background;
-  color: $col-text-logo-text;
+  background: $col-promo-code-logo-background;
+  color: $col-promo-code-logo-text;
 }
 </style>

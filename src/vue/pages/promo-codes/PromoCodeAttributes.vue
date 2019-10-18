@@ -53,7 +53,6 @@
 
     <promo-code-offers-table
       :offers="promoCode.offers"
-      is-promo-code-attributes-drawer
     />
   </div>
 </template>
@@ -77,6 +76,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

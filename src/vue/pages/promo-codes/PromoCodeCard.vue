@@ -1,8 +1,8 @@
 <template>
   <div class="promo-code-card">
     <div class="promo-code-card__logo">
-      <text-logo
-        :text="promoCode.code"
+      <promo-code-logo
+        :name="promoCode.code"
       />
     </div>
     <div class="promo-code-card__info">
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import TextLogo from '@/vue/common/TextLogo'
+import PromoCodeLogo from './PromoCodeLogo'
 import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -27,7 +27,7 @@ import { vuexTypes } from '@/vuex'
 export default {
   name: 'promo-code-card',
   components: {
-    TextLogo,
+    PromoCodeLogo,
   },
 
   props: {

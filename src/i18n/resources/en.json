@@ -120,7 +120,7 @@
       "field-error_emailOrPhoneNumber": "This field should be a valid email or phone number",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
-      "field-error_promoCodeNotExist": "Promo code for this offer does not exists"
+      "field-error_promoCodeNotExist": "Promo Code for this offer does not exists"
 
     },
     "errors": {
@@ -639,7 +639,7 @@
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
       "kyc-recovery": "KYC Recovery",
-      "promo-codes": "Promo codes"
+      "promo-codes": "Promo Codes"
     },
     "passport": {
       "account-unverified": "General account",
@@ -1201,7 +1201,7 @@
       "load-failed-msg": "There was an error while loading.",
       "loading-msg": "Please wait while we loading your data.",
       "asset-description-lbl": "Asset description",
-      "promo-code-lbl": "Promo code",
+      "promo-code-lbl": "Promo Code",
       "discount": "Discount",
       "calculating-msg": "Calculating..."
     },
@@ -1415,7 +1415,7 @@
     },
     "promo-codes-page": {
       "create-btn": "Create",
-      "create-promo-code-title": "Create promo code"
+      "create-promo-code-title": "Create Promo Code"
     },
     "promo-code-form": {
       "create-btn": "Create",
@@ -1429,16 +1429,25 @@
       "loading": "Loading"
     },
     "promo-codes-list": {
-      "no-list-title": "No promo codes yet",
-      "no-list-msg": "Here will be the list of promo codes",
-      "promo-code-drawer-title": "Promo code details"
+      "no-list-title": "No Promo Codes yet",
+      "no-list-msg": "Here will be the list of Promo Codes",
+      "promo-code-drawer-title": "Promo Code details",
+      "load-failed-msg": "There was an error while loading. Please, try again later"
     },
     "promo-code-viewer": {
       "delete-btn": "Delete",
-      "promo-code-deleted-successfully-notification": "Promo code successfully deleted",
-      "delete-promo-code-message": "Are you sure you want to delete the promo code?"
+      "promo-code-deleted-successfully-notification": "Promo Code successfully deleted",
+      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?"
     },
     "promo-code-offers-table": {
+      "name-th": "Name",
+      "amount-th": "Amount",
+      "price-th": "Price",
+      "offers-title": "Offers",
+      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
+      "no-data-msg":"Promo Code don't have any offers yet."
+    },
+    "promo-code-form-offers-table": {
       "name-th": "Name",
       "amount-th": "Amount",
       "price-th": "Price",

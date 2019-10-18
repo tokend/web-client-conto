@@ -29,6 +29,10 @@
       </div>
     </template>
 
+    <template v-else-if="isLoadFailed">
+      <p>{{ 'promo-codes-list.load-failed-msg' | globalize }}</p>
+    </template>
+
     <template v-else>
       <no-data-message
         icon-name="ticket-percent"

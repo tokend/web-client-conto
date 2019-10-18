@@ -78,7 +78,7 @@
           </div>
         </div>
 
-        <promo-code-offers-table
+        <promo-code-form-offers-table
           @update-offers="form.offers = $event"
           :offers="userOffers"
         />
@@ -117,7 +117,7 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import config from '@/config'
 import NoDataMessage from '@/vue/common/NoDataMessage'
-import PromoCodeOffersTable from '@/vue/pages/promo-codes/PromoCodeOffersTable'
+import PromoCodeFormOffersTable from '@/vue/pages/promo-codes/PromoCodeFormOffersTable'
 import Loader from '@/vue/common/Loader'
 
 import { required, integer, minValue, maxValue, maxLength } from '@validators'
@@ -147,7 +147,7 @@ export default {
 
   components: {
     NoDataMessage,
-    PromoCodeOffersTable,
+    PromoCodeFormOffersTable,
     Loader,
   },
 

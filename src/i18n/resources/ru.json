@@ -1435,7 +1435,8 @@
     "promo-codes-list": {
       "no-list-title": "Нет промокодов",
       "no-list-msg": "Здесь будет список промокодов",
-      "promo-code-drawer-title": "Детали промокода"
+      "promo-code-drawer-title": "Детали промокода",
+      "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже"
     },
     "promo-code-viewer": {
       "delete-btn": "Удалить",
@@ -1443,6 +1444,14 @@
       "delete-promo-code-message": "Вы действительно хотите удалить промокод?"
     },
     "promo-code-offers-table": {
+      "name-th": "Имя",
+      "amount-th": "Количество",
+      "price-th": "Цена",
+      "offers-title": "Предложения",
+      "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
+      "no-data-msg": "У промокаода нет выбранных предложений."
+    },
+    "promo-code-form-offers-table": {
       "name-th": "Имя",
       "amount-th": "Количество",
       "price-th": "Цена",
