@@ -1396,6 +1396,11 @@
       "pending-incoming-msg": "Запрос ждет вашего рассмотрения. Пожалуйста подтвердите или отклоните этот запрос",
       "permanently-rejected-incoming-msg": "Запрос отклонен навсегда"
     },
+    "multiselect-field": {
+      "select-all": "Выбрать все",
+      "all-selected-lable": "Выбрано все",
+      "select-something-lable": "Выберите что-то..."
+    },
     "redeem-form": {
       "form-heading": "Погашение",
       "amount-lbl": "Количество",

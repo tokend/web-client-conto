@@ -55,9 +55,14 @@
             <th :title="'customers-table.status-th' | globalize">
               {{ 'customers-table.status-th' | globalize }}
             </th>
-            <th :title="'customers-table.balances-th' | globalize">
-              {{ 'customers-table.balances-th' | globalize }}
-            </th>
+            <template v-for="balance in selectedBalances">
+              <th
+                :key="balance.value"
+                :title="balance.name"
+              >
+                {{ balance.name }}
+              </th>
+            </template>
             <th class="customers-table__btn-td">
               <!-- actions -->
             </th>
@@ -81,25 +86,33 @@
               />
             </td>
 
-            <td :title="getCustomerNameOrEmail(customer)">
+            <td
+              :title="getCustomerNameOrEmail(customer)"
+              class="customers-table__customer-td"
+            >
               {{ getCustomerNameOrEmail(customer) }}
             </td>
 
             <td :title="getCustomerStatusTranslated(customer)">
               {{ getCustomerStatusTranslated(customer) }}
             </td>
-
-            <td>
+            <template v-for="selectedBalance in selectedBalances">
+              <!-- eslint-disable max-len -->
               <template v-if="customer.balances && customer.balances.length">
-                <customers-converted-balances
-                  :customer-account-id="customer.accountId"
-                />
+                <td
+                  :title="getCustomerBalance(customer.balances, selectedBalance.value) | formatMoney"
+                  :key="selectedBalance.value"
+                >
+                  {{ getCustomerBalance(customer.balances, selectedBalance.value) | formatBalance }}
+                </td>
               </template>
-
+              <!-- eslint-enable max-len -->
               <template v-else>
-                &mdash;
+                <td :key="selectedBalance.value">
+                  &mdash;
+                </td>
               </template>
-            </td>
+            </template>
 
             <td class="customers-table__btn-td">
               <button
@@ -135,15 +148,14 @@
 </template>
 
 <script>
-import CustomersConvertedBalances from './CustomersConvertedBalances'
-import { CustomerRecord } from '@/js/records/entities/customer.record'
 import TickField from '@/vue/fields/TickField'
-import { Bus } from '@/js/helpers/event-bus'
 import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
 import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { Bus } from '@/js/helpers/event-bus'
+import { CustomerRecord } from '@/js/records/entities/customer.record'
 
 const EVENTS = {
   detailsButtonClicked: 'details-button-clicked',
@@ -156,7 +168,6 @@ export default {
     TickField,
     EmptyTbodyPlaceholder,
     SkeletonLoaderTableBody,
-    CustomersConvertedBalances,
   },
 
   props: {
@@ -183,6 +194,7 @@ export default {
     return {
       isIssuanceMode: false,
       issuanceReceivers: [],
+      selectedBalances: [],
       EVENTS,
     }
   },
@@ -201,6 +213,9 @@ export default {
       Bus.on('customers:hideSelect', () => {
         this.isIssuanceMode = false
         this.issuanceReceivers = []
+      })
+      Bus.on('customers:showBalances', payload => {
+        this.selectedBalances = payload || []
       })
     },
 
@@ -239,6 +254,12 @@ export default {
       } else {
         return customer.email
       }
+    },
+
+    getCustomerBalance (customerBalances, selectedBalance) {
+      const balance = customerBalances
+        .find(i => i.assetCode === selectedBalance)
+      return balance.amount
     },
   },
 }
@@ -285,7 +306,6 @@ $disabled-tick-border: #e9e9e9;
 }
 
 .customers-table__table {
-  table-layout: fixed;
   min-width: 60rem;
 }
 
@@ -300,5 +320,9 @@ $disabled-tick-border: #e9e9e9;
   & > button + button {
     margin-left: 1.2rem;
   }
+}
+
+.customers-table__customer-td {
+  max-width: 16rem;
 }
 </style>
