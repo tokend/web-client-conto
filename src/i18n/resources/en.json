@@ -1391,6 +1391,11 @@
       "pending-incoming-msg": "This request is waiting for your review. Please approve or reject it",
       "permanently-rejected-incoming-msg": "This request was rejected permanently"
     },
+    "multiselect-field": {
+      "select-all": "Select all",
+      "all-selected-lable": "All selceted",
+      "select-something-lable": "Select soemthing..."
+    },
     "redeem-form": {
       "form-heading": "Redeem",
       "amount-lbl": "Amount",
