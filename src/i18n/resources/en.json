@@ -454,8 +454,8 @@
       "notification-message": "Session has expired."
     },
     "auth-pages": {
-      "small-title": "Create, distribute and trade",
-      "big-title": "Business in <br> your <br> smartphone",
+      "small-title": "Participate, distribute and Create",
+      "big-title": "All <br> events <br> in one place",
       "email": "Email",
       "code": "Code",
       "password": "Password",
@@ -1363,7 +1363,7 @@
       "no-amount-msg": "Contact the owner of the offer"
     },
     "pay-form": {
-      "email-lbl": "Recipient Email in UNIT city"
+      "email-lbl": "Your email"
     },
     "asset-viewer": {
       "description-title": "Description"
