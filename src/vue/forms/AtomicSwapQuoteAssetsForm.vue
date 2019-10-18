@@ -224,6 +224,7 @@ export default {
   cursor: pointer;
   white-space: nowrap;
   position: relative;
+  color: $col-text;
 
   &:after {
     content: '';
@@ -251,7 +252,7 @@ export default {
   margin-left: 0.6rem;
   max-width: 2.4rem;
   max-height: 2.4rem;
-  color: $col-primary-inactive;
+  color: $col-primary-flat-inactive;
   transition: 0.2s color;
 
   &:disabled {
@@ -261,7 +262,7 @@ export default {
 
   &:enabled:hover,
   &:enabled:focus {
-    color: inherit;
+    color: $col-btn;
   }
 }
 
@@ -277,5 +278,6 @@ export default {
 
 .atomic-swap-quote-assets-form__assets-subheading {
   margin-top: 0;
+  color: $col-text;
 }
 </style>

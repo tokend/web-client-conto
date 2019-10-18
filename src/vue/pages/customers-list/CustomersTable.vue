@@ -253,7 +253,7 @@ $disabled-tick-border: #e9e9e9;
 
 .customers-table__details-btn {
   font-size: 1.2rem;
-  color: $col-primary-lighten;
+  color: $col-btn;
 }
 
 .customers-table__cb-td {

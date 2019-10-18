@@ -117,6 +117,6 @@ export default {
 
   .atomic-swap__asset-description-lbl {
     font-size: 1.2rem;
-    color: $col-primary-inactive;
+    color: $col-text-inactive;
   }
 </style>

@@ -68,7 +68,7 @@ export default {
   position: relative;
   padding: 1.6rem;
   font-size: 1.4rem;
-  color: $col-primary-txt;
+  color: $col-message-box-text;
   line-height: 1.25;
 
   &--success { background-color: $col-success; }

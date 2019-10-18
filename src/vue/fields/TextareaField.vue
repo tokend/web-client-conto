@@ -156,6 +156,7 @@ export default {
   font-size: 1.6rem;
   overflow-y: auto;
   padding: 0 1.6rem;
+  color: $field-color-text;
 
   &:disabled,
   &:read-only {
