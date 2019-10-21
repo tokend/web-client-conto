@@ -119,7 +119,9 @@
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
       "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email, phone number or telegram",
       "field-error_telegramUsername": "The telegram username is incorrect",
-      "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}"
+      "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
+      "field-error_promoCodeNotExist": "Promo Code for this offer does not exists"
+
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -636,7 +638,8 @@
       "businesses": "Businesses",
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
-      "kyc-recovery": "KYC Recovery"
+      "kyc-recovery": "KYC Recovery",
+      "promo-codes": "Promo Codes"
     },
     "passport": {
       "account-unverified": "General account",
@@ -1197,7 +1200,10 @@
       "error-msg": "Payment request was successful. Cannot load address for payment.",
       "load-failed-msg": "There was an error while loading.",
       "loading-msg": "Please wait while we loading your data.",
-      "asset-description-lbl": "Asset description"
+      "asset-description-lbl": "Asset description",
+      "promo-code-lbl": "Promo Code",
+      "discount": "Discount",
+      "calculating-msg": "Calculating..."
     },
     "atomic-swap-actions": {
       "cancel-btn": "Cancel offering",
@@ -1411,6 +1417,56 @@
       "error-title": "There is no such business",
       "shop": "Shop",
       "loading-msg": "Loading..."
+    },
+    "promo-codes-page": {
+      "create-btn": "Create",
+      "create-promo-code-title": "Create Promo Code"
+    },
+    "promo-code-form": {
+      "create-btn": "Create",
+      "code-lbl": "Code",
+      "description-lbl": "Description(Optional)",
+      "max-uses-lbl": "Max uses(Optional)",
+      "discount-lbl": "Discount(%)",
+      "no-offers-msg-title": "No offerings yet",
+      "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
+      "created-successfully-notification": "Promo Code was created successfully",
+      "loading": "Loading"
+    },
+    "promo-codes-list": {
+      "no-list-title": "No Promo Codes yet",
+      "no-list-msg": "Here will be the list of Promo Codes",
+      "promo-code-drawer-title": "Promo Code details",
+      "load-failed-msg": "There was an error while loading. Please, try again later"
+    },
+    "promo-code-viewer": {
+      "delete-btn": "Delete",
+      "promo-code-deleted-successfully-notification": "Promo Code successfully deleted",
+      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?"
+    },
+    "promo-code-offers-table": {
+      "name-th": "Name",
+      "amount-th": "Amount",
+      "price-th": "Price",
+      "offers-title": "Offers",
+      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
+      "no-data-msg":"Promo Code don't have any offers yet."
+    },
+    "promo-code-form-offers-table": {
+      "name-th": "Name",
+      "amount-th": "Amount",
+      "price-th": "Price",
+      "offers-title": "Offers"
+    },
+    "promo-code-attributes": {
+      "code-key": "Code",
+      "description-key": "Description",
+      "discount-key": "Discount",
+      "max-uses-key": "Max uses",
+      "used-key": "Used"
+    },
+    "promo-code-card": {
+      "discount": "Discount:"
     }
   }
 }

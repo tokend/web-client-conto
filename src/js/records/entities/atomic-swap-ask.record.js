@@ -14,6 +14,7 @@ export class AtomicSwapAskRecord {
     this.baseAssetName = store.getters[vuexTypes.assetByCode](this.baseAssetCode)
       .name
     this.price = _get(record, 'price')
+    this.priceAsset = _get(record, 'priceAsset')
     this.quoteAssets = _get(record, 'paymentMethods', [])
       .map(item => ({
         asset: store.getters[vuexTypes.assetByCode](item.asset),

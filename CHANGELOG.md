@@ -9,6 +9,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Filter balances for customers
+- Promo codes
 
 #### Fixed
 - A bug when drop down go out of page boundaries

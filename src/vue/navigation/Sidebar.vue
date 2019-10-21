@@ -144,6 +144,21 @@
               {{ 'pages-names.sponsorship' | globalize }}
             </span>
           </router-link>
+          <router-link
+            v-if="isAccessibleForCorporate"
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.promoCodes"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-ticket-percent"
+            />
+            <span>
+              {{ 'pages-names.promo-codes' | globalize }}
+            </span>
+          </router-link>
         </nav>
         <nav
           class="sidebar__links-group"
