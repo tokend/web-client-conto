@@ -16,6 +16,13 @@ for further information about branching and tagging conventions.
 - A bug with incorrect error message after enterring recipient email on transfer form
 - A bug when the user can not enter a value in input-field with type 'number' on Firefox
 
+### "Under the hood" changes
+#### Added
+- `APP_NAME` in config
+
+#### Changed
+- Moved logo and favicon to branding folder
+
 ## [1.1.0] - 2019-10-12
 
 ## [1.1.0-rc.3] - 2019-10-10
