@@ -81,7 +81,7 @@ export default {
   },
 
   props: {
-    offers: {
+    offersId: {
       type: Array,
       required: true,
     },
@@ -96,7 +96,7 @@ export default {
 
   async created () {
     this.promoCodeOffers = await Promise.all(
-      this.offers.map(offer => this.loadOffer(offer.id))
+      this.offersId.map(id => this.loadOffer(id))
     )
     this.isLoaded = true
   },

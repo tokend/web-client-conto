@@ -52,7 +52,7 @@
     </div>
 
     <promo-code-offers-table
-      :offers="promoCode.offers"
+      :offers-id="promoCode.offersId"
     />
   </div>
 </template>

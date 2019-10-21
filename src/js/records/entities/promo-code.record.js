@@ -12,6 +12,7 @@ export class PromoCodeRecord {
     this.discount = _get(record, 'discount')
     this.owner = _get(record, 'owner')
     this.status = _get(record, 'status')
-    this.offers = _get(record, 'offers')
+    this.offersId = _get(record, 'offers')
+      .map(offer => _get(offer, 'id'))
   }
 }

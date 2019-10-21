@@ -8,7 +8,9 @@
       <table>
         <thead>
           <tr>
-            <th />
+            <th>
+              <!-- actions -->
+            </th>
             <th :title="'promo-code-form-offers-table.name-th' | globalize">
               {{ 'promo-code-form-offers-table.name-th' | globalize }}
             </th>
@@ -66,7 +68,7 @@ export default {
 
   props: {
     offers: {
-      type: Array,
+      type: Array, /** {@link AtomicSwapAskRecord} **/
       required: true,
     },
   },
