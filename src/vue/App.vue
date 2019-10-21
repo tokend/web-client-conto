@@ -122,6 +122,7 @@ export default {
   },
 
   async created () {
+    this.setAppTitle()
     await this.initApp()
 
     this.startIdle()
@@ -190,6 +191,10 @@ export default {
 
     async updateAccountRole () {
       this.accountRole = ((this.account || {}).role || {}).id || ''
+    },
+
+    setAppTitle () {
+      document.title = config.APP_NAME
     },
   },
 }
