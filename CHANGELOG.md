@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 - A banner for corporate user
 - Filter balances for customers
 - Promo codes
+- Company link
 
 #### Changed
 - Used clipper field for avatar and banner

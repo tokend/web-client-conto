@@ -513,7 +513,10 @@
       "add-phone-number-btn": "Add phone number",
       "add-telegram-title": "Add telegram username",
       "add-telegram-btn": "Add telegram username",
-      "default-quote-asset-title": "Default quote asset"
+      "default-quote-asset-title": "Default quote asset",
+      "company-link-title": "Company link",
+      "view-company-link-btn": "View company link",
+      "company-link-label": "Company link"
     },
     "phone-number-form": {
       "phone-number-lbl": "Phone number",
@@ -654,7 +657,8 @@
       "sign-out-btn": "Sign out",
       "balances-subheading": "Balances",
       "show-more-link": "Show more",
-      "customer-ui-switch": "Customer"
+      "customer-ui-switch": "Customer",
+      "company-btn": "Company"
     },
     "sidebar": {
       "section-explore": "Explorations",

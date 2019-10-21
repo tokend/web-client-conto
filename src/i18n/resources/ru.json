@@ -512,7 +512,10 @@
       "add-phone-number-btn": "Добавить номер телефона",
       "add-telegram-title": "Добавление имя пользователя телеграм",
       "add-telegram-btn": "Добавить имя пользователя телеграм",
-      "default-quote-asset-title": "Котируемый актив по умолчанию"
+      "default-quote-asset-title": "Котируемый актив по умолчанию",
+      "company-link-title": "Ссылка компании",
+      "view-company-link-btn": "Посмотреть",
+      "company-link-label": "Ссылка компании"
     },
     "default-quote-asset-select-field": {
       "not-set-msg": "Не установлен",
@@ -657,7 +660,8 @@
       "show-more-link": "Показать больше",
       "customer-ui-switch": "Клиент",
       "account-unverified": "Стандартный аккаунт",
-      "account-corporate": "Аккаунт бизнеса"
+      "account-corporate": "Аккаунт бизнеса",
+      "company-btn": "Компания"
     },
     "sidebar": {
       "section-explore": "Просмотреть",
