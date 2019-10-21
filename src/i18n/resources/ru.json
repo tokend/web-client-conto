@@ -512,7 +512,10 @@
       "add-phone-number-btn": "Добавить номер телефона",
       "add-telegram-title": "Добавление имя пользователя телеграм",
       "add-telegram-btn": "Добавить имя пользователя телеграм",
-      "default-quote-asset-title": "Котируемый актив по умолчанию"
+      "default-quote-asset-title": "Котируемый актив по умолчанию",
+      "company-link-title": "Ссылка компании",
+      "view-company-link-btn": "Посмотреть",
+      "company-link-label": "Ссылка компании"
     },
     "default-quote-asset-select-field": {
       "not-set-msg": "Не установлен",
@@ -620,7 +623,8 @@
       "request-submitted-msg": "Запрос успешно отправлен",
       "card-number-lbl": "Номер карты (Необязательно)",
       "invitation-code-lbl": "Код приглашения (Необязательно)",
-      "avatar-lbl": "Лого (Необязательно)"
+      "avatar-lbl": "Лого (Необязательно)",
+      "banner-lbl": "Баннер (Необязательно)"
     },
     "input-field": {
       "caps-lock-warning": "Внимание: Caps-Lock включен"
@@ -656,7 +660,8 @@
       "show-more-link": "Показать больше",
       "customer-ui-switch": "Клиент",
       "account-unverified": "Стандартный аккаунт",
-      "account-corporate": "Аккаунт компании"
+      "account-corporate": "Аккаунт бизнеса",
+      "company-btn": "Компания"
     },
     "sidebar": {
       "section-explore": "Просмотреть",
@@ -1048,6 +1053,10 @@
       "incorrect-file-type-err": "{{type}} — недопустимый тип. Допустимые типы: {{allowedTypes}}",
       "invalid-dimensions-err": "Изображение должно иметь расширение равное или большее {{minWidth}}x{{minHeight}} пикселей",
       "disabled-msg": "Поле отключено"
+    },
+    "clipper-field": {
+      "save-lbl": "Сохранить",
+      "cancel-lbl": "Отмена"
     },
     "whitelist-invite-form": {
       "invite-hint": "Пригласите пользователя в белый список. После приглашения они смогут инвестировать в сейл",

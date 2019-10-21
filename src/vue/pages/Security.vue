@@ -30,6 +30,16 @@
         />
       </template>
 
+      <template v-else-if="viewMode === VIEW_MODES.viewCompanyLink">
+        <template slot="heading">
+          {{ 'security-page.company-link-title' | globalize }}
+        </template>
+        <key-viewer
+          :value="companyLink"
+          :label="'security-page.company-link-label' | globalize"
+        />
+      </template>
+
       <template v-else-if="viewMode === VIEW_MODES.changePhoneNumber">
         <template slot="heading">
           <template v-if="isPhoneEnabled">
@@ -58,6 +68,20 @@
         />
       </template>
     </drawer>
+
+    <template v-if="isAccountCorporate && !isCustomerUiShown">
+      <div class="security-page__row">
+        <p class="security-page__row-title">
+          {{ 'security-page.company-link-title' | globalize }}
+        </p>
+        <a
+          class="security-page__row-action"
+          @click="showDrawer(VIEW_MODES.viewCompanyLink)"
+        >
+          {{ 'security-page.view-company-link-btn' | globalize }}
+        </a>
+      </div>
+    </template>
 
     <div class="security-page__row">
       <p class="security-page__row-title">
@@ -160,6 +184,7 @@ const VIEW_MODES = {
   viewAccountId: 'viewAccountId',
   changePhoneNumber: 'changePhoneNumber',
   changeTelegramUsername: 'changeTelegramUsername',
+  viewCompanyLink: 'viewCompanyLink',
   default: '',
 }
 
@@ -190,6 +215,10 @@ export default {
       isAccountCorporate: vuexTypes.isAccountCorporate,
       isCustomerUiShown: vuexTypes.isCustomerUiShown,
     }),
+
+    companyLink () {
+      return `${window.location.origin}/business/${this.accountId}`
+    },
   },
 
   async created () {

@@ -513,7 +513,10 @@
       "add-phone-number-btn": "Add phone number",
       "add-telegram-title": "Add telegram username",
       "add-telegram-btn": "Add telegram username",
-      "default-quote-asset-title": "Default quote asset"
+      "default-quote-asset-title": "Default quote asset",
+      "company-link-title": "Company link",
+      "view-company-link-btn": "View company link",
+      "company-link-label": "Company link"
     },
     "phone-number-form": {
       "phone-number-lbl": "Phone number",
@@ -617,7 +620,8 @@
       "website-lbl": "Website (Optional)",
       "request-submitted-msg": "Your request has been submitted successfully",
       "card-number-lbl": "Card number (Optional)",
-      "invitation-code-lbl": "Invitation code (Optional)"
+      "invitation-code-lbl": "Invitation code (Optional)",
+      "banner-lbl": "Banner (Optional)"
     },
     "input-field": {
       "caps-lock-warning": "Warning: Caps-Lock is ON"
@@ -653,7 +657,8 @@
       "sign-out-btn": "Sign out",
       "balances-subheading": "Balances",
       "show-more-link": "Show more",
-      "customer-ui-switch": "Customer"
+      "customer-ui-switch": "Customer",
+      "company-btn": "Company"
     },
     "sidebar": {
       "section-explore": "Explorations",
@@ -1045,6 +1050,10 @@
       "incorrect-file-type-err": "You cannot upload a {{type}} file. Allowed types: {{allowedTypes}}",
       "invalid-dimensions-err": "You cannot upload an image with dimensions less than {{minWidth}}x{{minHeight}}",
       "disabled-msg": "This field is disabled"
+    },
+    "clipper-field": {
+      "save-lbl": "Save",
+      "cancel-lbl": "Cancel"
     },
     "whitelist-invite-form": {
       "email-lbl": "User's email",
