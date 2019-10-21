@@ -10,6 +10,8 @@ for further information about branching and tagging conventions.
 #### Added
 - A clipper field
 - A banner for corporate user
+- Filter balances for customers
+- Promo codes
 
 #### Changed
 - Used clipper field for avatar and banner

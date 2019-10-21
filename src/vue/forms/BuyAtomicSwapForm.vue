@@ -49,6 +49,18 @@
 
       <div class="app__form-row">
         <div class="app__form-field">
+          <input-field
+            v-model="form.promoCode"
+            name="buy-atomic-swap-promo-code"
+            :label="'buy-atomic-swap-form.promo-code-lbl' | globalize"
+            @blur="touchField('form.promoCode')"
+            :error-message="getFieldErrorMessage('form.promoCode')"
+          />
+        </div>
+      </div>
+
+      <div class="app__form-row">
+        <div class="app__form-field">
           <!-- eslint-disable max-len -->
           <readonly-field
             class="buy-atomic-swap-form__price"
@@ -58,8 +70,18 @@
           <!-- eslint-enable max-len -->
 
           <readonly-field
+            v-if="isDiscountExist"
+            class="buy-atomic-swap-form__discount"
+            :label="'buy-atomic-swap-form.discount' | globalize"
+            :value="`${formatPercent(discount)}`"
+          />
+
+          <readonly-field
             :label="'buy-atomic-swap-form.total-price' | globalize"
-            :value="`${formatMoney(totalPrice)} ${statsQuoteAsset.code}`"
+            :value="isLoadingDiscount
+              ? `${globalize('buy-atomic-swap-form.calculating-msg')}`
+              :`${formatMoney(totalPrice)} ${statsQuoteAsset.code}`
+            "
           />
         </div>
       </div>
@@ -84,17 +106,20 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import ReadonlyField from '@/vue/fields/ReadonlyField'
 import config from '@/config'
+import debounce from 'lodash/debounce'
 
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { formatMoney } from '@/vue/filters/formatMoney'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
-import { MathUtil } from '@/js/utils'
-
+import { ErrorHandler } from '@/js/helpers/error-handler'
+import { api } from '@/api'
 import {
   amountRange,
   required,
 } from '@validators'
+import { globalize } from '@/vue/filters/globalize'
+import { formatPercent } from '@/vue/filters/formatPercent'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -117,7 +142,13 @@ export default {
         amount: '',
         quoteAssetCode: '',
         paymentMethodId: '',
+        promoCode: '',
       },
+      discount: '',
+      totalPrice: '',
+      isLoadingDiscount: false,
+      isPromoCodeExist: false,
+      globalize,
     }
   },
   validations () {
@@ -130,6 +161,9 @@ export default {
           ),
           required,
         },
+        promoCode: this.form.promoCode && this.form.amount
+          ? { promoCodeNotExist: () => this.isPromoCodeExist }
+          : {},
       },
     }
   },
@@ -138,15 +172,31 @@ export default {
       vuexTypes.assetByCode,
       vuexTypes.statsQuoteAsset,
     ]),
-    totalPrice () {
-      return MathUtil.multiply(this.atomicSwapAsk.price, this.form.amount || 0)
+
+    isDiscountExist () {
+      return Boolean(+this.discount)
+    },
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler: function () {
+        this.totalPrice = 0
+        this.discount = 0
+        this.debounceCalculateDiscountPrice()
+      },
     },
   },
   created () {
     this.setQuoteAssetCode(this.atomicSwapAsk.quoteAssets[0].asset.code)
+    this.debounceCalculateDiscountPrice = debounce(
+      this.calculateDiscountPrice,
+      300
+    )
   },
   methods: {
     formatMoney,
+    formatPercent,
 
     submit () {
       this.$emit(EVENTS.submitted, this.form)
@@ -157,6 +207,30 @@ export default {
       this.form.paymentMethodId = this.atomicSwapAsk
         .getPaymentMethodIdByAssetCode(code)
     },
+
+    async calculateDiscountPrice () {
+      this.isLoadingDiscount = true
+      try {
+        const { data } = await api.get('/integrations/marketplace/calculate-price', {
+          'offer': this.atomicSwapAsk.id,
+          'amount': this.form.amount,
+          'payment-method': this.form.paymentMethodId,
+          'promocode': this.form.promoCode,
+        })
+        this.discount = data.discount
+        this.totalPrice = data.totalPrice
+
+        if (this.form.promoCode) {
+          this.isPromoCodeExist = true
+        }
+      } catch (error) {
+        if (error.meta.field === 'promocode') {
+          this.isPromoCodeExist = false
+        }
+        ErrorHandler.processWithoutFeedback(error)
+      }
+      this.isLoadingDiscount = false
+    },
   },
 }
 </script>
@@ -164,7 +238,8 @@ export default {
 <style lang="scss" scoped>
   @import '~@/vue/forms/app-form';
 
-  .buy-atomic-swap-form__price {
+  .buy-atomic-swap-form__price,
+  .buy-atomic-swap-form__discount {
     margin-bottom: 0.5rem;
   }
 
