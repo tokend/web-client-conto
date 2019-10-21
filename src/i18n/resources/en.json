@@ -1070,7 +1070,7 @@
       "go-back-btn": "Go back",
       "title": "Downloads",
       "mobile-apps-header": "All your assets right on your phone",
-      "mobile-apps-desc": "To access your assets everywhere, get the Conto app on your mobile device.",
+      "mobile-apps-desc": "To access your assets everywhere, get the {{appName}} app on your mobile device.",
       "pre-issuance-learn-more-link": "Learn more",
       "pre-issuance-apps-header": "Pre-issue your assets offline",
       "pre-issuance-apps-desc": "To pre authorize your assets to be issued, get the Offline Device Pre-issuance tool on your computer.",
@@ -1361,7 +1361,7 @@
       "no-amount-msg": "Contact the owner of the offer"
     },
     "pay-form": {
-      "email-lbl": "Recipient Email in Conto"
+      "email-lbl": "Recipient Email in {{appName}}"
     },
     "asset-viewer": {
       "description-title": "Description"
@@ -1394,7 +1394,7 @@
     "multiselect-field": {
       "select-all": "Select all",
       "all-selected-lable": "All selceted",
-      "select-something-lable": "Select soemthing..."
+      "select-something-lable": "Select something..."
     },
     "redeem-form": {
       "form-heading": "Redeem",
