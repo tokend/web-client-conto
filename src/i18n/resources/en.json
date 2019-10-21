@@ -617,7 +617,8 @@
       "website-lbl": "Website (Optional)",
       "request-submitted-msg": "Your request has been submitted successfully",
       "card-number-lbl": "Card number (Optional)",
-      "invitation-code-lbl": "Invitation code (Optional)"
+      "invitation-code-lbl": "Invitation code (Optional)",
+      "banner-lbl": "Banner (Optional)"
     },
     "input-field": {
       "caps-lock-warning": "Warning: Caps-Lock is ON"
@@ -1045,6 +1046,10 @@
       "incorrect-file-type-err": "You cannot upload a {{type}} file. Allowed types: {{allowedTypes}}",
       "invalid-dimensions-err": "You cannot upload an image with dimensions less than {{minWidth}}x{{minHeight}}",
       "disabled-msg": "This field is disabled"
+    },
+    "clipper-field": {
+      "save-lbl": "Save",
+      "cancel-lbl": "Cancel"
     },
     "whitelist-invite-form": {
       "email-lbl": "User's email",

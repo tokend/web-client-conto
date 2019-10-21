@@ -8,6 +8,7 @@ import log from 'loglevel'
 import config from './config'
 import NProgress from 'nprogress'
 import router from '@/vue-router'
+import VuejsClipper from 'vuejs-clipper'
 
 import { buildStore } from '@/vuex'
 import { ripple } from '@/vue/directives/ripple'
@@ -36,6 +37,11 @@ async function init () {
   Vue.config.productionTip = false
   Vue.use(Vuelidate)
   Vue.use(VueResource)
+  Vue.use(VuejsClipper, {
+    components: {
+      clipperBasic: true,
+    },
+  })
   Vue.directive('ripple', ripple)
   Vue.filter('globalize', globalize)
   Vue.filter('globalizeCountry', globalizeCountry)

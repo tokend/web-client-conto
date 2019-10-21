@@ -620,7 +620,8 @@
       "request-submitted-msg": "Запрос успешно отправлен",
       "card-number-lbl": "Номер карты (Необязательно)",
       "invitation-code-lbl": "Код приглашения (Необязательно)",
-      "avatar-lbl": "Лого (Необязательно)"
+      "avatar-lbl": "Лого (Необязательно)",
+      "banner-lbl": "Баннер (Необязательно)"
     },
     "input-field": {
       "caps-lock-warning": "Внимание: Caps-Lock включен"
@@ -1048,6 +1049,10 @@
       "incorrect-file-type-err": "{{type}} — недопустимый тип. Допустимые типы: {{allowedTypes}}",
       "invalid-dimensions-err": "Изображение должно иметь расширение равное или большее {{minWidth}}x{{minHeight}} пикселей",
       "disabled-msg": "Поле отключено"
+    },
+    "clipper-field": {
+      "save-lbl": "Сохранить",
+      "cancel-lbl": "Отмена"
     },
     "whitelist-invite-form": {
       "invite-hint": "Пригласите пользователя в белый список. После приглашения они смогут инвестировать в сейл",

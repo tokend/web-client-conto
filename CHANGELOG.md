@@ -8,8 +8,14 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
+- A clipper field
+- A banner for corporate user
 - Filter balances for customers
 - Promo codes
+
+#### Changed
+- Used clipper field for avatar and banner
+- Used banner in business page
 
 #### Fixed
 - A bug when drop down go out of page boundaries

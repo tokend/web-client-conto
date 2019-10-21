@@ -1,10 +1,13 @@
 <template>
   <div class="business-description">
     <div class="business-description__wrp">
-      <div class="business-details__logo-wrp">
+      <div
+        class="business-details__logo-wrp"
+        v-if="business.bannerKey"
+      >
         <img
           class="business-details__logo"
-          :src="businessLogoUrl"
+          :src="businessBannerUrl"
         >
       </div>
       <template v-if="business.description">
@@ -36,8 +39,8 @@ export default {
     },
   },
   computed: {
-    businessLogoUrl () {
-      return documentsManager.getDocumentUrlByKey(this.business.logoKey)
+    businessBannerUrl () {
+      return documentsManager.getDocumentUrlByKey(this.business.bannerKey)
     },
   },
   async created () {
