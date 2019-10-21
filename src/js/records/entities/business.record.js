@@ -10,16 +10,36 @@ export class BusinessRecord {
     this.industry = _get(record, 'industry')
     this.description = _get(record, 'description')
 
+    this.logo = {}
+    this.logoKey = undefined
+    this.logoName = undefined
+    this.logoType = undefined
+    this._getLogo()
+
+    this.banner = {}
+    this.bannerKey = undefined
+    this.bannerName = undefined
+    this.bannerType = undefined
+    this._getBanner()
+  }
+
+  _getLogo () {
     try {
       this.logo = JSON.parse(_get(this._record, 'logo'))
       this.logoKey = _get(this.logo, 'key')
       this.logoName = _get(this.logo, 'name')
       this.logoType = _get(this.logo, 'type')
+    } catch (e) {
+    }
+  }
+
+  _getBanner () {
+    try {
+      this.banner = JSON.parse(_get(this._record, 'bravo'))
+      this.bannerKey = _get(this.banner, 'key')
+      this.bannerName = _get(this.banner, 'name')
+      this.bannerType = _get(this.banner, 'type')
     } catch (error) {
-      this.logo = undefined
-      this.logoKey = undefined
-      this.logoName = undefined
-      this.logoType = undefined
     }
   }
 }

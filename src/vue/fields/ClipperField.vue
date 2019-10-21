@@ -13,7 +13,7 @@
       :file-extensions="fileExtensions"
       :max-size="maxSize"
       :error-message="errorMessage"
-      @input="upload"
+      @input="tryCropImg"
     />
     <template v-if="isEditorOpened">
       <div
@@ -30,6 +30,7 @@
           class="clipper-field__clipper"
           :src="imgURL"
           ref="clipper"
+          bg-color="transparent"
           :ratio="ratio"
         >
           <div class="clipper-field__no-image" slot="placeholder">
@@ -110,25 +111,25 @@ export default {
   destroyed () {
   },
   methods: {
-    upload (value) {
-      if (this.imgURL) URL.revokeObjectURL(this.imgURL)
+    tryCropImg (value) {
       if (value) {
         this.oldFile = value
+        if (this.imgURL) URL.revokeObjectURL(this.imgURL)
         this.imgURL = window.URL.createObjectURL(value.file)
         this.isEditorOpened = true
       } else {
-        this.imgURL = ''
-        this.isEditorOpened = false
+        this.reset()
       }
     },
-    cropImg () {
+    async cropImg () {
       const canvas = this.$refs.clipper.clip() // call component's clip method
-      this.resultURL = canvas.toDataURL('image/jpeg', 1) // canvas->image
+      this.resultURL = canvas.toDataURL(this.oldFile.mimeType, 1)
+      const blob = this.dataURItoBlob(this.resultURL)
       this.oldFile = new DocumentContainer({
-        mimeType: 'image/png',
+        mimeType: blob.type,
         name: 'new__' + this.oldFile.name,
         type: this.documentType,
-        file: this.dataURItoBlob(this.resultURL),
+        file: blob,
       })
       this.isEditorOpened = false
       this.$emit('input', this.oldFile)
@@ -138,6 +139,7 @@ export default {
       this.imgURL = ''
       this.oldFile = null
       this.isEditorOpened = false
+      this.$emit('input', this.oldFile)
     },
     dataURItoBlob (dataURI) {
       // convert base64 to raw binary data held in a string

@@ -619,7 +619,8 @@
       "request-submitted-msg": "Запрос успешно отправлен",
       "card-number-lbl": "Номер карты (Необязательно)",
       "invitation-code-lbl": "Код приглашения (Необязательно)",
-      "avatar-lbl": "Лого (Необязательно)"
+      "avatar-lbl": "Лого (Необязательно)",
+      "banner-lbl": "Баннер (Необязательно)"
     },
     "input-field": {
       "caps-lock-warning": "Внимание: Caps-Lock включен"

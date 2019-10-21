@@ -9,6 +9,11 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Clipper field
+- Banner for corporate user
+
+#### Changed
+- Used clipper field for avatar and banner
+- Used banner in business page
 
 #### Fixed
 - A bug when drop down go out of page boundaries
