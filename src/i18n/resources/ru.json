@@ -119,7 +119,8 @@
       "field-error_validatePhoneNumber": "Неверный номер телефона",
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл, телефон получателя или телеграм",
       "field-error_telegramUsername": "Имя пользователя неверное",
-      "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}"
+      "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
+      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -640,7 +641,8 @@
       "businesses": "Бизнесы",
       "sponsorship": "Спонсорство",
       "atomic-swaps": "Магазин",
-      "kyc-recovery": "Восстановление по KYC"
+      "kyc-recovery": "Восстановление по KYC",
+      "promo-codes": "Промокоды"
     },
     "passport": {
       "account-us-accredited": "Аккредитованный инвестор (США)",
@@ -1285,7 +1287,10 @@
       "error-msg": "Запрос на оплату прошел успешно. Не удается загрузить адрес для оплаты.",
       "load-failed-msg": "Произошла ошибка при загрузке.",
       "loading-msg": "Пожалуйста подождите пока мы загрузим ваши данные.",
-      "asset-description-lbl": "Описание актива"
+      "asset-description-lbl": "Описание актива",
+      "promo-code-lbl": "Промокод",
+      "discount": "Скидка",
+      "calculating-msg": "Рассчитываем..."
     },
     "kyc-recovery": {
       "submit-again-lbl": "Отпарвить заново",
@@ -1416,6 +1421,56 @@
       "error-title": "Нет такого бизнеса",
       "shop": "Магазин",
       "loading-msg": "Загрузка..."
+    },
+    "promo-codes-page": {
+      "create-btn": "Создать",
+      "create-promo-code-title": "Создание промокода"
+    },
+    "promo-code-form": {
+      "create-btn": "Создать",
+      "code-lbl": "Код",
+      "description-lbl": "Описание(Необязательно)",
+      "max-uses-lbl": "Количество использований(Необязательно)",
+      "discount-lbl": "Скидка(%)",
+      "no-offers-msg-title": "Нет предложений",
+      "no-offers-msg-description": "К сожалению, у вас нет предложений. Пожалуйста, создайте предложение и попробуйте снова.",
+      "created-successfully-notification": "Промокод успешно создан",
+      "loading": "Загрузка"
+    },
+    "promo-codes-list": {
+      "no-list-title": "Нет промокодов",
+      "no-list-msg": "Здесь будет список промокодов",
+      "promo-code-drawer-title": "Детали промокода",
+      "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже"
+    },
+    "promo-code-viewer": {
+      "delete-btn": "Удалить",
+      "promo-code-deleted-successfully-notification": "Промокод успешно удален",
+      "delete-promo-code-message": "Вы действительно хотите удалить промокод?"
+    },
+    "promo-code-offers-table": {
+      "name-th": "Имя",
+      "amount-th": "Количество",
+      "price-th": "Цена",
+      "offers-title": "Предложения",
+      "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
+      "no-data-msg": "У промокаода нет выбранных предложений."
+    },
+    "promo-code-form-offers-table": {
+      "name-th": "Имя",
+      "amount-th": "Количество",
+      "price-th": "Цена",
+      "offers-title": "Предложения"
+    },
+    "promo-code-attributes": {
+      "code-key": "Код",
+      "description-key": "Описание",
+      "discount-key": "Скидка",
+      "max-uses-key": "Количество использований",
+      "used-key": "Использовано"
+    },
+    "promo-code-card": {
+      "discount": "Скидка:"
     }
   }
 }
