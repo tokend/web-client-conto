@@ -456,7 +456,7 @@
     },
     "auth-pages": {
       "small-title": "Создавайте, распространяйте и торгуйте",
-      "big-title": "Бизнес в <br> вашем <br> смартфоне",
+      "big-title": "Компания в <br> вашем <br> смартфоне",
       "email": "Электронная почта",
       "code": "Код",
       "password": "Пароль",
@@ -492,7 +492,7 @@
     "settings-page": {
       "verification-tab": "Подтверждение аккаунта",
       "security-tab": "Общее",
-      "my-account-tab": "Бизнес"
+      "my-account-tab": "Компания"
     },
     "security-page": {
       "enable-tfa-title": "Включить 2FA",
@@ -569,7 +569,7 @@
       "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже.",
       "account-type-lbl": "Тип аккаунта",
       "account-type-general-title": "Стандарт",
-      "account-type-corporate-title": "Бизнес",
+      "account-type-corporate-title": "Компания",
       "account-type-corporate-description": "Приглашайте клиентов, создавайте активы",
       "account-type-general-description": "Трансфер активов"
     },
@@ -638,7 +638,7 @@
       "register-of-shares": "История",
       "customers": "Клиенты",
       "customers-list": "Список клиентов",
-      "businesses": "Бизнесы",
+      "businesses": "Компании",
       "sponsorship": "Спонсорство",
       "atomic-swaps": "Магазин",
       "kyc-recovery": "Восстановление по KYC",
@@ -656,12 +656,12 @@
       "show-more-link": "Показать больше",
       "customer-ui-switch": "Клиент",
       "account-unverified": "Стандартный аккаунт",
-      "account-corporate": "Аккаунт бизнеса"
+      "account-corporate": "Аккаунт компании"
     },
     "sidebar": {
       "section-explore": "Просмотреть",
       "section-account": "Аккаунт",
-      "section-corporate": "Бизнес"
+      "section-corporate": "Компания"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -905,7 +905,7 @@
       "no-balances-msg": "У вас еще нет активов в балансах",
       "create-btn": "Создать",
       "my-assets-title": "Мои активы",
-      "explore-title": "Активы бизнеса",
+      "explore-title": "Активы компании",
       "balances-title": "Мой кошелек"
     },
     "create-asset-form": {
@@ -1244,28 +1244,28 @@
       "customer-drawer-title": "Клиент"
     },
     "businesses": {
-      "all-tab": "Все бизнесы",
-      "my-tab": "Мои бизнесы"
+      "all-tab": "Все компании",
+      "my-tab": "Мои компании"
     },
     "businesses-all": {
-      "no-list-title": "Нет бизнесов",
-      "no-list-msg": "Здесь будет список бизнесов",
-      "business-details-title": "Детали бизнеса",
-      "business-assets-title": "Активы бизнеса"
+      "no-list-title": "Нет компаний",
+      "no-list-msg": "Здесь будет список компаний",
+      "business-details-title": "Детали компании",
+      "business-assets-title": "Активы компании"
     },
     "business-viewer": {
-      "add-btn": "Добавить бизнес",
-      "business-added-successfully-notification": "Бизнес успешно добавлен"
+      "add-btn": "Добавить компанию",
+      "business-added-successfully-notification": "Компания успешно добавлена"
     },
     "business-attributes": {
       "id-key": "Идентификатор",
       "owner-key": "Владелец",
       "industry-key": "Индустрия",
-      "my-business-label": "Это ваш бизнес"
+      "my-business-label": "Это ваша компания"
     },
     "businesses-my": {
-      "no-list-title": "Нет бизнесов",
-      "no-list-msg": "Здесь будет список бизнесов, с которыми вы ассоциированы"
+      "no-list-title": "Нет компаний",
+      "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы"
     },
     "current-business-indicator": {
       "browsing-lbl": "Просмотр:"
@@ -1342,11 +1342,11 @@
       "loading-msg": "Загружаем ваши запросы…",
       "loading-error-msg": "Произошла ошибка при загрузке.",
       "details-title": "Запрос на спонсирование",
-      "sponsor-business-header": "Спонсирующий бизнес",
-      "consumer-business-header": "Спонисруемый бизнес",
+      "sponsor-business-header": "Спонсирующая компания",
+      "consumer-business-header": "Спонисруемая компания",
       "sponsor-asset-name-header": "Спонсирующий актив",
-      "sponsor-business-key": "Спонсирующий бизнес",
-      "consumer-business-key": "Спонисруемый бизнес",
+      "sponsor-business-key": "Спонсирующая компания",
+      "consumer-business-key": "Спонисруемая компания",
       "sponsor-asset-name-key": "Спонсирующий актив",
       "amount-key": "Количество",
       "asset-code-header": "Актив",
@@ -1380,7 +1380,7 @@
       "asset-name-th": "Имя актива",
       "number-of-holders-th": "Количество держателей",
       "sponsor-btn": "Спонсировать",
-      "no-data-msg": "У бизнеса еще нет активов.",
+      "no-data-msg": "У компании еще нет активов.",
       "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы."
     },
     "sponsorship-form": {
@@ -1392,7 +1392,7 @@
       "create-contract-successful": "Контракт успешно создан"
     },
     "sponsorship-page": {
-      "businesses-tab": "Бизнесы",
+      "businesses-tab": "Компании",
       "incoming-requests-tab": "Входящие запросы",
       "outgoing-requests-tab": "Исходящие запросы"
     },
@@ -1417,8 +1417,8 @@
       "asset-deleted-msg": "Актив успешно удален"
     },
     "business": {
-      "error-msg": "Невозможно загрузить описание бизнеса.",
-      "error-title": "Нет такого бизнеса",
+      "error-msg": "Невозможно загрузить описание компании.",
+      "error-title": "Нет такой компании",
       "shop": "Магазин",
       "loading-msg": "Загрузка..."
     },
