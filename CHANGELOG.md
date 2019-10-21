@@ -8,8 +8,8 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
-- Clipper field
-- Banner for corporate user
+- A clipper field
+- A banner for corporate user
 
 #### Changed
 - Used clipper field for avatar and banner

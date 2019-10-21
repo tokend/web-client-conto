@@ -3,14 +3,14 @@
     <file-field
       v-if="!isEditorOpened"
       name="clipper-field-img"
-      :value="oldFile"
+      :value="originImg"
       :note="note"
       :document-type="documentType"
       :label="label"
       :min-width="minWidth"
       :min-height="minHeight"
       :disabled="disabled"
-      :file-extensions="fileExtensions"
+      :file-extensions="IMAGE_FILE_EXTENSIONS"
       :max-size="maxSize"
       :error-message="errorMessage"
       @input="tryCropImg"
@@ -78,12 +78,10 @@ export default {
   components: {
     FileField,
   },
-  mixins: [],
   props: {
     value: { type: DocumentContainer, default: null },
     label: { type: String, default: '' },
     documentType: { type: String, default: 'default' },
-    fileExtensions: { type: Array, default: _ => IMAGE_FILE_EXTENSIONS },
     maxSize: { type: Number, default: MAX_FILE_MEGABYTES },
     note: { type: String, default: 'All files' },
     errorMessage: { type: String, default: undefined },
@@ -95,25 +93,20 @@ export default {
   },
   data () {
     return {
-      oldFile: null,
+      IMAGE_FILE_EXTENSIONS,
+      originImg: null,
       imgURL: '',
       resultURL: '',
-      newImg: null,
       isEditorOpened: false,
     }
   },
-  computed: {},
-  watch: {
-  },
   created () {
-    this.oldFile = this.value
-  },
-  destroyed () {
+    this.originImg = this.value
   },
   methods: {
     tryCropImg (value) {
       if (value) {
-        this.oldFile = value
+        this.originImg = value
         if (this.imgURL) URL.revokeObjectURL(this.imgURL)
         this.imgURL = window.URL.createObjectURL(value.file)
         this.isEditorOpened = true
@@ -123,23 +116,23 @@ export default {
     },
     async cropImg () {
       const canvas = this.$refs.clipper.clip() // call component's clip method
-      this.resultURL = canvas.toDataURL(this.oldFile.mimeType, 1)
+      this.resultURL = canvas.toDataURL(this.originImg.mimeType, 1)
       const blob = this.dataURItoBlob(this.resultURL)
-      this.oldFile = new DocumentContainer({
+      this.originImg = new DocumentContainer({
         mimeType: blob.type,
-        name: 'new__' + this.oldFile.name,
+        name: 'new__' + this.originImg.name,
         type: this.documentType,
         file: blob,
       })
       this.isEditorOpened = false
-      this.$emit('input', this.oldFile)
+      this.$emit('input', this.originImg)
     },
     reset () {
       if (this.imgURL) URL.revokeObjectURL(this.imgURL)
       this.imgURL = ''
-      this.oldFile = null
+      this.originImg = null
       this.isEditorOpened = false
-      this.$emit('input', this.oldFile)
+      this.$emit('input', this.originImg)
     },
     dataURItoBlob (dataURI) {
       // convert base64 to raw binary data held in a string
@@ -147,10 +140,8 @@ export default {
       // #6850276 for code that does this
       let byteString = atob(dataURI.split(',')[1])
 
-      // separate out the mime component
       let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
 
-      // write the bytes of the string to an ArrayBuffer
       let ab = new ArrayBuffer(byteString.length)
       let ia = new Uint8Array(ab)
       for (let i = 0; i < byteString.length; i++) {
