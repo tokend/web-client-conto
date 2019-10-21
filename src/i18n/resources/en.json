@@ -117,7 +117,7 @@
       "field-error_minLength": "This field must contain minimum {{minLength}} symbols",
       "field-error_selectedSameAssetCode": "Not allowed duplicated quote asset codes",
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
-      "field-error_emailOrPhoneNumber": "This field should be a valid email or phone number",
+      "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email, phone number or telegram",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists"
@@ -1396,6 +1396,11 @@
       "approved-incoming-msg": "This request was approved",
       "pending-incoming-msg": "This request is waiting for your review. Please approve or reject it",
       "permanently-rejected-incoming-msg": "This request was rejected permanently"
+    },
+    "multiselect-field": {
+      "select-all": "Select all",
+      "all-selected-lable": "All selceted",
+      "select-something-lable": "Select soemthing..."
     },
     "redeem-form": {
       "form-heading": "Redeem",
