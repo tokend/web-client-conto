@@ -10,6 +10,7 @@
       'input-field--phone-number': isPhoneNumberType,
       'input-field--telegram': isTelegramType,
     }"
+    :key="key"
   >
     <input
       v-bind="$attrs"
@@ -91,6 +92,7 @@ export default {
   },
 
   data: () => ({
+    key: '',
     isCapsLockOn: false,
     isPasswordShown: false,
   }),
@@ -102,7 +104,7 @@ export default {
         input: event => {
           this.normalizeTargetValue(event.target)
           if (this.value === event.target.value) return
-          this.$emit(EVENTS.input, event.target.value)
+          this.$emit(EVENTS.input, event.target.value.trim())
         },
       }
     },
@@ -137,6 +139,7 @@ export default {
     },
 
     onBlur (event) {
+      this.key = Math.random()
       if (this.isPasswordType) {
         document.removeEventListener('keydown', this.detectCapsLock)
         document.removeEventListener('keyup', this.detectCapsLock)
