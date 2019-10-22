@@ -168,7 +168,7 @@ export default {
     },
 
     setDefaultAmount () {
-      this.form.amount = this.accountBalance.balance >= 1
+      this.form.amount = +this.accountBalance.balance >= 1
         ? '1'
         : this.accountBalance.balance
     },
