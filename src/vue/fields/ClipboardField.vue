@@ -15,7 +15,6 @@
       <tooltip
         :show="isCopiedTooltipShown"
         :message="'clipboard-field.copied' | globalize"
-        :type="tooltipType"
       >
         <button
           type="button"

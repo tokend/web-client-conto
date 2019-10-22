@@ -29,4 +29,5 @@ export const DOCUMENT_POLICIES = Object.freeze({
   [DOCUMENT_TYPES.assetTerms]: POLICIES.public,
   [DOCUMENT_TYPES.assetLogo]: POLICIES.public,
   [DOCUMENT_TYPES.healthcareDocument]: POLICIES.private,
+  [DOCUMENT_TYPES.bravo]: POLICIES.public,
 })

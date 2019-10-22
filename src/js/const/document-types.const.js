@@ -22,4 +22,5 @@ export const DOCUMENT_TYPES = Object.freeze({
   assetTerms: 'token_terms',
   assetLogo: 'asset_logo',
   healthcareDocument: 'healthcare_document',
+  bravo: 'bravo',
 })
