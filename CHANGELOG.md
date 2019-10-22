@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Changed
+- Max percent discount
+- Validation on promo code form
+
 ## [1.2.0-rc.0] - 2019-10-21
 #### Added
 - A clipper field

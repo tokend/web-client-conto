@@ -120,7 +120,14 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import PromoCodeFormOffersTable from '@/vue/pages/promo-codes/PromoCodeFormOffersTable'
 import Loader from '@/vue/common/Loader'
 
-import { required, integer, minValue, maxValue, maxLength } from '@validators'
+import {
+  required,
+  integer,
+  minValue,
+  maxValue,
+  maxLength,
+  alphaNum,
+} from '@validators'
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 import {
   MAX_INT_32,
@@ -194,6 +201,7 @@ export default {
         code: {
           required,
           maxLength: maxLength(PROMOCODE_MAX_LENGTH),
+          alphaNum,
         },
         description: {
           maxLength: maxLength(DESCRIPTION_MAX_LENGTH),
