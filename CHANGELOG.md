@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - Moved logo and favicon to branding folder
+- Display full price
 
 ### "Under the hood" changes
 #### Added
