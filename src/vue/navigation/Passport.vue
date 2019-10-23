@@ -152,7 +152,7 @@ export default {
     },
 
     companyLink () {
-      return `${window.location.origin}/business/${this.accountId}`
+      return `${window.location.origin}/company/${this.accountId}`
     },
   },
 

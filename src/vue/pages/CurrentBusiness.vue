@@ -21,12 +21,15 @@
               @click="addBusiness"
               :disabled="isSubmitting"
             >
-              {{ 'business-viewer.add-btn' | globalize }}
+              {{ 'current-business.add-btn' | globalize }}
             </button>
           </div>
         </div>
 
-        <div class="current-business__description app__card">
+        <div
+          v-if="business.bannerKey || business.description"
+          class="current-business__description app__card"
+        >
           <business-description
             :business="business"
           />
@@ -34,7 +37,7 @@
 
         <div class="current-business__shop">
           <h1 class="current-business__title">
-            {{ 'business.shop' | globalize }}
+            {{ 'current-business.shop' | globalize }}
           </h1>
         </div>
         <atomic-swaps-explore
@@ -43,14 +46,14 @@
       </template>
       <template v-else-if="!isLoaded && !isFailed">
         <loader
-          :message-id="'business.loading-msg'"
+          :message-id="'current-business.loading-msg'"
         />
       </template>
       <template v-if="isFailed">
         <no-data-message
           icon-name="castle"
-          :title="'business.error-title' | globalize"
-          :message="'business.error-msg' | globalize"
+          :title="'current-business.error-title' | globalize"
+          :message="'current-business.error-msg' | globalize"
         />
       </template>
     </div>
@@ -151,7 +154,8 @@ export default {
           },
         })
 
-        Bus.success('business-viewer.business-added-successfully-notification')
+        await this.getMyBusinesses()
+        Bus.success('current-business.business-added-successfully-notification')
       } catch (error) {
         ErrorHandler.process(error)
       }

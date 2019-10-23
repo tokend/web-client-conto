@@ -1267,6 +1267,14 @@
       "add-btn": "Добавить компанию",
       "business-added-successfully-notification": "Компания успешно добавлена"
     },
+    "current-business": {
+      "add-btn": "Добавить компанию",
+      "business-added-successfully-notification": "Компания успешно добавлена",
+      "shop": "Магазин",
+      "loading-msg": "Загружаем…",
+      "error-title": "Нет такой компании",
+      "error-msg": "Невозможно загрузить описание компании."
+    },
     "business-attributes": {
       "id-key": "Идентификатор",
       "owner-key": "Владелец",

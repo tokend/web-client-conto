@@ -1311,6 +1311,14 @@
       "add-btn": "Add company",
       "business-added-successfully-notification": "Company has been added successfully"
     },
+    "current-business": {
+      "add-btn": "Add company",
+      "business-added-successfully-notification": "Company has been added successfully",
+      "shop": "Shop",
+      "loading-msg": "Loading...",
+      "error-title": "There is no such company",
+      "error-msg": "Can not load company description."
+    },
     "business-attributes": {
       "id-key": "ID",
       "owner-key": "Owner",
