@@ -85,7 +85,6 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccessibleForCorporate || isBusinessToBrowse"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -100,7 +99,7 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccessibleForCorporate || isBusinessToBrowse"
+            v-if="isAccessibleForCorporate"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -115,7 +114,6 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccessibleForCorporate || isBusinessToBrowse"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -229,7 +227,6 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
-      vuexTypes.isBusinessToBrowse,
       vuexTypes.isCustomerUiShown,
     ]),
     isAccessibleForCustomer () {

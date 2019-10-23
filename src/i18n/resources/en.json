@@ -1298,7 +1298,8 @@
     },
     "businesses": {
       "all-tab": "All companies",
-      "my-tab": "My companies"
+      "my-tab": "My companies",
+      "current-tab": "Current company"
     },
     "businesses-all": {
       "no-list-title": "No companies here yet",

@@ -54,7 +54,6 @@
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { Bus } from '@/js/helpers/event-bus'
 import { api } from '@/api'
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
@@ -114,10 +113,12 @@ export default {
       )
     },
 
-    selectItem (item) {
-      Bus.emit('businesses:setCurrentBusiness', {
-        business: item,
-        redirectTo: vueRoutes.assets,
+    async selectItem (item) {
+      await this.$router.push({
+        ...vueRoutes.currentBusiness,
+        params: {
+          id: item.accountId,
+        },
       })
     },
   },

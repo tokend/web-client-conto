@@ -89,7 +89,6 @@ import BusinessAssetsViewer from './businesses-all/BusinessAssetsViewer'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { Bus } from '@/js/helpers/event-bus'
 import { api } from '@/api'
 
 import { BusinessRecord } from '@/js/records/entities/business.record'
@@ -179,18 +178,13 @@ export default {
       )
     },
 
-    selectItem (item) {
-      this.isMyBusiness = this.checkIsMyBusiness(item)
-      // eslint-disable-next-line max-len
-      if (this.isMyBusiness && (this.isCustomerUiShown || this.isAccountGeneral)) {
-        Bus.emit('businesses:setCurrentBusiness', {
-          business: item,
-          redirectTo: vueRoutes.assets,
-        })
-      } else {
-        this.currentBusiness = item
-        this.isDrawerShown = true
-      }
+    async selectItem (item) {
+      await this.$router.push({
+        ...vueRoutes.currentBusiness,
+        params: {
+          id: item.accountId,
+        },
+      })
     },
 
     reloadList () {

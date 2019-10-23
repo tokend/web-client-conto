@@ -1254,7 +1254,8 @@
     },
     "businesses": {
       "all-tab": "Все компании",
-      "my-tab": "Мои компании"
+      "my-tab": "Мои компании",
+      "current-tab": "Текущая компания"
     },
     "businesses-all": {
       "no-list-title": "Нет компаний",

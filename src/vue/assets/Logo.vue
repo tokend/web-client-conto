@@ -20,7 +20,6 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
-      vuexTypes.isBusinessToBrowse,
       vuexTypes.isCustomerUiShown,
     ]),
     logoUrl () {
@@ -29,10 +28,9 @@ export default {
     logoRout () {
       if (this.isAccountCorporate && !this.isCustomerUiShown) {
         return vueRoutes.customers
+      } else {
+        return vueRoutes.businesses
       }
-      return this.isBusinessToBrowse
-        ? vueRoutes.assetsExplore
-        : vueRoutes.businesses
     },
   },
 }
