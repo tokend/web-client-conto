@@ -66,9 +66,13 @@ import { vuexTypes } from '@/vuex'
 import { mapActions, mapGetters } from 'vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
-import { factorsManager } from '@/api'
+import { factorsManager, api, walletsManager } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { errors } from '@tokend/js-sdk'
+import { errors, Wallet } from '@tokend/js-sdk'
+
+const EVENT = {
+  error: 'error',
+}
 
 export default {
   name: 'login-form',
@@ -102,6 +106,7 @@ export default {
       logInAccount: vuexTypes.LOG_IN,
       loadAssets: vuexTypes.LOAD_ASSETS,
       loadBusinessStatsQuoteAsset: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
+      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
     }),
     async submit () {
       if (!this.isFormValid()) return
@@ -109,20 +114,34 @@ export default {
       this.isSubmitting = true
       try {
         await this.verifyTfaFactor()
-        await this.logInAccount({
-          email: this.form.email.toLowerCase(),
-          password: this.form.password,
-        })
-        await this.loadAssets()
-        await this.loadBusinessStatsQuoteAsset()
-        await this.$router.push({ name: 'app' })
+        const isDefaultLogin = await this.isDefaultLogin()
+        if (isDefaultLogin) {
+          await this.defaultLogin()
+        } else {
+          await this.recovery()
+        }
       } catch (e) {
         this.processAuthError(e)
         this.enableForm()
         this.isSubmitting = false
       }
-      this.enableForm()
-      this.isSubmitting = false
+    },
+    async isDefaultLogin () {
+      const kdfParams = await this.getKdfParams(this.form.email)
+      if (kdfParams) {
+        const walletResponse = await this.getWallet(
+          this.form.email,
+          this.form.password,
+          kdfParams
+        )
+        if (walletResponse === 404) {
+          return false
+        } else {
+          return true
+        }
+      } else {
+        return true
+      }
     },
     async verifyTfaFactor () {
       if (this.tfaError) {
@@ -162,6 +181,80 @@ export default {
           break
         default:
           ErrorHandler.process(error)
+      }
+    },
+    async getKdfParams (email) {
+      try {
+        const { data } = await api.get('/kdf', {
+          email,
+          is_recovery: true,
+        })
+        return data
+      } catch (e) {
+      }
+    },
+    async getWallet (email, password, kdfParams) {
+      try {
+        const walletId = Wallet.deriveId(
+          email, password, kdfParams, kdfParams.salt
+        )
+        const walletResponse = await api.get(`/wallets/${walletId}`)
+        return walletResponse
+      } catch (e) {
+        if (+e.httpStatus === 404) {
+          return 404
+        } else {
+          return 'error'
+        }
+      }
+    },
+    async defaultLogin () {
+      try {
+        await this.logInAccount({
+          email: this.form.email.toLowerCase(),
+          password: this.form.password,
+        })
+        await this.loadAssets()
+        await this.loadBusinessStatsQuoteAsset()
+        await this.$router.push({ name: 'app' }, () => {})
+      } catch (e) {
+        this.processAuthError(e)
+        this.enableForm()
+        this.isSubmitting = false
+      }
+      this.enableForm()
+      this.isSubmitting = false
+    },
+    async recovery () {
+      try {
+        await walletsManager.kycRecovery(
+          this.form.email.toLowerCase(),
+          this.form.password
+        )
+
+        await this.logInAccount({
+          email: this.form.email,
+          password: this.form.password,
+        })
+        await this.sendKycRecoveryRequest()
+        await this.logInAccount({
+          email: this.form.email,
+          password: this.form.password,
+        })
+        location.reload()
+      } catch (e) {
+        switch (e.constructor) {
+          case errors.TFARequiredError:
+            this.$emit(EVENT.error, {
+              error: e,
+              password: this.form.password,
+              email: this.form.email,
+            })
+            break
+          default:
+            this.enableForm()
+            ErrorHandler.process(e)
+        }
       }
     },
   },

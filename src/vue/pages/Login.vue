@@ -13,7 +13,14 @@
       </template>
 
       <template v-else>
-        <login-form />
+        <login-recovery-form-with-kyc
+          v-if="isWalletRecoveryTfaCodeFormDisplay"
+          :error-password-email="recoveryError"
+        />
+        <login-form
+          v-else
+          @error="checkError"
+        />
 
         <div class="auth-page__tips">
           <div class="auth-page__tip">
@@ -43,6 +50,7 @@
 <script>
 import LoginForm from '@/vue/forms/LoginForm'
 import Loader from '@/vue/common/Loader'
+import LoginRecoveryFormWithKyc from '@/vue/forms/LoginRecoveryFormWithKyc'
 
 import { vueRoutes } from '@/vue-router/routes'
 import { Bus } from '@/js/helpers/event-bus'
@@ -55,10 +63,13 @@ export default {
   components: {
     LoginForm,
     Loader,
+    LoginRecoveryFormWithKyc,
   },
   data: _ => ({
     vueRoutes,
     isVerifyingEmail: false,
+    isWalletRecoveryTfaCodeFormDisplay: false,
+    recoveryError: {},
   }),
   async created () {
     try {
@@ -73,6 +84,12 @@ export default {
     } catch (e) {
       ErrorHandler.processWithoutFeedback(e)
     }
+  },
+  methods: {
+    checkError (error) {
+      this.recoveryError = error
+      this.isWalletRecoveryTfaCodeFormDisplay = true
+    },
   },
 }
 </script>
