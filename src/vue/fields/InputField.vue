@@ -88,6 +88,7 @@ export default {
     errorMessage: { type: String, default: undefined },
     whiteAutofill: { type: Boolean, default: true },
     type: { type: String, default: undefined },
+    trim: { type: Boolean, default: true },
   },
 
   data: () => ({
@@ -142,6 +143,10 @@ export default {
         document.removeEventListener('keyup', this.detectCapsLock)
 
         if (!this.value) this.isCapsLockOn = false
+      }
+
+      if (this.trim) {
+        this.$emit(EVENTS.input, event.target.value.trim())
       }
     },
 

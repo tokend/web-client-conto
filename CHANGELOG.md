@@ -8,6 +8,7 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
+- Trim for input field 
 - Redeem default amount
 
 #### Changed
