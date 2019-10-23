@@ -9,6 +9,15 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Trim for input field 
+- Redeem default amount
+
+#### Changed
+- Moved logo and favicon to branding folder
+- Display full price
+
+### "Under the hood" changes
+#### Added
+- `APP_NAME` in config
 
 ## [1.2.0-rc.0] - 2019-10-21
 #### Added
@@ -21,6 +30,9 @@ for further information about branching and tagging conventions.
 #### Changed
 - Used clipper field for avatar and banner
 - Used banner in business page
+
+#### Changed
+- Color scheme improvements
 
 #### Fixed
 - A bug when drop down go out of page boundaries

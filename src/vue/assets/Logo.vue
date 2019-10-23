@@ -1,19 +1,22 @@
 <template>
   <router-link class="logotype" :to="logoRout">
-    <img :src="logoUrl" alt="Conto">
+    <img :src="logoUrl" :alt="config.APP_NAME">
   </router-link>
 </template>
 
 <script>
+import config from '@/config'
+
 import { vueRoutes } from '@/vue-router/routes'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 
-const DEFAULT_LOGO_URL = '/static/conto-logo.png'
+const DEFAULT_LOGO_URL = '/static/branding/logo.png'
 
 export default {
   data: _ => ({
     vueRoutes,
+    config,
   }),
 
   computed: {

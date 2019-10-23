@@ -109,7 +109,7 @@ export default {
 .business-attributes__name {
   font-size: 1.8rem;
   font-weight: 700;
-  color: $col-primary;
+  color: $col-text;
 }
 
 .business-attributes__table {
@@ -124,6 +124,6 @@ export default {
   margin-top: 0.1rem;
   font-size: 1.4rem;
   line-height: 1.29;
-  color: $col-primary;
+  color: $col-text;
 }
 </style>

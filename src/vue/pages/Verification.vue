@@ -42,7 +42,8 @@
               {{ 'verification-page.account-type-corporate-description' | globalize }}
             </p>
             <div class="account-type-selector__selected-icon">
-              <i class="mdi mdi-check" />
+              <!-- eslint-disable-next-line max-len -->
+              <i class="mdi mdi-check account-type-selector__selected-icon-tag" />
             </div>
           </router-link>
         </div>
@@ -182,7 +183,7 @@ export default {
 @import '~@scss/mixins';
 
 .verification__subtitle {
-  color: $col-primary;
+  color: $col-text;
   font-size: 1.3rem;
   margin-top: 4rem;
 }
@@ -219,11 +220,11 @@ export default {
 }
 
 .router-link-exact-active {
-  border: 0.2rem solid $col-primary-lighten;
+  border: 0.2rem solid $col-btn;
 }
 
 .account-type-selector__item-title {
-  color: $col-primary;
+  color: $col-text;
   font-size: 1.8rem;
 }
 
@@ -239,7 +240,7 @@ export default {
   height: 2.4rem;
   padding: 0.2rem;
   background-color: $col-block-bg;
-  border: 0.2rem solid $col-primary-lighten;
+  border: 0.2rem solid $col-btn;
   border-radius: 2rem;
   top: -1.2rem;
   right: -1.2rem;
@@ -253,7 +254,7 @@ export default {
 
 .account-type-selector__selected-icon-tag {
   font-size: 1.6rem;
-  color: $col-primary-lighten;
+  color: $col-btn;
 }
 
 .verification__form-label {
