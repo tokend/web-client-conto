@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [1.2.0-x.2] - 2019-10-23
+
 ## [1.2.0-x.1] - 2019-10-23
 #### Added
 - Redeem default amount
@@ -353,7 +355,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.2.0-x.1...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.2.0-x.2...HEAD
+[1.2.0-x.2]: https://github.com/tokend/web-client/compare/1.2.0-x.1...1.2.0-x.2
 [1.2.0-x.1]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...1.2.0-x.1
 [1.2.0-rc.0]: https://github.com/tokend/web-client/compare/1.1.0...1.2.0-rc.0
 [1.1.0]: https://github.com/tokend/web-client/compare/1.1.0-rc.3...1.1.0
