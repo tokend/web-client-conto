@@ -17,6 +17,9 @@ for further information about branching and tagging conventions.
 - Max percent discount
 - Validation on promo code form
 
+#### Fixed
+- A bug with trim in input fields with type 'password'
+
 ### "Under the hood" changes
 #### Added
 - `APP_NAME` in config
