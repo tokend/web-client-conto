@@ -63,16 +63,22 @@
 
         <div class="passport__dropdown-actions-wrp">
           <button
-            class="app__button-flat
-                   passport__dropdown-btn"
+            v-if="isAccountCorporate && !isCustomerUiShown"
+            class="passport__dropdown-btn app__button-flat"
+            @click="openCompanyPage"
+          >
+            {{ 'passport.company-btn' | globalize }}
+          </button>
+
+          <button
+            class="app__button-flat passport__dropdown-btn"
             @click="goSettings"
           >
             {{ 'passport.settings-btn' | globalize }}
           </button>
 
           <button
-            class="app__button-flat
-                   passport__dropdown-btn"
+            class="app__button-flat passport__dropdown-btn"
             @click="logOut"
           >
             {{ 'passport.sign-out-btn' | globalize }}
@@ -84,13 +90,14 @@
 </template>
 
 <script>
+import config from '@/config'
+import SwitchField from '@/vue/fields/SwitchField'
+
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { vueRoutes } from '@/vue-router/routes'
 import { handleClickOutside } from '@/js/helpers/handle-click-outside'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import config from '@/config'
-import SwitchField from '@/vue/fields/SwitchField'
 
 export default {
   name: 'passport',
@@ -142,6 +149,10 @@ export default {
       return this.kycAvatarKey
         ? `${config.FILE_STORAGE}/${this.kycAvatarKey}`
         : ''
+    },
+
+    companyLink () {
+      return `${window.location.origin}/business/${this.accountId}`
     },
   },
 
@@ -211,6 +222,11 @@ export default {
     async goSettings () {
       this.closeDropdown()
       await this.$router.push(vueRoutes.settings)
+    },
+
+    openCompanyPage () {
+      this.closeDropdown()
+      window.open(this.companyLink, '_blank')
     },
 
     async toggleCustomerUi (isShow) {

@@ -457,7 +457,7 @@
     },
     "auth-pages": {
       "small-title": "Create, distribute and trade",
-      "big-title": "Business in <br> your <br> smartphone",
+      "big-title": "Company in <br> your <br> smartphone",
       "email": "Email",
       "code": "Code",
       "password": "Password",
@@ -493,7 +493,7 @@
     "settings-page": {
       "verification-tab": "Verification",
       "security-tab": "General",
-      "my-account-tab": "Business"
+      "my-account-tab": "Company"
     },
     "security-page": {
       "enable-tfa-title": "Enable 2FA",
@@ -513,7 +513,10 @@
       "add-phone-number-btn": "Add phone number",
       "add-telegram-title": "Add telegram username",
       "add-telegram-btn": "Add telegram username",
-      "default-quote-asset-title": "Default quote asset"
+      "default-quote-asset-title": "Default quote asset",
+      "company-link-title": "Company link",
+      "view-company-link-btn": "View company link",
+      "company-link-label": "Company link"
     },
     "phone-number-form": {
       "phone-number-lbl": "Phone number",
@@ -566,7 +569,7 @@
       "loading-error-msg": "There was an error while loading.",
       "account-type-lbl": "Account type",
       "account-type-general-title": "General",
-      "account-type-corporate-title": "Business",
+      "account-type-corporate-title": "Company",
       "account-type-corporate-description": "Invite customers, create assets",
       "account-type-general-description": "Transfer assets"
     },
@@ -617,7 +620,8 @@
       "website-lbl": "Website (Optional)",
       "request-submitted-msg": "Your request has been submitted successfully",
       "card-number-lbl": "Card number (Optional)",
-      "invitation-code-lbl": "Invitation code (Optional)"
+      "invitation-code-lbl": "Invitation code (Optional)",
+      "banner-lbl": "Banner (Optional)"
     },
     "input-field": {
       "caps-lock-warning": "Warning: Caps-Lock is ON"
@@ -635,7 +639,7 @@
       "register-of-shares": "History",
       "customers": "Customers",
       "customers-list": "Customers list",
-      "businesses": "Businesses",
+      "businesses": "Companies",
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
       "kyc-recovery": "KYC Recovery",
@@ -643,7 +647,7 @@
     },
     "passport": {
       "account-unverified": "General account",
-      "account-corporate": "Business account",
+      "account-corporate": "Company account",
       "account-us-accredited": "Verified accredited investor (US)",
       "account-us-verified": "Verified account (US)",
       "account-general": "General account",
@@ -653,12 +657,13 @@
       "sign-out-btn": "Sign out",
       "balances-subheading": "Balances",
       "show-more-link": "Show more",
-      "customer-ui-switch": "Customer"
+      "customer-ui-switch": "Customer",
+      "company-btn": "Company"
     },
     "sidebar": {
       "section-explore": "Explorations",
       "section-account": "My account",
-      "section-corporate": "Business"
+      "section-corporate": "Company"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -1046,6 +1051,10 @@
       "invalid-dimensions-err": "You cannot upload an image with dimensions less than {{minWidth}}x{{minHeight}}",
       "disabled-msg": "This field is disabled"
     },
+    "clipper-field": {
+      "save-lbl": "Save",
+      "cancel-lbl": "Cancel"
+    },
     "whitelist-invite-form": {
       "email-lbl": "User's email",
       "invite-btn": "Invite client",
@@ -1288,28 +1297,28 @@
       "customer-drawer-title": "View customer"
     },
     "businesses": {
-      "all-tab": "All businesses",
-      "my-tab": "My businesses"
+      "all-tab": "All companies",
+      "my-tab": "My companies"
     },
     "businesses-all": {
-      "no-list-title": "No businesses here yet",
-      "no-list-msg": "Here will be the list of businesses",
-      "business-details-title": "Business details",
-      "business-assets-title": "Business assets"
+      "no-list-title": "No companies here yet",
+      "no-list-msg": "Here will be the list of companies",
+      "business-details-title": "Company details",
+      "business-assets-title": "Company assets"
     },
     "business-viewer": {
-      "add-btn": "Add business",
-      "business-added-successfully-notification": "Business has been added successfully"
+      "add-btn": "Add company",
+      "business-added-successfully-notification": "Company has been added successfully"
     },
     "business-attributes": {
       "id-key": "ID",
       "owner-key": "Owner",
       "industry-key": "Industry",
-      "my-business-label": "It's your business"
+      "my-business-label": "It's your company"
     },
     "businesses-my": {
-      "no-list-title": "No businesses here yet",
-      "no-list-msg": "Here will be the list of businesses associated with you"
+      "no-list-title": "No companies here yet",
+      "no-list-msg": "Here will be the list of companies associated with you"
     },
     "current-business-indicator": {
       "browsing-lbl": "Browsing:"
@@ -1338,12 +1347,12 @@
       "loading-msg": "Loading sponsorship requests…",
       "loading-error-msg": "There was an error while loading.",
       "details-title": "Sponsorship request",
-      "sponsor-business-header": "Sponsor business",
-      "consumer-business-header": "Consumer business",
-      "sponsor-asset-name-header": "Business asset name",
-      "sponsor-business-key": "Sponsor business",
-      "consumer-business-key": "Consumer business",
-      "sponsor-asset-name-key": "Business asset name",
+      "sponsor-business-header": "Sponsor company",
+      "consumer-business-header": "Consumer company",
+      "sponsor-asset-name-header": "Company asset name",
+      "sponsor-business-key": "Sponsor company",
+      "consumer-business-key": "Consumer company",
+      "sponsor-asset-name-key": "Company asset name",
       "amount-key": "Amount",
       "asset-code-header": "Asset code",
       "amount-header": "Amount",
@@ -1376,7 +1385,7 @@
       "asset-name-th": "Asset name",
       "number-of-holders-th": "Number of holders",
       "sponsor-btn": "Sponsor",
-      "no-data-msg": "Business don't have any assets yet.",
+      "no-data-msg": "Company don't have any assets yet.",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue."
     },
     "sponsorship-form": {
@@ -1388,7 +1397,7 @@
       "create-contract-successful": "Contract created successfully"
     },
     "sponsorship-page": {
-      "businesses-tab": "Businesses",
+      "businesses-tab": "Companies",
       "incoming-requests-tab": "Incoming requests",
       "outgoing-requests-tab": "Outgoing requests"
     },
@@ -1413,8 +1422,8 @@
       "asset-deleted-msg": "Asset successfully deleted"
     },
     "business": {
-      "error-msg": "Can not load business description.",
-      "error-title": "There is no such business",
+      "error-msg": "Can not load company description.",
+      "error-title": "There is no such company",
       "shop": "Shop",
       "loading-msg": "Loading..."
     },

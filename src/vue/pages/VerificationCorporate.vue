@@ -21,22 +21,35 @@
           />
         </div>
       </div>
-
-      <div
-        v-if="!isKycRecoveryPage"
-        class="app__form-row"
-      >
-        <div class="app__form-field">
-          <file-field
-            v-model="form.avatar"
-            name="verification-corporate-avatar"
-            :note="'verification-form.image-type-note' | globalize"
-            :document-type="DOCUMENT_TYPES.kycAvatar"
-            :label="'verification-form.avatar-lbl' | globalize"
-            :disabled="formMixin.isDisabled"
-          />
+      <template v-if="!isKycRecoveryPage">
+        <div class="app__form-row">
+          <div class="app__form-field">
+            <clipper-field
+              v-model="form.avatar"
+              name="verification-corporate-avatar"
+              :note="'verification-form.image-type-note' | globalize"
+              :document-type="DOCUMENT_TYPES.kycAvatar"
+              :label="'verification-form.avatar-lbl' | globalize"
+              :disabled="formMixin.isDisabled"
+              :ratio="1"
+            />
+          </div>
         </div>
-      </div>
+
+        <div class="app__form-row">
+          <div class="app__form-field">
+            <clipper-field
+              v-model="form.banner"
+              name="verification-corporate-avatar"
+              :note="'verification-form.image-type-note' | globalize"
+              :document-type="DOCUMENT_TYPES.bravo"
+              :label="'verification-form.banner-lbl' | globalize"
+              :disabled="formMixin.isDisabled"
+              :ratio="3/1"
+            />
+          </div>
+        </div>
+      </template>
 
       <div class="app__form-row">
         <div class="app__form-field">
@@ -104,7 +117,7 @@
 
       <div class="app__form-row">
         <div class="app__form-field">
-          <span>
+          <span class="verification-corporate-form__account-description-title">
             {{ 'verification-form.description-lbl' | globalize }}
           </span>
           <markdown-field v-model="form.description" />
@@ -146,7 +159,7 @@ import { REQUEST_STATES_STR } from '@/js/const/request-states.const'
 
 import { BLOB_TYPES } from '@tokend/js-sdk'
 
-import { uploadDocument } from '@/js/helpers/upload-documents'
+import { uploadDocuments } from '@/js/helpers/upload-documents'
 import { DocumentContainer } from '@/js/helpers/DocumentContainer'
 
 import { Bus } from '@/js/helpers/event-bus'
@@ -175,6 +188,7 @@ export default {
     form: {
       company: '',
       avatar: null,
+      banner: null,
       headquarters: '',
       industry: '',
       website: '',
@@ -246,7 +260,13 @@ export default {
       this.isFormSubmitting = true
 
       try {
-        if (!this.isKycRecoveryPage) await uploadDocument(this.form.avatar)
+        if (!this.isKycRecoveryPage) {
+          const documents = [
+            this.form.avatar,
+            this.form.banner,
+          ]
+          await uploadDocuments(documents)
+        }
 
         const kycBlobId = await this.createKycBlob(BLOB_TYPES.kycCorporate)
 
@@ -293,6 +313,9 @@ export default {
           [DOCUMENT_TYPES.kycAvatar]: this.form.avatar
             ? this.form.avatar.getDetailsForSave()
             : EMPTY_DOCUMENT,
+          [DOCUMENT_TYPES.bravo]: this.form.banner
+            ? this.form.banner.getDetailsForSave()
+            : EMPTY_DOCUMENT,
         },
         bank_account: this.form.cardNumber ? this.form.cardNumber : null,
         invite: this.form.invite,
@@ -304,6 +327,14 @@ export default {
         company: kycData.company,
         avatar: _get(kycData, `documents.${DOCUMENT_TYPES.kycAvatar}.key`)
           ? new DocumentContainer(kycData.documents[DOCUMENT_TYPES.kycAvatar])
+          : null,
+        banner: _get(
+          kycData,
+          `documents.${DOCUMENT_TYPES.bravo}.key`
+        )
+          ? new DocumentContainer(
+            kycData.documents[DOCUMENT_TYPES.bravo]
+          )
           : null,
         headquarters: kycData.headquarters,
         industry: kycData.industry,
@@ -339,7 +370,11 @@ export default {
 }
 
 .verification-corporate-form__account-info-title {
-  color: $col-primary;
+  color: $col-text;
   font-size: 1.3rem;
+}
+
+.verification-corporate-form__account-description-title {
+  color: $col-text;
 }
 </style>

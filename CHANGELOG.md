@@ -8,20 +8,37 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
+- Redeem default amount
+
+#### Changed
+- Moved logo and favicon to branding folder
+
+### "Under the hood" changes
+#### Added
+- `APP_NAME` in config
+
+## [1.2.0-rc.0] - 2019-10-21
+#### Added
+- A clipper field
+- A banner for corporate user
 - Filter balances for customers
 - Promo codes
+- Company link
+
+#### Changed
+- Used clipper field for avatar and banner
+- Used banner in business page
+
+#### Changed
+- Color scheme improvements
 
 #### Fixed
 - A bug when drop down go out of page boundaries
 - A bug with incorrect error message after enterring recipient email on transfer form
 - A bug when the user can not enter a value in input-field with type 'number' on Firefox
 
-### "Under the hood" changes
-#### Added
-- `APP_NAME` in config
-
 #### Changed
-- Moved logo and favicon to branding folder
+- Renamed business to companies
 
 ## [1.1.0] - 2019-10-12
 
@@ -335,7 +352,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...HEAD
+[1.2.0-rc.0]: https://github.com/tokend/web-client/compare/1.1.0...1.2.0-rc.0
 [1.1.0]: https://github.com/tokend/web-client/compare/1.1.0-rc.3...1.1.0
 [1.1.0-rc.3]: https://github.com/tokend/web-client/compare/1.1.0-rc.2...1.1.0-rc.3
 [1.1.0-rc.2]: https://github.com/tokend/web-client/compare/1.1.0-rc.1...1.1.0-rc.2

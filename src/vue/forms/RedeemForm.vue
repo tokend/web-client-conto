@@ -64,7 +64,7 @@ export default {
   data () {
     return {
       form: {
-        amount: 0,
+        amount: '',
       },
       reddemQrCodeValue: '',
     }
@@ -88,6 +88,14 @@ export default {
     isAmountMoreThanZero () {
       return +this.form.amount > 0
     },
+  },
+
+  created () {
+    this.setDefaultAmount()
+
+    if (this.isAmountMoreThanZero) {
+      this.generateQrCode()
+    }
   },
 
   beforeDestroy () {
@@ -157,6 +165,12 @@ export default {
     getRandomSalt () {
       const n = Math.random() * Number(MAX_INT_32)
       return n.toFixed()
+    },
+
+    setDefaultAmount () {
+      this.form.amount = +this.accountBalance.balance >= 1
+        ? '1'
+        : this.accountBalance.balance
     },
   },
 }
