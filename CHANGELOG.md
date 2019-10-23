@@ -14,6 +14,8 @@ for further information about branching and tagging conventions.
 #### Changed
 - Moved logo and favicon to branding folder
 - Display full price
+- Max percent discount
+- Validation on promo code form
 
 ### "Under the hood" changes
 #### Added

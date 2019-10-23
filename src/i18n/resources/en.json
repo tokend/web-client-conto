@@ -121,7 +121,6 @@
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists"
-
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
