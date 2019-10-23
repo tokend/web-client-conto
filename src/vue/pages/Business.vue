@@ -17,8 +17,8 @@
           class="business__login-link"
           :to="vueRoutes.login"
         >
-          <img class="business__logo" src="/static/conto-logo.png">
-          <img class="business__small-logo" src="/static/favicon-conto.png">
+          <img class="business__logo" src="/static/branding/logo.png">
+          <img class="business__small-logo" src="/static/branding/favicon.png">
         </router-link>
       </div>
       <template v-if="isLoaded">

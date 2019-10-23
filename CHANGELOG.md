@@ -10,6 +10,13 @@ for further information about branching and tagging conventions.
 #### Added
 - Redeem default amount
 
+#### Changed
+- Moved logo and favicon to branding folder
+
+### "Under the hood" changes
+#### Added
+- `APP_NAME` in config
+
 ## [1.2.0-rc.0] - 2019-10-21
 #### Added
 - A clipper field
