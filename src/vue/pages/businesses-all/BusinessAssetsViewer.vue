@@ -174,7 +174,7 @@ export default {
 
 .business-assets-viewer__sponsor-btn {
   font-size: 1.2rem;
-  color: $col-primary-lighten;
+  color: $col-btn;
 }
 
 .business-assets-viewer__asset-name {

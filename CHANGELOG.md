@@ -18,6 +18,9 @@ for further information about branching and tagging conventions.
 - Used clipper field for avatar and banner
 - Used banner in business page
 
+#### Changed
+- Color scheme improvements
+
 #### Fixed
 - A bug when drop down go out of page boundaries
 - A bug with incorrect error message after enterring recipient email on transfer form
