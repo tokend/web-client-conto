@@ -122,6 +122,7 @@ export default {
   },
 
   async created () {
+    this.setAppTitle()
     await this.initApp()
 
     this.startIdle()
@@ -191,6 +192,10 @@ export default {
     async updateAccountRole () {
       this.accountRole = ((this.account || {}).role || {}).id || ''
     },
+
+    setAppTitle () {
+      document.title = config.APP_NAME
+    },
   },
 }
 </script>
@@ -258,7 +263,7 @@ export default {
 
 .app__warning-message-link {
   margin-left: 0.4rem;
-  color: $col-primary-txt;
+  color: $col-message-box-text;
   font-size: 1.6rem;
 }
 </style>

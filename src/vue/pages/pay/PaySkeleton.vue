@@ -109,7 +109,7 @@ $media-small-desktop: 960px;
 .pay-skeleton__asset-name {
   font-size: 1.8rem;
   font-weight: 700;
-  color: $col-primary;
+  color: $col-text;
   margin-left: 1.8rem;
   min-width: 10rem;
 }

@@ -12,7 +12,11 @@
             @blur="touchField('form.email')"
             name="pay-email"
             :disabled="isLoggedIn"
-            :label="'pay-form.email-lbl' | globalize"
+            :label="'pay-form.email-lbl' | globalize(
+              {
+                appName: config.APP_NAME,
+              }
+            )"
             :error-message="getFieldErrorMessage('form.email')"
           />
         </div>
@@ -41,6 +45,8 @@ import FormMixin from '@/vue/mixins/form.mixin'
 import BuyAtomicSwapForm from '@/vue/forms/BuyAtomicSwapForm'
 import AddressViewer from '@/vue/common/address-viewer'
 import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
+import config from '@/config'
+
 import { required, email } from '@validators'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
@@ -71,6 +77,7 @@ export default {
         endTime: -1,
         amount: '',
       },
+      config,
     }
   },
 
