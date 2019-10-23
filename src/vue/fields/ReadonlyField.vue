@@ -43,6 +43,7 @@ export default {
 .readonly-field__label,
 .readonly-field__value {
   font-size: 1.6rem;
+  color: $col-text;
 }
 
 .readonly-field__err-mes {

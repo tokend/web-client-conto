@@ -37,6 +37,7 @@ $x-large: 1920px;
   border-radius: 50%;
   transition: 0.3s ease-out;
   box-sizing: content-box;
+  color: $col-btn;
 
   &:not([disabled]):hover {
     background-color: $col-button-flat-hover;

@@ -7,8 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
+#### Added
+- Trim for input field 
+- Redeem default amount
+
+#### Changed
+- Moved logo and favicon to branding folder
+- Display full price
+- Max percent discount
+- Validation on promo code form
+
 #### Fixed
-- A bug with trim in input fields
+- A bug with trim in input fields with type 'password'
+
+### "Under the hood" changes
+#### Added
+- `APP_NAME` in config
 
 ## [1.2.0-rc.0] - 2019-10-21
 #### Added
@@ -21,6 +35,9 @@ for further information about branching and tagging conventions.
 #### Changed
 - Used clipper field for avatar and banner
 - Used banner in business page
+
+#### Changed
+- Color scheme improvements
 
 #### Fixed
 - A bug when drop down go out of page boundaries

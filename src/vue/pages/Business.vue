@@ -6,7 +6,10 @@
           <h1 class="business__title">
             {{ business.name }}
           </h1>
-          <h3 v-if="business.industry">
+          <h3
+            v-if="business.industry"
+            class="business__industry"
+          >
             {{ business.industry }}
           </h3>
         </div>
@@ -14,8 +17,8 @@
           class="business__login-link"
           :to="vueRoutes.login"
         >
-          <img class="business__logo" src="/static/conto-logo.png">
-          <img class="business__small-logo" src="/static/favicon-conto.png">
+          <img class="business__logo" src="/static/branding/logo.png">
+          <img class="business__small-logo" src="/static/branding/favicon.png">
         </router-link>
       </div>
       <template v-if="isLoaded">
@@ -227,5 +230,9 @@ export default {
     margin-top: 2.4rem;
     padding: 0 1.6rem;
     width: 100%;
+  }
+
+  .business__industry {
+    color: $col-text;
   }
 </style>
