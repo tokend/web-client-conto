@@ -42,7 +42,7 @@ export default {
 }
 
 .verification-general-form__account-info-title {
-  color: $col-primary;
+  color: $col-text;
   font-size: 1.3rem;
 }
 

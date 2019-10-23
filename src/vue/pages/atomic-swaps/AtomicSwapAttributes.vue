@@ -97,6 +97,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@scss/variables';
+
 .atomic-swap-attributes__quote-asset-header {
   margin: 2rem 0;
 }

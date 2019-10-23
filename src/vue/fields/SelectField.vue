@@ -176,6 +176,7 @@ export default {
   border: none;
   padding: $field-input-padding;
   padding-right: 2.4rem;
+  color: $field-color-text;
 
   @include material-border(
     $field-color-focused,
@@ -243,6 +244,7 @@ export default {
   text-overflow: ellipsis;
   text-align: left;
   background-color: transparent;
+  color: $field-color-text;
 }
 
 .select-field__option--focused {
