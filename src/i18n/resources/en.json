@@ -1488,7 +1488,8 @@
     },
     "movements-top-bar": {
       "business-filter-prefix": "Company:",
-      "asset-filter-prefix": "Asset:"
+      "asset-filter-prefix": "Asset:",
+      "all-option": "All"
     }
   }
 }

@@ -98,6 +98,9 @@ export const getters = {
       getters[vuexTypes.accountBalances]
         .filter(item => item.asset.isTransferable)
         .filter(item => item.asset.owner === accountId),
+  [vuexTypes.transferableAssetsBalances]: (a, getters) =>
+    getters[vuexTypes.accountBalances]
+      .filter(item => item.asset.isTransferable),
   [vuexTypes.accountBalanceByCode]: state => code => state.balancesDetails
     .map(item => new BalanceRecord(item, item.balance.asset.trailingDigits))
     .find(i => i.asset.code === code) || {},

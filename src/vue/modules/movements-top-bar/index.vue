@@ -17,6 +17,11 @@
                 class="app__select app__select--no-border"
               >
                 <option
+                  value="all"
+                >
+                  {{ 'movements-top-bar.all-option' | globalize }}
+                </option>
+                <option
                   v-for="business in myBusinesses"
                   :key="business.accountId"
                   :value="business.accountId"
@@ -35,6 +40,7 @@
               <select-field
                 :value="assetCode"
                 @input="setAssetCode"
+                :key="`${businessOwnerId}-${assetCode}`"
                 class="app__select app__select--no-border"
               >
                 <option
@@ -115,7 +121,7 @@ export default {
     isInitialized: false,
     isTransferDrawerShown: false,
     assetCode: '',
-    businessOwnerId: '',
+    businessOwnerId: 'all',
     EVENTS,
     ASSET_POLICIES_STR,
     isHaveBalance: true,
@@ -134,7 +140,12 @@ export default {
 
     assets () {
       if (this.isCustomerUiShown) {
-        return this.balancesAssetsByOwner(this.businessOwnerId)
+        if (this.businessOwnerId === 'all') {
+          // eslint-disable-next-line max-len
+          return this.myBusinesses.flatMap(business => this.balancesAssetsByOwner(business.accountId))
+        } else {
+          return this.balancesAssetsByOwner(this.businessOwnerId)
+        }
       } else {
         return this.ownedAssets
       }
@@ -168,8 +179,9 @@ export default {
   async created () {
     await this.loadMyBusinesses()
     await this.loadAccountBalancesDetails()
-    if (this.isBusinessesExists) {
-      this.businessOwnerId = this.myBusinesses[0].accountId
+
+    if (this.isBusinessesExists && this.isAssetsExists) {
+      this.assetCode = this.assets[0].code
     } else {
       this.$emit(EVENTS.showNoDataMessage)
     }
