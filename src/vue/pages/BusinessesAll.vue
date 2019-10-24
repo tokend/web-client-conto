@@ -87,7 +87,7 @@ import BusinessAttributes from './businesses-all/BusinessAttributes'
 import BusinessAssetsViewer from './businesses-all/BusinessAssetsViewer'
 
 import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 
@@ -112,7 +112,6 @@ export default {
     return {
       isLoading: false,
       list: [],
-      myBusiness: [],
       isDrawerShown: false,
       currentBusiness: {},
       isMyBusiness: false,
@@ -124,6 +123,7 @@ export default {
       accountId: vuexTypes.accountId,
       isCustomerUiShown: vuexTypes.isCustomerUiShown,
       isAccountGeneral: vuexTypes.isAccountGeneral,
+      myBusinesses: vuexTypes.myBusinesses,
     }),
 
     isBusinessOwner () {
@@ -132,10 +132,14 @@ export default {
   },
 
   async created () {
-    await this.getMyBusiness()
+    await this.loadMyBusinesses()
   },
 
   methods: {
+    ...mapActions({
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+    }),
+
     async getList () {
       this.isLoading = true
 
@@ -151,18 +155,8 @@ export default {
       return result
     },
 
-    async getMyBusiness () {
-      try {
-        const endpoint = `/integrations/dns/clients/${this.accountId}/businesses`
-        const { data } = await api.getWithSignature(endpoint)
-        this.myBusiness = data.map(i => new BusinessRecord(i))
-      } catch (error) {
-        ErrorHandler.processWithoutFeedback(error)
-      }
-    },
-
     checkIsMyBusiness (currentBusiness) {
-      return Boolean(this.myBusiness.find(business => {
+      return Boolean(this.myBusinesses.find(business => {
         return business.id === currentBusiness.id
       })
       )
@@ -194,7 +188,7 @@ export default {
     async closeDrawerAndUpdateList () {
       this.isDrawerShown = false
       this.reloadList()
-      await this.getMyBusiness()
+      await this.loadMyBusinesses()
     },
   },
 }

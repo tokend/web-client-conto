@@ -71,7 +71,7 @@ import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { BusinessRecord } from '@/js/records/entities/business.record'
 import { Bus } from '@/js/helpers/event-bus'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 export default {
@@ -95,7 +95,6 @@ export default {
     return {
       vueRoutes,
       business: {},
-      myBusinesses: [],
       isLoaded: false,
       isFailed: false,
       isSubmitting: false,
@@ -105,6 +104,7 @@ export default {
   computed: {
     ...mapGetters({
       accountId: vuexTypes.accountId,
+      myBusinesses: vuexTypes.myBusinesses,
     }),
 
     isMyBusiness () {
@@ -117,11 +117,15 @@ export default {
 
   async created () {
     await this.getBusiness()
-    await this.getMyBusinesses()
+    await this.loadMyBusinesses()
     this.isLoaded = true
   },
 
   methods: {
+    ...mapActions({
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+    }),
+
     async getBusiness () {
       try {
         const endpoint = `/integrations/dns/businesses/${this.id}`
@@ -130,16 +134,6 @@ export default {
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
         this.isFailed = true
-      }
-    },
-
-    async getMyBusinesses () {
-      try {
-        const endpoint = `/integrations/dns/clients/${this.accountId}/businesses`
-        const { data } = await api.getWithSignature(endpoint)
-        this.myBusinesses = data.map(i => new BusinessRecord(i))
-      } catch (error) {
-        ErrorHandler.processWithoutFeedback(error)
       }
     },
 
@@ -154,7 +148,7 @@ export default {
           },
         })
 
-        await this.getMyBusinesses()
+        await this.loadMyBusinesses()
         Bus.success('current-business.business-added-successfully-notification')
       } catch (error) {
         ErrorHandler.process(error)

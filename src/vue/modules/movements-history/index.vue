@@ -65,7 +65,7 @@ export default {
   computed: {
     ...mapGetters({
       movements: vuexTypes.movements,
-      isBusinessToBrowse: vuexTypes.isBusinessToBrowse,
+      isCustomerUiShown: vuexTypes.isCustomerUiShown,
     }),
 
     isCustomerMovements () {
@@ -110,7 +110,7 @@ export default {
       this.isMovementsLoaded = false
       try {
         let response
-        if (this.isBusinessToBrowse || this.isCustomerMovements) {
+        if (this.isCustomerUiShown || this.isCustomerMovements) {
           response = await this.loadMovements({ assetCode, accountId })
         } else {
           response = await this.loadShareMovements(assetCode)

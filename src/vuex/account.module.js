@@ -9,6 +9,7 @@ export const state = {
   balancesDetails: [],
   isCustomerUiShown: false,
   businessToBrowse: {},
+  myBusinesses: [],
 }
 
 export const mutations = {
@@ -34,6 +35,10 @@ export const mutations = {
 
   [vuexTypes.CLEAR_BUSINESS_TO_BROWSE] (state) {
     state.businessToBrowse = {}
+  },
+
+  [vuexTypes.SET_MY_BUSINESSES] (state, businesses) {
+    state.myBusinesses = businesses
   },
 }
 
@@ -65,6 +70,14 @@ export const actions = {
       { root: true }
     )
     commit(vuexTypes.SET_ACCOUNT_BALANCES_DETAILS, data.states)
+  },
+
+  async [vuexTypes.LOAD_MY_BUSINESSES] ({ commit, getters }) {
+    const accountId = getters[vuexTypes.accountId]
+    const endpoint = `/integrations/dns/clients/${accountId}/businesses`
+
+    const response = await api.getWithSignature(endpoint)
+    commit(vuexTypes.SET_MY_BUSINESSES, response.data)
   },
 }
 
@@ -120,6 +133,9 @@ export const getters = {
 
   [vuexTypes.isBusinessToBrowse]: state =>
     Object.keys(state.businessToBrowse || {}).length > 0,
+
+  [vuexTypes.myBusinesses]: state => state.myBusinesses
+    .map(item => new BusinessRecord(item)),
 }
 
 export default {

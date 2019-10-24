@@ -1489,6 +1489,10 @@
     },
     "promo-code-card": {
       "discount": "Скидка:"
+    },
+    "movements-top-bar": {
+      "business-filter-prefix": "Компания:",
+      "asset-filter-prefix": "Актив:"
     }
   }
 }

@@ -65,6 +65,10 @@ const mutations = {
   // sponsorship-requests
   SET_SPONSORSHIP_REQUESTS: 'SET_SPONSORSHIP_REQUESTS',
   CONCAT_SPONSORSHIP_REQUESTS: 'CONCAT_SPONSORSHIP_REQUESTS',
+
+  // businesses
+  SET_MY_BUSINESSES: 'SET_MY_BUSINESSES',
+
 }
 
 const actions = {
@@ -126,6 +130,9 @@ const actions = {
   // sponsorship-requests
   LOAD_SPONSORSHIP_REQUESTS: 'LOAD_SPONSORSHIP_REQUESTS',
   APPROVE_OR_REJECT_SPONSORSHIP_REQUEST: 'APPROVE_OR_REJECT_SPONSORSHIP_REQUEST',
+
+  // businesses
+  LOAD_MY_BUSINESSES: 'LOAD_MY_BUSINESSES',
 }
 
 const getters = {
@@ -257,6 +264,9 @@ const getters = {
 
   // sponsorship-requests
   sponsorshipRequests: 'sponsorshipRequests',
+
+  // businesses
+  myBusinesses: 'myBusinesses',
 }
 
 export const vuexTypes = {

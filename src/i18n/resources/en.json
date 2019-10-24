@@ -1485,6 +1485,10 @@
     },
     "promo-code-card": {
       "discount": "Discount:"
+    },
+    "movements-top-bar": {
+      "business-filter-prefix": "Company:",
+      "asset-filter-prefix": "Asset:"
     }
   }
 }
