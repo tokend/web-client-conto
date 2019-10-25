@@ -13,7 +13,7 @@
               class="app__select app__select--no-border"
             >
               <option
-                :value="ALL_VALUES"
+                :value="ALL_VALUE"
               >
                 {{ 'assets-page.all-option' | globalize }}
               </option>
@@ -70,7 +70,7 @@ import { vueRoutes } from '@/vue-router/routes'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
-import { ALL_VALUES } from '@/js/const/select-field-default-values.const'
+import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 
 export default {
   name: 'assets',
@@ -86,8 +86,8 @@ export default {
   data: _ => ({
     vueRoutes,
     isAssetDrawerShown: false,
-    businessOwnerId: ALL_VALUES,
-    ALL_VALUES,
+    businessOwnerId: ALL_VALUE,
+    ALL_VALUE,
   }),
 
   computed: {
@@ -102,7 +102,7 @@ export default {
   watch: {
     businessOwnerId (value) {
       Bus.emit('assets:setBusinessOwnerId', value)
-      if (value !== ALL_VALUES) {
+      if (value !== ALL_VALUE) {
         this.loadBusinessStatsQuoteAsset(value)
       }
     },

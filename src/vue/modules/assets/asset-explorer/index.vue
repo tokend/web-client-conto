@@ -81,7 +81,7 @@ import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplifi
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
-import { ALL_VALUES } from '@/js/const/select-field-default-values.const'
+import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 
@@ -104,7 +104,7 @@ export default {
     isLoadFailed: false,
     isDrawerShown: false,
     selectedBalance: {},
-    businessOwnerId: ALL_VALUES,
+    businessOwnerId: ALL_VALUE,
     itemsPerSkeletonLoader: 3,
     isUpdateMode: false,
   }),
@@ -122,7 +122,7 @@ export default {
         let accountBalances = []
         if (this.isCustomerUiShown) {
           /* eslint-disable max-len */
-          let businessAccountBalances = this.businessOwnerId === ALL_VALUES
+          let businessAccountBalances = this.businessOwnerId === ALL_VALUE
             ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
             : this.accountBalancesByOwner(this.businessOwnerId)
           /* eslint-enable max-len */

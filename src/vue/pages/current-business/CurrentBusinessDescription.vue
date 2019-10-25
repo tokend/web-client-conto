@@ -62,7 +62,7 @@ export default {
     width: 100%;
     display: block;
     background-color: $col-current-bussiness-description-background;
-     border-radius: 0.4rem;
+    border-radius: 0.4rem;
   }
 
   .current-business-details__logo-wrp {

@@ -1,1 +1,1 @@
-export const ALL_VALUES = 'all'
+export const ALL_VALUE = 'all'
