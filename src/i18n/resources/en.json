@@ -909,7 +909,7 @@
       "no-balances-msg": "You do not have any balances yet",
       "create-btn": "Create",
       "my-assets-title": "My assets",
-      "filter-prefix": "Business:",
+      "filter-prefix": "Company:",
       "all-option": "All"
     },
     "create-asset-form": {
