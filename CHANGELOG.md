@@ -20,6 +20,7 @@ for further information about branching and tagging conventions.
 
 #### Fixed
 - A bug with trim in input fields with type 'password'
+- A bug with color scheme
 
 ### "Under the hood" changes
 #### Added
