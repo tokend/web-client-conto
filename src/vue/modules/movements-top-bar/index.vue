@@ -248,7 +248,6 @@ export default {
 .movements-top-bar__filters {
   display: inline-flex;
   align-items: center;
-  color: $_lightBlack;
 
   @include respond-to-custom($sidebar-hide-bp) {
     display: flex;

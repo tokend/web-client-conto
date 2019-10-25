@@ -74,7 +74,7 @@ export default {
 .asset-viewer__name {
   font-size: 1.8rem;
   font-weight: 700;
-  color: $col-primary;
+  color: $col-text;
   margin-left: 1.8rem;
 }
 

@@ -9,7 +9,11 @@
         <thead>
           <tr>
             <th>
-              <!-- actions -->
+              <tick-field
+                class="promo-code-form-offers-table__cb"
+                v-model="checkedOffers"
+                :cb-value="offers"
+              />
             </th>
             <th :title="'promo-code-form-offers-table.name-th' | globalize">
               {{ 'promo-code-form-offers-table.name-th' | globalize }}
@@ -30,6 +34,7 @@
           >
             <td>
               <tick-field
+                class="promo-code-form-offers-table__cb"
                 v-model="checkedOffers"
                 :cb-value="offer"
               />
@@ -89,5 +94,9 @@ export default {
 <style lang="scss" scoped>
 .promo-code-form-offers-table__offers-title {
   margin-top: 2rem;
+}
+
+.promo-code-form-offers-table__cb {
+  margin-top: 0.2rem;
 }
 </style>

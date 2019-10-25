@@ -1317,7 +1317,7 @@
     },
     "atomic-swap-card": {
       "available": "Доступно: {{ amount, balance }}",
-      "price": "Цена: {{ amount, balance }} {{code}}"
+      "price": "Цена: {{ amount, number }} {{code}}"
     },
     "atomic-swap-attributes": {
       "id-key": "Идентификатор",

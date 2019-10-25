@@ -117,7 +117,7 @@
 
       <div class="app__form-row">
         <div class="app__form-field">
-          <span>
+          <span class="verification-corporate-form__account-description-title">
             {{ 'verification-form.description-lbl' | globalize }}
           </span>
           <markdown-field v-model="form.description" />
@@ -370,7 +370,11 @@ export default {
 }
 
 .verification-corporate-form__account-info-title {
-  color: $col-primary;
+  color: $col-text;
   font-size: 1.3rem;
+}
+
+.verification-corporate-form__account-description-title {
+  color: $col-text;
 }
 </style>

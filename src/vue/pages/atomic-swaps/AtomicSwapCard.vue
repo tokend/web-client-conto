@@ -73,6 +73,7 @@ $atomic-swap-card-header-height: 6.5rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  color: $col-text;
 }
 
 .atomic-swap-card__logo {

@@ -83,7 +83,7 @@ export default {
   data: _ => ({
     vueRoutes,
     isAssetDrawerShown: false,
-    businessOwnerId: 'all',
+    businessOwnerId: '',
   }),
   computed: {
     ...mapGetters({
