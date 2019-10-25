@@ -246,13 +246,11 @@ export default {
 }
 
 .movements-top-bar__filters {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  flex-direction: row;
 
   @include respond-to-custom($sidebar-hide-bp) {
-    display: flex;
     flex-direction: column;
-    align-items: flex-start;
   }
 }
 
