@@ -117,7 +117,6 @@ export default {
     ...mapGetters({
       accountId: vuexTypes.accountId,
       isCorporate: vuexTypes.isAccountCorporate,
-      businessToBrowse: vuexTypes.businessToBrowse,
       isLoggedIn: vuexTypes.isLoggedIn,
     }),
   },
@@ -144,13 +143,10 @@ export default {
       let result
       let filter = {
         ...(
-          this.businessToBrowse.accountId
-            ? { owner: this.businessToBrowse.accountId }
+          this.businessId
+            ? { owner: this.businessId }
             : { owner: this.accountId }
         ),
-      }
-      if (this.businessId) {
-        filter.owner = this.businessId
       }
 
       try {

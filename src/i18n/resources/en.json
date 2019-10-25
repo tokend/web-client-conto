@@ -1331,9 +1331,6 @@
       "no-list-title": "No companies here yet",
       "no-list-msg": "Here will be the list of companies associated with you"
     },
-    "current-business-indicator": {
-      "browsing-lbl": "Browsing:"
-    },
     "kyc-recovery": {
       "submit-again-lbl": "Submit again",
       "request-submitted-msg": "Your request has been submitted successfully. Please wait for review.",

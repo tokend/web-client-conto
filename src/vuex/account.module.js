@@ -8,7 +8,6 @@ export const state = {
   account: {},
   balancesDetails: [],
   isCustomerUiShown: false,
-  businessToBrowse: {},
   myBusinesses: [],
 }
 
@@ -27,14 +26,6 @@ export const mutations = {
 
   [vuexTypes.HIDE_CUSTOMER_UI] (state) {
     state.isCustomerUiShown = false
-  },
-
-  [vuexTypes.SELECT_BUSINESS_TO_BROWSE] (state, payload) {
-    state.businessToBrowse = payload
-  },
-
-  [vuexTypes.CLEAR_BUSINESS_TO_BROWSE] (state) {
-    state.businessToBrowse = {}
   },
 
   [vuexTypes.SET_MY_BUSINESSES] (state, businesses) {
@@ -130,12 +121,6 @@ export const getters = {
     rootGetters[vuexTypes.kvEntryBlockedRoleId],
 
   [vuexTypes.isCustomerUiShown]: state => state.isCustomerUiShown,
-
-  [vuexTypes.businessToBrowse]: state =>
-    new BusinessRecord(state.businessToBrowse),
-
-  [vuexTypes.isBusinessToBrowse]: state =>
-    Object.keys(state.businessToBrowse || {}).length > 0,
 
   [vuexTypes.myBusinesses]: state => state.myBusinesses
     .map(item => new BusinessRecord(item)),

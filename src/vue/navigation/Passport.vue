@@ -172,7 +172,6 @@ export default {
     ...mapMutations({
       showCustomerUi: vuexTypes.SHOW_CUSTOMER_UI,
       hideCustomerUi: vuexTypes.HIDE_CUSTOMER_UI,
-      clearBusinessToBrowse: vuexTypes.CLEAR_BUSINESS_TO_BROWSE,
     }),
 
     async createLoadAccountDetailsTicker () {
@@ -235,7 +234,6 @@ export default {
         await this.$router.push(vueRoutes.businesses)
       } else {
         this.hideCustomerUi()
-        this.clearBusinessToBrowse()
         this.loadBusinessStatsQuote()
         await this.$router.push(vueRoutes.customers)
       }

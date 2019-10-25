@@ -52,8 +52,6 @@ const mutations = {
   // conto hacks
   SHOW_CUSTOMER_UI: 'SHOW_CUSTOMER_UI',
   HIDE_CUSTOMER_UI: 'HIDE_CUSTOMER_UI',
-  SELECT_BUSINESS_TO_BROWSE: 'SELECT_BUSINESS_TO_BROWSE',
-  CLEAR_BUSINESS_TO_BROWSE: 'CLEAR_BUSINESS_TO_BROWSE',
 
   // identities
   SET_IDENTITIES: 'SET_IDENTITIES',
@@ -248,8 +246,6 @@ const getters = {
 
   // conto hacks
   isCustomerUiShown: 'isCustomerUiShown',
-  businessToBrowse: 'businessToBrowse',
-  isBusinessToBrowse: 'isBusinessToBrowse',
 
   // idle-handler
   logoutAt: 'logoutAt',

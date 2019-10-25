@@ -26,7 +26,7 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import { vueRoutes } from '@/vue-router/routes'
-import { mapMutations, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 export default {
@@ -43,13 +43,9 @@ export default {
     },
   },
   created () {
-    this.CLEAR_BUSINESS_TO_BROWSE()
     this.LOAD_BUSINESS_STATS_QUOTE_ASSET()
   },
   methods: {
-    ...mapMutations([
-      vuexTypes.CLEAR_BUSINESS_TO_BROWSE,
-    ]),
     ...mapActions([
       vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
     ]),
