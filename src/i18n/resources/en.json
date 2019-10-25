@@ -908,7 +908,9 @@
       "no-balances-title": "No balances",
       "no-balances-msg": "You do not have any balances yet",
       "create-btn": "Create",
-      "my-assets-title": "My assets"
+      "my-assets-title": "My assets",
+      "filter-prefix": "Business:",
+      "all-option": "All"
     },
     "create-asset-form": {
       "loading-msg": "Loading…",

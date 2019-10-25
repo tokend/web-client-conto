@@ -32,7 +32,7 @@
             </div>
           </template>
 
-          <template v-if="assets.length">
+          <template v-if="isAssetsExists">
             <div class="movements-top-bar__filter">
               <span class="movements-top-bar__filter-prefix">
                 {{ 'movements-top-bar.asset-filter-prefix' | globalize }}
@@ -55,7 +55,7 @@
           </template>
         </div>
         <div
-          v-if="isCustomerUiShown && assets.length"
+          v-if="isCustomerUiShown && isAssetsExists"
           class="movements-top-bar__actions"
           slot="extra"
         >
@@ -161,12 +161,12 @@ export default {
   },
 
   watch: {
-    async assetCode (value) {
+    assetCode (value) {
       this.getBalance()
       this.$emit(EVENTS.assetCodeUpdated, value)
     },
 
-    async businessOwnerId () {
+    businessOwnerId () {
       if (this.isAssetsExists) {
         this.assetCode = this.assets[0].code
       } else {
@@ -249,6 +249,12 @@ export default {
   display: inline-flex;
   align-items: center;
   color: $_lightBlack;
+
+  @include respond-to-custom($sidebar-hide-bp) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .movements-top-bar__filter-prefix {
@@ -257,5 +263,9 @@ export default {
 
 .movements-top-bar__filter {
   margin-right: 3rem;
+
+  @include respond-to-custom($sidebar-hide-bp) {
+    margin-bottom: 1rem;
+  }
 }
 </style>

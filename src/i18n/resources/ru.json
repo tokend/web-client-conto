@@ -911,7 +911,9 @@
       "create-btn": "Создать",
       "my-assets-title": "Мои активы",
       "explore-title": "Активы компании",
-      "balances-title": "Мой кошелек"
+      "balances-title": "Мой кошелек",
+      "filter-prefix": "Бизнес:",
+      "all-option": "Все"
     },
     "create-asset-form": {
       "loading-msg": "Загружаем…",

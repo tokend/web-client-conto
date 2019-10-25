@@ -2,23 +2,30 @@
   <div>
     <top-bar>
       <template slot="main">
-        <template v-if="myBusinesses.length">
-          <span class="movements-top-bar__filters-prefix">
-            {{ 'op-pages.filters-prefix' | globalize }}
-          </span>
-          <select-field
-            :value="businessOwnerId"
-            @input="setBusinessOwnerId"
-            class="app__select app__select--no-border"
-          >
-            <option
-              v-for="business in myBusinesses"
-              :key="business.accountId"
-              :value="business.accountId"
+        <template v-if="isCustomerUiShown && myBusinesses.length">
+          <div class="assets-page__filter">
+            <span class="assets-page__filter-prefix">
+              {{ 'assets-page.filter-prefix' | globalize }}
+            </span>
+            <select-field
+              :value="businessOwnerId"
+              @input="setBusinessOwnerId"
+              class="app__select app__select--no-border"
             >
-              {{ business.name }}
-            </option>
-          </select-field>
+              <option
+                value=""
+              >
+                {{ 'assets-page.all-option' | globalize }}
+              </option>
+              <option
+                v-for="business in myBusinesses"
+                :key="business.accountId"
+                :value="business.accountId"
+              >
+                {{ business.name }}
+              </option>
+            </select-field>
+          </div>
         </template>
       </template>
       <template
@@ -62,6 +69,7 @@ import SelectField from '@/vue/fields/SelectField'
 import { vueRoutes } from '@/vue-router/routes'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { Bus } from '@/js/helpers/event-bus'
 
 export default {
   name: 'assets',
@@ -75,7 +83,7 @@ export default {
   data: _ => ({
     vueRoutes,
     isAssetDrawerShown: false,
-    businessOwnerId: '',
+    businessOwnerId: 'all',
   }),
   computed: {
     ...mapGetters({
@@ -86,8 +94,14 @@ export default {
     }),
   },
 
-  created () {
-    this.businessOwnerId = this.myBusinesses[0].accountId
+  watch: {
+    businessOwnerId (value) {
+      Bus.emit('assets:changedBusiness', value)
+    },
+  },
+
+  async created () {
+    await this.loadMyBusinesses()
   },
 
   methods: {

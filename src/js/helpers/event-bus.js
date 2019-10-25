@@ -68,6 +68,7 @@ export class EventBus extends Vue {
       // TODO: should not be here
       businessesSetCurrentBusiness: 'businesses:setCurrentBusiness',
       assetsUpdateList: 'assets:updateList',
+      assetsChangedBusiness: 'assets:changedBusiness',
       dashboardUpdateList: 'dashboard:updateList',
       issuanceUpdateList: 'issuance:updateList',
       limitsUpdateList: 'limits:updateList',
