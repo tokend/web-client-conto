@@ -10,6 +10,7 @@ for further information about branching and tagging conventions.
 #### Added
 - Trim for input field 
 - Redeem default amount
+- Current company page
 
 #### Changed
 - Moved logo and favicon to branding folder
@@ -23,6 +24,9 @@ for further information about branching and tagging conventions.
 ### "Under the hood" changes
 #### Added
 - `APP_NAME` in config
+
+#### Deleted
+- Browsing company
 
 ## [1.2.0-rc.0] - 2019-10-21
 #### Added

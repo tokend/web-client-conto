@@ -26,8 +26,6 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import { vueRoutes } from '@/vue-router/routes'
-import { mapActions } from 'vuex'
-import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'businesses',
@@ -41,14 +39,6 @@ export default {
     isSelectedBusiness () {
       return this.$route.name === vueRoutes.currentBusiness.name
     },
-  },
-  created () {
-    this.LOAD_BUSINESS_STATS_QUOTE_ASSET()
-  },
-  methods: {
-    ...mapActions([
-      vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
-    ]),
   },
 }
 </script>

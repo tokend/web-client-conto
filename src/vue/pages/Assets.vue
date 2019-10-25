@@ -5,7 +5,7 @@
         <template v-if="isCustomerUiShown && myBusinesses.length">
           <div class="assets-page__filter">
             <span class="assets-page__filter-prefix">
-              {{ 'assets-page.filter-prefix' | globalize }}
+              {{ 'assets-page.business-filter-prefix' | globalize }}
             </span>
             <select-field
               :value="businessOwnerId"
@@ -13,7 +13,7 @@
               class="app__select app__select--no-border"
             >
               <option
-                value=""
+                :value="ALL_VALUES"
               >
                 {{ 'assets-page.all-option' | globalize }}
               </option>
@@ -70,6 +70,7 @@ import { vueRoutes } from '@/vue-router/routes'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
+import { ALL_VALUES } from '@/js/const/select-field-default-values.const'
 
 export default {
   name: 'assets',
@@ -79,12 +80,16 @@ export default {
     CreateAssetForm,
     SelectField,
   },
+
   mixins: [UpdateList],
+
   data: _ => ({
     vueRoutes,
     isAssetDrawerShown: false,
-    businessOwnerId: '',
+    businessOwnerId: ALL_VALUES,
+    ALL_VALUES,
   }),
+
   computed: {
     ...mapGetters({
       account: vuexTypes.account,
@@ -96,7 +101,10 @@ export default {
 
   watch: {
     businessOwnerId (value) {
-      Bus.emit('assets:changedBusiness', value)
+      Bus.emit('assets:setBusinessOwnerId', value)
+      if (value !== ALL_VALUES) {
+        this.loadBusinessStatsQuoteAsset(value)
+      }
     },
   },
 
@@ -107,6 +115,7 @@ export default {
   methods: {
     ...mapActions({
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+      loadBusinessStatsQuoteAsset: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
     }),
 
     closeDrawerAndUpdateList () {

@@ -17,7 +17,7 @@
                 class="app__select app__select--no-border"
               >
                 <option
-                  value="all"
+                  :value="ALL_VALUES"
                 >
                   {{ 'movements-top-bar.all-option' | globalize }}
                 </option>
@@ -97,6 +97,7 @@ import TransferForm from '@/vue/forms/TransferForm'
 
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { ALL_VALUES } from '@/js/const/select-field-default-values.const'
 
 const EVENTS = {
   assetCodeUpdated: 'asset-code-updated',
@@ -121,10 +122,11 @@ export default {
     isInitialized: false,
     isTransferDrawerShown: false,
     assetCode: '',
-    businessOwnerId: 'all',
+    businessOwnerId: ALL_VALUES,
     EVENTS,
     ASSET_POLICIES_STR,
     isHaveBalance: true,
+    ALL_VALUES,
   }),
 
   computed: {
@@ -140,7 +142,7 @@ export default {
 
     assets () {
       if (this.isCustomerUiShown) {
-        if (this.businessOwnerId === 'all') {
+        if (this.businessOwnerId === ALL_VALUES) {
           // eslint-disable-next-line max-len
           return this.myBusinesses.flatMap(business => this.balancesAssetsByOwner(business.accountId))
         } else {

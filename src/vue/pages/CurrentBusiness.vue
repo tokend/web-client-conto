@@ -26,14 +26,10 @@
           </div>
         </div>
 
-        <div
+        <current-business-description
           v-if="business.bannerKey || business.description"
-          class="current-business__description app__card"
-        >
-          <business-description
-            :business="business"
-          />
-        </div>
+          :business="business"
+        />
 
         <div class="current-business__shop">
           <h1 class="current-business__title">
@@ -61,7 +57,7 @@
 </template>
 
 <script>
-import BusinessDescription from '@/vue/pages/business/BusinessDescription'
+import CurrentBusinessDescription from '@/vue/pages/current-business/CurrentBusinessDescription'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
@@ -71,14 +67,14 @@ import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { BusinessRecord } from '@/js/records/entities/business.record'
 import { Bus } from '@/js/helpers/event-bus'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'current-business',
 
   components: {
-    BusinessDescription,
+    CurrentBusinessDescription,
     AtomicSwapsExplore,
     Loader,
     NoDataMessage,
@@ -118,12 +114,17 @@ export default {
   async created () {
     await this.getBusiness()
     await this.loadMyBusinesses()
+    this.setBusinessStatsQuoteAsset(this.business.statsQuoteAssetCode)
     this.isLoaded = true
   },
 
   methods: {
     ...mapActions({
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+    }),
+
+    ...mapMutations({
+      setBusinessStatsQuoteAsset: vuexTypes.SET_BUSINESS_STATS_QUOTE_ASSET,
     }),
 
     async getBusiness () {
@@ -164,12 +165,6 @@ export default {
   @import '~@scss/variables.scss';
   @import '~@scss/mixins.scss';
 
-  .current-business {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
   .current-business__wrp {
     width: 100%;
     max-width: 150rem;
@@ -201,11 +196,6 @@ export default {
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;
     }
-  }
-
-  .current-business__description {
-    padding: 2.4rem;
-    margin-bottom: 2.4rem;
   }
 
   .current-business__shop {

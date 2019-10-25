@@ -81,7 +81,7 @@ import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplifi
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
-
+import { ALL_VALUES } from '@/js/const/select-field-default-values.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 
@@ -104,7 +104,7 @@ export default {
     isLoadFailed: false,
     isDrawerShown: false,
     selectedBalance: {},
-    businessOwnerId: '',
+    businessOwnerId: ALL_VALUES,
     itemsPerSkeletonLoader: 3,
     isUpdateMode: false,
   }),
@@ -121,10 +121,11 @@ export default {
       try {
         let accountBalances = []
         if (this.isCustomerUiShown) {
-          let businessAccountBalances = this.businessOwnerId
-            ? this.accountBalancesByOwner(this.businessOwnerId)
-            // eslint-disable-next-line max-len
-            : this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+          /* eslint-disable max-len */
+          let businessAccountBalances = this.businessOwnerId === ALL_VALUES
+            ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+            : this.accountBalancesByOwner(this.businessOwnerId)
+          /* eslint-enable max-len */
 
           accountBalances = businessAccountBalances
             .filter(item => +item.balance > 0)
@@ -149,7 +150,7 @@ export default {
       ErrorHandler.processWithoutFeedback()
     }
 
-    Bus.on('assets:changedBusiness', id => {
+    Bus.on('assets:setBusinessOwnerId', id => {
       this.businessOwnerId = id || ''
     })
 

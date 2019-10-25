@@ -912,7 +912,7 @@
       "my-assets-title": "Мои активы",
       "explore-title": "Активы компании",
       "balances-title": "Мой кошелек",
-      "filter-prefix": "Компания:",
+      "business-filter-prefix": "Компания:",
       "all-option": "Все"
     },
     "create-asset-form": {
