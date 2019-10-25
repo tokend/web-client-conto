@@ -173,12 +173,17 @@ export default {
     },
 
     async selectItem (item) {
-      await this.$router.push({
-        ...vueRoutes.currentBusiness,
-        params: {
-          id: item.accountId,
-        },
-      })
+      if (this.isCustomerUiShown || this.isAccountGeneral) {
+        await this.$router.push({
+          ...vueRoutes.currentBusiness,
+          params: {
+            id: item.accountId,
+          },
+        })
+      } else {
+        this.currentBusiness = item
+        this.isDrawerShown = true
+      }
     },
 
     reloadList () {
