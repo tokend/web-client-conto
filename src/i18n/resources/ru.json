@@ -911,7 +911,9 @@
       "create-btn": "Создать",
       "my-assets-title": "Мои активы",
       "explore-title": "Активы компании",
-      "balances-title": "Мой кошелек"
+      "balances-title": "Мой кошелек",
+      "business-filter-prefix": "Компания:",
+      "all-option": "Все"
     },
     "create-asset-form": {
       "loading-msg": "Загружаем…",
@@ -1254,7 +1256,8 @@
     },
     "businesses": {
       "all-tab": "Все компании",
-      "my-tab": "Мои компании"
+      "my-tab": "Мои компании",
+      "current-tab": "Текущая компания"
     },
     "businesses-all": {
       "no-list-title": "Нет компаний",
@@ -1266,6 +1269,14 @@
       "add-btn": "Добавить компанию",
       "business-added-successfully-notification": "Компания успешно добавлена"
     },
+    "current-business": {
+      "add-btn": "Добавить компанию",
+      "business-added-successfully-notification": "Компания успешно добавлена",
+      "shop": "Магазин",
+      "loading-msg": "Загружаем…",
+      "error-title": "Нет такой компании",
+      "error-msg": "Невозможно загрузить описание компании."
+    },
     "business-attributes": {
       "id-key": "Идентификатор",
       "owner-key": "Владелец",
@@ -1275,9 +1286,6 @@
     "businesses-my": {
       "no-list-title": "Нет компаний",
       "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы"
-    },
-    "current-business-indicator": {
-      "browsing-lbl": "Просмотр:"
     },
     "atomic-swaps-explore": {
       "owned-by-me-filter-lbl": "Принадлежит мне",
@@ -1480,6 +1488,11 @@
     },
     "promo-code-card": {
       "discount": "Скидка:"
+    },
+    "movements-top-bar": {
+      "business-filter-prefix": "Компания:",
+      "asset-filter-prefix": "Актив:",
+      "all-option": "Все"
     }
   }
 }

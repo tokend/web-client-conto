@@ -52,8 +52,6 @@ const mutations = {
   // conto hacks
   SHOW_CUSTOMER_UI: 'SHOW_CUSTOMER_UI',
   HIDE_CUSTOMER_UI: 'HIDE_CUSTOMER_UI',
-  SELECT_BUSINESS_TO_BROWSE: 'SELECT_BUSINESS_TO_BROWSE',
-  CLEAR_BUSINESS_TO_BROWSE: 'CLEAR_BUSINESS_TO_BROWSE',
 
   // identities
   SET_IDENTITIES: 'SET_IDENTITIES',
@@ -65,6 +63,10 @@ const mutations = {
   // sponsorship-requests
   SET_SPONSORSHIP_REQUESTS: 'SET_SPONSORSHIP_REQUESTS',
   CONCAT_SPONSORSHIP_REQUESTS: 'CONCAT_SPONSORSHIP_REQUESTS',
+
+  // businesses
+  SET_MY_BUSINESSES: 'SET_MY_BUSINESSES',
+  CONCAT_MY_BUSINESSES: 'CONCAT_MY_BUSINESSES',
 }
 
 const actions = {
@@ -126,6 +128,9 @@ const actions = {
   // sponsorship-requests
   LOAD_SPONSORSHIP_REQUESTS: 'LOAD_SPONSORSHIP_REQUESTS',
   APPROVE_OR_REJECT_SPONSORSHIP_REQUEST: 'APPROVE_OR_REJECT_SPONSORSHIP_REQUEST',
+
+  // businesses
+  LOAD_MY_BUSINESSES: 'LOAD_MY_BUSINESSES',
 }
 
 const getters = {
@@ -229,6 +234,7 @@ const getters = {
   depositableAssets: 'depositableAssets',
   coinpaymentsAssets: 'coinpaymentsAssets',
   transferableAssetsBalancesByOwner: 'transferableAssetsBalancesByOwner',
+  transferableAssetsBalances: 'transferableAssetsBalances',
   withdrawableBalancesAssets: 'withdrawableBalancesAssets',
   statsQuoteAsset: 'statsQuoteAsset',
   ownedAssets: 'ownedAssets',
@@ -240,8 +246,6 @@ const getters = {
 
   // conto hacks
   isCustomerUiShown: 'isCustomerUiShown',
-  businessToBrowse: 'businessToBrowse',
-  isBusinessToBrowse: 'isBusinessToBrowse',
 
   // idle-handler
   logoutAt: 'logoutAt',
@@ -257,6 +261,9 @@ const getters = {
 
   // sponsorship-requests
   sponsorshipRequests: 'sponsorshipRequests',
+
+  // businesses
+  myBusinesses: 'myBusinesses',
 }
 
 export const vuexTypes = {

@@ -219,10 +219,6 @@ export default {
   overflow-y: auto;
   padding: 0.8rem 0;
 
-  @include respond-to-custom($sidebar-hide-bp) {
-    top: auto;
-    bottom: 0;
-  }
   @include box-shadow;
 }
 

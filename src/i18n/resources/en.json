@@ -907,7 +907,9 @@
       "no-balances-title": "No balances",
       "no-balances-msg": "You do not have any balances yet",
       "create-btn": "Create",
-      "my-assets-title": "My assets"
+      "my-assets-title": "My assets",
+      "business-filter-prefix": "Company:",
+      "all-option": "All"
     },
     "create-asset-form": {
       "loading-msg": "Loading…",
@@ -1297,7 +1299,8 @@
     },
     "businesses": {
       "all-tab": "All companies",
-      "my-tab": "My companies"
+      "my-tab": "My companies",
+      "current-tab": "Current company"
     },
     "businesses-all": {
       "no-list-title": "No companies here yet",
@@ -1309,6 +1312,14 @@
       "add-btn": "Add company",
       "business-added-successfully-notification": "Company has been added successfully"
     },
+    "current-business": {
+      "add-btn": "Add company",
+      "business-added-successfully-notification": "Company has been added successfully",
+      "shop": "Shop",
+      "loading-msg": "Loading...",
+      "error-title": "There is no such company",
+      "error-msg": "Can not load company description."
+    },
     "business-attributes": {
       "id-key": "ID",
       "owner-key": "Owner",
@@ -1318,9 +1329,6 @@
     "businesses-my": {
       "no-list-title": "No companies here yet",
       "no-list-msg": "Here will be the list of companies associated with you"
-    },
-    "current-business-indicator": {
-      "browsing-lbl": "Browsing:"
     },
     "kyc-recovery": {
       "submit-again-lbl": "Submit again",
@@ -1475,6 +1483,11 @@
     },
     "promo-code-card": {
       "discount": "Discount:"
+    },
+    "movements-top-bar": {
+      "business-filter-prefix": "Company:",
+      "asset-filter-prefix": "Asset:",
+      "all-option": "All"
     }
   }
 }

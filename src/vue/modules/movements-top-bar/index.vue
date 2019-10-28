@@ -1,30 +1,61 @@
 <template>
   <div>
     <top-bar>
-      <template v-if="isInitialized && assets.length">
+      <template v-if="isInitialized">
         <div
           slot="main"
           class="movements-top-bar__filters"
         >
-          <span class="movements-top-bar__filters-prefix">
-            {{ 'op-pages.filters-prefix' | globalize }}
-          </span>
-          <select-field
-            :value="assetCode"
-            @input="setAssetCode"
-            class="app__select app__select--no-border"
-          >
-            <option
-              v-for="asset in assets"
-              :key="asset.code"
-              :value="asset.code"
-            >
-              {{ asset.name }}
-            </option>
-          </select-field>
+          <template v-if="isCustomerUiShown && isBusinessesExists">
+            <div class="movements-top-bar__filter">
+              <span class="movements-top-bar__filter-prefix">
+                {{ 'movements-top-bar.business-filter-prefix' | globalize }}
+              </span>
+              <select-field
+                :value="businessOwnerId"
+                @input="setBusinessOwnerId"
+                class="app__select app__select--no-border"
+              >
+                <option
+                  :value="ALL_VALUE"
+                >
+                  {{ 'movements-top-bar.all-option' | globalize }}
+                </option>
+                <option
+                  v-for="business in myBusinesses"
+                  :key="business.accountId"
+                  :value="business.accountId"
+                >
+                  {{ business.name }}
+                </option>
+              </select-field>
+            </div>
+          </template>
+
+          <template v-if="isAssetsExists">
+            <div class="movements-top-bar__filter">
+              <span class="movements-top-bar__filter-prefix">
+                {{ 'movements-top-bar.asset-filter-prefix' | globalize }}
+              </span>
+              <select-field
+                :value="assetCode"
+                @input="setAssetCode"
+                :key="`${businessOwnerId}-${assetCode}`"
+                class="app__select app__select--no-border"
+              >
+                <option
+                  v-for="asset in assets"
+                  :key="asset.code"
+                  :value="asset.code"
+                >
+                  {{ asset.name }}
+                </option>
+              </select-field>
+            </div>
+          </template>
         </div>
         <div
-          v-if="isBusinessToBrowse"
+          v-if="isCustomerUiShown && isAssetsExists"
           class="movements-top-bar__actions"
           slot="extra"
         >
@@ -59,14 +90,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
 import SelectField from '@/vue/fields/SelectField'
-
 import TransferForm from '@/vue/forms/TransferForm'
+
+import { mapActions, mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
+import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 
 const EVENTS = {
   assetCodeUpdated: 'asset-code-updated',
@@ -86,31 +117,37 @@ export default {
     Drawer,
     TransferForm,
   },
+
   data: _ => ({
     isInitialized: false,
     isTransferDrawerShown: false,
     assetCode: '',
+    businessOwnerId: ALL_VALUE,
     EVENTS,
     ASSET_POLICIES_STR,
     isHaveBalance: true,
+    ALL_VALUE,
   }),
+
   computed: {
     ...mapGetters({
       balancesAssetsByOwner: vuexTypes.balancesAssetsByOwner,
       accountBalanceByCode: vuexTypes.accountBalanceByCode,
       ownedAssets: vuexTypes.ownedBalancesAssets,
       isAccountUnverified: vuexTypes.isAccountUnverified,
-      isBusinessToBrowse: vuexTypes.isBusinessToBrowse,
+      isCustomerUiShown: vuexTypes.isCustomerUiShown,
       assetByCode: vuexTypes.assetByCode,
+      myBusinesses: vuexTypes.myBusinesses,
     }),
 
     assets () {
-      if (this.isBusinessToBrowse) {
-        // eslint-disable-next-line max-len
-        const accountId = this.$route && this.$route.query && this.$route.query.owner
-          ? this.$route.query.owner
-          : this.businessToBrowse.accountId
-        return this.balancesAssetsByOwner(accountId)
+      if (this.isCustomerUiShown) {
+        if (this.businessOwnerId === ALL_VALUE) {
+          // eslint-disable-next-line max-len
+          return this.myBusinesses.flatMap(business => this.balancesAssetsByOwner(business.accountId))
+        } else {
+          return this.balancesAssetsByOwner(this.businessOwnerId)
+        }
       } else {
         return this.ownedAssets
       }
@@ -119,41 +156,54 @@ export default {
     isAssetsExists () {
       return Boolean(this.assets.length)
     },
-  },
-  watch: {
-    async assetCode (value) {
-      this.getBalance()
-      // Vue-router catch hack
-      await this.$router.push({
-        query: { assetCode: value },
-      }, () => {})
-      this.$emit(EVENTS.assetCodeUpdated, value)
+
+    isBusinessesExists () {
+      return Boolean(this.myBusinesses.length)
     },
   },
+
+  watch: {
+    assetCode (value) {
+      this.getBalance()
+      this.$emit(EVENTS.assetCodeUpdated, value)
+    },
+
+    businessOwnerId () {
+      if (this.isAssetsExists) {
+        this.assetCode = this.assets[0].code
+      } else {
+        this.assetCode = ''
+        this.$emit(EVENTS.showNoDataMessage)
+      }
+    },
+  },
+
   async created () {
+    await this.loadMyBusinesses()
     await this.loadAccountBalancesDetails()
-    if (this.isAssetsExists) {
-      this.setDefaultAsset()
+
+    if (this.isBusinessesExists && this.isAssetsExists) {
+      this.assetCode = this.assets[0].code
     } else {
       this.$emit(EVENTS.showNoDataMessage)
     }
     this.isInitialized = true
   },
+
   methods: {
     ...mapActions({
       loadAccountBalancesDetails: vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
     }),
+
     setAssetCode (code) {
       this.assetCode = code
     },
-    setDefaultAsset () {
-      const queryAsset = this.assets
-        .find(item => item.code === this.$route.query.assetCode)
 
-      this.assetCode = queryAsset
-        ? queryAsset.code
-        : this.assets[0].code
+    setBusinessOwnerId (id) {
+      this.businessOwnerId = id
     },
+
     getMessageIdForPolicy (policy) {
       let messageId = ''
       const asset = this.assetByCode(this.assetCode)
@@ -162,6 +212,7 @@ export default {
       }
       return messageId
     },
+
     getBalance () {
       const balance = +this.accountBalanceByCode(this.assetCode).balance
       this.isHaveBalance = balance > 0
@@ -197,12 +248,23 @@ export default {
 }
 
 .movements-top-bar__filters {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  @include respond-to-custom($sidebar-hide-bp) {
+    flex-direction: column;
+  }
 }
 
-.movements-top-bar__filters-prefix {
-  margin-right: 1.5rem;
+.movements-top-bar__filter-prefix {
   line-height: 1;
+}
+
+.movements-top-bar__filter {
+  margin-right: 3rem;
+
+  @include respond-to-custom($sidebar-hide-bp) {
+    margin-bottom: 1rem;
+  }
 }
 </style>

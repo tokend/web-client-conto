@@ -49,10 +49,10 @@ export const actions = {
   },
 
   // eslint-disable-next-line max-len
-  async [vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET] ({ commit, rootGetters, getters }) {
+  async [vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET] ({ commit, rootGetters, getters }, businessOwnerId = '') {
     let id = ''
-    if (rootGetters[vuexTypes.businessToBrowse].accountId) {
-      id = rootGetters[vuexTypes.businessToBrowse].accountId
+    if (businessOwnerId) {
+      id = businessOwnerId
     } else if (rootGetters[vuexTypes.isAccountCorporate]) {
       id = rootGetters[vuexTypes.accountId]
     } else {

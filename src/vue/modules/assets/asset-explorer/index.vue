@@ -80,7 +80,8 @@ import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplifi
 
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
-
+import { Bus } from '@/js/helpers/event-bus'
+import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 
@@ -103,6 +104,7 @@ export default {
     isLoadFailed: false,
     isDrawerShown: false,
     selectedBalance: {},
+    businessOwnerId: ALL_VALUE,
     itemsPerSkeletonLoader: 3,
     isUpdateMode: false,
   }),
@@ -111,19 +113,21 @@ export default {
     ...mapGetters({
       accountBalancesByOwner: vuexTypes.accountBalancesByOwner,
       accountOwnedAssetsBalances: vuexTypes.accountOwnedAssetsBalances,
-      isBusinessToBrowse: vuexTypes.isBusinessToBrowse,
-      businessToBrowse: vuexTypes.businessToBrowse,
+      isCustomerUiShown: vuexTypes.isCustomerUiShown,
+      myBusinesses: vuexTypes.myBusinesses,
     }),
 
     accountBalances () {
       try {
         let accountBalances = []
-        if (this.isBusinessToBrowse) {
-          // eslint-disable-next-line max-len
-          const accountId = this.$route && this.$route.query && this.$route.query.owner
-            ? this.$route.query.owner
-            : this.businessToBrowse.accountId
-          accountBalances = this.accountBalancesByOwner(accountId)
+        if (this.isCustomerUiShown) {
+          /* eslint-disable max-len */
+          let businessAccountBalances = this.businessOwnerId === ALL_VALUE
+            ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+            : this.accountBalancesByOwner(this.businessOwnerId)
+          /* eslint-enable max-len */
+
+          accountBalances = businessAccountBalances
             .filter(item => +item.balance > 0)
         } else {
           accountBalances = this.accountOwnedAssetsBalances
@@ -145,6 +149,10 @@ export default {
       this.isLoadFailed = true
       ErrorHandler.processWithoutFeedback()
     }
+
+    Bus.on('assets:setBusinessOwnerId', id => {
+      this.businessOwnerId = id || ''
+    })
 
     this.listenUpdateList('assets:updateList', this.loadAccountBalancesAndSetSelectedBalance)
   },
