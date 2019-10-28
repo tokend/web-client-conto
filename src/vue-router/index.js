@@ -31,6 +31,7 @@ import VerificationCorporate from '@/vue/pages/VerificationCorporate'
 import VerificationGeneral from '@/vue/pages/VerificationGeneral'
 import PromoCodes from '@/vue/pages/PromoCodes'
 import PromoCodesList from '@/vue/pages/PromoCodesList'
+import Statistics from '@/vue/pages/Statistics'
 
 Vue.use(Router)
 
@@ -215,6 +216,15 @@ const router = new Router({
               },
             },
           ],
+        },
+        {
+          path: '/statistics',
+          name: vueRoutes.statistics.name,
+          meta: {
+            pageNameTranslationId: 'pages-names.statistics',
+            isCorporateOnly: true,
+          },
+          component: Statistics,
         },
         {
           path: '/atomic-swaps',
