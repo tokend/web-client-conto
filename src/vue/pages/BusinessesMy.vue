@@ -1,10 +1,10 @@
 <template>
   <div class="businesses-my">
-    <template v-if="list.length">
+    <template v-if="myBusinesses.length">
       <div class="businesses-my__list">
         <div
           class="businesses-my__list-item-wrp"
-          v-for="item in list"
+          v-for="item in myBusinesses"
           :key="item.accountId"
         >
           <button
@@ -17,7 +17,7 @@
       </div>
     </template>
 
-    <template v-else-if="!list.length && isLoading">
+    <template v-else-if="!myBusinesses.length && isLoading">
       <div class="businesses-my__list">
         <div
           class="businesses-my__list-item-wrp"
@@ -29,7 +29,7 @@
       </div>
     </template>
 
-    <template v-else-if="!list.length && !isLoading">
+    <template v-else-if="!myBusinesses.length && !isLoading">
       <no-data-message
         class="businesses-my__no-data-message"
         icon-name="domain"
@@ -42,8 +42,8 @@
       <collection-loader
         class="businesses-my__loader"
         :first-page-loader="getList"
-        @first-page-load="setList"
-        @next-page-load="concatList"
+        @first-page-load="setMyBusinesses"
+        @next-page-load="concatMyBusinesses"
         ref="listCollectionLoader"
       />
     </div>
@@ -52,16 +52,14 @@
 
 <script>
 import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { api } from '@/api'
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import BusinessCard from './businesses-all/BusinessCard'
 import BusinessCardSkeleton from './businesses-all/BusinessCardSkeleton'
 
-import { BusinessRecord } from '@/js/records/entities/business.record'
 import { vueRoutes } from '@/vue-router/routes'
 
 export default {
@@ -77,40 +75,37 @@ export default {
   data () {
     return {
       isLoading: false,
-      list: [],
     }
   },
 
   computed: {
     ...mapGetters({
       accountId: vuexTypes.accountId,
+      myBusinesses: vuexTypes.myBusinesses,
     }),
   },
 
   methods: {
+    ...mapActions({
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+    }),
+    ...mapMutations({
+      setMyBusinesses: vuexTypes.SET_MY_BUSINESSES,
+      concatMyBusinesses: vuexTypes.CONCAT_MY_BUSINESSES,
+    }),
+
     async getList () {
       this.isLoading = true
 
       let result = {}
       try {
-        const endpoint = `/integrations/dns/clients/${this.accountId}/businesses`
-        result = await api.getWithSignature(endpoint)
+        result = await this.loadMyBusinesses(true)
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }
 
       this.isLoading = false
       return result
-    },
-
-    setList (newList) {
-      this.list = newList.map(i => new BusinessRecord(i))
-    },
-
-    concatList (newChunk) {
-      this.list = this.list.concat(
-        newChunk.map(i => new BusinessRecord(i))
-      )
     },
 
     async selectItem (item) {

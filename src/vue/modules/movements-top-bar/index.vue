@@ -6,7 +6,7 @@
           slot="main"
           class="movements-top-bar__filters"
         >
-          <template v-if="isCustomerUiShown && myBusinesses.length">
+          <template v-if="isCustomerUiShown && isBusinessesExists">
             <div class="movements-top-bar__filter">
               <span class="movements-top-bar__filter-prefix">
                 {{ 'movements-top-bar.business-filter-prefix' | globalize }}

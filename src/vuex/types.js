@@ -66,7 +66,7 @@ const mutations = {
 
   // businesses
   SET_MY_BUSINESSES: 'SET_MY_BUSINESSES',
-
+  CONCAT_MY_BUSINESSES: 'CONCAT_MY_BUSINESSES',
 }
 
 const actions = {
