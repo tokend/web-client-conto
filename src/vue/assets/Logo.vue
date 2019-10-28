@@ -23,13 +23,12 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
-      vuexTypes.isCustomerUiShown,
     ]),
     logoUrl () {
       return DEFAULT_LOGO_URL
     },
     logoRout () {
-      if (this.isAccountCorporate && !this.isCustomerUiShown) {
+      if (this.isAccountCorporate) {
         return vueRoutes.customers
       } else {
         return vueRoutes.businesses

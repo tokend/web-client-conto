@@ -1,10 +1,10 @@
 <template>
   <div class="businesses-all">
-    <template v-if="list.length">
+    <template v-if="allBusinesses.length">
       <div class="businesses-all__list">
         <div
           class="businesses-all__list-item-wrp"
-          v-for="item in list"
+          v-for="item in allBusinesses"
           :key="item.accountId"
         >
           <button
@@ -17,7 +17,7 @@
       </div>
     </template>
 
-    <template v-else-if="!list.length && isLoading">
+    <template v-else-if="!allBusinesses.length && isLoading">
       <div class="businesses-all__list">
         <div
           class="businesses-all__list-item-wrp"
@@ -29,7 +29,7 @@
       </div>
     </template>
 
-    <template v-else-if="!list.length && !isLoading">
+    <template v-else-if="!allBusinesses.length && !isLoading">
       <no-data-message
         class="businesses-all__no-data-message"
         icon-name="domain"
@@ -43,7 +43,7 @@
         {{ 'businesses-all.business-details-title' | globalize }}
       </template>
 
-      <template v-if="isCustomerUiShown || isAccountGeneral">
+      <template v-if="isAccountGeneral">
         <business-viewer
           :business="currentBusiness"
           @business-added="closeDrawerAndUpdateList"
@@ -68,8 +68,8 @@
       <collection-loader
         class="businesses-all__loader"
         :first-page-loader="getList"
-        @first-page-load="setList"
-        @next-page-load="concatList"
+        @first-page-load="setAllBusinesses"
+        @next-page-load="concatAllBusinesses"
         ref="listCollectionLoader"
       />
     </div>
@@ -87,11 +87,8 @@ import BusinessAttributes from './businesses-all/BusinessAttributes'
 import BusinessAssetsViewer from './businesses-all/BusinessAssetsViewer'
 
 import { vuexTypes } from '@/vuex'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { api } from '@/api'
-
-import { BusinessRecord } from '@/js/records/entities/business.record'
 import { vueRoutes } from '@/vue-router/routes'
 
 export default {
@@ -111,7 +108,6 @@ export default {
   data () {
     return {
       isLoading: false,
-      list: [],
       isDrawerShown: false,
       currentBusiness: {},
       isMyBusiness: false,
@@ -121,9 +117,9 @@ export default {
   computed: {
     ...mapGetters({
       accountId: vuexTypes.accountId,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
       isAccountGeneral: vuexTypes.isAccountGeneral,
       myBusinesses: vuexTypes.myBusinesses,
+      allBusinesses: vuexTypes.allBusinesses,
     }),
 
     isBusinessOwner () {
@@ -138,6 +134,12 @@ export default {
   methods: {
     ...mapActions({
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+      loadAllBusinesses: vuexTypes.LOAD_ALL_BUSINESSES,
+    }),
+    ...mapMutations({
+      setAllBusinesses: vuexTypes.SET_ALL_BUSINESSES,
+      concatAllBusinesses: vuexTypes.CONCAT_ALL_BUSINESSES,
+      setBusinessToBrowse: vuexTypes.SELECT_BUSINESS_TO_BROWSE,
     }),
 
     async getList () {
@@ -145,8 +147,7 @@ export default {
 
       let result
       try {
-        const endpoint = `/integrations/dns/businesses`
-        result = await api.getWithSignature(endpoint)
+        result = await this.loadAllBusinesses()
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }
@@ -155,25 +156,9 @@ export default {
       return result
     },
 
-    checkIsMyBusiness (currentBusiness) {
-      return Boolean(this.myBusinesses.find(business => {
-        return business.id === currentBusiness.id
-      })
-      )
-    },
-
-    setList (newList) {
-      this.list = newList.map(i => new BusinessRecord(i))
-    },
-
-    concatList (newChunk) {
-      this.list = this.list.concat(
-        newChunk.map(i => new BusinessRecord(i))
-      )
-    },
-
     async selectItem (item) {
-      if (this.isCustomerUiShown || this.isAccountGeneral) {
+      if (this.isAccountGeneral) {
+        this.setBusinessToBrowse(item)
         await this.$router.push({
           ...vueRoutes.currentBusiness,
           params: {

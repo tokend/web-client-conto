@@ -6,7 +6,7 @@
           slot="main"
           class="movements-top-bar__filters"
         >
-          <template v-if="isCustomerUiShown && isBusinessesExists">
+          <template v-if="isAccountGeneral && isBusinessesExists">
             <div class="movements-top-bar__filter">
               <span class="movements-top-bar__filter-prefix">
                 {{ 'movements-top-bar.business-filter-prefix' | globalize }}
@@ -55,7 +55,7 @@
           </template>
         </div>
         <div
-          v-if="isCustomerUiShown && isAssetsExists"
+          v-if="isAccountGeneral && isAssetsExists"
           class="movements-top-bar__actions"
           slot="extra"
         >
@@ -134,14 +134,13 @@ export default {
       balancesAssetsByOwner: vuexTypes.balancesAssetsByOwner,
       accountBalanceByCode: vuexTypes.accountBalanceByCode,
       ownedAssets: vuexTypes.ownedBalancesAssets,
-      isAccountUnverified: vuexTypes.isAccountUnverified,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
+      isAccountGeneral: vuexTypes.isAccountGeneral,
       assetByCode: vuexTypes.assetByCode,
       myBusinesses: vuexTypes.myBusinesses,
     }),
 
     assets () {
-      if (this.isCustomerUiShown) {
+      if (this.isAccountGeneral) {
         if (this.businessOwnerId === ALL_VALUE) {
           // eslint-disable-next-line max-len
           return this.myBusinesses.flatMap(business => this.balancesAssetsByOwner(business.accountId))

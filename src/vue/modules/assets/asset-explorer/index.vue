@@ -113,14 +113,14 @@ export default {
     ...mapGetters({
       accountBalancesByOwner: vuexTypes.accountBalancesByOwner,
       accountOwnedAssetsBalances: vuexTypes.accountOwnedAssetsBalances,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
+      isAccountGeneral: vuexTypes.isAccountGeneral,
       myBusinesses: vuexTypes.myBusinesses,
     }),
 
     accountBalances () {
       try {
         let accountBalances = []
-        if (this.isCustomerUiShown) {
+        if (this.isAccountGeneral) {
           /* eslint-disable max-len */
           let businessAccountBalances = this.businessOwnerId === ALL_VALUE
             ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))

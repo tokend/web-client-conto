@@ -37,7 +37,7 @@
           </h1>
         </div>
         <atomic-swaps-explore
-          :business-id="id"
+          :business-id="business.accountId"
         />
       </template>
       <template v-else-if="!isLoaded && !isFailed">
@@ -101,21 +101,31 @@ export default {
     ...mapGetters({
       accountId: vuexTypes.accountId,
       myBusinesses: vuexTypes.myBusinesses,
+      isBusinessToBrowse: vuexTypes.isBusinessToBrowse,
+      businessToBrowse: vuexTypes.businessToBrowse,
     }),
 
     isMyBusiness () {
       return Boolean(this.myBusinesses.find(business => {
-        return business.accountId === this.business.id
+        return business.accountId === this.business.accountId
       })
       )
     },
   },
 
   async created () {
-    await this.getBusiness()
+    if (this.isBusinessToBrowse) {
+      this.business = this.businessToBrowse
+    } else {
+      await this.getBusiness()
+    }
     await this.loadMyBusinesses()
-    this.setBusinessStatsQuoteAsset(this.business.statsQuoteAssetCode)
+    this.setBusinessStatsQuoteAsset(this.business.statsQuoteAsset)
     this.isLoaded = true
+  },
+
+  beforeDestroy () {
+    this.clearBusinessToBrowse()
   },
 
   methods: {
@@ -125,6 +135,7 @@ export default {
 
     ...mapMutations({
       setBusinessStatsQuoteAsset: vuexTypes.SET_BUSINESS_STATS_QUOTE_ASSET,
+      clearBusinessToBrowse: vuexTypes.CLEAR_BUSINESS_TO_BROWSE,
     }),
 
     async getBusiness () {
@@ -178,12 +189,20 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2.4rem;
+
+    @include respond-to-custom($sidebar-hide-bp) {
+      flex-direction: column;
+    }
   }
 
   .current-business__name-wrp {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+
+    @include respond-to-custom($sidebar-hide-bp) {
+      margin-bottom: 1rem;
+    }
   }
 
   .current-business__title {
@@ -192,6 +211,9 @@ export default {
     line-height: 1.5;
     font-weight: 400;
     min-width: 15rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;

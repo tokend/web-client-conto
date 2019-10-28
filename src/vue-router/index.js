@@ -371,8 +371,7 @@ function redirectRouteGuard (to, from, next) {
       next(vueRoutes.kycRecoveryManagement)
     } else if (to.name === vueRoutes.app.name) {
       const isAccountCorporate = store.getters[vuexTypes.isAccountCorporate]
-      const isCustomerUiShown = store.getters[vuexTypes.isCustomerUiShown]
-      if (isAccountCorporate && !isCustomerUiShown) {
+      if (isAccountCorporate) {
         next(vueRoutes.customers)
       } else {
         next(vueRoutes.businesses)
@@ -390,12 +389,11 @@ function redirectRouteGuard (to, from, next) {
 function inAppRouteGuard (to, from, next) {
   const isAccountCorporate = store.getters[vuexTypes.isAccountCorporate]
   const isAccountGeneral = store.getters[vuexTypes.isAccountGeneral]
-  const isCustomerUiShown = store.getters[vuexTypes.isCustomerUiShown]
   const isCorporateRouter = _get(to, 'meta.isCorporateOnly')
   const isGeneralRouter = _get(to, 'meta.isGeneralOnly')
   if (isAccountCorporate && isCorporateRouter) {
     next()
-  } else if ((isAccountGeneral || isCustomerUiShown) && isGeneralRouter) {
+  } else if (isAccountGeneral && isGeneralRouter) {
     next()
   } else if (!isCorporateRouter && !isGeneralRouter) {
     next()

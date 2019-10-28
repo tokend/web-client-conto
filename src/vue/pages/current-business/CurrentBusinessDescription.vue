@@ -116,16 +116,29 @@ export default {
     margin-bottom: 0.8rem;
   }
 
+  ol,
   ul {
-    // stylelint-disable-next-line
-    list-style-type: disc !important;
-    padding-left: 1.6rem;
+    padding-left: 2rem;
+
+    li {
+      margin-bottom: 0.8rem;
+    }
   }
 
-  li {
-    // stylelint-disable-next-line
-    list-style-type: disc !important;
-    margin-bottom: 0.8rem;
+  ol {
+
+    li {
+      // stylelint-disable-next-line
+      list-style-type: decimal !important;
+    }
+  }
+
+  ul {
+
+    li {
+      // stylelint-disable-next-line
+      list-style-type: disc !important;
+    }
   }
 
   a {

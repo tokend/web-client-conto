@@ -53,7 +53,7 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccountGeneral || isCustomerUiShown"
+            v-if="isAccountGeneral"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -205,11 +205,10 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
-      vuexTypes.isCustomerUiShown,
     ]),
 
     isAccessibleForCorporate () {
-      return this.isAccountCorporate && !this.isCustomerUiShown
+      return this.isAccountCorporate
     },
   },
 
