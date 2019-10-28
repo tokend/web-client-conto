@@ -191,7 +191,6 @@ const router = new Router({
           name: vueRoutes.assets.name,
           meta: {
             pageNameTranslationId: 'pages-names.assets',
-            ownerFilter: true,
           },
           component: Assets,
           redirect: vueRoutes.assetsExplore,
@@ -201,9 +200,6 @@ const router = new Router({
               name: vueRoutes.assetsExplore.name,
               component: AssetExplorer,
               beforeEnter: inAppRouteGuard,
-              meta: {
-                ownerFilter: true,
-              },
             },
           ],
         },
@@ -232,7 +228,6 @@ const router = new Router({
           name: vueRoutes.atomicSwaps.name,
           meta: {
             pageNameTranslationId: 'pages-names.atomic-swaps',
-            ownerFilter: true,
           },
           component: AtomicSwaps,
           redirect: vueRoutes.atomicSwapsExplore,
@@ -242,9 +237,6 @@ const router = new Router({
               name: vueRoutes.atomicSwapsExplore.name,
               component: AtomicSwapsExplore,
               beforeEnter: inAppRouteGuard,
-              meta: {
-                ownerFilter: true,
-              },
             },
           ],
         },
@@ -253,7 +245,6 @@ const router = new Router({
           name: vueRoutes.movements.name,
           meta: {
             pageNameTranslationId: 'pages-names.movements',
-            ownerFilter: true,
           },
           component: Movements,
           beforeEnter: inAppRouteGuard,
