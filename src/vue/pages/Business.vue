@@ -6,7 +6,10 @@
           <h1 class="business__title">
             {{ business.name }}
           </h1>
-          <h3 v-if="business.industry">
+          <h3
+            v-if="business.industry"
+            class="business__industry"
+          >
             {{ business.industry }}
           </h3>
         </div>
@@ -198,10 +201,19 @@ export default {
     line-height: 1.5;
     font-weight: 400;
     min-width: 15rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;
     }
+  }
+
+  .business__industry {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .business__description {

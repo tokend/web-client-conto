@@ -70,8 +70,6 @@ $atomic-swap-card-header-height: 6.5rem;
 
 .atomic-swap-card__title {
   font-size: 1.6rem;
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 1rem;
 }
 
