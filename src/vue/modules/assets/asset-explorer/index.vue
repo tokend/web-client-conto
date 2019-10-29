@@ -1,8 +1,8 @@
 <template>
   <div class="assets-explorer">
-    <div class="assets-explorer__asset-list">
+    <div class="app__card-list">
       <template v-for="accountBalance in accountBalances">
-        <div class="assets-explorer__asset-list-item" :key="accountBalance.id">
+        <div class="app__card-list-item" :key="accountBalance.id">
           <asset-card
             :balance="accountBalance"
             @transfer="transfer"
@@ -11,8 +11,8 @@
         </div>
       </template>
       <template v-for="index in itemsPerSkeletonLoader">
-        <div class="assets-explorer__asset-list-item" :key="index">
-          <asset-skeleton-loader
+        <div class="app__card-list-item" :key="index">
+          <skeleton-loader-card
             v-if="!isLoaded && !accountBalances.length"
           />
         </div>
@@ -86,7 +86,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import AssetAttributesViewer from '../shared/components/asset-attributes-viewer'
 import AssetActions from './components/asset-actions'
-import AssetSkeletonLoader from './components/asset-skeleton-loader'
+import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
 import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplified'
 import AssetCard from './components/asset-card'
 import TransferForm from '@/vue/forms/TransferForm'
@@ -105,7 +105,7 @@ export default {
     NoDataMessage,
     AssetAttributesViewer,
     AssetActions,
-    AssetSkeletonLoader,
+    SkeletonLoaderCard,
     UpdateAssetFormSimplifiedModule,
     AssetCard,
     TransferForm,
@@ -121,7 +121,7 @@ export default {
     isAssetUpdateDrawerShown: false,
     selectedBalance: {},
     businessOwnerId: ALL_VALUE,
-    itemsPerSkeletonLoader: 3,
+    itemsPerSkeletonLoader: 4,
     isUpdateMode: false,
   }),
 

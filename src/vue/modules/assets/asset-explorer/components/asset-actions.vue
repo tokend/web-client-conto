@@ -74,7 +74,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 const EVENTS = {
   updateAsset: 'update-asset',
   assetDeleted: 'asset-deleted',
-  transfer: 'transfer'
+  transfer: 'transfer',
 }
 
 export default {

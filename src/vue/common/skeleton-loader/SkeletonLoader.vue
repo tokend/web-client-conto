@@ -24,6 +24,7 @@ const TEMPLATES = {
   imageViewer: 'image-viewer',
   fieldViewer: 'field-viewer',
   mediumButton: 'medium-button',
+  smallButton: 'small-button',
   fillMode: 'fill-mode',
 }
 
@@ -66,6 +67,11 @@ export default {
 
   &--medium-button {
     max-width: 18rem;
+    width: 100%;
+  }
+
+  &--small-button {
+    max-width: 9rem;
     width: 100%;
   }
 
@@ -145,6 +151,10 @@ export default {
   }
 
   &--medium-button {
+    height: 2.2rem;
+  }
+
+  &--small-button {
     height: 2.2rem;
   }
 
