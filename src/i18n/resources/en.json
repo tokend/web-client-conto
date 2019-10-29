@@ -1494,6 +1494,10 @@
       "business-filter-prefix": "Company:",
       "asset-filter-prefix": "Asset:",
       "all-option": "All"
+    },
+    "business-card": {
+      "add-lbl": "Add",
+      "details-lbl": "Details"
     }
   }
 }

@@ -7,12 +7,11 @@
           v-for="item in list"
           :key="item.accountId"
         >
-          <button
-            class="businesses-all__list-item-btn"
-            @click="selectItem(item)"
-          >
-            <business-card :business="item" />
-          </button>
+          <business-card
+            :business="item"
+            @vue-details="selectItem(item)"
+            @business-added="loadMyBusinesses()"
+          />
         </div>
       </div>
     </template>
