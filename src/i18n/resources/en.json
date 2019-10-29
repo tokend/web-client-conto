@@ -1152,6 +1152,10 @@
       "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
       "delete-asset-message": "Are you sure you want to delete the asset?"
     },
+    "asset-card": {
+      "details-lbl": "Details",
+      "transfer-lbl": "Transfer"
+    },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",
       "supported-browsers-list": "Supported browsers list"
@@ -1236,7 +1240,9 @@
     },
     "atomic-swap-card": {
       "available": "Available: {{ amount, balance }}",
-      "price": "Price: {{ amount, number }} {{code}}"
+      "price": "Price: {{ amount, number }} {{code}}",
+      "buy-lbl": "Buy",
+      "details-lbl": "Details"
     },
     "customers-page": {
       "invite-btn": "Invite client",

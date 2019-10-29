@@ -155,7 +155,7 @@ $x-large: 1920px;
   line-height: $line-height;
   max-height: $max-height;
   white-space: normal;
-  word-break: break-all;
+  word-break: normal;
   text-overflow: ellipsis;
 
   @if ($strict) {

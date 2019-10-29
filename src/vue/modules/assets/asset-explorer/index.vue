@@ -36,11 +36,10 @@
       <div class="assets-explorer__asset-list-wrp">
         <div class="assets-explorer__asset-list">
           <template v-for="accountBalance in accountBalances">
-            <card-viewer
-              :asset="accountBalance.asset"
-              :balance="accountBalance"
+            <asset-card
               :key="accountBalance.id"
-              @click="selectBalance(accountBalance)"
+              :balance="accountBalance"
+              @vue-details="selectBalance(accountBalance)"
             />
           </template>
           <template v-for="index in itemsPerSkeletonLoader">
@@ -72,11 +71,11 @@
 import Drawer from '@/vue/common/Drawer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
-import CardViewer from '../shared/components/card-viewer'
 import AssetAttributesViewer from '../shared/components/asset-attributes-viewer'
 import AssetActions from './components/asset-actions'
 import AssetSkeletonLoader from './components/asset-skeleton-loader'
 import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplified'
+import AssetCard from './components/asset-card'
 
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -90,11 +89,11 @@ export default {
   components: {
     Drawer,
     NoDataMessage,
-    CardViewer,
     AssetAttributesViewer,
     AssetActions,
     AssetSkeletonLoader,
     UpdateAssetFormSimplifiedModule,
+    AssetCard,
   },
 
   mixins: [UpdateList],
@@ -120,18 +119,18 @@ export default {
     accountBalances () {
       try {
         let accountBalances = []
-        if (this.isCustomerUiShown) {
-          /* eslint-disable max-len */
-          let businessAccountBalances = this.businessOwnerId === ALL_VALUE
-            ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
-            : this.accountBalancesByOwner(this.businessOwnerId)
+        // if (this.isCustomerUiShown) {
+        /* eslint-disable max-len */
+        let businessAccountBalances = this.businessOwnerId === ALL_VALUE
+          ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+          : this.accountBalancesByOwner(this.businessOwnerId)
           /* eslint-enable max-len */
 
-          accountBalances = businessAccountBalances
-            .filter(item => +item.balance > 0)
-        } else {
-          accountBalances = this.accountOwnedAssetsBalances
-        }
+        accountBalances = businessAccountBalances
+          .filter(item => +item.balance > 0)
+        // } else {
+        //   accountBalances = this.accountOwnedAssetsBalances
+        // }
 
         return accountBalances
       } catch (error) {
@@ -191,6 +190,7 @@ export default {
 
 $asset-card-margin: 0.75rem;
 $media-small-height: 460px;
+$list-item-margin: 2rem;
 
 .assets-explorer__actions {
   margin-top: 4.9rem;
@@ -200,10 +200,40 @@ $media-small-height: 460px;
   }
 }
 
-.assets-explorer__asset-list {
+.assets-explorer__asset-list-wrp {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: -$asset-card-margin;
+}
+
+.assets-explorer__asset-list {
+  margin: $list-item-margin $list-item-margin 0 0;
+  width: calc(100% + #{$list-item-margin});
+
+  $media-desktop: 1130px;
+  $media-small-desktop: 960px;
+
+  @mixin list-item-width($width) {
+    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
+    max-width: calc(#{$width} - (#{$list-item-margin}));
+  }
+
+  @include list-item-width(25%);
+  @include respond-to-custom($media-desktop) {
+    @include list-item-width(33%);
+  }
+  @include respond-to-custom($media-small-desktop) {
+    @include list-item-width(50%);
+  }
+  @include respond-to-custom($sidebar-hide-bp) {
+    @include list-item-width(50%);
+  }
+  @include respond-to(small) {
+    @include list-item-width(100%);
+  }
+  @include respond-to(xsmall) {
+    @include list-item-width(100%);
+  }
 }
 </style>
