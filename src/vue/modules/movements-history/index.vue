@@ -1,12 +1,14 @@
 <template>
   <div class="movements-history">
-    <div class="movements-history__list-wrp">
-      <movements-table
-        :is-movements-loaded="isMovementsLoaded"
-        :movements="movements"
-        :is-customer-movements="isCustomerMovements"
-      />
-    </div>
+    <template v-if="!isMovementsLoadFailed">
+      <div class="movements-history__list-wrp">
+        <movements-table
+          :is-movements-loaded="isMovementsLoaded"
+          :movements="movements"
+          :is-customer-movements="isCustomerMovements"
+        />
+      </div>
+    </template>
 
     <template v-if="isMovementsLoadFailed">
       <p class="movements-history__error-msg">

@@ -17,6 +17,10 @@
       </div>
     </template>
 
+    <template v-else-if="isLoadingFailed">
+      <p>{{ 'atomic-swaps-explore.loading-error-msg' | globalize }}</p>
+    </template>
+
     <template v-else-if="!list.length && isLoading">
       <div class="atomic-swaps-explore__list">
         <div
@@ -118,6 +122,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      isLoadingFailed: false,
       list: [],
       isDrawerShown: false,
       atomicSwapToBrowse: {},
@@ -172,6 +177,7 @@ export default {
           filter: filter,
         })
       } catch (error) {
+        this.isLoadingFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 
