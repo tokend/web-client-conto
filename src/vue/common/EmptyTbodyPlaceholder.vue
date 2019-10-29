@@ -3,6 +3,7 @@
     <tr class="empty-tbody-placeholder__brief">
       <td
         :colspan="colspan"
+        :title="message"
         class="empty-tbody-placeholder__cell
           empty-tbody-placeholder__cell--align-center
         "

@@ -117,9 +117,11 @@
       "field-error_minLength": "This field must contain minimum {{minLength}} symbols",
       "field-error_selectedSameAssetCode": "Not allowed duplicated quote asset codes",
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
-      "field-error_emailOrPhoneNumber": "This field should be a valid email or phone number",
+      "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email",
       "field-error_telegramUsername": "The telegram username is incorrect",
-      "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}"
+      "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
+      "field-error_promoCodeNotExist": "Promo Code for this offer does not exists"
+
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -491,7 +493,7 @@
     "settings-page": {
       "verification-tab": "Verification",
       "security-tab": "General",
-      "my-account-tab": "Business"
+      "my-account-tab": "Company"
     },
     "security-page": {
       "enable-tfa-title": "Enable 2FA",
@@ -511,7 +513,10 @@
       "add-phone-number-btn": "Add phone number",
       "add-telegram-title": "Add telegram username",
       "add-telegram-btn": "Add telegram username",
-      "default-quote-asset-title": "Default quote asset"
+      "default-quote-asset-title": "Default quote asset",
+      "company-link-title": "Company link",
+      "view-company-link-btn": "View company link",
+      "company-link-label": "Company link"
     },
     "phone-number-form": {
       "phone-number-lbl": "Phone number",
@@ -564,7 +569,7 @@
       "loading-error-msg": "There was an error while loading.",
       "account-type-lbl": "Account type",
       "account-type-general-title": "General",
-      "account-type-corporate-title": "Business",
+      "account-type-corporate-title": "Company",
       "account-type-corporate-description": "Invite customers, create assets",
       "account-type-general-description": "Transfer assets"
     },
@@ -615,7 +620,8 @@
       "website-lbl": "Website (Optional)",
       "request-submitted-msg": "Your request has been submitted successfully",
       "card-number-lbl": "Card number (Optional)",
-      "invitation-code-lbl": "Invitation code (Optional)"
+      "invitation-code-lbl": "Invitation code (Optional)",
+      "banner-lbl": "Banner (Optional)"
     },
     "input-field": {
       "caps-lock-warning": "Warning: Caps-Lock is ON"
@@ -633,14 +639,15 @@
       "register-of-shares": "History",
       "customers": "Customers",
       "customers-list": "Customers list",
-      "businesses": "Businesses",
+      "businesses": "Companies",
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
-      "kyc-recovery": "KYC Recovery"
+      "kyc-recovery": "KYC Recovery",
+      "promo-codes": "Promo Codes"
     },
     "passport": {
       "account-unverified": "General account",
-      "account-corporate": "Business account",
+      "account-corporate": "Company account",
       "account-us-accredited": "Verified accredited investor (US)",
       "account-us-verified": "Verified account (US)",
       "account-general": "General account",
@@ -650,12 +657,13 @@
       "sign-out-btn": "Sign out",
       "balances-subheading": "Balances",
       "show-more-link": "Show more",
-      "customer-ui-switch": "Customer"
+      "customer-ui-switch": "Customer",
+      "company-btn": "Company"
     },
     "sidebar": {
       "section-explore": "Explorations",
       "section-account": "My account",
-      "section-corporate": "Business"
+      "section-corporate": "Company"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -1043,6 +1051,10 @@
       "invalid-dimensions-err": "You cannot upload an image with dimensions less than {{minWidth}}x{{minHeight}}",
       "disabled-msg": "This field is disabled"
     },
+    "clipper-field": {
+      "save-lbl": "Save",
+      "cancel-lbl": "Cancel"
+    },
     "whitelist-invite-form": {
       "email-lbl": "User's email",
       "invite-btn": "Invite client",
@@ -1136,7 +1148,8 @@
       "converted-balance-title": "Converted balance",
       "vendor-code": "Vendor code",
       "can-be-base-in-atomic-swap-title": "Can be base in offering",
-      "can-be-quote-in-atomic-swap-title": "Can be quote in offering"
+      "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
+      "delete-asset-message": "Are you sure you want to delete the asset?"
     },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",
@@ -1196,7 +1209,10 @@
       "error-msg": "Payment request was successful. Cannot load address for payment.",
       "load-failed-msg": "There was an error while loading.",
       "loading-msg": "Please wait while we loading your data.",
-      "asset-description-lbl": "Asset description"
+      "asset-description-lbl": "Asset description",
+      "promo-code-lbl": "Promo Code",
+      "discount": "Discount",
+      "calculating-msg": "Calculating..."
     },
     "atomic-swap-actions": {
       "cancel-btn": "Cancel offering",
@@ -1212,10 +1228,7 @@
       "base-asset-name": "Base asset name",
       "amount-key": "Amount",
       "quote-asset-key": "Code",
-      "current-cap-key": "Current cap",
-      "hard-cap-key": "Hard cap",
       "price-key": "Price",
-      "total-current-cap-key": "Total current cap",
       "address-key": "Address",
       "quote-assets-subheading": "Quote asset #{{ number }}",
       "destination-key": "Destination"
@@ -1284,28 +1297,28 @@
       "customer-drawer-title": "View customer"
     },
     "businesses": {
-      "all-tab": "All businesses",
-      "my-tab": "My businesses"
+      "all-tab": "All companies",
+      "my-tab": "My companies"
     },
     "businesses-all": {
-      "no-list-title": "No businesses here yet",
-      "no-list-msg": "Here will be the list of businesses",
-      "business-details-title": "Business details",
-      "business-assets-title": "Business assets"
+      "no-list-title": "No companies here yet",
+      "no-list-msg": "Here will be the list of companies",
+      "business-details-title": "Company details",
+      "business-assets-title": "Company assets"
     },
     "business-viewer": {
-      "add-btn": "Add business",
-      "business-added-successfully-notification": "Business has been added successfully"
+      "add-btn": "Add company",
+      "business-added-successfully-notification": "Company has been added successfully"
     },
     "business-attributes": {
       "id-key": "ID",
       "owner-key": "Owner",
       "industry-key": "Industry",
-      "my-business-label": "It's your business"
+      "my-business-label": "It's your company"
     },
     "businesses-my": {
-      "no-list-title": "No businesses here yet",
-      "no-list-msg": "Here will be the list of businesses associated with you"
+      "no-list-title": "No companies here yet",
+      "no-list-msg": "Here will be the list of companies associated with you"
     },
     "current-business-indicator": {
       "browsing-lbl": "Browsing:"
@@ -1334,12 +1347,12 @@
       "loading-msg": "Loading sponsorship requests…",
       "loading-error-msg": "There was an error while loading.",
       "details-title": "Sponsorship request",
-      "sponsor-business-header": "Sponsor business",
-      "consumer-business-header": "Consumer business",
-      "sponsor-asset-name-header": "Business asset name",
-      "sponsor-business-key": "Sponsor business",
-      "consumer-business-key": "Consumer business",
-      "sponsor-asset-name-key": "Business asset name",
+      "sponsor-business-header": "Sponsor company",
+      "consumer-business-header": "Consumer company",
+      "sponsor-asset-name-header": "Company asset name",
+      "sponsor-business-key": "Sponsor company",
+      "consumer-business-key": "Consumer company",
+      "sponsor-asset-name-key": "Company asset name",
       "amount-key": "Amount",
       "asset-code-header": "Asset code",
       "amount-header": "Amount",
@@ -1372,7 +1385,7 @@
       "asset-name-th": "Asset name",
       "number-of-holders-th": "Number of holders",
       "sponsor-btn": "Sponsor",
-      "no-data-msg": "Business don't have any assets yet.",
+      "no-data-msg": "Company don't have any assets yet.",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue."
     },
     "sponsorship-form": {
@@ -1384,7 +1397,7 @@
       "create-contract-successful": "Contract created successfully"
     },
     "sponsorship-page": {
-      "businesses-tab": "Businesses",
+      "businesses-tab": "Companies",
       "incoming-requests-tab": "Incoming requests",
       "outgoing-requests-tab": "Outgoing requests"
     },
@@ -1392,6 +1405,11 @@
       "approved-incoming-msg": "This request was approved",
       "pending-incoming-msg": "This request is waiting for your review. Please approve or reject it",
       "permanently-rejected-incoming-msg": "This request was rejected permanently"
+    },
+    "multiselect-field": {
+      "select-all": "Select all",
+      "all-selected-lable": "All selceted",
+      "select-something-lable": "Select soemthing..."
     },
     "redeem-form": {
       "form-heading": "Redeem",
@@ -1404,10 +1422,60 @@
       "asset-deleted-msg": "Asset successfully deleted"
     },
     "business": {
-      "error-msg": "Can not load business description.",
-      "error-title": "There is no such business",
+      "error-msg": "Can not load company description.",
+      "error-title": "There is no such company",
       "shop": "Shop",
       "loading-msg": "Loading..."
+    },
+    "promo-codes-page": {
+      "create-btn": "Create",
+      "create-promo-code-title": "Create Promo Code"
+    },
+    "promo-code-form": {
+      "create-btn": "Create",
+      "code-lbl": "Code",
+      "description-lbl": "Description(Optional)",
+      "max-uses-lbl": "Max uses(Optional)",
+      "discount-lbl": "Discount(%)",
+      "no-offers-msg-title": "No offerings yet",
+      "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
+      "created-successfully-notification": "Promo Code was created successfully",
+      "loading": "Loading"
+    },
+    "promo-codes-list": {
+      "no-list-title": "No Promo Codes yet",
+      "no-list-msg": "Here will be the list of Promo Codes",
+      "promo-code-drawer-title": "Promo Code details",
+      "load-failed-msg": "There was an error while loading. Please, try again later"
+    },
+    "promo-code-viewer": {
+      "delete-btn": "Delete",
+      "promo-code-deleted-successfully-notification": "Promo Code successfully deleted",
+      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?"
+    },
+    "promo-code-offers-table": {
+      "name-th": "Name",
+      "amount-th": "Amount",
+      "price-th": "Price",
+      "offers-title": "Offers",
+      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
+      "no-data-msg":"Promo Code don't have any offers yet."
+    },
+    "promo-code-form-offers-table": {
+      "name-th": "Name",
+      "amount-th": "Amount",
+      "price-th": "Price",
+      "offers-title": "Offers"
+    },
+    "promo-code-attributes": {
+      "code-key": "Code",
+      "description-key": "Description",
+      "discount-key": "Discount",
+      "max-uses-key": "Max uses",
+      "used-key": "Used"
+    },
+    "promo-code-card": {
+      "discount": "Discount:"
     }
   }
 }

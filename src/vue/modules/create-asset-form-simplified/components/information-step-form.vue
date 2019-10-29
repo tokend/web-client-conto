@@ -67,7 +67,7 @@
 
     <div class="app__form-row">
       <div class="app__form-field">
-        <file-field
+        <clipper-field
           name="create-asset-logo"
           v-model="form.logo"
           :note="'create-asset-form.logo-note' | globalize"
@@ -75,6 +75,7 @@
           :label="'create-asset-form.logo-lbl' | globalize"
           :min-width="120"
           :min-height="120"
+          :ratio="1"
           :disabled="isDisabled"
         />
       </div>

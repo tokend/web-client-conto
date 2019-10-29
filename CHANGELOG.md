@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
+## [1.1.0-rcunitcity.4] - 2019-10-29
+#### Added
+- A clipper field
+- A banner for corporate user
+- Filter balances for customers
+- Promo codes
+- Company link
+- Confirmation on delete asset
+
+#### Changed
+- Used clipper field for avatar and banner
+- Used banner in business page
+
+#### Fixed
+- A bug when drop down go out of page boundaries
+- A bug with incorrect error message after enterring recipient email on transfer form
+- A bug when the user can not enter a value in input-field with type 'number' on Firefox
+
+#### Changed
+- Renamed business to companies
+
 ## [1.1.0-rcunitcity.3] - 2019-10-18
 #### Fixed
 - Localization text
@@ -331,7 +352,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.3...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.4...HEAD
+[1.1.0-rcunitcity.4]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.3...1.1.0-rcunitcity.4
 [1.1.0-rcunitcity.3]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.2...1.1.0-rcunitcity.3
 [1.1.0-rcunitcity.2]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.1...1.1.0-rcunitcity.2
 [1.1.0-rcunitcity.1]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.0...1.1.0-rcunitcity.1
