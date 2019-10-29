@@ -1309,10 +1309,6 @@
     },
     "business-viewer": {
       "add-btn": "Add company",
-      "business-added-successfully-notification": "Company has been added successfully"
-    },
-    "current-business": {
-      "add-btn": "Add company",
       "business-added-successfully-notification": "Company has been added successfully",
       "shop": "Shop",
       "loading-msg": "Loading...",

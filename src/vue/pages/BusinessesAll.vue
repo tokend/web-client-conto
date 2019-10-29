@@ -43,24 +43,16 @@
         {{ 'businesses-all.business-details-title' | globalize }}
       </template>
 
-      <template v-if="isAccountGeneral">
-        <business-viewer
+      <business-attributes
+        :business="currentBusiness"
+      />
+      <template v-if="!isBusinessOwner">
+        <h3 class="businesses-all__bussiness-assets-title">
+          {{ 'businesses-all.business-assets-title' | globalize }}
+        </h3>
+        <business-assets-viewer
           :business="currentBusiness"
-          @business-added="closeDrawerAndUpdateList"
         />
-      </template>
-      <template v-else>
-        <business-attributes
-          :business="currentBusiness"
-        />
-        <template v-if="!isBusinessOwner">
-          <h3 class="businesses-all__bussiness-assets-title">
-            {{ 'businesses-all.business-assets-title' | globalize }}
-          </h3>
-          <business-assets-viewer
-            :business="currentBusiness"
-          />
-        </template>
       </template>
     </drawer>
 
@@ -82,7 +74,6 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import BusinessCard from './businesses-all/BusinessCard'
 import BusinessCardSkeleton from './businesses-all/BusinessCardSkeleton'
 import Drawer from '@/vue/common/Drawer'
-import BusinessViewer from './businesses-all/BusinessViewer'
 import BusinessAttributes from './businesses-all/BusinessAttributes'
 import BusinessAssetsViewer from './businesses-all/BusinessAssetsViewer'
 
@@ -100,7 +91,6 @@ export default {
     BusinessCardSkeleton,
     NoDataMessage,
     Drawer,
-    BusinessViewer,
     BusinessAttributes,
     BusinessAssetsViewer,
   },

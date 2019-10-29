@@ -1,10 +1,10 @@
 <template>
-  <div class="current-business">
-    <div class="current-business__wrp">
+  <div class="business-viewer">
+    <div class="business-viewer__wrp">
       <template v-if="isLoaded">
-        <div class="current-business__top-bar">
-          <div class="current-business__name-wrp">
-            <h1 class="current-business__title">
+        <div class="business-viewer__top-bar">
+          <div class="business-viewer__name-wrp">
+            <h1 class="business-viewer__title">
               {{ business.name }}
             </h1>
             <h3 v-if="business.industry">
@@ -13,7 +13,7 @@
           </div>
           <div
             v-if="!isMyBusiness"
-            class="current-business__actions"
+            class="business-viewer__actions"
           >
             <button
               v-ripple
@@ -21,19 +21,19 @@
               @click="addBusiness"
               :disabled="isSubmitting"
             >
-              {{ 'current-business.add-btn' | globalize }}
+              {{ 'business-viewer.add-btn' | globalize }}
             </button>
           </div>
         </div>
 
-        <current-business-description
+        <business-viewer-description
           v-if="business.bannerKey || business.description"
           :business="business"
         />
 
-        <div class="current-business__shop">
-          <h1 class="current-business__title">
-            {{ 'current-business.shop' | globalize }}
+        <div class="business-viewer__shop">
+          <h1 class="business-viewer__title">
+            {{ 'business-viewer.shop' | globalize }}
           </h1>
         </div>
         <atomic-swaps-explore
@@ -42,14 +42,14 @@
       </template>
       <template v-else-if="!isLoaded && !isFailed">
         <loader
-          :message-id="'current-business.loading-msg'"
+          :message-id="'business-viewer.loading-msg'"
         />
       </template>
       <template v-if="isFailed">
         <no-data-message
           icon-name="castle"
-          :title="'current-business.error-title' | globalize"
-          :message="'current-business.error-msg' | globalize"
+          :title="'business-viewer.error-title' | globalize"
+          :message="'business-viewer.error-msg' | globalize"
         />
       </template>
     </div>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import CurrentBusinessDescription from '@/vue/pages/current-business/CurrentBusinessDescription'
+import BusinessViewerDescription from '@/vue/pages/business-viewer/BusinessViewerDescription'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
@@ -71,10 +71,10 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 export default {
-  name: 'current-business',
+  name: 'business-viewer',
 
   components: {
-    CurrentBusinessDescription,
+    BusinessViewerDescription,
     AtomicSwapsExplore,
     Loader,
     NoDataMessage,
@@ -176,7 +176,7 @@ export default {
   @import '~@scss/variables.scss';
   @import '~@scss/mixins.scss';
 
-  .current-business__wrp {
+  .business-viewer__wrp {
     width: 100%;
     max-width: 150rem;
     display: flex;
@@ -184,7 +184,7 @@ export default {
     justify-content: space-between;
   }
 
-  .current-business__top-bar {
+  .business-viewer__top-bar {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -195,7 +195,7 @@ export default {
     }
   }
 
-  .current-business__name-wrp {
+  .business-viewer__name-wrp {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -205,7 +205,7 @@ export default {
     }
   }
 
-  .current-business__title {
+  .business-viewer__title {
     color: $col-text-page-heading;
     font-size: 3rem;
     line-height: 1.5;
@@ -220,7 +220,7 @@ export default {
     }
   }
 
-  .current-business__shop {
+  .business-viewer__shop {
     width: 100%;
     display: flex;
     justify-content: space-between;

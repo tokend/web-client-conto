@@ -1266,10 +1266,6 @@
     },
     "business-viewer": {
       "add-btn": "Добавить компанию",
-      "business-added-successfully-notification": "Компания успешно добавлена"
-    },
-    "current-business": {
-      "add-btn": "Добавить компанию",
       "business-added-successfully-notification": "Компания успешно добавлена",
       "shop": "Магазин",
       "loading-msg": "Загружаем…",

@@ -15,7 +15,7 @@ import CustomersList from '@/vue/pages/CustomersList'
 import Businesses from '@/vue/pages/Businesses'
 import BusinessesMy from '@/vue/pages/BusinessesMy'
 import BusinessesAll from '@/vue/pages/BusinessesAll'
-import CurrentBusiness from '@/vue/pages/CurrentBusiness'
+import BusinessViewer from '@/vue/pages/BusinessViewer'
 
 import Assets from '@/vue/pages/Assets'
 import AssetExplorer from '@/vue/pages/AssetExplorer'
@@ -177,7 +177,7 @@ const router = new Router({
             {
               path: '/companies/:id',
               name: vueRoutes.currentBusiness.name,
-              component: CurrentBusiness,
+              component: BusinessViewer,
               props: true,
               beforeEnter: inAppRouteGuard,
               meta: {
