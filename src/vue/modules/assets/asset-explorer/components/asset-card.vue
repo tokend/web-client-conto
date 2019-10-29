@@ -24,7 +24,7 @@
         <button
           v-ripple
           class="app__button-flat"
-          @click="$emit(EVENTS.vueDetails)"
+          @click="$emit(EVENTS.transfer, balance.asset.code)"
         >
           {{ 'asset-card.transfer-lbl' | globalize }}
         </button>

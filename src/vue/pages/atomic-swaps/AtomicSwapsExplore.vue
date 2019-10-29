@@ -208,25 +208,6 @@ export default {
 @import '~@scss/variables.scss';
 
 $list-item-margin: 2rem;
-$filter-field-to-filter-field-margin: 2rem;
-
-.atomic-swaps-explore__filters {
-  margin: -$filter-field-to-filter-field-margin 0 2.4rem
-    (-$filter-field-to-filter-field-margin);
-}
-
-.atomic-swaps-explore__filter-field {
-  margin: $filter-field-to-filter-field-margin 0 0
-    $filter-field-to-filter-field-margin;
-}
-
-.atomic-swaps-explore__list-item-btn {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  text-align: left;
-  height: 100%;
-}
 
 .atomic-swaps-explore__list {
   display: flex;
