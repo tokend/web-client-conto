@@ -7,7 +7,10 @@
             <h1 class="business-viewer__title">
               {{ business.name }}
             </h1>
-            <h3 v-if="business.industry">
+            <h3
+              class="business-viewer__industry"
+              v-if="business.industry"
+            >
               {{ business.industry }}
             </h3>
           </div>
@@ -218,6 +221,13 @@ export default {
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;
     }
+  }
+
+  .business-viewer__industry {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: $col-secondary;
   }
 
   .business-viewer__shop {

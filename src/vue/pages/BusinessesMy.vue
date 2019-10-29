@@ -1,9 +1,9 @@
 <template>
   <div class="businesses-my">
     <template v-if="myBusinesses.length">
-      <div class="businesses-my__list">
+      <div class="app__card-list">
         <div
-          class="businesses-my__list-item-wrp"
+          class="app__card-list-item"
           v-for="item in myBusinesses"
           :key="item.accountId"
         >
@@ -18,9 +18,9 @@
     </template>
 
     <template v-else-if="!myBusinesses.length && isLoading">
-      <div class="businesses-my__list">
+      <div class="app__card-list">
         <div
-          class="businesses-my__list-item-wrp"
+          class="app__card-list-item"
           v-for="item in 5"
           :key="item"
         >
@@ -124,7 +124,6 @@ export default {
 @import '~@scss/mixins.scss';
 @import '~@scss/variables.scss';
 
-$list-item-margin: 2rem;
 $filter-field-to-filter-field-margin: 2rem;
 
 .businesses-my__filters {
@@ -142,42 +141,6 @@ $filter-field-to-filter-field-margin: 2rem;
   width: 100%;
   max-width: 100%;
   text-align: left;
-}
-
-.businesses-my__list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -$list-item-margin 0 0 (-$list-item-margin);
-}
-
-.businesses-my__list-item-wrp {
-  margin: $list-item-margin 0 0 $list-item-margin;
-  width: calc(100% + #{$list-item-margin});
-
-  $media-desktop: 1130px;
-  $media-small-desktop: 960px;
-
-  @mixin list-item-width($width) {
-    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
-    max-width: calc(#{$width} - (#{$list-item-margin}));
-  }
-
-  @include list-item-width(25%);
-  @include respond-to-custom($media-desktop) {
-    @include list-item-width(33%);
-  }
-  @include respond-to-custom($media-small-desktop) {
-    @include list-item-width(50%);
-  }
-  @include respond-to-custom($sidebar-hide-bp) {
-    @include list-item-width(33%);
-  }
-  @include respond-to(small) {
-    @include list-item-width(50%);
-  }
-  @include respond-to(xsmall) {
-    @include list-item-width(100%);
-  }
 }
 
 .businesses-my__loader {

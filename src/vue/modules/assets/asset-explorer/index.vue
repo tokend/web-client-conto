@@ -34,10 +34,10 @@
       </drawer>
 
       <div class="assets-explorer__asset-list-wrp">
-        <div class="assets-explorer__asset-list">
+        <div class="app__card-list">
           <template v-for="accountBalance in accountBalances">
             <card-viewer
-              class="app__list-card"
+              class="app__card-list-item"
               :asset="accountBalance.asset"
               :balance="accountBalance"
               :key="accountBalance.id"
@@ -190,7 +190,6 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 
-$asset-card-margin: 0.75rem;
 $media-small-height: 460px;
 
 .assets-explorer__actions {
@@ -199,12 +198,5 @@ $media-small-height: 460px;
   @include respond-to-height($media-small-height) {
     margin-top: 2.4rem;
   }
-}
-
-.assets-explorer__asset-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin: -$asset-card-margin;
 }
 </style>

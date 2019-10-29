@@ -1,9 +1,9 @@
 <template>
   <div class="businesses-all">
     <template v-if="allBusinesses.length">
-      <div class="businesses-all__list">
+      <div class="app__card-list">
         <div
-          class="app__list-card"
+          class="app__card-list-item"
           v-for="item in allBusinesses"
           :key="item.accountId"
         >
@@ -18,9 +18,9 @@
     </template>
 
     <template v-else-if="!allBusinesses.length && isLoading">
-      <div class="businesses-all__list">
+      <div class="app__card-list">
         <div
-          class="app__list-card"
+          class="app__card-list-item"
           v-for="item in 5"
           :key="item"
         >
@@ -178,7 +178,6 @@ export default {
 @import '~@scss/mixins.scss';
 @import '~@scss/variables.scss';
 
-$list-item-margin: 2rem;
 $filter-field-to-filter-field-margin: 2rem;
 
 .businesses-all__filters {
@@ -196,12 +195,6 @@ $filter-field-to-filter-field-margin: 2rem;
   width: 100%;
   max-width: 100%;
   text-align: left;
-}
-
-.businesses-all__list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -$list-item-margin 0 0 (-$list-item-margin);
 }
 
 .businesses-all__loader {
