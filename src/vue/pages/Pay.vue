@@ -122,8 +122,6 @@ export default {
   @import '~@scss/variables.scss';
   @import '~@scss/mixins.scss';
 
-  $media-small-desktop: 960px;
-
   .pay {
     padding: 3.5rem 15%;
     display: flex;

@@ -65,17 +65,6 @@ export default {
 $asset-card-header-height: 8.5rem;
 $asset-card-margin: 0.75rem;
 
-$media-desktop: 1130px;
-$media-small-desktop: 960px;
-
-// wait for 10.0.2 stylelint version
-/* stylelint-disable function-calc-no-invalid */
-@mixin asset-card-width ($width) {
-  flex: 0 1 calc(#{$width} - (#{$asset-card-margin} * 2));
-  max-width: calc(#{$width} - (#{$asset-card-margin} * 2));
-}
-/* stylelint-enable function-calc-no-invalid */
-
 .card-viewer {
   min-height: 16rem;
   cursor: pointer;
@@ -83,23 +72,6 @@ $media-small-desktop: 960px;
   box-shadow: 0 0.5rem 1rem 0 $col-field-shadow;
   background-color: $col-asset-card-background;
   margin: $asset-card-margin;
-
-  @include asset-card-width(25%);
-  @include respond-to-custom($media-desktop) {
-    @include asset-card-width(33%);
-  }
-  @include respond-to-custom($media-small-desktop) {
-    @include asset-card-width(50%);
-  }
-  @include respond-to-custom($sidebar-hide-bp) {
-    @include asset-card-width(33%);
-  }
-  @include respond-to(small) {
-    @include asset-card-width(50%);
-  }
-  @include respond-to(xsmall) {
-    @include asset-card-width(100%);
-  }
 }
 
 .card-viewer__header {

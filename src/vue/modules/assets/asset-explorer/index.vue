@@ -37,6 +37,7 @@
         <div class="assets-explorer__asset-list">
           <template v-for="accountBalance in accountBalances">
             <card-viewer
+              class="app__list-card"
               :asset="accountBalance.asset"
               :balance="accountBalance"
               :key="accountBalance.id"
