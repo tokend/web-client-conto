@@ -8,7 +8,7 @@
       <template slot="header">
         {{ promoCode.code }}
       </template>
-      <template slot="subhead">
+      <template slot="accent-title">
         <span :title="promoCode.discount | formatPercent">
           {{ 'promo-code-card.discount' | globalize }}
           {{ promoCode.discount | formatPercent }}

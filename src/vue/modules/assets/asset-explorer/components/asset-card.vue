@@ -9,7 +9,7 @@
       <template slot="header">
         {{ balance.asset.name }}
       </template>
-      <template slot="subhead">
+      <template slot="accent-title">
         <span :title="assetBalance | formatMoney">
           {{
             'assets-list.list-item-balance-line' |
