@@ -131,10 +131,17 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@scss/variables';
+
 .assets-page__btn-icon {
   display: flex;
   font-size: 1.8rem;
   margin-right: 0.5rem;
   margin-top: -0.4rem;
+}
+
+.assets-page__filter-prefix {
+  color: $col-field-inactive;
+  font-size: 1.2rem;
 }
 </style>

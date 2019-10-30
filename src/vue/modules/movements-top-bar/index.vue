@@ -257,6 +257,8 @@ export default {
 
 .movements-top-bar__filter-prefix {
   line-height: 1;
+  color: $col-field-inactive;
+  font-size: 1.2rem;
 }
 
 .movements-top-bar__filter {
