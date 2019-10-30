@@ -1,4 +1,5 @@
 import _get from 'lodash/get'
+import { documentsManager } from '@/api'
 
 export class BusinessRecord {
   constructor (record) {
@@ -41,6 +42,14 @@ export class BusinessRecord {
       this.bannerName = _get(this.banner, 'name')
       this.bannerType = _get(this.banner, 'type')
     } catch (error) {
+    }
+  }
+
+  get logoUrl () {
+    if (this.logoKey) {
+      return documentsManager.getDocumentUrlByKey(this.logoKey)
+    } else {
+      return ''
     }
   }
 }

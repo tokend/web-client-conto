@@ -7,12 +7,10 @@
           v-for="item in myBusinesses"
           :key="item.accountId"
         >
-          <button
-            class="businesses-my__list-item-btn"
-            @click="selectItem(item)"
-          >
-            <business-card :business="item" />
-          </button>
+          <business-card
+            :business="item"
+            @vue-details="selectItem(item)"
+          />
         </div>
       </div>
     </template>
@@ -134,13 +132,6 @@ $filter-field-to-filter-field-margin: 2rem;
 .businesses-my__filter-field {
   margin: $filter-field-to-filter-field-margin 0 0
     $filter-field-to-filter-field-margin;
-}
-
-.businesses-my__list-item-btn {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  text-align: left;
 }
 
 .businesses-my__loader {

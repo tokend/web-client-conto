@@ -111,6 +111,10 @@ export default {
     line-height: 1.65rem;
     color: $col-text;
     opacity: 0.54;
+
+    span {
+      font-size: 1.16rem;
+    }
   }
 
   .card__content {
