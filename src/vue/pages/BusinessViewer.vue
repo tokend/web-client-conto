@@ -228,6 +228,7 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     color: $col-secondary;
+    font-size: 1.3rem;
   }
 
   .business-viewer__shop {
