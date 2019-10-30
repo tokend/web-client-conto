@@ -10,7 +10,7 @@
           />
         </div>
       </template>
-      <template v-for="index in itemsPerSkeletonLoader">
+      <template v-for="index in ITEMS_PER_SKELETON_LOADER">
         <div class="app__card-list-item" :key="index">
           <skeleton-loader-card
             v-if="!isLoaded && !accountBalances.length"
@@ -90,13 +90,14 @@ import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
 import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplified'
 import AssetCard from './components/asset-card'
 import TransferForm from '@/vue/forms/TransferForm'
+import UpdateList from '@/vue/mixins/update-list.mixin'
 
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import UpdateList from '@/vue/mixins/update-list.mixin'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
 
 export default {
   name: 'assets-explorer',
@@ -121,7 +122,7 @@ export default {
     isAssetUpdateDrawerShown: false,
     selectedBalance: {},
     businessOwnerId: ALL_VALUE,
-    itemsPerSkeletonLoader: 4,
+    ITEMS_PER_SKELETON_LOADER,
     isUpdateMode: false,
   }),
 
@@ -166,7 +167,7 @@ export default {
   async created () {
     try {
       await this.loadAccountBalances()
-      // this.isLoaded = true
+      this.isLoaded = true
     } catch (e) {
       this.isLoadFailed = true
       ErrorHandler.processWithoutFeedback()

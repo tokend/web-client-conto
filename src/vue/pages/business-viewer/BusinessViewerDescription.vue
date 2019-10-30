@@ -13,7 +13,7 @@
 
       <vue-markdown
         v-if="business.description"
-        class="business-viewer-description__markdown"
+        class="business-viewer-description__markdown app__markdown"
         :source="business.description"
       />
     </div>
@@ -80,70 +80,8 @@ export default {
     border-radius: 0.4rem 0.4rem 0 0;
   }
 
-</style>
-
-<style lang="scss">
-@import '~@scss/variables';
-/* stylelint-disable selector-nested-pattern */
-.business-viewer-description__markdown {
-  padding: 2rem;
-  border-radius: 0 0 0.4rem 0.4rem;
-
-  img {
-    max-width: 100%;
-    margin: 0.8rem 0;
+  .business-viewer-description__markdown {
+    padding: 2rem;
   }
-
-  h1 {
-    font-size: 2.8rem;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
-  }
-
-  h2 {
-    font-size: 2.2rem;
-    margin-bottom: 1.4rem;
-    margin-top: 1.4rem;
-  }
-
-  h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-  }
-
-  p {
-    margin-bottom: 0.8rem;
-  }
-
-  ol,
-  ul {
-    padding-left: 2rem;
-
-    li {
-      margin-bottom: 0.8rem;
-    }
-  }
-
-  ol {
-
-    li {
-      // stylelint-disable-next-line
-      list-style-type: decimal !important;
-    }
-  }
-
-  ul {
-
-    li {
-      // stylelint-disable-next-line
-      list-style-type: disc !important;
-    }
-  }
-
-  a {
-    color: $col-secondary;
-  }
-}
 
 </style>

@@ -19,10 +19,10 @@
       <div class="app__card-list">
         <div
           class="app__card-list-item"
-          v-for="item in 5"
-          :key="item"
+          v-for="index in ITEMS_PER_SKELETON_LOADER"
+          :key="index"
         >
-          <business-card-skeleton />
+          <skeleton-loader-card />
         </div>
       </div>
     </template>
@@ -49,16 +49,16 @@
 </template>
 
 <script>
+import CollectionLoader from '@/vue/common/CollectionLoader'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import BusinessCard from './businesses-all/BusinessCard'
+import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
+
+import { vueRoutes } from '@/vue-router/routes'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import CollectionLoader from '@/vue/common/CollectionLoader'
-import NoDataMessage from '@/vue/common/NoDataMessage'
-
-import BusinessCard from './businesses-all/BusinessCard'
-import BusinessCardSkeleton from './businesses-all/BusinessCardSkeleton'
-
-import { vueRoutes } from '@/vue-router/routes'
 
 export default {
   name: 'businesses-my',
@@ -66,13 +66,14 @@ export default {
   components: {
     CollectionLoader,
     BusinessCard,
-    BusinessCardSkeleton,
+    SkeletonLoaderCard,
     NoDataMessage,
   },
 
   data () {
     return {
       isLoading: false,
+      ITEMS_PER_SKELETON_LOADER,
     }
   },
 

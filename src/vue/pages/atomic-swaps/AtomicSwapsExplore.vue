@@ -20,7 +20,7 @@
       <div class="app__card-list">
         <div
           class="app__card-list-item"
-          v-for="index in itemsPerSkeletonLoader"
+          v-for="index in ITEMS_PER_SKELETON_LOADER"
           :key="index"
         >
           <skeleton-loader-card />
@@ -86,6 +86,7 @@ import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
 
 export default {
   name: 'atomic-swaps-explore',
@@ -121,7 +122,7 @@ export default {
       filters: {
         isOwnedByCurrentUser: false,
       },
-      itemsPerSkeletonLoader: 4,
+      ITEMS_PER_SKELETON_LOADER,
     }
   },
 
