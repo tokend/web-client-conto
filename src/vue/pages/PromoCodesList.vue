@@ -21,10 +21,10 @@
       <div class="app__card-list">
         <div
           class="app__card-list-item"
-          v-for="item in 5"
-          :key="item"
+          v-for="index in ITEMS_PER_SKELETON_LOADER"
+          :key="index"
         >
-          <promo-code-card-skeleton />
+          <skeleton-loader-card />
         </div>
       </div>
     </template>
@@ -66,7 +66,7 @@
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import Drawer from '@/vue/common/Drawer'
 import PromoCodeCard from './promo-codes/PromoCodeCard'
-import PromoCodeCardSkeleton from './promo-codes/PromoCodeCardSkeleton'
+import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
 import PromoCodeViewer from './promo-codes/PromoCodeViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
@@ -76,6 +76,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
 
 export default {
   name: 'promo-codes-list',
@@ -84,7 +85,7 @@ export default {
     CollectionLoader,
     Drawer,
     PromoCodeViewer,
-    PromoCodeCardSkeleton,
+    SkeletonLoaderCard,
     PromoCodeCard,
     NoDataMessage,
   },
@@ -97,6 +98,7 @@ export default {
       isLoading: false,
       isDrawerShown: false,
       promoCodeToBrowse: {},
+      ITEMS_PER_SKELETON_LOADER,
     }
   },
 
