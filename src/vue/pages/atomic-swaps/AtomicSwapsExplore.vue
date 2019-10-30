@@ -1,9 +1,9 @@
 <template>
   <div class="atomic-swaps-explore">
     <template v-if="list.length">
-      <div class="atomic-swaps-explore__list">
+      <div class="app__card-list">
         <div
-          class="atomic-swaps-explore__list-item-wrp"
+          class="app__card-list-item"
           v-for="item in list"
           :key="item.id"
         >
@@ -12,6 +12,18 @@
             @buy="buyAsset(item)"
             @vue-details="selectItem(item)"
           />
+        </div>
+      </div>
+    </template>
+
+    <template v-else-if="!list.length && isLoading">
+      <div class="app__card-list">
+        <div
+          class="app__card-list-item"
+          v-for="index in itemsPerSkeletonLoader"
+          :key="index"
+        >
+          <skeleton-loader-card />
         </div>
       </div>
     </template>
@@ -67,6 +79,7 @@ import AtomicSwapViewer from './AtomicSwapViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import AtomicSwapForm from '@modules/atomic-swap-form'
+import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
@@ -84,6 +97,7 @@ export default {
     AtomicSwapViewer,
     NoDataMessage,
     AtomicSwapForm,
+    SkeletonLoaderCard,
   },
 
   mixins: [UpdateList],
@@ -107,6 +121,7 @@ export default {
       filters: {
         isOwnedByCurrentUser: false,
       },
+      itemsPerSkeletonLoader: 4,
     }
   },
 
@@ -204,47 +219,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@scss/mixins.scss';
-@import '~@scss/variables.scss';
-
-$list-item-margin: 2rem;
-
-.atomic-swaps-explore__list {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.atomic-swaps-explore__list-item-wrp {
-  margin: $list-item-margin $list-item-margin 0 0;
-  width: calc(100% + #{$list-item-margin});
-
-  $media-desktop: 1130px;
-  $media-small-desktop: 960px;
-
-  @mixin list-item-width($width) {
-    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
-    max-width: calc(#{$width} - (#{$list-item-margin}));
-  }
-
-  @include list-item-width(25%);
-  @include respond-to-custom($media-desktop) {
-    @include list-item-width(33%);
-  }
-  @include respond-to-custom($media-small-desktop) {
-    @include list-item-width(50%);
-  }
-  @include respond-to-custom($sidebar-hide-bp) {
-    @include list-item-width(50%);
-  }
-  @include respond-to(small) {
-    @include list-item-width(100%);
-  }
-  @include respond-to(xsmall) {
-    @include list-item-width(100%);
-  }
-}
-
 .atomic-swaps-explore__loader {
   margin-top: 1rem;
 }

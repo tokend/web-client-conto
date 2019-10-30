@@ -1,9 +1,9 @@
 <template>
   <div class="promo-codes-list">
     <template v-if="list.length">
-      <div class="promo-codes-list__cards">
+      <div class="app__card-list">
         <div
-          class="promo-codes-list__card"
+          class="app__card-list-item"
           v-for="item in list"
           :key="item.id"
         >
@@ -18,9 +18,9 @@
     </template>
 
     <template v-else-if="!list.length && isLoading">
-      <div class="promo-codes-list__cards">
+      <div class="app__card-list">
         <div
-          class="promo-codes-list__card"
+          class="app__card-list-item"
           v-for="item in 5"
           :key="item"
         >
@@ -163,47 +163,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@scss/mixins.scss';
-@import '~@scss/variables.scss';
-
-$list-item-margin: 2rem;
-
-.promo-codes-list__cards {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.promo-codes-list__card {
-  margin: $list-item-margin $list-item-margin 0 0;
-  width: calc(100% + #{$list-item-margin});
-
-  $media-desktop: 1130px;
-  $media-small-desktop: 960px;
-
-  @mixin list-item-width($width) {
-    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
-    max-width: calc(#{$width} - (#{$list-item-margin}));
-  }
-
-  @include list-item-width(25%);
-  @include respond-to-custom($media-desktop) {
-    @include list-item-width(33%);
-  }
-  @include respond-to-custom($media-small-desktop) {
-    @include list-item-width(50%);
-  }
-  @include respond-to-custom($sidebar-hide-bp) {
-    @include list-item-width(50%);
-  }
-  @include respond-to(small) {
-    @include list-item-width(100%);
-  }
-  @include respond-to(xsmall) {
-    @include list-item-width(100%);
-  }
-}
-
 .promo-codes-list__card-btn {
   display: block;
   width: 100%;

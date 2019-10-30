@@ -69,7 +69,7 @@
       </template>
     </drawer>
 
-    <template v-if="isAccountCorporate && !isCustomerUiShown">
+    <template v-if="isAccountCorporate">
       <div class="security-page__row">
         <p class="security-page__row-title">
           {{ 'security-page.company-link-title' | globalize }}
@@ -104,7 +104,7 @@
       </a>
     </div>
 
-    <template v-if="isAccountCorporate && !isCustomerUiShown">
+    <template v-if="isAccountCorporate">
       <div class="security-page__row">
         <p class="security-page__row-title">
           {{ 'security-page.account-id-title' | globalize }}
@@ -153,7 +153,7 @@
     </div>
 
     <!-- eslint-disable-next-line max-len -->
-    <template v-if="isAccountCorporate && !isCustomerUiShown">
+    <template v-if="isAccountCorporate">
       <div class="security-page__row">
         <p class="security-page__row-title">
           {{ 'security-page.default-quote-asset-title' | globalize }}
@@ -213,7 +213,6 @@ export default {
       isPhoneEnabled: vuexTypes.isPhoneEnabled,
       isTelegramEnabled: vuexTypes.isTelegramEnabled,
       isAccountCorporate: vuexTypes.isAccountCorporate,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
     }),
 
     companyLink () {

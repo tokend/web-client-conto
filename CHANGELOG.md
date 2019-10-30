@@ -27,9 +27,6 @@ for further information about branching and tagging conventions.
 #### Added
 - `APP_NAME` in config
 
-#### Deleted
-- Browsing company
-
 ## [1.2.0-rc.0] - 2019-10-21
 #### Added
 - A clipper field

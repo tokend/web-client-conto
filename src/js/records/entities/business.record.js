@@ -10,7 +10,7 @@ export class BusinessRecord {
     this.accountId = _get(record, 'accountId')
     this.industry = _get(record, 'industry')
     this.description = _get(record, 'description')
-    this.statsQuoteAssetCode = _get(record, 'statsQuoteAsset')
+    this.statsQuoteAsset = _get(record, 'statsQuoteAsset')
 
     this.logo = {}
     this.logoKey = undefined

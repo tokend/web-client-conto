@@ -2,7 +2,7 @@
   <div>
     <top-bar>
       <template slot="main">
-        <template v-if="isCustomerUiShown && myBusinesses.length">
+        <template v-if="isAccountGeneral && myBusinesses.length">
           <div class="assets-page__filter">
             <span class="assets-page__filter-prefix">
               {{ 'assets-page.business-filter-prefix' | globalize }}
@@ -32,7 +32,7 @@
         slot="extra"
       >
         <button
-          v-if="isAccountCorporate && !isCustomerUiShown"
+          v-if="isAccountCorporate"
           v-ripple
           class="assets-page__create-btn app__button-raised"
           @click="isAssetDrawerShown = true"
@@ -94,7 +94,7 @@ export default {
     ...mapGetters({
       account: vuexTypes.account,
       isAccountCorporate: vuexTypes.isAccountCorporate,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
+      isAccountGeneral: vuexTypes.isAccountGeneral,
       myBusinesses: vuexTypes.myBusinesses,
     }),
   },

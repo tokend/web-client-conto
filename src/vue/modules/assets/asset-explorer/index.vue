@@ -1,8 +1,8 @@
 <template>
   <div class="assets-explorer">
-    <div class="assets-explorer__asset-list">
+    <div class="app__card-list">
       <template v-for="accountBalance in accountBalances">
-        <div class="assets-explorer__asset-list-item" :key="accountBalance.id">
+        <div class="app__card-list-item" :key="accountBalance.id">
           <asset-card
             :balance="accountBalance"
             @transfer="transfer"
@@ -11,8 +11,8 @@
         </div>
       </template>
       <template v-for="index in itemsPerSkeletonLoader">
-        <div class="assets-explorer__asset-list-item" :key="index">
-          <asset-skeleton-loader
+        <div class="app__card-list-item" :key="index">
+          <skeleton-loader-card
             v-if="!isLoaded && !accountBalances.length"
           />
         </div>
@@ -86,7 +86,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import AssetAttributesViewer from '../shared/components/asset-attributes-viewer'
 import AssetActions from './components/asset-actions'
-import AssetSkeletonLoader from './components/asset-skeleton-loader'
+import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
 import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplified'
 import AssetCard from './components/asset-card'
 import TransferForm from '@/vue/forms/TransferForm'
@@ -105,7 +105,7 @@ export default {
     NoDataMessage,
     AssetAttributesViewer,
     AssetActions,
-    AssetSkeletonLoader,
+    SkeletonLoaderCard,
     UpdateAssetFormSimplifiedModule,
     AssetCard,
     TransferForm,
@@ -121,7 +121,7 @@ export default {
     isAssetUpdateDrawerShown: false,
     selectedBalance: {},
     businessOwnerId: ALL_VALUE,
-    itemsPerSkeletonLoader: 3,
+    itemsPerSkeletonLoader: 4,
     isUpdateMode: false,
   }),
 
@@ -130,25 +130,25 @@ export default {
       accountBalancesByOwner: vuexTypes.accountBalancesByOwner,
       accountBalanceByCode: vuexTypes.accountBalanceByCode,
       accountOwnedAssetsBalances: vuexTypes.accountOwnedAssetsBalances,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
+      isAccountGeneral: vuexTypes.isAccountGeneral,
       myBusinesses: vuexTypes.myBusinesses,
     }),
 
     accountBalances () {
       try {
         let accountBalances = []
-        // if (this.isCustomerUiShown) {
-        /* eslint-disable max-len */
-        let businessAccountBalances = this.businessOwnerId === ALL_VALUE
-          ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
-          : this.accountBalancesByOwner(this.businessOwnerId)
+        if (this.isAccountGeneral) {
+          /* eslint-disable max-len */
+          let businessAccountBalances = this.businessOwnerId === ALL_VALUE
+            ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+            : this.accountBalancesByOwner(this.businessOwnerId)
           /* eslint-enable max-len */
 
-        accountBalances = businessAccountBalances
-          .filter(item => +item.balance > 0)
-        // } else {
-        //   accountBalances = this.accountOwnedAssetsBalances
-        // }
+          accountBalances = businessAccountBalances
+            .filter(item => +item.balance > 0)
+        } else {
+          accountBalances = this.accountOwnedAssetsBalances
+        }
 
         return accountBalances
       } catch (error) {
@@ -216,52 +216,13 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss/mixins';
 
-$asset-card-margin: 0.75rem;
 $media-small-height: 460px;
-$list-item-margin: 2rem;
 
 .assets-explorer__actions {
   margin-top: 4.9rem;
 
   @include respond-to-height($media-small-height) {
     margin-top: 2.4rem;
-  }
-}
-
-.assets-explorer__asset-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin: -$asset-card-margin;
-}
-
-.assets-explorer__asset-list-item {
-  margin: $list-item-margin $list-item-margin 0 0;
-  width: calc(100% + #{$list-item-margin});
-
-  $media-desktop: 1130px;
-  $media-small-desktop: 960px;
-
-  @mixin list-item-width($width) {
-    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
-    max-width: calc(#{$width} - (#{$list-item-margin}));
-  }
-
-  @include list-item-width(25%);
-  @include respond-to-custom($media-desktop) {
-    @include list-item-width(33%);
-  }
-  @include respond-to-custom($media-small-desktop) {
-    @include list-item-width(50%);
-  }
-  @include respond-to-custom($sidebar-hide-bp) {
-    @include list-item-width(50%);
-  }
-  @include respond-to(small) {
-    @include list-item-width(100%);
-  }
-  @include respond-to(xsmall) {
-    @include list-item-width(100%);
   }
 }
 </style>

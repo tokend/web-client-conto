@@ -49,10 +49,6 @@ const mutations = {
   // idle
   UPDATE_LOGOUT_AT: 'UPDATE_LOGOUT_AT',
 
-  // conto hacks
-  SHOW_CUSTOMER_UI: 'SHOW_CUSTOMER_UI',
-  HIDE_CUSTOMER_UI: 'HIDE_CUSTOMER_UI',
-
   // identities
   SET_IDENTITIES: 'SET_IDENTITIES',
 
@@ -67,6 +63,10 @@ const mutations = {
   // businesses
   SET_MY_BUSINESSES: 'SET_MY_BUSINESSES',
   CONCAT_MY_BUSINESSES: 'CONCAT_MY_BUSINESSES',
+  SET_ALL_BUSINESSES: 'SET_ALL_BUSINESSES',
+  CONCAT_ALL_BUSINESSES: 'CONCAT_ALL_BUSINESSES',
+  SELECT_BUSINESS_TO_BROWSE: 'SELECT_BUSINESS_TO_BROWSE',
+  CLEAR_BUSINESS_TO_BROWSE: 'CLEAR_BUSINESS_TO_BROWSE',
 }
 
 const actions = {
@@ -131,6 +131,7 @@ const actions = {
 
   // businesses
   LOAD_MY_BUSINESSES: 'LOAD_MY_BUSINESSES',
+  LOAD_ALL_BUSINESSES: 'LOAD_ALL_BUSINESSES',
 }
 
 const getters = {
@@ -244,9 +245,6 @@ const getters = {
   businessStatsQuoteAsset: 'businessStatsQuoteAsset',
   baseAssets: 'baseAssets',
 
-  // conto hacks
-  isCustomerUiShown: 'isCustomerUiShown',
-
   // idle-handler
   logoutAt: 'logoutAt',
 
@@ -264,6 +262,9 @@ const getters = {
 
   // businesses
   myBusinesses: 'myBusinesses',
+  allBusinesses: 'allBusinesses',
+  businessToBrowse: 'businessToBrowse',
+  isBusinessToBrowse: 'isBusinessToBrowse',
 }
 
 export const vuexTypes = {

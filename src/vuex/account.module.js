@@ -6,7 +6,6 @@ import { BalanceRecord } from '@/js/records/entities/balance.record'
 export const state = {
   account: {},
   balancesDetails: [],
-  isCustomerUiShown: false,
 }
 
 export const mutations = {
@@ -16,14 +15,6 @@ export const mutations = {
 
   [vuexTypes.SET_ACCOUNT_BALANCES_DETAILS] (state, balancesDetails) {
     state.balancesDetails = balancesDetails
-  },
-
-  [vuexTypes.SHOW_CUSTOMER_UI] (state) {
-    state.isCustomerUiShown = true
-  },
-
-  [vuexTypes.HIDE_CUSTOMER_UI] (state) {
-    state.isCustomerUiShown = false
   },
 }
 
@@ -105,8 +96,6 @@ export const getters = {
   [vuexTypes.isAccountBlocked]: (a, getters, b, rootGetters) =>
     getters[vuexTypes.accountRoleId] ===
     rootGetters[vuexTypes.kvEntryBlockedRoleId],
-
-  [vuexTypes.isCustomerUiShown]: state => state.isCustomerUiShown,
 }
 
 export default {

@@ -1,19 +1,19 @@
 <template>
-  <div class="current-business-description">
-    <div class="current-business-description__wrp">
+  <div class="business-viewer-description">
+    <div class="business-viewer-description__wrp">
       <div
-        class="current-business-details__logo-wrp"
+        class="business-viewer-description__logo-wrp"
         v-if="business.bannerKey"
       >
         <img
-          class="current-business-details__logo"
+          class="business-viewer-description__logo"
           :src="businessBannerUrl"
         >
       </div>
 
       <vue-markdown
         v-if="business.description"
-        class="current-business-description__markdown"
+        class="business-viewer-description__markdown"
         :source="business.description"
       />
     </div>
@@ -28,7 +28,7 @@ import { documentsManager } from '@/api'
 import { BusinessRecord } from '@/js/records/entities/business.record'
 
 export default {
-  name: 'current-business-description',
+  name: 'business-viewer-description',
   components: {
     VueMarkdown,
   },
@@ -49,7 +49,7 @@ export default {
 <style lang="scss" scoped>
   @import '~@scss/variables.scss';
 
-  .current-business-description {
+  .business-viewer-description {
     width: 100%;
     max-width: 100%;
     display: flex;
@@ -58,21 +58,21 @@ export default {
     border-radius: 0.4rem;
   }
 
-  .current-business-description__wrp {
+  .business-viewer-description__wrp {
     width: 100%;
     display: block;
     background-color: $col-current-bussiness-description-background;
     border-radius: 0.4rem;
   }
 
-  .current-business-details__logo-wrp {
+  .business-viewer-description__logo-wrp {
     position: relative;
     padding-bottom: 33.33%;
     background-color: $col-current-bussiness-description-logo-background;
     border-radius: 0.4rem;
   }
 
-  .current-business-details__logo {
+  .business-viewer-description__logo {
     position: absolute;
     object-fit: cover;
     width: 100%;
@@ -85,7 +85,7 @@ export default {
 <style lang="scss">
 @import '~@scss/variables';
 /* stylelint-disable selector-nested-pattern */
-.current-business-description__markdown {
+.business-viewer-description__markdown {
   padding: 2rem;
   border-radius: 0 0 0.4rem 0.4rem;
 
@@ -116,16 +116,29 @@ export default {
     margin-bottom: 0.8rem;
   }
 
+  ol,
   ul {
-    // stylelint-disable-next-line
-    list-style-type: disc !important;
-    padding-left: 1.6rem;
+    padding-left: 2rem;
+
+    li {
+      margin-bottom: 0.8rem;
+    }
   }
 
-  li {
-    // stylelint-disable-next-line
-    list-style-type: disc !important;
-    margin-bottom: 0.8rem;
+  ol {
+
+    li {
+      // stylelint-disable-next-line
+      list-style-type: decimal !important;
+    }
+  }
+
+  ul {
+
+    li {
+      // stylelint-disable-next-line
+      list-style-type: disc !important;
+    }
   }
 
   a {
