@@ -166,7 +166,7 @@ export default {
   async created () {
     try {
       await this.loadAccountBalances()
-      // this.isLoaded = true
+      this.isLoaded = true
     } catch (e) {
       this.isLoadFailed = true
       ErrorHandler.processWithoutFeedback()

@@ -7,12 +7,10 @@
           v-for="item in list"
           :key="item.id"
         >
-          <button
-            class="promo-codes-list__card-btn"
-            @click="setPromoCodeToBrowse(item)"
-          >
-            <promo-code-card :promo-code="item" />
-          </button>
+          <promo-code-card
+            :promo-code="item"
+            @vue-details="setPromoCodeToBrowse(item)"
+          />
         </div>
       </div>
     </template>
@@ -162,11 +160,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.promo-codes-list__card-btn {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  text-align: left;
-}
-</style>

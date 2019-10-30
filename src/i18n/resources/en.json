@@ -1151,10 +1151,6 @@
       "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
       "delete-asset-message": "Are you sure you want to delete the asset?"
     },
-    "asset-card": {
-      "details-lbl": "Details",
-      "transfer-lbl": "Transfer"
-    },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",
       "supported-browsers-list": "Supported browsers list"
@@ -1236,12 +1232,6 @@
       "address-key": "Address",
       "quote-assets-subheading": "Quote asset #{{ number }}",
       "destination-key": "Destination"
-    },
-    "atomic-swap-card": {
-      "available": "Available: {{ amount, balance }}",
-      "price": "Price: {{ amount, number }} {{code}}",
-      "buy-lbl": "Buy",
-      "details-lbl": "Details"
     },
     "customers-page": {
       "invite-btn": "Invite client",
@@ -1482,17 +1472,28 @@
       "max-uses-key": "Max uses",
       "used-key": "Used"
     },
+    "atomic-swap-card": {
+      "available": "Available: {{ amount, balance }}",
+      "price": "Price: {{ amount, number }} {{code}}",
+      "buy-lbl": "Buy",
+      "details-lbl": "Details"
+    },
+    "asset-card": {
+      "details-lbl": "Details",
+      "transfer-lbl": "Transfer"
+    },
     "promo-code-card": {
-      "discount": "Discount:"
+      "discount": "Discount:",
+      "details-lbl": "Details"
+    },
+    "business-card": {
+      "add-lbl": "Add",
+      "details-lbl": "Details"
     },
     "movements-top-bar": {
       "business-filter-prefix": "Company:",
       "asset-filter-prefix": "Asset:",
       "all-option": "All"
-    },
-    "business-card": {
-      "add-lbl": "Add",
-      "details-lbl": "Details"
     }
   }
 }
