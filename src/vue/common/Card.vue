@@ -10,6 +10,9 @@
       <div v-if="isSubheadDisplay" class="card__subhead">
         <slot :name="SLOT_NAMES.subhead" />
       </div>
+      <div v-if="isAccentTitleDisplay" class="card__accent-title">
+        <slot :name="SLOT_NAMES.accentTitle" />
+      </div>
       <div
         class="card__content"
         v-if="isContentDisplay"
@@ -30,6 +33,7 @@ const SLOT_NAMES = {
   media: 'media',
   header: 'header',
   subhead: 'subhead',
+  accentTitle: 'accent-title',
   content: 'content',
   actions: 'actions',
 }
@@ -47,6 +51,9 @@ export default {
     },
     isSubheadDisplay () {
       return Boolean(this.$slots[SLOT_NAMES.subhead])
+    },
+    isAccentTitleDisplay () {
+      return Boolean(this.$slots[SLOT_NAMES.accentTitle])
     },
     isContentDisplay () {
       return Boolean(this.$slots[SLOT_NAMES.content])
@@ -109,12 +116,21 @@ export default {
     white-space: nowrap;
     font-size: 1.16rem;
     line-height: 1.65rem;
-    color: $col-text;
     opacity: 0.54;
 
     span {
       font-size: 1.16rem;
     }
+  }
+
+  .card__accent-title {
+    margin-top: 1rem;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $col-text-page-heading;
+    opacity: 0.7;
   }
 
   .card__content {
@@ -131,6 +147,7 @@ export default {
         $col-sale-card-background,
         15ch
     );
+    opacity: 0.54;
   }
 
   .card__actions {

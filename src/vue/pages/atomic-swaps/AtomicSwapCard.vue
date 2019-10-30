@@ -9,12 +9,9 @@
       <template slot="header">
         {{ atomicSwapAsk.baseAssetName }}
       </template>
-      <template slot="subhead">
+      <template slot="accent-title">
         <span :title="atomicSwapAsk.price | formatMoney">
-          {{ 'atomic-swap-card.price' | globalize({
-            amount: atomicSwapAsk.price,
-            code: statsQuoteAsset.code
-          }) }}
+          {{ atomicSwapAsk.price | formatMoney }} {{ statsQuoteAsset.code }}
         </span>
       </template>
       <template slot="content">
