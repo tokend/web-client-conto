@@ -15,7 +15,7 @@
       </template>
       <template slot="actions">
         <button
-          v-if="!isMyBusiness"
+          v-if="!isMyBusiness && !isSponsorshipPage"
           v-ripple
           class="app__button-flat"
           @click="addBusiness"
@@ -41,13 +41,14 @@ import CardLogo from '@/vue/common/CardLogo'
 
 import { BusinessRecord } from '@/js/records/entities/business.record'
 
+import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { Bus } from '@/js/helpers/event-bus'
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
-import { api } from '@/api'
+import { Bus } from '@/js/helpers/event-bus'
+import { vueRoutes } from '@/vue-router/routes'
 
 const EVENTS = {
   businessAdded: 'business-added',
@@ -84,6 +85,9 @@ export default {
         return business.accountId === this.business.accountId
       })
       )
+    },
+    isSponsorshipPage () {
+      return this.$route.name === vueRoutes.sponsorshipAllBusinesses.name
     },
   },
   methods: {

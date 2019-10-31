@@ -1151,10 +1151,6 @@
       "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
       "delete-asset-message": "Are you sure you want to delete the asset?"
     },
-    "asset-card": {
-      "details-lbl": "Details",
-      "transfer-lbl": "Transfer"
-    },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",
       "supported-browsers-list": "Supported browsers list"
@@ -1223,7 +1219,7 @@
       "yes-msg": "Yes",
       "no-msg": "No",
       "cancellation-msg": "Are you sure to cancel the atomic swap?",
-      "atomic-swap-canceled-msg": "Your atomic swap was successfully cancelled"
+      "atomic-swap-canceled-msg": "Your offer successfully cancelled"
     },
     "atomic-swap-attributes": {
       "id-key": "ID",
@@ -1235,13 +1231,8 @@
       "price-key": "Price",
       "address-key": "Address",
       "quote-assets-subheading": "Quote asset #{{ number }}",
-      "destination-key": "Destination"
-    },
-    "atomic-swap-card": {
-      "available": "Available: {{ amount, balance }}",
-      "price": "Price: {{ amount, number }} {{code}}",
-      "buy-lbl": "Buy",
-      "details-lbl": "Details"
+      "destination-key": "Destination",
+      "buy-for": "You can buy for:"
     },
     "customers-page": {
       "invite-btn": "Invite client",
@@ -1315,6 +1306,7 @@
     },
     "business-viewer": {
       "add-btn": "Add company",
+      "shop-btn": "Shop",
       "business-added-successfully-notification": "Company has been added successfully",
       "shop": "Shop",
       "loading-msg": "Loading...",
@@ -1482,17 +1474,28 @@
       "max-uses-key": "Max uses",
       "used-key": "Used"
     },
+    "atomic-swap-card": {
+      "available": "Available: {{ amount, balance }}",
+      "price": "Price: {{ amount, number }} {{code}}",
+      "buy-lbl": "Buy",
+      "details-lbl": "Details"
+    },
+    "asset-card": {
+      "details-lbl": "Details",
+      "transfer-lbl": "Transfer"
+    },
     "promo-code-card": {
-      "discount": "Discount:"
+      "discount": "Discount:",
+      "details-lbl": "Details"
+    },
+    "business-card": {
+      "add-lbl": "Add",
+      "details-lbl": "Details"
     },
     "movements-top-bar": {
       "business-filter-prefix": "Company:",
       "asset-filter-prefix": "Asset:",
       "all-option": "All"
-    },
-    "business-card": {
-      "add-lbl": "Add",
-      "details-lbl": "Details"
     }
   }
 }
