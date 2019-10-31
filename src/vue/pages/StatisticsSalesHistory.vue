@@ -46,6 +46,7 @@ import CollectionLoader from '@/vue/common/CollectionLoader'
 import StatisticsSalesHistoryTable from './statistics-sales-history/StatisticsSalesHistoryTable'
 import StatisticsFilters from './statistics/StatisticsFilters'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import Loader from '@/vue/common/Loader'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 
@@ -60,6 +61,7 @@ export default {
     StatisticsSalesHistoryTable,
     StatisticsFilters,
     NoDataMessage,
+    Loader,
   },
   data: _ => ({
     buyRequests: [],
