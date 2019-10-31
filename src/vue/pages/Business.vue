@@ -201,10 +201,20 @@ export default {
     line-height: 1.5;
     font-weight: 400;
     min-width: 15rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;
     }
+  }
+
+  .business__industry {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: $col-text;
   }
 
   .business__description {
@@ -230,9 +240,5 @@ export default {
     margin-top: 2.4rem;
     padding: 0 1.6rem;
     width: 100%;
-  }
-
-  .business__industry {
-    color: $col-text;
   }
 </style>

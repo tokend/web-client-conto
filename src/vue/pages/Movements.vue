@@ -4,6 +4,7 @@
       @asset-code-updated="updateAssetCode"
       @movements-update-required="emitUpdateList('movements:updateList')"
       @show-no-data-message="showNoDataMessage = true"
+      @show-loading-error-message="showLoadingErrorMessage = true"
     />
 
     <movements-history
@@ -11,6 +12,10 @@
       :asset-code="assetCode"
       :key="`movements-history-state-${historyState}`"
     />
+
+    <template v-else-if="showLoadingErrorMessage">
+      <p>{{ 'op-pages.can-not-load-assets' | globalize }}</p>
+    </template>
 
     <no-data-message
       v-else-if="!assetCode && showNoDataMessage"
@@ -49,6 +54,7 @@ export default {
     assetCode: '',
     historyState: 0,
     showNoDataMessage: false,
+    showLoadingErrorMessage: false,
   }),
 
   created () {

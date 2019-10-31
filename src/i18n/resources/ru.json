@@ -1260,7 +1260,8 @@
       "no-list-title": "Нет компаний",
       "no-list-msg": "Здесь будет список компаний",
       "business-details-title": "Детали компании",
-      "business-assets-title": "Активы компании"
+      "business-assets-title": "Активы компании",
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
     },
     "business-viewer": {
       "add-btn": "Добавить компанию",
@@ -1279,14 +1280,16 @@
     },
     "businesses-my": {
       "no-list-title": "Нет компаний",
-      "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы"
+      "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы",
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
     },
     "atomic-swaps-explore": {
       "owned-by-me-filter-lbl": "Принадлежит мне",
       "buying": "Покупка {{asset}}",
       "atomic-swap-drawer-title": "Детали предложения",
       "no-list-title": "Нет предложений",
-      "no-list-msg": "Здесь будут предложения"
+      "no-list-msg": "Здесь будут предложения",
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
     },
     "buy-atomic-swap-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",

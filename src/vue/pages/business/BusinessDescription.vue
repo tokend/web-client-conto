@@ -50,10 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@/vue/forms/app-form';
-  @import '~@scss/variables.scss';
-  @import '~@scss/mixins.scss';
-
   .business-description {
     width: 100%;
     max-width: 100%;
@@ -79,5 +75,4 @@ export default {
     width: 100%;
     height: 100%;
   }
-
 </style>

@@ -16,6 +16,10 @@
       </div>
     </template>
 
+    <template v-else-if="isLoadingFailed">
+      <p>{{ 'businesses-all.loading-error-msg' | globalize }}</p>
+    </template>
+
     <template v-else-if="!allBusinesses.length && isLoading">
       <div class="app__card-list">
         <div
@@ -98,6 +102,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      isLoadingFailed: false,
       isDrawerShown: false,
       currentBusiness: {},
       isMyBusiness: false,
@@ -140,6 +145,7 @@ export default {
       try {
         result = await this.loadAllBusinesses()
       } catch (error) {
+        this.isLoadingFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 

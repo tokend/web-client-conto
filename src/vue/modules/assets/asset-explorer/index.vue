@@ -28,7 +28,7 @@
 
     <template v-if="isLoadFailed">
       <p class="assets-explorer__error-msg">
-        {{ 'assets.load-failed-msg' | globalize }}
+        {{ 'assets.loading-error-msg' | globalize }}
       </p>
     </template>
 

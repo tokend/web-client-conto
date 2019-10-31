@@ -1197,7 +1197,8 @@
       "atomic-swap-drawer-title": "Offering details",
       "no-list-title": "No offerings yet",
       "no-list-msg": "Here will be the list of offerings",
-      "owned-by-me-filter-lbl": "Owned by me"
+      "owned-by-me-filter-lbl": "Owned by me",
+      "loading-error-msg": "There was an error while loading."
     },
     "buy-atomic-swap-form":{
       "available": "Available {{amount, money}} {{asset}}",
@@ -1302,7 +1303,8 @@
       "no-list-title": "No companies here yet",
       "no-list-msg": "Here will be the list of companies",
       "business-details-title": "Company details",
-      "business-assets-title": "Company assets"
+      "business-assets-title": "Company assets",
+      "loading-error-msg": "There was an error while loading."
     },
     "business-viewer": {
       "add-btn": "Add company",
@@ -1321,7 +1323,8 @@
     },
     "businesses-my": {
       "no-list-title": "No companies here yet",
-      "no-list-msg": "Here will be the list of companies associated with you"
+      "no-list-msg": "Here will be the list of companies associated with you",
+      "loading-error-msg": "There was an error while loading."
     },
     "kyc-recovery": {
       "submit-again-lbl": "Submit again",

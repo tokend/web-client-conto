@@ -35,7 +35,7 @@ for further information about branching and tagging conventions.
 - A bug with trim in input fields with type 'password'
 - A bug with typo in multi select
 - A bug with color scheme
-- A bug when skeleton loader was shown if request failed
+- A bug when don't show error message if response failed
 
 ### "Under the hood" changes
 #### Added
