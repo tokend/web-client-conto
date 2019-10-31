@@ -1087,8 +1087,6 @@
       "title": "Загрузки",
       "mobile-apps-header": "Все ваши активы прямо на вашем телефоне",
       "mobile-apps-desc": "Чтобы получить доступ к своим ресурсам повсюду, установите приложение TokenD на свое мобильное устройство.",
-      "config-header": "Один важный шаг",
-      "config-desc": "При необходимости отсканируйте этот QR-код с вашим приложением, чтобы обеспечить правильную конфигурацию для окружения TokenD.",
       "pre-issuance-learn-more-link": "Узнать больше",
       "pre-issuance-apps-header": "Предварительная выдача активов в автономном режиме",
       "pre-issuance-apps-desc": "Чтобы предварительно авторизовать выдачу активов, установите инструмент предварительной выдачи на своем компьютере",
@@ -1270,7 +1268,8 @@
       "shop": "Магазин",
       "loading-msg": "Загружаем…",
       "error-title": "Нет такой компании",
-      "error-msg": "Невозможно загрузить описание компании."
+      "error-msg": "Невозможно загрузить описание компании.",
+      "shop-btn": "Магазни"
     },
     "business-attributes": {
       "id-key": "Идентификатор",
@@ -1310,10 +1309,6 @@
       "email-code": "Введите код, отправленный вам по электронной почте",
       "tfa-code": "Введите 2FA код"
     },
-    "atomic-swap-card": {
-      "available": "Доступно: {{ amount, balance }}",
-      "price": "Цена: {{ amount, number }} {{code}}"
-    },
     "atomic-swap-attributes": {
       "id-key": "Идентификатор",
       "owner-key": "Владелец",
@@ -1323,11 +1318,9 @@
       "quote-asset-key": "Код",
       "price-key": "Цена",
       "address-key": "Адрес",
-      "current-cap-key": "Продано",
-      "hard-cap-key": "Максимум",
-      "total-current-cap-key": "Суммарно продано",
       "quote-assets-subheading": "Котируемый актив №{{ number }}",
-      "destination-key": "Назначение"
+      "destination-key": "Назначение",
+      "buy-for": "Вы можете купить за:"
     },
     "atomic-swap-actions": {
       "cancel-btn": "Отменить предложение",
@@ -1365,7 +1358,7 @@
       "amount-header": "Количество",
       "request-state-header": "Статус",
       "review-btn": "Рассмотреть",
-      "no-request-history-title": "Нет запросов",
+      "no-history-title": "Нет запросов",
       "no-history-desc": "Здесь будет список ваших запросов на спонсирование",
       "request-id": "Идентификатор запроса",
       "approve-btn": "Подтвердить",
@@ -1481,13 +1474,28 @@
       "max-uses-key": "Количество использований",
       "used-key": "Использовано"
     },
-    "promo-code-card": {
-      "discount": "Скидка:"
-    },
     "movements-top-bar": {
       "business-filter-prefix": "Компания:",
       "asset-filter-prefix": "Актив:",
       "all-option": "Все"
+    },
+    "atomic-swap-card": {
+      "available": "Доступно: {{ amount, balance }}",
+      "price": "Цена: {{ amount, number }} {{code}}",
+      "buy-lbl": "Купить",
+      "details-lbl": "Детали"
+    },
+    "asset-card": {
+      "details-lbl": "Детали",
+      "transfer-lbl": "Отправить"
+    },
+    "promo-code-card": {
+      "discount": "Скидка:",
+      "details-lbl": "Детали"
+    },
+    "business-card": {
+      "add-lbl": "Добавить",
+      "details-lbl": "Детали"
     }
   }
 }

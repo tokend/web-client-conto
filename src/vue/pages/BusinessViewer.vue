@@ -15,17 +15,30 @@
             </h3>
           </div>
           <div
-            v-if="!isMyBusiness"
             class="business-viewer__actions"
           >
-            <button
-              v-ripple
-              class="app__button-raised business-viewer__btn"
-              @click="addBusiness"
-              :disabled="isSubmitting"
+            <div
+              class="business-viewer__btn"
+              v-if="business.bannerKey || business.description"
             >
-              {{ 'business-viewer.add-btn' | globalize }}
-            </button>
+              <button
+                v-ripple
+                class="app__button-raised"
+                @click="scrollToShop"
+              >
+                {{ 'business-viewer.shop-btn' | globalize }}
+              </button>
+            </div>
+            <div class="business-viewer__btn" v-if="!isMyBusiness">
+              <button
+                v-ripple
+                class="app__button-raised"
+                @click="addBusiness"
+                :disabled="isSubmitting"
+              >
+                {{ 'business-viewer.add-btn' | globalize }}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -35,7 +48,7 @@
         />
 
         <div class="business-viewer__shop">
-          <h1 class="business-viewer__title">
+          <h1 ref="shop" class="business-viewer__title">
             {{ 'business-viewer.shop' | globalize }}
           </h1>
         </div>
@@ -170,6 +183,11 @@ export default {
       }
       this.isSubmitting = false
     },
+
+    scrollToShop () {
+      const element = this.$refs['shop']
+      window.scrollTo(0, element.offsetTop)
+    },
   },
 }
 </script>
@@ -220,6 +238,18 @@ export default {
 
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;
+    }
+  }
+
+  .business-viewer__actions {
+    display: flex;
+  }
+
+  .business-viewer__btn:first-child {
+    margin-right: 1rem;
+
+    a {
+      text-decoration: none;
     }
   }
 

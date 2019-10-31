@@ -11,6 +11,16 @@ for further information about branching and tagging conventions.
 - Trim for input field 
 - Redeem default amount
 - Current company page
+- New component 'Card' for displaying all card
+
+#### Removed
+- `card-viewer`
+- `asset-skeleton-loade`
+- `current-business-logo`
+- `current-business-indicator/index.vue`
+- `BusinessCardSkeleton`
+- `BusinessViewer`
+- `PromoCodeCardSkeleton`
 
 #### Changed
 - Moved logo and favicon to branding folder

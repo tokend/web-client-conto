@@ -114,13 +114,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 1.16rem;
-    line-height: 1.65rem;
     opacity: 0.54;
-
-    span {
-      font-size: 1.16rem;
-    }
   }
 
   .card__accent-title {
