@@ -11,17 +11,21 @@ for further information about branching and tagging conventions.
 - Trim for input field 
 - Redeem default amount
 - Current company page
+- Skeleton loader for card
+- Global class for markdown
 
 #### Changed
 - Moved logo and favicon to branding folder
 - Display full price
 - Max percent discount
 - Validation on promo code form
+- Get data from store on Business pages
 
 #### Fixed
 - A bug with trim in input fields with type 'password'
 - A bug with typo in multi select
 - A bug with color scheme
+- A bug when skeleton loader was shown if request failed
 
 ### "Under the hood" changes
 #### Added
