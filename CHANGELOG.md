@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
-## [Unreleased]
+## [1.2.0] - 2019-10-31
 #### Fixed
 - A bug with skeleton loader on Shop page
 - A bug when don't show error message if response failed
@@ -343,7 +343,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...1.2.0
 [1.2.0-rc.0]: https://github.com/tokend/web-client/compare/1.1.0...1.2.0-rc.0
 [1.1.0]: https://github.com/tokend/web-client/compare/1.1.0-rc.3...1.1.0
 [1.1.0-rc.3]: https://github.com/tokend/web-client/compare/1.1.0-rc.2...1.1.0-rc.3
