@@ -32,6 +32,8 @@ import VerificationGeneral from '@/vue/pages/VerificationGeneral'
 import PromoCodes from '@/vue/pages/PromoCodes'
 import PromoCodesList from '@/vue/pages/PromoCodesList'
 import Statistics from '@/vue/pages/Statistics'
+import StatisticsSalesHistory from '@/vue/pages/StatisticsSalesHistory'
+import StatisticsGeneral from '@/vue/pages/StatisticsGeneral'
 
 Vue.use(Router)
 
@@ -222,9 +224,29 @@ const router = new Router({
           name: vueRoutes.statistics.name,
           meta: {
             pageNameTranslationId: 'pages-names.statistics',
-            isCorporateOnly: true,
           },
           component: Statistics,
+          redirect: vueRoutes.statisticsSalesHistory,
+          children: [
+            {
+              path: '/statistics/sales-history',
+              name: vueRoutes.statisticsSalesHistory.name,
+              component: StatisticsSalesHistory,
+              beforeEnter: inAppRouteGuard,
+              meta: {
+                isCorporateOnly: true,
+              },
+            },
+            {
+              path: '/statistics/general',
+              name: vueRoutes.statisticsGeneral.name,
+              component: StatisticsGeneral,
+              beforeEnter: inAppRouteGuard,
+              meta: {
+                isCorporateOnly: true,
+              },
+            },
+          ],
         },
         {
           path: '/atomic-swaps',

@@ -195,6 +195,10 @@ export default {
 }
 
 .select-field__opener span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   @include text-font-sizes;
 }
 

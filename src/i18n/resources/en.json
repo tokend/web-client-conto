@@ -1476,6 +1476,16 @@
     },
     "promo-code-card": {
       "discount": "Discount:"
+    },
+    "statistics-page": {
+      "sales-history-tab": "Sales history",
+      "general-tab": "General statistics"
+    },
+    "statistics-filters": {
+      "asset-code-lbl": "Asset code",
+      "promo-code-lbl": "PromoCode",
+      "period-start-lbl": "Period start",
+      "period-end-lbl": "Period end"
     }
   }
 }

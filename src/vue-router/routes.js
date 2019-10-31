@@ -36,4 +36,6 @@ export const vueRoutes = Object.freeze({
   promoCodes: { name: 'app.promo-codes' },
   promoCodesList: { name: 'app.promo-codes.list' },
   statistics: { name: 'app.statistics' },
+  statisticsSalesHistory: { name: 'app.statistics-sales-history' },
+  statisticsGeneral: { name: 'app.statistics-general' },
 })

@@ -1481,6 +1481,16 @@
     },
     "promo-code-card": {
       "discount": "Скидка:"
+    },
+    "statistics-page": {
+      "sales-history-tab": "История продаж",
+      "general-tab": "Общая статистика"
+    },
+    "statistics-filters": {
+      "asset-code-lbl": "Код актива",
+      "promo-code-lbl": "Промокод",
+      "period-start-lbl": "Начало периода",
+      "period-end-lbl": "Конец периода"
     }
   }
 }
