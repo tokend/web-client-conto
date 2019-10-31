@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template>
+    <template v-if="!isLoadingFailed">
       <drawer :is-shown.sync="isDrawerShown">
         <template slot="heading">
           {{ 'sponsorship-requests.details-title' | globalize }}

@@ -12,7 +12,7 @@
       </div>
       <template v-if="business.description">
         <vue-markdown
-          class="business-description__markdown"
+          class="app__markdown"
           :source="business.description"
         />
       </template>
@@ -50,10 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@/vue/forms/app-form';
-  @import '~@scss/variables.scss';
-  @import '~@scss/mixins.scss';
-
   .business-description {
     width: 100%;
     max-width: 100%;
@@ -79,55 +75,4 @@ export default {
     width: 100%;
     height: 100%;
   }
-
-</style>
-
-<style lang="scss">
-@import '~@scss/variables';
-/* stylelint-disable selector-nested-pattern */
-.business-description__markdown {
-  img {
-    max-width: 100%;
-    margin: 0.8rem 0;
-  }
-
-  h1 {
-    font-size: 2.8rem;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
-  }
-
-  h2 {
-    font-size: 2.2rem;
-    margin-bottom: 1.4rem;
-    margin-top: 1.4rem;
-  }
-
-  h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-  }
-
-  p {
-    margin-bottom: 0.8rem;
-  }
-
-  ul {
-    // stylelint-disable-next-line
-    list-style-type: disc !important;
-    padding-left: 1.6rem;
-  }
-
-  li {
-    // stylelint-disable-next-line
-    list-style-type: disc !important;
-    margin-bottom: 0.8rem;
-  }
-
-  a {
-    color: $col-secondary;
-  }
-}
-
 </style>
