@@ -1485,7 +1485,11 @@
       "asset-code-lbl": "Asset code",
       "promo-code-lbl": "PromoCode",
       "period-start-lbl": "Period start",
-      "period-end-lbl": "Period end"
+      "period-end-lbl": "Period end",
+      "no-data-title": "No assets yet",
+      "no-data-msg": "Company don't have any assets yet.",
+      "load-failed-msg": "There was an error while loading. Please, try again later",
+      "filters-data-loading-msg": "Filters data loading..."
     }
   }
 }

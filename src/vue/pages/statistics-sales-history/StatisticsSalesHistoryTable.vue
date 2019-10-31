@@ -23,35 +23,35 @@
       /> -->
     </template>
 
-    <empty-tbody-placeholder
+    <statistics-sales-history-table-empty-list-placeholder
       v-else-if="isLoaded && !buyRequests.length"
-    />
-
-    <empty-tbody-placeholder
-      v-else-if="isLoadFailed"
-      :colspan="4"
       :message="'customers-table.error-msg' | globalize"
     />
 
-    <skeleton-loader-table-body
-      v-else
-      :cells="4"
-      template="smallString"
+    <statistics-sales-history-table-empty-list-placeholder
+      v-else-if="isLoadFailed"
+      :message="'customers-table.error-msg' | globalize"
     />
+    <template v-else>
+      <statistics-sales-history-table-skeleton-loader
+        v-for="index in 3"
+        :key="index"
+      />
+    </template>
   </table>
 </template>
 
 <script>
 // import MovementsTableRow from './movements-table-row'
-import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
-import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
+import StatisticsSalesHistoryTableSkeletonLoader from './StatisticsSalesHistoryTableSkeletonLoader'
+import StatisticsSalesHistoryTableEmptyListPlaceholder from './StatisticsSalesHistoryTableEmptyListPlaceholder'
 
 export default {
   name: 'statistics-sales-history-table',
   components: {
     // MovementsTableRow,
-    SkeletonLoaderTableBody,
-    EmptyTbodyPlaceholder,
+    StatisticsSalesHistoryTableSkeletonLoader,
+    StatisticsSalesHistoryTableEmptyListPlaceholder,
   },
   props: {
     buyRequests: {

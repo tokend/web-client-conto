@@ -1,10 +1,8 @@
 <template>
   <div class="statistics-sales-history">
     <statistics-filters
-      @show-no-data-message="showNoDataMessage = true"
-      @show-request-failed-message="showRequestFailedMessage = true"
       @filters-data-loaded="filtersDataLoaded = true"
-
+      @set-filters-and-update-list="setFiltersAndUpdateList"
     />
     <template v-if="filtersDataLoaded">
       <statistics-sales-history-table
@@ -13,31 +11,13 @@
         :is-load-failed="isLoadFailed"
       />
       <collection-loader
+        v-show="buyRequests.length"
         :first-page-loader="getListBuyRequests"
         @first-page-load="setListBuyRequests"
         @next-page-load="concatListBuyRequests"
-        :ref="REFS.collectionLoader"
+        ref="listCollectionLoader"
       />
     </template>
-
-    <no-data-message
-      v-else-if="filtersDataLoaded && showNoDataMessage"
-      icon-name="trending-up"
-      :title="'op-pages.no-data-title' | globalize"
-      :message="'op-pages.no-data-msg' | globalize"
-    />
-
-    <no-data-message
-      v-else-if="!filtersDataLoaded && showRequestFailedMessage"
-      icon-name="trending-up"
-      :title="'op-pages.no-data-title' | globalize"
-      :message="'op-pages.no-data-msg' | globalize"
-    />
-
-    <loader
-      v-else
-      message-id="op-pages.assets-loading-msg"
-    />
   </div>
 </template>
 
@@ -45,14 +25,8 @@
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import StatisticsSalesHistoryTable from './statistics-sales-history/StatisticsSalesHistoryTable'
 import StatisticsFilters from './statistics/StatisticsFilters'
-import NoDataMessage from '@/vue/common/NoDataMessage'
-import Loader from '@/vue/common/Loader'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
-
-const REFS = {
-  collectionLoader: 'collection-loader',
-}
 
 export default {
   name: 'statistics-sales-history',
@@ -60,23 +34,28 @@ export default {
     CollectionLoader,
     StatisticsSalesHistoryTable,
     StatisticsFilters,
-    NoDataMessage,
-    Loader,
   },
   data: _ => ({
+    filters: {
+      assetCode: '',
+      periodStart: '',
+      periodEnd: '',
+      promoCode: '',
+    },
     buyRequests: [],
     isLoaded: false,
     isLoadFailed: false,
-    showNoDataMessage: false,
     filtersDataLoaded: false,
-    showRequestFailedMessage: false,
-    REFS,
   }),
 
   methods: {
     async getListBuyRequests () {
       try {
-        const response = await api.getWithSignature('/integrations/marketplace/buy_requests')
+        const response = await api.getWithSignature('/integrations/marketplace/buy_requests', {
+          filter: {
+            bought_asset: this.filters.assetCode,
+          },
+        })
 
         this.isLoaded = true
         return response
@@ -95,7 +74,14 @@ export default {
     },
 
     reloadList () {
-      return this.REFS.collectionLoader.loadFirstPage()
+      this.isLoaded = false
+      this.buyRequests = []
+      return this.$refs.listCollectionLoader.loadFirstPage()
+    },
+
+    setFiltersAndUpdateList (value) {
+      this.filters = value
+      this.reloadList()
     },
   },
 }

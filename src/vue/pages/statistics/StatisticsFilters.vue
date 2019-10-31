@@ -53,21 +53,38 @@
         </div>
       </template>
     </template>
+
+    <no-data-message
+      v-else-if="isLoaded && !ownedAssets.length"
+      icon-name="trending-up"
+      :title="'statistics-filters.no-data-title' | globalize"
+      :message="'statistics-filters.no-data-msg' | globalize"
+    />
+
+    <template v-else-if="!isLoaded && requestFailed">
+      <p>{{ 'statistics-filters.load-failed-msg' | globalize }}</p>
+    </template>
+
+    <loader
+      v-else
+      message-id="statistics-filters.filters-data-loading-msg"
+    />
   </div>
 </template>
 
 <script>
 import SelectField from '@/vue/fields/SelectField'
 import DateField from '@/vue/fields/DateField'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import Loader from '@/vue/common/Loader'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api, loadingDataViaLoop } from '@/api'
 
 const EVENTS = {
-  showNoDataMessage: 'show-no-data-message',
-  showRequestFailedMessage: 'show-request-failed-message',
   filtersDataLoaded: 'filters-data-loaded',
+  setFiltersAndUpdateList: 'set-filters-and-update-list',
 }
 
 export default {
@@ -76,6 +93,8 @@ export default {
   components: {
     SelectField,
     DateField,
+    NoDataMessage,
+    Loader,
   },
 
   data () {
@@ -88,6 +107,7 @@ export default {
       },
       promoCodes: [],
       isLoaded: false,
+      requestFailed: false,
     }
   },
 
@@ -98,11 +118,17 @@ export default {
     }),
   },
 
+  watch: {
+    filters: {
+      deep: true,
+      handler: function (value) {
+        this.$emit(EVENTS.setFiltersAndUpdateList, value)
+      },
+    },
+  },
+
   async created () {
     await this.loadFiltersData()
-    if (!this.ownedAssets.length) {
-      this.$emit(EVENTS.showNoDataMessage)
-    }
     this.isLoaded = true
     this.$emit(EVENTS.filtersDataLoaded)
   },
@@ -125,7 +151,7 @@ export default {
         await this.loadAccountBalancesDetails()
         await this.loadAllPromocodes()
       } catch (e) {
-        this.$emit(EVENTS.showRequestFailedMessage)
+        this.requestFailed = true
         ErrorHandler.processWithoutFeedback(e)
       }
     },
@@ -154,7 +180,7 @@ export default {
 
 .statistics-filters__filter-field {
   margin: 0.7rem;
-  min-width: 10rem;
+  min-width: 14rem;
   width: calc(25% - 1.4rem);
 }
 </style>
