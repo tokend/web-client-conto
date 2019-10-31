@@ -25,6 +25,16 @@ for further information about branching and tagging conventions.
 #### Added
 - `APP_NAME` in config
 
+## [1.3.0-rc.0] - 2019-10-31
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.11.1
+
+## [1.2.0] - 2019-10-31
+#### Fixed
+- A bug with skeleton loader on Shop page
+- A bug when don't show error message if response failed
+
 ## [1.2.0-rc.0] - 2019-10-21
 #### Added
 - A clipper field
@@ -360,7 +370,9 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.3.0-rc.0...HEAD
+[1.3.0-rc.0]: https://github.com/tokend/web-client/compare/1.2.0...1.3.0-rc.0
+[1.2.0]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...1.2.0
 [1.2.0-rc.0]: https://github.com/tokend/web-client/compare/1.1.0...1.2.0-rc.0
 [1.1.0]: https://github.com/tokend/web-client/compare/1.1.0-rc.3...1.1.0
 [1.1.0-rc.3]: https://github.com/tokend/web-client/compare/1.1.0-rc.2...1.1.0-rc.3

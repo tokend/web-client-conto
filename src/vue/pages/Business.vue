@@ -201,6 +201,9 @@ export default {
     line-height: 1.5;
     font-weight: 400;
     min-width: 15rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;
@@ -234,5 +237,8 @@ export default {
 
   .business__industry {
     color: $col-text;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 </style>

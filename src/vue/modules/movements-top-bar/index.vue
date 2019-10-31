@@ -59,19 +59,19 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
 import SelectField from '@/vue/fields/SelectField'
-
 import TransferForm from '@/vue/forms/TransferForm'
+import { ErrorHandler } from '@/js/helpers/error-handler'
+import { mapActions, mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 const EVENTS = {
   assetCodeUpdated: 'asset-code-updated',
   movementsUpdateRequired: 'movements-update-required',
   showNoDataMessage: 'show-no-data-message',
+  showLoadingErrorMessage: 'show-loading-error-message',
 }
 
 const ASSET_POLICIES_STR = {
@@ -131,7 +131,7 @@ export default {
     },
   },
   async created () {
-    await this.loadAccountBalancesDetails()
+    await this.loadAccountBalances()
     if (this.isAssetsExists) {
       this.setDefaultAsset()
     } else {
@@ -165,6 +165,14 @@ export default {
     getBalance () {
       const balance = +this.accountBalanceByCode(this.assetCode).balance
       this.isHaveBalance = balance > 0
+    },
+    async loadAccountBalances () {
+      try {
+        await this.loadAccountBalancesDetails()
+      } catch (error) {
+        this.$emit(EVENTS.showLoadingErrorMessage)
+        ErrorHandler.processWithoutFeedback(error)
+      }
     },
   },
 }

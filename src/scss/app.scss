@@ -461,3 +461,57 @@ h6.app__page-heading {
     height: 0.3rem !important;
   }
 }
+
+.app__markdown {
+  p, ul, ol, li {
+    line-height: 1.5;
+  }
+
+  img {
+    max-width: 100%;
+    margin: 0.8rem 0;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.4rem;
+    margin-top: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  p {
+    margin: 0.8rem 0;
+  }
+
+  ul {
+    padding-left: 4rem;
+
+    & > li {
+      list-style-type: disc!important;
+    }
+  }
+
+  ol {
+    margin-bottom: 0.8rem;
+    padding: 4rem;
+
+    & > li {
+      list-style-type: decimal!important;
+    }
+  }
+
+  a {
+    color: $col-secondary;
+  }
+}
