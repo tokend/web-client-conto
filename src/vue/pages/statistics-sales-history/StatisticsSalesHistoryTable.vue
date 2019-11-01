@@ -4,9 +4,27 @@
       <tr class="statistics-sales-history-table__head-row">
         <th
           class="statistics-sales-history-table__head-cell"
-          :title="'movements-history.type-th' | globalize"
+          :title="'statistics-sales-history-table.buyer-th' | globalize"
         >
-          {{ 'movements-history.type-th' | globalize }}
+          {{ 'statistics-sales-history-table.buyer-th' | globalize }}
+        </th>
+        <th
+          class="statistics-sales-history-table__head-cell"
+          :title="'statistics-sales-history-table.date-th' | globalize"
+        >
+          {{ 'statistics-sales-history-table.date-th' | globalize }}
+        </th>
+        <th
+          class="statistics-sales-history-table__head-cell"
+          :title="'statistics-sales-history-table.amount-th' | globalize"
+        >
+          {{ 'statistics-sales-history-table.amount-th' | globalize }}
+        </th>
+        <th
+          class="statistics-sales-history-table__head-cell"
+          :title="'statistics-sales-history-table.status-th' | globalize"
+        >
+          {{ 'statistics-sales-history-table.status-th' | globalize }}
         </th>
         <th
           class="statistics-sales-history-table__head-cell
@@ -16,21 +34,19 @@
     </thead>
 
     <template v-if="buyRequests.length">
-      <!-- <movements-table-row
+      <!-- <statistics-sales-history-table-row
         v-for="buyRequest in buyRequests"
         :buy-request="buyRequest"
         :key="buyRequest.id"
       /> -->
     </template>
-
     <statistics-sales-history-table-empty-list-placeholder
       v-else-if="isLoaded && !buyRequests.length"
-      :message="'customers-table.error-msg' | globalize"
+      :message="'statistics-sales-history-table.no-data-msg' | globalize"
     />
-
     <statistics-sales-history-table-empty-list-placeholder
       v-else-if="isLoadFailed"
-      :message="'customers-table.error-msg' | globalize"
+      :message="'statistics-sales-history-table.error-msg' | globalize"
     />
     <template v-else>
       <statistics-sales-history-table-skeleton-loader
@@ -42,20 +58,20 @@
 </template>
 
 <script>
-// import MovementsTableRow from './movements-table-row'
+// import StatisticsSalesHistoryTableRow from './StatisticsSalesHistoryTableRow'
 import StatisticsSalesHistoryTableSkeletonLoader from './StatisticsSalesHistoryTableSkeletonLoader'
 import StatisticsSalesHistoryTableEmptyListPlaceholder from './StatisticsSalesHistoryTableEmptyListPlaceholder'
 
 export default {
   name: 'statistics-sales-history-table',
   components: {
-    // MovementsTableRow,
+    // StatisticsSalesHistoryTable,
     StatisticsSalesHistoryTableSkeletonLoader,
     StatisticsSalesHistoryTableEmptyListPlaceholder,
   },
   props: {
     buyRequests: {
-      type: Array, /** {@link Movement} **/
+      type: Array, /** {@link BuyRequestRecord} **/
       required: true,
     },
     isLoaded: {

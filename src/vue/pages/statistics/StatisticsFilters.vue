@@ -53,30 +53,12 @@
         </div>
       </template>
     </template>
-
-    <no-data-message
-      v-else-if="isLoaded && !ownedAssets.length"
-      icon-name="trending-up"
-      :title="'statistics-filters.no-data-title' | globalize"
-      :message="'statistics-filters.no-data-msg' | globalize"
-    />
-
-    <template v-else-if="!isLoaded && requestFailed">
-      <p>{{ 'statistics-filters.load-failed-msg' | globalize }}</p>
-    </template>
-
-    <loader
-      v-else
-      message-id="statistics-filters.filters-data-loading-msg"
-    />
   </div>
 </template>
 
 <script>
 import SelectField from '@/vue/fields/SelectField'
 import DateField from '@/vue/fields/DateField'
-import NoDataMessage from '@/vue/common/NoDataMessage'
-import Loader from '@/vue/common/Loader'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -85,6 +67,8 @@ import { api, loadingDataViaLoop } from '@/api'
 const EVENTS = {
   filtersDataLoaded: 'filters-data-loaded',
   setFiltersAndUpdateList: 'set-filters-and-update-list',
+  showNoDataMessage: 'show-no-data-message',
+  showRequestFailedMessage: 'show-request-failed-message',
 }
 
 export default {
@@ -93,8 +77,6 @@ export default {
   components: {
     SelectField,
     DateField,
-    NoDataMessage,
-    Loader,
   },
 
   data () {
@@ -107,7 +89,6 @@ export default {
       },
       promoCodes: [],
       isLoaded: false,
-      requestFailed: false,
     }
   },
 
@@ -129,8 +110,9 @@ export default {
 
   async created () {
     await this.loadFiltersData()
-    this.isLoaded = true
-    this.$emit(EVENTS.filtersDataLoaded)
+    if (!this.ownedAssets.length) {
+      this.$emit(EVENTS.showNoDataMessage)
+    }
   },
 
   methods: {
@@ -150,8 +132,10 @@ export default {
       try {
         await this.loadAccountBalancesDetails()
         await this.loadAllPromocodes()
+        this.isLoaded = true
+        this.$emit(EVENTS.filtersDataLoaded)
       } catch (e) {
-        this.requestFailed = true
+        this.$emit(EVENTS.showRequestFailedMessage)
         ErrorHandler.processWithoutFeedback(e)
       }
     },

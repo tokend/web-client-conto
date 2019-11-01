@@ -2,14 +2,18 @@
   <div class="statistics-sales-history">
     <statistics-filters
       @filters-data-loaded="filtersDataLoaded = true"
+      @show-no-data-message="showNoDataMessage = true"
+      @show-request-failed-message="showRequestFailedMessage = true"
       @set-filters-and-update-list="setFiltersAndUpdateList"
     />
-    <template v-if="filtersDataLoaded">
-      <statistics-sales-history-table
-        :buy-requests="buyRequests"
-        :is-loaded="isLoaded"
-        :is-load-failed="isLoadFailed"
-      />
+    <template v-if="filtersDataLoaded && !showNoDataMessage">
+      <div class="statistics-sales-history__list-wrp">
+        <statistics-sales-history-table
+          :buy-requests="buyRequests"
+          :is-loaded="isLoaded"
+          :is-load-failed="isLoadFailed"
+        />
+      </div>
       <collection-loader
         v-show="buyRequests.length"
         :first-page-loader="getListBuyRequests"
@@ -18,6 +22,24 @@
         ref="listCollectionLoader"
       />
     </template>
+
+    <no-data-message
+      v-else-if="filtersDataLoaded && showNoDataMessage"
+      icon-name="chart-areaspline"
+      :title="'statistics-sales-history.no-data-title' | globalize"
+      :message="'statistics-sales-history.no-data-msg' | globalize"
+    />
+
+    <no-data-message
+      v-else-if="!filtersDataLoaded && showRequestFailedMessage"
+      icon-name="chart-areaspline"
+      :message="'statistics-sales-history.load-failed-msg' | globalize"
+    />
+
+    <loader
+      v-else
+      message-id="statistics-sales-history.filters-data-loading-msg"
+    />
   </div>
 </template>
 
@@ -25,8 +47,11 @@
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import StatisticsSalesHistoryTable from './statistics-sales-history/StatisticsSalesHistoryTable'
 import StatisticsFilters from './statistics/StatisticsFilters'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import Loader from '@/vue/common/Loader'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
+import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
 
 export default {
   name: 'statistics-sales-history',
@@ -34,6 +59,8 @@ export default {
     CollectionLoader,
     StatisticsSalesHistoryTable,
     StatisticsFilters,
+    NoDataMessage,
+    Loader,
   },
   data: _ => ({
     filters: {
@@ -45,6 +72,8 @@ export default {
     buyRequests: [],
     isLoaded: false,
     isLoadFailed: false,
+    showNoDataMessage: false,
+    showRequestFailedMessage: false,
     filtersDataLoaded: false,
   }),
 
@@ -66,11 +95,13 @@ export default {
     },
 
     setListBuyRequests (list) {
-      this.buyRequests = list
+      this.buyRequests = list.map(i => new BuyRequestRecord(i))
     },
 
     concatListBuyRequests (list) {
-      this.buyRequests = this.buyRequests.concat(list)
+      this.buyRequests = this.buyRequests.concat(
+        list.map(i => new BuyRequestRecord(i))
+      )
     },
 
     reloadList () {

@@ -1490,11 +1490,21 @@
       "asset-code-lbl": "Код актива",
       "promo-code-lbl": "Промокод",
       "period-start-lbl": "Начало периода",
-      "period-end-lbl": "Конец периода",
+      "period-end-lbl": "Конец периода"
+    },
+    "statistics-sales-history": {
       "no-data-title": "Нет активов",
       "no-data-msg": "У компании еще нет активов.",
       "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже",
       "filters-data-loading-msg": "Загружаються данные для фильтров..."
+    },
+    "statistics-sales-history-table": {
+      "buyer-th": "Покупатель",
+      "date-th": "Дата",
+      "amount-th": "Количество",
+      "status-th": "Статус",
+      "no-data-msg": "Здесь будет история продаж.",
+      "error-msg":"Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы."
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="statistics">
     <template>
-      <top-bar>
+      <top-bar class="statistics__top-bar">
         <template slot="main">
           <router-link :to="vueRoutes.statisticsSalesHistory">
             <span>{{ 'statistics-page.sales-history-tab' | globalize }}</span>
@@ -36,3 +36,9 @@ export default {
   }),
 }
 </script>
+
+<style lang="scss" scoped>
+.statistics__top-bar {
+  margin-bottom: 1rem;
+}
+</style>
