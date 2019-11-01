@@ -102,7 +102,7 @@ import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 
 export default {
   name: 'atomic-swaps-explore',

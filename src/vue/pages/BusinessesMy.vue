@@ -59,7 +59,7 @@ import BusinessCard from './businesses-all/BusinessCard'
 import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
 
 import { vueRoutes } from '@/vue-router/routes'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'

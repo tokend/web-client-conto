@@ -10,7 +10,9 @@
     <template v-if="label">
       <label
         class="select-field__label"
-        :class="{ 'select-field__label--minimized': value || isListOpened }"
+        :class="{ 'select-field__label--minimized': value || isListOpened ||
+          needAllOption
+        }"
       >
         {{ label }}
       </label>
@@ -23,6 +25,12 @@
       v-bind="$attrs"
       @change="onChange"
     >
+      <option
+        v-if="needAllOption"
+        value=""
+      >
+        {{ 'select-field.all-option' | globalize }}
+      </option>
       <slot />
     </select>
 
@@ -69,6 +77,10 @@ export default {
       type: String,
       default: '',
     },
+    needAllOption: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data: _ => ({
@@ -91,7 +103,7 @@ export default {
       this.addCustomSelectEvents()
     }
 
-    if (!this.value) {
+    if (!this.value && !this.needAllOption) {
       this.fixDisplayOfEmptyValue()
     }
   },

@@ -4,19 +4,13 @@
       <template slot="main">
         <template v-if="isAccountGeneral && myBusinesses.length">
           <div class="assets-page__filter">
-            <span class="assets-page__filter-prefix">
-              {{ 'assets-page.business-filter-prefix' | globalize }}
-            </span>
             <select-field
               :value="businessOwnerId"
               @input="setBusinessOwnerId"
-              class="app__select app__select--no-border"
+              class="app__select app__select-with-label--no-border"
+              :label="'assets-page.business-filter-label' | globalize"
+              need-all-option
             >
-              <option
-                :value="ALL_VALUE"
-              >
-                {{ 'assets-page.all-option' | globalize }}
-              </option>
               <option
                 v-for="business in myBusinesses"
                 :key="business.accountId"
@@ -70,7 +64,6 @@ import { vueRoutes } from '@/vue-router/routes'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
-import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 
 export default {
   name: 'assets',
@@ -86,8 +79,7 @@ export default {
   data: _ => ({
     vueRoutes,
     isAssetDrawerShown: false,
-    businessOwnerId: ALL_VALUE,
-    ALL_VALUE,
+    businessOwnerId: '',
   }),
 
   computed: {
@@ -102,7 +94,7 @@ export default {
   watch: {
     businessOwnerId (value) {
       Bus.emit('assets:setBusinessOwnerId', value)
-      if (value !== ALL_VALUE) {
+      if (value) {
         this.loadBusinessStatsQuoteAsset(value)
       }
     },
@@ -131,17 +123,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@scss/variables';
-
 .assets-page__btn-icon {
   display: flex;
   font-size: 1.8rem;
   margin-right: 0.5rem;
   margin-top: -0.4rem;
-}
-
-.assets-page__filter-prefix {
-  color: $col-field-inactive;
-  font-size: 1.2rem;
 }
 </style>

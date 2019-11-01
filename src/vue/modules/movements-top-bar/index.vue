@@ -8,19 +8,13 @@
         >
           <template v-if="isAccountGeneral && isBusinessesExists">
             <div class="movements-top-bar__filter">
-              <span class="movements-top-bar__filter-prefix">
-                {{ 'movements-top-bar.business-filter-prefix' | globalize }}
-              </span>
               <select-field
                 :value="businessOwnerId"
                 @input="setBusinessOwnerId"
-                class="app__select app__select--no-border"
+                :label="'movements-top-bar.business-filter-label' | globalize"
+                class="app__select app__select-with-label--no-border"
+                need-all-option
               >
-                <option
-                  :value="ALL_VALUE"
-                >
-                  {{ 'movements-top-bar.all-option' | globalize }}
-                </option>
                 <option
                   v-for="business in myBusinesses"
                   :key="business.accountId"
@@ -34,14 +28,12 @@
 
           <template v-if="isAssetsExists">
             <div class="movements-top-bar__filter">
-              <span class="movements-top-bar__filter-prefix">
-                {{ 'movements-top-bar.asset-filter-prefix' | globalize }}
-              </span>
               <select-field
                 :value="assetCode"
                 @input="setAssetCode"
+                :label="'movements-top-bar.asset-filter-label' | globalize"
                 :key="`${businessOwnerId}-${assetCode}`"
-                class="app__select app__select--no-border"
+                class="app__select app__select-with-label--no-border"
               >
                 <option
                   v-for="asset in assets"
@@ -97,7 +89,6 @@ import TransferForm from '@/vue/forms/TransferForm'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 
 const EVENTS = {
   assetCodeUpdated: 'asset-code-updated',
@@ -123,11 +114,10 @@ export default {
     isInitialized: false,
     isTransferDrawerShown: false,
     assetCode: '',
-    businessOwnerId: ALL_VALUE,
+    businessOwnerId: '',
     EVENTS,
     ASSET_POLICIES_STR,
     isHaveBalance: true,
-    ALL_VALUE,
   }),
 
   computed: {
@@ -142,11 +132,11 @@ export default {
 
     assets () {
       if (this.isAccountGeneral) {
-        if (this.businessOwnerId === ALL_VALUE) {
+        if (this.businessOwnerId) {
+          return this.balancesAssetsByOwner(this.businessOwnerId)
+        } else {
           // eslint-disable-next-line max-len
           return this.myBusinesses.flatMap(business => this.balancesAssetsByOwner(business.accountId))
-        } else {
-          return this.balancesAssetsByOwner(this.businessOwnerId)
         }
       } else {
         return this.ownedAssets
@@ -182,7 +172,7 @@ export default {
     await this.loadMyBusinesses()
     await this.loadAccountBalancesDetails()
 
-    if (this.isBusinessesExists && this.isAssetsExists) {
+    if (this.isAssetsExists) {
       this.assetCode = this.assets[0].code
     } else {
       this.$emit(EVENTS.showNoDataMessage)
@@ -262,12 +252,6 @@ export default {
   @include respond-to-custom($sidebar-hide-bp) {
     flex-direction: column;
   }
-}
-
-.movements-top-bar__filter-prefix {
-  line-height: 1;
-  color: $col-field-inactive;
-  font-size: 1.2rem;
 }
 
 .movements-top-bar__filter {

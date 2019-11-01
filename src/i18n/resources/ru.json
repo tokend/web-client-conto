@@ -911,8 +911,7 @@
       "my-assets-title": "Мои активы",
       "explore-title": "Активы компании",
       "balances-title": "Мой кошелек",
-      "business-filter-prefix": "Компания:",
-      "all-option": "Все"
+      "business-filter-label": "Компания"
     },
     "create-asset-form": {
       "loading-msg": "Загружаем…",
@@ -1478,9 +1477,8 @@
       "used-key": "Использовано"
     },
     "movements-top-bar": {
-      "business-filter-prefix": "Компания:",
-      "asset-filter-prefix": "Актив:",
-      "all-option": "Все"
+      "business-filter-label": "Компания",
+      "asset-filter-label": "Актив"
     },
     "atomic-swap-card": {
       "available": "Доступно: {{ amount, balance }}",
@@ -1499,6 +1497,9 @@
     "business-card": {
       "add-lbl": "Добавить",
       "details-lbl": "Детали"
+    },
+    "select-field": {
+      "all-option": "Все"
     }
   }
 }

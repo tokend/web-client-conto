@@ -74,7 +74,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 
 export default {
   name: 'promo-codes-list',

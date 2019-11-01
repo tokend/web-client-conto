@@ -1,74 +1,72 @@
 <template>
   <div class="business-viewer">
-    <div class="business-viewer__wrp">
-      <template v-if="isLoaded">
-        <div class="business-viewer__top-bar">
-          <div class="business-viewer__name-wrp">
-            <h1 class="business-viewer__title">
-              {{ business.name }}
-            </h1>
-            <h3
-              class="business-viewer__industry"
-              v-if="business.industry"
-            >
-              {{ business.industry }}
-            </h3>
-          </div>
-          <div
-            class="business-viewer__actions"
-          >
-            <div
-              class="business-viewer__btn"
-              v-if="business.bannerKey || business.description"
-            >
-              <button
-                v-ripple
-                class="app__button-raised"
-                @click="scrollToShop"
-              >
-                {{ 'business-viewer.shop-btn' | globalize }}
-              </button>
-            </div>
-            <div class="business-viewer__btn" v-if="!isMyBusiness">
-              <button
-                v-ripple
-                class="app__button-raised"
-                @click="addBusiness"
-                :disabled="isSubmitting"
-              >
-                {{ 'business-viewer.add-btn' | globalize }}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <business-viewer-description
-          v-if="business.bannerKey || business.description"
-          :business="business"
-        />
-
-        <div class="business-viewer__shop">
-          <h1 ref="shop" class="business-viewer__title">
-            {{ 'business-viewer.shop' | globalize }}
+    <template v-if="isLoaded">
+      <div class="business-viewer__top-bar">
+        <div class="business-viewer__name-wrp">
+          <h1 class="business-viewer__name">
+            {{ business.name }}
           </h1>
+          <h3
+            class="business-viewer__industry"
+            v-if="business.industry"
+          >
+            {{ business.industry }}
+          </h3>
         </div>
-        <atomic-swaps-explore
-          :business-id="business.accountId"
-        />
-      </template>
-      <template v-else-if="!isLoaded && !isFailed">
-        <loader
-          :message-id="'business-viewer.loading-msg'"
-        />
-      </template>
-      <template v-if="isFailed">
-        <no-data-message
-          icon-name="castle"
-          :title="'business-viewer.error-title' | globalize"
-          :message="'business-viewer.error-msg' | globalize"
-        />
-      </template>
-    </div>
+        <div
+          class="business-viewer__actions"
+        >
+          <div
+            class="business-viewer__btn"
+            v-if="business.bannerKey || business.description"
+          >
+            <button
+              v-ripple
+              class="app__button-raised"
+              @click="scrollToShop"
+            >
+              {{ 'business-viewer.shop-btn' | globalize }}
+            </button>
+          </div>
+          <div class="business-viewer__btn" v-if="!isAddedBusiness">
+            <button
+              v-ripple
+              class="app__button-raised"
+              @click="addBusiness"
+              :disabled="isSubmitting"
+            >
+              {{ 'business-viewer.add-btn' | globalize }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <business-viewer-description
+        v-if="business.bannerKey || business.description"
+        :business="business"
+      />
+
+      <div class="business-viewer__shop">
+        <h1 ref="shop" class="business-viewer__shop-title">
+          {{ 'business-viewer.shop' | globalize }}
+        </h1>
+      </div>
+      <atomic-swaps-explore
+        :business-id="business.accountId"
+      />
+    </template>
+    <template v-else-if="!isLoaded && !isFailed">
+      <loader
+        :message-id="'business-viewer.loading-msg'"
+      />
+    </template>
+    <template v-if="isFailed">
+      <no-data-message
+        icon-name="castle"
+        :title="'business-viewer.error-title' | globalize"
+        :message="'business-viewer.error-msg' | globalize"
+      />
+    </template>
   </div>
 </template>
 
@@ -121,7 +119,7 @@ export default {
       businessToBrowse: vuexTypes.businessToBrowse,
     }),
 
-    isMyBusiness () {
+    isAddedBusiness () {
       return Boolean(this.myBusinesses.find(business => {
         return business.accountId === this.business.accountId
       })
@@ -156,8 +154,7 @@ export default {
 
     async getBusiness () {
       try {
-        const endpoint = `/integrations/dns/businesses/${this.id}`
-        const { data } = await api.get(endpoint)
+        const { data } = await api.get(`/integrations/dns/businesses/${this.id}`)
         this.business = new BusinessRecord(data)
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
@@ -197,7 +194,7 @@ export default {
   @import '~@scss/variables.scss';
   @import '~@scss/mixins.scss';
 
-  .business-viewer__wrp {
+  .business-viewer {
     width: 100%;
     max-width: 150rem;
     display: flex;
@@ -226,7 +223,8 @@ export default {
     }
   }
 
-  .business-viewer__title {
+  .business-viewer__shop-title,
+  .business-viewer__name {
     color: $col-text-page-heading;
     font-size: 3rem;
     line-height: 1.5;

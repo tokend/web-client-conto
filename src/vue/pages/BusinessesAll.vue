@@ -84,7 +84,7 @@ import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 
 export default {
   name: 'businesses-all',

@@ -907,8 +907,7 @@
       "no-balances-msg": "You do not have any balances yet",
       "create-btn": "Create",
       "my-assets-title": "My assets",
-      "business-filter-prefix": "Company:",
-      "all-option": "All"
+      "business-filter-label": "Company"
     },
     "create-asset-form": {
       "loading-msg": "Loading…",
@@ -1496,8 +1495,10 @@
       "details-lbl": "Details"
     },
     "movements-top-bar": {
-      "business-filter-prefix": "Company:",
-      "asset-filter-prefix": "Asset:",
+      "business-filter-label": "Company",
+      "asset-filter-label": "Asset"
+    },
+    "select-field": {
       "all-option": "All"
     }
   }

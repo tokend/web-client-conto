@@ -95,9 +95,8 @@ import UpdateList from '@/vue/mixins/update-list.mixin'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
-import { ALL_VALUE } from '@/js/const/select-field-default-values.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-loader.const'
+import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 
 export default {
   name: 'assets-explorer',
@@ -121,7 +120,7 @@ export default {
     isTransferDrawerShown: false,
     isAssetUpdateDrawerShown: false,
     selectedBalance: {},
-    businessOwnerId: ALL_VALUE,
+    businessOwnerId: '',
     ITEMS_PER_SKELETON_LOADER,
     isUpdateMode: false,
   }),
@@ -140,9 +139,9 @@ export default {
         let accountBalances = []
         if (this.isAccountGeneral) {
           /* eslint-disable max-len */
-          let businessAccountBalances = this.businessOwnerId === ALL_VALUE
-            ? this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
-            : this.accountBalancesByOwner(this.businessOwnerId)
+          let businessAccountBalances = this.businessOwnerId
+            ? this.accountBalancesByOwner(this.businessOwnerId)
+            : this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
           /* eslint-enable max-len */
 
           accountBalances = businessAccountBalances
