@@ -7,6 +7,7 @@
           @input="setAssetCode"
           :label="'statistics-filters.asset-code-lbl' | globalize"
           class="app__select"
+          need-all-option
         >
           <option
             v-for="asset in ownedAssets"
@@ -20,17 +21,17 @@
 
       <div class="statistics-filters__filter-field">
         <date-field
-          v-model="filters.periodStart"
+          v-model="filters.dateFrom"
           :enable-time="true"
-          :label="'statistics-filters.period-start-lbl' | globalize"
+          :label="'statistics-filters.date-from-lbl' | globalize"
         />
       </div>
 
       <div class="statistics-filters__filter-field">
         <date-field
-          v-model="filters.periodEnd"
+          v-model="filters.dateTo"
           :enable-time="true"
-          :label="'statistics-filters.period-end-lbl' | globalize"
+          :label="'statistics-filters.date-to-lbl' | globalize"
         />
       </div>
 
@@ -41,6 +42,7 @@
             @input="setPromoCode"
             :label="'statistics-filters.promo-code-lbl' | globalize"
             class="app__select"
+            need-all-option
           >
             <option
               v-for="promoCode in promoCodes"
@@ -52,6 +54,23 @@
           </select-field>
         </div>
       </template>
+
+      <div class="statistics-filters__filter-field">
+        <select-field
+          :value="filters.buyRequestStatus"
+          @input="setBuyRequestStatus"
+          :label="'statistics-filters.buy-request-status-lbl' | globalize"
+          class="app__select"
+        >
+          <option
+            v-for="buyRequestStatus in BUY_REQUEST_STATUSES"
+            :key="buyRequestStatus.value"
+            :value="buyRequestStatus.value"
+          >
+            {{ buyRequestStatus.labelTranslationId | globalize }}
+          </option>
+        </select-field>
+      </div>
     </template>
   </div>
 </template>
@@ -63,6 +82,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api, loadingDataViaLoop } from '@/api'
+import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
 
 const EVENTS = {
   filtersDataLoaded: 'filters-data-loaded',
@@ -83,12 +103,14 @@ export default {
     return {
       filters: {
         assetCode: '',
-        periodStart: '',
-        periodEnd: '',
+        dateFrom: '',
+        dateTo: '',
         promoCode: '',
+        buyRequestStatus: BUY_REQUEST_STATUSES.paid.value,
       },
       promoCodes: [],
       isLoaded: false,
+      BUY_REQUEST_STATUSES,
     }
   },
 
@@ -128,6 +150,10 @@ export default {
       this.filters.promoCode = code
     },
 
+    setBuyRequestStatus (status) {
+      this.filters.buyRequestStatus = status
+    },
+
     async loadFiltersData () {
       try {
         await this.loadAccountBalancesDetails()
@@ -155,6 +181,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@scss/variables.scss';
+@import '~@scss/mixins';
+
+$media-desktop-custom: 1005px;
+$media-small-desktop-custom: 851px;
 
 .statistics-filters {
   display: flex;
@@ -166,5 +196,18 @@ export default {
   margin: 0.7rem;
   min-width: 14rem;
   width: calc(25% - 1.4rem);
+
+  @include respond-to-custom($media-desktop-custom) {
+    width: calc(33% - 1.4rem);
+  }
+  @include respond-to-custom($media-small-desktop-custom) {
+    width: calc(50% - 1.4rem);
+  }
+  @include respond-to-custom($sidebar-hide-bp) {
+    width: calc(33% - 1.4rem);
+  }
+  @include respond-to(small) {
+    flex: 1 0;
+  }
 }
 </style>

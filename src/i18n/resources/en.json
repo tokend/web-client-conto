@@ -1483,9 +1483,10 @@
     },
     "statistics-filters": {
       "asset-code-lbl": "Asset code",
-      "promo-code-lbl": "PromoCode",
-      "period-start-lbl": "Period start",
-      "period-end-lbl": "Period end"
+      "promo-code-lbl": "Promo Code",
+      "date-from-lbl": "Period start",
+      "date-to-lbl": "Period end",
+      "buy-request-status-lbl": "Request status"
     },
     "statistics-sales-history": {
       "no-data-title": "No assets yet",
@@ -1500,6 +1501,21 @@
       "status-th": "Status",
       "no-data-msg": "Here will be your sales history",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue."
+    },
+    "select-field": {
+      "all-option": "All"
+    },
+    "statistics-sales-history-table-row": {
+      "rejected-status-td": "Rejected",
+      "paid-status-td": "Paid",
+      "timeout-status-td": "Not paid",
+      "pending-status-th": "Pending"
+    },
+    "buy-request-statuses": {
+      "rejected": "Rejected",
+      "paid": "Paid",
+      "timeout": "Not paid",
+      "pending": "Pending"
     }
   }
 }

@@ -1489,8 +1489,9 @@
     "statistics-filters": {
       "asset-code-lbl": "Код актива",
       "promo-code-lbl": "Промокод",
-      "period-start-lbl": "Начало периода",
-      "period-end-lbl": "Конец периода"
+      "date-from-lbl": "Начало периода",
+      "date-to-lbl": "Конец периода",
+      "buy-request-status-lbl": "Статус запроса"
     },
     "statistics-sales-history": {
       "no-data-title": "Нет активов",
@@ -1505,6 +1506,21 @@
       "status-th": "Статус",
       "no-data-msg": "Здесь будет история продаж.",
       "error-msg":"Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы."
+    },
+    "select-field": {
+      "all-option": "Все"
+    },
+    "statistics-sales-history-table-row": {
+      "rejected-status-td": "Отклонен",
+      "paid-status-td": "Оплачен",
+      "timeout-status-td": "Не оплачен",
+      "pending-status-th": "Ожидание оплаты"
+    },
+    "buy-request-statuses": {
+      "rejected": "Отклонен",
+      "paid": "Оплачен",
+      "timeout": "Не оплачен",
+      "pending": "Ожидание оплаты"
     }
   }
 }

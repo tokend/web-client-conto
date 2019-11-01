@@ -49,9 +49,11 @@ import StatisticsSalesHistoryTable from './statistics-sales-history/StatisticsSa
 import StatisticsFilters from './statistics/StatisticsFilters'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
+
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
+import { DateUtil } from '@/js/utils/date.util'
 
 export default {
   name: 'statistics-sales-history',
@@ -65,9 +67,10 @@ export default {
   data: _ => ({
     filters: {
       assetCode: '',
-      periodStart: '',
-      periodEnd: '',
+      dateFrom: '',
+      dateTo: '',
       promoCode: '',
+      buyRequestStatus: '',
     },
     buyRequests: [],
     isLoaded: false,
@@ -79,11 +82,11 @@ export default {
 
   methods: {
     async getListBuyRequests () {
+      let filters = this.getFilters()
+
       try {
         const response = await api.getWithSignature('/integrations/marketplace/buy_requests', {
-          filter: {
-            bought_asset: this.filters.assetCode,
-          },
+          filter: filters,
         })
 
         this.isLoaded = true
@@ -114,6 +117,36 @@ export default {
       this.filters = value
       this.reloadList()
     },
+
+    getFilters () {
+      return {
+        ...(
+          this.filters.assetCode
+            ? { 'bought_asset': this.filters.assetCode }
+            : {}
+        ),
+        ...(
+          this.filters.dateFrom
+            ? { 'date_from': DateUtil.toTimestamp(this.filters.dateFrom) }
+            : {}
+        ),
+        ...(
+          this.filters.dateTo
+            ? { 'date_to': DateUtil.toTimestamp(this.filters.dateTo) }
+            : {}
+        ),
+        ...(
+          this.filters.promoCode
+            ? { 'promo': this.filters.promoCode }
+            : {}
+        ),
+        ...(
+          this.filters.buyRequestStatus
+            ? { 'status': this.filters.buyRequestStatus }
+            : {}
+        ),
+      }
+    },
   },
 }
 </script>
@@ -122,5 +155,6 @@ export default {
 .statistics-sales-history__list-wrp {
   overflow-x: auto;
   width: 100%;
+  margin-top: 3rem;
 }
 </style>

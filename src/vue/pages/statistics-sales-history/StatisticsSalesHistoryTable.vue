@@ -34,11 +34,11 @@
     </thead>
 
     <template v-if="buyRequests.length">
-      <!-- <statistics-sales-history-table-row
+      <statistics-sales-history-table-row
         v-for="buyRequest in buyRequests"
         :buy-request="buyRequest"
         :key="buyRequest.id"
-      /> -->
+      />
     </template>
     <statistics-sales-history-table-empty-list-placeholder
       v-else-if="isLoaded && !buyRequests.length"
@@ -58,14 +58,14 @@
 </template>
 
 <script>
-// import StatisticsSalesHistoryTableRow from './StatisticsSalesHistoryTableRow'
+import StatisticsSalesHistoryTableRow from './StatisticsSalesHistoryTableRow'
 import StatisticsSalesHistoryTableSkeletonLoader from './StatisticsSalesHistoryTableSkeletonLoader'
 import StatisticsSalesHistoryTableEmptyListPlaceholder from './StatisticsSalesHistoryTableEmptyListPlaceholder'
 
 export default {
   name: 'statistics-sales-history-table',
   components: {
-    // StatisticsSalesHistoryTable,
+    StatisticsSalesHistoryTableRow,
     StatisticsSalesHistoryTableSkeletonLoader,
     StatisticsSalesHistoryTableEmptyListPlaceholder,
   },

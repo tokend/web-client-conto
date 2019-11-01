@@ -1,32 +1,63 @@
 <template>
-  <tbody class="movements-table-row">
+  <tbody class="statistics-sales-history-table-row">
     <tr
-      class="movements-table-row__brief
-             movements-table-row__brief--with-shadow"
+      class="statistics-sales-history-table-row__brief
+             statistics-sales-history-table-row__brief--with-shadow"
     >
+      <template v-if="buyRequest.senderAccountId">
+        <td
+          class="statistics-sales-history-table-row__cell"
+          :title="buyRequest.senderAccountId"
+        >
+          <email-getter
+            :is-copy-button="false"
+            :account-id="buyRequest.senderAccountId"
+          />
+        </td>
+      </template>
+      <template v-else>
+        <td
+          class="statistics-sales-history-table-row__cell"
+          :title="buyRequest.senderEmail"
+        >
+          {{ buyRequest.senderEmail }}
+        </td>
+      </template>
+
       <td
-        class="movements-table-row__cell"
-        :title="movement.appliedAt | formatCalendar"
+        class="statistics-sales-history-table-row__cell"
+        :title="buyRequest.createdAt | formatCalendar"
       >
-        {{ movement.appliedAt | formatCalendar }}
+        {{ buyRequest.createdAt | formatCalendar }}
       </td>
+      <!-- eslint-disable max-len -->
       <td
-        class="movements-table-row__cell"
-        :title="movement | formatMoney"
+        class="statistics-sales-history-table-row__cell"
+        :title="`${formatMoney(buyRequest.amount)} ${buyRequest.boughtAssetName}`"
       >
-        {{ movement | formatBalance }}
+        <!-- eslint-enable max-len -->
+        {{ buyRequest.amount | formatMoney }}
+        {{ buyRequest.boughtAssetName }}
       </td>
 
       <td
-        class="movements-table-row__cell
-               movements-table-row__cell--expand-btn-wrp"
+        class="statistics-sales-history-table-row__cell"
+        :title="getBuyRequestStatusTranslated(buyRequest)"
+      >
+        {{ getBuyRequestStatusTranslated(buyRequest) }}
+      </td>
+
+      <td
+        class="statistics-sales-history-table-row__cell
+               statistics-sales-history-table-row__cell--expand-btn-wrp"
       >
         <button
-          class="movements-table-row__btn"
+          class="statistics-sales-history-table-row__btn"
           @click="isAttributesViewerShown = !isAttributesViewerShown"
         >
           <i
-            class="mdi mdi-chevron-down movements-table-row__toggle-icon"
+            class="mdi mdi-chevron-down
+                   statistics-sales-history-table-row__toggle-icon"
             :class="{ 'mdi-rotate-180': isAttributesViewerShown }"
           />
         </button>
@@ -35,14 +66,16 @@
 
     <tr
       v-if="isAttributesViewerShown"
-      class="movements-table-row__attributes"
+      class="statistics-sales-history-table-row__attributes"
     >
       <td :colspan="5">
         <!-- eslint-disable max-len -->
         <div
-          class="movements-table-row__attributes-viewer-wrp"
+          class="statistics-sales-history-table-row__attributes-viewer-wrp"
         >
-          <!-- <movement-attributes-viewer :movement="movement" /> -->
+          <statistics-sales-history-attributes-viewer
+            :buy-request="buyRequest"
+          />
         </div>
         <!-- eslint-enable max-len -->
       </td>
@@ -51,27 +84,56 @@
 </template>
 
 <script>
-import { Movement } from '../wrappers/movement'
+import EmailGetter from '@/vue/common/EmailGetter'
+import StatisticsSalesHistoryAttributesViewer from './StatisticsSalesHistoryAttributesViewer'
+import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
+import { formatMoney } from '@/vue/filters/formatMoney'
 
 export default {
-  name: 'movement-table-row',
-
+  name: 'statistics-sales-history-table-row',
+  components: {
+    EmailGetter,
+    StatisticsSalesHistoryAttributesViewer,
+  },
   props: {
-    movement: { type: Movement, required: true },
+    buyRequest: {
+      type: BuyRequestRecord,
+      required: true,
+    },
   },
 
   data: () => ({
     isAttributesViewerShown: false,
+    formatMoney,
   }),
+
+  methods: {
+    getBuyRequestStatusTranslated (buyRequest) {
+      let translationId
+
+      if (buyRequest.isRejected) {
+        translationId = 'statistics-sales-history-table-row.rejected-status-td'
+      } else if (buyRequest.isPaid) {
+        translationId = 'statistics-sales-history-table-row.paid-status-td'
+      } else if (buyRequest.isTimeout) {
+        translationId = 'statistics-sales-history-table-row.timeout-status-td'
+      } else if (buyRequest.isPending) {
+        translationId = 'statistics-sales-history-table-row.pending-status-td'
+      } else {
+        translationId = '[UNKNOWN]'
+      }
+
+      return this.$options.filters.globalize(translationId)
+    },
+  },
 }
 </script>
 
 <style lang="scss">
 @import '~@scss/mixins';
 @import '~@scss/variables';
-@import '../scss/variables';
 
-.movements-table-row__brief {
+.statistics-sales-history-table-row__brief {
   background-color: $col-block-bg;
 
   &--with-shadow {
@@ -79,45 +141,21 @@ export default {
   }
 }
 
-.movements-table-row__cell {
-  padding: 0.7rem $movements-table-cell-side-padding;
+.statistics-sales-history-table-row__cell {
+  padding: 0.7rem 1.5rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   border: none;
   color: $col-text;
 
-  &--bold {
-    font-weight: 600;
-  }
-
-  &--iconed {
-    position: relative;
-    padding-left: $movements-table-cell-side-padding + 3rem;
-
-    /* stylelint-disable selector-nested-pattern */
-    i {
-      left: $movements-table-cell-side-padding + 1rem;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-    /* stylelint-enable selector-nested-pattern */
-  }
-
-  &--direction {
-    padding-right: 0;
-    min-width: $movements-table-cell-width-direction;
-    width: $movements-table-cell-width-direction;
-  }
-
   &--expand-btn-wrp {
     text-align: right;
-    width: $movements-table-cell-width-expand-btn-wrp;
+    width: 6.7rem;
   }
 }
 
-.movements-table-row__btn {
+.statistics-sales-history-table-row__btn {
   width: 3.7rem;
   height: 3.7rem;
   border-radius: 0.4rem;
@@ -127,20 +165,15 @@ export default {
   box-shadow: none;
 
   &:hover {
-    background-color: $movements-table-row-btn-hover-bg;
+    background-color: $statistics-table-row-btn-hover-bg;
   }
 
   &:active {
-    background-color: $movements-table-row-btn-active-bg;
-  }
-
-  &--small {
-    width: 2rem;
-    height: 2.2rem;
+    background-color: $statistics-table-row-btn-active-bg;
   }
 }
 
-.movements-table-row__toggle-icon {
+.statistics-sales-history-table-row__toggle-icon {
   font-size: 1.6rem;
 
   &:before {
@@ -148,17 +181,13 @@ export default {
   }
 }
 
-.movements-table-row__attributes-viewer-wrp {
+.statistics-sales-history-table-row__attributes-viewer-wrp {
   background: $col-block-bg;
-  padding:
-    0.75rem $movements-table-cell-side-padding
-    0.7rem $movements-table-cell-side-padding;
+  padding: 0.75rem 1.5rem 0.7rem;
   margin-top: -0.6rem;
   position: relative;
 
-  &--with-shadow {
-    @include box-shadow();
-  }
+  @include box-shadow();
 
   &:before {
     // HACK: to cover sticking out shadow at the top
@@ -171,18 +200,6 @@ export default {
     left: 0;
     right: 0;
     transform: translateY(-50%);
-  }
-}
-
-.movements-table-row__brief-customer {
-  .movements-table-row__cell {
-    border-top: 0.1rem solid darken($col-button-flat-disabled-txt, 5%);
-    padding: 1.4rem $movements-table-cell-side-padding
-      0.7rem $movements-table-cell-side-padding;
-
-    &--iconed {
-      padding-left: $movements-table-cell-icon-padding;
-    }
   }
 }
 </style>
