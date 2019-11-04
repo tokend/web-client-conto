@@ -30,15 +30,7 @@
     </template>
 
     <template v-else>
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="index in ITEMS_PER_SKELETON_LOADER"
-          :key="index"
-        >
-          <skeleton-loader-card />
-        </div>
-      </div>
+      <skeleton-cards-loader />
     </template>
 
     <drawer :is-shown.sync="isDrawerShown">
@@ -75,7 +67,7 @@
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import BusinessCard from './businesses-all/BusinessCard'
-import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
+import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import Drawer from '@/vue/common/Drawer'
 import BusinessAttributes from './businesses-all/BusinessAttributes'
 import BusinessAssetsViewer from './businesses-all/BusinessAssetsViewer'
@@ -84,7 +76,6 @@ import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 
 export default {
   name: 'businesses-all',
@@ -92,7 +83,7 @@ export default {
   components: {
     CollectionLoader,
     BusinessCard,
-    SkeletonLoaderCard,
+    SkeletonCardsLoader,
     NoDataMessage,
     Drawer,
     BusinessAttributes,
@@ -106,7 +97,6 @@ export default {
       isDrawerShown: false,
       currentBusiness: {},
       isMyBusiness: false,
-      ITEMS_PER_SKELETON_LOADER,
     }
   },
 

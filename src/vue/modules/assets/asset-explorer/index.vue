@@ -30,15 +30,7 @@
     </template>
 
     <template v-else>
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="index in ITEMS_PER_SKELETON_LOADER"
-          :key="index"
-        >
-          <skeleton-loader-card />
-        </div>
-      </div>
+      <skeleton-cards-loader />
     </template>
 
     <drawer :is-shown.sync="isAssetDetailsDrawerShown">
@@ -95,7 +87,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import AssetAttributesViewer from '../shared/components/asset-attributes-viewer'
 import AssetActions from './components/asset-actions'
-import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
+import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplified'
 import AssetCard from './components/asset-card'
 import TransferForm from '@/vue/forms/TransferForm'
@@ -105,7 +97,6 @@ import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 
 export default {
   name: 'assets-explorer',
@@ -114,7 +105,7 @@ export default {
     NoDataMessage,
     AssetAttributesViewer,
     AssetActions,
-    SkeletonLoaderCard,
+    SkeletonCardsLoader,
     UpdateAssetFormSimplifiedModule,
     AssetCard,
     TransferForm,
@@ -130,7 +121,6 @@ export default {
     isAssetUpdateDrawerShown: false,
     selectedBalance: {},
     businessOwnerId: '',
-    ITEMS_PER_SKELETON_LOADER,
     isUpdateMode: false,
   }),
 

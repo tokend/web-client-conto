@@ -1,5 +1,5 @@
 import { vuexTypes } from './types'
-import { api } from '../api'
+import { api, loadingDataViaLoop } from '../api'
 import { BusinessRecord } from '@/js/records/entities/business.record'
 
 export const state = {
@@ -11,10 +11,6 @@ export const state = {
 export const mutations = {
   [vuexTypes.SET_MY_BUSINESSES] (state, businesses) {
     state.myBusinesses = businesses
-  },
-
-  [vuexTypes.CONCAT_MY_BUSINESSES] (state, businesses) {
-    state.myBusinesses = state.myBusinesses.concat(businesses)
   },
 
   [vuexTypes.SET_ALL_BUSINESSES] (state, businesses) {
@@ -36,17 +32,14 @@ export const mutations = {
 
 export const actions = {
   // eslint-disable-next-line max-len
-  async [vuexTypes.LOAD_MY_BUSINESSES] ({ commit, getters }, needResponse = false) {
+  async [vuexTypes.LOAD_MY_BUSINESSES] ({ commit, getters }) {
     const accountId = getters[vuexTypes.accountId]
     const endpoint = `/integrations/dns/clients/${accountId}/businesses`
 
     const response = await api.getWithSignature(endpoint)
-    if (needResponse) {
-      return response
-    } else {
-      if (!response.data) return
-      commit(vuexTypes.SET_MY_BUSINESSES, response.data)
-    }
+    const data = await loadingDataViaLoop(response)
+
+    commit(vuexTypes.SET_MY_BUSINESSES, data)
   },
 
   async [vuexTypes.LOAD_ALL_BUSINESSES] () {

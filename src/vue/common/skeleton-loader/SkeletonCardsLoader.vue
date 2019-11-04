@@ -1,24 +1,32 @@
 <template>
-  <div class="skeleton-loader-card">
-    <div class="skeleton-loader-card__media">
-      <skeleton-loader template="bigIcon" />
-    </div>
-    <div class="skeleton-loader-card__body">
-      <div class="skeleton-loader-card__header">
-        <skeleton-loader width="60%" template="smallString" />
+  <div class="app__card-list">
+    <div
+      class="app__card-list-item"
+      v-for="index in cards"
+      :key="index"
+    >
+      <div class="skeleton-cards-loader">
+        <div class="skeleton-cards-loader__media">
+          <skeleton-loader template="bigIcon" />
+        </div>
+        <div class="skeleton-cards-loader__body">
+          <div class="skeleton-cards-loader__header">
+            <skeleton-loader width="60%" template="smallString" />
+          </div>
+          <div class="skeleton-cards-loader__subhead">
+            <skeleton-loader width="45%" template="smallString" />
+          </div>
+          <div class="skeleton-cards-loader__content">
+            <p class="skeleton-cards-loader__content-text">
+              <skeleton-loader width="100%" template="smallString" />
+              <skeleton-loader width="100%" template="smallString" />
+            </p>
+          </div>
+        </div>
+        <div class="skeleton-cards-loader__actions">
+          <skeleton-loader template="smallButton" />
+        </div>
       </div>
-      <div class="skeleton-loader-card__subhead">
-        <skeleton-loader width="45%" template="smallString" />
-      </div>
-      <div class="skeleton-loader-card__content">
-        <p class="skeleton-loader-card__content-text">
-          <skeleton-loader width="100%" template="smallString" />
-          <skeleton-loader width="100%" template="smallString" />
-        </p>
-      </div>
-    </div>
-    <div class="skeleton-loader-card__actions">
-      <skeleton-loader template="smallButton" />
     </div>
   </div>
 </template>
@@ -27,11 +35,15 @@
 import SkeletonLoader from '@/vue/common/skeleton-loader/SkeletonLoader'
 
 export default {
-  name: 'skeleton-loader-card',
+  name: 'skeleton-cards-loader',
 
   components: {
     SkeletonLoader,
   },
+
+  data: _ => ({
+    cards: 4,
+  }),
 }
 </script>
 
@@ -43,7 +55,7 @@ export default {
   $content-number-text-lien: 2;
   $content-height: $content-line-height * $content-number-text-lien;
 
-  .skeleton-loader-card {
+  .skeleton-cards-loader {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -53,7 +65,7 @@ export default {
     min-width: 0;
   }
 
-  .skeleton-loader-card__media {
+  .skeleton-cards-loader__media {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -61,14 +73,14 @@ export default {
     background-color: $col-asset-card-header-background;
   }
 
-  .skeleton-loader-card__body {
+  .skeleton-cards-loader__body {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
     padding: 1.6rem 2rem;
   }
 
-  .skeleton-loader-card__header {
+  .skeleton-cards-loader__header {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -80,7 +92,7 @@ export default {
     color: $col-text;
   }
 
-  .skeleton-loader-card__subhead {
+  .skeleton-cards-loader__subhead {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -92,13 +104,13 @@ export default {
     opacity: 0.54;
   }
 
-  .skeleton-loader-card__content {
+  .skeleton-cards-loader__content {
     margin-top: 1rem;
     height: $content-height;
     max-height: $content-height;
   }
 
-  .skeleton-loader-card__content-text {
+  .skeleton-cards-loader__content-text {
     @include multi-line-ellipsis(
         $content-line-height,
         $content-number-text-lien,
@@ -108,7 +120,7 @@ export default {
     );
   }
 
-  .skeleton-loader-card__actions {
+  .skeleton-cards-loader__actions {
     width: 100%;
     max-width: 100%;
     overflow: hidden;

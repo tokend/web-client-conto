@@ -29,37 +29,17 @@
     </template>
 
     <template v-else>
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="index in ITEMS_PER_SKELETON_LOADER"
-          :key="index"
-        >
-          <skeleton-loader-card />
-        </div>
-      </div>
+      <skeleton-cards-loader />
     </template>
-
-    <div class="businesses-my__requests-collection-loader">
-      <collection-loader
-        class="businesses-my__loader"
-        :first-page-loader="getList"
-        @first-page-load="setMyBusinesses"
-        @next-page-load="concatMyBusinesses"
-        ref="listCollectionLoader"
-      />
-    </div>
   </div>
 </template>
 
 <script>
-import CollectionLoader from '@/vue/common/CollectionLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import BusinessCard from './businesses-all/BusinessCard'
-import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
+import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 
 import { vueRoutes } from '@/vue-router/routes'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -68,16 +48,14 @@ export default {
   name: 'businesses-my',
 
   components: {
-    CollectionLoader,
     BusinessCard,
-    SkeletonLoaderCard,
+    SkeletonCardsLoader,
     NoDataMessage,
   },
 
   data () {
     return {
       isLoaded: false,
-      ITEMS_PER_SKELETON_LOADER,
       isLoadingFailed: false,
     }
   },
@@ -89,28 +67,23 @@ export default {
     }),
   },
 
+  async created () {
+    try {
+      await this.loadMyBusinesses()
+      this.isLoaded = true
+    } catch (error) {
+      this.isLoadingFailed = true
+      ErrorHandler.processWithoutFeedback(error)
+    }
+  },
+
   methods: {
     ...mapActions({
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
     }),
     ...mapMutations({
-      setMyBusinesses: vuexTypes.SET_MY_BUSINESSES,
-      concatMyBusinesses: vuexTypes.CONCAT_MY_BUSINESSES,
       setBusinessToBrowse: vuexTypes.SELECT_BUSINESS_TO_BROWSE,
     }),
-
-    async getList () {
-      let result = {}
-      try {
-        result = await this.loadMyBusinesses(true)
-        this.isLoaded = true
-      } catch (error) {
-        this.isLoadingFailed = true
-        ErrorHandler.processWithoutFeedback(error)
-      }
-
-      return result
-    },
 
     async selectItem (item) {
       this.setBusinessToBrowse(item.record)

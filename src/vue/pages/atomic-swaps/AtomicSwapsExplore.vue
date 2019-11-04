@@ -17,15 +17,7 @@
     </template>
 
     <template v-else-if="isLoading">
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="index in ITEMS_PER_SKELETON_LOADER"
-          :key="index"
-        >
-          <skeleton-loader-card />
-        </div>
-      </div>
+      <skeleton-cards-loader />
     </template>
 
     <template v-else-if="isLoadingFailed">
@@ -83,14 +75,13 @@ import AtomicSwapViewer from './AtomicSwapViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import AtomicSwapForm from '@modules/atomic-swap-form'
-import SkeletonLoaderCard from '@/vue/common/skeleton-loader/SkeletonLoaderCard'
+import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
-import { ITEMS_PER_SKELETON_LOADER } from '@/js/const/skeleton-cards-loader.const'
 
 export default {
   name: 'atomic-swaps-explore',
@@ -102,7 +93,7 @@ export default {
     AtomicSwapViewer,
     NoDataMessage,
     AtomicSwapForm,
-    SkeletonLoaderCard,
+    SkeletonCardsLoader,
   },
 
   mixins: [UpdateList],
@@ -127,7 +118,6 @@ export default {
       filters: {
         isOwnedByCurrentUser: false,
       },
-      ITEMS_PER_SKELETON_LOADER,
     }
   },
 
