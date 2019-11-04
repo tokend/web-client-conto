@@ -1500,7 +1500,7 @@
       "amount-th": "Amount",
       "status-th": "Status",
       "no-data-msg": "Here will be your sales history",
-      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue."
+      "error-msg": "An error occurred while loading the list."
     },
     "select-field": {
       "all-option": "All"
@@ -1516,6 +1516,27 @@
       "paid": "Paid",
       "timeout": "Not paid",
       "pending": "Pending"
+    },
+    "statistics-sales-history-attributes-viewer": {
+      "date-key":"Date",
+      "amount-key":"Amount",
+      "discount-key":"Discount",
+      "total-price-key":"Total price",
+      "buyer-key":"Buyer",
+      "promo-code-key":"Promo Code"
+    },
+    "statistics-general": {
+      "no-data-title": "No assets yet",
+      "no-data-msg": "Company don't have any assets yet.",
+      "load-failed-msg": "There was an error while loading. Please, try again later",
+      "filters-data-loading-msg": "Filters data loading..."
+    },
+    "statistics-general-table": {
+      "asset-th": "Asset",
+      "total-sold-th": "Total sold",
+      "total-proceeds-th": "Total proceeds",
+      "no-data-msg": "Here will be your sold asset history",
+      "error-msg":"An error occurred while loading the list."
     }
   }
 }

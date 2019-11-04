@@ -35,7 +35,7 @@
         />
       </div>
 
-      <template v-if="promoCodes.length">
+      <template v-if="isSalesHistoryPage && promoCodes.length">
         <div class="statistics-filters__filter-field">
           <select-field
             :value="filters.promoCode"
@@ -55,22 +55,24 @@
         </div>
       </template>
 
-      <div class="statistics-filters__filter-field">
-        <select-field
-          :value="filters.buyRequestStatus"
-          @input="setBuyRequestStatus"
-          :label="'statistics-filters.buy-request-status-lbl' | globalize"
-          class="app__select"
-        >
-          <option
-            v-for="buyRequestStatus in BUY_REQUEST_STATUSES"
-            :key="buyRequestStatus.value"
-            :value="buyRequestStatus.value"
+      <template v-if="isSalesHistoryPage">
+        <div class="statistics-filters__filter-field">
+          <select-field
+            :value="filters.buyRequestStatus"
+            @input="setBuyRequestStatus"
+            :label="'statistics-filters.buy-request-status-lbl' | globalize"
+            class="app__select"
           >
-            {{ buyRequestStatus.labelTranslationId | globalize }}
-          </option>
-        </select-field>
-      </div>
+            <option
+              v-for="buyRequestStatus in BUY_REQUEST_STATUSES"
+              :key="buyRequestStatus.value"
+              :value="buyRequestStatus.value"
+            >
+              {{ buyRequestStatus.labelTranslationId | globalize }}
+            </option>
+          </select-field>
+        </div>
+      </template>
     </template>
   </div>
 </template>
@@ -83,6 +85,7 @@ import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api, loadingDataViaLoop } from '@/api'
 import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
+import { vueRoutes } from '@/vue-router/routes'
 
 const EVENTS = {
   filtersDataLoaded: 'filters-data-loaded',
@@ -119,6 +122,10 @@ export default {
       ownedAssets: vuexTypes.ownedBalancesAssets,
       accountId: vuexTypes.accountId,
     }),
+
+    isSalesHistoryPage () {
+      return this.$route.name === vueRoutes.statisticsSalesHistory.name
+    },
   },
 
   watch: {
@@ -157,7 +164,9 @@ export default {
     async loadFiltersData () {
       try {
         await this.loadAccountBalancesDetails()
-        await this.loadAllPromocodes()
+        if (this.isSalesHistoryPage) {
+          await this.loadAllPromocodes()
+        }
         this.isLoaded = true
         this.$emit(EVENTS.filtersDataLoaded)
       } catch (e) {

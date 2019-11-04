@@ -1505,7 +1505,7 @@
       "amount-th": "Количество",
       "status-th": "Статус",
       "no-data-msg": "Здесь будет история продаж.",
-      "error-msg":"Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы."
+      "error-msg":"Произошла ошибка при загрузке списка."
     },
     "select-field": {
       "all-option": "Все"
@@ -1521,6 +1521,27 @@
       "paid": "Оплачен",
       "timeout": "Не оплачен",
       "pending": "Ожидание оплаты"
+    },
+    "statistics-sales-history-attributes-viewer": {
+      "date-key":"Дата",
+      "amount-key":"Количество",
+      "discount-key":"Скидка",
+      "total-price-key":"Итоговая цена",
+      "buyer-key":"Покупатель",
+      "promo-code-key":"Промокод"
+    },
+    "statistics-general": {
+      "no-data-title": "Нет активов",
+      "no-data-msg": "У компании еще нет активов.",
+      "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже",
+      "filters-data-loading-msg": "Загружаються данные для фильтров..."
+    },
+    "statistics-general-table": {
+      "asset-th": "Актив",
+      "total-sold-th": "Всего продано",
+      "total-proceeds-th": "Общий доход",
+      "no-data-msg": "Здесь будет история проданных активов.",
+      "error-msg": "Произошла ошибка при загрузке списка."
     }
   }
 }

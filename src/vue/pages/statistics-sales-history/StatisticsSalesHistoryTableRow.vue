@@ -42,9 +42,9 @@
 
       <td
         class="statistics-sales-history-table-row__cell"
-        :title="getBuyRequestStatusTranslated(buyRequest)"
+        :title="getBuyRequestStatusTranslated"
       >
-        {{ getBuyRequestStatusTranslated(buyRequest) }}
+        {{ getBuyRequestStatusTranslated }}
       </td>
 
       <td
@@ -107,17 +107,17 @@ export default {
     formatMoney,
   }),
 
-  methods: {
-    getBuyRequestStatusTranslated (buyRequest) {
+  computed: {
+    getBuyRequestStatusTranslated () {
       let translationId
 
-      if (buyRequest.isRejected) {
+      if (this.buyRequest.isRejected) {
         translationId = 'statistics-sales-history-table-row.rejected-status-td'
-      } else if (buyRequest.isPaid) {
+      } else if (this.buyRequest.isPaid) {
         translationId = 'statistics-sales-history-table-row.paid-status-td'
-      } else if (buyRequest.isTimeout) {
+      } else if (this.buyRequest.isTimeout) {
         translationId = 'statistics-sales-history-table-row.timeout-status-td'
-      } else if (buyRequest.isPending) {
+      } else if (this.buyRequest.isPending) {
         translationId = 'statistics-sales-history-table-row.pending-status-td'
       } else {
         translationId = '[UNKNOWN]'
