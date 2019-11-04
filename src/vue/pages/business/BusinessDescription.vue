@@ -7,7 +7,7 @@
       >
         <img
           class="business-details__logo"
-          :src="businessBannerUrl"
+          :src="business.bannerUrl"
         >
       </div>
       <template v-if="business.description">
@@ -23,8 +23,6 @@
 <script>
 import VueMarkdown from 'vue-markdown'
 
-import { documentsManager } from '@/api'
-
 import { BusinessRecord } from '@/js/records/entities/business.record'
 
 export default {
@@ -38,14 +36,6 @@ export default {
       default: {},
     },
   },
-  computed: {
-    businessBannerUrl () {
-      return documentsManager.getDocumentUrlByKey(this.business.bannerKey)
-    },
-  },
-  async created () {
-  },
-  methods: {},
 }
 </script>
 

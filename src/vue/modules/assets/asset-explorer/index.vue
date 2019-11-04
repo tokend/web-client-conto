@@ -1,35 +1,44 @@
 <template>
   <div class="assets-explorer">
-    <div class="app__card-list">
-      <template v-for="accountBalance in accountBalances">
-        <div class="app__card-list-item" :key="accountBalance.id">
+    <template v-if="isLoaded && accountBalances.length">
+      <div class="app__card-list">
+        <div
+          class="app__card-list-item"
+          v-for="accountBalance in accountBalances"
+          :key="accountBalance.id"
+        >
           <asset-card
             :balance="accountBalance"
             @transfer="transfer"
             @vue-details="selectBalance(accountBalance)"
           />
         </div>
-      </template>
-      <template v-for="index in ITEMS_PER_SKELETON_LOADER">
-        <div class="app__card-list-item" :key="index">
-          <skeleton-loader-card
-            v-if="!isLoaded && !accountBalances.length"
-          />
-        </div>
-      </template>
+      </div>
+    </template>
 
-      <no-data-message
-        v-if="isLoaded && !accountBalances.length"
-        icon-name="trending-up"
-        :title="'assets.no-assets-title' | globalize"
-        :message="'assets.no-assets-msg' | globalize"
-      />
-    </div>
+    <no-data-message
+      v-else-if="isLoaded && !accountBalances.length"
+      icon-name="trending-up"
+      :title="'assets.no-assets-title' | globalize"
+      :message="'assets.no-assets-msg' | globalize"
+    />
 
-    <template v-if="isLoadFailed">
+    <template v-else-if="isLoadFailed">
       <p class="assets-explorer__error-msg">
         {{ 'assets.loading-error-msg' | globalize }}
       </p>
+    </template>
+
+    <template v-else>
+      <div class="app__card-list">
+        <div
+          class="app__card-list-item"
+          v-for="index in ITEMS_PER_SKELETON_LOADER"
+          :key="index"
+        >
+          <skeleton-loader-card />
+        </div>
+      </div>
     </template>
 
     <drawer :is-shown.sync="isAssetDetailsDrawerShown">

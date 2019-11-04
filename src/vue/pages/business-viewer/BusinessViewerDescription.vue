@@ -1,29 +1,25 @@
 <template>
   <div class="business-viewer-description">
-    <div class="business-viewer-description__wrp">
-      <div
-        class="business-viewer-description__logo-wrp"
-        v-if="business.bannerKey"
+    <div
+      class="business-viewer-description__logo-wrp"
+      v-if="business.bannerKey"
+    >
+      <img
+        class="business-viewer-description__logo"
+        :src="business.bannerUrl"
       >
-        <img
-          class="business-viewer-description__logo"
-          :src="businessBannerUrl"
-        >
-      </div>
-
-      <vue-markdown
-        v-if="business.description"
-        class="business-viewer-description__markdown app__markdown"
-        :source="business.description"
-      />
     </div>
+
+    <vue-markdown
+      v-if="business.description"
+      class="business-viewer-description__markdown app__markdown"
+      :source="business.description"
+    />
   </div>
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown'
-
-import { documentsManager } from '@/api'
 
 import { BusinessRecord } from '@/js/records/entities/business.record'
 
@@ -38,11 +34,6 @@ export default {
       default: {},
     },
   },
-  computed: {
-    businessBannerUrl () {
-      return documentsManager.getDocumentUrlByKey(this.business.bannerKey)
-    },
-  },
 }
 </script>
 
@@ -52,15 +43,8 @@ export default {
   .business-viewer-description {
     width: 100%;
     max-width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-    border-radius: 0.4rem;
-  }
-
-  .business-viewer-description__wrp {
-    width: 100%;
     display: block;
+    margin-bottom: 2rem;
     background-color: $col-current-bussiness-description-background;
     border-radius: 0.4rem;
   }

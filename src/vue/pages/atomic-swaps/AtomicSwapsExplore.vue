@@ -16,7 +16,7 @@
       </div>
     </template>
 
-    <template v-else-if="!list.length && isLoading">
+    <template v-else-if="isLoading">
       <div class="app__card-list">
         <div
           class="app__card-list-item"
@@ -30,18 +30,6 @@
 
     <template v-else-if="isLoadingFailed">
       <p>{{ 'atomic-swaps-explore.loading-error-msg' | globalize }}</p>
-    </template>
-
-    <template v-else-if="!list.length && isLoading">
-      <div class="atomic-swaps-explore__list">
-        <div
-          class="atomic-swaps-explore__list-item-wrp"
-          v-for="item in 5"
-          :key="item"
-        >
-          <atomic-swap-card-skeleton />
-        </div>
-      </div>
     </template>
 
     <template v-else-if="!list.length && !isLoading">

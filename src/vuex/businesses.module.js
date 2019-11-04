@@ -44,6 +44,7 @@ export const actions = {
     if (needResponse) {
       return response
     } else {
+      if (!response.data) return
       commit(vuexTypes.SET_MY_BUSINESSES, response.data)
     }
   },

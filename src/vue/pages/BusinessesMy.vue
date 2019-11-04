@@ -1,6 +1,6 @@
 <template>
   <div class="businesses-my">
-    <template v-if="myBusinesses.length">
+    <template v-if="isLoaded && myBusinesses.length">
       <div class="app__card-list">
         <div
           class="app__card-list-item"
@@ -19,7 +19,16 @@
       <p>{{ 'businesses-my.loading-error-msg' | globalize }}</p>
     </template>
 
-    <template v-else-if="!myBusinesses.length && isLoading">
+    <template v-else-if="!myBusinesses.length && !isLoaded">
+      <no-data-message
+        class="businesses-my__no-data-message"
+        icon-name="domain"
+        :title="'businesses-my.no-list-title' | globalize"
+        :message="'businesses-my.no-list-msg' | globalize"
+      />
+    </template>
+
+    <template v-else>
       <div class="app__card-list">
         <div
           class="app__card-list-item"
@@ -29,15 +38,6 @@
           <skeleton-loader-card />
         </div>
       </div>
-    </template>
-
-    <template v-else-if="!myBusinesses.length && !isLoading">
-      <no-data-message
-        class="businesses-my__no-data-message"
-        icon-name="domain"
-        :title="'businesses-my.no-list-title' | globalize"
-        :message="'businesses-my.no-list-msg' | globalize"
-      />
     </template>
 
     <div class="businesses-my__requests-collection-loader">
@@ -76,7 +76,7 @@ export default {
 
   data () {
     return {
-      isLoading: false,
+      isLoaded: false,
       ITEMS_PER_SKELETON_LOADER,
       isLoadingFailed: false,
     }
@@ -100,22 +100,20 @@ export default {
     }),
 
     async getList () {
-      this.isLoading = true
-
       let result = {}
       try {
         result = await this.loadMyBusinesses(true)
+        this.isLoaded = true
       } catch (error) {
         this.isLoadingFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 
-      this.isLoading = false
       return result
     },
 
     async selectItem (item) {
-      this.setBusinessToBrowse(item)
+      this.setBusinessToBrowse(item.record)
       await this.$router.push({
         ...vueRoutes.currentBusiness,
         params: {

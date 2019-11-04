@@ -37,8 +37,7 @@ export class BusinessRecord {
 
   _getBanner () {
     try {
-      this.banner = _get(this._record, 'banner') ||
-        JSON.parse(_get(this._record, 'bravo'))
+      this.banner = JSON.parse(_get(this._record, 'bravo'))
       this.bannerKey = _get(this.banner, 'key')
       this.bannerName = _get(this.banner, 'name')
       this.bannerType = _get(this.banner, 'type')
@@ -49,6 +48,14 @@ export class BusinessRecord {
   get logoUrl () {
     if (this.logoKey) {
       return documentsManager.getDocumentUrlByKey(this.logoKey)
+    } else {
+      return ''
+    }
+  }
+
+  get bannerUrl () {
+    if (this.bannerKey) {
+      return documentsManager.getDocumentUrlByKey(this.bannerKey)
     } else {
       return ''
     }

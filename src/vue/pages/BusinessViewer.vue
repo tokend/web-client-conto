@@ -1,6 +1,6 @@
 <template>
   <div class="business-viewer">
-    <template v-if="isLoaded">
+    <template v-if="isLoaded && !isFailed">
       <div class="business-viewer__top-bar">
         <div class="business-viewer__name-wrp">
           <h1 class="business-viewer__name">
@@ -133,7 +133,14 @@ export default {
     } else {
       await this.getBusiness()
     }
-    await this.loadMyBusinesses()
+
+    try {
+      await this.loadMyBusinesses()
+    } catch (error) {
+      ErrorHandler.processWithoutFeedback(error)
+      this.isFailed = true
+    }
+
     this.setBusinessStatsQuoteAsset(this.business.statsQuoteAsset)
     this.isLoaded = true
   },

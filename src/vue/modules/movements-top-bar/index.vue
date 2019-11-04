@@ -169,8 +169,13 @@ export default {
   },
 
   async created () {
-    await this.loadMyBusinesses()
-    await this.loadAccountBalancesDetails()
+    try {
+      await this.loadMyBusinesses()
+      await this.loadAccountBalancesDetails()
+    } catch (error) {
+      this.$emit(EVENTS.showLoadingErrorMessage)
+      ErrorHandler.processWithoutFeedback(error)
+    }
 
     if (this.isAssetsExists) {
       this.assetCode = this.assets[0].code
@@ -206,14 +211,6 @@ export default {
     getBalance () {
       const balance = +this.accountBalanceByCode(this.assetCode).balance
       this.isHaveBalance = balance > 0
-    },
-    async loadAccountBalances () {
-      try {
-        await this.loadAccountBalancesDetails()
-      } catch (error) {
-        this.$emit(EVENTS.showLoadingErrorMessage)
-        ErrorHandler.processWithoutFeedback(error)
-      }
     },
   },
 }

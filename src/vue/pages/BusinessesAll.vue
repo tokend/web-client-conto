@@ -1,6 +1,6 @@
 <template>
   <div class="businesses-all">
-    <template v-if="allBusinesses.length">
+    <template v-if="isLoaded && allBusinesses.length">
       <div class="app__card-list">
         <div
           class="app__card-list-item"
@@ -20,7 +20,16 @@
       <p>{{ 'businesses-all.loading-error-msg' | globalize }}</p>
     </template>
 
-    <template v-else-if="!allBusinesses.length && isLoading">
+    <template v-else-if="!allBusinesses.length && !isLoaded">
+      <no-data-message
+        class="businesses-all__no-data-message"
+        icon-name="domain"
+        :title="'businesses-all.no-list-title' | globalize"
+        :message="'businesses-all.no-list-msg' | globalize"
+      />
+    </template>
+
+    <template v-else>
       <div class="app__card-list">
         <div
           class="app__card-list-item"
@@ -30,15 +39,6 @@
           <skeleton-loader-card />
         </div>
       </div>
-    </template>
-
-    <template v-else-if="!allBusinesses.length && !isLoading">
-      <no-data-message
-        class="businesses-all__no-data-message"
-        icon-name="domain"
-        :title="'businesses-all.no-list-title' | globalize"
-        :message="'businesses-all.no-list-msg' | globalize"
-      />
     </template>
 
     <drawer :is-shown.sync="isDrawerShown">
@@ -101,7 +101,7 @@ export default {
 
   data () {
     return {
-      isLoading: false,
+      isLoaded: false,
       isLoadingFailed: false,
       isDrawerShown: false,
       currentBusiness: {},
@@ -125,6 +125,7 @@ export default {
 
   async created () {
     await this.loadMyBusinesses()
+    this.isLoaded = true
   },
 
   methods: {
@@ -139,8 +140,6 @@ export default {
     }),
 
     async getList () {
-      this.isLoading = true
-
       let result
       try {
         result = await this.loadAllBusinesses()
@@ -148,8 +147,6 @@ export default {
         this.isLoadingFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
-
-      this.isLoading = false
       return result
     },
 
