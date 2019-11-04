@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <business-viewer-description
+      <business-description
         v-if="business.bannerKey || business.description"
         :business="business"
       />
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import BusinessViewerDescription from '@/vue/pages/business-viewer/BusinessViewerDescription'
+import BusinessDescription from '@/vue/pages/business-viewer/BusinessDescription'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
@@ -90,7 +90,7 @@ export default {
   name: 'business-viewer',
 
   components: {
-    BusinessViewerDescription,
+    BusinessDescription,
     AtomicSwapsExplore,
     Loader,
     NoDataMessage,

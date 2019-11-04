@@ -60,7 +60,7 @@
 
 <script>
 import AppFooter from '@/vue/navigation/Footer'
-import BusinessDescription from '@/vue/pages/business/BusinessDescription'
+import BusinessDescription from '@/vue/pages/business-viewer/BusinessDescription'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
