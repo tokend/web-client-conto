@@ -101,6 +101,7 @@ export default {
       vuexTypes.isAccountBlocked,
       vuexTypes.kycRequestBlockReason,
       vuexTypes.account,
+      vuexTypes.isAccountCorporate,
     ]),
     isNavigationRendered () {
       return this.$route.matched.some(m => m.meta.isNavigationRendered)
@@ -144,6 +145,7 @@ export default {
       startIdle: vuexTypes.START_IDLE,
       logoutSession: vuexTypes.LOGOUT_SESSION,
       restoreSession: vuexTypes.RESTORE_SESSION,
+      loadBusiness: vuexTypes.LOAD_BUSINESS,
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
@@ -164,6 +166,7 @@ export default {
       walletsManager.useApi(api)
       factorsManager.useApi(api)
       documentsManager.useApi(api)
+      if (this.isAccountCorporate) this.loadBusiness(this.walletAccountId)
       await this.loadAssets()
     },
     detectIncompatibleBrowser () {

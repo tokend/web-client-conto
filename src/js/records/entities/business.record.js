@@ -52,4 +52,8 @@ export class BusinessRecord {
       return ''
     }
   }
+
+  get record () {
+    return this._record
+  }
 }

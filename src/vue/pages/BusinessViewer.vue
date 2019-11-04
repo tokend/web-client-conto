@@ -79,7 +79,6 @@ import Loader from '@/vue/common/Loader'
 import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { BusinessRecord } from '@/js/records/entities/business.record'
 import { Bus } from '@/js/helpers/event-bus'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -104,7 +103,6 @@ export default {
   data () {
     return {
       vueRoutes,
-      business: {},
       isLoaded: false,
       isFailed: false,
       isSubmitting: false,
@@ -119,6 +117,10 @@ export default {
       businessToBrowse: vuexTypes.businessToBrowse,
     }),
 
+    business () {
+      return this.businessToBrowse
+    },
+
     isAddedBusiness () {
       return Boolean(this.myBusinesses.find(business => {
         return business.accountId === this.business.accountId
@@ -128,13 +130,10 @@ export default {
   },
 
   async created () {
-    if (this.isBusinessToBrowse) {
-      this.business = this.businessToBrowse
-    } else {
+    if (!this.isBusinessToBrowse) {
       await this.getBusiness()
     }
     await this.loadMyBusinesses()
-    this.setBusinessStatsQuoteAsset(this.business.statsQuoteAsset)
     this.isLoaded = true
   },
 
@@ -145,17 +144,16 @@ export default {
   methods: {
     ...mapActions({
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+      loadBusiness: vuexTypes.LOAD_BUSINESS,
     }),
 
     ...mapMutations({
-      setBusinessStatsQuoteAsset: vuexTypes.SET_BUSINESS_STATS_QUOTE_ASSET,
       clearBusinessToBrowse: vuexTypes.CLEAR_BUSINESS_TO_BROWSE,
     }),
 
     async getBusiness () {
       try {
-        const { data } = await api.get(`/integrations/dns/businesses/${this.id}`)
-        this.business = new BusinessRecord(data)
+        this.loadBusiness(this.id)
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
         this.isFailed = true

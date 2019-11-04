@@ -80,7 +80,9 @@
         >
           {{ quoteAsset.asset.code }}<template
             v-if="atomicSwapAsk.quoteAssets.length - 1 != index"
-          >,</template>
+          >
+            ,
+          </template>
         </template>
       </p>
     </template>

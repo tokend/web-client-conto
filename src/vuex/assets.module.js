@@ -6,7 +6,6 @@ const ASSETS_PAGE_LIMIT = 100
 
 export const state = {
   assets: [],
-  businessStatsQuoteAsset: '',
 }
 
 export const mutations = {
@@ -23,10 +22,6 @@ export const mutations = {
         state.assets[foundIndex] = asset
       }
     }
-  },
-
-  [vuexTypes.SET_BUSINESS_STATS_QUOTE_ASSET] (state, asset) {
-    state.businessStatsQuoteAsset = asset
   },
 }
 
@@ -93,7 +88,6 @@ export const getters = {
       .filter(item => {
         return item.isStatsQuoteAsset
       })[0] || {},
-  [vuexTypes.businessStatsQuoteAsset]: state => state.businessStatsQuoteAsset,
   [vuexTypes.ownedBalancesAssets]: (a, getters, b, rootGetters) =>
     rootGetters[vuexTypes.accountBalances]
       .map(item => item.asset)
