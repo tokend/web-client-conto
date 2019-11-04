@@ -55,6 +55,13 @@ export const actions = {
     const response = await api.getWithSignature(endpoint)
     return response
   },
+
+  async [vuexTypes.LOAD_BUSINESS] ({ commit, rootGetters, getters }, id) {
+    const endpoint = `/integrations/dns/businesses/${id}`
+    const { data } = await api.getWithSignature(endpoint)
+
+    commit(vuexTypes.SELECT_BUSINESS_TO_BROWSE, data)
+  },
 }
 
 export const getters = {
@@ -69,6 +76,13 @@ export const getters = {
 
   [vuexTypes.isBusinessToBrowse]: state =>
     Object.keys(state.businessToBrowse || {}).length > 0,
+
+  [vuexTypes.businessStatsQuoteAsset]: (a, getters, b, rootGetters) => {
+    const businessToBrowse = getters[vuexTypes.businessToBrowse]
+    return businessToBrowse.statsQuoteAsset
+      ? businessToBrowse.statsQuoteAsset
+      : rootGetters[vuexTypes.statsQuoteAsset].code
+  },
 }
 
 export default {

@@ -78,8 +78,11 @@
         <template
           v-for="(quoteAsset, index) in atomicSwapAsk.quoteAssets"
         >
-          {{ quoteAsset.asset.code }}
-          <template v-if="atomicSwapAsk.quoteAssets.length - 1 != index">
+          {{
+            quoteAsset.asset.code
+          }}<template
+            v-if="atomicSwapAsk.quoteAssets.length - 1 != index"
+          >
             ,
           </template>
         </template>
