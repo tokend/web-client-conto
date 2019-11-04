@@ -29,7 +29,8 @@ export const rootModule = {
     [vuexTypes.LOG_OUT] ({ commit }) {
       commit(vuexTypes.CLEAR_STATE)
     },
-    async [vuexTypes.LOG_IN] ({ getters, dispatch }, { email, password }) {
+    // eslint-disable-next-line max-len
+    async [vuexTypes.LOG_IN] ({ getters, dispatch, rootGetters }, { email, password }) {
       await dispatch(vuexTypes.LOAD_WALLET, { email, password })
       await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
       await dispatch(vuexTypes.LOAD_KV_ENTRIES)
@@ -38,6 +39,10 @@ export const rootModule = {
 
       if (!isKycRecoveryInProgress) {
         await dispatch(vuexTypes.LOAD_KYC)
+        await dispatch(
+          vuexTypes.LOAD_BUSINESS,
+          rootGetters[vuexTypes.accountId]
+        )
       }
     },
     async [vuexTypes.RESTORE_SESSION] ({ getters, dispatch }) {

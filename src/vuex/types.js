@@ -44,7 +44,6 @@ const mutations = {
   // assets
   SET_ASSETS: 'SET_ASSETS',
   UPDATE_ASSETS: 'UPDATE_ASSETS',
-  SET_BUSINESS_STATS_QUOTE_ASSET: 'SET_BUSINESS_STATS_QUOTE_ASSET',
 
   // idle
   UPDATE_LOGOUT_AT: 'UPDATE_LOGOUT_AT',
@@ -108,7 +107,6 @@ const actions = {
 
   // assets
   LOAD_ASSETS: 'LOAD_ASSETS',
-  LOAD_BUSINESS_STATS_QUOTE_ASSET: 'LOAD_BUSINESS_STATS_QUOTE_ASSET',
 
   // idle
   START_IDLE: 'START_IDLE',
@@ -131,6 +129,7 @@ const actions = {
   // businesses
   LOAD_MY_BUSINESSES: 'LOAD_MY_BUSINESSES',
   LOAD_ALL_BUSINESSES: 'LOAD_ALL_BUSINESSES',
+  LOAD_BUSINESS: 'LOAD_BUSINESS',
 }
 
 const getters = {
@@ -149,7 +148,6 @@ const getters = {
   kvAssetTypeSecurity: 'kvAssetTypeSecurity',
   kvPollTypeRestricted: 'kvPollTypeRestricted',
   kvPollTypeUnrestricted: 'kvPollTypeUnrestricted',
-  defaultQuoteAsset: 'defaultQuoteAsset',
   kvDefaultSignerRoleId: 'kvDefaultSignerRoleId',
 
   // account
@@ -241,7 +239,6 @@ const getters = {
   ownedBalancesAssets: 'ownedBalancesAssets',
   baseAtomicSwapBalancesAssets: 'baseAtomicSwapBalancesAssets',
   quoteAtomicSwapAssets: 'quoteAtomicSwapAssets',
-  businessStatsQuoteAsset: 'businessStatsQuoteAsset',
   baseAssets: 'baseAssets',
 
   // idle-handler
@@ -264,6 +261,7 @@ const getters = {
   allBusinesses: 'allBusinesses',
   businessToBrowse: 'businessToBrowse',
   isBusinessToBrowse: 'isBusinessToBrowse',
+  businessStatsQuoteAsset: 'businessStatsQuoteAsset',
 }
 
 export const vuexTypes = {

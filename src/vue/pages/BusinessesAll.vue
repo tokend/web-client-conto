@@ -142,7 +142,7 @@ export default {
 
     async selectItem (item) {
       if (this.isAccountGeneral) {
-        this.setBusinessToBrowse(item)
+        this.setBusinessToBrowse(item.record)
         await this.$router.push({
           ...vueRoutes.currentBusiness,
           params: {
