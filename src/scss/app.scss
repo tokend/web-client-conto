@@ -466,7 +466,15 @@ h6.app__page-heading {
   margin: $list-item-margin 0 0 $list-item-margin;
   width: calc(100% + #{$list-item-margin});
 
-  @include list-item-count(4);
+  @include respond-to-custom($media-4k-resolution) {
+    @include list-item-count(6);
+  }
+  @include respond-to-custom($media-2k-resolution) {
+    @include list-item-count(5);
+  }
+  @include respond-to-custom($media-large-desktop) {
+    @include list-item-count(4);
+  }
   @include respond-to-custom($media-desktop) {
     @include list-item-count(3);
   }
