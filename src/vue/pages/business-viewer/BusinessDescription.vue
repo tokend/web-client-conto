@@ -1,18 +1,18 @@
 <template>
-  <div class="business-viewer-description">
+  <div class="business-description">
     <div
-      class="business-viewer-description__logo-wrp"
+      class="business-description__logo-wrp"
       v-if="business.bannerKey"
     >
       <img
-        class="business-viewer-description__logo"
+        class="business-description__logo"
         :src="business.bannerUrl"
       >
     </div>
 
     <vue-markdown
       v-if="business.description"
-      class="business-viewer-description__markdown app__markdown"
+      class="business-description__markdown app__markdown"
       :source="business.description"
     />
   </div>
@@ -24,7 +24,7 @@ import VueMarkdown from 'vue-markdown'
 import { BusinessRecord } from '@/js/records/entities/business.record'
 
 export default {
-  name: 'business-viewer-description',
+  name: 'business-description',
   components: {
     VueMarkdown,
   },
@@ -40,7 +40,7 @@ export default {
 <style lang="scss" scoped>
   @import '~@scss/variables.scss';
 
-  .business-viewer-description {
+  .business-description {
     width: 100%;
     max-width: 100%;
     display: block;
@@ -49,14 +49,14 @@ export default {
     border-radius: 0.4rem;
   }
 
-  .business-viewer-description__logo-wrp {
+  .business-description__logo-wrp {
     position: relative;
     padding-bottom: 33.33%;
     background-color: $col-current-bussiness-description-logo-background;
     border-radius: 0.4rem;
   }
 
-  .business-viewer-description__logo {
+  .business-description__logo {
     position: absolute;
     object-fit: cover;
     width: 100%;
@@ -64,7 +64,7 @@ export default {
     border-radius: 0.4rem 0.4rem 0 0;
   }
 
-  .business-viewer-description__markdown {
+  .business-description__markdown {
     padding: 2rem;
   }
 
