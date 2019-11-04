@@ -96,6 +96,7 @@ export default {
     ...mapMutations({
       setMyBusinesses: vuexTypes.SET_MY_BUSINESSES,
       concatMyBusinesses: vuexTypes.CONCAT_MY_BUSINESSES,
+      setBusinessToBrowse: vuexTypes.SELECT_BUSINESS_TO_BROWSE,
     }),
 
     async getList () {
@@ -114,6 +115,7 @@ export default {
     },
 
     async selectItem (item) {
+      this.setBusinessToBrowse(item)
       await this.$router.push({
         ...vueRoutes.currentBusiness,
         params: {

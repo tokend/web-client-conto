@@ -37,7 +37,8 @@ export class BusinessRecord {
 
   _getBanner () {
     try {
-      this.banner = JSON.parse(_get(this._record, 'bravo'))
+      this.banner = _get(this._record, 'banner') ||
+        JSON.parse(_get(this._record, 'bravo'))
       this.bannerKey = _get(this.banner, 'key')
       this.bannerName = _get(this.banner, 'name')
       this.bannerType = _get(this.banner, 'type')
