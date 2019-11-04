@@ -19,7 +19,7 @@
       <p>{{ 'businesses-my.loading-error-msg' | globalize }}</p>
     </template>
 
-    <template v-else-if="!myBusinesses.length && !isLoaded">
+    <template v-else-if="!myBusinesses.length && isLoaded">
       <no-data-message
         class="businesses-my__no-data-message"
         icon-name="domain"
