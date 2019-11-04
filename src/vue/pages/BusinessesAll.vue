@@ -104,7 +104,6 @@ export default {
     ...mapGetters({
       accountId: vuexTypes.accountId,
       isAccountGeneral: vuexTypes.isAccountGeneral,
-      myBusinesses: vuexTypes.myBusinesses,
       allBusinesses: vuexTypes.allBusinesses,
     }),
 

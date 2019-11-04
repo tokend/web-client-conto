@@ -36,7 +36,9 @@ export const actions = {
     const accountId = getters[vuexTypes.accountId]
     const endpoint = `/integrations/dns/clients/${accountId}/businesses`
 
-    const response = await api.getWithSignature(endpoint)
+    const response = await api.getWithSignature(endpoint, {
+      page: { limit: 100 },
+    })
     const data = await loadingDataViaLoop(response)
 
     commit(vuexTypes.SET_MY_BUSINESSES, data)
