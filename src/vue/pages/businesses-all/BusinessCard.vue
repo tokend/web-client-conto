@@ -15,7 +15,7 @@
       </template>
       <template slot="actions">
         <button
-          v-if="!isMyBusiness && !isSponsorshipPage"
+          v-if="!isMyBusiness(business.accountId) && !isSponsorshipPage"
           v-ripple
           class="app__button-flat"
           @click="addBusiness"
@@ -76,16 +76,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      accountId: vuexTypes.accountId,
-      myBusinesses: vuexTypes.myBusinesses,
-    }),
-    isMyBusiness () {
-      return Boolean(this.myBusinesses.find(business => {
-        return business.accountId === this.business.accountId
-      })
-      )
-    },
+    ...mapGetters([
+      vuexTypes.accountId,
+      vuexTypes.isMyBusiness,
+    ]),
     isSponsorshipPage () {
       return this.$route.name === vueRoutes.sponsorshipAllBusinesses.name
     },

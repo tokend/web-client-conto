@@ -96,7 +96,6 @@ export default {
       isLoadingFailed: false,
       isDrawerShown: false,
       currentBusiness: {},
-      isMyBusiness: false,
     }
   },
 

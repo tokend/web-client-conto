@@ -262,6 +262,7 @@ const getters = {
   businessToBrowse: 'businessToBrowse',
   isBusinessToBrowse: 'isBusinessToBrowse',
   businessStatsQuoteAsset: 'businessStatsQuoteAsset',
+  isMyBusiness: 'isMyBusiness',
 }
 
 export const vuexTypes = {

@@ -28,7 +28,10 @@
               {{ 'business-viewer.shop-btn' | globalize }}
             </button>
           </div>
-          <div class="business-viewer__btn" v-if="!isAddedBusiness">
+          <div
+            class="business-viewer__btn"
+            v-if="!isMyBusiness(business.accountId)"
+          >
             <button
               v-ripple
               class="app__button-raised"
@@ -110,22 +113,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      accountId: vuexTypes.accountId,
-      myBusinesses: vuexTypes.myBusinesses,
-      isBusinessToBrowse: vuexTypes.isBusinessToBrowse,
-      businessToBrowse: vuexTypes.businessToBrowse,
-    }),
+    ...mapGetters([
+      vuexTypes.accountId,
+      vuexTypes.isBusinessToBrowse,
+      vuexTypes.businessToBrowse,
+      vuexTypes.isMyBusiness,
+    ]),
 
     business () {
       return this.businessToBrowse
-    },
-
-    isAddedBusiness () {
-      return Boolean(this.myBusinesses.find(business => {
-        return business.accountId === this.business.accountId
-      })
-      )
     },
   },
 
@@ -178,7 +174,7 @@ export default {
         })
 
         await this.loadMyBusinesses()
-        Bus.success('current-business.business-added-successfully-notification')
+        Bus.success('business-viewer.business-added-successfully-notification')
       } catch (error) {
         ErrorHandler.process(error)
       }

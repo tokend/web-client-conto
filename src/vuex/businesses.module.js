@@ -78,6 +78,11 @@ export const getters = {
       ? businessToBrowse.statsQuoteAsset
       : rootGetters[vuexTypes.statsQuoteAsset].code
   },
+
+  [vuexTypes.isMyBusiness]: state => businessId =>
+    Boolean(state.myBusinesses.find(business => {
+      return business.accountId === businessId
+    })),
 }
 
 export default {
