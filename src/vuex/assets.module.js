@@ -47,29 +47,6 @@ export const actions = {
 
     commit(vuexTypes.SET_ASSETS, assets)
   },
-
-  // eslint-disable-next-line max-len
-  async [vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET] ({ commit, rootGetters, getters }, businessOwnerId = '') {
-    let id = ''
-    if (businessOwnerId) {
-      id = businessOwnerId
-    } else if (rootGetters[vuexTypes.isAccountCorporate]) {
-      id = rootGetters[vuexTypes.accountId]
-    } else {
-      const statsQuoteAsset = getters[vuexTypes.statsQuoteAsset]
-      commit(vuexTypes.SET_BUSINESS_STATS_QUOTE_ASSET, statsQuoteAsset.code)
-      return
-    }
-
-    const endpoint = `/integrations/dns/businesses/${id}`
-    const { data } = await api.getWithSignature(endpoint)
-    let quoteAssetCode = data.statsQuoteAsset
-    if (!data.statsQuoteAsset) {
-      quoteAssetCode = getters[vuexTypes.statsQuoteAsset].code
-    }
-
-    commit(vuexTypes.SET_BUSINESS_STATS_QUOTE_ASSET, quoteAssetCode)
-  },
 }
 
 export const getters = {

@@ -1,28 +1,31 @@
 <template>
   <div class="card">
-    <div v-if="isMediaDisplay" class="card__media">
+    <div v-if="isSlotDisplayed(SLOT_NAMES.media)" class="card__media">
       <slot :name="SLOT_NAMES.media" />
     </div>
     <div class="card__body">
-      <div v-if="isHeaderDisplay" class="card__header">
+      <div v-if="isSlotDisplayed(SLOT_NAMES.header)" class="card__header">
         <slot :name="SLOT_NAMES.header" />
       </div>
-      <div v-if="isSubheadDisplay" class="card__subhead">
+      <div v-if="isSlotDisplayed(SLOT_NAMES.subhead)" class="card__subhead">
         <slot :name="SLOT_NAMES.subhead" />
       </div>
-      <div v-if="isAccentTitleDisplay" class="card__accent-title">
+      <div
+        v-if="isSlotDisplayed(SLOT_NAMES.accentTitle)"
+        class="card__accent-title"
+      >
         <slot :name="SLOT_NAMES.accentTitle" />
       </div>
       <div
         class="card__content"
-        v-if="isContentDisplay"
+        v-if="isSlotDisplayed(SLOT_NAMES.content)"
       >
         <p class="card__content-text">
           <slot :name="SLOT_NAMES.content" />
         </p>
       </div>
     </div>
-    <div v-if="isActionsDisplay" class="card__actions">
+    <div v-if="isSlotDisplayed(SLOT_NAMES.actions)" class="card__actions">
       <slot :name="SLOT_NAMES.actions" />
     </div>
   </div>
@@ -42,24 +45,9 @@ export default {
   data: _ => ({
     SLOT_NAMES,
   }),
-  computed: {
-    isMediaDisplay () {
-      return Boolean(this.$slots[SLOT_NAMES.media])
-    },
-    isHeaderDisplay () {
-      return Boolean(this.$slots[SLOT_NAMES.header])
-    },
-    isSubheadDisplay () {
-      return Boolean(this.$slots[SLOT_NAMES.subhead])
-    },
-    isAccentTitleDisplay () {
-      return Boolean(this.$slots[SLOT_NAMES.accentTitle])
-    },
-    isContentDisplay () {
-      return Boolean(this.$slots[SLOT_NAMES.content])
-    },
-    isActionsDisplay () {
-      return Boolean(this.$slots[SLOT_NAMES.actions])
+  methods: {
+    isSlotDisplayed (slotName) {
+      return Boolean(this.$slots[slotName])
     },
   },
 }

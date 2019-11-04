@@ -10,8 +10,9 @@
       </template>
       <template slot="accent-title">
         <span :title="promoCode.discount | formatPercent">
-          {{ 'promo-code-card.discount' | globalize }}
-          {{ promoCode.discount | formatPercent }}
+          {{ 'promo-code-card.discount' | globalize({
+            amount: promoCode.discount
+          }) }}
         </span>
       </template>
       <template slot="content">

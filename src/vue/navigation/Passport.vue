@@ -141,7 +141,6 @@ export default {
       loadKyc: vuexTypes.LOAD_KYC,
       loadAccount: vuexTypes.LOAD_ACCOUNT,
       logOutAccount: vuexTypes.LOG_OUT,
-      loadBusinessStatsQuote: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
     }),
 
     async createLoadAccountDetailsTicker () {

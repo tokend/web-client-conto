@@ -94,9 +94,6 @@ export default {
   watch: {
     businessOwnerId (value) {
       Bus.emit('assets:setBusinessOwnerId', value)
-      if (value) {
-        this.loadBusinessStatsQuoteAsset(value)
-      }
     },
   },
 
@@ -107,7 +104,6 @@ export default {
   methods: {
     ...mapActions({
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
-      loadBusinessStatsQuoteAsset: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
     }),
 
     closeDrawerAndUpdateList () {
