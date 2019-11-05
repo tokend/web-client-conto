@@ -1,6 +1,6 @@
 <template>
   <div class="assets-explorer">
-    <template>
+    <template v-if="!isLoadFailed">
       <drawer :is-shown.sync="isDrawerShown">
         <template v-if="isUpdateMode">
           <template slot="heading">
@@ -62,7 +62,7 @@
 
     <template v-if="isLoadFailed">
       <p class="assets-explorer__error-msg">
-        {{ 'assets.load-failed-msg' | globalize }}
+        {{ 'assets.loading-error-msg' | globalize }}
       </p>
     </template>
   </div>

@@ -17,6 +17,10 @@
       </div>
     </template>
 
+    <template v-else-if="isLoadingFailed">
+      <p>{{ 'businesses-all.loading-error-msg' | globalize }}</p>
+    </template>
+
     <template v-else-if="!list.length && isLoading">
       <div class="businesses-all__list">
         <div
@@ -112,6 +116,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      isLoadingFailed: false,
       list: [],
       myBusiness: [],
       isDrawerShown: false,
@@ -145,6 +150,7 @@ export default {
         const endpoint = `/integrations/dns/businesses`
         result = await api.getWithSignature(endpoint)
       } catch (error) {
+        this.isLoadingFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 

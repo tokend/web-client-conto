@@ -17,6 +17,22 @@
       </div>
     </template>
 
+    <template v-else-if="isLoadingFailed">
+      <p>{{ 'atomic-swaps-explore.loading-error-msg' | globalize }}</p>
+    </template>
+
+    <template v-else-if="!list.length && isLoading">
+      <div class="atomic-swaps-explore__list">
+        <div
+          class="atomic-swaps-explore__list-item-wrp"
+          v-for="item in 5"
+          :key="item"
+        >
+          <atomic-swap-card-skeleton />
+        </div>
+      </div>
+    </template>
+
     <template v-else-if="!list.length && !isLoading">
       <no-data-message
         class="atomic-swaps-explore__no-data-message"
@@ -71,6 +87,7 @@ import AtomicSwapViewer from './AtomicSwapViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import AtomicSwapForm from '@modules/atomic-swap-form'
+import AtomicSwapCardSkeleton from './AtomicSwapCardSkeleton'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
@@ -88,6 +105,7 @@ export default {
     AtomicSwapViewer,
     NoDataMessage,
     AtomicSwapForm,
+    AtomicSwapCardSkeleton,
   },
 
   mixins: [UpdateList],
@@ -104,6 +122,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      isLoadingFailed: false,
       list: [],
       isDrawerShown: false,
       atomicSwapToBrowse: {},
@@ -158,6 +177,7 @@ export default {
           filter: filter,
         })
       } catch (error) {
+        this.isLoadingFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 

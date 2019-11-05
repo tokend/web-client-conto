@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [1.1.0-rcunitcity.5] - 2019-11-05
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.11.1
+
+#### Fixed
+- A bug with skeleton loader on Shop page
+- A bug when don't show error message if response failed
 
 ## [1.1.0-rcunitcity.4] - 2019-10-29
 #### Added
@@ -353,6 +361,7 @@ for further information about branching and tagging conventions.
 - `RECOVERY_MODE` config key due to unused anymore
 
 [Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.4...HEAD
+[1.1.0-rcunitcity.5]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.5...1.1.0-rcunitcity.5
 [1.1.0-rcunitcity.4]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.3...1.1.0-rcunitcity.4
 [1.1.0-rcunitcity.3]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.2...1.1.0-rcunitcity.3
 [1.1.0-rcunitcity.2]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.1...1.1.0-rcunitcity.2
