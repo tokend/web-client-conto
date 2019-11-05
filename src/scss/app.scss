@@ -68,7 +68,7 @@ button {
   }
 }
 
-p {
+body, p, li, ul {
   color: $col-text;
 }
 
@@ -472,5 +472,95 @@ h6.app__page-heading {
       padding-top: 0;
       padding-bottom: 0;
     }
+  }
+}
+
+.app__card-list-item {
+  margin: $list-item-margin 0 0 $list-item-margin;
+  width: calc(100% + #{$list-item-margin});
+
+  @include respond-to-custom($media-4k-resolution) {
+    @include list-item-count(6);
+  }
+  @include respond-to-custom($media-2k-resolution) {
+    @include list-item-count(5);
+  }
+  @include respond-to-custom($media-large-desktop) {
+    @include list-item-count(4);
+  }
+  @include respond-to-custom($media-desktop) {
+    @include list-item-count(3);
+  }
+  @include respond-to-custom($media-small-desktop) {
+    @include list-item-count(2);
+  }
+  @include respond-to-custom($sidebar-hide-bp) {
+    @include list-item-count(3);
+  }
+  @include respond-to(small) {
+    @include list-item-count(2);
+  }
+  @include respond-to(xsmall) {
+    @include list-item-count(1);
+  }
+}
+
+.app__card-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$list-item-margin 0 0 (-$list-item-margin);
+}
+
+.app__markdown {
+  p, ul, ol, li {
+    line-height: 1.5;
+  }
+
+  img {
+    max-width: 100%;
+    margin: 0.8rem 0;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.4rem;
+    margin-top: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  p {
+    margin: 0.8rem 0;
+  }
+
+  ul {
+    padding-left: 4rem;
+
+    & > li {
+      list-style-type: disc!important;
+    }
+  }
+
+  ol {
+    margin-bottom: 0.8rem;
+    padding: 4rem;
+
+    & > li {
+      list-style-type: decimal!important;
+    }
+  }
+
+  a {
+    color: $col-secondary;
   }
 }

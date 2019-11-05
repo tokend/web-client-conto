@@ -27,6 +27,7 @@ export const vueRoutes = Object.freeze({
   businesses: { name: 'app.businesses' },
   allBusinesses: { name: 'app.all-businesses.list' },
   myBusinesses: { name: 'app.my-businesses.list' },
+  currentBusiness: { name: 'app.current-business' },
   pay: { name: 'pay' },
   business: { name: 'business' },
   sponsorship: { name: 'app.sponsorship' },

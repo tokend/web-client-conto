@@ -14,7 +14,7 @@
       <button
         v-ripple
         class="app__button-raised asset-actions__btn"
-        @click="isTransferDrawerShown = true"
+        @click="$emit(EVENTS.transfer, asset.code)"
       >
         {{ 'assets.send-btn' | globalize }}
       </button>
@@ -47,18 +47,6 @@
       </button>
     </template>
 
-    <drawer :is-shown.sync="isTransferDrawerShown">
-      <template slot="heading">
-        {{ 'transfer-form.form-heading' | globalize }}
-      </template>
-      <transfer-form
-        @operation-submitted="(isTransferDrawerShown = false) ||
-          $emit(EVENTS.assetTransfered)
-        "
-        :asset-to-transfer="asset.code"
-      />
-    </drawer>
-
     <drawer :is-shown.sync="isRedeemDrawerShown">
       <template slot="heading">
         {{ 'redeem-form.form-heading' | globalize }}
@@ -72,7 +60,6 @@
 
 <script>
 import FormConfirmation from '@/vue/common/FormConfirmation'
-import TransferForm from '@/vue/forms/TransferForm'
 import RedeemForm from '@/vue/forms/RedeemForm'
 import Drawer from '@/vue/common/Drawer'
 
@@ -85,16 +72,15 @@ import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const EVENTS = {
-  assetTransfered: 'asset-transfered',
   updateAsset: 'update-asset',
   assetDeleted: 'asset-deleted',
+  transfer: 'transfer',
 }
 
 export default {
   name: 'asset-actions',
 
   components: {
-    TransferForm,
     RedeemForm,
     Drawer,
     FormConfirmation,
@@ -103,7 +89,6 @@ export default {
     asset: { type: AssetRecord, required: true },
   },
   data: _ => ({
-    isTransferDrawerShown: false,
     isRedeemDrawerShown: false,
     isPending: false,
     isAssetDeleting: false,

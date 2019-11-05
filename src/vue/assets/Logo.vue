@@ -23,19 +23,16 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
-      vuexTypes.isBusinessToBrowse,
-      vuexTypes.isCustomerUiShown,
     ]),
     logoUrl () {
       return DEFAULT_LOGO_URL
     },
     logoRout () {
-      if (this.isAccountCorporate && !this.isCustomerUiShown) {
+      if (this.isAccountCorporate) {
         return vueRoutes.customers
+      } else {
+        return vueRoutes.businesses
       }
-      return this.isBusinessToBrowse
-        ? vueRoutes.assetsExplore
-        : vueRoutes.businesses
     },
   },
 }

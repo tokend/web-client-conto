@@ -1,12 +1,14 @@
 <template>
   <div class="movements-history">
-    <div class="movements-history__list-wrp">
-      <movements-table
-        :is-movements-loaded="isMovementsLoaded"
-        :movements="movements"
-        :is-customer-movements="isCustomerMovements"
-      />
-    </div>
+    <template v-if="!isMovementsLoadFailed">
+      <div class="movements-history__list-wrp">
+        <movements-table
+          :is-movements-loaded="isMovementsLoaded"
+          :movements="movements"
+          :is-customer-movements="isCustomerMovements"
+        />
+      </div>
+    </template>
 
     <template v-if="isMovementsLoadFailed">
       <p class="movements-history__error-msg">
@@ -65,7 +67,7 @@ export default {
   computed: {
     ...mapGetters({
       movements: vuexTypes.movements,
-      isBusinessToBrowse: vuexTypes.isBusinessToBrowse,
+      isAccountGeneral: vuexTypes.isAccountGeneral,
     }),
 
     isCustomerMovements () {
@@ -110,7 +112,7 @@ export default {
       this.isMovementsLoaded = false
       try {
         let response
-        if (this.isBusinessToBrowse || this.isCustomerMovements) {
+        if (this.isAccountGeneral || this.isCustomerMovements) {
           response = await this.loadMovements({ assetCode, accountId })
         } else {
           response = await this.loadShareMovements(assetCode)

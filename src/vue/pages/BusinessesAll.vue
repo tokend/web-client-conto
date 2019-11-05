@@ -1,35 +1,26 @@
 <template>
   <div class="businesses-all">
-    <template v-if="list.length">
-      <div class="businesses-all__list">
+    <template v-if="isLoaded && allBusinesses.length">
+      <div class="app__card-list">
         <div
-          class="businesses-all__list-item-wrp"
-          v-for="item in list"
+          class="app__card-list-item"
+          v-for="item in allBusinesses"
           :key="item.accountId"
         >
-          <button
-            class="businesses-all__list-item-btn"
-            @click="selectItem(item)"
-          >
-            <business-card :business="item" />
-          </button>
+          <business-card
+            :business="item"
+            @vue-details="selectItem(item)"
+            @business-added="loadMyBusinesses()"
+          />
         </div>
       </div>
     </template>
 
-    <template v-else-if="!list.length && isLoading">
-      <div class="businesses-all__list">
-        <div
-          class="businesses-all__list-item-wrp"
-          v-for="item in 5"
-          :key="item"
-        >
-          <business-card-skeleton />
-        </div>
-      </div>
+    <template v-else-if="isLoadingFailed">
+      <p>{{ 'businesses-all.loading-error-msg' | globalize }}</p>
     </template>
 
-    <template v-else-if="!list.length && !isLoading">
+    <template v-else-if="!allBusinesses.length && isLoaded">
       <no-data-message
         class="businesses-all__no-data-message"
         icon-name="domain"
@@ -38,29 +29,25 @@
       />
     </template>
 
+    <template v-else>
+      <skeleton-cards-loader />
+    </template>
+
     <drawer :is-shown.sync="isDrawerShown">
       <template slot="heading">
         {{ 'businesses-all.business-details-title' | globalize }}
       </template>
 
-      <template v-if="isCustomerUiShown || isAccountGeneral">
-        <business-viewer
+      <business-attributes
+        :business="currentBusiness"
+      />
+      <template v-if="!isBusinessOwner">
+        <h3 class="businesses-all__bussiness-assets-title">
+          {{ 'businesses-all.business-assets-title' | globalize }}
+        </h3>
+        <business-assets-viewer
           :business="currentBusiness"
-          @business-added="closeDrawerAndUpdateList"
         />
-      </template>
-      <template v-else>
-        <business-attributes
-          :business="currentBusiness"
-        />
-        <template v-if="!isBusinessOwner">
-          <h3 class="businesses-all__bussiness-assets-title">
-            {{ 'businesses-all.business-assets-title' | globalize }}
-          </h3>
-          <business-assets-viewer
-            :business="currentBusiness"
-          />
-        </template>
       </template>
     </drawer>
 
@@ -68,8 +55,8 @@
       <collection-loader
         class="businesses-all__loader"
         :first-page-loader="getList"
-        @first-page-load="setList"
-        @next-page-load="concatList"
+        @first-page-load="setAllBusinesses"
+        @next-page-load="concatAllBusinesses"
         ref="listCollectionLoader"
       />
     </div>
@@ -80,19 +67,14 @@
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import BusinessCard from './businesses-all/BusinessCard'
-import BusinessCardSkeleton from './businesses-all/BusinessCardSkeleton'
+import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import Drawer from '@/vue/common/Drawer'
-import BusinessViewer from './businesses-all/BusinessViewer'
 import BusinessAttributes from './businesses-all/BusinessAttributes'
 import BusinessAssetsViewer from './businesses-all/BusinessAssetsViewer'
 
 import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { Bus } from '@/js/helpers/event-bus'
-import { api } from '@/api'
-
-import { BusinessRecord } from '@/js/records/entities/business.record'
 import { vueRoutes } from '@/vue-router/routes'
 
 export default {
@@ -101,30 +83,27 @@ export default {
   components: {
     CollectionLoader,
     BusinessCard,
-    BusinessCardSkeleton,
+    SkeletonCardsLoader,
     NoDataMessage,
     Drawer,
-    BusinessViewer,
     BusinessAttributes,
     BusinessAssetsViewer,
   },
 
   data () {
     return {
-      isLoading: false,
-      list: [],
-      myBusiness: [],
+      isLoaded: false,
+      isLoadingFailed: false,
       isDrawerShown: false,
       currentBusiness: {},
-      isMyBusiness: false,
     }
   },
 
   computed: {
     ...mapGetters({
       accountId: vuexTypes.accountId,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
       isAccountGeneral: vuexTypes.isAccountGeneral,
+      allBusinesses: vuexTypes.allBusinesses,
     }),
 
     isBusinessOwner () {
@@ -133,59 +112,40 @@ export default {
   },
 
   async created () {
-    await this.getMyBusiness()
+    await this.loadMyBusinesses()
+    this.isLoaded = true
   },
 
   methods: {
-    async getList () {
-      this.isLoading = true
+    ...mapActions({
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+      loadAllBusinesses: vuexTypes.LOAD_ALL_BUSINESSES,
+    }),
+    ...mapMutations({
+      setAllBusinesses: vuexTypes.SET_ALL_BUSINESSES,
+      concatAllBusinesses: vuexTypes.CONCAT_ALL_BUSINESSES,
+      setBusinessToBrowse: vuexTypes.SELECT_BUSINESS_TO_BROWSE,
+    }),
 
+    async getList () {
       let result
       try {
-        const endpoint = `/integrations/dns/businesses`
-        result = await api.getWithSignature(endpoint)
+        result = await this.loadAllBusinesses()
       } catch (error) {
+        this.isLoadingFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
-
-      this.isLoading = false
       return result
     },
 
-    async getMyBusiness () {
-      try {
-        const endpoint = `/integrations/dns/clients/${this.accountId}/businesses`
-        const { data } = await api.getWithSignature(endpoint)
-        this.myBusiness = data.map(i => new BusinessRecord(i))
-      } catch (error) {
-        ErrorHandler.processWithoutFeedback(error)
-      }
-    },
-
-    checkIsMyBusiness (currentBusiness) {
-      return Boolean(this.myBusiness.find(business => {
-        return business.id === currentBusiness.id
-      })
-      )
-    },
-
-    setList (newList) {
-      this.list = newList.map(i => new BusinessRecord(i))
-    },
-
-    concatList (newChunk) {
-      this.list = this.list.concat(
-        newChunk.map(i => new BusinessRecord(i))
-      )
-    },
-
-    selectItem (item) {
-      this.isMyBusiness = this.checkIsMyBusiness(item)
-      // eslint-disable-next-line max-len
-      if (this.isMyBusiness && (this.isCustomerUiShown || this.isAccountGeneral)) {
-        Bus.emit('businesses:setCurrentBusiness', {
-          business: item,
-          redirectTo: vueRoutes.assets,
+    async selectItem (item) {
+      if (this.isAccountGeneral) {
+        this.setBusinessToBrowse(item.record)
+        await this.$router.push({
+          ...vueRoutes.currentBusiness,
+          params: {
+            id: item.accountId,
+          },
         })
       } else {
         this.currentBusiness = item
@@ -200,7 +160,7 @@ export default {
     async closeDrawerAndUpdateList () {
       this.isDrawerShown = false
       this.reloadList()
-      await this.getMyBusiness()
+      await this.loadMyBusinesses()
     },
   },
 }
@@ -210,7 +170,6 @@ export default {
 @import '~@scss/mixins.scss';
 @import '~@scss/variables.scss';
 
-$list-item-margin: 2rem;
 $filter-field-to-filter-field-margin: 2rem;
 
 .businesses-all__filters {
@@ -228,42 +187,6 @@ $filter-field-to-filter-field-margin: 2rem;
   width: 100%;
   max-width: 100%;
   text-align: left;
-}
-
-.businesses-all__list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -$list-item-margin 0 0 (-$list-item-margin);
-}
-
-.businesses-all__list-item-wrp {
-  margin: $list-item-margin 0 0 $list-item-margin;
-  width: calc(100% + #{$list-item-margin});
-
-  $media-desktop: 1130px;
-  $media-small-desktop: 960px;
-
-  @mixin list-item-width($width) {
-    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
-    max-width: calc(#{$width} - (#{$list-item-margin}));
-  }
-
-  @include list-item-width(25%);
-  @include respond-to-custom($media-desktop) {
-    @include list-item-width(33%);
-  }
-  @include respond-to-custom($media-small-desktop) {
-    @include list-item-width(50%);
-  }
-  @include respond-to-custom($sidebar-hide-bp) {
-    @include list-item-width(33%);
-  }
-  @include respond-to(small) {
-    @include list-item-width(50%);
-  }
-  @include respond-to(xsmall) {
-    @include list-item-width(100%);
-  }
 }
 
 .businesses-all__loader {

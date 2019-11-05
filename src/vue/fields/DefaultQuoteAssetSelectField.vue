@@ -63,7 +63,7 @@ export default {
   methods: {
     ...mapActions({
       loadAssets: vuexTypes.LOAD_ASSETS,
-      loadBusinessStatsQuoteAsset: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
+      loadBusiness: vuexTypes.LOAD_BUSINESS,
     }),
 
     async setDefaultQuoteAsset () {
@@ -78,8 +78,8 @@ export default {
             },
           },
         })
+        this.loadBusiness(this.accountId)
         Bus.success('default-quote-asset-select-field.set-asset-msg')
-        await this.loadBusinessStatsQuoteAsset()
       } catch (error) {
         ErrorHandler.process(error)
       }

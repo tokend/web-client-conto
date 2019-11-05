@@ -4,6 +4,11 @@
 $z-drawer: 10;
 $z-status-message: 11;
 
+$media-4k-resolution: 4096px;
+$media-2k-resolution: 2048px;
+$media-large-desktop: 1440px;
+$media-desktop: 1130px;
+$media-small-desktop: 960px;
 $sidebar-hide-bp: 768px;
 $status-message-reposition-bp: 470px;
 
@@ -14,6 +19,7 @@ $content-padding-bottom: 2.5rem;
 $content-padding-left: 5rem;
 $content-padding-right: 6.5rem;
 $content-side-paddings-sm: 2rem;
+$list-item-margin: 2rem;
 
 // z-indexes
 $z-app-navbar: 4;
@@ -254,3 +260,7 @@ $col-background-skeleton-loader: rgba($col-text, 0.10);
 $col-tooltip-wrapper-msg-bg: rgba($_black, 0.9);
 $col-tooltip-wrapper-msg-text: $_white;
 $col-tooltip-wrapper-border-style: transparent transparent $col-tooltip-wrapper-msg-bg transparent;
+
+// bussiness-description
+$col-bussiness-description-logo-background: $_athensGray;
+$col-bussiness-description-background: $_white;

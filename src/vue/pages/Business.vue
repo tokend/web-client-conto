@@ -60,7 +60,7 @@
 
 <script>
 import AppFooter from '@/vue/navigation/Footer'
-import BusinessDescription from '@/vue/pages/business/BusinessDescription'
+import BusinessDescription from '@/vue/pages/business-viewer/BusinessDescription'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
@@ -79,7 +79,6 @@ export default {
     Loader,
     NoDataMessage,
   },
-  mixins: [],
   props: {
     id: {
       type: String,
@@ -94,12 +93,8 @@ export default {
       isFailed: false,
     }
   },
-  computed: {},
-  watch: {},
   async created () {
     this.getBusiness()
-  },
-  destroyed () {
   },
   methods: {
     async getBusiness () {
@@ -201,10 +196,20 @@ export default {
     line-height: 1.5;
     font-weight: 400;
     min-width: 15rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     @include respond-to-custom($sidebar-hide-bp) {
       font-size: 3.2rem;
     }
+  }
+
+  .business__industry {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: $col-text;
   }
 
   .business__description {
@@ -230,9 +235,5 @@ export default {
     margin-top: 2.4rem;
     padding: 0 1.6rem;
     width: 100%;
-  }
-
-  .business__industry {
-    color: $col-text;
   }
 </style>

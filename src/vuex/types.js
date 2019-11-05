@@ -44,16 +44,9 @@ const mutations = {
   // assets
   SET_ASSETS: 'SET_ASSETS',
   UPDATE_ASSETS: 'UPDATE_ASSETS',
-  SET_BUSINESS_STATS_QUOTE_ASSET: 'SET_BUSINESS_STATS_QUOTE_ASSET',
 
   // idle
   UPDATE_LOGOUT_AT: 'UPDATE_LOGOUT_AT',
-
-  // conto hacks
-  SHOW_CUSTOMER_UI: 'SHOW_CUSTOMER_UI',
-  HIDE_CUSTOMER_UI: 'HIDE_CUSTOMER_UI',
-  SELECT_BUSINESS_TO_BROWSE: 'SELECT_BUSINESS_TO_BROWSE',
-  CLEAR_BUSINESS_TO_BROWSE: 'CLEAR_BUSINESS_TO_BROWSE',
 
   // identities
   SET_IDENTITIES: 'SET_IDENTITIES',
@@ -65,6 +58,13 @@ const mutations = {
   // sponsorship-requests
   SET_SPONSORSHIP_REQUESTS: 'SET_SPONSORSHIP_REQUESTS',
   CONCAT_SPONSORSHIP_REQUESTS: 'CONCAT_SPONSORSHIP_REQUESTS',
+
+  // businesses
+  SET_MY_BUSINESSES: 'SET_MY_BUSINESSES',
+  SET_ALL_BUSINESSES: 'SET_ALL_BUSINESSES',
+  CONCAT_ALL_BUSINESSES: 'CONCAT_ALL_BUSINESSES',
+  SELECT_BUSINESS_TO_BROWSE: 'SELECT_BUSINESS_TO_BROWSE',
+  CLEAR_BUSINESS_TO_BROWSE: 'CLEAR_BUSINESS_TO_BROWSE',
 }
 
 const actions = {
@@ -107,7 +107,6 @@ const actions = {
 
   // assets
   LOAD_ASSETS: 'LOAD_ASSETS',
-  LOAD_BUSINESS_STATS_QUOTE_ASSET: 'LOAD_BUSINESS_STATS_QUOTE_ASSET',
 
   // idle
   START_IDLE: 'START_IDLE',
@@ -126,6 +125,11 @@ const actions = {
   // sponsorship-requests
   LOAD_SPONSORSHIP_REQUESTS: 'LOAD_SPONSORSHIP_REQUESTS',
   APPROVE_OR_REJECT_SPONSORSHIP_REQUEST: 'APPROVE_OR_REJECT_SPONSORSHIP_REQUEST',
+
+  // businesses
+  LOAD_MY_BUSINESSES: 'LOAD_MY_BUSINESSES',
+  LOAD_ALL_BUSINESSES: 'LOAD_ALL_BUSINESSES',
+  LOAD_BUSINESS: 'LOAD_BUSINESS',
 }
 
 const getters = {
@@ -144,7 +148,6 @@ const getters = {
   kvAssetTypeSecurity: 'kvAssetTypeSecurity',
   kvPollTypeRestricted: 'kvPollTypeRestricted',
   kvPollTypeUnrestricted: 'kvPollTypeUnrestricted',
-  defaultQuoteAsset: 'defaultQuoteAsset',
   kvDefaultSignerRoleId: 'kvDefaultSignerRoleId',
 
   // account
@@ -229,19 +232,14 @@ const getters = {
   depositableAssets: 'depositableAssets',
   coinpaymentsAssets: 'coinpaymentsAssets',
   transferableAssetsBalancesByOwner: 'transferableAssetsBalancesByOwner',
+  transferableAssetsBalances: 'transferableAssetsBalances',
   withdrawableBalancesAssets: 'withdrawableBalancesAssets',
   statsQuoteAsset: 'statsQuoteAsset',
   ownedAssets: 'ownedAssets',
   ownedBalancesAssets: 'ownedBalancesAssets',
   baseAtomicSwapBalancesAssets: 'baseAtomicSwapBalancesAssets',
   quoteAtomicSwapAssets: 'quoteAtomicSwapAssets',
-  businessStatsQuoteAsset: 'businessStatsQuoteAsset',
   baseAssets: 'baseAssets',
-
-  // conto hacks
-  isCustomerUiShown: 'isCustomerUiShown',
-  businessToBrowse: 'businessToBrowse',
-  isBusinessToBrowse: 'isBusinessToBrowse',
 
   // idle-handler
   logoutAt: 'logoutAt',
@@ -257,6 +255,14 @@ const getters = {
 
   // sponsorship-requests
   sponsorshipRequests: 'sponsorshipRequests',
+
+  // businesses
+  myBusinesses: 'myBusinesses',
+  allBusinesses: 'allBusinesses',
+  businessToBrowse: 'businessToBrowse',
+  isBusinessToBrowse: 'isBusinessToBrowse',
+  businessStatsQuoteAsset: 'businessStatsQuoteAsset',
+  isMyBusiness: 'isMyBusiness',
 }
 
 export const vuexTypes = {

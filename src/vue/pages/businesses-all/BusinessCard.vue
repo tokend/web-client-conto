@@ -1,105 +1,108 @@
 <template>
   <div class="business-card">
-    <div class="business-card__logo-wrp">
-      <business-logo
-        class="business-card__logo"
-        :business="business"
+    <card>
+      <card-logo
+        slot="media"
         is-full-cover
+        :img-url="business.logoUrl"
+        :logo-text="business.name"
       />
-    </div>
-
-    <div class="business-card__info">
-      <p
-        :title="business.name"
-        class="business-card__name"
-      >
+      <template slot="header">
         {{ business.name }}
-      </p>
-      <p
-        :title="business.industry"
-        class="business-card__industry"
-      >
-        {{ business.industry ? business.industry : '&nbsp;' }}
-      </p>
-    </div>
+      </template>
+      <template slot="subhead">
+        {{ business.industry }}
+      </template>
+      <template slot="actions">
+        <button
+          v-if="!isMyBusiness(business.accountId) && !isSponsorshipPage"
+          v-ripple
+          class="app__button-flat"
+          @click="addBusiness"
+        >
+          {{ 'business-card.add-lbl' | globalize }}
+        </button>
+        <button
+          v-ripple
+          class="app__button-flat"
+          @click="$emit(EVENTS.vueDetails)"
+        >
+          {{ 'business-card.details-lbl' | globalize }}
+        </button>
+      </template>
+    </card>
   </div>
 </template>
 
 <script>
 
-import { CorporateRecord } from '@/js/records/entities/business.record'
+import Card from '@/vue/common/Card'
+import CardLogo from '@/vue/common/CardLogo'
 
-import BusinessLogo from './BusinessLogo'
+import { BusinessRecord } from '@/js/records/entities/business.record'
+
+import { api } from '@/api'
+import { ErrorHandler } from '@/js/helpers/error-handler'
+
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
+
+import { Bus } from '@/js/helpers/event-bus'
+import { vueRoutes } from '@/vue-router/routes'
+
+const EVENTS = {
+  businessAdded: 'business-added',
+  vueDetails: 'vue-details',
+}
 
 export default {
   name: 'business-card',
 
   components: {
-    BusinessLogo,
+    Card,
+    CardLogo,
   },
 
   props: {
     business: {
-      type: CorporateRecord,
+      type: BusinessRecord,
       required: true,
+    },
+  },
+  data () {
+    return {
+      EVENTS,
+      isSubmitting: false,
+    }
+  },
+  computed: {
+    ...mapGetters([
+      vuexTypes.accountId,
+      vuexTypes.isMyBusiness,
+    ]),
+    isSponsorshipPage () {
+      return this.$route.name === vueRoutes.sponsorshipAllBusinesses.name
+    },
+  },
+  methods: {
+    async addBusiness () {
+      this.isSubmitting = true
+      try {
+        const endpoint = `/integrations/dns/clients/${this.accountId}/businesses`
+        await api.postWithSignature(endpoint, {
+          data: {
+            id: this.business.accountId,
+            type: 'businesses',
+          },
+        })
+
+        this.$emit(EVENTS.businessAdded)
+        Bus.success('business-viewer.business-added-successfully-notification')
+      } catch (error) {
+        ErrorHandler.process(error)
+      }
+      this.isSubmitting = false
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import '~@scss/variables';
-@import '~@scss/mixins';
-
-$business-card-header-height: 12.5rem;
-
-.business-card {
-  border-radius: 0.4rem;
-  box-shadow: 0 0.5rem 1rem 0 $col-sale-card-shadow;
-  background-color: $col-sale-card-background;
-  min-width: 0;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  overflow-x: hidden;
-}
-
-.business-card__logo-wrp {
-  border-radius: 0.4rem 0.4rem 0 0;
-  height: $business-card-header-height;
-  background-color: $col-asset-card-header-background;
-  display: flex;
-  align-items: center;
-}
-
-.business-card__logo {
-  margin: 0 auto;
-}
-
-.business-card__info {
-  padding: 1.6rem 2rem;
-  height: calc(100% - #{$business-card-header-height});
-  display: flex;
-  flex-direction: column;
-}
-
-.business-card__name {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: $col-asset-card-text-primary;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.business-card__industry {
-  margin-top: 0.2rem;
-  font-size: 1.05rem;
-  line-height: 1.29;
-  opacity: 0.54;
-  color: $col-asset-card-text-primary;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>

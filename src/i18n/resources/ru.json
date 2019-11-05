@@ -456,7 +456,7 @@
     },
     "auth-pages": {
       "small-title": "Создавайте, распространяйте и торгуйте",
-      "big-title": "Компания в <br> вашем <br> смартфоне",
+      "big-title": "Бизнес в <br> вашем <br> смартфоне",
       "email": "Электронная почта",
       "code": "Код",
       "password": "Пароль",
@@ -659,7 +659,6 @@
       "sign-out-btn": "Выйти",
       "balances-subheading": "Баланс",
       "show-more-link": "Показать больше",
-      "customer-ui-switch": "Клиент",
       "account-unverified": "Стандартный аккаунт",
       "account-corporate": "Аккаунт бизнеса",
       "company-btn": "Компания"
@@ -912,7 +911,8 @@
       "create-btn": "Создать",
       "my-assets-title": "Мои активы",
       "explore-title": "Активы компании",
-      "balances-title": "Мой кошелек"
+      "balances-title": "Мой кошелек",
+      "business-filter-label": "Компания"
     },
     "create-asset-form": {
       "loading-msg": "Загружаем…",
@@ -1087,8 +1087,6 @@
       "title": "Загрузки",
       "mobile-apps-header": "Все ваши активы прямо на вашем телефоне",
       "mobile-apps-desc": "Чтобы получить доступ к своим ресурсам повсюду, установите приложение TokenD на свое мобильное устройство.",
-      "config-header": "Один важный шаг",
-      "config-desc": "При необходимости отсканируйте этот QR-код с вашим приложением, чтобы обеспечить правильную конфигурацию для окружения TokenD.",
       "pre-issuance-learn-more-link": "Узнать больше",
       "pre-issuance-apps-header": "Предварительная выдача активов в автономном режиме",
       "pre-issuance-apps-desc": "Чтобы предварительно авторизовать выдачу активов, установите инструмент предварительной выдачи на своем компьютере",
@@ -1255,17 +1253,24 @@
     },
     "businesses": {
       "all-tab": "Все компании",
-      "my-tab": "Мои компании"
+      "my-tab": "Мои компании",
+      "current-tab": "Текущая компания"
     },
     "businesses-all": {
       "no-list-title": "Нет компаний",
       "no-list-msg": "Здесь будет список компаний",
       "business-details-title": "Детали компании",
-      "business-assets-title": "Активы компании"
+      "business-assets-title": "Активы компании",
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
     },
     "business-viewer": {
       "add-btn": "Добавить компанию",
-      "business-added-successfully-notification": "Компания успешно добавлена"
+      "business-added-successfully-notification": "Компания успешно добавлена",
+      "shop": "Магазин",
+      "loading-msg": "Загружаем…",
+      "error-title": "Нет такой компании",
+      "error-msg": "Невозможно загрузить описание компании.",
+      "shop-btn": "Магазни"
     },
     "business-attributes": {
       "id-key": "Идентификатор",
@@ -1275,17 +1280,16 @@
     },
     "businesses-my": {
       "no-list-title": "Нет компаний",
-      "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы"
-    },
-    "current-business-indicator": {
-      "browsing-lbl": "Просмотр:"
+      "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы",
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
     },
     "atomic-swaps-explore": {
       "owned-by-me-filter-lbl": "Принадлежит мне",
       "buying": "Покупка {{asset}}",
       "atomic-swap-drawer-title": "Детали предложения",
       "no-list-title": "Нет предложений",
-      "no-list-msg": "Здесь будут предложения"
+      "no-list-msg": "Здесь будут предложения",
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
     },
     "buy-atomic-swap-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",
@@ -1308,10 +1312,6 @@
       "email-code": "Введите код, отправленный вам по электронной почте",
       "tfa-code": "Введите 2FA код"
     },
-    "atomic-swap-card": {
-      "available": "Доступно: {{ amount, balance }}",
-      "price": "Цена: {{ amount, number }} {{code}}"
-    },
     "atomic-swap-attributes": {
       "id-key": "Идентификатор",
       "owner-key": "Владелец",
@@ -1321,11 +1321,9 @@
       "quote-asset-key": "Код",
       "price-key": "Цена",
       "address-key": "Адрес",
-      "current-cap-key": "Продано",
-      "hard-cap-key": "Максимум",
-      "total-current-cap-key": "Суммарно продано",
       "quote-assets-subheading": "Котируемый актив №{{ number }}",
-      "destination-key": "Назначение"
+      "destination-key": "Назначение",
+      "buy-for": "Вы можете купить за:"
     },
     "atomic-swap-actions": {
       "cancel-btn": "Отменить предложение",
@@ -1363,7 +1361,7 @@
       "amount-header": "Количество",
       "request-state-header": "Статус",
       "review-btn": "Рассмотреть",
-      "no-request-history-title": "Нет запросов",
+      "no-history-title": "Нет запросов",
       "no-history-desc": "Здесь будет список ваших запросов на спонсирование",
       "request-id": "Идентификатор запроса",
       "approve-btn": "Подтвердить",
@@ -1479,8 +1477,27 @@
       "max-uses-key": "Количество использований",
       "used-key": "Использовано"
     },
+    "movements-top-bar": {
+      "business-filter-label": "Компания",
+      "asset-filter-label": "Актив"
+    },
+    "atomic-swap-card": {
+      "available": "Доступно: {{ amount, balance }}",
+      "price": "Цена: {{ amount, number }} {{code}}",
+      "buy-lbl": "Купить",
+      "details-lbl": "Детали"
+    },
+    "asset-card": {
+      "details-lbl": "Детали",
+      "transfer-lbl": "Отправить"
+    },
     "promo-code-card": {
-      "discount": "Скидка:"
+      "discount": "Скидка: {{ amount, percent }}",
+      "details-lbl": "Детали"
+    },
+    "business-card": {
+      "add-lbl": "Добавить",
+      "details-lbl": "Детали"
     },
     "statistics-page": {
       "sales-history-tab": "История продаж",
