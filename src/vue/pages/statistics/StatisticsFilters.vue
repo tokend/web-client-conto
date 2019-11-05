@@ -20,18 +20,25 @@
 
       <div class="statistics-filters__filter-field">
         <date-field
+          :key="filters.dateTo"
           v-model="filters.dateFrom"
           :enable-time="true"
+          :disable-after="getDisableDate"
           :label="'statistics-filters.date-from-lbl' | globalize"
         />
       </div>
 
       <div class="statistics-filters__filter-field">
+        <!-- eslint-disable max-len -->
         <date-field
+          :key="filters.dateFrom"
           v-model="filters.dateTo"
+          :disable-after="moment().toString()"
+          :disable-before="moment(filters.dateFrom).subtract(1, 'days').toString()"
           :enable-time="true"
           :label="'statistics-filters.date-to-lbl' | globalize"
         />
+        <!-- eslint-enable max-len -->
       </div>
 
       <template v-if="isSalesHistoryPage && promoCodes.length">
@@ -77,6 +84,7 @@
 <script>
 import SelectField from '@/vue/fields/SelectField'
 import DateField from '@/vue/fields/DateField'
+import moment from 'moment'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -111,6 +119,7 @@ export default {
       promoCodes: [],
       isLoaded: false,
       BUY_REQUEST_STATUSES,
+      moment,
     }
   },
 
@@ -122,6 +131,12 @@ export default {
 
     isSalesHistoryPage () {
       return this.$route.name === vueRoutes.statisticsSalesHistory.name
+    },
+
+    getDisableDate () {
+      return this.filters.dateTo
+        ? moment(this.filters.dateTo).toString()
+        : moment().toString()
     },
   },
 
