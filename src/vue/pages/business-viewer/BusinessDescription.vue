@@ -45,14 +45,14 @@ export default {
     max-width: 100%;
     display: block;
     margin-bottom: 2rem;
-    background-color: $col-current-bussiness-description-background;
+    background-color: $col-bussiness-description-background;
     border-radius: 0.4rem;
   }
 
   .business-description__logo-wrp {
     position: relative;
     padding-bottom: 33.33%;
-    background-color: $col-current-bussiness-description-logo-background;
+    background-color: $col-bussiness-description-logo-background;
     border-radius: 0.4rem;
   }
 

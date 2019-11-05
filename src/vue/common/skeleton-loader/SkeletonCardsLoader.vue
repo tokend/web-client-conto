@@ -2,7 +2,7 @@
   <div class="app__card-list">
     <div
       class="app__card-list-item"
-      v-for="index in cards"
+      v-for="index in numberOfCards"
       :key="index"
     >
       <div class="skeleton-cards-loader">
@@ -42,7 +42,7 @@ export default {
   },
 
   data: _ => ({
-    cards: 4,
+    numberOfCards: 4,
   }),
 }
 </script>
