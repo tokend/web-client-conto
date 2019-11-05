@@ -15,6 +15,7 @@ import CustomersList from '@/vue/pages/CustomersList'
 import Businesses from '@/vue/pages/Businesses'
 import BusinessesMy from '@/vue/pages/BusinessesMy'
 import BusinessesAll from '@/vue/pages/BusinessesAll'
+import BusinessViewer from '@/vue/pages/BusinessViewer'
 
 import Assets from '@/vue/pages/Assets'
 import AssetExplorer from '@/vue/pages/AssetExplorer'
@@ -67,7 +68,7 @@ const router = new Router({
       component: Pay,
     },
     {
-      path: '/business/:id',
+      path: '/company/:id',
       name: vueRoutes.business.name,
       component: Business,
       props: true,
@@ -145,7 +146,7 @@ const router = new Router({
           ],
         },
         {
-          path: '/businesses',
+          path: '/companies',
           name: vueRoutes.businesses.name,
           meta: {
             pageNameTranslationId: 'pages-names.businesses',
@@ -154,7 +155,7 @@ const router = new Router({
           redirect: vueRoutes.myBusinesses,
           children: [
             {
-              path: '/businesses/my',
+              path: '/companies/my',
               name: vueRoutes.myBusinesses.name,
               component: BusinessesMy,
               beforeEnter: inAppRouteGuard,
@@ -164,11 +165,21 @@ const router = new Router({
               },
             },
             {
-              path: '/businesses/all',
+              path: '/companies/all',
               name: vueRoutes.allBusinesses.name,
               component: BusinessesAll,
               beforeEnter: inAppRouteGuard,
               props: true,
+              meta: {
+                isGeneralOnly: true,
+              },
+            },
+            {
+              path: '/companies/:id',
+              name: vueRoutes.currentBusiness.name,
+              component: BusinessViewer,
+              props: true,
+              beforeEnter: inAppRouteGuard,
               meta: {
                 isGeneralOnly: true,
               },
@@ -180,7 +191,6 @@ const router = new Router({
           name: vueRoutes.assets.name,
           meta: {
             pageNameTranslationId: 'pages-names.assets',
-            ownerFilter: true,
           },
           component: Assets,
           redirect: vueRoutes.assetsExplore,
@@ -190,9 +200,6 @@ const router = new Router({
               name: vueRoutes.assetsExplore.name,
               component: AssetExplorer,
               beforeEnter: inAppRouteGuard,
-              meta: {
-                ownerFilter: true,
-              },
             },
           ],
         },
@@ -221,7 +228,6 @@ const router = new Router({
           name: vueRoutes.atomicSwaps.name,
           meta: {
             pageNameTranslationId: 'pages-names.atomic-swaps',
-            ownerFilter: true,
           },
           component: AtomicSwaps,
           redirect: vueRoutes.atomicSwapsExplore,
@@ -231,9 +237,6 @@ const router = new Router({
               name: vueRoutes.atomicSwapsExplore.name,
               component: AtomicSwapsExplore,
               beforeEnter: inAppRouteGuard,
-              meta: {
-                ownerFilter: true,
-              },
             },
           ],
         },
@@ -242,7 +245,6 @@ const router = new Router({
           name: vueRoutes.movements.name,
           meta: {
             pageNameTranslationId: 'pages-names.movements',
-            ownerFilter: true,
           },
           component: Movements,
           beforeEnter: inAppRouteGuard,
@@ -331,25 +333,6 @@ const router = new Router({
 
 export default router
 
-router.beforeEach((to, from, next) => {
-  const isCustomerUiShown = store.getters[vuexTypes.isCustomerUiShown]
-  const isAccountGeneral = store.getters[vuexTypes.isAccountGeneral]
-  const businessToBrowse = store.getters[vuexTypes.businessToBrowse]
-  const needOwnerFilter = _get(to, 'meta.ownerFilter')
-  const queryOwner = _get(to, 'query.owner')
-
-  if (
-    (isAccountGeneral || isCustomerUiShown) &&
-    needOwnerFilter &&
-    !queryOwner
-  ) {
-    to.query.owner = businessToBrowse.accountId
-    next(to)
-  } else {
-    next()
-  }
-})
-
 // doesn't allow to visit kyc recovery management page if user's kyc recovery
 // is not initialized
 function kycRecoveryGuard (to, from, next) {
@@ -388,12 +371,8 @@ function redirectRouteGuard (to, from, next) {
       next(vueRoutes.kycRecoveryManagement)
     } else if (to.name === vueRoutes.app.name) {
       const isAccountCorporate = store.getters[vuexTypes.isAccountCorporate]
-      const isBusinessToBrowse = store.getters[vuexTypes.isBusinessToBrowse]
-      const isCustomerUiShown = store.getters[vuexTypes.isCustomerUiShown]
-      if (isAccountCorporate && !isCustomerUiShown) {
+      if (isAccountCorporate) {
         next(vueRoutes.customers)
-      } else if (isBusinessToBrowse) {
-        next(vueRoutes.assetsExplore)
       } else {
         next(vueRoutes.businesses)
       }
@@ -410,12 +389,11 @@ function redirectRouteGuard (to, from, next) {
 function inAppRouteGuard (to, from, next) {
   const isAccountCorporate = store.getters[vuexTypes.isAccountCorporate]
   const isAccountGeneral = store.getters[vuexTypes.isAccountGeneral]
-  const isCustomerUiShown = store.getters[vuexTypes.isCustomerUiShown]
   const isCorporateRouter = _get(to, 'meta.isCorporateOnly')
   const isGeneralRouter = _get(to, 'meta.isGeneralOnly')
   if (isAccountCorporate && isCorporateRouter) {
     next()
-  } else if ((isAccountGeneral || isCustomerUiShown) && isGeneralRouter) {
+  } else if (isAccountGeneral && isGeneralRouter) {
     next()
   } else if (!isCorporateRouter && !isGeneralRouter) {
     next()

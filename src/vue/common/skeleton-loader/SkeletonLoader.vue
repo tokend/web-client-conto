@@ -20,11 +20,11 @@ const TEMPLATES = {
   bigString: 'big-string',
   smallString: 'small-string',
   xSmallString: 'x-small-string',
-  cardViewer: 'card-viewer',
   saleViewer: 'sale-viewer',
   imageViewer: 'image-viewer',
   fieldViewer: 'field-viewer',
   mediumButton: 'medium-button',
+  smallButton: 'small-button',
   fillMode: 'fill-mode',
 }
 
@@ -52,20 +52,6 @@ export default {
 
 <style scoped lang="scss">
 @import '~@scss/variables.scss';
-@import '~@scss/mixins.scss';
-
-// TODO: refactoring variables name
-$asset-card-header-height: 8.5rem;
-$asset-card-margin: 0.75rem;
-$media-desktop: 1130px;
-$media-small-desktop: 960px;
-
-/* stylelint-disable function-calc-no-invalid */
-@mixin asset-card-width($width) {
-  flex: 0 1 calc(#{$width}% - (#{$asset-card-margin} * 2));
-  max-width: calc(#{$width}% - (#{$asset-card-margin} * 2));
-}
-/* stylelint-enable function-calc-no-invalid */
 
 .skeleton-loader {
   z-index: $z-skeleton-loader;
@@ -75,33 +61,17 @@ $media-small-desktop: 960px;
     justify-content: center;
   }
 
-  &--card-viewer {
-    margin: $asset-card-margin;
-
-    @include asset-card-width(25);
-    @include respond-to-custom($media-desktop) {
-      @include asset-card-width(33);
-    }
-    @include respond-to-custom($media-small-desktop) {
-      @include asset-card-width(50);
-    }
-    @include respond-to-custom($sidebar-hide-bp) {
-      @include asset-card-width(33);
-    }
-    @include respond-to(small) {
-      @include asset-card-width(50);
-    }
-    @include respond-to(xsmall) {
-      @include asset-card-width(100);
-    }
-  }
-
   &--sale-viewer {
     margin: 1rem;
   }
 
   &--medium-button {
     max-width: 18rem;
+    width: 100%;
+  }
+
+  &--small-button {
+    max-width: 9rem;
     width: 100%;
   }
 
@@ -164,10 +134,6 @@ $media-small-desktop: 960px;
     border-radius: 0.4rem;
   }
 
-  &--card-viewer {
-    min-height: 19rem;
-  }
-
   &--sale-viewer {
     border-radius: 0.4rem;
     height: 40rem;
@@ -185,6 +151,10 @@ $media-small-desktop: 960px;
   }
 
   &--medium-button {
+    height: 2.2rem;
+  }
+
+  &--small-button {
     height: 2.2rem;
   }
 

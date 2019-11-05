@@ -10,16 +10,32 @@ for further information about branching and tagging conventions.
 #### Added
 - Trim for input field 
 - Redeem default amount
+- Current company page
+- New component 'Card' for displaying all card
+- Skeleton loader for new component 'Card'
+- Global class for markdown `app__markdown`
+
+#### Removed
+- `card-viewer`
+- `asset-skeleton-loade`
+- `current-business-logo`
+- `current-business-indicator/index.vue`
+- `BusinessCardSkeleton`
+- `BusinessViewer`
+- `PromoCodeCardSkeleton`
 
 #### Changed
 - Moved logo and favicon to branding folder
 - Display full price
 - Max percent discount
 - Validation on promo code form
+- Get data from store on Business pages
 
 #### Fixed
 - A bug with trim in input fields with type 'password'
 - A bug with typo in multi select
+- A bug with color scheme
+- A bug when don't show error message if response failed
 
 ### "Under the hood" changes
 #### Added

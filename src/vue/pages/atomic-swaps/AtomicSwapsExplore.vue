@@ -1,36 +1,27 @@
 <template>
   <div class="atomic-swaps-explore">
     <template v-if="list.length">
-      <div class="atomic-swaps-explore__list">
+      <div class="app__card-list">
         <div
-          class="atomic-swaps-explore__list-item-wrp"
+          class="app__card-list-item"
           v-for="item in list"
           :key="item.id"
         >
-          <button
-            class="atomic-swaps-explore__list-item-btn"
-            @click="selectItem(item)"
-          >
-            <atomic-swap-card :atomic-swap-ask="item" />
-          </button>
+          <atomic-swap-card
+            :atomic-swap-ask="item"
+            @buy="buyAsset(item)"
+            @vue-details="selectItem(item)"
+          />
         </div>
       </div>
+    </template>
+
+    <template v-else-if="isLoading">
+      <skeleton-cards-loader />
     </template>
 
     <template v-else-if="isLoadingFailed">
       <p>{{ 'atomic-swaps-explore.loading-error-msg' | globalize }}</p>
-    </template>
-
-    <template v-else-if="!list.length && isLoading">
-      <div class="atomic-swaps-explore__list">
-        <div
-          class="atomic-swaps-explore__list-item-wrp"
-          v-for="item in 5"
-          :key="item"
-        >
-          <atomic-swap-card-skeleton />
-        </div>
-      </div>
     </template>
 
     <template v-else-if="!list.length && !isLoading">
@@ -52,27 +43,24 @@
       />
     </div>
     <template v-if="isLoggedIn">
-      <drawer :is-shown.sync="isDrawerShown">
-        <template
-          v-if="atomicSwapToBrowse.ownerId === accountId"
-          slot="heading"
-        >
-          {{ 'atomic-swaps-explore.atomic-swap-drawer-title' | globalize }}
-        </template>
-        <template v-else slot="heading">
+      <drawer :is-shown.sync="isBuyFormDrawerShown">
+        <template slot="heading">
           {{ 'atomic-swaps-explore.buying' |
             globalize({asset: atomicSwapToBrowse.baseAssetName}) }}
         </template>
-
-        <atomic-swap-viewer
-          v-if="atomicSwapToBrowse.ownerId === accountId"
-          :current-atomic-swap-ask="atomicSwapToBrowse"
-          @close-drawer-and-update-list="closeDrawerAndUpdateList()"
-        />
         <atomic-swap-form
-          v-else
           @update-list="updateList()"
           :atomic-swap-ask="atomicSwapToBrowse"
+        />
+      </drawer>
+      <drawer :is-shown.sync="isAtomicSwapDetailsDrawerShown">
+        <template slot="heading">
+          {{ 'atomic-swaps-explore.atomic-swap-drawer-title' | globalize }}
+        </template>
+
+        <atomic-swap-viewer
+          :current-atomic-swap-ask="atomicSwapToBrowse"
+          @close-drawer-and-update-list="closeDrawerAndUpdateList()"
         />
       </drawer>
     </template>
@@ -87,7 +75,7 @@ import AtomicSwapViewer from './AtomicSwapViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import AtomicSwapForm from '@modules/atomic-swap-form'
-import AtomicSwapCardSkeleton from './AtomicSwapCardSkeleton'
+import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
@@ -105,7 +93,7 @@ export default {
     AtomicSwapViewer,
     NoDataMessage,
     AtomicSwapForm,
-    AtomicSwapCardSkeleton,
+    SkeletonCardsLoader,
   },
 
   mixins: [UpdateList],
@@ -124,7 +112,8 @@ export default {
       isLoading: false,
       isLoadingFailed: false,
       list: [],
-      isDrawerShown: false,
+      isBuyFormDrawerShown: false,
+      isAtomicSwapDetailsDrawerShown: false,
       atomicSwapToBrowse: {},
       filters: {
         isOwnedByCurrentUser: false,
@@ -136,7 +125,6 @@ export default {
     ...mapGetters({
       accountId: vuexTypes.accountId,
       isCorporate: vuexTypes.isAccountCorporate,
-      businessToBrowse: vuexTypes.businessToBrowse,
       isLoggedIn: vuexTypes.isLoggedIn,
     }),
   },
@@ -163,13 +151,10 @@ export default {
       let result
       let filter = {
         ...(
-          this.businessToBrowse.accountId
-            ? { owner: this.businessToBrowse.accountId }
+          this.businessId
+            ? { owner: this.businessId }
             : { owner: this.accountId }
         ),
-      }
-      if (this.businessId) {
-        filter.owner = this.businessId
       }
 
       try {
@@ -199,7 +184,7 @@ export default {
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 
-    async selectItem (item) {
+    async buyAsset (item) {
       if (this.$route.name === vueRoutes.business.name) {
         await this.$router.push({
           ...vueRoutes.pay,
@@ -209,12 +194,18 @@ export default {
         })
       } else {
         this.atomicSwapToBrowse = item
-        this.isDrawerShown = true
+        this.isBuyFormDrawerShown = true
       }
     },
 
+    selectItem (item) {
+      this.atomicSwapToBrowse = item
+      this.isAtomicSwapDetailsDrawerShown = true
+    },
+
     closeDrawerAndUpdateList () {
-      this.isDrawerShown = false
+      this.isAtomicSwapDetailsDrawerShown = false
+      this.isBuyFormDrawerShown = false
       this.emitUpdateList('atomicSwaps:updateList')
     },
     updateList () {
@@ -225,67 +216,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@scss/mixins.scss';
-@import '~@scss/variables.scss';
-
-$list-item-margin: 2rem;
-$new-list-item-margin: 2rem;
-$filter-field-to-filter-field-margin: 2rem;
-
-.atomic-swaps-explore__filters {
-  margin: -$filter-field-to-filter-field-margin 0 2.4rem
-    (-$filter-field-to-filter-field-margin);
-}
-
-.atomic-swaps-explore__filter-field {
-  margin: $filter-field-to-filter-field-margin 0 0
-    $filter-field-to-filter-field-margin;
-}
-
-.atomic-swaps-explore__list-item-btn {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  text-align: left;
-  height: 100%;
-}
-
-.atomic-swaps-explore__list {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.atomic-swaps-explore__list-item-wrp {
-  margin: $list-item-margin $list-item-margin 0 0;
-  width: calc(100% + #{$list-item-margin});
-
-  $media-desktop: 1130px;
-  $media-small-desktop: 960px;
-
-  @mixin list-item-width($width) {
-    flex: 0 1 calc(#{$width} - (#{$list-item-margin}));
-    max-width: calc(#{$width} - (#{$list-item-margin}));
-  }
-
-  @include list-item-width(25%);
-  @include respond-to-custom($media-desktop) {
-    @include list-item-width(33%);
-  }
-  @include respond-to-custom($media-small-desktop) {
-    @include list-item-width(50%);
-  }
-  @include respond-to-custom($sidebar-hide-bp) {
-    @include list-item-width(50%);
-  }
-  @include respond-to(small) {
-    @include list-item-width(100%);
-  }
-  @include respond-to(xsmall) {
-    @include list-item-width(100%);
-  }
-}
-
 .atomic-swaps-explore__loader {
   margin-top: 1rem;
 }

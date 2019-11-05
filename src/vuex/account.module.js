@@ -2,13 +2,10 @@ import _get from 'lodash/get'
 import { vuexTypes } from './types'
 import { api } from '../api'
 import { BalanceRecord } from '@/js/records/entities/balance.record'
-import { BusinessRecord } from '@/js/records/entities/business.record'
 
 export const state = {
   account: {},
   balancesDetails: [],
-  isCustomerUiShown: false,
-  businessToBrowse: {},
 }
 
 export const mutations = {
@@ -18,22 +15,6 @@ export const mutations = {
 
   [vuexTypes.SET_ACCOUNT_BALANCES_DETAILS] (state, balancesDetails) {
     state.balancesDetails = balancesDetails
-  },
-
-  [vuexTypes.SHOW_CUSTOMER_UI] (state) {
-    state.isCustomerUiShown = true
-  },
-
-  [vuexTypes.HIDE_CUSTOMER_UI] (state) {
-    state.isCustomerUiShown = false
-  },
-
-  [vuexTypes.SELECT_BUSINESS_TO_BROWSE] (state, payload) {
-    state.businessToBrowse = payload
-  },
-
-  [vuexTypes.CLEAR_BUSINESS_TO_BROWSE] (state) {
-    state.businessToBrowse = {}
   },
 }
 
@@ -85,6 +66,9 @@ export const getters = {
       getters[vuexTypes.accountBalances]
         .filter(item => item.asset.isTransferable)
         .filter(item => item.asset.owner === accountId),
+  [vuexTypes.transferableAssetsBalances]: (a, getters) =>
+    getters[vuexTypes.accountBalances]
+      .filter(item => item.asset.isTransferable),
   [vuexTypes.accountBalanceByCode]: state => code => state.balancesDetails
     .map(item => new BalanceRecord(item, item.balance.asset.trailingDigits))
     .find(i => i.asset.code === code) || {},
@@ -112,14 +96,6 @@ export const getters = {
   [vuexTypes.isAccountBlocked]: (a, getters, b, rootGetters) =>
     getters[vuexTypes.accountRoleId] ===
     rootGetters[vuexTypes.kvEntryBlockedRoleId],
-
-  [vuexTypes.isCustomerUiShown]: state => state.isCustomerUiShown,
-
-  [vuexTypes.businessToBrowse]: state =>
-    new BusinessRecord(state.businessToBrowse),
-
-  [vuexTypes.isBusinessToBrowse]: state =>
-    Object.keys(state.businessToBrowse || {}).length > 0,
 }
 
 export default {

@@ -656,7 +656,6 @@
       "sign-out-btn": "Sign out",
       "balances-subheading": "Balances",
       "show-more-link": "Show more",
-      "customer-ui-switch": "Customer",
       "company-btn": "Company"
     },
     "sidebar": {
@@ -907,7 +906,8 @@
       "no-balances-title": "No balances",
       "no-balances-msg": "You do not have any balances yet",
       "create-btn": "Create",
-      "my-assets-title": "My assets"
+      "my-assets-title": "My assets",
+      "business-filter-label": "Company"
     },
     "create-asset-form": {
       "loading-msg": "Loading…",
@@ -1219,7 +1219,7 @@
       "yes-msg": "Yes",
       "no-msg": "No",
       "cancellation-msg": "Are you sure to cancel the atomic swap?",
-      "atomic-swap-canceled-msg": "Your atomic swap was successfully cancelled"
+      "atomic-swap-canceled-msg": "Your offer successfully cancelled"
     },
     "atomic-swap-attributes": {
       "id-key": "ID",
@@ -1231,11 +1231,8 @@
       "price-key": "Price",
       "address-key": "Address",
       "quote-assets-subheading": "Quote asset #{{ number }}",
-      "destination-key": "Destination"
-    },
-    "atomic-swap-card": {
-      "available": "Available: {{ amount, balance }}",
-      "price": "Price: {{ amount, number }} {{code}}"
+      "destination-key": "Destination",
+      "buy-for": "You can buy for:"
     },
     "customers-page": {
       "invite-btn": "Invite client",
@@ -1298,7 +1295,8 @@
     },
     "businesses": {
       "all-tab": "All companies",
-      "my-tab": "My companies"
+      "my-tab": "My companies",
+      "current-tab": "Current company"
     },
     "businesses-all": {
       "no-list-title": "No companies here yet",
@@ -1309,7 +1307,12 @@
     },
     "business-viewer": {
       "add-btn": "Add company",
-      "business-added-successfully-notification": "Company has been added successfully"
+      "shop-btn": "Shop",
+      "business-added-successfully-notification": "Company has been added successfully",
+      "shop": "Shop",
+      "loading-msg": "Loading...",
+      "error-title": "There is no such company",
+      "error-msg": "Can not load company description."
     },
     "business-attributes": {
       "id-key": "ID",
@@ -1321,9 +1324,6 @@
       "no-list-title": "No companies here yet",
       "no-list-msg": "Here will be the list of companies associated with you",
       "loading-error-msg": "There was an error while loading."
-    },
-    "current-business-indicator": {
-      "browsing-lbl": "Browsing:"
     },
     "kyc-recovery": {
       "submit-again-lbl": "Submit again",
@@ -1476,8 +1476,30 @@
       "max-uses-key": "Max uses",
       "used-key": "Used"
     },
+    "atomic-swap-card": {
+      "available": "Available: {{ amount, balance }}",
+      "price": "Price: {{ amount, number }} {{code}}",
+      "buy-lbl": "Buy",
+      "details-lbl": "Details"
+    },
+    "asset-card": {
+      "details-lbl": "Details",
+      "transfer-lbl": "Transfer"
+    },
     "promo-code-card": {
-      "discount": "Discount:"
+      "discount": "Discount: {{ amount, percent }}",
+      "details-lbl": "Details"
+    },
+    "business-card": {
+      "add-lbl": "Add",
+      "details-lbl": "Details"
+    },
+    "movements-top-bar": {
+      "business-filter-label": "Company",
+      "asset-filter-label": "Asset"
+    },
+    "select-field": {
+      "all-option": "All"
     }
   }
 }

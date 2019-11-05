@@ -1,4 +1,5 @@
 import { ASSET_POLICIES } from '@tokend/js-sdk'
+import { documentsManager } from '@/api'
 import safeGet from 'lodash/get'
 
 export class AssetRecord {
@@ -136,5 +137,13 @@ export class AssetRecord {
 
   get isRequiresKYC () {
     return this.assetType
+  }
+
+  get logoUrl () {
+    if (this.logoKey) {
+      return documentsManager.getDocumentUrlByKey(this.logoKey)
+    } else {
+      return ''
+    }
   }
 }
