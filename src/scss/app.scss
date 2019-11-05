@@ -461,3 +461,16 @@ h6.app__page-heading {
     height: 0.3rem !important;
   }
 }
+
+.app__multiselect-field {
+
+  &--no-border {
+    // to remove the borders and background of the multiselect
+    .multiselect-field__select {
+      border-bottom: 0 !important;
+      background-size: 0 !important;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}

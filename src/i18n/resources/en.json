@@ -1408,8 +1408,8 @@
     },
     "multiselect-field": {
       "select-all": "Select all",
-      "all-selected-lable": "All selceted",
-      "select-something-lable": "Select something..."
+      "all-selected-value-label": "All selceted",
+      "select-something-value-label": "Select something..."
     },
     "redeem-form": {
       "form-heading": "Redeem",

@@ -6,7 +6,6 @@
           :value="filters.assetCode"
           @input="setAssetCode"
           :label="'statistics-filters.asset-code-lbl' | globalize"
-          class="app__select"
           need-all-option
         >
           <option
@@ -41,7 +40,6 @@
             :value="filters.promoCode"
             @input="setPromoCode"
             :label="'statistics-filters.promo-code-lbl' | globalize"
-            class="app__select"
             need-all-option
           >
             <option
@@ -61,7 +59,6 @@
             :value="filters.buyRequestStatus"
             @input="setBuyRequestStatus"
             :label="'statistics-filters.buy-request-status-lbl' | globalize"
-            class="app__select"
           >
             <option
               v-for="buyRequestStatus in BUY_REQUEST_STATUSES"
@@ -118,10 +115,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      ownedAssets: vuexTypes.ownedBalancesAssets,
-      accountId: vuexTypes.accountId,
-    }),
+    ...mapGetters([
+      vuexTypes.ownedAssets,
+      vuexTypes.accountId,
+    ]),
 
     isSalesHistoryPage () {
       return this.$route.name === vueRoutes.statisticsSalesHistory.name
@@ -177,8 +174,10 @@ export default {
 
     async loadAllPromocodes () {
       const response = await api.getWithSignature(
-        `/integrations/marketplace/promocodes`,
-        { filter: { owner: this.accountId } },
+        '/integrations/marketplace/promocodes',
+        { filter: { owner: this.accountId },
+          page: { limit: 100 },
+        },
       )
       const data = await loadingDataViaLoop(response)
 
