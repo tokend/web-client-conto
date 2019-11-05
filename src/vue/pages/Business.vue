@@ -79,7 +79,6 @@ export default {
     Loader,
     NoDataMessage,
   },
-  mixins: [],
   props: {
     id: {
       type: String,
@@ -94,12 +93,8 @@ export default {
       isFailed: false,
     }
   },
-  computed: {},
-  watch: {},
   async created () {
     this.getBusiness()
-  },
-  destroyed () {
   },
   methods: {
     async getBusiness () {
