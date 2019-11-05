@@ -36,9 +36,12 @@ export const rootModule = {
       await dispatch(vuexTypes.LOAD_KV_ENTRIES)
 
       const isKycRecoveryInProgress = getters[vuexTypes.isKycRecoveryInProgress]
+      const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
 
       if (!isKycRecoveryInProgress) {
         await dispatch(vuexTypes.LOAD_KYC)
+      }
+      if (isAccountCorporate) {
         await dispatch(
           vuexTypes.LOAD_BUSINESS,
           rootGetters[vuexTypes.accountId]

@@ -177,5 +177,4 @@ $x-large: 1920px;
 @mixin list-item-count($count) {
   flex: 0 1 calc(100% / #{$count} - (#{$list-item-margin}));
   max-width: calc(100% / #{$count} - (#{$list-item-margin}));
-  
 }

@@ -1491,7 +1491,7 @@
       "transfer-lbl": "Отправить"
     },
     "promo-code-card": {
-      "discount": "Скидка:",
+      "discount": "Скидка: {{ amount, percent }}",
       "details-lbl": "Детали"
     },
     "business-card": {
