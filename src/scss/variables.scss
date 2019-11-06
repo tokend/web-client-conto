@@ -187,6 +187,11 @@ $col-no-data-message-text: $col-text;
 $col-no-data-message-description: rgba($col-text, 0.7);
 $col-no-data-message-icon-color: rgba($col-text, 0.4);
 
+// error-message colors:
+$col-error-message-text: rgba($col-error, 0.8);
+$col-error-message-description: rgba($col-error, 0.7);
+$col-error-message-icon-color: rgba($col-error, 0.4);
+
 // top bar colors
 $col-top-bar-text: $col-text;
 $col-top-bar-tab: $_lightPurple;
@@ -214,6 +219,7 @@ $col-tabs-hover-bg: rgba($col-secondary, 0.05);
 // sale card colors
 $col-sale-card-background: $_white;
 $col-sale-card-shadow: $col-block-shadow;
+
 // request colors
 $col-request-approved: $_cyan;
 $col-request-pending: $_orangePeel;
