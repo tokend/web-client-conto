@@ -3,59 +3,62 @@
     <table>
       <thead>
         <tr>
-          <th
-            :title="'statistics-general-table.asset-th' | globalize"
-          >
+          <th :title="'statistics-general-table.asset-th' | globalize">
             {{ 'statistics-general-table.asset-th' | globalize }}
           </th>
-          <th
-            :title="'statistics-general-table.total-sold-th' | globalize"
-          >
+          <th :title="'statistics-general-table.total-sold-th' | globalize">
             {{ 'statistics-general-table.total-sold-th' | globalize }}
           </th>
-          <th
-            :title="'statistics-general-table.total-proceeds-th' | globalize"
-          >
+          <th :title="'statistics-general-table.total-proceeds-th' | globalize">
             {{ 'statistics-general-table.total-proceeds-th' | globalize }}
           </th>
         </tr>
       </thead>
 
-      <tbody v-if="soldAssets.length">
-        <tr
-          v-for="soldAsset in soldAssets"
-          :key="soldAsset.id"
-        >
-          <td>
-            {{ soldAsset.assetName }}
-          </td>
-          <td>
-            {{ soldAsset.totalSold | formatMoney }}
-          </td>
-          <td>
-            {{ soldAsset.totalProceeds | formatMoney }}
-            {{ soldAsset.proceedAssetCode }}
-          </td>
-        </tr>
-      </tbody>
+      <template v-if="isLoaded">
+        <template v-if="isLoadFailed">
+          <empty-tbody-placeholder
+            :colspan="3"
+            :message="'statistics-general-table.error-msg' | globalize"
+          />
+        </template>
 
-      <empty-tbody-placeholder
-        v-else-if="isLoadFailed"
-        :colspan="3"
-        :message="'statistics-general-table.error-msg' | globalize"
-      />
+        <template v-else>
+          <template v-if="soldAssets.length">
+            <tbody>
+              <tr
+                v-for="soldAsset in soldAssets"
+                :key="soldAsset.id"
+              >
+                <td>
+                  {{ soldAsset.assetName }}
+                </td>
+                <td>
+                  {{ soldAsset.totalSold | formatMoney }}
+                </td>
+                <td>
+                  {{ soldAsset.totalProceeds | formatMoney }}
+                  {{ soldAsset.proceedAssetCode }}
+                </td>
+              </tr>
+            </tbody>
+          </template>
 
-      <empty-tbody-placeholder
-        v-else-if="isLoaded && !soldAssets.length"
-        :colspan="3"
-        :message="'statistics-general-table.no-data-msg' | globalize"
-      />
+          <template v-else>
+            <empty-tbody-placeholder
+              :colspan="3"
+              :message="'statistics-general-table.no-data-msg' | globalize"
+            />
+          </template>
+        </template>
+      </template>
 
-      <skeleton-loader-table-body
-        v-else
-        :cells="3"
-        template="smallString"
-      />
+      <template v-else>
+        <skeleton-loader-table-body
+          :cells="3"
+          template="smallString"
+        />
+      </template>
     </table>
   </div>
 </template>

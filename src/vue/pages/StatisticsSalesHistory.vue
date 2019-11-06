@@ -43,6 +43,8 @@ import { api } from '@/api'
 import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
 import { DateUtil } from '@/js/utils/date.util'
 import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
+import { vuexTypes } from '@/vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'statistics-sales-history',
@@ -66,21 +68,31 @@ export default {
     showNoAssetsMessage: false,
   }),
 
+  computed: {
+    ...mapGetters([
+      vuexTypes.accountId,
+    ]),
+  },
+
   methods: {
     async getListBuyRequests () {
       let filters = this.getFilters()
+      let response = {}
 
       try {
-        const response = await api.getWithSignature('/integrations/marketplace/buy_requests', {
-          filter: filters,
+        response = await api.getWithSignature('/integrations/marketplace/buy_requests', {
+          filter: {
+            seller: this.accountId,
+            ...filters,
+          },
         })
-
-        this.isLoaded = true
-        return response
       } catch (error) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
+
+      this.isLoaded = true
+      return response
     },
 
     setListBuyRequests (list) {
@@ -95,7 +107,6 @@ export default {
 
     reloadList () {
       this.isLoaded = false
-      this.buyRequests = []
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 

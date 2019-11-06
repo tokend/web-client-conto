@@ -33,23 +33,29 @@
       </tr>
     </thead>
 
-    <template v-if="buyRequests.length">
-      <statistics-sales-history-table-row
-        v-for="buyRequest in buyRequests"
-        :buy-request="buyRequest"
-        :key="buyRequest.id"
-      />
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <statistics-sales-history-table-empty-list-placeholder
+          :message="'statistics-sales-history-table.error-msg' | globalize"
+        />
+      </template>
+
+      <template v-else>
+        <template v-if="buyRequests.length">
+          <statistics-sales-history-table-row
+            v-for="buyRequest in buyRequests"
+            :buy-request="buyRequest"
+            :key="buyRequest.id"
+          />
+        </template>
+
+        <template v-else>
+          <statistics-sales-history-table-empty-list-placeholder
+            :message="'statistics-sales-history-table.no-data-msg' | globalize"
+          />
+        </template>
+      </template>
     </template>
-
-    <statistics-sales-history-table-empty-list-placeholder
-      v-else-if="isLoadFailed"
-      :message="'statistics-sales-history-table.error-msg' | globalize"
-    />
-
-    <statistics-sales-history-table-empty-list-placeholder
-      v-else-if="isLoaded && !buyRequests.length"
-      :message="'statistics-sales-history-table.no-data-msg' | globalize"
-    />
 
     <template v-else>
       <statistics-sales-history-table-skeleton-loader

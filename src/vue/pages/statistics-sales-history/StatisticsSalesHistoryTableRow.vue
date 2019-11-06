@@ -69,15 +69,11 @@
       class="statistics-sales-history-table-row__attributes"
     >
       <td :colspan="5">
-        <!-- eslint-disable max-len -->
-        <div
-          class="statistics-sales-history-table-row__attributes-viewer-wrp"
-        >
+        <div class="statistics-sales-history-table-row__attributes-viewer-wrp">
           <statistics-sales-history-attributes-viewer
             :buy-request="buyRequest"
           />
         </div>
-        <!-- eslint-enable max-len -->
       </td>
     </tr>
   </tbody>

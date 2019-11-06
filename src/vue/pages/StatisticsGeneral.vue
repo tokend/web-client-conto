@@ -42,6 +42,8 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { SoldAssetRecord } from '@/js/records/entities/sold-asset.record'
 import { DateUtil } from '@/js/utils/date.util'
+import { vuexTypes } from '@/vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'statistics-general',
@@ -63,21 +65,29 @@ export default {
     isLoadFailed: false,
   }),
 
+  computed: {
+    ...mapGetters([
+      vuexTypes.accountId,
+    ]),
+  },
+
   methods: {
     async getListSoldAssets () {
       let filters = this.getFilters()
-
+      let response = {}
       try {
-        const response = await api.getWithSignature('/integrations/marketplace/statistics/sold', {
-          filter: filters,
+        response = await api.getWithSignature('/integrations/marketplace/statistics/sold', {
+          filter: {
+            'account_id': this.accountId,
+            ...filters,
+          },
         })
-
-        this.isLoaded = true
-        return response
       } catch (error) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
+      this.isLoaded = true
+      return response
     },
 
     setListSoldAssets (list) {
@@ -92,7 +102,6 @@ export default {
 
     reloadList () {
       this.isLoaded = false
-      this.soldAssets = []
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 
