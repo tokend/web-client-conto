@@ -1,12 +1,19 @@
 <template>
   <div class="statistics-general">
     <statistics-filters
-      @filters-data-loaded="filtersDataLoaded = true"
-      @show-no-data-message="showNoDataMessage = true"
-      @show-request-failed-message="showRequestFailedMessage = true"
       @set-filters-and-update-list="setFiltersAndUpdateList"
+      @show-no-assets-message="showNoAssetsMessage = true"
     />
-    <template v-if="filtersDataLoaded && !showNoDataMessage">
+
+    <no-data-message
+      v-if="showNoAssetsMessage"
+      class="statistics-general__no-assets-msg"
+      icon-name="chart-areaspline"
+      :title="'statistics-general.no-assets-title' | globalize"
+      :message="'statistics-general.no-assets-msg' | globalize"
+    />
+
+    <template v-else>
       <div class="statistics-general__table-wrp">
         <statistics-general-table
           :sold-assets="soldAssets"
@@ -22,24 +29,6 @@
         ref="listCollectionLoader"
       />
     </template>
-
-    <no-data-message
-      v-else-if="filtersDataLoaded && showNoDataMessage"
-      icon-name="chart-areaspline"
-      :title="'statistics-general.no-data-title' | globalize"
-      :message="'statistics-general.no-data-msg' | globalize"
-    />
-
-    <no-data-message
-      v-else-if="!filtersDataLoaded && showRequestFailedMessage"
-      icon-name="chart-areaspline"
-      :message="'statistics-general.load-failed-msg' | globalize"
-    />
-
-    <loader
-      v-else
-      message-id="statistics-general.filters-data-loading-msg"
-    />
   </div>
 </template>
 
@@ -48,7 +37,6 @@ import CollectionLoader from '@/vue/common/CollectionLoader'
 import StatisticsGeneralTable from './statistics-general/StatisticsGeneralTable'
 import StatisticsFilters from './statistics/StatisticsFilters'
 import NoDataMessage from '@/vue/common/NoDataMessage'
-import Loader from '@/vue/common/Loader'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
@@ -62,7 +50,6 @@ export default {
     StatisticsGeneralTable,
     StatisticsFilters,
     NoDataMessage,
-    Loader,
   },
   data: _ => ({
     filters: {
@@ -71,11 +58,9 @@ export default {
       dateTo: '',
     },
     soldAssets: [],
+    showNoAssetsMessage: false,
     isLoaded: false,
     isLoadFailed: false,
-    showNoDataMessage: false,
-    showRequestFailedMessage: false,
-    filtersDataLoaded: false,
   }),
 
   methods: {
@@ -142,6 +127,10 @@ export default {
 <style lang="scss" scoped>
 .statistics-general__table-wrp {
   width: 100%;
+  margin-top: 3rem;
+}
+
+.statistics-general__no-assets-msg {
   margin-top: 3rem;
 }
 </style>

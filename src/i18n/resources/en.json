@@ -1511,10 +1511,8 @@
       "buy-request-status-lbl": "Request status"
     },
     "statistics-sales-history": {
-      "no-data-title": "No assets yet",
-      "no-data-msg": "Company don't have any assets yet.",
-      "load-failed-msg": "There was an error while loading. Please, try again later",
-      "filters-data-loading-msg": "Filters data loading..."
+      "no-assets-title": "No assets yet",
+      "no-assets-msg": "Company don't have any assets yet."
     },
     "statistics-sales-history-table": {
       "buyer-th": "Buyer",
@@ -1548,10 +1546,8 @@
       "promo-code-key":"Promo Code"
     },
     "statistics-general": {
-      "no-data-title": "No assets yet",
-      "no-data-msg": "Company don't have any assets yet.",
-      "load-failed-msg": "There was an error while loading. Please, try again later",
-      "filters-data-loading-msg": "Filters data loading..."
+      "no-assets-title": "No assets yet",
+      "no-assets-msg": "Company don't have any assets yet."
     },
     "statistics-general-table": {
       "asset-th": "Asset",

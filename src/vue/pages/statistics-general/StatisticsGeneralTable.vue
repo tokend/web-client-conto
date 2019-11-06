@@ -40,15 +40,15 @@
       </tbody>
 
       <empty-tbody-placeholder
-        v-else-if="isLoaded && !soldAssets.length"
-        :colspan="3"
-        :message="'statistics-general-table.no-data-msg' | globalize"
-      />
-
-      <empty-tbody-placeholder
         v-else-if="isLoadFailed"
         :colspan="3"
         :message="'statistics-general-table.error-msg' | globalize"
+      />
+
+      <empty-tbody-placeholder
+        v-else-if="isLoaded && !soldAssets.length"
+        :colspan="3"
+        :message="'statistics-general-table.no-data-msg' | globalize"
       />
 
       <skeleton-loader-table-body

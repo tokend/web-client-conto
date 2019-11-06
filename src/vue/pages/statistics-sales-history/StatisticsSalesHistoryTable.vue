@@ -40,14 +40,17 @@
         :key="buyRequest.id"
       />
     </template>
-    <statistics-sales-history-table-empty-list-placeholder
-      v-else-if="isLoaded && !buyRequests.length"
-      :message="'statistics-sales-history-table.no-data-msg' | globalize"
-    />
+
     <statistics-sales-history-table-empty-list-placeholder
       v-else-if="isLoadFailed"
       :message="'statistics-sales-history-table.error-msg' | globalize"
     />
+
+    <statistics-sales-history-table-empty-list-placeholder
+      v-else-if="isLoaded && !buyRequests.length"
+      :message="'statistics-sales-history-table.no-data-msg' | globalize"
+    />
+
     <template v-else>
       <statistics-sales-history-table-skeleton-loader
         v-for="index in 3"

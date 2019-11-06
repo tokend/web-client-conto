@@ -1,82 +1,82 @@
 <template>
   <div class="statistics-filters">
-    <template v-if="isLoaded && ownedAssets.length">
+    <div class="statistics-filters__filter-field">
+      <select-field
+        :value="filters.assetCode"
+        @input="setAssetCode"
+        :key="`assets-isLoaded-${isLoaded}`"
+        :disabled="isFilterDisabled"
+        :label="'statistics-filters.asset-code-lbl' | globalize"
+        need-all-option
+      >
+        <option
+          v-for="asset in ownedAssets"
+          :key="asset.code"
+          :value="asset.code"
+        >
+          {{ asset.name }}
+        </option>
+      </select-field>
+    </div>
+
+    <div class="statistics-filters__filter-field">
+      <date-field
+        v-model="filters.dateFrom"
+        :enable-time="true"
+        :disabled="isFilterDisabled"
+        :disable-after="moment().toISOString()"
+        :label="'statistics-filters.date-from-lbl' | globalize"
+      />
+    </div>
+
+    <div class="statistics-filters__filter-field">
+      <!-- eslint-disable max-len -->
+      <date-field
+        v-model="filters.dateTo"
+        :disabled="isFilterDisabled"
+        :disable-after="moment().toISOString()"
+        :enable-time="true"
+        :label="'statistics-filters.date-to-lbl' | globalize"
+      />
+      <!-- eslint-enable max-len -->
+    </div>
+
+    <template v-if="isSalesHistoryPage">
       <div class="statistics-filters__filter-field">
         <select-field
-          :value="filters.assetCode"
-          @input="setAssetCode"
-          :label="'statistics-filters.asset-code-lbl' | globalize"
+          :value="filters.promoCode"
+          :key="`promoCodes-isLoaded-${isLoaded}`"
+          :disabled="isLoadFailed || !promoCodes.length"
+          @input="setPromoCode"
+          :label="'statistics-filters.promo-code-lbl' | globalize"
           need-all-option
         >
           <option
-            v-for="asset in ownedAssets"
-            :key="asset.code"
-            :value="asset.code"
+            v-for="promoCode in promoCodes"
+            :key="promoCode.id"
+            :value="promoCode.code"
           >
-            {{ asset.name }}
+            {{ promoCode.code }}
           </option>
         </select-field>
       </div>
 
       <div class="statistics-filters__filter-field">
-        <date-field
-          :key="filters.dateTo"
-          v-model="filters.dateFrom"
-          :enable-time="true"
-          :disable-after="getDisableDate"
-          :label="'statistics-filters.date-from-lbl' | globalize"
-        />
-      </div>
-
-      <div class="statistics-filters__filter-field">
-        <!-- eslint-disable max-len -->
-        <date-field
-          :key="filters.dateFrom"
-          v-model="filters.dateTo"
-          :disable-after="moment().toString()"
-          :disable-before="moment(filters.dateFrom).subtract(1, 'days').toString()"
-          :enable-time="true"
-          :label="'statistics-filters.date-to-lbl' | globalize"
-        />
-        <!-- eslint-enable max-len -->
-      </div>
-
-      <template v-if="isSalesHistoryPage && promoCodes.length">
-        <div class="statistics-filters__filter-field">
-          <select-field
-            :value="filters.promoCode"
-            @input="setPromoCode"
-            :label="'statistics-filters.promo-code-lbl' | globalize"
-            need-all-option
+        <select-field
+          :value="filters.buyRequestStatus"
+          @input="setBuyRequestStatus"
+          :disabled="isFilterDisabled"
+          :label="'statistics-filters.buy-request-status-lbl' | globalize"
+        >
+          <option
+            v-for="buyRequestStatus in BUY_REQUEST_STATUSES"
+            :key="buyRequestStatus.value"
+            :value="buyRequestStatus.value"
           >
-            <option
-              v-for="promoCode in promoCodes"
-              :key="promoCode.id"
-              :value="promoCode.code"
-            >
-              {{ promoCode.code }}
-            </option>
-          </select-field>
-        </div>
-      </template>
-
-      <template v-if="isSalesHistoryPage">
-        <div class="statistics-filters__filter-field">
-          <select-field
-            :value="filters.buyRequestStatus"
-            @input="setBuyRequestStatus"
-            :label="'statistics-filters.buy-request-status-lbl' | globalize"
-          >
-            <option
-              v-for="buyRequestStatus in BUY_REQUEST_STATUSES"
-              :key="buyRequestStatus.value"
-              :value="buyRequestStatus.value"
-            >
-              {{ buyRequestStatus.labelTranslationId | globalize }}
-            </option>
-          </select-field>
-        </div>
-      </template>
+            {{ buyRequestStatus.labelTranslationId | globalize }}
+          </option>
+        </select-field>
+      </div>
     </template>
   </div>
 </template>
@@ -93,10 +93,8 @@ import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
 import { vueRoutes } from '@/vue-router/routes'
 
 const EVENTS = {
-  filtersDataLoaded: 'filters-data-loaded',
   setFiltersAndUpdateList: 'set-filters-and-update-list',
-  showNoDataMessage: 'show-no-data-message',
-  showRequestFailedMessage: 'show-request-failed-message',
+  showNoAssetsMessage: 'show-no-assets-message',
 }
 
 export default {
@@ -117,6 +115,7 @@ export default {
         buyRequestStatus: BUY_REQUEST_STATUSES.paid.value,
       },
       promoCodes: [],
+      isLoadFailed: false,
       isLoaded: false,
       BUY_REQUEST_STATUSES,
       moment,
@@ -133,10 +132,8 @@ export default {
       return this.$route.name === vueRoutes.statisticsSalesHistory.name
     },
 
-    getDisableDate () {
-      return this.filters.dateTo
-        ? moment(this.filters.dateTo).toString()
-        : moment().toString()
+    isFilterDisabled () {
+      return Boolean(!this.ownedAssets.length || this.isLoadFailed)
     },
   },
 
@@ -151,9 +148,7 @@ export default {
 
   async created () {
     await this.loadFiltersData()
-    if (!this.ownedAssets.length) {
-      this.$emit(EVENTS.showNoDataMessage)
-    }
+    this.isLoaded = true
   },
 
   methods: {
@@ -176,13 +171,15 @@ export default {
     async loadFiltersData () {
       try {
         await this.loadAccountBalancesDetails()
+        if (!this.ownedAssets.length) {
+          this.$emit(EVENTS.showNoAssetsMessage)
+          return
+        }
         if (this.isSalesHistoryPage) {
           await this.loadAllPromocodes()
         }
-        this.isLoaded = true
-        this.$emit(EVENTS.filtersDataLoaded)
       } catch (e) {
-        this.$emit(EVENTS.showRequestFailedMessage)
+        this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
       }
     },

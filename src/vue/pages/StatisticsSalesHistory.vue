@@ -1,12 +1,19 @@
 <template>
   <div class="statistics-sales-history">
     <statistics-filters
-      @filters-data-loaded="filtersDataLoaded = true"
-      @show-no-data-message="showNoDataMessage = true"
-      @show-request-failed-message="showRequestFailedMessage = true"
       @set-filters-and-update-list="setFiltersAndUpdateList"
+      @show-no-assets-message="showNoAssetsMessage = true"
     />
-    <template v-if="filtersDataLoaded && !showNoDataMessage">
+
+    <no-data-message
+      v-if="showNoAssetsMessage"
+      class="statistics-sales-history__no-assets-msg"
+      icon-name="chart-areaspline"
+      :title="'statistics-sales-history.no-assets-title' | globalize"
+      :message="'statistics-sales-history.no-assets-msg' | globalize"
+    />
+
+    <template v-else>
       <div class="statistics-sales-history__list-wrp">
         <statistics-sales-history-table
           :buy-requests="buyRequests"
@@ -22,24 +29,6 @@
         ref="listCollectionLoader"
       />
     </template>
-
-    <no-data-message
-      v-else-if="filtersDataLoaded && showNoDataMessage"
-      icon-name="chart-areaspline"
-      :title="'statistics-sales-history.no-data-title' | globalize"
-      :message="'statistics-sales-history.no-data-msg' | globalize"
-    />
-
-    <no-data-message
-      v-else-if="!filtersDataLoaded && showRequestFailedMessage"
-      icon-name="chart-areaspline"
-      :message="'statistics-sales-history.load-failed-msg' | globalize"
-    />
-
-    <loader
-      v-else
-      message-id="statistics-sales-history.filters-data-loading-msg"
-    />
   </div>
 </template>
 
@@ -48,12 +37,12 @@ import CollectionLoader from '@/vue/common/CollectionLoader'
 import StatisticsSalesHistoryTable from './statistics-sales-history/StatisticsSalesHistoryTable'
 import StatisticsFilters from './statistics/StatisticsFilters'
 import NoDataMessage from '@/vue/common/NoDataMessage'
-import Loader from '@/vue/common/Loader'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
 import { DateUtil } from '@/js/utils/date.util'
+import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
 
 export default {
   name: 'statistics-sales-history',
@@ -62,7 +51,6 @@ export default {
     StatisticsSalesHistoryTable,
     StatisticsFilters,
     NoDataMessage,
-    Loader,
   },
   data: _ => ({
     filters: {
@@ -70,14 +58,12 @@ export default {
       dateFrom: '',
       dateTo: '',
       promoCode: '',
-      buyRequestStatus: '',
+      buyRequestStatus: BUY_REQUEST_STATUSES.paid.value,
     },
     buyRequests: [],
     isLoaded: false,
     isLoadFailed: false,
-    showNoDataMessage: false,
-    showRequestFailedMessage: false,
-    filtersDataLoaded: false,
+    showNoAssetsMessage: false,
   }),
 
   methods: {
@@ -155,6 +141,10 @@ export default {
 .statistics-sales-history__list-wrp {
   overflow-x: auto;
   width: 100%;
+  margin-top: 3rem;
+}
+
+.statistics-sales-history__no-assets-msg {
   margin-top: 3rem;
 }
 </style>
