@@ -33,64 +33,26 @@
       </tr>
     </thead>
 
-    <template v-if="isLoaded">
-      <template v-if="isLoadFailed">
-        <statistics-sales-history-table-empty-list-placeholder
-          :message="'statistics-sales-history-table.error-msg' | globalize"
-        />
-      </template>
-
-      <template v-else>
-        <template v-if="buyRequests.length">
-          <statistics-sales-history-table-row
-            v-for="buyRequest in buyRequests"
-            :buy-request="buyRequest"
-            :key="buyRequest.id"
-          />
-        </template>
-
-        <template v-else>
-          <statistics-sales-history-table-empty-list-placeholder
-            :message="'statistics-sales-history-table.no-data-msg' | globalize"
-          />
-        </template>
-      </template>
-    </template>
-
-    <template v-else>
-      <statistics-sales-history-table-skeleton-loader
-        v-for="index in 3"
-        :key="index"
-      />
-    </template>
+    <statistics-sales-history-table-row
+      v-for="buyRequest in buyRequests"
+      :buy-request="buyRequest"
+      :key="buyRequest.id"
+    />
   </table>
 </template>
 
 <script>
 import StatisticsSalesHistoryTableRow from './StatisticsSalesHistoryTableRow'
-import StatisticsSalesHistoryTableSkeletonLoader from './StatisticsSalesHistoryTableSkeletonLoader'
-import StatisticsSalesHistoryTableEmptyListPlaceholder from './StatisticsSalesHistoryTableEmptyListPlaceholder'
 
 export default {
   name: 'statistics-sales-history-table',
   components: {
     StatisticsSalesHistoryTableRow,
-    StatisticsSalesHistoryTableSkeletonLoader,
-    StatisticsSalesHistoryTableEmptyListPlaceholder,
   },
   props: {
     buyRequests: {
       type: Array, /** {@link BuyRequestRecord} **/
       required: true,
-    },
-    isLoaded: {
-      type: Boolean,
-      require: true,
-    },
-
-    isLoadFailed: {
-      type: Boolean,
-      require: true,
     },
   },
 }

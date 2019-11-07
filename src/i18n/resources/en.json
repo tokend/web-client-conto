@@ -1512,15 +1512,16 @@
     },
     "statistics-sales-history": {
       "no-assets-title": "No assets yet",
-      "no-assets-msg": "Company don't have any assets yet."
+      "no-assets-msg": "Company don't have any assets yet.",
+      "no-data-title": "No sales history",
+      "no-data-msg": "Here will be your sales history",
+      "error-msg": "An error occurred while loading the list."
     },
     "statistics-sales-history-table": {
       "buyer-th": "Buyer",
       "date-th": "Date",
       "amount-th": "Amount",
-      "status-th": "Status",
-      "no-data-msg": "Here will be your sales history",
-      "error-msg": "An error occurred while loading the list."
+      "status-th": "Status"
     },
     "select-field": {
       "all-option": "All"

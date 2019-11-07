@@ -132,6 +132,7 @@ export default {
 
     reloadList () {
       this.isLoaded = false
+      this.isLoadFailed = false
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 

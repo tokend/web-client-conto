@@ -1512,15 +1512,16 @@
     },
     "statistics-sales-history": {
       "no-assets-title": "Нет активов",
-      "no-assets-msg": "У компании еще нет активов."
+      "no-assets-msg": "У компании еще нет активов.",
+      "no-data-title": "Нет истории продаж",
+      "no-data-msg": "Здесь будет история продаж.",
+      "error-msg":"Произошла ошибка при загрузке списка."
     },
     "statistics-sales-history-table": {
       "buyer-th": "Покупатель",
       "date-th": "Дата",
       "amount-th": "Количество",
-      "status-th": "Статус",
-      "no-data-msg": "Здесь будет история продаж.",
-      "error-msg":"Произошла ошибка при загрузке списка."
+      "status-th": "Статус"
     },
     "select-field": {
       "all-option": "Все"
@@ -1548,7 +1549,7 @@
     "statistics-general": {
       "no-assets-title": "Нет активов",
       "no-assets-msg": "У компании еще нет активов.",
-      "no-data-title": "Нет история проданных активов",
+      "no-data-title": "Нет истории проданных активов",
       "no-data-msg": "Здесь будет история проданных активов.",
       "error-msg": "Произошла ошибка при загрузке списка."
     },

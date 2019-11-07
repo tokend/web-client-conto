@@ -5,12 +5,37 @@
     />
 
     <template v-if="isHaveAssets">
-      <div class="statistics-sales-history__list-wrp">
-        <statistics-sales-history-table
-          :buy-requests="buyRequests"
-          :is-loaded="isLoaded"
-          :is-load-failed="isLoadFailed"
-        />
+      <div class="statistics-sales-history__table-wrp">
+        <template v-if="isLoaded">
+          <template v-if="isLoadFailed">
+            <error-message
+              :message="'statistics-sales-history.error-msg' | globalize"
+            />
+          </template>
+
+          <template v-else>
+            <template v-if="buyRequests.length">
+              <statistics-sales-history-table
+                :buy-requests="buyRequests"
+              />
+            </template>
+
+            <template v-else>
+              <no-data-message
+                icon-name="chart-areaspline"
+                :title="'statistics-sales-history.no-data-title' | globalize"
+                :message="'statistics-sales-history.no-data-msg' | globalize"
+              />
+            </template>
+          </template>
+        </template>
+
+        <template v-else>
+          <skeleton-loader-table
+            :cells="5"
+            need-button
+          />
+        </template>
       </div>
       <collection-loader
         v-show="buyRequests.length"
@@ -36,6 +61,8 @@ import CollectionLoader from '@/vue/common/CollectionLoader'
 import StatisticsSalesHistoryTable from './statistics-sales-history/StatisticsSalesHistoryTable'
 import StatisticsFilters from './statistics/StatisticsFilters'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
@@ -52,6 +79,8 @@ export default {
     StatisticsSalesHistoryTable,
     StatisticsFilters,
     NoDataMessage,
+    ErrorMessage,
+    SkeletonLoaderTable,
   },
   data: _ => ({
     filters: {
@@ -110,6 +139,7 @@ export default {
 
     reloadList () {
       this.isLoaded = false
+      this.isLoadFailed = false
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 
@@ -152,7 +182,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.statistics-sales-history__list-wrp {
+.statistics-sales-history__table-wrp {
   overflow-x: auto;
   width: 100%;
   margin-top: 3rem;
