@@ -1547,14 +1547,15 @@
     },
     "statistics-general": {
       "no-assets-title": "No assets yet",
-      "no-assets-msg": "Company don't have any assets yet."
+      "no-assets-msg": "Company don't have any assets yet.",
+      "no-data-title": "No sold assets history yet",
+      "no-data-msg": "Here will be your sold assets history",
+      "error-msg":"An error occurred while loading the list."
     },
     "statistics-general-table": {
       "asset-th": "Asset",
       "total-sold-th": "Total sold",
-      "total-proceeds-th": "Total proceeds",
-      "no-data-msg": "Here will be your sold asset history",
-      "error-msg":"An error occurred while loading the list."
+      "total-proceeds-th": "Total proceeds"
     }
   }
 }

@@ -6,12 +6,35 @@
 
     <template v-if="isHaveAssets">
       <div class="statistics-general__table-wrp">
-        <statistics-general-table
-          :sold-assets="soldAssets"
-          :is-loaded="isLoaded"
-          :is-load-failed="isLoadFailed"
-        />
+        <template v-if="isLoaded">
+          <template v-if="isLoadFailed">
+            <error-message
+              :message="'statistics-general.error-msg' | globalize"
+            />
+          </template>
+
+          <template v-else>
+            <template v-if="soldAssets.length">
+              <statistics-general-table
+                :sold-assets="soldAssets"
+              />
+            </template>
+
+            <template v-else>
+              <no-data-message
+                icon-name="chart-areaspline"
+                :title="'statistics-general.no-data-title' | globalize"
+                :message="'statistics-general.no-data-msg' | globalize"
+              />
+            </template>
+          </template>
+        </template>
+
+        <template v-else>
+          <skeleton-loader-table :cells="3" />
+        </template>
       </div>
+
       <collection-loader
         v-show="soldAssets.length"
         :first-page-loader="getListSoldAssets"
@@ -36,6 +59,8 @@ import CollectionLoader from '@/vue/common/CollectionLoader'
 import StatisticsGeneralTable from './statistics-general/StatisticsGeneralTable'
 import StatisticsFilters from './statistics/StatisticsFilters'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
@@ -51,6 +76,8 @@ export default {
     StatisticsGeneralTable,
     StatisticsFilters,
     NoDataMessage,
+    ErrorMessage,
+    SkeletonLoaderTable,
   },
   data: _ => ({
     filters: {
