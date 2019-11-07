@@ -99,7 +99,7 @@ export default {
     },
 
     asset () {
-      return this.assetByCode(this.assetCode)
+      return this.balance.asset
     },
   },
 }
