@@ -972,7 +972,8 @@
       "logo-note": "JPG или PNG, не менее 120x120 пикселей",
       "transferable-lbl": "Можно передавать",
       "description-lbl": "Описание",
-      "update-btn": "Обновить"
+      "update-btn": "Обновить",
+      "expiration-date-lbl": "Дата истечения срока действия"
     },
     "assets-list": {
       "update-asset-title": "Обновить актив",
@@ -1153,7 +1154,8 @@
       "vendor-code": "Артикул",
       "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
       "can-be-quote-in-atomic-swap-title": "Может быть котируемым активом в предложении",
-      "delete-asset-message": "Вы действительно хотите удалить актив?"
+      "delete-asset-message": "Вы действительно хотите удалить актив?",
+      "expiration-date-title": "Действителен до"
     },
     "warning-banner": {
       "blocked-desc": "Ваш аккаунт был заблокирован администратором. Причина блокировки: {{reason}}",

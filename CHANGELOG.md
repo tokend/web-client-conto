@@ -14,6 +14,7 @@ for further information about branching and tagging conventions.
 - New component 'Card' for displaying all card
 - Skeleton loader for new component 'Card'
 - Global class for markdown `app__markdown`
+- Expiration date for assets
 
 #### Removed
 - `card-viewer`

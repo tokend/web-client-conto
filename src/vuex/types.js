@@ -240,6 +240,7 @@ const getters = {
   baseAtomicSwapBalancesAssets: 'baseAtomicSwapBalancesAssets',
   quoteAtomicSwapAssets: 'quoteAtomicSwapAssets',
   baseAssets: 'baseAssets',
+  activeOwnedAssets: 'activeOwnedAssets',
 
   // idle-handler
   logoutAt: 'logoutAt',

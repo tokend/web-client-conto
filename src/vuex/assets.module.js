@@ -55,6 +55,10 @@ export const getters = {
     getters[vuexTypes.assets]
       .filter(item => item.owner === rootGetters[vuexTypes.accountId]),
 
+  [vuexTypes.activeOwnedAssets]: (a, getters) =>
+    getters[vuexTypes.ownedAssets]
+      .filter(item => item.isActive),
+
   [vuexTypes.balancesAssets]: (a, getters, b, rootGetters) => {
     return rootGetters[vuexTypes.accountBalances]
       .map(item => item.asset)

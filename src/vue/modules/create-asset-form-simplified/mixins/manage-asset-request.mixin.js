@@ -100,7 +100,10 @@ export default {
           terms: this.$getDocumentDetailsOrEmptyDocument(terms),
           stellar: {},
           description: this.collectedAttributes.description,
-          'expires_at': DateUtil.toTimestamp(this.collectedAttributes.expirationDate),
+          ...(this.collectedAttributes.expirationDate
+            ? { 'expires_at': DateUtil.toTimestamp(this.collectedAttributes.expirationDate) }
+            : {}
+          ),
         },
       }
 

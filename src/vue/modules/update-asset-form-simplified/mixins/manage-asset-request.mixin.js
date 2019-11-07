@@ -8,6 +8,7 @@ import { UpdateAssetRequest } from '../wrappers/update-asset-request'
 import { DocumentContainer } from '@/js/helpers/DocumentContainer'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex/index'
+import { DateUtil } from '@/js/utils'
 
 const NEW_UPDATE_ASSET_REQUEST_ID = '0'
 
@@ -96,6 +97,10 @@ export default {
           terms: this.$getDocumentDetailsOrEmptyDocument(terms),
           description: this.collectedAttributes.description,
           stellar: {},
+          ...(this.collectedAttributes.expirationDate
+            ? { 'expires_at': DateUtil.toTimestamp(this.collectedAttributes.expirationDate) }
+            : {}
+          ),
         },
       }
 

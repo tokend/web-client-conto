@@ -86,9 +86,9 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      ownedAssets: vuexTypes.ownedAssets,
-    }),
+    ...mapGetters([
+      vuexTypes.activeOwnedAssets,
+    ]),
   },
 
   watch: {
@@ -126,7 +126,7 @@ export default {
     },
 
     getSelectionOptions () {
-      return this.ownedAssets.map(asset => {
+      return this.activeOwnedAssets.map(asset => {
         return {
           name: asset.name,
           value: asset.code,
