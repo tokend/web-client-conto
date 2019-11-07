@@ -1,33 +1,35 @@
 <template>
   <div class="businesses-my">
-    <template v-if="isLoaded && myBusinesses.length">
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="item in myBusinesses"
-          :key="item.accountId"
-        >
-          <business-card
-            :business="item"
-            @vue-details="selectItem(item)"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'businesses-my.loading-error-msg' | globalize" />
+      </template>
+      <template v-else>
+        <template v-if="myBusinesses.length">
+          <div class="app__card-list">
+            <div
+              class="app__card-list-item"
+              v-for="item in myBusinesses"
+              :key="item.accountId"
+            >
+              <business-card
+                :business="item"
+                @vue-details="selectItem(item)"
+              />
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <no-data-message
+            class="businesses-my__no-data-message"
+            icon-name="domain"
+            :title="'businesses-my.no-list-title' | globalize"
+            :message="'businesses-my.no-list-msg' | globalize"
           />
-        </div>
-      </div>
+        </template>
+      </template>
     </template>
-
-    <template v-else-if="isLoadingFailed">
-      <p>{{ 'businesses-my.loading-error-msg' | globalize }}</p>
-    </template>
-
-    <template v-else-if="!myBusinesses.length && isLoaded">
-      <no-data-message
-        class="businesses-my__no-data-message"
-        icon-name="domain"
-        :title="'businesses-my.no-list-title' | globalize"
-        :message="'businesses-my.no-list-msg' | globalize"
-      />
-    </template>
-
     <template v-else>
       <skeleton-cards-loader />
     </template>
@@ -36,6 +38,7 @@
 
 <script>
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 import BusinessCard from './businesses-all/BusinessCard'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 
@@ -51,12 +54,13 @@ export default {
     BusinessCard,
     SkeletonCardsLoader,
     NoDataMessage,
+    ErrorMessage,
   },
 
   data () {
     return {
       isLoaded: false,
-      isLoadingFailed: false,
+      isLoadFailed: false,
     }
   },
 
@@ -70,11 +74,11 @@ export default {
   async created () {
     try {
       await this.loadMyBusinesses()
-      this.isLoaded = true
     } catch (error) {
-      this.isLoadingFailed = true
+      this.isLoadFailed = true
       ErrorHandler.processWithoutFeedback(error)
     }
+    this.isLoaded = true
   },
 
   methods: {

@@ -462,6 +462,19 @@ h6.app__page-heading {
   }
 }
 
+.app__multiselect-field {
+
+  &--no-border {
+    // to remove the borders and background of the multiselect
+    .multiselect-field__select {
+      border-bottom: 0 !important;
+      background-size: 0 !important;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
 .app__card-list-item {
   margin: $list-item-margin 0 0 $list-item-margin;
   width: calc(100% + #{$list-item-margin});

@@ -1,34 +1,35 @@
 <template>
   <div class="assets-explorer">
-    <template v-if="isLoaded && accountBalances.length">
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="accountBalance in accountBalances"
-          :key="accountBalance.id"
-        >
-          <asset-card
-            :balance="accountBalance"
-            @transfer="transfer"
-            @vue-details="selectBalance(accountBalance)"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'assets.loading-error-msg' | globalize" />
+      </template>
+      <template v-else>
+        <template v-if="accountBalances.length">
+          <div class="app__card-list">
+            <div
+              class="app__card-list-item"
+              v-for="accountBalance in accountBalances"
+              :key="accountBalance.id"
+            >
+              <asset-card
+                :balance="accountBalance"
+                @transfer="transfer"
+                @vue-details="selectBalance(accountBalance)"
+              />
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <no-data-message
+            icon-name="trending-up"
+            :title="'assets.no-assets-title' | globalize"
+            :message="'assets.no-assets-msg' | globalize"
           />
-        </div>
-      </div>
+        </template>
+      </template>
     </template>
-
-    <no-data-message
-      v-else-if="isLoaded && !accountBalances.length"
-      icon-name="trending-up"
-      :title="'assets.no-assets-title' | globalize"
-      :message="'assets.no-assets-msg' | globalize"
-    />
-
-    <template v-else-if="isLoadFailed">
-      <p class="assets-explorer__error-msg">
-        {{ 'assets.loading-error-msg' | globalize }}
-      </p>
-    </template>
-
     <template v-else>
       <skeleton-cards-loader />
     </template>
@@ -85,6 +86,7 @@
 <script>
 import Drawer from '@/vue/common/Drawer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import AssetAttributesViewer from '../shared/components/asset-attributes-viewer'
 import AssetActions from './components/asset-actions'
@@ -104,6 +106,7 @@ export default {
   components: {
     Drawer,
     NoDataMessage,
+    ErrorMessage,
     AssetAttributesViewer,
     AssetActions,
     SkeletonCardsLoader,
@@ -166,17 +169,15 @@ export default {
   async created () {
     try {
       await this.loadAccountBalances()
-      this.isLoaded = true
+      Bus.on('assets:setBusinessOwnerId', id => {
+        this.businessOwnerId = id || ''
+      })
+      this.listenUpdateList('assets:updateList', this.loadAccountBalancesAndSetSelectedBalance)
     } catch (e) {
       this.isLoadFailed = true
-      ErrorHandler.processWithoutFeedback()
+      ErrorHandler.processWithoutFeedback(e)
     }
-
-    Bus.on('assets:setBusinessOwnerId', id => {
-      this.businessOwnerId = id || ''
-    })
-
-    this.listenUpdateList('assets:updateList', this.loadAccountBalancesAndSetSelectedBalance)
+    this.isLoaded = true
   },
 
   beforeDestroy () {

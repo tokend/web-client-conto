@@ -32,6 +32,9 @@ import VerificationCorporate from '@/vue/pages/VerificationCorporate'
 import VerificationGeneral from '@/vue/pages/VerificationGeneral'
 import PromoCodes from '@/vue/pages/PromoCodes'
 import PromoCodesList from '@/vue/pages/PromoCodesList'
+import Statistics from '@/vue/pages/Statistics'
+import StatisticsSalesHistory from '@/vue/pages/StatisticsSalesHistory'
+import StatisticsGeneral from '@/vue/pages/StatisticsGeneral'
 
 Vue.use(Router)
 
@@ -216,6 +219,35 @@ const router = new Router({
               path: '/promo-codes/list',
               name: vueRoutes.promoCodesList.name,
               component: PromoCodesList,
+              beforeEnter: inAppRouteGuard,
+              meta: {
+                isCorporateOnly: true,
+              },
+            },
+          ],
+        },
+        {
+          path: '/statistics',
+          name: vueRoutes.statistics.name,
+          meta: {
+            pageNameTranslationId: 'pages-names.statistics',
+          },
+          component: Statistics,
+          redirect: vueRoutes.statisticsSalesHistory,
+          children: [
+            {
+              path: '/statistics/sales-history',
+              name: vueRoutes.statisticsSalesHistory.name,
+              component: StatisticsSalesHistory,
+              beforeEnter: inAppRouteGuard,
+              meta: {
+                isCorporateOnly: true,
+              },
+            },
+            {
+              path: '/statistics/general',
+              name: vueRoutes.statisticsGeneral.name,
+              component: StatisticsGeneral,
               beforeEnter: inAppRouteGuard,
               meta: {
                 isCorporateOnly: true,

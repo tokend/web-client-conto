@@ -646,7 +646,8 @@
       "sponsorship": "Спонсорство",
       "atomic-swaps": "Магазин",
       "kyc-recovery": "Восстановление по KYC",
-      "promo-codes": "Промокоды"
+      "promo-codes": "Промокоды",
+      "statistics": "Статистика"
     },
     "passport": {
       "account-us-accredited": "Аккредитованный инвестор (США)",
@@ -1413,8 +1414,8 @@
     },
     "multiselect-field": {
       "select-all": "Выбрать все",
-      "all-selected-lable": "Выбрано все",
-      "select-something-lable": "Выберите что-то..."
+      "all-selected-value-label": "Выбрано все",
+      "select-something-value-label": "Выберите что-то..."
     },
     "redeem-form": {
       "form-heading": "Погашение",
@@ -1501,8 +1502,64 @@
       "add-lbl": "Добавить",
       "details-lbl": "Детали"
     },
+    "statistics-page": {
+      "sales-history-tab": "История продаж",
+      "general-tab": "Общая статистика"
+    },
+    "statistics-filters": {
+      "asset-code-lbl": "Код актива",
+      "promo-code-lbl": "Промокод",
+      "date-from-lbl": "Начало периода",
+      "date-to-lbl": "Конец периода",
+      "buy-request-status-lbl": "Статус запроса"
+    },
+    "statistics-sales-history": {
+      "no-assets-title": "Нет активов",
+      "no-assets-msg": "У компании еще нет активов.",
+      "no-data-title": "Нет истории продаж",
+      "no-data-msg": "Здесь будет история продаж.",
+      "error-msg":"Произошла ошибка при загрузке списка."
+    },
+    "statistics-sales-history-table": {
+      "buyer-th": "Покупатель",
+      "date-th": "Дата",
+      "amount-th": "Количество",
+      "status-th": "Статус"
+    },
     "select-field": {
       "all-option": "Все"
+    },
+    "statistics-sales-history-table-row": {
+      "rejected-status-td": "Отклонен",
+      "paid-status-td": "Оплачен",
+      "timeout-status-td": "Не оплачен",
+      "pending-status-th": "Ожидание оплаты"
+    },
+    "buy-request-statuses": {
+      "rejected": "Отклонен",
+      "paid": "Оплачен",
+      "timeout": "Не оплачен",
+      "pending": "Ожидание оплаты"
+    },
+    "statistics-sales-history-attributes-viewer": {
+      "date-key":"Дата",
+      "amount-key":"Количество",
+      "discount-key":"Скидка",
+      "total-price-key":"Итоговая цена",
+      "buyer-key":"Покупатель",
+      "promo-code-key":"Промокод"
+    },
+    "statistics-general": {
+      "no-assets-title": "Нет активов",
+      "no-assets-msg": "У компании еще нет активов.",
+      "no-data-title": "Нет истории проданных активов",
+      "no-data-msg": "Здесь будет история проданных активов.",
+      "error-msg": "Произошла ошибка при загрузке списка."
+    },
+    "statistics-general-table": {
+      "asset-th": "Актив",
+      "total-sold-th": "Всего продано",
+      "total-proceeds-th": "Общий доход"
     }
   }
 }

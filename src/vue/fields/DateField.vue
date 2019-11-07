@@ -319,6 +319,10 @@ export default {
   filter: grayscale(100%);
   -webkit-text-fill-color: $field-color-unfocused;
   color: $field-color-unfocused;
+
+  .date-field-flatpickr__input {
+    @include readonly-material-border($field-color-unfocused);
+  }
 }
 
 .date-field-flatpickr__label {

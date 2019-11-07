@@ -25,12 +25,10 @@
       v-bind="$attrs"
       @change="onChange"
     >
-      <option
-        v-if="needAllOption"
-        value=""
-      >
+      <option v-if="needAllOption" value="">
         {{ 'select-field.all-option' | globalize }}
       </option>
+
       <slot />
     </select>
 
@@ -207,6 +205,10 @@ export default {
 }
 
 .select-field__opener span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   @include text-font-sizes;
 }
 
