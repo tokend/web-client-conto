@@ -87,12 +87,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      businessStatsQuoteAsset: vuexTypes.businessStatsQuoteAsset,
-      isAccountCorporate: vuexTypes.isAccountCorporate,
-      accountBalanceByCode: vuexTypes.accountBalanceByCode,
-      assetByCode: vuexTypes.assetByCode,
-    }),
+    ...mapGetters([
+      vuexTypes.businessStatsQuoteAsset,
+      vuexTypes.isAccountCorporate,
+      vuexTypes.accountBalanceByCode,
+      vuexTypes.assetByCode,
+    ]),
 
     balance () {
       return this.accountBalanceByCode(this.assetCode)
