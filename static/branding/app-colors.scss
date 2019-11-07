@@ -25,3 +25,6 @@ $col-top-bar-background: #ffffff;
 $col-text-secondary: #837fa1;
 $col-btn-txt: #ffffff;
 $col-message-box-text: #ffffff;
+
+$statistics-table-row-btn-hover-bg: darken($col-app-content-background, 3%);
+$statistics-table-row-btn-active-bg: darken($col-app-content-background, 10%);

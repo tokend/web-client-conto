@@ -3,6 +3,7 @@
     <top-bar>
       <template slot="main">
         <multi-select-field
+          class="app__multiselect-field--no-border"
           v-if="selectionOptions.length"
           @selected="emitSelectedBalances"
           :options="selectionOptions"

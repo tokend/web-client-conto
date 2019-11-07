@@ -642,7 +642,8 @@
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
       "kyc-recovery": "KYC Recovery",
-      "promo-codes": "Promo Codes"
+      "promo-codes": "Promo Codes",
+      "statistics": "Statistics"
     },
     "passport": {
       "account-unverified": "General account",
@@ -1410,8 +1411,8 @@
     },
     "multiselect-field": {
       "select-all": "Select all",
-      "all-selected-lable": "All selected",
-      "select-something-lable": "Select something..."
+      "all-selected-value-label": "All selceted",
+      "select-something-value-label": "Select something..."
     },
     "redeem-form": {
       "form-heading": "Redeem",
@@ -1498,8 +1499,64 @@
       "business-filter-label": "Company",
       "asset-filter-label": "Asset"
     },
+    "statistics-page": {
+      "sales-history-tab": "Sales history",
+      "general-tab": "General statistics"
+    },
+    "statistics-filters": {
+      "asset-code-lbl": "Asset code",
+      "promo-code-lbl": "Promo Code",
+      "date-from-lbl": "Period start",
+      "date-to-lbl": "Period end",
+      "buy-request-status-lbl": "Request status"
+    },
+    "statistics-sales-history": {
+      "no-assets-title": "No assets yet",
+      "no-assets-msg": "Company don't have any assets yet.",
+      "no-data-title": "No sales history",
+      "no-data-msg": "Here will be your sales history",
+      "error-msg": "An error occurred while loading the list."
+    },
+    "statistics-sales-history-table": {
+      "buyer-th": "Buyer",
+      "date-th": "Date",
+      "amount-th": "Amount",
+      "status-th": "Status"
+    },
     "select-field": {
       "all-option": "All"
+    },
+    "statistics-sales-history-table-row": {
+      "rejected-status-td": "Rejected",
+      "paid-status-td": "Paid",
+      "timeout-status-td": "Not paid",
+      "pending-status-th": "Pending"
+    },
+    "buy-request-statuses": {
+      "rejected": "Rejected",
+      "paid": "Paid",
+      "timeout": "Not paid",
+      "pending": "Pending"
+    },
+    "statistics-sales-history-attributes-viewer": {
+      "date-key":"Date",
+      "amount-key":"Amount",
+      "discount-key":"Discount",
+      "total-price-key":"Total price",
+      "buyer-key":"Buyer",
+      "promo-code-key":"Promo Code"
+    },
+    "statistics-general": {
+      "no-assets-title": "No assets yet",
+      "no-assets-msg": "Company don't have any assets yet.",
+      "no-data-title": "No sold assets history yet",
+      "no-data-msg": "Here will be your sold assets history",
+      "error-msg":"An error occurred while loading the list."
+    },
+    "statistics-general-table": {
+      "asset-th": "Asset",
+      "total-sold-th": "Total sold",
+      "total-proceeds-th": "Total proceeds"
     }
   }
 }

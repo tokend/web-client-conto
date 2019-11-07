@@ -140,6 +140,21 @@
               {{ 'pages-names.promo-codes' | globalize }}
             </span>
           </router-link>
+          <router-link
+            v-if="isAccessibleForCorporate"
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.statistics"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-chart-areaspline"
+            />
+            <span>
+              {{ 'pages-names.statistics' | globalize }}
+            </span>
+          </router-link>
         </nav>
         <nav
           class="sidebar__links-group"
