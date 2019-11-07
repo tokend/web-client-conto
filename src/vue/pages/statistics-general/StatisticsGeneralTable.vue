@@ -31,7 +31,7 @@
                 :key="soldAsset.id"
               >
                 <td>
-                  {{ soldAsset.assetName }}
+                  {{ assetByCode(soldAsset.assetCode).name }}
                 </td>
                 <td>
                   {{ soldAsset.totalSold | formatMoney }}
@@ -66,6 +66,8 @@
 <script>
 import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
 import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'statistics-general-table',
@@ -87,6 +89,12 @@ export default {
       type: Boolean,
       require: true,
     },
+  },
+
+  computed: {
+    ...mapGetters([
+      vuexTypes.assetByCode,
+    ]),
   },
 }
 </script>

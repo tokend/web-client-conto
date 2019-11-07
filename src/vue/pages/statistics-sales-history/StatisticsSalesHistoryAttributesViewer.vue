@@ -17,8 +17,8 @@
             {{ 'statistics-sales-history-attributes-viewer.amount-key' | globalize }}
           </td>
           <td class="statistics-sales-history-attributes-viewer__table-cell">
-            <!-- eslint-disable-next-line max-len -->
-            {{ buyRequest.amount | formatMoney }} {{ buyRequest.boughtAssetName }}
+            {{ buyRequest.amount | formatMoney }}
+            {{ assetByCode(buyRequest.boughtAssetCode).name }}
           </td>
         </tr>
         <tr
@@ -77,6 +77,8 @@
 <script>
 import EmailGetter from '@/vue/common/EmailGetter'
 import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'statistics-sales-history-attributes-viewer',
@@ -90,6 +92,12 @@ export default {
       type: BuyRequestRecord,
       required: true,
     },
+  },
+
+  computed: {
+    ...mapGetters([
+      vuexTypes.assetByCode,
+    ]),
   },
 }
 </script>

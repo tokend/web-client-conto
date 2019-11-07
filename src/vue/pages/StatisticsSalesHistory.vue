@@ -2,18 +2,9 @@
   <div class="statistics-sales-history">
     <statistics-filters
       @set-filters-and-update-list="setFiltersAndUpdateList"
-      @show-no-assets-message="showNoAssetsMessage = true"
     />
 
-    <no-data-message
-      v-if="showNoAssetsMessage"
-      class="statistics-sales-history__no-assets-msg"
-      icon-name="chart-areaspline"
-      :title="'statistics-sales-history.no-assets-title' | globalize"
-      :message="'statistics-sales-history.no-assets-msg' | globalize"
-    />
-
-    <template v-else>
+    <template v-if="isHaveAssets">
       <div class="statistics-sales-history__list-wrp">
         <statistics-sales-history-table
           :buy-requests="buyRequests"
@@ -29,6 +20,14 @@
         ref="listCollectionLoader"
       />
     </template>
+
+    <no-data-message
+      v-else
+      class="statistics-sales-history__no-assets-msg"
+      icon-name="chart-areaspline"
+      :title="'statistics-sales-history.no-assets-title' | globalize"
+      :message="'statistics-sales-history.no-assets-msg' | globalize"
+    />
   </div>
 </template>
 
@@ -65,13 +64,17 @@ export default {
     buyRequests: [],
     isLoaded: false,
     isLoadFailed: false,
-    showNoAssetsMessage: false,
   }),
 
   computed: {
     ...mapGetters([
       vuexTypes.accountId,
+      vuexTypes.ownedAssets,
     ]),
+
+    isHaveAssets () {
+      return Boolean(this.ownedAssets.length)
+    },
   },
 
   methods: {

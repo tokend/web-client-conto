@@ -92,7 +92,6 @@ import { vueRoutes } from '@/vue-router/routes'
 
 const EVENTS = {
   setFiltersAndUpdateList: 'set-filters-and-update-list',
-  showNoAssetsMessage: 'show-no-assets-message',
 }
 
 export default {
@@ -169,10 +168,6 @@ export default {
     async loadFiltersData () {
       try {
         await this.loadAccountBalancesDetails()
-        if (!this.ownedAssets.length) {
-          this.$emit(EVENTS.showNoAssetsMessage)
-          return
-        }
         if (this.isSalesHistoryPage) {
           await this.loadAllPromocodes()
         }

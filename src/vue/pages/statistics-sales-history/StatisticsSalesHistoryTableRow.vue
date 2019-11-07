@@ -33,11 +33,11 @@
       <!-- eslint-disable max-len -->
       <td
         class="statistics-sales-history-table-row__cell"
-        :title="`${formatMoney(buyRequest.amount)} ${buyRequest.boughtAssetName}`"
+        :title="`${formatMoney(buyRequest.amount)} ${assetByCode(buyRequest.boughtAssetCode).name}`"
       >
         <!-- eslint-enable max-len -->
         {{ buyRequest.amount | formatMoney }}
-        {{ buyRequest.boughtAssetName }}
+        {{ assetByCode(buyRequest.boughtAssetCode).name }}
       </td>
 
       <td
@@ -84,6 +84,8 @@ import EmailGetter from '@/vue/common/EmailGetter'
 import StatisticsSalesHistoryAttributesViewer from './StatisticsSalesHistoryAttributesViewer'
 import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
 import { formatMoney } from '@/vue/filters/formatMoney'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'statistics-sales-history-table-row',
@@ -104,6 +106,10 @@ export default {
   }),
 
   computed: {
+    ...mapGetters([
+      vuexTypes.assetByCode,
+    ]),
+
     getBuyRequestStatusTranslated () {
       let translationId
 

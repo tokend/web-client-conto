@@ -1,6 +1,5 @@
 import _get from 'lodash/get'
 import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
-import { store, vuexTypes } from '@/vuex/index'
 
 export class BuyRequestRecord {
   constructor (record) {
@@ -14,9 +13,7 @@ export class BuyRequestRecord {
     this.totalPrice = _get(record, 'totalPrice')
     this.senderEmail = _get(record, 'senderEmail') || ''
     this.promoCode = _get(record, 'promocode') || ''
-    // eslint-disable-next-line max-len
-    this.boughtAssetName = store.getters[vuexTypes.assetByCode](record.boughtAsset)
-      .name
+    this.boughtAssetCode = _get(record, 'boughtAsset')
   }
 
   get isRejected () {
