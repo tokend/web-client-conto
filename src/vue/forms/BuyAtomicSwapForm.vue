@@ -6,7 +6,6 @@
       class="app__form"
       @submit.prevent="submit()"
     >
-
       <div class="app__form-row">
         <div class="app__form-field">
           <amount-input-field
@@ -120,7 +119,7 @@ export default {
     return {
       config,
       form: {
-        amount: '1',
+        amount: '1.0',
         quoteAssetCode: '',
         paymentMethodId: '',
         promoCode: '',
