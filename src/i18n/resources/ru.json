@@ -1292,7 +1292,7 @@
     "buy-atomic-swap-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",
       "asset-in-which-buying": "Cпособ оплаты",
-      "amount": "Количество {{asset}}",
+      "amount": "Количество билетов",
       "buy": "Купить",
       "price": "Цена",
       "total-price": "Итоговая цена",
@@ -1383,7 +1383,7 @@
       "no-amount-msg": "Обратитесь к владельцу предложения"
     },
     "pay-form": {
-      "email-lbl":"Ваш эмейл"
+      "email-lbl":"Ваш e-mail"
     },
     "asset-viewer": {
       "description-title": "Описание"
