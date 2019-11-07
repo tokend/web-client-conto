@@ -67,6 +67,17 @@
 
     <div class="app__form-row">
       <div class="app__form-field">
+        <date-field
+          v-model="form.expirationDate"
+          :label="'create-asset-form.expiration-date-lbl' | globalize"
+          :disable-before="moment().subtract(1, 'days').toISOString()"
+          :disabled="isDisabled"
+        />
+      </div>
+    </div>
+
+    <div class="app__form-row">
+      <div class="app__form-field">
         <clipper-field
           name="create-asset-logo"
           v-model="form.logo"
@@ -114,6 +125,7 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 
 import md5 from 'js-md5'
+import moment from 'moment'
 
 import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
 import { ASSET_POLICIES } from '@tokend/js-sdk'
@@ -159,6 +171,7 @@ export default {
         ASSET_POLICIES.transferable,
       description: '',
       isSellable: false,
+      expirationDate: '',
     },
     MIN_AMOUNT: config.MIN_AMOUNT,
     MAX_AMOUNT: config.MAX_AMOUNT,
@@ -166,6 +179,7 @@ export default {
     NAME_MAX_LENGTH,
     DESCRIPTION_MAX_LENGTH,
     EVENTS,
+    moment,
   }),
 
   validations () {

@@ -957,7 +957,8 @@
       "price-lbl": "Price in {{quoteAsset}}",
       "can-be-bought-lbl": "Can be bought",
       "amount-to-sell-lbl": "Amount to sell",
-      "advanced-step": "Shop info"
+      "advanced-step": "Shop info",
+      "expiration-date-lbl": "Expiration date (optional)"
     },
     "update-asset-form-simplified": {
       "load-failed-msg": "There was an error while loading.",

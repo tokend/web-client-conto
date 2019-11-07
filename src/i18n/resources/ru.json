@@ -961,7 +961,8 @@
       "can-be-bought-lbl": "Может быть куплен",
       "amount-to-sell-lbl": "Количество на продажу",
       "advanced-step": "Информация для магазина",
-      "information-step": "Информация об активе"
+      "information-step": "Информация об активе",
+      "expiration-date-lbl": "Дата истечения срока действия (необязательно)"
     },
     "update-asset-form-simplified": {
       "load-failed-msg": "Произошла ошибка при загрузке.",
