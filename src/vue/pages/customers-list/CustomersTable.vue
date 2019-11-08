@@ -1,36 +1,34 @@
 <template>
   <div class="customers-table">
-    <template v-if="customersList.length">
-      <div class="customers-table__head-actions">
-        <template v-if="!isIssuanceMode">
+    <div class="customers-table__head-actions">
+      <template v-if="!isIssuanceMode">
+        <button
+          class="app__button-raised"
+          @click="isIssuanceMode = true"
+        >
+          {{ 'customers-table.enable-mass-payment-btn' | globalize }}
+        </button>
+      </template>
+
+      <template v-else>
+        <div class="customers-table__head-actions-group">
           <button
             class="app__button-raised"
-            @click="isIssuanceMode = true"
+            @click="doMassIssuance"
+            :disabled="!issuanceReceivers.length"
           >
-            {{ 'customers-table.enable-mass-payment-btn' | globalize }}
+            {{ 'customers-table.do-mass-payment-btn' | globalize }}
           </button>
-        </template>
 
-        <template v-else>
-          <div class="customers-table__head-actions-group">
-            <button
-              class="app__button-raised"
-              @click="doMassIssuance"
-              :disabled="!issuanceReceivers.length"
-            >
-              {{ 'customers-table.do-mass-payment-btn' | globalize }}
-            </button>
-
-            <button
-              class="app__button-flat app__button-flat--danger"
-              @click="toggleIssuanceMode"
-            >
-              {{ 'customers-table.cancel-mass-issue-btn' | globalize }}
-            </button>
-          </div>
-        </template>
-      </div>
-    </template>
+          <button
+            class="app__button-flat app__button-flat--danger"
+            @click="toggleIssuanceMode"
+          >
+            {{ 'customers-table.cancel-mass-issue-btn' | globalize }}
+          </button>
+        </div>
+      </template>
+    </div>
 
     <!-- eslint-disable-next-line max-len -->
     <div class="app__table app__table--with-shadow app__table--last-td-to-right">
@@ -69,7 +67,7 @@
           </tr>
         </thead>
 
-        <tbody v-if="customersList.length">
+        <tbody>
           <tr
             v-for="customer in customersList"
             :key="customer.id"
@@ -124,24 +122,6 @@
             </td>
           </tr>
         </tbody>
-
-        <empty-tbody-placeholder
-          v-else-if="isLoaded"
-          :colspan="4"
-          :message="'customers-table.no-data-msg' | globalize"
-        />
-
-        <empty-tbody-placeholder
-          v-else-if="isLoadFailed"
-          :colspan="4"
-          :message="'customers-table.error-msg' | globalize"
-        />
-
-        <skeleton-loader-table-body
-          v-else
-          :cells="4"
-          template="smallString"
-        />
       </table>
     </div>
   </div>
@@ -149,8 +129,6 @@
 
 <script>
 import TickField from '@/vue/fields/TickField'
-import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
-import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -166,8 +144,6 @@ export default {
 
   components: {
     TickField,
-    EmptyTbodyPlaceholder,
-    SkeletonLoaderTableBody,
   },
 
   props: {
@@ -177,16 +153,6 @@ export default {
       validator (value) {
         return value.every(item => item instanceof CustomerRecord)
       },
-    },
-
-    isLoaded: {
-      type: Boolean,
-      require: true,
-    },
-
-    isLoadFailed: {
-      type: Boolean,
-      require: true,
     },
   },
 

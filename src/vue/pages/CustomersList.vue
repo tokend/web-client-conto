@@ -1,12 +1,36 @@
 <template>
   <div class="customers-list">
     <div class="customers-list__table-wrp">
-      <customers-table
-        :customers-list="list"
-        :is-loaded="isLoaded"
-        :is-load-failed="isLoadFailed"
-        @details-button-clicked="setCustomerToBrowse($event)"
-      />
+      <template v-if="isLoaded">
+        <template v-if="isLoadFailed">
+          <error-message
+            :message="'customers-table.error-msg' | globalize"
+          />
+        </template>
+
+        <template v-else>
+          <template v-if="list.length">
+            <customers-table
+              :customers-list="list"
+              @details-button-clicked="setCustomerToBrowse($event)"
+            />
+          </template>
+
+          <template v-else>
+            <no-data-message
+              icon-name="chart-areaspline"
+              :title="'statistics-sales-history.no-data-title' | globalize"
+              :message="'customers-table.no-data-msg' | globalize"
+            />
+          </template>
+        </template>
+      </template>
+
+      <template v-else>
+        <skeleton-loader-table
+          :cells="4"
+        />
+      </template>
     </div>
 
     <collection-loader
@@ -63,6 +87,9 @@ import MovementsHistory from '@/vue/modules/movements-history'
 
 import CustomerAttributes from './customers-list/CustomerAttributes'
 import CustomersTable from './customers-list/CustomersTable'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
 import { Bus } from '@/js/helpers/event-bus'
 import { errors } from '@tokend/js-sdk'
 import { CustomerRecord } from '@/js/records/entities/customer.record'
@@ -82,6 +109,9 @@ export default {
     CustomersTable,
     SelectField,
     MovementsHistory,
+    NoDataMessage,
+    ErrorMessage,
+    SkeletonLoaderTable,
   },
 
   data () {
