@@ -91,7 +91,6 @@ export default {
       vuexTypes.businessStatsQuoteAsset,
       vuexTypes.isAccountCorporate,
       vuexTypes.accountBalanceByCode,
-      vuexTypes.assetByCode,
     ]),
 
     balance () {
