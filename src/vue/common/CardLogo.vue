@@ -11,12 +11,14 @@
       class="card-logo__viewer card-logo__viewer--abbr"
       :class="{ 'card-logo__viewer--dark' : darkMode }"
     >
-      {{ logoText | abbreviate }}
+      {{ text }}
     </p>
   </div>
 </template>
 
 <script>
+import { abbreviate } from '@/vue/filters/abbreviate'
+
 export default {
   name: 'card-logo',
   props: {
@@ -24,6 +26,11 @@ export default {
     logoText: { type: String, default: '' },
     darkMode: { type: Boolean, default: false },
     isFullCover: { type: Boolean, default: false },
+  },
+  computed: {
+    text () {
+      return abbreviate(this.logoText).slice(0, 3)
+    },
   },
 }
 </script>
@@ -37,8 +44,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-right: 1rem;
-    padding-left: 1rem;
     height: 11rem;
     background-color: $col-asset-card-header-background;
   }
