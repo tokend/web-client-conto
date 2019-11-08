@@ -958,7 +958,8 @@
       "price-lbl": "Price in {{quoteAsset}}",
       "can-be-bought-lbl": "Can be bought",
       "amount-to-sell-lbl": "Amount to sell",
-      "advanced-step": "Shop info"
+      "advanced-step": "Shop info",
+      "expiration-date-lbl": "Expiration date (optional)"
     },
     "update-asset-form-simplified": {
       "load-failed-msg": "There was an error while loading.",
@@ -968,7 +969,8 @@
       "logo-note": "JPG or PNG, no less than 120x120 px",
       "description-lbl": "Description",
       "transferable-lbl": "Transferable",
-      "update-btn": "Update"
+      "update-btn": "Update",
+      "expiration-date-lbl": "Expiration date"
     },
     "assets-list": {
       "update-asset-title": "Update asset",
@@ -1149,7 +1151,8 @@
       "vendor-code": "Vendor code",
       "can-be-base-in-atomic-swap-title": "Can be base in offering",
       "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
-      "delete-asset-message": "Are you sure you want to delete the asset?"
+      "delete-asset-message": "Are you sure you want to delete the asset?",
+      "expiration-date-title": "Expiration date"
     },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",

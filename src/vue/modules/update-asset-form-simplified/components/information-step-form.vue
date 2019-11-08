@@ -39,6 +39,19 @@
 
     <div class="app__form-row">
       <div class="app__form-field">
+        <!-- eslint-disable max-len -->
+        <date-field
+          v-model="form.expirationDate"
+          :label="'update-asset-form-simplified.expiration-date-lbl' | globalize"
+          :disable-before="moment().subtract(1, 'days').toISOString()"
+          :disabled="isDisabled"
+        />
+        <!-- eslint-enable max-len -->
+      </div>
+    </div>
+
+    <div class="app__form-row">
+      <div class="app__form-field">
         <file-field
           name="update-asset-logo"
           v-model="form.logo"
@@ -67,6 +80,7 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
+import moment from 'moment'
 
 import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
 
@@ -105,10 +119,12 @@ export default {
       logo: null,
       policies: 0,
       description: '',
+      expirationDate: '',
     },
     DOCUMENT_TYPES,
     NAME_MAX_LENGTH,
     DESCRIPTION_MAX_LENGTH,
+    moment,
   }),
 
   validations () {
@@ -149,6 +165,7 @@ export default {
           ? new DocumentContainer(this.record.logo)
           : null,
         policies: this.record.policy,
+        expirationDate: this.record.expirationDate,
       }
     },
 

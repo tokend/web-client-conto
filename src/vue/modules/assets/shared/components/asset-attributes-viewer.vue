@@ -52,6 +52,12 @@
               </template>
             </td>
           </tr>
+          <tr v-if="asset.expirationDate">
+            <td>{{ 'assets.expiration-date-title' | globalize }}</td>
+            <td :title="asset.expirationDate | formatCalendar">
+              {{ asset.expirationDate | formatCalendar }}
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -68,7 +74,6 @@
 <script>
 import LogoViewer from './logo-viewer'
 
-import { AssetRecord } from '@/js/records/entities/asset.record'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
@@ -78,18 +83,22 @@ export default {
     LogoViewer,
   },
   props: {
-    asset: { type: AssetRecord, required: true },
+    assetCode: { type: String, required: true },
   },
 
   computed: {
-    ...mapGetters({
-      businessStatsQuoteAsset: vuexTypes.businessStatsQuoteAsset,
-      isAccountCorporate: vuexTypes.isAccountCorporate,
-      accountBalanceByCode: vuexTypes.accountBalanceByCode,
-    }),
+    ...mapGetters([
+      vuexTypes.businessStatsQuoteAsset,
+      vuexTypes.isAccountCorporate,
+      vuexTypes.accountBalanceByCode,
+    ]),
 
     balance () {
-      return this.accountBalanceByCode(this.asset.code)
+      return this.accountBalanceByCode(this.assetCode)
+    },
+
+    asset () {
+      return this.balance.asset
     },
   },
 }

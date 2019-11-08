@@ -40,7 +40,8 @@
       </template>
 
       <asset-attributes-viewer
-        :asset="selectedBalance.asset"
+        v-if="selectedBalance.asset"
+        :asset-code="selectedBalance.asset.code"
       />
 
       <div class="assets-explorer__actions">
@@ -63,7 +64,7 @@
         v-if="selectedBalance.asset"
         :asset-code="selectedBalance.asset.code"
         @submitted="(isAssetUpdateDrawerShown = false) ||
-          loadAccountBalances()"
+          loadAccountBalances() && loadAssets()"
       />
     </drawer>
 

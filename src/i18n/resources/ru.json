@@ -962,7 +962,8 @@
       "can-be-bought-lbl": "Может быть куплен",
       "amount-to-sell-lbl": "Количество на продажу",
       "advanced-step": "Информация для магазина",
-      "information-step": "Информация об активе"
+      "information-step": "Информация об активе",
+      "expiration-date-lbl": "Дата истечения срока действия (необязательно)"
     },
     "update-asset-form-simplified": {
       "load-failed-msg": "Произошла ошибка при загрузке.",
@@ -972,7 +973,8 @@
       "logo-note": "JPG или PNG, не менее 120x120 пикселей",
       "transferable-lbl": "Можно передавать",
       "description-lbl": "Описание",
-      "update-btn": "Обновить"
+      "update-btn": "Обновить",
+      "expiration-date-lbl": "Дата истечения срока действия"
     },
     "assets-list": {
       "update-asset-title": "Обновить актив",
@@ -1153,7 +1155,8 @@
       "vendor-code": "Артикул",
       "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
       "can-be-quote-in-atomic-swap-title": "Может быть котируемым активом в предложении",
-      "delete-asset-message": "Вы действительно хотите удалить актив?"
+      "delete-asset-message": "Вы действительно хотите удалить актив?",
+      "expiration-date-title": "Действителен до"
     },
     "warning-banner": {
       "blocked-desc": "Ваш аккаунт был заблокирован администратором. Причина блокировки: {{reason}}",

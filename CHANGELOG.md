@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
-## [Unreleased ]
+## [Unreleased]
 #### Added
 - `ErrorMessage` component
+- Statistics
+- Expiration date for assets
 
 ## [1.3.0-rc.1] - 2019-11-06
 #### Added
@@ -18,7 +20,6 @@ for further information about branching and tagging conventions.
 - New component 'Card' for displaying all card
 - Skeleton loader for new component 'Card'
 - Global class for markdown `app__markdown`
-- Statistics
 
 #### Removed
 - `card-viewer`

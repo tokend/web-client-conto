@@ -121,22 +121,22 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      balancesAssetsByOwner: vuexTypes.balancesAssetsByOwner,
-      accountBalanceByCode: vuexTypes.accountBalanceByCode,
-      ownedAssets: vuexTypes.ownedBalancesAssets,
-      isAccountGeneral: vuexTypes.isAccountGeneral,
-      assetByCode: vuexTypes.assetByCode,
-      myBusinesses: vuexTypes.myBusinesses,
-    }),
+    ...mapGetters([
+      vuexTypes.assetsByOwner,
+      vuexTypes.accountBalanceByCode,
+      vuexTypes.ownedAssets,
+      vuexTypes.isAccountGeneral,
+      vuexTypes.assetByCode,
+      vuexTypes.myBusinesses,
+    ]),
 
     assets () {
       if (this.isAccountGeneral) {
         if (this.businessOwnerId) {
-          return this.balancesAssetsByOwner(this.businessOwnerId)
+          return this.assetsByOwner(this.businessOwnerId)
         } else {
           // eslint-disable-next-line max-len
-          return this.myBusinesses.flatMap(business => this.balancesAssetsByOwner(business.accountId))
+          return this.myBusinesses.flatMap(business => this.assetsByOwner(business.accountId))
         }
       } else {
         return this.ownedAssets
