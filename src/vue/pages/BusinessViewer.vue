@@ -138,9 +138,12 @@ export default {
     }
     this.isLoaded = true
   },
-
-  beforeDestroy () {
+  // 'beforeDestroy' do not suitable, because when you change local,
+  // the component does not have time to clean up business before creating
+  // a new component
+  beforeRouteLeave (to, from, next) {
     this.clearBusinessToBrowse()
+    next()
   },
 
   methods: {
