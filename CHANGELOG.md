@@ -12,6 +12,9 @@ for further information about branching and tagging conventions.
 - Statistics
 - Expiration date for assets
 
+#### Fixed
+- Issue when sponsorship didn't work
+
 ## [1.3.0-rc.1] - 2019-11-06
 #### Added
 - Trim for input field 

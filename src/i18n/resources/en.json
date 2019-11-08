@@ -1388,11 +1388,14 @@
       "description-title": "Description"
     },
     "business-assets-viewer": {
-      "asset-name-th": "Asset name",
-      "number-of-holders-th": "Number of holders",
-      "sponsor-btn": "Sponsor",
+      "no-data-title": "No assets yet",
       "no-data-msg": "Company don't have any assets yet.",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue."
+    },
+    "business-assets-table": {
+      "asset-name-th": "Asset name",
+      "number-of-holders-th": "Number of holders",
+      "sponsor-btn": "Sponsor"
     },
     "sponsorship-form": {
       "form-heading": "Sponsorship",
@@ -1400,7 +1403,9 @@
       "amount-lbl": "Amount per 1 holder",
       "total-amount": "Total amount",
       "create-contract-btn": "Create contract",
-      "create-contract-successful": "Contract created successfully"
+      "create-contract-successful": "Contract created successfully",
+      "no-assets-msg-title": "No assets yet",
+      "no-assets-msg-description": "Unfortunately, you do not have any assets with balance now."
     },
     "sponsorship-page": {
       "businesses-tab": "Companies",
