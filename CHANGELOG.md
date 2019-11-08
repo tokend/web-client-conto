@@ -9,6 +9,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased] - 2019-11-06
 #### Fixed
 - Card design(added min-height to car titles)
+- A bug when business disappears after change language
 
 
 ## [1.3.0-rc.1] - 2019-11-06
