@@ -11,7 +11,7 @@
         <template v-if="businessAssets.length">
           <business-assets-table
             :business-assets="businessAssets"
-            @select-business-asset="selectItem"
+            @select-business-asset="selectItem($event)"
           />
         </template>
 
