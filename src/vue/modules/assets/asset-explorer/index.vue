@@ -64,7 +64,7 @@
         v-if="selectedBalance.asset"
         :asset-code="selectedBalance.asset.code"
         @submitted="(isAssetUpdateDrawerShown = false) ||
-          loadAccountBalances()"
+          loadAccountBalances() && loadAssets()"
       />
     </drawer>
 

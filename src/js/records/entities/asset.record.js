@@ -91,7 +91,7 @@ export class AssetRecord {
   }
 
   _getExpirationDate () {
-    const timestamp = safeGet(this._record, 'details.expiresAt') || ''
+    const timestamp = safeGet(this._record, 'details.expiresAt')
     if (timestamp) {
       return moment.unix(timestamp).toISOString()
     } else {
