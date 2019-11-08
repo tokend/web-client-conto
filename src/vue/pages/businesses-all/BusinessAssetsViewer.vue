@@ -94,6 +94,7 @@ export default {
 
   async created () {
     await this.init()
+    this.isLoaded = true
   },
 
   methods: {
@@ -105,7 +106,6 @@ export default {
       try {
         await this.loadBalances()
         await this.loadAllBusinessAssets()
-        this.isLoaded = true
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
