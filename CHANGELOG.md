@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [1.3.1] - 2019-11-11
+#### Changed
+- Router names from 'company' to 'business'
+
 ## [1.3.0] - 2019-11-08
 #### Fixed
 - Card design(added min-height to car titles)
@@ -392,7 +396,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.3.0...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.3.1...HEAD
+[1.3.1]: https://github.com/tokend/web-client/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/tokend/web-client/compare/1.3.0-rc.1...1.3.0
 [1.3.0-rc.1]: https://github.com/tokend/web-client/compare/1.3.0-rc.0...1.3.0-rc.1
 [1.3.0-rc.0]: https://github.com/tokend/web-client/compare/1.2.0...1.3.0-rc.0
