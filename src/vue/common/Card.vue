@@ -57,6 +57,9 @@ export default {
   @import '~@scss/variables';
   @import '~@scss/mixins';
 
+  $subhead-line-height: 1.8rem;
+  $header-line-height: 2.6rem;
+  $accent-title-line-height: 1.8rem;
   $content-line-height: 1.8rem;
   $content-number-text-lien: 2;
   $content-height: $content-line-height * $content-number-text-lien;
@@ -91,9 +94,10 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 2rem;
-    line-height: 2.66rem;
+    line-height: $header-line-height;
     font-weight: 500;
     color: $col-text;
+    min-height: $header-line-height;
   }
 
   .card__subhead {
@@ -103,6 +107,9 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     opacity: 0.54;
+    font-size: 1.4rem;
+    line-height: $subhead-line-height;
+    min-height: $subhead-line-height;
   }
 
   .card__accent-title {
@@ -113,6 +120,12 @@ export default {
     white-space: nowrap;
     color: $col-text-page-heading;
     opacity: 0.7;
+    min-height: $accent-title-line-height;
+
+    span {
+      font-size: 1.4rem;
+      line-height: $accent-title-line-height;
+    }
   }
 
   .card__content {

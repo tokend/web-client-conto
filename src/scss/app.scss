@@ -485,17 +485,20 @@ h6.app__page-heading {
   @include respond-to-custom($media-2k-resolution) {
     @include list-item-count(5);
   }
-  @include respond-to-custom($media-large-desktop) {
+  @include respond-to-custom($large) {
     @include list-item-count(4);
   }
-  @include respond-to-custom($media-desktop) {
+  @include respond-to-custom($x-medium) {
     @include list-item-count(3);
   }
-  @include respond-to-custom($media-small-desktop) {
+  @include respond-to-custom($media-desktop) {
     @include list-item-count(2);
   }
+  @include respond-to-custom($tablet) {
+    @include list-item-count(1);
+  }
   @include respond-to-custom($sidebar-hide-bp) {
-    @include list-item-count(3);
+    @include list-item-count(2);
   }
   @include respond-to(small) {
     @include list-item-count(2);
