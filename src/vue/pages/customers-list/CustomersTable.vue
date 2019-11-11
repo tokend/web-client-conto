@@ -48,7 +48,22 @@
               />
             </th>
             <th :title="'customers-table.customer-th' | globalize">
-              {{ 'customers-table.customer-th' | globalize }}
+              <table-sorter
+                :is-active="activeSortKey === SORT_KEYS.lastName"
+                :sort-key="SORT_KEYS.lastName"
+                @sort-changed="setActiveKeyAndEmitSort($event)"
+              >
+                {{ 'customers-table.customer-th' | globalize }}
+              </table-sorter>
+            </th>
+            <th :title="'customers-table.email-th' | globalize">
+              <table-sorter
+                :is-active="activeSortKey === SORT_KEYS.email"
+                :sort-key="SORT_KEYS.email"
+                @sort-changed="setActiveKeyAndEmitSort($event)"
+              >
+                {{ 'customers-table.email-th' | globalize }}
+              </table-sorter>
             </th>
             <th :title="'customers-table.status-th' | globalize">
               {{ 'customers-table.status-th' | globalize }}
@@ -85,10 +100,17 @@
             </td>
 
             <td
-              :title="getCustomerNameOrEmail(customer)"
+              :title="getCustomerName(customer)"
               class="customers-table__customer-td"
             >
-              {{ getCustomerNameOrEmail(customer) }}
+              {{ getCustomerName(customer) }}
+            </td>
+
+            <td
+              :title="customer.email"
+              class="customers-table__customer-td"
+            >
+              {{ customer.email }}
             </td>
 
             <td :title="getCustomerStatusTranslated(customer)">
@@ -129,7 +151,7 @@
 
 <script>
 import TickField from '@/vue/fields/TickField'
-
+import TableSorter from '@/vue/common/TableSorter'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
@@ -137,6 +159,13 @@ import { CustomerRecord } from '@/js/records/entities/customer.record'
 
 const EVENTS = {
   detailsButtonClicked: 'details-button-clicked',
+  setSortAndReloadList: 'set-sort-and-reload-list',
+}
+
+const SORT_KEYS = {
+  email: 'email',
+  firstName: 'first_name',
+  lastName: 'last_name',
 }
 
 export default {
@@ -144,6 +173,7 @@ export default {
 
   components: {
     TickField,
+    TableSorter,
   },
 
   props: {
@@ -154,14 +184,19 @@ export default {
         return value.every(item => item instanceof CustomerRecord)
       },
     },
+    selectedBalances: {
+      type: Array,
+      default: _ => [],
+    },
   },
 
   data () {
     return {
       isIssuanceMode: false,
       issuanceReceivers: [],
-      selectedBalances: [],
+      activeSortKey: '',
       EVENTS,
+      SORT_KEYS,
     }
   },
 
@@ -179,9 +214,6 @@ export default {
       Bus.on('customers:hideSelect', () => {
         this.isIssuanceMode = false
         this.issuanceReceivers = []
-      })
-      Bus.on('customers:showBalances', payload => {
-        this.selectedBalances = payload || []
       })
     },
 
@@ -214,11 +246,11 @@ export default {
       Bus.emit('customers:massIssue', { receivers: this.issuanceReceivers })
     },
 
-    getCustomerNameOrEmail (customer) {
+    getCustomerName (customer) {
       if (customer.firstName && customer.lastName) {
         return `${customer.firstName} ${customer.lastName}`
       } else {
-        return customer.email
+        return '-'
       }
     },
 
@@ -226,6 +258,11 @@ export default {
       const balance = customerBalances
         .find(i => i.assetCode === selectedBalance)
       return balance.amount
+    },
+
+    setActiveKeyAndEmitSort (sort) {
+      this.activeSortKey = sort.key
+      this.$emit(EVENTS.setSortAndReloadList, sort)
     },
   },
 }

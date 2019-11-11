@@ -1,10 +1,14 @@
 <template>
   <div class="customers-list">
+    <customers-filters
+      @set-selected-balances="selectedBalances = $event"
+      @set-filters-and-update-list="setFiltersAndReloadList($event)"
+    />
     <div class="customers-list__table-wrp">
       <template v-if="isLoaded">
         <template v-if="isLoadFailed">
           <error-message
-            :message="'customers-table.error-msg' | globalize"
+            :message="'customers-list.error-msg' | globalize"
           />
         </template>
 
@@ -12,15 +16,17 @@
           <template v-if="list.length">
             <customers-table
               :customers-list="list"
+              :selected-balances="selectedBalances"
               @details-button-clicked="setCustomerToBrowse($event)"
+              @set-sort-and-reload-list="setSortAndReloadList($event)"
             />
           </template>
 
           <template v-else>
             <no-data-message
               icon-name="chart-areaspline"
-              :title="'statistics-sales-history.no-data-title' | globalize"
-              :message="'customers-table.no-data-msg' | globalize"
+              :title="'customers-list.no-data-title' | globalize"
+              :message="'customers-list.no-data-msg' | globalize"
             />
           </template>
         </template>
@@ -87,6 +93,7 @@ import MovementsHistory from '@/vue/modules/movements-history'
 
 import CustomerAttributes from './customers-list/CustomerAttributes'
 import CustomersTable from './customers-list/CustomersTable'
+import CustomersFilters from './customers-list/CustomersFilters'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
@@ -98,6 +105,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { PAGE_SORT_ORDERS } from '@/js/const/page-sort-orders.const'
 
 export default {
   name: 'customers-list',
@@ -112,6 +120,7 @@ export default {
     NoDataMessage,
     ErrorMessage,
     SkeletonLoaderTable,
+    CustomersFilters,
   },
 
   data () {
@@ -122,6 +131,15 @@ export default {
       isLoadFailed: false,
       isDrawerShown: false,
       customerToBrowse: {},
+      selectedBalances: [],
+      filters: {
+        status: '',
+        search: '',
+      },
+      sort: {
+        key: '',
+        order: '',
+      },
     }
   },
 
@@ -153,27 +171,28 @@ export default {
 
     async getList () {
       let result
+      const queryParameters = this.getQueryParameters()
 
       try {
         result = await api.getWithSignature(
-          `/integrations/dns/businesses/${this.accountId}/clients`,
-          { include: ['balances'] },
+          `/integrations/dns/businesses/${this.accountId}/clients`, {
+            include: ['balances'],
+            ...queryParameters,
+          },
         )
-        this.isLoaded = true
       } catch (error) {
         // TODO: remove whe back-end returns empty data instead of 404
         if (error instanceof errors.NotFoundError) {
-          this.isLoaded = true
           result = {
             data: [],
             links: {},
           }
         } else {
-          this.isLoaded = false
           this.isLoadFailed = true
           ErrorHandler.processWithoutFeedback(error)
         }
       }
+      this.isLoaded = true
 
       return result
     },
@@ -201,6 +220,41 @@ export default {
       this.assetCode = this.assetsCodes[0]
       this.isDrawerShown = true
     },
+
+    setSortAndReloadList (sort) {
+      this.sort = sort
+      this.reloadList()
+    },
+
+    setFiltersAndReloadList (filters) {
+      this.filters = filters
+      this.reloadList()
+    },
+
+    getQueryParameters () {
+      return {
+        ...(
+          this.filters.status
+            ? { 'filter[status]': this.filters.status }
+            : {}
+        ),
+        ...(
+          this.sort.key
+            ? { 'sort': this.sort.key }
+            : {}
+        ),
+        ...(
+          this.sort.order
+            ? { 'page[order]': this.sort.order }
+            : { 'page[order]': PAGE_SORT_ORDERS.desc }
+        ),
+        ...(
+          this.filters.search
+            ? { 'search': this.filters.search }
+            : {}
+        ),
+      }
+    },
   },
 }
 </script>
@@ -214,5 +268,9 @@ export default {
   margin-top: 2rem;
   margin-bottom: 1.5rem;
   padding: 0 1.6rem;
+}
+
+.customers-list__table-wrp {
+  margin-top: 2rem;
 }
 </style>

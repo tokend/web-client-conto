@@ -63,7 +63,6 @@ export class EventBus extends Vue {
       info: 'info',
       customersUpdateList: 'customers:updateList',
       customersMassIssue: 'customers:massIssue',
-      customerShowBalances: 'customers:showBalances',
       customersHideSelect: 'customers:hideSelect',
       assetsUpdateList: 'assets:updateList',
       assetsSetBusinessOwnerId: 'assets:setBusinessOwnerId',

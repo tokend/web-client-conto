@@ -1240,8 +1240,6 @@
       "balances-th": "Баланс",
       "status-th": "Статус",
       "details-btn": "Детальнее",
-      "no-data-msg": "Нет ассоциированных клиентов. Пригласите своих клиентов, после чего они появятся в этом списке.",
-      "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
       "not-registered-status-td": "Не зарегистрирован",
       "active-status-td": "Активен",
       "blocked-status-td": "Заблокирован",
@@ -1249,10 +1247,14 @@
       "do-mass-issue-btn": "Выполнить эмиссию",
       "enable-mass-payment-btn": "Выбрать для отправки",
       "do-mass-payment-btn": "Выполнить отправку",
-      "cancel-mass-issue-btn": "Отменить"
+      "cancel-mass-issue-btn": "Отменить",
+      "email-th": "Имейл"
     },
     "customers-list": {
-      "customer-drawer-title": "Клиент"
+      "customer-drawer-title": "Клиент",
+      "no-data-msg": "Нет ассоциированных клиентов. Пригласите своих клиентов, после чего они появятся в этом списке.",
+      "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
+      "no-data-title": "Нет ассоциированных клиентов"
     },
     "businesses": {
       "all-tab": "Все компании",
@@ -1560,6 +1562,13 @@
       "asset-th": "Актив",
       "total-sold-th": "Всего продано",
       "total-proceeds-th": "Общий доход"
+    },
+    "customers-filters": {
+      "status-lbl": "Статус",
+      "search-lbl": "Поиск",
+      "not-registered-status-lbl": "Не зарегистрирован",
+      "active-status-lbl": "Активен",
+      "balances-lbl": "Балансы"
     }
   }
 }

@@ -1,15 +1,6 @@
 <template>
   <div class="customers-page">
-    <top-bar>
-      <template slot="main">
-        <multi-select-field
-          class="app__multiselect-field--no-border"
-          v-if="selectionOptions.length"
-          @selected="emitSelectedBalances"
-          :options="selectionOptions"
-          select-all
-        />
-      </template>
+    <top-bar class="customers-page__top-bar">
       <template slot="extra">
         <button
           v-ripple
@@ -58,14 +49,11 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
-import MultiSelectField from '@/vue/fields/MultiSelectField'
 import MassPaymentForm from '@/vue/forms/MassPaymentForm'
 import MassInvitationForm from '@/vue/forms/MassInvitationForm'
 
 import { Bus } from '@/js/helpers/event-bus'
-import { mapGetters, mapActions } from 'vuex'
 import { vueRoutes } from '@/vue-router/routes'
-import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'customers-page',
@@ -75,7 +63,6 @@ export default {
     Drawer,
     MassPaymentForm,
     MassInvitationForm,
-    MultiSelectField,
   },
 
   data: _ => ({
@@ -83,14 +70,7 @@ export default {
     isPaymentDrawerShown: false,
     receivers: [],
     vueRoutes,
-    selectionOptions: [],
   }),
-
-  computed: {
-    ...mapGetters([
-      vuexTypes.activeOwnedAssets,
-    ]),
-  },
 
   watch: {
     isPaymentDrawerShown (value) {
@@ -101,16 +81,10 @@ export default {
   },
 
   async created () {
-    await this.loadAssets()
     this.listen()
-    this.selectionOptions = this.getSelectionOptions()
   },
 
   methods: {
-    ...mapActions({
-      loadAssets: vuexTypes.LOAD_ASSETS,
-    }),
-
     emitUpdateList () {
       Bus.emit('customers:updateList')
     },
@@ -121,19 +95,12 @@ export default {
         this.isPaymentDrawerShown = true
       })
     },
-
-    emitSelectedBalances (values) {
-      Bus.emit('customers:showBalances', values)
-    },
-
-    getSelectionOptions () {
-      return this.activeOwnedAssets.map(asset => {
-        return {
-          name: asset.name,
-          value: asset.code,
-        }
-      })
-    },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.customers-page__top-bar {
+  margin-bottom: 1rem;
+}
+</style>

@@ -2,8 +2,11 @@
   <div class="multiselect-field">
     <div
       class="multiselect-field__select"
-      :class="{ 'multiselect-field__select--active': isDropdownOpen }"
-      @click="toggleDropdown"
+      :class="{
+        'multiselect-field__select--active': isDropdownOpen,
+        'multiselect-field__select--disabled': disabled
+      }"
+      @click="disabled ? '' : toggleDropdown()"
     >
       <template v-if="label">
         <label class="multiselect-field__select-label">
@@ -75,6 +78,7 @@ export default {
     enabledOptionAll: { type: Boolean, default: true },
     selectAll: { type: Boolean, default: false },
     label: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
   },
   data: _ => ({
     isDropdownOpen: false,
@@ -107,12 +111,12 @@ export default {
     selectedOptions (value) {
       this.$emit(EVENTS.selected, value)
     },
-  },
 
-  created () {
-    if (this.selectAll) {
-      this.selectAllOptions()
-    }
+    options () {
+      if (this.selectAll) {
+        this.selectAllOptions()
+      }
+    },
   },
 
   methods: {
@@ -160,6 +164,10 @@ export default {
   text-overflow: ellipsis;
 
   @include text-font-sizes;
+
+  .multiselect-field__select--disabled > & {
+    color: $field-color-unfocused;
+  }
 }
 
 .multiselect-field__select-label {
@@ -171,6 +179,10 @@ export default {
   top: 0;
 
   @include label-font-sizes;
+
+  .multiselect-field__select--disabled > & {
+    color: $field-color-unfocused;
+  }
 }
 
 .multiselect-field__select {
@@ -203,6 +215,11 @@ export default {
   &:before {
     transition: transform 0.2s ease-out;
   }
+
+  .multiselect-field__select--disabled > & {
+    filter: grayscale(100%);
+    color: $field-color-unfocused;
+  }
 }
 
 .multiselect-field__select-icon--active:before {
@@ -233,6 +250,14 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
+}
+
+.multiselect-field__select--disabled {
+  cursor: default;
+  pointer-events: none;
+  color: $field-color-unfocused;
+
+  @include readonly-material-border($field-color-unfocused);
 }
 
 .multiselect-field__dropdown-enter-active {
