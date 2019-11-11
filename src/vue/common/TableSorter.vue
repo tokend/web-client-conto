@@ -6,9 +6,7 @@
       class="mdi table-sorter__icon"
       :class="[
         {'table-sorter__icon--active': isActive},
-        sortingOrder === PAGE_SORTING_ORDERS.asc
-          ? 'mdi-arrow-up-bold'
-          : 'mdi-arrow-down-bold'
+        isAscSortingOrder ? 'mdi-arrow-up' : 'mdi-arrow-down'
       ]"
     />
   </div>
@@ -34,6 +32,12 @@ export default {
     PAGE_SORTING_ORDERS,
   }),
 
+  computed: {
+    isAscSortingOrder () {
+      return this.sortingOrder === PAGE_SORTING_ORDERS.asc
+    },
+  },
+
   watch: {
     isActive (newValue) {
       if (!newValue) {
@@ -48,10 +52,9 @@ export default {
 
   methods: {
     setOrderAndEmitSorting () {
-      this.sortingOrder = this.sortingOrder === PAGE_SORTING_ORDERS.asc
+      this.sortingOrder = this.isAscSortingOrder
         ? PAGE_SORTING_ORDERS.desc
         : PAGE_SORTING_ORDERS.asc
-
       this.$emit(EVENTS.sortingChanged, {
         sortingKey: this.sortingKey,
         sortingOrder: this.sortingOrder,
