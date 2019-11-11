@@ -2,7 +2,7 @@
   <div class="customers-list">
     <customers-filters
       @set-selected-balances="selectedBalances = $event"
-      @set-filters-and-update-list="setFiltersAndReloadList($event)"
+      @set-filters-and-update-list="setQueryParametersAndReloadList($event)"
     />
     <div class="customers-list__table-wrp">
       <template v-if="isLoaded">
@@ -14,12 +14,14 @@
 
         <template v-else>
           <template v-if="list.length">
+            <!-- eslint-disable max-len -->
             <customers-table
               :customers-list="list"
               :selected-balances="selectedBalances"
               @details-button-clicked="setCustomerToBrowse($event)"
-              @set-sort-and-reload-list="setSortAndReloadList($event)"
+              @set-sorting-and-reload-list="setQueryParametersAndReloadList($event)"
             />
+            ``<!-- eslint-enable max-len -->
           </template>
 
           <template v-else>
@@ -105,7 +107,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { PAGE_SORT_ORDERS } from '@/js/const/page-sort-orders.const'
+import { PAGE_SORTING_ORDERS } from '@/js/const/page-sorting-orders.const'
 
 export default {
   name: 'customers-list',
@@ -132,13 +134,11 @@ export default {
       isDrawerShown: false,
       customerToBrowse: {},
       selectedBalances: [],
-      filters: {
+      queryParameters: {
         status: '',
         search: '',
-      },
-      sort: {
-        key: '',
-        order: '',
+        sortingKey: '',
+        sortingOrder: '',
       },
     }
   },
@@ -221,36 +221,32 @@ export default {
       this.isDrawerShown = true
     },
 
-    setSortAndReloadList (sort) {
-      this.sort = sort
-      this.reloadList()
-    },
-
-    setFiltersAndReloadList (filters) {
-      this.filters = filters
+    setQueryParametersAndReloadList (queryParameters) {
+      // eslint-disable-next-line max-len
+      this.queryParameters = Object.assign(this.queryParameters, queryParameters)
       this.reloadList()
     },
 
     getQueryParameters () {
       return {
         ...(
-          this.filters.status
-            ? { 'filter[status]': this.filters.status }
+          this.queryParameters.status
+            ? { 'filter[status]': this.queryParameters.status }
             : {}
         ),
         ...(
-          this.sort.key
-            ? { 'sort': this.sort.key }
+          this.queryParameters.sortingKey
+            ? { 'sort': this.queryParameters.sortingKey }
             : {}
         ),
         ...(
-          this.sort.order
-            ? { 'page[order]': this.sort.order }
-            : { 'page[order]': PAGE_SORT_ORDERS.desc }
+          this.queryParameters.sortingOrder
+            ? { 'page[order]': this.queryParameters.sortingOrder }
+            : { 'page[order]': PAGE_SORTING_ORDERS.desc }
         ),
         ...(
-          this.filters.search
-            ? { 'search': this.filters.search }
+          this.queryParameters.search
+            ? { 'search': this.queryParameters.search }
             : {}
         ),
       }

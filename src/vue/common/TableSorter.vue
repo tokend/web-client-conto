@@ -2,11 +2,11 @@
   <div class="table-sorter">
     <slot />
     <i
-      @click="setOrderAndEmitSort()"
+      @click="setOrderAndEmitSorting()"
       class="mdi table-sorter__icon"
       :class="[
         {'table-sorter__icon--active': isActive},
-        sortOrder === PAGE_SORT_ORDERS.asc
+        sortingOrder === PAGE_SORTING_ORDERS.asc
           ? 'mdi-arrow-up-bold'
           : 'mdi-arrow-down-bold'
       ]"
@@ -15,46 +15,46 @@
 </template>
 
 <script>
-import { PAGE_SORT_ORDERS } from '@/js/const/page-sort-orders.const'
+import { PAGE_SORTING_ORDERS } from '@/js/const/page-sorting-orders.const'
 
 const EVENTS = {
-  sortChanged: 'sort-changed',
+  sortingChanged: 'sorting-changed',
 }
 
 export default {
   name: 'table-sorter',
   props: {
     isActive: { type: Boolean, default: false },
-    sortKey: { type: String, required: true },
-    initialOrder: { type: String, default: PAGE_SORT_ORDERS.desc },
+    sortingKey: { type: String, required: true },
+    initialOrder: { type: String, default: PAGE_SORTING_ORDERS.desc },
   },
 
   data: _ => ({
-    sortOrder: '',
-    PAGE_SORT_ORDERS,
+    sortingOrder: '',
+    PAGE_SORTING_ORDERS,
   }),
 
   watch: {
     isActive (newValue) {
       if (!newValue) {
-        this.sortOrder = this.initialOrder
+        this.sortingOrder = this.initialOrder
       }
     },
   },
 
   created () {
-    this.sortOrder = this.initialOrder
+    this.sortingOrder = this.initialOrder
   },
 
   methods: {
-    setOrderAndEmitSort () {
-      this.sortOrder = this.sortOrder === PAGE_SORT_ORDERS.asc
-        ? PAGE_SORT_ORDERS.desc
-        : PAGE_SORT_ORDERS.asc
+    setOrderAndEmitSorting () {
+      this.sortingOrder = this.sortingOrder === PAGE_SORTING_ORDERS.asc
+        ? PAGE_SORTING_ORDERS.desc
+        : PAGE_SORTING_ORDERS.asc
 
-      this.$emit(EVENTS.sortChanged, {
-        key: this.sortKey,
-        order: this.sortOrder,
+      this.$emit(EVENTS.sortingChanged, {
+        sortingKey: this.sortingKey,
+        sortingOrder: this.sortingOrder,
       })
     },
   },

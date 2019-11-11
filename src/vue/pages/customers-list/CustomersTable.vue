@@ -49,18 +49,18 @@
             </th>
             <th :title="'customers-table.customer-th' | globalize">
               <table-sorter
-                :is-active="activeSortKey === SORT_KEYS.lastName"
-                :sort-key="SORT_KEYS.lastName"
-                @sort-changed="setActiveKeyAndEmitSort($event)"
+                :is-active="activeSortingKey === SORTING_KEYS.lastName"
+                :sorting-key="SORTING_KEYS.lastName"
+                @sorting-changed="setActiveKeyAndEmitSorting($event)"
               >
                 {{ 'customers-table.customer-th' | globalize }}
               </table-sorter>
             </th>
             <th :title="'customers-table.email-th' | globalize">
               <table-sorter
-                :is-active="activeSortKey === SORT_KEYS.email"
-                :sort-key="SORT_KEYS.email"
-                @sort-changed="setActiveKeyAndEmitSort($event)"
+                :is-active="activeSortingKey === SORTING_KEYS.email"
+                :sorting-key="SORTING_KEYS.email"
+                @sorting-changed="setActiveKeyAndEmitSorting($event)"
               >
                 {{ 'customers-table.email-th' | globalize }}
               </table-sorter>
@@ -99,17 +99,21 @@
               />
             </td>
 
-            <td
-              :title="getCustomerName(customer)"
-              class="customers-table__customer-td"
-            >
-              {{ getCustomerName(customer) }}
-            </td>
+            <template v-if="customer.firstName && customer.lastName">
+              <td
+                :title="`${customer.firstName} ${customer.lastName}`"
+                class="customers-table__customer-td"
+              >
+                {{ customer.firstName }} {{ customer.lastName }}
+              </td>
+            </template>
+            <template v-else>
+              <td>
+                &mdash;
+              </td>
+            </template>
 
-            <td
-              :title="customer.email"
-              class="customers-table__customer-td"
-            >
+            <td :title="customer.email">
               {{ customer.email }}
             </td>
 
@@ -159,10 +163,10 @@ import { CustomerRecord } from '@/js/records/entities/customer.record'
 
 const EVENTS = {
   detailsButtonClicked: 'details-button-clicked',
-  setSortAndReloadList: 'set-sort-and-reload-list',
+  setSortingAndReloadList: 'set-sorting-and-reload-list',
 }
 
-const SORT_KEYS = {
+const SORTING_KEYS = {
   email: 'email',
   firstName: 'first_name',
   lastName: 'last_name',
@@ -194,9 +198,9 @@ export default {
     return {
       isIssuanceMode: false,
       issuanceReceivers: [],
-      activeSortKey: '',
+      activeSortingKey: '',
       EVENTS,
-      SORT_KEYS,
+      SORTING_KEYS,
     }
   },
 
@@ -246,23 +250,15 @@ export default {
       Bus.emit('customers:massIssue', { receivers: this.issuanceReceivers })
     },
 
-    getCustomerName (customer) {
-      if (customer.firstName && customer.lastName) {
-        return `${customer.firstName} ${customer.lastName}`
-      } else {
-        return '-'
-      }
-    },
-
     getCustomerBalance (customerBalances, selectedBalance) {
       const balance = customerBalances
         .find(i => i.assetCode === selectedBalance)
       return balance.amount
     },
 
-    setActiveKeyAndEmitSort (sort) {
-      this.activeSortKey = sort.key
-      this.$emit(EVENTS.setSortAndReloadList, sort)
+    setActiveKeyAndEmitSorting (sorting) {
+      this.activeSortingKey = sorting.sortingKey
+      this.$emit(EVENTS.setSortingAndReloadList, sorting)
     },
   },
 }
