@@ -29,7 +29,6 @@ export default {
 
   data: _ => ({
     sortingOrder: '',
-    PAGE_SORTING_ORDERS,
   }),
 
   computed: {
