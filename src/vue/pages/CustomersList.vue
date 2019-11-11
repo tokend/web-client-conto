@@ -21,7 +21,7 @@
               @details-button-clicked="setCustomerToBrowse($event)"
               @set-sorting-and-reload-list="setQueryParametersAndReloadList($event)"
             />
-            ``<!-- eslint-enable max-len -->
+            <!-- eslint-enable max-len -->
           </template>
 
           <template v-else>
