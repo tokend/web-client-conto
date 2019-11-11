@@ -190,7 +190,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  min-width: 16rem;
   width: 100%;
   background: none;
   border: none;
