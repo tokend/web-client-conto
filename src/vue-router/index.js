@@ -71,7 +71,7 @@ const router = new Router({
       component: Pay,
     },
     {
-      path: '/company/:id',
+      path: '/business/:id',
       name: vueRoutes.business.name,
       component: Business,
       props: true,
@@ -149,7 +149,7 @@ const router = new Router({
           ],
         },
         {
-          path: '/companies',
+          path: '/businesses',
           name: vueRoutes.businesses.name,
           meta: {
             pageNameTranslationId: 'pages-names.businesses',
@@ -158,7 +158,7 @@ const router = new Router({
           redirect: vueRoutes.myBusinesses,
           children: [
             {
-              path: '/companies/my',
+              path: '/businesses/my',
               name: vueRoutes.myBusinesses.name,
               component: BusinessesMy,
               beforeEnter: inAppRouteGuard,
@@ -168,7 +168,7 @@ const router = new Router({
               },
             },
             {
-              path: '/companies/all',
+              path: '/businesses/all',
               name: vueRoutes.allBusinesses.name,
               component: BusinessesAll,
               beforeEnter: inAppRouteGuard,

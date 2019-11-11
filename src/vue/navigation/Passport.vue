@@ -125,10 +125,6 @@ export default {
         ? `${config.FILE_STORAGE}/${this.kycAvatarKey}`
         : ''
     },
-
-    companyLink () {
-      return `${window.location.origin}/company/${this.accountId}`
-    },
   },
 
   async created () {
@@ -192,9 +188,14 @@ export default {
       await this.$router.push(vueRoutes.settings)
     },
 
-    openCompanyPage () {
+    async openCompanyPage () {
       this.closeDropdown()
-      window.open(this.companyLink, '_blank')
+      await this.$router.push({
+        ...vueRoutes.business,
+        params: {
+          id: this.accountId,
+        },
+      })
     },
   },
 }
