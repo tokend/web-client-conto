@@ -99,8 +99,8 @@ export default {
   watch: {
     filters: {
       deep: true,
-      handler: debounce(function (value) {
-        this.$emit(EVENTS.setFiltersAndUpdateList, value)
+      handler: debounce(function () {
+        this.$emit(EVENTS.setFiltersAndUpdateList, this.getFilters())
       }, 300),
     },
   },
@@ -139,6 +139,21 @@ export default {
           value: asset.code,
         }
       })
+    },
+
+    getFilters () {
+      return {
+        ...(
+          this.filters.status
+            ? { 'filter[status]': this.filters.status }
+            : {}
+        ),
+        ...(
+          this.filters.search
+            ? { 'search': this.filters.search }
+            : {}
+        ),
+      }
     },
   },
 }

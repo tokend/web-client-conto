@@ -2,7 +2,7 @@
   <div class="customers-list">
     <customers-filters
       @set-selected-balances="selectedBalances = $event"
-      @set-filters-and-update-list="setQueryParametersAndReloadList($event)"
+      @set-filters-and-update-list="(customerFilters = $event) && reloadList()"
     />
     <div class="customers-list__table-wrp">
       <template v-if="isLoaded">
@@ -19,7 +19,7 @@
               :customers-list="list"
               :selected-balances="selectedBalances"
               @details-button-clicked="setCustomerToBrowse($event)"
-              @set-sorting-and-reload-list="setQueryParametersAndReloadList($event)"
+              @set-sorting-and-reload-list="(sortingParameters = $event) && reloadList()"
             />
             <!-- eslint-enable max-len -->
           </template>
@@ -134,11 +134,11 @@ export default {
       isDrawerShown: false,
       customerToBrowse: {},
       selectedBalances: [],
-      queryParameters: {
-        status: '',
-        search: '',
-        sortingKey: '',
-        sortingOrder: '',
+      customerFilters: {},
+      sortingParameters: {
+        page: {
+          order: PAGE_SORTING_ORDERS.desc,
+        },
       },
     }
   },
@@ -171,13 +171,12 @@ export default {
 
     async getList () {
       let result
-      const queryParameters = this.getQueryParameters()
 
       try {
         result = await api.getWithSignature(
           `/integrations/dns/businesses/${this.accountId}/clients`, {
             include: ['balances'],
-            ...queryParameters,
+            ...({ ...this.customerFilters, ...this.sortingParameters }),
           },
         )
       } catch (error) {
@@ -219,37 +218,6 @@ export default {
       this.customerToBrowse = $event
       this.assetCode = this.assetsCodes[0]
       this.isDrawerShown = true
-    },
-
-    setQueryParametersAndReloadList (queryParameters) {
-      // eslint-disable-next-line max-len
-      this.queryParameters = Object.assign(this.queryParameters, queryParameters)
-      this.reloadList()
-    },
-
-    getQueryParameters () {
-      return {
-        ...(
-          this.queryParameters.status
-            ? { 'filter[status]': this.queryParameters.status }
-            : {}
-        ),
-        ...(
-          this.queryParameters.sortingKey
-            ? { 'sort': this.queryParameters.sortingKey }
-            : {}
-        ),
-        ...(
-          this.queryParameters.sortingOrder
-            ? { 'page[order]': this.queryParameters.sortingOrder }
-            : { 'page[order]': PAGE_SORTING_ORDERS.desc }
-        ),
-        ...(
-          this.queryParameters.search
-            ? { 'search': this.queryParameters.search }
-            : {}
-        ),
-      }
     },
   },
 }

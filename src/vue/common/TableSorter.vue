@@ -2,7 +2,7 @@
   <div class="table-sorter">
     <slot />
     <i
-      @click="setOrderAndEmitSorting()"
+      @click="setOrder()"
       class="mdi table-sorter__icon"
       :class="[
         {'table-sorter__icon--active': isActive},
@@ -50,7 +50,7 @@ export default {
   },
 
   methods: {
-    setOrderAndEmitSorting () {
+    setOrder () {
       this.sortingOrder = this.isAscSortingOrder
         ? PAGE_SORTING_ORDERS.desc
         : PAGE_SORTING_ORDERS.asc

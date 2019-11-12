@@ -99,19 +99,12 @@
               />
             </td>
 
-            <template v-if="customer.firstName && customer.lastName">
-              <td
-                :title="`${customer.firstName} ${customer.lastName}`"
-                class="customers-table__customer-td"
-              >
-                {{ customer.firstName }} {{ customer.lastName }}
-              </td>
-            </template>
-            <template v-else>
-              <td>
-                &mdash;
-              </td>
-            </template>
+            <td
+              :title="customer | fullName"
+              class="customers-table__customer-td"
+            >
+              {{ customer | fullName }}
+            </td>
 
             <td :title="customer.email">
               {{ customer.email }}
@@ -160,6 +153,7 @@ import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { CustomerRecord } from '@/js/records/entities/customer.record'
+import { PAGE_SORTING_ORDERS } from '@/js/const/page-sorting-orders.const'
 
 const EVENTS = {
   detailsButtonClicked: 'details-button-clicked',
@@ -178,6 +172,16 @@ export default {
   components: {
     TickField,
     TableSorter,
+  },
+
+  filters: {
+    fullName (customer) {
+      if (customer.firstName && customer.lastName) {
+        return `${customer.firstName} ${customer.lastName}`
+      } else {
+        return '\u2014'
+      }
+    },
   },
 
   props: {
@@ -258,7 +262,19 @@ export default {
 
     setActiveKeyAndEmitSorting (sorting) {
       this.activeSortingKey = sorting.sortingKey
-      this.$emit(EVENTS.setSortingAndReloadList, sorting)
+      const sortingParameters = {
+        ...(
+          sorting.sortingKey
+            ? { 'sort': sorting.sortingKey }
+            : {}
+        ),
+        ...(
+          sorting.sortingOrder
+            ? { 'page[order]': sorting.sortingOrder }
+            : { 'page[order]': PAGE_SORTING_ORDERS.desc }
+        ),
+      }
+      this.$emit(EVENTS.setSortingAndReloadList, sortingParameters)
     },
   },
 }
