@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 - Statistics
 - Expiration date for assets
 - `Failed` and `Successful` payment pages
+- Filters on Customers page
 
 #### Fixed
 - Issue when sponsorship didn't work

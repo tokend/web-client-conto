@@ -1285,8 +1285,6 @@
       "balances-th": "Balances",
       "status-th": "Status",
       "details-btn": "Show details",
-      "no-data-msg": "You have no associated customers yet. Invite some and they will appear in this list.",
-      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
       "not-registered-status-td": "Not registered",
       "active-status-td": "Active",
       "blocked-status-td": "Blocked",
@@ -1294,10 +1292,14 @@
       "do-mass-issue-btn": "Perform issuance",
       "enable-mass-payment-btn": "Select for send",
       "do-mass-payment-btn": "Perform send",
-      "cancel-mass-issue-btn": "Cancel"
+      "cancel-mass-issue-btn": "Cancel",
+      "email-th": "Email"
     },
     "customers-list": {
-      "customer-drawer-title": "View customer"
+      "customer-drawer-title": "View customer",
+      "no-data-msg": "You have no associated customers yet. Invite some and they will appear in this list.",
+      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
+      "no-data-title": "No associated customers yet"
     },
     "businesses": {
       "all-tab": "All companies",
@@ -1421,7 +1423,7 @@
     },
     "multiselect-field": {
       "select-all": "Select all",
-      "all-selected-value-label": "All selceted",
+      "all-selected-value-label": "All selected",
       "select-something-value-label": "Select something..."
     },
     "redeem-form": {
@@ -1567,6 +1569,13 @@
       "asset-th": "Asset",
       "total-sold-th": "Total sold",
       "total-proceeds-th": "Total proceeds"
+    },
+    "customers-filters": {
+      "status-lbl": "Status",
+      "search-lbl": "Search",
+      "not-registered-status-lbl": "Not registered",
+      "active-status-lbl": "Active",
+      "balances-lbl": "Balances"
     },
     "successful-payment": {
       "title": "Succesful payment",

@@ -1,36 +1,34 @@
 <template>
   <div class="customers-table">
-    <template v-if="customersList.length">
-      <div class="customers-table__head-actions">
-        <template v-if="!isIssuanceMode">
+    <div class="customers-table__head-actions">
+      <template v-if="!isIssuanceMode">
+        <button
+          class="app__button-raised"
+          @click="isIssuanceMode = true"
+        >
+          {{ 'customers-table.enable-mass-payment-btn' | globalize }}
+        </button>
+      </template>
+
+      <template v-else>
+        <div class="customers-table__head-actions-group">
           <button
             class="app__button-raised"
-            @click="isIssuanceMode = true"
+            @click="doMassIssuance"
+            :disabled="!issuanceReceivers.length"
           >
-            {{ 'customers-table.enable-mass-payment-btn' | globalize }}
+            {{ 'customers-table.do-mass-payment-btn' | globalize }}
           </button>
-        </template>
 
-        <template v-else>
-          <div class="customers-table__head-actions-group">
-            <button
-              class="app__button-raised"
-              @click="doMassIssuance"
-              :disabled="!issuanceReceivers.length"
-            >
-              {{ 'customers-table.do-mass-payment-btn' | globalize }}
-            </button>
-
-            <button
-              class="app__button-flat app__button-flat--danger"
-              @click="toggleIssuanceMode"
-            >
-              {{ 'customers-table.cancel-mass-issue-btn' | globalize }}
-            </button>
-          </div>
-        </template>
-      </div>
-    </template>
+          <button
+            class="app__button-flat app__button-flat--danger"
+            @click="toggleIssuanceMode"
+          >
+            {{ 'customers-table.cancel-mass-issue-btn' | globalize }}
+          </button>
+        </div>
+      </template>
+    </div>
 
     <!-- eslint-disable-next-line max-len -->
     <div class="app__table app__table--with-shadow app__table--last-td-to-right">
@@ -50,7 +48,22 @@
               />
             </th>
             <th :title="'customers-table.customer-th' | globalize">
-              {{ 'customers-table.customer-th' | globalize }}
+              <table-sorter
+                :is-active="activeSortingKey === SORTING_KEYS.lastName"
+                :sorting-key="SORTING_KEYS.lastName"
+                @sorting-changed="setActiveKeyAndEmitSorting($event)"
+              >
+                {{ 'customers-table.customer-th' | globalize }}
+              </table-sorter>
+            </th>
+            <th :title="'customers-table.email-th' | globalize">
+              <table-sorter
+                :is-active="activeSortingKey === SORTING_KEYS.email"
+                :sorting-key="SORTING_KEYS.email"
+                @sorting-changed="setActiveKeyAndEmitSorting($event)"
+              >
+                {{ 'customers-table.email-th' | globalize }}
+              </table-sorter>
             </th>
             <th :title="'customers-table.status-th' | globalize">
               {{ 'customers-table.status-th' | globalize }}
@@ -69,7 +82,7 @@
           </tr>
         </thead>
 
-        <tbody v-if="customersList.length">
+        <tbody>
           <tr
             v-for="customer in customersList"
             :key="customer.id"
@@ -87,10 +100,14 @@
             </td>
 
             <td
-              :title="getCustomerNameOrEmail(customer)"
+              :title="customer | fullName"
               class="customers-table__customer-td"
             >
-              {{ getCustomerNameOrEmail(customer) }}
+              {{ customer | fullName }}
+            </td>
+
+            <td :title="customer.email">
+              {{ customer.email }}
             </td>
 
             <td :title="getCustomerStatusTranslated(customer)">
@@ -124,24 +141,6 @@
             </td>
           </tr>
         </tbody>
-
-        <empty-tbody-placeholder
-          v-else-if="isLoaded"
-          :colspan="4"
-          :message="'customers-table.no-data-msg' | globalize"
-        />
-
-        <empty-tbody-placeholder
-          v-else-if="isLoadFailed"
-          :colspan="4"
-          :message="'customers-table.error-msg' | globalize"
-        />
-
-        <skeleton-loader-table-body
-          v-else
-          :cells="4"
-          template="smallString"
-        />
       </table>
     </div>
   </div>
@@ -149,9 +148,7 @@
 
 <script>
 import TickField from '@/vue/fields/TickField'
-import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
-import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
-
+import TableSorter from '@/vue/common/TableSorter'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
@@ -159,6 +156,13 @@ import { CustomerRecord } from '@/js/records/entities/customer.record'
 
 const EVENTS = {
   detailsButtonClicked: 'details-button-clicked',
+  setSortingAndReloadList: 'set-sorting-and-reload-list',
+}
+
+const SORTING_KEYS = {
+  email: 'email',
+  firstName: 'first_name',
+  lastName: 'last_name',
 }
 
 export default {
@@ -166,8 +170,17 @@ export default {
 
   components: {
     TickField,
-    EmptyTbodyPlaceholder,
-    SkeletonLoaderTableBody,
+    TableSorter,
+  },
+
+  filters: {
+    fullName (customer) {
+      if (customer.firstName && customer.lastName) {
+        return `${customer.firstName} ${customer.lastName}`
+      } else {
+        return '\u2014'
+      }
+    },
   },
 
   props: {
@@ -178,15 +191,9 @@ export default {
         return value.every(item => item instanceof CustomerRecord)
       },
     },
-
-    isLoaded: {
-      type: Boolean,
-      require: true,
-    },
-
-    isLoadFailed: {
-      type: Boolean,
-      require: true,
+    selectedBalances: {
+      type: Array,
+      default: _ => [],
     },
   },
 
@@ -194,8 +201,9 @@ export default {
     return {
       isIssuanceMode: false,
       issuanceReceivers: [],
-      selectedBalances: [],
+      activeSortingKey: '',
       EVENTS,
+      SORTING_KEYS,
     }
   },
 
@@ -213,9 +221,6 @@ export default {
       Bus.on('customers:hideSelect', () => {
         this.isIssuanceMode = false
         this.issuanceReceivers = []
-      })
-      Bus.on('customers:showBalances', payload => {
-        this.selectedBalances = payload || []
       })
     },
 
@@ -248,18 +253,23 @@ export default {
       Bus.emit('customers:massIssue', { receivers: this.issuanceReceivers })
     },
 
-    getCustomerNameOrEmail (customer) {
-      if (customer.firstName && customer.lastName) {
-        return `${customer.firstName} ${customer.lastName}`
-      } else {
-        return customer.email
-      }
-    },
-
     getCustomerBalance (customerBalances, selectedBalance) {
       const balance = customerBalances
         .find(i => i.assetCode === selectedBalance)
       return balance.amount
+    },
+
+    setActiveKeyAndEmitSorting (sorting) {
+      this.activeSortingKey = sorting.sortingKey
+      const sortingParameters = {
+        'page[order]': sorting.sortingOrder,
+        ...(
+          sorting.sortingKey
+            ? { 'sort': sorting.sortingKey }
+            : {}
+        ),
+      }
+      this.$emit(EVENTS.setSortingAndReloadList, sortingParameters)
     },
   },
 }
