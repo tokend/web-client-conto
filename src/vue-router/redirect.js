@@ -29,7 +29,7 @@ function handleEmailRedirect (encodedVerificationCode, next) {
 
 function handlePurchasedAssetRedirect (decodedPurchasedAssetInfo, next) {
   const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
-  const isPurchasedSuccessful = false
+  const isPurchasedSuccessful = decodedPurchasedAssetInfo.is_success
 
   if (isLoggedIn) {
     next({
