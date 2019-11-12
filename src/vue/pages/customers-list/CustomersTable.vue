@@ -153,7 +153,6 @@ import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { CustomerRecord } from '@/js/records/entities/customer.record'
-import { PAGE_SORTING_ORDERS } from '@/js/const/page-sorting-orders.const'
 
 const EVENTS = {
   detailsButtonClicked: 'details-button-clicked',
@@ -263,15 +262,11 @@ export default {
     setActiveKeyAndEmitSorting (sorting) {
       this.activeSortingKey = sorting.sortingKey
       const sortingParameters = {
+        'page[order]': sorting.sortingOrder,
         ...(
           sorting.sortingKey
             ? { 'sort': sorting.sortingKey }
             : {}
-        ),
-        ...(
-          sorting.sortingOrder
-            ? { 'page[order]': sorting.sortingOrder }
-            : { 'page[order]': PAGE_SORTING_ORDERS.desc }
         ),
       }
       this.$emit(EVENTS.setSortingAndReloadList, sortingParameters)
