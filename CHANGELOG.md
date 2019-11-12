@@ -15,6 +15,15 @@ for further information about branching and tagging conventions.
 #### Fixed
 - Issue when sponsorship didn't work
 
+## [1.3.1] - 2019-11-11
+#### Changed
+- Router names from 'company' to 'business'
+
+## [1.3.0] - 2019-11-08
+#### Fixed
+- Card design(added min-height to car titles)
+- A bug when business disappears after change language
+
 ## [1.3.0-rc.1] - 2019-11-06
 #### Added
 - Trim for input field 
@@ -395,7 +404,9 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.3.0-rc.1...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.3.1...HEAD
+[1.3.1]: https://github.com/tokend/web-client/compare/1.3.0...1.3.1
+[1.3.0]: https://github.com/tokend/web-client/compare/1.3.0-rc.1...1.3.0
 [1.3.0-rc.1]: https://github.com/tokend/web-client/compare/1.3.0-rc.0...1.3.0-rc.1
 [1.3.0-rc.0]: https://github.com/tokend/web-client/compare/1.2.0...1.3.0-rc.0
 [1.2.0]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...1.2.0
