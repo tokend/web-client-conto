@@ -11,6 +11,7 @@ for further information about branching and tagging conventions.
 - `ErrorMessage` component
 - Statistics
 - Expiration date for assets
+- `Failed` and `Successful` payment pages
 
 #### Fixed
 - Issue when sponsorship didn't work

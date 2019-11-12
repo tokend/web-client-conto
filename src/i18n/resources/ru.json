@@ -1156,7 +1156,9 @@
       "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
       "can-be-quote-in-atomic-swap-title": "Может быть котируемым активом в предложении",
       "delete-asset-message": "Вы действительно хотите удалить актив?",
-      "expiration-date-title": "Действителен до"
+      "expiration-date-title": "Действителен до",
+      "asset-purchased-successfully": "Актив успешно куплен",
+      "payment-failed": "Оплата не прошла"
     },
     "warning-banner": {
       "blocked-desc": "Ваш аккаунт был заблокирован администратором. Причина блокировки: {{reason}}",
@@ -1565,6 +1567,31 @@
       "asset-th": "Актив",
       "total-sold-th": "Всего продано",
       "total-proceeds-th": "Общий доход"
+    },
+    "successful-payment": {
+      "title": "Успешный платеж",
+      "description-header": "Поздравляем!",
+      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в Conto!",
+      "how-to-start-msg": "С чего начать",
+      "sign-up-or-login-link-part-1": "Зарегистрируйтесь",
+      "sign-up-or-login-link-part-2": "в Conto или",
+      "sign-up-or-login-link-part-3": "войдите",
+      "sign-up-or-login-link-part-4": ", используя вашу почту",
+      "go-to-wallet-msg": "Перейдите в раздел “Кошелек” и увидите свой билет.",
+      "use-wallet-msg": "Готово, теперь вы можете использовать свой цифровой кошелек для хранения, передачи и погашения полученого актива.",
+      "transfer-msg": "Удобно передавайте актив по email.",
+      "redeem-msg": "Погашайте актив, показав QR-код!",
+      "use-apps-msg": "Вы можете использовать web-версию Conto, а можете установить мобильное приложение.",
+      "conto-for-android-msg": "Conto для Android",
+      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь на почту",
+      "asset-loading": "Загружаеться информация об активе",
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-link-title": "Неверная ссылка",
+      "no-link-msg": "Проверьте вашу ссылку и попробуйте еще раз"
+    },
+    "failed-payment": {
+      "title": "Платеж не прошел",
+      "failed-msg": "Произошла ошибка при покупке актива"
     }
   }
 }
