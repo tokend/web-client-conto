@@ -13,6 +13,9 @@ for further information about branching and tagging conventions.
 - Expiration date for assets
 - `Failed` and `Successful` payment pages
 
+#### Fixed
+- Issue when sponsorship didn't work
+
 ## [1.3.1] - 2019-11-11
 #### Changed
 - Router names from 'company' to 'business'

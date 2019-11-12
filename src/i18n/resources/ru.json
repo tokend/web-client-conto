@@ -1390,11 +1390,14 @@
       "description-title": "Описание"
     },
     "business-assets-viewer": {
-      "asset-name-th": "Имя актива",
-      "number-of-holders-th": "Количество держателей",
-      "sponsor-btn": "Спонсировать",
+      "no-data-title": "Нет активов",
       "no-data-msg": "У компании еще нет активов.",
       "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы."
+    },
+    "business-assets-table": {
+      "asset-name-th": "Имя актива",
+      "number-of-holders-th": "Количество держателей",
+      "sponsor-btn": "Спонсировать"
     },
     "sponsorship-form": {
       "form-heading": "Спонсирование",
@@ -1402,7 +1405,9 @@
       "amount-lbl": "Количество для 1 держателя",
       "total-amount": "Общее количество",
       "create-contract-btn": "Создать контракт",
-      "create-contract-successful": "Контракт успешно создан"
+      "create-contract-successful": "Контракт успешно создан",
+      "no-assets-msg-title": "Нет активов",
+      "no-assets-msg-description":"К сожалению, у вас нет активов, которые можно было бы отправить."
     },
     "sponsorship-page": {
       "businesses-tab": "Компании",
