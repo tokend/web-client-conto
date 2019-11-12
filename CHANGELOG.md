@@ -11,6 +11,7 @@ for further information about branching and tagging conventions.
 - `ErrorMessage` component
 - Statistics
 - Expiration date for assets
+- `Failed` and `Successful` payment pages
 
 ## [1.3.1] - 2019-11-11
 #### Changed

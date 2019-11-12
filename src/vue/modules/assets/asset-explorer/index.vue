@@ -168,6 +168,15 @@ export default {
 
   async created () {
     try {
+      const isAssetPurchased = this.$route.params.isAssetPurchased
+
+      if (typeof isAssetPurchased !== 'undefined') {
+        if (isAssetPurchased) {
+          Bus.success('assets.asset-purchased-successfully')
+        } else {
+          Bus.error('assets.payment-failed')
+        }
+      }
       await this.loadAccountBalances()
       Bus.on('assets:setBusinessOwnerId', id => {
         this.businessOwnerId = id || ''

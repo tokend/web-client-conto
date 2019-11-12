@@ -109,6 +109,14 @@ export default {
       },
     },
   },
+
+  created () {
+    const email = this.$route.params.email
+    if (email) {
+      this.form.email = email
+    }
+  },
+
   methods: {
     async submit () {
       if (!this.isFormValid()) {

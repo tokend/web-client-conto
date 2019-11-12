@@ -35,6 +35,8 @@ import PromoCodesList from '@/vue/pages/PromoCodesList'
 import Statistics from '@/vue/pages/Statistics'
 import StatisticsSalesHistory from '@/vue/pages/StatisticsSalesHistory'
 import StatisticsGeneral from '@/vue/pages/StatisticsGeneral'
+import SuccessfulPayment from '@/vue/pages/SuccessfulPayment'
+import FailedPayment from '@/vue/pages/FailedPayment'
 
 Vue.use(Router)
 
@@ -69,6 +71,16 @@ const router = new Router({
       path: '/pay',
       name: vueRoutes.pay.name,
       component: Pay,
+    },
+    {
+      path: '/successful-payment',
+      name: vueRoutes.successfulPayment.name,
+      component: SuccessfulPayment,
+    },
+    {
+      path: '/failed-payment',
+      name: vueRoutes.failedPayment.name,
+      component: FailedPayment,
     },
     {
       path: '/business/:id',
