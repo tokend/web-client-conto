@@ -1242,7 +1242,7 @@
     },
     "customers-page": {
       "invite-btn": "Invite client",
-      "issue-btn": "Issue",
+      "export-btn": "Export",
       "mass-invitation-drawer-heading": "Invite customers",
       "mass-issuance-drawer-heading": "Mass issuance",
       "mass-payment-drawer-heading": "Mass send",
