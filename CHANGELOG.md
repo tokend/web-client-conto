@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Added
+- Google market img to `SuccessfulPayment` page
+
 ## [1.4.0-rc.2] - 2019-11-14
 #### Fixed
 - A bub with clients export

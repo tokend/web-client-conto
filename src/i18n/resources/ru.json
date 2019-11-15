@@ -1591,7 +1591,7 @@
       "transfer-msg": "Удобно передавайте актив по email.",
       "redeem-msg": "Погашайте актив, показав QR-код!",
       "use-apps-msg": "Вы можете использовать web-версию Conto, а можете установить мобильное приложение.",
-      "conto-for-android-msg": "Conto для Android",
+      "conto-for-android-msg": "{{appName}} для Android",
       "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь на почту",
       "asset-loading": "Загружаеться информация об активе",
       "loading-error-msg": "Произошла ошибка при загрузке.",
