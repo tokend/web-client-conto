@@ -52,7 +52,7 @@
         "nextDay": "[Завтра в] H:mm",
         "lastWeek": "[Пред.] dddd [в] H:mm",
         "nextWeek": "[След.] dddd [в] H:mm",
-        "sameElse": "MMMM D, YYYY [в] H:mm"
+        "sameElse": "D MMMM YYYY [в] H:mm"
       },
       "calendarInline": {
         "sameDay": "[сегодня в] H:mm",
@@ -60,7 +60,7 @@
         "nextDay": "[завтра в] H:mm",
         "lastWeek": "[пред.] dddd [в] H:mm",
         "nextWeek": "[след.] dddd [в] H:mm",
-        "sameElse": "MMMM D, YYYY [в] H:mm"
+        "sameElse": "D MMMM YYYY [в] H:mm"
       }
     }
   },
@@ -1235,7 +1235,8 @@
       "balance-key": "Баланс {{assetCode}}",
       "not-registered-status-val": "Не зарегистрирован",
       "active-status-val": "Активен",
-      "blocked-status-val": "Заблокирован"
+      "blocked-status-val": "Заблокирован",
+      "added-key": "Добавлен"
     },
     "customers-table": {
       "customer-th": "Клиент",
@@ -1250,7 +1251,8 @@
       "enable-mass-payment-btn": "Выбрать для отправки",
       "do-mass-payment-btn": "Выполнить отправку",
       "cancel-mass-issue-btn": "Отменить",
-      "email-th": "Имейл"
+      "email-th": "Имейл",
+      "added-th": "Добавлен"
     },
     "customers-list": {
       "customer-drawer-title": "Клиент",

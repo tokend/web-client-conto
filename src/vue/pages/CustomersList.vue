@@ -107,8 +107,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { PAGE_SORTING_ORDERS } from '@/js/const/page-sorting-orders.const'
-
+const SORT_ADDED_AT_DESC = '-added_at'
 export default {
   name: 'customers-list',
 
@@ -136,9 +135,7 @@ export default {
       selectedBalances: [],
       customerFilters: {},
       sortingParameters: {
-        page: {
-          order: PAGE_SORTING_ORDERS.desc,
-        },
+        sort: SORT_ADDED_AT_DESC,
       },
     }
   },

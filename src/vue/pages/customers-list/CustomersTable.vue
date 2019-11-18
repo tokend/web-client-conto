@@ -76,6 +76,9 @@
                 {{ balance.name }}
               </th>
             </template>
+            <th :title="'customers-table.added-th' | globalize">
+              {{ 'customers-table.added-th' | globalize }}
+            </th>
             <th class="customers-table__btn-td">
               <!-- actions -->
             </th>
@@ -130,6 +133,13 @@
                 </td>
               </template>
             </template>
+
+            <td
+              class="customers-table__added-td"
+              :title="customer.addedAt | formatCalendar"
+            >
+              {{ customer.addedAt | formatCalendar }}
+            </td>
 
             <td class="customers-table__btn-td">
               <button
@@ -333,5 +343,9 @@ $disabled-tick-border: #e9e9e9;
 
 .customers-table__customer-td {
   max-width: 16rem;
+}
+
+.customers-table__added-td {
+  max-width: 21rem;
 }
 </style>

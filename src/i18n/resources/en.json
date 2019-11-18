@@ -1278,7 +1278,8 @@
       "balance-key": "{{assetCode}} balance",
       "not-registered-status-val": "Not registered",
       "active-status-val": "Active",
-      "blocked-status-val": "Blocked"
+      "blocked-status-val": "Blocked",
+      "added-key": "Added"
     },
     "customers-table": {
       "customer-th": "Customer",
@@ -1293,7 +1294,8 @@
       "enable-mass-payment-btn": "Select for send",
       "do-mass-payment-btn": "Perform send",
       "cancel-mass-issue-btn": "Cancel",
-      "email-th": "Email"
+      "email-th": "Email",
+      "added-th": "Added"
     },
     "customers-list": {
       "customer-drawer-title": "View customer",

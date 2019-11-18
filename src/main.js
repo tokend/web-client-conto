@@ -9,6 +9,7 @@ import config from './config'
 import NProgress from 'nprogress'
 import router from '@/vue-router'
 import VuejsClipper from 'vuejs-clipper'
+import moment from 'moment'
 
 import { buildStore } from '@/vuex'
 import { ripple } from '@/vue/directives/ripple'
@@ -30,6 +31,10 @@ import { cropAddress } from '@/vue/filters/cropAddress'
 import { ErrorTracker } from '@/js/helpers/error-tracker'
 
 async function init () {
+  i18n.onLanguageChanged(lang => {
+    moment.locale(lang)
+  })
+
   await i18n.init()
 
   log.setDefaultLevel(config.LOG_LEVEL)
