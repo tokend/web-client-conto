@@ -1591,7 +1591,7 @@
       "transfer-msg": "Transfer by using the recipients’ email.",
       "redeem-msg": "Redeem by showing the QR code.",
       "use-apps-msg": "You can use web-version, or you can install Conto mobile application.",
-      "conto-for-android-msg": "Conto for Android",
+      "conto-for-android-msg": "{{appName}} for Android:",
       "contact-us-msg": "If you have any questions or difficulties, please contact us by the email",
       "asset-loading": "Asset information is loading",
       "loading-error-msg": "There was an error while loading.",

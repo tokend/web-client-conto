@@ -63,10 +63,17 @@
               </ul>
               <p>{{ 'successful-payment.use-apps-msg' | globalize }}</p>
               <br>
-              <p>{{ 'successful-payment.conto-for-android-msg' | globalize }}</p>
+              <p>
+                {{ 'successful-payment.conto-for-android-msg' | globalize(
+                  { appName: config.APP_NAME, }
+                ) }}
+              </p>
               <!-- eslint-enable max-len -->
               <a :href="config.PLAY_MARKET_LINK">
-                {{ config.PLAY_MARKET_LINK }}
+                <img
+                  class="successful-payment__store-img"
+                  :src="googlePlayCroppedImgUrl"
+                >
               </a>
             </div>
             <div class="successful-payment__description-footer">
@@ -79,7 +86,7 @@
         </template>
         <template v-else>
           <no-data-message
-            icon-name="check-circle-outline"
+            icon-name="trophy-broken"
             :title="'successful-payment.no-link-title' | globalize"
             :message="'successful-payment.no-link-msg' | globalize"
           />
@@ -124,6 +131,7 @@ export default {
 
   data () {
     return {
+      googlePlayCroppedImgUrl: `${config.IMG_BUCKET_URL}/downloads-page/google_play_cropped.png`,
       isLoaded: false,
       isLoadFailed: false,
       asset: {},
@@ -253,5 +261,10 @@ export default {
   .successful-payment__description-footer {
     text-align: center;
     margin-top: 1.8rem;
+  }
+
+  .successful-payment__store-img {
+    width: 15rem;
+    max-width: 15rem;
   }
 </style>

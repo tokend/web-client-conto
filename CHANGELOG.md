@@ -7,9 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
+#### Added
+- Google market img to `SuccessfulPayment` page
+
+#### Changed
+- Used `APP_NAME` on `SuccessfulPayment` page
+
 #### Fixed
 - A bug with sort on Customers page
 - A bug with displaying `Kyc recovery` page on mobile phone
+- A bug with trim filter search
+- Localization
+
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.11.2
 
 ## [1.4.0-rc.2] - 2019-11-14
 #### Fixed
