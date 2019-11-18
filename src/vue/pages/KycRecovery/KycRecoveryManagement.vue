@@ -122,6 +122,10 @@ export default {
 
 .kyc-recovery-management__inner {
   padding: 3.5rem 16rem;
+
+  @include respond-to-custom($sidebar-hide-bp) {
+    padding: 3.5rem 2rem;
+  }
 }
 
 .kyc-recovery-management__top-bar {

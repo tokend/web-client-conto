@@ -259,17 +259,16 @@ export default {
       return balance.amount
     },
 
-    setActiveKeyAndEmitSorting (sorting) {
-      this.activeSortingKey = sorting.sortingKey
-      const sortingParameters = {
-        'page[order]': sorting.sortingOrder,
-        ...(
-          sorting.sortingKey
-            ? { 'sort': sorting.sortingKey }
-            : {}
-        ),
+    setActiveKeyAndEmitSorting (sortingKey) {
+      let activeSortingKey = sortingKey
+      if (activeSortingKey.charAt(0) === '-') {
+        activeSortingKey = activeSortingKey.substr(1)
       }
-      this.$emit(EVENTS.setSortingAndReloadList, sortingParameters)
+      this.activeSortingKey = activeSortingKey
+
+      this.$emit(EVENTS.setSortingAndReloadList, {
+        'sort': sortingKey,
+      })
     },
   },
 }
