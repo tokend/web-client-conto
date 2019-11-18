@@ -52,7 +52,7 @@
         "nextDay": "[Завтра в] H:mm",
         "lastWeek": "[Пред.] dddd [в] H:mm",
         "nextWeek": "[След.] dddd [в] H:mm",
-        "sameElse": "MMMM D, YYYY [в] H:mm"
+        "sameElse": "D MMMM YYYY [в] H:mm"
       },
       "calendarInline": {
         "sameDay": "[сегодня в] H:mm",
@@ -60,7 +60,7 @@
         "nextDay": "[завтра в] H:mm",
         "lastWeek": "[пред.] dddd [в] H:mm",
         "nextWeek": "[след.] dddd [в] H:mm",
-        "sameElse": "MMMM D, YYYY [в] H:mm"
+        "sameElse": "D MMMM YYYY [в] H:mm"
       }
     }
   },
