@@ -2,8 +2,8 @@ import { vueRoutes } from './routes'
 import { store, vuexTypes } from '@/vuex'
 
 const REDIRECT_TYPES = {
-  email: 1,
-  purchasedAsset: 2,
+  apiVerify: 'api-verify',
+  marketplacePayment: 'marketplace-payment',
 }
 
 export const resolveRedirect = (to, from, next) => {
@@ -11,10 +11,10 @@ export const resolveRedirect = (to, from, next) => {
   const decodedValue = JSON.parse(atob(encodedValue))
 
   switch (decodedValue.type) {
-    case REDIRECT_TYPES.email:
+    case REDIRECT_TYPES.apiVerify:
       handleEmailRedirect(encodedValue, next)
       break
-    case REDIRECT_TYPES.purchasedAsset:
+    case REDIRECT_TYPES.marketplacePayment:
       handlePurchasedAssetRedirect(decodedValue.meta, next)
       break
   }

@@ -1199,7 +1199,7 @@
     },
     "customers-page": {
       "invite-btn": "Пригласить клиента",
-      "issue-btn": "Выпустить",
+      "export-btn": "Export",
       "mass-invitation-drawer-heading": "Пригласите клиентов",
       "mass-issuance-drawer-heading": "Выпустить активы",
       "mass-payment-drawer-heading": "Отправить активы",

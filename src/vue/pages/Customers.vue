@@ -10,14 +10,12 @@
           {{ 'customers-page.invite-btn' | globalize }}
         </button>
 
-        <!-- Temp. hidden -->
         <button
-          v-if="false"
           v-ripple
           class="app__button-raised"
-          @click="isPaymentDrawerShown = true"
+          @click="clientsExport"
         >
-          {{ 'customers-page.issue-btn' | globalize }}
+          {{ 'customers-page.export-btn' | globalize }}
         </button>
       </template>
     </top-bar>
@@ -52,8 +50,12 @@ import Drawer from '@/vue/common/Drawer'
 import MassPaymentForm from '@/vue/forms/MassPaymentForm'
 import MassInvitationForm from '@/vue/forms/MassInvitationForm'
 
+import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
 import { vueRoutes } from '@/vue-router/routes'
+import { vuexTypes } from '@/vuex'
+import { mapGetters } from 'vuex'
+import { ErrorHandler } from '@/js/helpers/error-handler'
 
 export default {
   name: 'customers-page',
@@ -72,6 +74,12 @@ export default {
     vueRoutes,
   }),
 
+  computed: {
+    ...mapGetters({
+      accountId: vuexTypes.accountId,
+    }),
+  },
+
   watch: {
     isPaymentDrawerShown (value) {
       if (value === false) {
@@ -79,7 +87,6 @@ export default {
       }
     },
   },
-
   async created () {
     this.listen()
   },
@@ -94,6 +101,21 @@ export default {
         this.receivers = ((payload || {}).receivers || [])
         this.isPaymentDrawerShown = true
       })
+    },
+    async clientsExport () {
+      try {
+        const response = await api.getWithSignature(
+          `/integrations/csv/dns/businesses/${this.accountId}/clients`
+        )
+        let hiddenElement = document.createElement('a')
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' +
+          encodeURI(response._rawResponse.data)
+        hiddenElement.target = '_blank'
+        hiddenElement.download = 'conto_customers.csv'
+        hiddenElement.click()
+      } catch (e) {
+        ErrorHandler.processWithoutFeedback(e)
+      }
     },
   },
 }
