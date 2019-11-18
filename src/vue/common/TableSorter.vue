@@ -51,13 +51,15 @@ export default {
 
   methods: {
     setOrder () {
-      this.sortingOrder = this.isAscSortingOrder
-        ? PAGE_SORTING_ORDERS.desc
-        : PAGE_SORTING_ORDERS.asc
-      this.$emit(EVENTS.sortingChanged, {
-        sortingKey: this.sortingKey,
-        sortingOrder: this.sortingOrder,
-      })
+      let sortingKey = this.sortingKey
+      if (this.isAscSortingOrder) {
+        this.sortingOrder = PAGE_SORTING_ORDERS.desc
+        sortingKey = `-${sortingKey}`
+      } else {
+        this.sortingOrder = PAGE_SORTING_ORDERS.asc
+      }
+
+      this.$emit(EVENTS.sortingChanged, sortingKey)
     },
   },
 }
