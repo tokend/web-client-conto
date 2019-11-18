@@ -10,6 +10,17 @@ for further information about branching and tagging conventions.
 #### Added
 - Google market img to `SuccessfulPayment` page
 
+#### Changed
+- Used `APP_NAME` on `successful-payment` page
+
+#### Fixed
+- A bug with trim filter search
+- Localization
+
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.11.2
+
 ## [1.4.0-rc.2] - 2019-11-14
 #### Fixed
 - A bub with clients export

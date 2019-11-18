@@ -85,7 +85,7 @@
         <tbody>
           <tr
             v-for="customer in customersList"
-            :key="customer.id"
+            :key="customer.accountId"
           >
             <td
               class="customers-table__cb-td"

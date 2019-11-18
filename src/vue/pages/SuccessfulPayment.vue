@@ -63,11 +63,11 @@
               </ul>
               <p>{{ 'successful-payment.use-apps-msg' | globalize }}</p>
               <br>
-              <p>{{ 'successful-payment.conto-for-android-msg' | globalize(
-                {
-                appName: config.APP_NAME,
-                }
-                ) }}</p>
+              <p>
+                {{ 'successful-payment.conto-for-android-msg' | globalize(
+                  { appName: config.APP_NAME, }
+                ) }}
+              </p>
               <!-- eslint-enable max-len -->
               <a :href="config.PLAY_MARKET_LINK">
                 <img
