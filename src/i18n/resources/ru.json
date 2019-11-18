@@ -1235,7 +1235,8 @@
       "balance-key": "Баланс {{assetCode}}",
       "not-registered-status-val": "Не зарегистрирован",
       "active-status-val": "Активен",
-      "blocked-status-val": "Заблокирован"
+      "blocked-status-val": "Заблокирован",
+      "added-key": "Добавлен"
     },
     "customers-table": {
       "customer-th": "Клиент",
@@ -1250,7 +1251,8 @@
       "enable-mass-payment-btn": "Выбрать для отправки",
       "do-mass-payment-btn": "Выполнить отправку",
       "cancel-mass-issue-btn": "Отменить",
-      "email-th": "Имейл"
+      "email-th": "Имейл",
+      "added-th": "Добавлен"
     },
     "customers-list": {
       "customer-drawer-title": "Клиент",

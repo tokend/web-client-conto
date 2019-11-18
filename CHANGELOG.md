@@ -9,6 +9,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Google market img to `SuccessfulPayment` page
+- `Added` field on Customers page
 
 #### Changed
 - Used `APP_NAME` on `SuccessfulPayment` page
