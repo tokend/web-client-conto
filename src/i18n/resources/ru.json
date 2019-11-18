@@ -1471,10 +1471,13 @@
     "promo-code-offers-table": {
       "name-th": "Имя",
       "amount-th": "Количество",
-      "price-th": "Цена",
+      "price-th": "Цена"
+    },
+    "promo-code-offers-viewer": {
       "offers-title": "Предложения",
       "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
-      "no-data-msg": "У промокаода нет выбранных предложений."
+      "no-data-title": "Нет выбранных предложений",
+      "no-data-msg": "У промокода нет выбранных предложений."
     },
     "promo-code-form-offers-table": {
       "name-th": "Имя",

@@ -45,7 +45,7 @@ export default {
 
   props: {
     promoCodeOffers: {
-      type: Array,
+      type: Array, /** {@link AtomicSwapAskRecord} **/
       required: true,
     },
   },

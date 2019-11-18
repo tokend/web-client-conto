@@ -1471,10 +1471,13 @@
     "promo-code-offers-table": {
       "name-th": "Name",
       "amount-th": "Amount",
-      "price-th": "Price",
+      "price-th": "Price"
+    },
+    "promo-code-offers-viewer": {
       "offers-title": "Offers",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
-      "no-data-msg":"Promo Code don't have any offers yet."
+      "no-data-title": "No offers yet",
+      "no-data-msg":"Promo Code doesn't have any offers yet."
     },
     "promo-code-form-offers-table": {
       "name-th": "Name",
