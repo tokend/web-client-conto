@@ -1170,10 +1170,19 @@
     "atomic-swaps": {
       "explore-atomic-swaps": "Предложения",
       "create-atomic-swap-bth": "Создать предложение",
-      "new-atomic-swap": "Новое предложение",
-      "loading": "Загрузка",
+      "new-atomic-swap": "Новое предложение"
+    },
+    "atomic-swaps-requests": {
       "purchases": "Покупки",
-      "loading-error-msg": "Произошла ошибка при загрузке."
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-data-title": "Нет покупок",
+      "no-data-msg":"Здесь будет история покупки вашего предложения"
+    },
+    "atomic-swaps-requests-table": {
+      "buyer-th": "Покупатель",
+      "amount-th": "Количество",
+      "discount-th": "Скидка",
+      "total-price-th": "Итоговая цена"
     },
     "create-atomic-swap-form": {
       "asset-lbl": "Актив",

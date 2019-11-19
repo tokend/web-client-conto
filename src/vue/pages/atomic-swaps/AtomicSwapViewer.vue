@@ -1,12 +1,13 @@
 <template>
   <div class="atomic-swap-viewer">
     <atomic-swap-attributes :atomic-swap-ask="currentAtomicSwapAsk" />
-    <atomic-swap-actions
-      v-if="isAtomicSwapOwner()"
-      :atomic-swap-ask="currentAtomicSwapAsk"
-      @cancel="$emit(EVENTS.closeDrawerAndUpdateList)"
-    />
-    <atomic-swap-requests :atomic-swap-ask="currentAtomicSwapAsk" />
+    <template v-if="isAtomicSwapOwner()">
+      <atomic-swap-actions
+        :atomic-swap-ask="currentAtomicSwapAsk"
+        @cancel="$emit(EVENTS.closeDrawerAndUpdateList)"
+      />
+      <atomic-swap-requests :atomic-swap-ask="currentAtomicSwapAsk" />
+    </template>
   </div>
 </template>
 
