@@ -636,6 +636,7 @@
       "settings": "Settings",
       "movements": "History",
       "register-of-shares": "History",
+      "assets-movements": "Assets movements",
       "customers": "Customers",
       "customers-list": "Customers list",
       "businesses": "Companies",
@@ -662,7 +663,7 @@
     "sidebar": {
       "section-explore": "Explorations",
       "section-account": "My account",
-      "section-corporate": "Company"
+      "section-general": "Customer tab"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -673,7 +674,6 @@
       "filters-prefix": "Show:",
       "something-went-wrong": "Something went wrong",
       "can-not-load-assets": "There was an error while loading assets",
-      "assets-loading-msg": "Loading the assets…",
       "withdraw": "Withdraw",
       "deposit": "Deposit",
       "send": "Send",
@@ -1505,7 +1505,8 @@
     },
     "business-card": {
       "add-lbl": "Add",
-      "details-lbl": "Details"
+      "details-lbl": "Details",
+      "invest-lbl": "Invest"
     },
     "movements-top-bar": {
       "business-filter-label": "Company",
@@ -1601,6 +1602,9 @@
     "failed-payment": {
       "title": "Payment failed",
       "failed-msg": "An error occurred while purchasing the asset"
+    },
+    "assets-movements": {
+      "asset-filter-label": "Asset"
     }
   }
 }

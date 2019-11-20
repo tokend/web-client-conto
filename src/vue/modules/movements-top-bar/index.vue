@@ -6,7 +6,7 @@
           slot="main"
           class="movements-top-bar__filters"
         >
-          <template v-if="isAccountGeneral && isBusinessesExists">
+          <template v-if="isBusinessesExists">
             <div class="movements-top-bar__filter">
               <select-field
                 :value="businessOwnerId"
@@ -47,7 +47,7 @@
           </template>
         </div>
         <div
-          v-if="isAccountGeneral && isAssetsExists"
+          v-if="isAssetsExists"
           class="movements-top-bar__actions"
           slot="extra"
         >
@@ -124,22 +124,16 @@ export default {
     ...mapGetters([
       vuexTypes.assetsByOwner,
       vuexTypes.accountBalanceByCode,
-      vuexTypes.ownedAssets,
-      vuexTypes.isAccountGeneral,
       vuexTypes.assetByCode,
       vuexTypes.myBusinesses,
     ]),
 
     assets () {
-      if (this.isAccountGeneral) {
-        if (this.businessOwnerId) {
-          return this.assetsByOwner(this.businessOwnerId)
-        } else {
-          // eslint-disable-next-line max-len
-          return this.myBusinesses.flatMap(business => this.assetsByOwner(business.accountId))
-        }
+      if (this.businessOwnerId) {
+        return this.assetsByOwner(this.businessOwnerId)
       } else {
-        return this.ownedAssets
+        // eslint-disable-next-line max-len
+        return this.myBusinesses.flatMap(business => this.assetsByOwner(business.accountId))
       }
     },
 

@@ -104,9 +104,15 @@ export default {
     },
     async clientsExport () {
       try {
-        await api.getWithSignature(
+        const response = await api.getWithSignature(
           `/integrations/csv/dns/businesses/${this.accountId}/clients`
         )
+        let hiddenElement = document.createElement('a')
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' +
+          encodeURI(response._rawResponse.data)
+        hiddenElement.target = '_blank'
+        hiddenElement.download = 'conto_customers.csv'
+        hiddenElement.click()
       } catch (e) {
         ErrorHandler.processWithoutFeedback(e)
       }

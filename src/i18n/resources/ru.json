@@ -640,6 +640,7 @@
       "settings": "Настройки",
       "movements": "История",
       "register-of-shares": "История",
+      "assets-movements": "Движение активов",
       "customers": "Клиенты",
       "customers-list": "Список клиентов",
       "businesses": "Компании",
@@ -666,7 +667,7 @@
     "sidebar": {
       "section-explore": "Просмотреть",
       "section-account": "Аккаунт",
-      "section-corporate": "Компания"
+      "section-general": "Раздел покупателя"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -677,7 +678,6 @@
       "filters-prefix": "Показать:",
       "something-went-wrong": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
       "can-not-load-assets": "Произошла ошибка при загрузке активов. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
-      "assets-loading-msg": "Загружаем активы…",
       "withdraw": "Вывести",
       "deposit": "Внести",
       "send": "Отправить",
@@ -1509,7 +1509,8 @@
     },
     "business-card": {
       "add-lbl": "Добавить",
-      "details-lbl": "Детали"
+      "details-lbl": "Детали",
+      "invest-lbl": "Инвестировать"
     },
     "statistics-page": {
       "sales-history-tab": "История продаж",
@@ -1601,6 +1602,9 @@
     "failed-payment": {
       "title": "Платеж не прошел",
       "failed-msg": "Произошла ошибка при покупке актива"
+    },
+    "assets-movements": {
+      "asset-filter-label": "Актив"
     }
   }
 }
