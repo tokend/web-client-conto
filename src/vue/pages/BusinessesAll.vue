@@ -1,19 +1,13 @@
 <template>
   <div class="businesses-all">
     <template v-if="isLoaded && allBusinesses.length">
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="item in allBusinesses"
-          :key="item.accountId"
-        >
-          <business-card
-            :business="item"
-            @vue-details="selectItem(item)"
-            @business-added="loadMyBusinesses()"
-          />
-        </div>
-      </div>
+      <card-list v-slot="{ item }" :list="allBusinesses">
+        <business-card
+          :business="item"
+          @vue-details="selectItem(item)"
+          @business-added="loadMyBusinesses()"
+        />
+      </card-list>
     </template>
 
     <template v-else-if="isLoadingFailed">
@@ -71,6 +65,7 @@ import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoade
 import Drawer from '@/vue/common/Drawer'
 import BusinessAttributes from './businesses-all/BusinessAttributes'
 import BusinessAssetsViewer from './businesses-all/BusinessAssetsViewer'
+import CardList from '@/vue/common/CardList'
 
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
@@ -88,6 +83,7 @@ export default {
     Drawer,
     BusinessAttributes,
     BusinessAssetsViewer,
+    CardList,
   },
 
   data () {

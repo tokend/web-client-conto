@@ -1,19 +1,13 @@
 <template>
   <div class="atomic-swaps-explore">
     <template v-if="list.length">
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="item in list"
-          :key="item.id"
-        >
-          <atomic-swap-card
-            :atomic-swap-ask="item"
-            @buy="buyAsset(item)"
-            @vue-details="selectItem(item)"
-          />
-        </div>
-      </div>
+      <card-list v-slot="{ item }" :list="list">
+        <atomic-swap-card
+          :atomic-swap-ask="item"
+          @buy="buyAsset(item)"
+          @vue-details="selectItem(item)"
+        />
+      </card-list>
     </template>
 
     <template v-else-if="isLoading">
@@ -76,6 +70,8 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import AtomicSwapForm from '@modules/atomic-swap-form'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
+import CardList from '@/vue/common/CardList'
+
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
@@ -94,6 +90,7 @@ export default {
     NoDataMessage,
     AtomicSwapForm,
     SkeletonCardsLoader,
+    CardList,
   },
 
   mixins: [UpdateList],

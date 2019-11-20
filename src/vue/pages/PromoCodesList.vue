@@ -1,18 +1,12 @@
 <template>
   <div class="promo-codes-list">
     <template v-if="list.length">
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="item in list"
-          :key="item.id"
-        >
-          <promo-code-card
-            :promo-code="item"
-            @vue-details="setPromoCodeToBrowse(item)"
-          />
-        </div>
-      </div>
+      <card-list v-slot="{ item }" :list="list">
+        <promo-code-card
+          :promo-code="item"
+          @vue-details="setPromoCodeToBrowse(item)"
+        />
+      </card-list>
     </template>
 
     <template v-else-if="isLoading">
@@ -59,6 +53,7 @@ import PromoCodeCard from './promo-codes/PromoCodeCard'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import PromoCodeViewer from './promo-codes/PromoCodeViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
+import CardList from '@/vue/common/CardList'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
@@ -77,6 +72,7 @@ export default {
     SkeletonCardsLoader,
     PromoCodeCard,
     NoDataMessage,
+    CardList,
   },
 
   data () {
