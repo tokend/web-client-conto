@@ -21,11 +21,11 @@ const NUMBER_OF_CARDS = {
   five: 5,
   six: 6,
 }
-const DISPLAY_WIDTH = {
-  sixCards: 3726,
+const CONTENT_DISPLAY_WIDTH = {
+  sixCards: 3000,
   fiveCards: 1678,
-  fourCards: 920,
-  threeCards: 760,
+  fourCards: 1100,
+  threeCards: 800,
   twoCards: 500,
 }
 
@@ -63,15 +63,15 @@ export default {
       const cardListWidth = document.getElementById('card-list').clientWidth
       let numberOfCards = NUMBER_OF_CARDS.one
 
-      if (cardListWidth > DISPLAY_WIDTH.sixCards) {
+      if (cardListWidth > CONTENT_DISPLAY_WIDTH.sixCards) {
         numberOfCards = NUMBER_OF_CARDS.six
-      } else if (cardListWidth > DISPLAY_WIDTH.fiveCards) {
+      } else if (cardListWidth > CONTENT_DISPLAY_WIDTH.fiveCards) {
         numberOfCards = NUMBER_OF_CARDS.five
-      } else if (cardListWidth > DISPLAY_WIDTH.fourCards) {
+      } else if (cardListWidth > CONTENT_DISPLAY_WIDTH.fourCards) {
         numberOfCards = NUMBER_OF_CARDS.four
-      } else if (cardListWidth > DISPLAY_WIDTH.threeCards) {
+      } else if (cardListWidth > CONTENT_DISPLAY_WIDTH.threeCards) {
         numberOfCards = NUMBER_OF_CARDS.three
-      } else if (cardListWidth > DISPLAY_WIDTH.twoCards) {
+      } else if (cardListWidth > CONTENT_DISPLAY_WIDTH.twoCards) {
         numberOfCards = NUMBER_OF_CARDS.two
       }
       return numberOfCards
