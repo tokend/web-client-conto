@@ -1,5 +1,8 @@
 import { ASSET_POLICIES } from '@tokend/js-sdk'
+import { documentsManager } from '@/api'
 import safeGet from 'lodash/get'
+import { ASSET_STATES } from '@/js/const/asset.const'
+import moment from 'moment'
 
 export class AssetRecord {
   constructor (record = {}, balances = []) {
@@ -48,6 +51,9 @@ export class AssetRecord {
     this.stellarDeposit = safeGet(record, 'details.stellar.deposit') || false
 
     this.description = safeGet(record, 'details.description') || ''
+    this.state = safeGet(record, 'state.value')
+
+    this.expirationDate = this._getExpirationDate()
   }
 
   _getBalance (balances) {
@@ -82,6 +88,15 @@ export class AssetRecord {
 
   _policy () {
     return this._policies().reduce((s, p) => s | p, 0)
+  }
+
+  _getExpirationDate () {
+    const timestamp = safeGet(this._record, 'details.expiresAt')
+    if (timestamp) {
+      return moment.unix(timestamp).toISOString()
+    } else {
+      return ''
+    }
   }
 
   get record () {
@@ -136,5 +151,17 @@ export class AssetRecord {
 
   get isRequiresKYC () {
     return this.assetType
+  }
+
+  get logoUrl () {
+    if (this.logoKey) {
+      return documentsManager.getDocumentUrlByKey(this.logoKey)
+    } else {
+      return ''
+    }
+  }
+
+  get isActive () {
+    return this.state === ASSET_STATES.active
   }
 }

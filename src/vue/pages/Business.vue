@@ -17,8 +17,8 @@
           class="business__login-link"
           :to="vueRoutes.login"
         >
-          <img class="business__logo" src="/static/logo-black.svg">
-          <img class="business__small-logo" src="/static/favicon-conto.png">
+          <img class="business__logo" src="/static/branding/logo.png">
+          <img class="business__small-logo" src="/static/branding/favicon.png">
         </router-link>
       </div>
       <template v-if="isLoaded">
@@ -60,7 +60,7 @@
 
 <script>
 import AppFooter from '@/vue/navigation/Footer'
-import BusinessDescription from '@/vue/pages/business/BusinessDescription'
+import BusinessDescription from '@/vue/pages/business-viewer/BusinessDescription'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
@@ -79,7 +79,6 @@ export default {
     Loader,
     NoDataMessage,
   },
-  mixins: [],
   props: {
     id: {
       type: String,
@@ -94,12 +93,8 @@ export default {
       isFailed: false,
     }
   },
-  computed: {},
-  watch: {},
   async created () {
     this.getBusiness()
-  },
-  destroyed () {
   },
   methods: {
     async getBusiness () {
@@ -214,6 +209,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    color: $col-text;
   }
 
   .business__description {

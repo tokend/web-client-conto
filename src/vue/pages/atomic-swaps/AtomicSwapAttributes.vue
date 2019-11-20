@@ -38,9 +38,10 @@
     </div>
 
     <template
-      v-for="(quoteAsset, index) in atomicSwapAsk.quoteAssets"
+      v-if="accountId === atomicSwapAsk.ownerId"
     >
       <div
+        v-for="(quoteAsset, index) in atomicSwapAsk.quoteAssets"
         class="app__table app__table--last-td-to-right"
         :key="quoteAsset.asset.code"
       >
@@ -49,7 +50,6 @@
             | globalize({ number: index + 1 })
           }}
         </h4>
-
         <table>
           <tbody>
             <tr>
@@ -72,6 +72,22 @@
         </table>
       </div>
     </template>
+    <template v-else>
+      <p class="atomic-swap-attributes__quote-asset-header">
+        {{ 'atomic-swap-attributes.buy-for' | globalize }}
+        <template
+          v-for="(quoteAsset, index) in atomicSwapAsk.quoteAssets"
+        >
+          {{
+            quoteAsset.asset.code
+          }}<template
+            v-if="atomicSwapAsk.quoteAssets.length - 1 != index"
+          >
+            ,
+          </template>
+        </template>
+      </p>
+    </template>
   </div>
 </template>
 
@@ -91,12 +107,15 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.statsQuoteAsset,
+      vuexTypes.accountId,
     ]),
   },
 }
 </script>
 
 <style lang="scss">
+@import '~@scss/variables';
+
 .atomic-swap-attributes__quote-asset-header {
   margin: 2rem 0;
 }

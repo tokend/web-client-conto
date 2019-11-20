@@ -9,6 +9,7 @@ import keyValue from './key-value.module'
 import idleHandler from './idle-handler.module'
 import kycRecovery from './kyc-recovery.module'
 import identities from './identities.module'
+import businesses from './businesses.module'
 import movementsHistory from './movements-history.module'
 import sponsorshipRequests from './sponsorship-requests.module'
 
@@ -58,6 +59,9 @@ describe('vuex types unit tests', () => {
     for (const key of getModuleKeys(sponsorshipRequests)) {
       expect(vuexTypes).to.have.property(key)
     }
+    for (const key of getModuleKeys(businesses)) {
+      expect(vuexTypes).to.have.property(key)
+    }
   })
 
   it('every key described in vuex-types should be a real vuex-entity', () => {
@@ -74,6 +78,7 @@ describe('vuex types unit tests', () => {
       ...getModuleKeys(kycRecovery),
       ...getModuleKeys(movementsHistory),
       ...getModuleKeys(sponsorshipRequests),
+      ...getModuleKeys(businesses),
     ]
 
     for (const key of Object.keys(vuexTypes)) {

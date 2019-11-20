@@ -19,29 +19,12 @@
       :class="{ 'sidebar__aside--closed': !isOpened }"
     >
       <section class="sidebar__logo-section">
-        <!-- eslint-disable-next-line max-len -->
-        <template v-if="isAccessibleForCustomer">
-          <div class="navbar__current-business-indicator">
-            <!-- eslint-disable-next-line max-len -->
-            <current-business-indicator>
-              <router-link
-                @click.native="closeSidebar"
-                :to="vueRoutes.app"
-              >
-                <logo class="sidebar__logo" />
-              </router-link>
-            </current-business-indicator>
-          </div>
-        </template>
-
-        <template v-else>
-          <router-link
-            @click.native="closeSidebar"
-            :to="vueRoutes.app"
-          >
-            <logo class="sidebar__logo" />
-          </router-link>
-        </template>
+        <router-link
+          @click.native="closeSidebar"
+          :to="vueRoutes.app"
+        >
+          <logo class="sidebar__logo" />
+        </router-link>
       </section>
 
       <section class="sidebar__scheme-label-section">
@@ -70,7 +53,7 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccountGeneral || isCustomerUiShown"
+            v-if="isAccountGeneral"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -85,7 +68,6 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccessibleForCorporate || isBusinessToBrowse"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -100,7 +82,7 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccessibleForCorporate || isBusinessToBrowse"
+            v-if="isAccessibleForCorporate"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -115,7 +97,6 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccessibleForCorporate || isBusinessToBrowse"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -159,6 +140,21 @@
               {{ 'pages-names.promo-codes' | globalize }}
             </span>
           </router-link>
+          <router-link
+            v-if="isAccessibleForCorporate"
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.statistics"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-chart-areaspline"
+            />
+            <span>
+              {{ 'pages-names.statistics' | globalize }}
+            </span>
+          </router-link>
         </nav>
         <nav
           class="sidebar__links-group"
@@ -196,15 +192,11 @@
 <script>
 import Logo from '@/vue/assets/Logo'
 import AppFooter from '@/vue/navigation/Footer'
-
-import CurrentBusinessIndicator from '@/vue/navigation/navbar/current-business-indicator'
+import config from '@/config'
 
 import { vueRoutes } from '@/vue-router/routes'
-
 import { vuexTypes } from '@/vuex'
-
 import { mapGetters } from 'vuex'
-import config from '@/config'
 
 const DEFAULT_SECTION_NAME = 'default'
 
@@ -212,7 +204,6 @@ export default {
   name: 'sidebar',
 
   components: {
-    CurrentBusinessIndicator,
     Logo,
     AppFooter,
   },
@@ -229,16 +220,10 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
-      vuexTypes.isBusinessToBrowse,
-      vuexTypes.isCustomerUiShown,
     ]),
-    isAccessibleForCustomer () {
-      return this.isAccountCorporate
-        ? this.isCustomerUiShown
-        : this.isAccountGeneral
-    },
+
     isAccessibleForCorporate () {
-      return this.isAccountCorporate && !this.isCustomerUiShown
+      return this.isAccountCorporate
     },
   },
 
@@ -408,6 +393,7 @@ $content-item-right-padding: 2.4rem;
   opacity: 0.7;
   font-size: 1.4rem;
   margin-bottom: 0.2rem;
+  color: $col-footer-text;
 }
 
 .sidebar__link {

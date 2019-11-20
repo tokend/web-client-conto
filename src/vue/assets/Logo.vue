@@ -4,34 +4,37 @@
       v-if="isLoggedIn"
       :src="yellowLogoUrl"
       class="logo"
-      alt="UNIT city">
+      :alt="config.APP_NAME"
+    >
     <img
       v-else
       :src="blackLogoUrl"
       class="logo"
-      alt="UNIT city">
+      :alt="config.APP_NAME"
+    >
   </router-link>
 </template>
 
 <script>
+import config from '@/config'
+
 import { vueRoutes } from '@/vue-router/routes'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 
-const DEFAULT_LOGO_URL = '/static/logo-yellow.svg'
-const BLACK_LOGO_URL = '/static/logo-black.svg'
+const DEFAULT_LOGO_URL = '/static/branding/logo-yellow.svg'
+const BLACK_LOGO_URL = '/static/branding/logo-black.svg'
 
 export default {
   data: _ => ({
     vueRoutes,
+    config,
   }),
 
   computed: {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
-      vuexTypes.isBusinessToBrowse,
-      vuexTypes.isCustomerUiShown,
       vuexTypes.isLoggedIn,
     ]),
     yellowLogoUrl () {
@@ -41,12 +44,11 @@ export default {
       return BLACK_LOGO_URL
     },
     logoRout () {
-      if (this.isAccountCorporate && !this.isCustomerUiShown) {
+      if (this.isAccountCorporate) {
         return vueRoutes.customers
+      } else {
+        return vueRoutes.businesses
       }
-      return this.isBusinessToBrowse
-        ? vueRoutes.assetsExplore
-        : vueRoutes.businesses
     },
   },
 }

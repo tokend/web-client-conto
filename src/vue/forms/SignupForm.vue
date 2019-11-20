@@ -23,6 +23,7 @@
           @blur="touchField('form.password')"
           name="signup-password"
           type="password"
+          :trim="false"
           :error-message="getFieldErrorMessage('form.password')"
           :white-autofill="false"
           :label="'auth-pages.password' | globalize"
@@ -37,6 +38,7 @@
           @blur="touchField('form.confirmPassword')"
           name="signup-confirm-password"
           type="password"
+          :trim="false"
           :error-message="getFieldErrorMessage('form.confirmPassword')"
           :white-autofill="false"
           :label="'auth-pages.confirm-password' | globalize"
@@ -107,6 +109,14 @@ export default {
       },
     },
   },
+
+  created () {
+    const email = this.$route.params.email
+    if (email) {
+      this.form.email = email
+    }
+  },
+
   methods: {
     async submit () {
       if (!this.isFormValid()) {

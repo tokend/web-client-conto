@@ -1,12 +1,32 @@
 <template>
   <div>
     <top-bar>
-      <template slot="main" />
+      <template slot="main">
+        <template v-if="isAccountGeneral && myBusinesses.length">
+          <div class="assets-page__filter">
+            <select-field
+              :value="businessOwnerId"
+              @input="setBusinessOwnerId"
+              class="app__select app__select-with-label--no-border"
+              :label="'assets-page.business-filter-label' | globalize"
+              need-all-option
+            >
+              <option
+                v-for="business in myBusinesses"
+                :key="business.accountId"
+                :value="business.accountId"
+              >
+                {{ business.name }}
+              </option>
+            </select-field>
+          </div>
+        </template>
+      </template>
       <template
         slot="extra"
       >
         <button
-          v-if="isAccountCorporate && !isCustomerUiShown"
+          v-if="isAccountCorporate"
           v-ripple
           class="assets-page__create-btn app__button-raised"
           @click="isAssetDrawerShown = true"
@@ -36,14 +56,14 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
-
-import { vueRoutes } from '@/vue-router/routes'
-
-import { mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-
 import CreateAssetForm from '@modules/create-asset-form-simplified'
 import UpdateList from '@/vue/mixins/update-list.mixin'
+import SelectField from '@/vue/fields/SelectField'
+
+import { vueRoutes } from '@/vue-router/routes'
+import { mapGetters, mapActions } from 'vuex'
+import { vuexTypes } from '@/vuex'
+import { Bus } from '@/js/helpers/event-bus'
 
 export default {
   name: 'assets',
@@ -51,23 +71,48 @@ export default {
     TopBar,
     Drawer,
     CreateAssetForm,
+    SelectField,
   },
+
   mixins: [UpdateList],
+
   data: _ => ({
     vueRoutes,
     isAssetDrawerShown: false,
+    businessOwnerId: '',
   }),
+
   computed: {
     ...mapGetters({
       account: vuexTypes.account,
       isAccountCorporate: vuexTypes.isAccountCorporate,
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
+      isAccountGeneral: vuexTypes.isAccountGeneral,
+      myBusinesses: vuexTypes.myBusinesses,
     }),
   },
+
+  watch: {
+    businessOwnerId (value) {
+      Bus.emit('assets:setBusinessOwnerId', value)
+    },
+  },
+
+  async created () {
+    await this.loadMyBusinesses()
+  },
+
   methods: {
+    ...mapActions({
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+    }),
+
     closeDrawerAndUpdateList () {
       this.isAssetDrawerShown = false
       this.emitUpdateList('assets:updateList')
+    },
+
+    setBusinessOwnerId (id) {
+      this.businessOwnerId = id
     },
   },
 }

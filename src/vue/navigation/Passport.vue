@@ -51,19 +51,9 @@
           </span>
         </div>
 
-        <template v-if="isAccountCorporate">
-          <div class="passport__dropdown-customer-ui-switch-wrp">
-            <switch-field
-              :value="isCustomerUiShown"
-              @input="toggleCustomerUi($event)"
-              :label="'passport.customer-ui-switch' | globalize"
-            />
-          </div>
-        </template>
-
         <div class="passport__dropdown-actions-wrp">
           <button
-            v-if="isAccountCorporate && !isCustomerUiShown"
+            v-if="isAccountCorporate"
             class="passport__dropdown-btn app__button-flat"
             @click="openCompanyPage"
           >
@@ -91,10 +81,9 @@
 
 <script>
 import config from '@/config'
-import SwitchField from '@/vue/fields/SwitchField'
 
 import { vuexTypes } from '@/vuex'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { vueRoutes } from '@/vue-router/routes'
 import { handleClickOutside } from '@/js/helpers/handle-click-outside'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -102,42 +91,28 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 export default {
   name: 'passport',
 
-  components: {
-    SwitchField,
-  },
-
   data: () => ({
     vueRoutes,
     isDropdownOpen: false,
     loadAccountDetailsTickerTimeout: 45000,
     destructClickOutsideHandler: () => { },
-    alo: false,
   }),
 
   computed: {
     ...mapGetters({
       email: vuexTypes.walletEmail,
       kycAvatarKey: vuexTypes.kycAvatarKey,
-
-      isAccountUnverified: vuexTypes.isAccountUnverified,
-      isAccountUsAccredited: vuexTypes.isAccountUsAccredited,
-      isAccountUsVerified: vuexTypes.isAccountUsVerified,
       isAccountCorporate: vuexTypes.isAccountCorporate,
       isAccountGeneral: vuexTypes.isAccountGeneral,
       isAccountBlocked: vuexTypes.isAccountBlocked,
       accountId: vuexTypes.accountId,
-
-      isCustomerUiShown: vuexTypes.isCustomerUiShown,
     }),
+
     accountRoleTranslationId () {
       if (this.isAccountGeneral) {
         return 'passport.account-general'
       } else if (this.isAccountCorporate) {
         return 'passport.account-corporate'
-      } else if (this.isAccountUsAccredited) {
-        return 'passport.account-us-accredited'
-      } else if (this.isAccountUsVerified) {
-        return 'passport.account-us-verified'
       } else if (this.isAccountBlocked) {
         return 'passport.account-blocked'
       } else {
@@ -149,10 +124,6 @@ export default {
       return this.kycAvatarKey
         ? `${config.FILE_STORAGE}/${this.kycAvatarKey}`
         : ''
-    },
-
-    companyLink () {
-      return `${window.location.origin}/business/${this.accountId}`
     },
   },
 
@@ -166,13 +137,6 @@ export default {
       loadKyc: vuexTypes.LOAD_KYC,
       loadAccount: vuexTypes.LOAD_ACCOUNT,
       logOutAccount: vuexTypes.LOG_OUT,
-      loadBusinessStatsQuote: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
-    }),
-
-    ...mapMutations({
-      showCustomerUi: vuexTypes.SHOW_CUSTOMER_UI,
-      hideCustomerUi: vuexTypes.HIDE_CUSTOMER_UI,
-      clearBusinessToBrowse: vuexTypes.CLEAR_BUSINESS_TO_BROWSE,
     }),
 
     async createLoadAccountDetailsTicker () {
@@ -224,21 +188,14 @@ export default {
       await this.$router.push(vueRoutes.settings)
     },
 
-    openCompanyPage () {
+    async openCompanyPage () {
       this.closeDropdown()
-      window.open(this.companyLink, '_blank')
-    },
-
-    async toggleCustomerUi (isShow) {
-      if (isShow) {
-        this.showCustomerUi()
-        await this.$router.push(vueRoutes.businesses)
-      } else {
-        this.hideCustomerUi()
-        this.clearBusinessToBrowse()
-        this.loadBusinessStatsQuote()
-        await this.$router.push(vueRoutes.customers)
-      }
+      await this.$router.push({
+        ...vueRoutes.business,
+        params: {
+          id: this.accountId,
+        },
+      })
     },
   },
 }
@@ -372,8 +329,7 @@ $dropdown-item-side-padding: 2.4rem;
   }
 }
 
-.passport__dropdown-signed-in-wrp,
-.passport__dropdown-customer-ui-switch-wrp {
+.passport__dropdown-signed-in-wrp {
   padding: 1.6rem $dropdown-item-side-padding 0;
   line-height: 1.5;
   text-align: left;

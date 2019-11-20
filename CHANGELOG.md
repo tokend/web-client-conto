@@ -6,6 +6,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Added
+- Google market img to `SuccessfulPayment` page
+- `Added` field on Customers page
+- Clients export
+- `ErrorMessage` component
+- Statistics
+- Expiration date for assets
+- `Failed` and `Successful` payment pages
+- Filters on Customers page
+- Trim for input field 
+- Redeem default amount
+- Current company page
+- New component 'Card' for displaying all card
+- Skeleton loader for new component 'Card'
+- Global class for markdown `app__markdown`
+- `APP_NAME` in config
+
+#### Changed
+- Used `APP_NAME` on `SuccessfulPayment` page
+- Now using @tokend/js-sdk@1.11.2
+- int ids to string in `r` routing
+- Router names from 'company' to 'business'
+- Moved logo and favicon to branding folder
+- Display full price
+- Max percent discount
+- Validation on promo code form
+- Get data from store on Business pages
+
+#### Fixed
+- A bug with sort on Customers page
+- A bug with displaying `Kyc recovery` page on mobile phone
+- A bug with trim filter search
+- Localization
+- A bub with clients export
+- Issue when sponsorship didn't work
+- Card design(added min-height to car titles)
+- A bug when business disappears after change language
+- A bug with trim in input fields with type 'password'
+- A bug with typo in multi select
+- A bug with color scheme
+- A bug when don't show error message if response failed
+
+#### Removed
+- `card-viewer`
+- `asset-skeleton-loade`
+- `current-business-logo`
+- `current-business-indicator/index.vue`
+- `BusinessCardSkeleton`
+- `BusinessViewer`
+- `PromoCodeCardSkeleton`
+
 ## [1.1.0-rcunitcity.7] - 2019-11-07
 #### Fixed
 - atomic swap amount to 1.0
@@ -37,6 +89,9 @@ for further information about branching and tagging conventions.
 #### Changed
 - Used clipper field for avatar and banner
 - Used banner in business page
+
+#### Changed
+- Color scheme improvements
 
 #### Fixed
 - A bug when drop down go out of page boundaries

@@ -189,26 +189,14 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.accountId,
-      vuexTypes.transferableAssetsBalancesByOwner,
+      vuexTypes.transferableAssetsBalances,
       vuexTypes.accountBalanceByCode,
-      vuexTypes.isBusinessToBrowse,
-      vuexTypes.businessToBrowse,
     ]),
     balance () {
       return this.accountBalanceByCode(this.form.asset.code)
     },
     assets () {
-      let accountId = ''
-
-      if (this.isBusinessToBrowse) {
-        accountId = this.$route && this.$route.query && this.$route.query.owner
-          ? this.$route.query.owner
-          : this.businessToBrowse.accountId
-      } else {
-        accountId = this.accountId
-      }
-
-      return this.transferableAssetsBalancesByOwner(accountId)
+      return this.transferableAssetsBalances
         .filter(i => +i.balance > 0)
         .map(i => i.asset)
     },

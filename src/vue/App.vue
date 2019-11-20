@@ -101,6 +101,7 @@ export default {
       vuexTypes.isAccountBlocked,
       vuexTypes.kycRequestBlockReason,
       vuexTypes.account,
+      vuexTypes.isAccountCorporate,
     ]),
     isNavigationRendered () {
       return this.$route.matched.some(m => m.meta.isNavigationRendered)
@@ -122,6 +123,7 @@ export default {
   },
 
   async created () {
+    this.setAppTitle()
     await this.initApp()
 
     this.startIdle()
@@ -143,7 +145,7 @@ export default {
       startIdle: vuexTypes.START_IDLE,
       logoutSession: vuexTypes.LOGOUT_SESSION,
       restoreSession: vuexTypes.RESTORE_SESSION,
-      loadBusinessStatsQuoteAsset: vuexTypes.LOAD_BUSINESS_STATS_QUOTE_ASSET,
+      loadBusiness: vuexTypes.LOAD_BUSINESS,
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
@@ -164,8 +166,8 @@ export default {
       walletsManager.useApi(api)
       factorsManager.useApi(api)
       documentsManager.useApi(api)
+      if (this.isAccountCorporate) this.loadBusiness(this.walletAccountId)
       await this.loadAssets()
-      await this.loadBusinessStatsQuoteAsset()
     },
     detectIncompatibleBrowser () {
       this.isNotSupportedBrowser = !isCompatibleBrowser()
@@ -190,6 +192,10 @@ export default {
 
     async updateAccountRole () {
       this.accountRole = ((this.account || {}).role || {}).id || ''
+    },
+
+    setAppTitle () {
+      document.title = config.APP_NAME
     },
   },
 }
@@ -258,7 +264,7 @@ export default {
 
 .app__warning-message-link {
   margin-left: 0.4rem;
-  color: $col-primary-txt;
+  color: $col-message-box-text;
   font-size: 1.6rem;
 }
 </style>

@@ -1,4 +1,5 @@
 import _get from 'lodash/get'
+import { documentsManager } from '@/api'
 
 export class BusinessRecord {
   constructor (record) {
@@ -9,6 +10,7 @@ export class BusinessRecord {
     this.accountId = _get(record, 'accountId')
     this.industry = _get(record, 'industry')
     this.description = _get(record, 'description')
+    this.statsQuoteAsset = _get(record, 'statsQuoteAsset')
 
     this.logo = {}
     this.logoKey = undefined
@@ -41,5 +43,25 @@ export class BusinessRecord {
       this.bannerType = _get(this.banner, 'type')
     } catch (error) {
     }
+  }
+
+  get logoUrl () {
+    if (this.logoKey) {
+      return documentsManager.getDocumentUrlByKey(this.logoKey)
+    } else {
+      return ''
+    }
+  }
+
+  get bannerUrl () {
+    if (this.bannerKey) {
+      return documentsManager.getDocumentUrlByKey(this.bannerKey)
+    } else {
+      return ''
+    }
+  }
+
+  get record () {
+    return this._record
   }
 }

@@ -10,6 +10,7 @@ import config from '@/config'
 import { CreateAssetRequest } from '../wrappers/create-asset-request'
 import { mapGetters, mapActions } from 'vuex'
 import { store, vuexTypes } from '@/vuex/index'
+import { DateUtil } from '@/js/utils'
 
 const NEW_CREATE_ASSET_REQUEST_ID = '0'
 
@@ -99,6 +100,10 @@ export default {
           terms: this.$getDocumentDetailsOrEmptyDocument(terms),
           stellar: {},
           description: this.collectedAttributes.description,
+          ...(this.collectedAttributes.expirationDate
+            ? { 'expires_at': DateUtil.toTimestamp(this.collectedAttributes.expirationDate) }
+            : {}
+          ),
         },
       }
 

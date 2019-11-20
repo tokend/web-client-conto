@@ -1,10 +1,26 @@
 <template>
   <div class="multiselect-field">
-    <div class="multiselect-field__select" @click="toggleDropdown">
-      <span class="multiselect-field__select-label">{{ getLable }}</span>
+    <div
+      class="multiselect-field__select"
+      :class="{
+        'multiselect-field__select--active': isDropdownOpen,
+        'multiselect-field__select--disabled': disabled
+      }"
+      @click="disabled ? '' : toggleDropdown()"
+    >
+      <template v-if="label">
+        <label class="multiselect-field__select-label">
+          {{ label }}
+        </label>
+      </template>
+
+      <span class="multiselect-field__select-value-label">
+        {{ valueLabel }}
+      </span>
+
       <i
-        class="multiselect-field__selected-icon mdi mdi-chevron-down"
-        :class="{ 'multiselect-field__selected-icon--active': isDropdownOpen }"
+        class="multiselect-field__select-icon mdi mdi-chevron-down"
+        :class="{ 'multiselect-field__select-icon--active': isDropdownOpen }"
       />
     </div>
 
@@ -61,6 +77,8 @@ export default {
     options: { type: Array, required: true },
     enabledOptionAll: { type: Boolean, default: true },
     selectAll: { type: Boolean, default: false },
+    label: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
   },
   data: _ => ({
     isDropdownOpen: false,
@@ -69,19 +87,19 @@ export default {
   }),
 
   computed: {
-    getLable () {
-      let lable = ''
+    valueLabel () {
+      let value = ''
 
       if (this.enabledOptionAll && this.isSelectedAll) {
-        lable = globalize('multiselect-field.all-selected-lable')
+        value = globalize('multiselect-field.all-selected-value-label')
       } else if (this.selectedOptions.length) {
-        lable = this.selectedOptions.length > 1
+        value = this.selectedOptions.length > 1
           ? `${this.selectedOptions[0].name}, ...`
           : this.selectedOptions[0].name
       } else {
-        lable = globalize('multiselect-field.select-something-lable')
+        value = globalize('multiselect-field.select-something-value-label')
       }
-      return lable
+      return value
     },
 
     isSelectedAll () {
@@ -93,12 +111,12 @@ export default {
     selectedOptions (value) {
       this.$emit(EVENTS.selected, value)
     },
-  },
 
-  created () {
-    if (this.selectAll) {
-      this.selectAllOptions()
-    }
+    options () {
+      if (this.selectAll) {
+        this.selectAllOptions()
+      }
+    },
   },
 
   methods: {
@@ -139,10 +157,32 @@ export default {
   width: 100%;
 }
 
-.multiselect-field__select-label {
+.multiselect-field__select-value-label {
   color: $field-color-text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @include text-font-sizes;
+
+  .multiselect-field__select--disabled > & {
+    color: $field-color-unfocused;
+  }
+}
+
+.multiselect-field__select-label {
+  position: absolute;
+  left: 0;
+  transition: all $field-transition-duration;
+  pointer-events: none;
+  color: $field-color-unfocused;
+  top: 0;
+
+  @include label-font-sizes;
+
+  .multiselect-field__select--disabled > & {
+    color: $field-color-unfocused;
+  }
 }
 
 .multiselect-field__select {
@@ -150,14 +190,19 @@ export default {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  min-width: 16rem;
   width: 100%;
   background: none;
   border: none;
-  padding-right: 2.4rem;
+  padding: 1.5rem 2.4rem 0.6rem 0;
+
+  @include material-border(
+    $field-color-focused,
+    $field-color-unfocused,
+    '&.multiselect-field__select--active'
+  );
 }
 
-.multiselect-field__selected-icon {
+.multiselect-field__select-icon {
   position: absolute;
   right: 0;
   will-change: transform;
@@ -169,9 +214,14 @@ export default {
   &:before {
     transition: transform 0.2s ease-out;
   }
+
+  .multiselect-field__select--disabled > & {
+    filter: grayscale(100%);
+    color: $field-color-unfocused;
+  }
 }
 
-.multiselect-field__selected-icon--active:before {
+.multiselect-field__select-icon--active:before {
   transform: rotate(-180deg);
 }
 
@@ -199,6 +249,14 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
+}
+
+.multiselect-field__select--disabled {
+  cursor: default;
+  pointer-events: none;
+  color: $field-color-unfocused;
+
+  @include readonly-material-border($field-color-unfocused);
 }
 
 .multiselect-field__dropdown-enter-active {

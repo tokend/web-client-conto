@@ -10,7 +10,7 @@
         class="pay__login-link"
         :to="vueRoutes.login"
       >
-        <img class="pay__logo" src="/static/logo-black.svg">
+        <img class="pay__logo" src="/static/branding/logo-black.svg">
       </router-link>
     </div>
 
@@ -121,8 +121,6 @@ export default {
   @import '~@/vue/forms/app-form';
   @import '~@scss/variables.scss';
   @import '~@scss/mixins.scss';
-
-  $media-small-desktop: 960px;
 
   .pay {
     padding: 3.5rem 15%;

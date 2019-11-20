@@ -39,6 +39,15 @@
             </td>
           </tr>
 
+          <tr>
+            <td>
+              {{ 'customer-attributes.added-key' | globalize }}
+            </td>
+            <td>
+              {{ customer.addedAt | formatCalendar }}
+            </td>
+          </tr>
+
           <tr
             v-for="balance of customer.balances"
             :key="balance.id"

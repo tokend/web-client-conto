@@ -27,6 +27,7 @@ export const vueRoutes = Object.freeze({
   businesses: { name: 'app.businesses' },
   allBusinesses: { name: 'app.all-businesses.list' },
   myBusinesses: { name: 'app.my-businesses.list' },
+  currentBusiness: { name: 'app.current-business' },
   pay: { name: 'pay' },
   business: { name: 'business' },
   sponsorship: { name: 'app.sponsorship' },
@@ -35,4 +36,9 @@ export const vueRoutes = Object.freeze({
   sponsorshipOutgoingRequests: { name: 'app.sponsorship-outgoing-requests' },
   promoCodes: { name: 'app.promo-codes' },
   promoCodesList: { name: 'app.promo-codes.list' },
+  statistics: { name: 'app.statistics' },
+  statisticsSalesHistory: { name: 'app.statistics-sales-history' },
+  statisticsGeneral: { name: 'app.statistics-general' },
+  successfulPayment: { name: 'app.successful-payment' },
+  failedPayment: { name: 'app.failed-payment' },
 })

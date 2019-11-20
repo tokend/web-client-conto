@@ -55,7 +55,7 @@ export default {
 
 .footer__text,
 .footer__link {
-  color: $color-footer-text;
+  color: $col-footer-text;
   line-height: 2.5rem;
 }
 

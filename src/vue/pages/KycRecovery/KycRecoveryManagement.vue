@@ -14,7 +14,7 @@
           {{ 'kyc-recovery-state-message.sign-out-btn' | globalize }}
         </button>
       </div>
-      <h3>
+      <h3 class="kyc-recovery-management__functionality-msg">
         {{ 'kyc-recovery-state-message.limited-functionality-msg' | globalize }}
       </h3>
       <template v-if="isLoaded">
@@ -122,6 +122,10 @@ export default {
 
 .kyc-recovery-management__inner {
   padding: 3.5rem 16rem;
+
+  @include respond-to-custom($sidebar-hide-bp) {
+    padding: 3.5rem 2rem;
+  }
 }
 
 .kyc-recovery-management__top-bar {
@@ -144,5 +148,9 @@ export default {
 
 .kyc-recovery-management__loader {
   margin-top: 2rem;
+}
+
+.kyc-recovery-management__functionality-msg {
+  color: $col-text;
 }
 </style>

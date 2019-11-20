@@ -1,9 +1,27 @@
-// z-indexes
+@import '../../static/branding/app-colors';
 
+// z-indexes
 $z-drawer: 10;
 $z-status-message: 11;
 
+/* https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints */
+$media-4k-resolution: 4096px;
+$media-2k-resolution: 2048px;
+$x-large: 1920px;
+$large: 1440px;
+$x-medium: 1200px;
+
+$media-desktop: 1130px;
+
+$medium: 1024px;
+$media-small-desktop: 960px;
+$tablet: 820px;
+
 $sidebar-hide-bp: 768px;
+
+$small: 600px;
+$x-small: 480px;
+
 $status-message-reposition-bp: 470px;
 
 $sidebar-width: 27.5rem;
@@ -13,6 +31,7 @@ $content-padding-bottom: 2.5rem;
 $content-padding-left: 5rem;
 $content-padding-right: 6.5rem;
 $content-side-paddings-sm: 2rem;
+$list-item-margin: 2rem;
 
 // z-indexes
 $z-app-navbar: 4;
@@ -26,12 +45,11 @@ $z-sidebar: 120;
 $z-tooltip-wrapper: 1;
 $z-skeleton-loader: 1;
 
+// colors
 $_athensGray: #e9eaed;
-$_primary: #ffda03;
 $_white: #ffffff;
 $_concrete: #f2f2f2;
 $_black: #000000;
-$_lightBlack: #212121;
 $_gray: #e2e3e3;
 $_silverChalice: #aeaeae;
 $_cyan: #0ea7ba;
@@ -41,7 +59,7 @@ $_lightGray: #c6c6c6;
 $_mediumGray: #cccccc;
 $_lightRed: #ef5350;
 $_darkRed: #d6244a;
-$_strongPrimary: #ff615b;
+$_cornflowerBlue: #7b6eff;
 $_deepBlue: #291e93;
 $_green: #33a494;
 $_lightGreen: #51ca90;
@@ -56,51 +74,41 @@ $_silverChalice: #aaaaaa;
 $_aliceBlue: #f5f6ff;
 
 // base colors:
-$col-primary: $_lightBlack;
 $col-secondary: $_lightPurple;
-$col-primary-lighten: $_strongPrimary;
-$col-primary-txt: $_white;
-$col-link: $_lightBlack;
+$col-primary-lighten: $_cornflowerBlue;
 $col-text-on-dark-bg: $_white;
-
 $col-primary-inactive: rgba($col-primary, 0.7);
 $col-primary-inactive-hover-darken: darken($col-primary-inactive, 20%);
-$col-primary-flat-hover: rgba($col-primary, 0.2);
-
+$col-field-inactive: rgba($col-field-txt, 0.7);
+$col-primary-flat-inactive: rgba($col-btn, 0.7);
+$col-primary-flat-hover: rgba($col-btn, 0.2);
+$col-text-inactive: rgba($col-text, 0.7);
 // status colors:
 $col-accent: $_lightRed;
 $col-pending: $_orange;
 $col-warning: $_orangePeel;
 $col-success: $_green;
 $col-error: $_lightRed;
-$col-info: $_strongPrimary;
+$col-info: $_cornflowerBlue;
 $col-danger: $_darkRed;
 
 // global colors
-$col-text: $_lightBlack;
-$col-text-secondary: $_lightPurple;
-$col-link: $_lightBlack;
 $col-border: $_ghostWhite;
 $col-block-bg: $_white;
 $col-app-background: $_gray;
-$col-app-content-background: $_thinBlue;
 
 // text colors:
-$col-heading: $_primary;
-$col-text-page-heading: $col-heading;
-$col-text-auth-title-big: $_white;
-$col-text-auth-title-small: $_white;
-$col-text-auth-tip-link: $_lightBlack;
-$col-text-auth-version: rgba($_white, 0.65);
-$col-text-highlighted: $col-primary-lighten;
+$col-heading: $col-text;
+$col-text-auth-tip-link: $col-link;
+$col-text-highlighted: $col-text;
 
 // button colors:
-$col-button-raised: $col-primary-lighten;
-$col-button-raised-txt: $col-primary-txt;
+$col-button-raised: $col-btn;
+$col-button-raised-txt: $col-btn-txt;
 
 $col-button-flat-hover: $col-primary-flat-hover;
-$col-button-flat-txt: $col-primary-lighten;
-$col-button-flat-txt-inactive: $col-primary-inactive;
+$col-button-flat-txt: $col-btn;
+$col-button-flat-txt-inactive: $col-primary-flat-inactive;
 $col-button-flat-disabled-txt: $_lightGray;
 
 $col-button-flat-accent-hover: rgba($col-accent, 0.2);
@@ -132,23 +140,19 @@ $col-status-close-btn-hover: rgba(0, 0, 0, 0.1);
 $col-drawer-bg: $col-block-bg;
 $col-drawer-backdrop-bg: rgba(0, 0, 0, 0.1);
 $col-drawer-head-bg: $_athensGray;
-$col-drawer-head-text: $_primary;
+$col-drawer-head-text: $col-text-page-heading;
 
 // sidebar
-$col-sidebar-background: $_lightBlack;
-$col-sidebar-background-media-small: $_lightBlack;
-$col-sidebar-text: $_athensGray;
+$col-sidebar-background-media-small: $col-sidebar-background;
 $col-sidebar-scheme-label: rgba($col-primary-inactive, 0.5);
 $col-sidebar-burger-icon-color: $_white;
-$col-sidebar-active-elem-text: $col-primary;
-$col-sidebar-active-elem-background: $_thinBlue;
 
 // passport (signed in user details in bg)
 $col-passport-email-abbr-text: $col-text-on-dark-bg;
-$col-passport-email-abbr-bg: rgba($_primary, 0.15);
+$col-passport-email-abbr-bg: rgba($col-primary, 0.15);
 
 // fields colors
-$col-text-field-hint: $col-primary;
+$col-text-field-hint: $col-text;
 $col-text-field-hint-inactive: $col-primary-inactive;
 $col-field-background: $col-block-bg;
 $col-file-field-background: $_whiteSmoke;
@@ -156,27 +160,24 @@ $col-file-field-border: $_ghostWhite;
 $col-file-field-drop-bg: $_aliceBlue;
 $col-field-text-secondary: $_lightPurple;
 $col-field-shadow: rgba(0, 0, 0, 0.1);
-$col-tick-field-shadow: rgba($_lightBlack, 0.6);
-$col-select-field-selected-background: rgba($_lightBlack, 0.1);
-$col-select-field-hover-background: rgba($_lightBlack, 0.05);
+$col-tick-field-shadow: rgba($col-field-txt, 0.6);
+$col-select-field-selected-background: rgba($col-field-txt, 0.1);
+$col-select-field-hover-background: rgba($col-field-txt, 0.05);
 $col-switch-field-background: $_whiteSmoke;
 $col-switch-field-border: $_thinPurple;
 $col-switch-field-disabled: $_mediumGray;
-$col-switch-field-enabled: $_lightGreen;
+$col-switch-field-enabled: $col-btn;
 $col-switch-field-enabled-border: darken($col-switch-field-enabled, 10%);
 $col-switch-field-disabled-border: darken($col-switch-field-disabled, 10%);
 
 // other colors
-$col-auth-titles-background-light: $_lightBlack;
-$col-auth-titles-background-dark: $_lightBlack;
-$col-auth-titles-background-fallback: #332f5c;
 $col-clipboard-background: $_whiteSmoke;
 $col-clipboard-background-darken: darken($col-clipboard-background, 5%);
 
 // table colors:
 $col-table-background: $_white;
 $col-table-alt-row-background: $_whiteSmoke;
-$col-table-cell-text: $col-primary;
+$col-table-cell-text: $col-text;
 $col-table-cell-text-inactive: $_lightPurple;
 $col-table-head-text: $_lightPurple;
 $col-table-row-selected: darken($_whiteSmoke, 10%);
@@ -184,57 +185,34 @@ $col-table-row-disabled: $_alto;
 $col-table-shadow: rgba(0, 0, 0, 0.1);
 $col-table-scroll-side-shadow: rgba(0, 0, 0, 0.2);
 
-// document manager
-$col-document-manager-border: $_silverChalice;
-
 // loader colors:
-$col-loader-text: $col-primary;
+$col-loader-text: $col-text;
 $col-loader-icon: $col-primary-inactive;
 
 // details colors:
-$col-details-label: $col-primary-inactive;
-$col-details-value: $col-primary;
+$col-details-label: rgba($col-text, 0.7);
+$col-details-value: $col-text;
 $col-details-border: rgba($col-primary, 0.2);
 
 // no-data-message colors:
-$col-no-data-message-text: $col-primary;
-$col-no-data-message-description: $col-primary-inactive;
-$col-no-data-message-icon-color: rgba($col-primary, 0.4);
+$col-no-data-message-text: $col-text;
+$col-no-data-message-description: rgba($col-text, 0.7);
+$col-no-data-message-icon-color: rgba($col-text, 0.4);
 
-// list colors:
-$col-list-text: $col-primary;
-$col-list-block-background: $col-block-bg;
-$col-list-btn-details-text: $col-primary;
-$col-list-btn-details-background: rgba($col-primary, 0.1);
+// error-message colors:
+$col-error-message-text: rgba($col-error, 0.8);
+$col-error-message-description: rgba($col-error, 0.7);
+$col-error-message-icon-color: rgba($col-error, 0.4);
 
 // top bar colors
-$col-top-bar-background: $_white;
-$col-top-bar-text: $_primary;
+$col-top-bar-text: $col-text;
 $col-top-bar-tab: $_lightPurple;
-$col-top-bar-tab-active: $_strongPrimary;
-
-// chart colors:
-$col-chart-line: $col-primary-lighten;
-$col-chart-fill: $_white;
-$col-chart-ticks: $col-primary-inactive;
-$col-chart-text: $col-primary-inactive;
-$col-chart-tip-circle-border: $_white;
-$col-chart-tip-circle: $col-primary;
-$col-chart-tip-line-inactive: $col-primary;
-$col-chart-tip-line-active: $col-primary-lighten;
-$col-chart-tip-text-box: $_white;
-$col-chart-tip-text-price: $col-primary;
-$col-chart-tip-date-dd: $col-primary;
-$col-chart-tip-date-mm: rgba($col-primary, 0.6);
-$col-chart-message-wrapper: rgba($col-app-content-background, 0.25);
-$col-chart-message-background: $_white;
-$col-chart-message-text: $col-primary;
 
 // form stepper colors
 $col-form-stepper-text: $col-primary;
 $col-form-stepper-icon: $col-text-on-dark-bg;
 $col-form-stepper-icon-background: $col-primary;
-$col-form-stepper-tab-active: $col-primary-lighten;
+$col-form-stepper-tab-active: $col-primary;
 $col-form-stepper-tab-border: $_thinPurple;
 
 // asset card colors
@@ -242,10 +220,6 @@ $col-asset-card-background: $_white;
 $col-asset-card-header-background: $_athensGray;
 $col-asset-card-text-primary: $col-text;
 $col-asset-card-text-secondary: $col-text-secondary;
-
-// loyalty points invoices card colors
-$col-invoices-card-background: $_white;
-$col-invoices-card-header-background: $_athensGray;
 
 // tabs colors:
 $col-tabs-txt: $col-primary;
@@ -257,11 +231,6 @@ $col-tabs-hover-bg: rgba($col-secondary, 0.05);
 // sale card colors
 $col-sale-card-background: $_white;
 $col-sale-card-shadow: $col-block-shadow;
-$col-sale-card-header-background: $_athensGray;
-$col-sale-card-text-primary: $col-text;
-$col-sale-card-text-bold: $_lightBlack;
-$col-sale-card-progress-bar-background: $_thinPurple;
-$col-sale-card-progress-bar-value: $_strongPrimary;
 
 // request colors
 $col-request-approved: $_cyan;
@@ -270,7 +239,7 @@ $col-request-rejected: $_lightRed;
 
 // asset logo
 $col-asset-logo-background: $_white;
-$col-asset-logo-text: $col-primary;
+$col-asset-logo-text: $col-text;
 
 // promo code logo
 $col-promo-code-logo-background: $_white;
@@ -286,7 +255,7 @@ $col-terms-block-bg: $col-block-bg;
 $col-terms-header: $col-primary;
 $col-terms-list-item: $_thinPurple;
 $col-terms-text: $col-secondary;
-$col-terms-link: $_lightBlack;
+$col-terms-link: $col-link;
 
 // downloads colors
 $col-downloads-title: $col-primary;
@@ -294,41 +263,7 @@ $col-downloads-block-bg: $col-block-bg;
 $col-downloads-header: $col-primary;
 $col-downloads-text: $col-secondary;
 $col-downloads-line: $_athensGray;
-$col-downloads-link: $_lightBlack;
-
-// iOS guide colors
-$col-ios-guide-title: $col-primary;
-$col-ios-guide-block-bg: $col-block-bg;
-$col-ios-guide-header: $col-primary;
-$col-ios-guide-link: $_lightBlack;
-$col-ios-guide-text: $col-secondary;
-$col-ios-guide-step-number-bg: $col-primary;
-$col-ios-guide-step-number-text: $_white;
-$col-ios-guide-step-text: $col-primary;
-$col-ios-guide-substep-text: $col-secondary;
-
-// Pre-issuance guide colors
-$col-pre-issuance-guide-title: $col-primary;
-$col-pre-issuance-guide-block-bg: $col-block-bg;
-$col-pre-issuance-guide-header: $col-primary;
-$col-pre-issuance-guide-link: $_lightBlack;
-$col-pre-issuance-guide-text: $col-secondary;
-$col-pre-issuance-guide-list-item: $_thinPurple;
-
-// radio field colors
-$col-radio-field-border: $col-primary;
-$col-radio-field-background: $_white;
-
-// sale details colors
-$col-sale-details-title: $col-primary;
-$col-sale-details-subtitle: $col-secondary;
-$col-sale-details-text-primary: $col-text;
-$col-sale-details-text-secondary: $col-text-secondary;
-$col-sale-details-block: $col-block-bg;
-$col-sale-details-logo-bg: $_athensGray;
-$col-sale-details-progress-bar-bg: $_thinPurple;
-$col-sale-details-progress-bar-funded: $col-primary-lighten;
-// TODO: paste here variables that are ready to use during the refactor process
+$col-downloads-link: $col-link;
 
 // movement history colors:
 $col-incoming: $_green;
@@ -336,51 +271,14 @@ $col-outgoing: $_lightRed;
 $col-locked: $_orangePeel;
 $col-unlocked: $_orangePeel;
 
-// pie chart colors
-$col-pie-chart-shadow: rgba(0, 0, 0, 0.25);
-$col-pie-chart-stroke: rgba($col-text, 0.5);
-$col-pie-chart-text: $col-text;
-
-// document card colors:
-$col-document-card-viewer-bg: $_white;
-$col-document-card-viewer-shadow: $col-block-shadow;
-$col-document-card-viewer-header-bg: $_athensGray;
-$col-document-card-viewer-text: $col-text;
-
-// document icon colors:
-$col-document-icon-background: $_white;
-$col-document-icon-text: $col-primary;
-
-// document-upload-form-colors:
-$col-document-upload-progress-bar-bg: $_gray;
-$col-document-upload-progress-bar-value: $_strongPrimary;
-
-// document signer list colors:
-$col-signer-list-item-bg: $_white;
-$col-signer-list-item-shadow: $col-block-shadow;
-$col-signer-list-item-avatar-bg: $_primary;
-$col-signer-list-item-avatar-text: $_white;
-$col-signer-list-item-rule-text: $_lightPurple;
-
-// document-uploader-viewer
-$col-document-uploader-text-unlighten: $_lightPurple;
-
-// comment-viewer
-$col-border-comment-viewer-header: $_primary;
-$col-comment-content-gradient-from: $_primary;
-$col-comment-content-gradient-to: $_gray;
-
 // skeleton-loader
-$col-background-skeleton-loader: rgba($_lightBlack, 0.10);
-
-// hint-wrapper
-$col-hint-wrapper-box-bg: rgba($_black, 0.9);
-$col-hint-wrapper-box-text: $_concrete;
+$col-background-skeleton-loader: rgba($col-text, 0.10);
 
 // tooltip-wrapper
 $col-tooltip-wrapper-msg-bg: rgba($_black, 0.9);
 $col-tooltip-wrapper-msg-text: $_white;
 $col-tooltip-wrapper-border-style: transparent transparent $col-tooltip-wrapper-msg-bg transparent;
 
-// footer
-$color-footer-text: darken($_athensGray, 30%);
+// bussiness-description
+$col-bussiness-description-logo-background: $_athensGray;
+$col-bussiness-description-background: $_white;

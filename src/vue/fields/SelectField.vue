@@ -10,7 +10,9 @@
     <template v-if="label">
       <label
         class="select-field__label"
-        :class="{ 'select-field__label--minimized': value || isListOpened }"
+        :class="{ 'select-field__label--minimized': value || isListOpened ||
+          needAllOption
+        }"
       >
         {{ label }}
       </label>
@@ -23,6 +25,10 @@
       v-bind="$attrs"
       @change="onChange"
     >
+      <option v-if="needAllOption" value="">
+        {{ 'select-field.all-option' | globalize }}
+      </option>
+
       <slot />
     </select>
 
@@ -69,6 +75,10 @@ export default {
       type: String,
       default: '',
     },
+    needAllOption: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data: _ => ({
@@ -91,7 +101,7 @@ export default {
       this.addCustomSelectEvents()
     }
 
-    if (!this.value) {
+    if (!this.value && !this.needAllOption) {
       this.fixDisplayOfEmptyValue()
     }
   },
@@ -176,6 +186,7 @@ export default {
   border: none;
   padding: $field-input-padding;
   padding-right: 2.4rem;
+  color: $field-color-text;
 
   @include material-border(
     $field-color-focused,
@@ -194,6 +205,10 @@ export default {
 }
 
 .select-field__opener span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   @include text-font-sizes;
 }
 
@@ -218,10 +233,6 @@ export default {
   overflow-y: auto;
   padding: 0.8rem 0;
 
-  @include respond-to-custom($sidebar-hide-bp) {
-    top: auto;
-    bottom: 0;
-  }
   @include box-shadow;
 }
 
@@ -243,6 +254,7 @@ export default {
   text-overflow: ellipsis;
   text-align: left;
   background-color: transparent;
+  color: $field-color-text;
 }
 
 .select-field__option--focused {

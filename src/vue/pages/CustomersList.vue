@@ -1,12 +1,44 @@
 <template>
   <div class="customers-list">
+    <customers-filters
+      @set-selected-balances="selectedBalances = $event"
+      @set-filters-and-update-list="(customerFilters = $event) && reloadList()"
+    />
     <div class="customers-list__table-wrp">
-      <customers-table
-        :customers-list="list"
-        :is-loaded="isLoaded"
-        :is-load-failed="isLoadFailed"
-        @details-button-clicked="setCustomerToBrowse($event)"
-      />
+      <template v-if="isLoaded">
+        <template v-if="isLoadFailed">
+          <error-message
+            :message="'customers-list.error-msg' | globalize"
+          />
+        </template>
+
+        <template v-else>
+          <template v-if="list.length">
+            <!-- eslint-disable max-len -->
+            <customers-table
+              :customers-list="list"
+              :selected-balances="selectedBalances"
+              @details-button-clicked="setCustomerToBrowse($event)"
+              @set-sorting-and-reload-list="(sortingParameters = $event) && reloadList()"
+            />
+            <!-- eslint-enable max-len -->
+          </template>
+
+          <template v-else>
+            <no-data-message
+              icon-name="chart-areaspline"
+              :title="'customers-list.no-data-title' | globalize"
+              :message="'customers-list.no-data-msg' | globalize"
+            />
+          </template>
+        </template>
+      </template>
+
+      <template v-else>
+        <skeleton-loader-table
+          :cells="4"
+        />
+      </template>
     </div>
 
     <collection-loader
@@ -63,6 +95,10 @@ import MovementsHistory from '@/vue/modules/movements-history'
 
 import CustomerAttributes from './customers-list/CustomerAttributes'
 import CustomersTable from './customers-list/CustomersTable'
+import CustomersFilters from './customers-list/CustomersFilters'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
 import { Bus } from '@/js/helpers/event-bus'
 import { errors } from '@tokend/js-sdk'
 import { CustomerRecord } from '@/js/records/entities/customer.record'
@@ -71,7 +107,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-
+const SORT_ADDED_AT_DESC = '-added_at'
 export default {
   name: 'customers-list',
 
@@ -82,6 +118,10 @@ export default {
     CustomersTable,
     SelectField,
     MovementsHistory,
+    NoDataMessage,
+    ErrorMessage,
+    SkeletonLoaderTable,
+    CustomersFilters,
   },
 
   data () {
@@ -92,6 +132,11 @@ export default {
       isLoadFailed: false,
       isDrawerShown: false,
       customerToBrowse: {},
+      selectedBalances: [],
+      customerFilters: {},
+      sortingParameters: {
+        sort: SORT_ADDED_AT_DESC,
+      },
     }
   },
 
@@ -126,24 +171,24 @@ export default {
 
       try {
         result = await api.getWithSignature(
-          `/integrations/dns/businesses/${this.accountId}/clients`,
-          { include: ['balances'] },
+          `/integrations/dns/businesses/${this.accountId}/clients`, {
+            include: ['balances'],
+            ...({ ...this.customerFilters, ...this.sortingParameters }),
+          },
         )
-        this.isLoaded = true
       } catch (error) {
         // TODO: remove whe back-end returns empty data instead of 404
         if (error instanceof errors.NotFoundError) {
-          this.isLoaded = true
           result = {
             data: [],
             links: {},
           }
         } else {
-          this.isLoaded = false
           this.isLoadFailed = true
           ErrorHandler.processWithoutFeedback(error)
         }
       }
+      this.isLoaded = true
 
       return result
     },
@@ -159,6 +204,7 @@ export default {
     },
 
     reloadList () {
+      this.isLoadFailed = false
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 
@@ -184,5 +230,9 @@ export default {
   margin-top: 2rem;
   margin-bottom: 1.5rem;
   padding: 0 1.6rem;
+}
+
+.customers-list__table-wrp {
+  margin-top: 2rem;
 }
 </style>

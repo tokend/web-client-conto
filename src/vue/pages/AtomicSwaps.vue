@@ -3,7 +3,7 @@
     <top-bar>
       <template slot="extra">
         <button
-          v-if="isAccountCorporate && !isCustomerUiShown"
+          v-if="isAccountCorporate"
           v-ripple
           class="app__button-raised"
           @click="isAtomicSwapsCreateDrawerShown = true"
@@ -57,7 +57,6 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
-      vuexTypes.isCustomerUiShown,
     ]),
   },
 

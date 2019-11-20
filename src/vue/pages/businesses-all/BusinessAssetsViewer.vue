@@ -1,70 +1,34 @@
 <template>
   <div class="business-assets-viewer">
-    <div class="app__table app__table--last-td-to-right">
-      <table class="business-assets-viewer__table">
-        <thead>
-          <tr>
-            <th
-              class="business-assets-viewer__asset-name"
-              :title="'business-assets-viewer.asset-name-th' | globalize"
-            >
-              {{ 'business-assets-viewer.asset-name-th' | globalize }}
-            </th>
-            <!-- eslint-disable-next-line max-len -->
-            <th :title="'business-assets-viewer.number-of-holders-th' | globalize">
-              {{ 'business-assets-viewer.number-of-holders-th' | globalize }}
-            </th>
-            <th>
-              <!-- actions -->
-            </th>
-          </tr>
-        </thead>
-
-        <tbody v-if="businessAssets.length">
-          <tr
-            v-for="businessAsset in businessAssets"
-            :key="businessAsset.asset.code"
-          >
-            <td
-              class="business-assets-viewer__asset-name"
-            >
-              {{ businessAsset.asset.name }}
-            </td>
-
-            <td>
-              {{ businessAsset.holders | formatNumber }}
-            </td>
-
-            <td>
-              <button
-                class="business-assets-viewer__sponsor-btn"
-                @click="selectItem(businessAsset)"
-              >
-                {{ 'business-assets-viewer.sponsor-btn' | globalize }}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-
-        <empty-tbody-placeholder
-          v-else-if="isLoaded"
-          :colspan="3"
-          :message="'business-assets-viewer.no-data-msg' | globalize"
-        />
-
-        <empty-tbody-placeholder
-          v-else-if="isLoadFailed"
-          :colspan="3"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
           :message="'business-assets-viewer.error-msg' | globalize"
         />
+      </template>
 
-        <skeleton-loader-table-body
-          v-else
-          :cells="3"
-          template="smallString"
-        />
-      </table>
-    </div>
+      <template v-else>
+        <template v-if="businessAssets.length">
+          <business-assets-table
+            :business-assets="businessAssets"
+            @select-business-asset="selectItem($event)"
+          />
+        </template>
+
+        <template v-else>
+          <no-data-message
+            icon-name="coins"
+            :title="'business-assets-viewer.no-data-title' | globalize"
+            :message="'business-assets-viewer.no-data-msg' | globalize"
+          />
+        </template>
+      </template>
+    </template>
+
+    <skeleton-loader-table
+      v-else
+      :cells="3"
+    />
 
     <drawer :is-shown.sync="isDrawerShown">
       <template slot="heading">
@@ -72,17 +36,19 @@
       </template>
       <sponsorship-form
         :business-asset="selectedBusinessAsset"
-        @contract-created="isDrawerShown = false"
+        @contract-created="(isDrawerShown = false) || loadBalances()"
       />
     </drawer>
   </div>
 </template>
 
 <script>
-import EmptyTbodyPlaceholder from '@/vue/common/EmptyTbodyPlaceholder'
-import SkeletonLoaderTableBody from '@/vue/common/skeleton-loader/SkeletonLoaderTableBody'
 import Drawer from '@/vue/common/Drawer'
 import SponsorshipForm from '@/vue/forms/SponsorshipForm'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
+import BusinessAssetsTable from './BusinessAssetsTable'
 import { BusinessAssetRecord } from '@/js/records/entities/business-asset.record'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -94,10 +60,12 @@ export default {
   name: 'business-assets-viewer',
 
   components: {
-    EmptyTbodyPlaceholder,
-    SkeletonLoaderTableBody,
+    NoDataMessage,
+    ErrorMessage,
+    SkeletonLoaderTable,
     Drawer,
     SponsorshipForm,
+    BusinessAssetsTable,
   },
 
   props: {
@@ -126,6 +94,7 @@ export default {
 
   async created () {
     await this.init()
+    this.isLoaded = true
   },
 
   methods: {
@@ -137,7 +106,6 @@ export default {
       try {
         await this.loadBalances()
         await this.loadAllBusinessAssets()
-        this.isLoaded = true
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -168,16 +136,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import '~@scss/variables';
-
-.business-assets-viewer__sponsor-btn {
-  font-size: 1.2rem;
-  color: $col-primary-lighten;
-}
-
-.business-assets-viewer__asset-name {
-  min-width: 12rem;
-}
-</style>
