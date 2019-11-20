@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
-## [Unreleased]
+## [1.1.0-rcunitcity.8] - 2019-11-20
 #### Added
 - Google market img to `SuccessfulPayment` page
 - `Added` field on Customers page
@@ -425,7 +425,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.7...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.8...HEAD
+[1.1.0-rcunitcity.8]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.7...1.1.0-rcunitcity.8
 [1.1.0-rcunitcity.7]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.6...1.1.0-rcunitcity.7
 [1.1.0-rcunitcity.6]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.5...1.1.0-rcunitcity.6
 [1.1.0-rcunitcity.5]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.4...1.1.0-rcunitcity.5
