@@ -673,7 +673,6 @@
     "op-pages": {
       "filters-prefix": "Show:",
       "something-went-wrong": "Something went wrong",
-      "can-not-load-assets": "There was an error while loading assets",
       "withdraw": "Withdraw",
       "deposit": "Deposit",
       "send": "Send",

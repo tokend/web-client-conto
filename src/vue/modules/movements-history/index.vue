@@ -1,25 +1,41 @@
 <template>
   <div class="movements-history">
-    <template v-if="!isMovementsLoadFailed">
-      <div class="movements-history__list-wrp">
-        <movements-table
-          :is-movements-loaded="isMovementsLoaded"
-          :movements="movements"
-          :is-customer-movements="isCustomerMovements"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'movements-history.movements-load-failed-msg' | globalize"
         />
-      </div>
+      </template>
+
+      <template v-else>
+        <template v-if="movements.length">
+          <movements-table
+            :movements="movements"
+            :is-customer-movements="isCustomerMovements"
+          />
+        </template>
+
+        <template v-else>
+          <no-data-message
+            icon-name="chart-areaspline"
+            :title="'movements-history.no-movements-title' | globalize"
+            :message="'movements-history.no-movements-msg' | globalize"
+          />
+        </template>
+      </template>
     </template>
 
-    <template v-if="isMovementsLoadFailed">
-      <p class="movements-history__error-msg">
-        {{ 'movements-history.movements-load-failed-msg' | globalize }}
-      </p>
+    <template v-else>
+      <skeleton-loader-table
+        :cells="isCustomerMovements ? 4 : 5"
+        need-button
+      />
     </template>
 
     <div class="movements-history__collection-loader-wrp">
       <collection-loader
         v-if="assetCode || isCustomerMovements"
-        v-show="isMovementsLoaded"
+        v-show="isLoaded"
         :first-page-loader="firstPageLoader"
         @first-page-load="setMovements"
         @next-page-load="concatMovements"
@@ -32,6 +48,9 @@
 <script>
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import MovementsTable from './components/movements-table'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
 
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -47,6 +66,9 @@ export default {
   components: {
     MovementsTable,
     CollectionLoader,
+    SkeletonLoaderTable,
+    ErrorMessage,
+    NoDataMessage,
   },
   props: {
     assetCode: {
@@ -63,8 +85,8 @@ export default {
     },
   },
   data: _ => ({
-    isMovementsLoaded: false,
-    isMovementsLoadFailed: false,
+    isLoaded: false,
+    isLoadFailed: false,
     REFS,
   }),
 
@@ -91,16 +113,6 @@ export default {
     },
   },
 
-  created () {
-    // HACK: fix display of no-data-message if no assetCode can be get. To
-    // prevent infinite display of skeleton screen
-    setTimeout(() => {
-      if (!this.assetCode) {
-        this.isMovementsLoaded = true
-      }
-    }, 1000)
-  },
-
   methods: {
     ...mapMutations({
       setMovements: vuexTypes.SET_MOVEMENTS,
@@ -112,28 +124,28 @@ export default {
     }),
 
     async loadMovementsFirstPage (assetCode, accountId) {
-      this.isMovementsLoaded = false
-      this.isMovementsLoadFailed = false
+      this.isLoaded = false
+      this.isLoadFailed = false
+      let response
       try {
-        let response
         if (this.isHistory || this.isCustomerMovements) {
           response = await this.loadMovements({ assetCode, accountId })
         } else {
           response = await this.loadShareMovements(assetCode)
         }
-        this.isMovementsLoaded = true
-        return response
       } catch (e) {
         ErrorHandler.processWithoutFeedback(e)
-        this.isMovementsLoadFailed = true
+        this.isLoadFailed = true
       }
+      this.isLoaded = true
+      return response
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.movements-history__list-wrp {
+.movements-history {
   overflow-x: auto;
   width: 100%;
 }
