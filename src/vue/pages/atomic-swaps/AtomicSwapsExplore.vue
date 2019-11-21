@@ -1,36 +1,42 @@
 <template>
   <div class="atomic-swaps-explore">
-    <template v-if="list.length">
-      <div class="app__card-list">
-        <div
-          class="app__card-list-item"
-          v-for="item in list"
-          :key="item.id"
-        >
-          <atomic-swap-card
-            :atomic-swap-ask="item"
-            @buy="buyAsset(item)"
-            @vue-details="selectItem(item)"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'atomic-swaps-explore.loading-error-msg' | globalize"
+        />
+      </template>
+
+      <template v-else>
+        <template v-if="list.length">
+          <div class="app__card-list">
+            <div
+              class="app__card-list-item"
+              v-for="item in list"
+              :key="item.id"
+            >
+              <atomic-swap-card
+                :atomic-swap-ask="item"
+                @buy="buyAsset(item)"
+                @vue-details="selectItem(item)"
+              />
+            </div>
+          </div>
+        </template>
+
+        <template v-else>
+          <no-data-message
+            class="atomic-swaps-explore__no-data-message"
+            icon-name="swap-horizontal"
+            :title="'atomic-swaps-explore.no-list-title' | globalize"
+            :message="'atomic-swaps-explore.no-list-msg' | globalize"
           />
-        </div>
-      </div>
+        </template>
+      </template>
     </template>
 
-    <template v-else-if="isLoading">
+    <template v-else>
       <skeleton-cards-loader />
-    </template>
-
-    <template v-else-if="isLoadingFailed">
-      <p>{{ 'atomic-swaps-explore.loading-error-msg' | globalize }}</p>
-    </template>
-
-    <template v-else-if="!list.length && !isLoading">
-      <no-data-message
-        class="atomic-swaps-explore__no-data-message"
-        icon-name="swap-horizontal"
-        :title="'atomic-swaps-explore.no-list-title' | globalize"
-        :message="'atomic-swaps-explore.no-list-msg' | globalize"
-      />
     </template>
 
     <div class="atomic-swaps-explore__requests-collection-loader">
@@ -76,6 +82,8 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import AtomicSwapForm from '@modules/atomic-swap-form'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
@@ -94,6 +102,7 @@ export default {
     NoDataMessage,
     AtomicSwapForm,
     SkeletonCardsLoader,
+    ErrorMessage,
   },
 
   mixins: [UpdateList],
@@ -102,15 +111,11 @@ export default {
       type: String,
       default: '',
     },
-    selectedAssetCode: {
-      type: String,
-      default: '',
-    },
   },
   data () {
     return {
-      isLoading: false,
-      isLoadingFailed: false,
+      isLoaded: false,
+      isLoadFailed: false,
       list: [],
       isBuyFormDrawerShown: false,
       isAtomicSwapDetailsDrawerShown: false,
@@ -146,9 +151,7 @@ export default {
     }),
 
     async getList () {
-      this.isLoading = true
-
-      let result
+      let response = {}
       let filter = {
         ...(
           this.businessId
@@ -158,16 +161,16 @@ export default {
       }
 
       try {
-        result = await api.get('/integrations/marketplace/offers', {
+        response = await api.get('/integrations/marketplace/offers', {
           filter: filter,
         })
       } catch (error) {
-        this.isLoadingFailed = true
+        this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 
-      this.isLoading = false
-      return result
+      this.isLoaded = true
+      return response
     },
 
     setList (newList) {
@@ -181,6 +184,8 @@ export default {
     },
 
     reloadList () {
+      this.isLoaded = false
+      this.isLoadFailed = false
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 

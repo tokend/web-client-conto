@@ -18,7 +18,7 @@ import BusinessesAll from '@/vue/pages/BusinessesAll'
 import BusinessViewer from '@/vue/pages/BusinessViewer'
 
 import Assets from '@/vue/pages/Assets'
-import AssetExplorer from '@/vue/pages/AssetExplorer'
+import AssetExplorer from '@modules/assets/asset-explorer'
 import AtomicSwaps from '@/vue/pages/AtomicSwaps'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import Movements from '@/vue/pages/Movements'

@@ -209,11 +209,6 @@ export default {
     async loadAccountBalancesAndSetSelectedBalance () {
       await this.loadAccountBalances()
       await this.loadAssets()
-      if (this.isDrawerShown) {
-        this.selectedBalance = this.accountBalances.find(item => {
-          return item.id === this.selectedBalance.id
-        })
-      }
     },
   },
 }

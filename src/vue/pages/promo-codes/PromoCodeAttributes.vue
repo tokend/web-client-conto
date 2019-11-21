@@ -51,21 +51,21 @@
       </table>
     </div>
 
-    <promo-code-offers-table
+    <promo-code-offers-viewer
       :offers-id="promoCode.offersId"
     />
   </div>
 </template>
 
 <script>
-import PromoCodeOffersTable from '@/vue/pages/promo-codes/PromoCodeOffersTable'
+import PromoCodeOffersViewer from '@/vue/pages/promo-codes/PromoCodeOffersViewer'
 import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
 
 export default {
   name: 'promo-code-attributes',
 
   components: {
-    PromoCodeOffersTable,
+    PromoCodeOffersViewer,
   },
 
   props: {

@@ -1,47 +1,69 @@
 <template>
   <div>
-    <template v-if="!isLoadingFailed">
-      <drawer :is-shown.sync="isDrawerShown">
-        <template slot="heading">
-          {{ 'sponsorship-requests.details-title' | globalize }}
-        </template>
-        <request-viewer
-          :request="selectedRequest"
-          :is-incoming-requests="isIncomingRequests"
-          @request-updated="closeDrawerAndUpdateList()"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'sponsorship-requests.loading-error-msg' | globalize"
         />
-      </drawer>
+      </template>
 
-      <requests-table
-        :requests="requests"
-        :is-loaded="isLoaded"
-        :is-incoming-requests="isIncomingRequests"
-        @select="showRequestDetails"
-      />
+      <template v-else>
+        <template v-if="requests.length">
+          <requests-table
+            :requests="requests"
+            :is-incoming-requests="isIncomingRequests"
+            @select="showRequestDetails"
+          />
+        </template>
+
+        <template v-else>
+          <no-data-message
+            icon-name="chart-areaspline"
+            :title="'sponsorship-requests.no-history-title' | globalize"
+            :message="'sponsorship-requests.no-history-desc' | globalize"
+          />
+        </template>
+      </template>
     </template>
 
-    <p v-if="isLoadingFailed">
-      {{ 'sponsorship-requests.loading-error-msg' | globalize }}
-    </p>
+    <template v-else>
+      <skeleton-loader-table :cells="5" />
+    </template>
 
     <collection-loader
       class="sponsorship-requests__loader"
       v-show="requests.length && isLoaded"
-      :first-page-loader="firstPageLoader"
+      :first-page-loader="loadRequests"
       @first-page-load="setRequests"
       @next-page-load="concatRequests"
+      ref="listCollectionLoader"
     />
+
+    <drawer :is-shown.sync="isDrawerShown">
+      <template slot="heading">
+        {{ 'sponsorship-requests.details-title' | globalize }}
+      </template>
+      <request-viewer
+        :request="selectedRequest"
+        :is-incoming-requests="isIncomingRequests"
+        @request-updated="closeDrawerAndUpdateList()"
+      />
+    </drawer>
   </div>
 </template>
 
 <script>
 import Drawer from '@/vue/common/Drawer'
-import { ErrorHandler } from '@/js/helpers/error-handler'
-import { mapActions, mapMutations, mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import RequestsTable from './components/requests-table'
 import RequestViewer from './components/request-viewer'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
+
+import { ErrorHandler } from '@/js/helpers/error-handler'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'sponsorship-requests',
@@ -50,6 +72,9 @@ export default {
     RequestsTable,
     Drawer,
     RequestViewer,
+    NoDataMessage,
+    ErrorMessage,
+    SkeletonLoaderTable,
   },
 
   props: {
@@ -58,20 +83,15 @@ export default {
 
   data: _ => ({
     isLoaded: false,
-    isLoadingFailed: false,
+    isLoadFailed: false,
     isDrawerShown: false,
     selectedRequest: {},
-    firstPageLoader: () => {},
   }),
 
   computed: {
     ...mapGetters({
       requests: vuexTypes.sponsorshipRequests,
     }),
-  },
-
-  created () {
-    this.initFirstPageLoader()
   },
 
   methods: {
@@ -84,20 +104,22 @@ export default {
     }),
     async loadRequests () {
       this.isLoaded = false
+      this.isLoadFailed = false
+      let response
       try {
-        const response = await this.loadSponsorshipRequests(
+        response = await this.loadSponsorshipRequests(
           this.isIncomingRequests
         )
-        this.isLoaded = true
-        return response
       } catch (e) {
-        this.isLoadingFailed = true
+        this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
       }
+      this.isLoaded = true
+      return response
     },
 
-    initFirstPageLoader () {
-      this.firstPageLoader = _ => this.loadRequests()
+    reloadList () {
+      return this.$refs.listCollectionLoader.loadFirstPage()
     },
 
     showRequestDetails (request) {
@@ -107,7 +129,7 @@ export default {
 
     closeDrawerAndUpdateList () {
       this.isDrawerShown = false
-      this.initFirstPageLoader()
+      this.reloadList()
     },
   },
 }

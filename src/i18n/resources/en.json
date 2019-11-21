@@ -1170,10 +1170,19 @@
     "atomic-swaps": {
       "explore-atomic-swaps": "Explore offerings",
       "create-atomic-swap-bth": "Create",
-      "new-atomic-swap": "New offering",
-      "loading": "Loading",
+      "new-atomic-swap": "New offering"
+    },
+    "atomic-swaps-requests": {
       "purchases": "Purchases",
-      "loading-error-msg": "There was an error while loading."
+      "loading-error-msg": "There was an error while loading.",
+      "no-data-title": "No purchases",
+      "no-data-msg":"Here will be the purchase history of your offer"
+    },
+    "atomic-swaps-requests-table": {
+      "buyer-th": "Buyer",
+      "amount-th": "Amount",
+      "discount-th": "Discount",
+      "total-price-th": "Total price"
     },
     "create-atomic-swap-form": {
       "asset-lbl": "Asset",
@@ -1473,10 +1482,13 @@
     "promo-code-offers-table": {
       "name-th": "Name",
       "amount-th": "Amount",
-      "price-th": "Price",
+      "price-th": "Price"
+    },
+    "promo-code-offers-viewer": {
       "offers-title": "Offers",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
-      "no-data-msg":"Promo Code don't have any offers yet."
+      "no-data-title": "No offers yet",
+      "no-data-msg":"Promo Code doesn't have any offers yet."
     },
     "promo-code-form-offers-table": {
       "name-th": "Name",
