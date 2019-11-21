@@ -1,8 +1,11 @@
 <template>
-  <div id="card-list" class="card-list">
+  <div
+    id="card-list"
+    class="card-list"
+    :style="styleObject"
+  >
     <div
       class="card-list__item"
-      :style="styleObject"
       v-for="item in list"
       :key="item.id"
     >
@@ -12,7 +15,6 @@
 </template>
 
 <script>
-const CARD_MARGIN = '2rem'
 const NUMBER_OF_CARDS = {
   one: 1,
   two: 2,
@@ -54,8 +56,7 @@ export default {
       const numberOfCards = this.getNumberOfCards()
 
       this.styleObject = {
-        'max-width': `calc(100% / ${numberOfCards} - (${CARD_MARGIN}))`,
-        'flex': `0 1 calc(100% / ${numberOfCards} - (${CARD_MARGIN}))`,
+        'grid-template-columns': `repeat(${numberOfCards}, 1fr)`,
       }
     },
 
@@ -84,13 +85,7 @@ export default {
 @import '~@scss/variables.scss';
 
 .card-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -$list-item-margin 0 0 (-$list-item-margin);
-}
-
-.card-list__item {
-  width: calc(100% + #{$list-item-margin});
-  margin: $list-item-margin 0 0 $list-item-margin;
+  display: grid;
+  grid-gap: $list-item-margin;
 }
 </style>
