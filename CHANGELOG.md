@@ -6,6 +6,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Added
+- Customer ui for business account
+
+## [1.4.0] - 2019-11-20
+
+## [1.4.0-rc.3] - 2019-11-18
+#### Added
+- Google market img to `SuccessfulPayment` page
+- `Added` field on Customers page
+
+#### Changed
+- Used `APP_NAME` on `SuccessfulPayment` page
+
+#### Fixed
+- A bug with sort on Customers page
+- A bug with displaying `Kyc recovery` page on mobile phone
+- A bug with trim filter search
+- Localization
+
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.11.2
+
 ## [1.4.0-rc.2] - 2019-11-14
 #### Fixed
 - A bub with clients export
@@ -417,7 +441,13 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
+<<<<<<< HEAD
 [Unreleased]: https://github.com/tokend/web-client/compare/1.4.0-rc.2...HEAD
+=======
+[Unreleased]: https://github.com/tokend/web-client/compare/1.4.0...HEAD
+[1.4.0]: https://github.com/tokend/web-client/compare/1.4.0-rc.3...1.4.0
+[1.4.0-rc.3]: https://github.com/tokend/web-client/compare/1.4.0-rc.2...1.4.0-rc.3
+>>>>>>> master
 [1.4.0-rc.2]: https://github.com/tokend/web-client/compare/1.4.0-rc.1...1.4.0-rc.2
 [1.4.0-rc.1]: https://github.com/tokend/web-client/compare/1.4.0-rc.0...1.4.0-rc.1
 [1.4.0-rc.0]: https://github.com/tokend/web-client/compare/1.3.1...1.4.0-rc.0

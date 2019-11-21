@@ -33,6 +33,7 @@
         v-model="filters.search"
         :label="'customers-filters.search-lbl' | globalize"
         :disabled="isFilterDisabled"
+        :trim="false"
       />
     </div>
   </div>

@@ -52,7 +52,7 @@
         "nextDay": "[Завтра в] H:mm",
         "lastWeek": "[Пред.] dddd [в] H:mm",
         "nextWeek": "[След.] dddd [в] H:mm",
-        "sameElse": "MMMM D, YYYY [в] H:mm"
+        "sameElse": "D MMMM YYYY [в] H:mm"
       },
       "calendarInline": {
         "sameDay": "[сегодня в] H:mm",
@@ -60,7 +60,7 @@
         "nextDay": "[завтра в] H:mm",
         "lastWeek": "[пред.] dddd [в] H:mm",
         "nextWeek": "[след.] dddd [в] H:mm",
-        "sameElse": "MMMM D, YYYY [в] H:mm"
+        "sameElse": "D MMMM YYYY [в] H:mm"
       }
     }
   },
@@ -640,6 +640,7 @@
       "settings": "Настройки",
       "movements": "История",
       "register-of-shares": "История",
+      "assets-movements": "Движение активов",
       "customers": "Клиенты",
       "customers-list": "Список клиентов",
       "businesses": "Компании",
@@ -666,7 +667,7 @@
     "sidebar": {
       "section-explore": "Просмотреть",
       "section-account": "Аккаунт",
-      "section-corporate": "Компания"
+      "section-general": "Раздел покупателя"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -677,7 +678,6 @@
       "filters-prefix": "Показать:",
       "something-went-wrong": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
       "can-not-load-assets": "Произошла ошибка при загрузке активов. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
-      "assets-loading-msg": "Загружаем активы…",
       "withdraw": "Вывести",
       "deposit": "Внести",
       "send": "Отправить",
@@ -1208,7 +1208,7 @@
     },
     "customers-page": {
       "invite-btn": "Пригласить клиента",
-      "export-btn": "Export",
+      "export-btn": "Экспорт",
       "mass-invitation-drawer-heading": "Пригласите клиентов",
       "mass-issuance-drawer-heading": "Выпустить активы",
       "mass-payment-drawer-heading": "Отправить активы",
@@ -1244,7 +1244,8 @@
       "balance-key": "Баланс {{assetCode}}",
       "not-registered-status-val": "Не зарегистрирован",
       "active-status-val": "Активен",
-      "blocked-status-val": "Заблокирован"
+      "blocked-status-val": "Заблокирован",
+      "added-key": "Добавлен"
     },
     "customers-table": {
       "customer-th": "Клиент",
@@ -1259,7 +1260,8 @@
       "enable-mass-payment-btn": "Выбрать для отправки",
       "do-mass-payment-btn": "Выполнить отправку",
       "cancel-mass-issue-btn": "Отменить",
-      "email-th": "Имейл"
+      "email-th": "Имейл",
+      "added-th": "Добавлен"
     },
     "customers-list": {
       "customer-drawer-title": "Клиент",
@@ -1521,7 +1523,8 @@
     },
     "business-card": {
       "add-lbl": "Добавить",
-      "details-lbl": "Детали"
+      "details-lbl": "Детали",
+      "invest-lbl": "Инвестировать"
     },
     "statistics-page": {
       "sales-history-tab": "История продаж",
@@ -1603,7 +1606,7 @@
       "transfer-msg": "Удобно передавайте актив по email.",
       "redeem-msg": "Погашайте актив, показав QR-код!",
       "use-apps-msg": "Вы можете использовать web-версию Conto, а можете установить мобильное приложение.",
-      "conto-for-android-msg": "Conto для Android",
+      "conto-for-android-msg": "{{appName}} для Android",
       "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь на почту",
       "asset-loading": "Загружаеться информация об активе",
       "loading-error-msg": "Произошла ошибка при загрузке.",
@@ -1613,6 +1616,9 @@
     "failed-payment": {
       "title": "Платеж не прошел",
       "failed-msg": "Произошла ошибка при покупке актива"
+    },
+    "assets-movements": {
+      "asset-filter-label": "Актив"
     }
   }
 }
