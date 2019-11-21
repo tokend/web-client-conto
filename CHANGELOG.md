@@ -8,6 +8,7 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
+- Customer ui for business account
 - `CardList` component
 
 ## [1.4.0] - 2019-11-20

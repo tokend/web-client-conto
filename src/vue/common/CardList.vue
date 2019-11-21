@@ -24,9 +24,9 @@ const NUMBER_OF_CARDS = {
 const CONTENT_DISPLAY_WIDTH = {
   sixCards: 3000,
   fiveCards: 1678,
-  fourCards: 1100,
-  threeCards: 800,
-  twoCards: 500,
+  fourCards: 1130,
+  threeCards: 830,
+  twoCards: 550,
 }
 
 export default {

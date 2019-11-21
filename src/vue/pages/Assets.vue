@@ -2,7 +2,7 @@
   <div>
     <top-bar>
       <template slot="main">
-        <template v-if="isAccountGeneral && myBusinesses.length">
+        <template v-if="myBusinesses.length">
           <div class="assets-page__filter">
             <select-field
               :value="businessOwnerId"
@@ -83,12 +83,11 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      account: vuexTypes.account,
-      isAccountCorporate: vuexTypes.isAccountCorporate,
-      isAccountGeneral: vuexTypes.isAccountGeneral,
-      myBusinesses: vuexTypes.myBusinesses,
-    }),
+    ...mapGetters([
+      vuexTypes.isAccountCorporate,
+      vuexTypes.myBusinesses,
+      vuexTypes.accountId,
+    ]),
   },
 
   watch: {
@@ -99,6 +98,9 @@ export default {
 
   async created () {
     await this.loadMyBusinesses()
+    if (this.isAccountCorporate) {
+      this.setBusinessOwnerId(this.accountId)
+    }
   },
 
   methods: {

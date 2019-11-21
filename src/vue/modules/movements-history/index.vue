@@ -18,7 +18,7 @@
 
     <div class="movements-history__collection-loader-wrp">
       <collection-loader
-        v-if="!isMovementsLoadFailed && (assetCode || isCustomerMovements)"
+        v-if="assetCode || isCustomerMovements"
         v-show="isMovementsLoaded"
         :first-page-loader="firstPageLoader"
         @first-page-load="setMovements"
@@ -53,6 +53,10 @@ export default {
       type: String,
       default: '',
     },
+    isHistory: {
+      type: Boolean,
+      default: true,
+    },
     customer: {
       type: CustomerRecord,
       default: null,
@@ -67,7 +71,6 @@ export default {
   computed: {
     ...mapGetters({
       movements: vuexTypes.movements,
-      isAccountGeneral: vuexTypes.isAccountGeneral,
     }),
 
     isCustomerMovements () {
@@ -110,9 +113,10 @@ export default {
 
     async loadMovementsFirstPage (assetCode, accountId) {
       this.isMovementsLoaded = false
+      this.isMovementsLoadFailed = false
       try {
         let response
-        if (this.isAccountGeneral || this.isCustomerMovements) {
+        if (this.isHistory || this.isCustomerMovements) {
           response = await this.loadMovements({ assetCode, accountId })
         } else {
           response = await this.loadShareMovements(assetCode)
