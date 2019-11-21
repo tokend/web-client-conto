@@ -76,6 +76,9 @@
                 {{ balance.name }}
               </th>
             </template>
+            <th :title="'customers-table.added-th' | globalize">
+              {{ 'customers-table.added-th' | globalize }}
+            </th>
             <th class="customers-table__btn-td">
               <!-- actions -->
             </th>
@@ -85,7 +88,7 @@
         <tbody>
           <tr
             v-for="customer in customersList"
-            :key="customer.id"
+            :key="customer.accountId"
           >
             <td
               class="customers-table__cb-td"
@@ -130,6 +133,13 @@
                 </td>
               </template>
             </template>
+
+            <td
+              class="customers-table__added-td"
+              :title="customer.addedAt | formatCalendar"
+            >
+              {{ customer.addedAt | formatCalendar }}
+            </td>
 
             <td class="customers-table__btn-td">
               <button
@@ -259,17 +269,16 @@ export default {
       return balance.amount
     },
 
-    setActiveKeyAndEmitSorting (sorting) {
-      this.activeSortingKey = sorting.sortingKey
-      const sortingParameters = {
-        'page[order]': sorting.sortingOrder,
-        ...(
-          sorting.sortingKey
-            ? { 'sort': sorting.sortingKey }
-            : {}
-        ),
+    setActiveKeyAndEmitSorting (sortingKey) {
+      let activeSortingKey = sortingKey
+      if (activeSortingKey.charAt(0) === '-') {
+        activeSortingKey = activeSortingKey.substr(1)
       }
-      this.$emit(EVENTS.setSortingAndReloadList, sortingParameters)
+      this.activeSortingKey = activeSortingKey
+
+      this.$emit(EVENTS.setSortingAndReloadList, {
+        'sort': sortingKey,
+      })
     },
   },
 }
@@ -334,5 +343,9 @@ $disabled-tick-border: #e9e9e9;
 
 .customers-table__customer-td {
   max-width: 16rem;
+}
+
+.customers-table__added-td {
+  max-width: 21rem;
 }
 </style>
