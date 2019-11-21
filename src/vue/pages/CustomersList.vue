@@ -36,7 +36,7 @@
 
       <template v-else>
         <skeleton-loader-table
-          :cells="4"
+          :cells="5"
         />
       </template>
     </div>
