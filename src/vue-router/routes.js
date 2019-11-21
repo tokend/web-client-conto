@@ -41,4 +41,6 @@ export const vueRoutes = Object.freeze({
   statisticsGeneral: { name: 'app.statistics-general' },
   successfulPayment: { name: 'app.successful-payment' },
   failedPayment: { name: 'app.failed-payment' },
+  booking: { name: 'app.booking' },
+  bookingExplore: { name: 'app.booking-explore' },
 })

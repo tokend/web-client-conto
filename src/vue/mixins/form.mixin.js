@@ -5,6 +5,7 @@ import InputField from '@/vue/fields/InputField'
 import AmountInputField from '@/vue/fields/AmountInputField'
 import SelectField from '@/vue/fields/SelectField'
 import DateField from '@/vue/fields/DateField'
+import BookingDateField from '@/vue/fields/BookingDateField'
 import TextareaField from '@/vue/fields/TextareaField'
 import TickField from '@/vue/fields/TickField'
 import FileField from '@/vue/fields/FileField'
@@ -19,6 +20,7 @@ export default {
     AmountInputField,
     SelectField,
     DateField,
+    BookingDateField,
     TextareaField,
     TickField,
     FileField,

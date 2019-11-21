@@ -37,6 +37,8 @@ import StatisticsSalesHistory from '@/vue/pages/StatisticsSalesHistory'
 import StatisticsGeneral from '@/vue/pages/StatisticsGeneral'
 import SuccessfulPayment from '@/vue/pages/SuccessfulPayment'
 import FailedPayment from '@/vue/pages/FailedPayment'
+import Booking from '@/vue/pages/Booking'
+import BookingExplore from '@/vue/pages/booking/BookingExplore'
 
 Vue.use(Router)
 
@@ -366,6 +368,23 @@ const router = new Router({
                   beforeEnter: inAppRouteGuard,
                 },
               ],
+            },
+          ],
+        },
+        {
+          path: '/booking',
+          name: vueRoutes.booking.name,
+          meta: {
+            pageNameTranslationId: 'pages-names.booking',
+          },
+          component: Booking,
+          redirect: vueRoutes.bookingExplore,
+          children: [
+            {
+              path: '/booking/explore',
+              name: vueRoutes.bookingExplore.name,
+              component: BookingExplore,
+              beforeEnter: inAppRouteGuard,
             },
           ],
         },

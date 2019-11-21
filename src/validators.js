@@ -1,6 +1,8 @@
 import WAValidator from 'wallet-address-validator'
 import cardValidator from 'card-validator'
 
+import moment from 'moment'
+
 import { base } from '@tokend/js-sdk'
 
 import { MathUtil } from '@/js/utils'
@@ -79,4 +81,11 @@ export const validateUrl = url => {
 
 export const validatePhoneNumber = value => {
   return /^[1-9]{1}[0-9]{3,14}$/i.test(value)
+}
+
+export const minDate = (minDate) => value => {
+  return moment(value).isAfter(moment(minDate))
+}
+export const maxDate = (maxDate) => value => {
+  return moment(value).isBefore(moment(maxDate))
 }

@@ -120,7 +120,9 @@
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл, телефон получателя или телеграм",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
-      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует"
+      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
+      "field-error_minDate": "Дата должна быть позднее {{ minDate, date }}",
+      "field-error_maxDate": "Дата должна быть ранее {{ maxDate, date }}"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -647,7 +649,8 @@
       "atomic-swaps": "Магазин",
       "kyc-recovery": "Восстановление по KYC",
       "promo-codes": "Промокоды",
-      "statistics": "Статистика"
+      "statistics": "Статистика",
+      "booking": "Бронирование"
     },
     "passport": {
       "account-us-accredited": "Аккредитованный инвестор (США)",
@@ -1603,6 +1606,10 @@
     "failed-payment": {
       "title": "Платеж не прошел",
       "failed-msg": "Произошла ошибка при покупке актива"
+    },
+    "booking": {
+      "booking-btn": "Бронирование",
+      "booking-title": "Бронирование"
     }
   }
 }
