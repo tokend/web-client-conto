@@ -27,8 +27,8 @@ const CONTENT_DISPLAY_WIDTH = {
   sixCards: 3000,
   fiveCards: 1678,
   fourCards: 1030,
-  threeCards: 830,
-  twoCards: 550,
+  threeCards: 760,
+  twoCards: 510,
 }
 
 export default {
