@@ -1170,10 +1170,19 @@
     "atomic-swaps": {
       "explore-atomic-swaps": "Предложения",
       "create-atomic-swap-bth": "Создать предложение",
-      "new-atomic-swap": "Новое предложение",
-      "loading": "Загрузка",
+      "new-atomic-swap": "Новое предложение"
+    },
+    "atomic-swaps-requests": {
       "purchases": "Покупки",
-      "loading-error-msg": "Произошла ошибка при загрузке."
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-data-title": "Нет покупок",
+      "no-data-msg":"Здесь будет история покупки вашего предложения"
+    },
+    "atomic-swaps-requests-table": {
+      "buyer-th": "Покупатель",
+      "amount-th": "Количество",
+      "discount-th": "Скидка",
+      "total-price-th": "Итоговая цена"
     },
     "create-atomic-swap-form": {
       "asset-lbl": "Актив",
@@ -1473,10 +1482,13 @@
     "promo-code-offers-table": {
       "name-th": "Имя",
       "amount-th": "Количество",
-      "price-th": "Цена",
+      "price-th": "Цена"
+    },
+    "promo-code-offers-viewer": {
       "offers-title": "Предложения",
       "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
-      "no-data-msg": "У промокаода нет выбранных предложений."
+      "no-data-title": "Нет выбранных предложений",
+      "no-data-msg": "У промокода нет выбранных предложений."
     },
     "promo-code-form-offers-table": {
       "name-th": "Имя",

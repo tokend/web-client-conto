@@ -1,30 +1,36 @@
 <template>
   <div class="atomic-swaps-explore">
-    <template v-if="list.length">
-      <card-list v-slot="{ item }" :list="list">
-        <atomic-swap-card
-          :atomic-swap-ask="item"
-          @buy="buyAsset(item)"
-          @vue-details="selectItem(item)"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'atomic-swaps-explore.loading-error-msg' | globalize"
         />
-      </card-list>
+      </template>
+
+      <template v-else>
+        <template v-if="list.length">
+          <card-list v-slot="{ item }" :list="list">
+            <atomic-swap-card
+              :atomic-swap-ask="item"
+              @buy="buyAsset(item)"
+              @vue-details="selectItem(item)"
+            />
+          </card-list>
+        </template>
+
+        <template v-else>
+          <no-data-message
+            class="atomic-swaps-explore__no-data-message"
+            icon-name="swap-horizontal"
+            :title="'atomic-swaps-explore.no-list-title' | globalize"
+            :message="'atomic-swaps-explore.no-list-msg' | globalize"
+          />
+        </template>
+      </template>
     </template>
 
-    <template v-else-if="isLoading">
+    <template v-else>
       <skeleton-cards-loader />
-    </template>
-
-    <template v-else-if="isLoadingFailed">
-      <p>{{ 'atomic-swaps-explore.loading-error-msg' | globalize }}</p>
-    </template>
-
-    <template v-else-if="!list.length && !isLoading">
-      <no-data-message
-        class="atomic-swaps-explore__no-data-message"
-        icon-name="swap-horizontal"
-        :title="'atomic-swaps-explore.no-list-title' | globalize"
-        :message="'atomic-swaps-explore.no-list-msg' | globalize"
-      />
     </template>
 
     <div class="atomic-swaps-explore__requests-collection-loader">
@@ -71,6 +77,7 @@ import UpdateList from '@/vue/mixins/update-list.mixin'
 import AtomicSwapForm from '@modules/atomic-swap-form'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import CardList from '@/vue/common/CardList'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -91,6 +98,7 @@ export default {
     AtomicSwapForm,
     SkeletonCardsLoader,
     CardList,
+    ErrorMessage,
   },
 
   mixins: [UpdateList],
@@ -99,15 +107,11 @@ export default {
       type: String,
       default: '',
     },
-    selectedAssetCode: {
-      type: String,
-      default: '',
-    },
   },
   data () {
     return {
-      isLoading: false,
-      isLoadingFailed: false,
+      isLoaded: false,
+      isLoadFailed: false,
       list: [],
       isBuyFormDrawerShown: false,
       isAtomicSwapDetailsDrawerShown: false,
@@ -143,9 +147,7 @@ export default {
     }),
 
     async getList () {
-      this.isLoading = true
-
-      let result
+      let response = {}
       let filter = {
         ...(
           this.businessId
@@ -155,16 +157,16 @@ export default {
       }
 
       try {
-        result = await api.get('/integrations/marketplace/offers', {
+        response = await api.get('/integrations/marketplace/offers', {
           filter: filter,
         })
       } catch (error) {
-        this.isLoadingFailed = true
+        this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 
-      this.isLoading = false
-      return result
+      this.isLoaded = true
+      return response
     },
 
     setList (newList) {
@@ -178,6 +180,8 @@ export default {
     },
 
     reloadList () {
+      this.isLoaded = false
+      this.isLoadFailed = false
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 

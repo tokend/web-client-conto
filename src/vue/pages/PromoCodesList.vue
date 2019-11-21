@@ -1,28 +1,34 @@
 <template>
   <div class="promo-codes-list">
-    <template v-if="list.length">
-      <card-list v-slot="{ item }" :list="list">
-        <promo-code-card
-          :promo-code="item"
-          @vue-details="setPromoCodeToBrowse(item)"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'promo-codes-list.load-failed-msg' | globalize"
         />
-      </card-list>
-    </template>
+      </template>
 
-    <template v-else-if="isLoading">
-      <skeleton-cards-loader />
-    </template>
+      <template v-else>
+        <template v-if="list.length">
+          <card-list v-slot="{ item }" :list="list">
+            <promo-code-card
+              :promo-code="item"
+              @vue-details="setPromoCodeToBrowse(item)"
+            />
+          </card-list>
+        </template>
 
-    <template v-else-if="isLoadFailed">
-      <p>{{ 'promo-codes-list.load-failed-msg' | globalize }}</p>
+        <template v-else>
+          <no-data-message
+            icon-name="ticket-percent"
+            :title="'promo-codes-list.no-list-title' | globalize"
+            :message="'promo-codes-list.no-list-msg' | globalize"
+          />
+        </template>
+      </template>
     </template>
 
     <template v-else>
-      <no-data-message
-        icon-name="ticket-percent"
-        :title="'promo-codes-list.no-list-title' | globalize"
-        :message="'promo-codes-list.no-list-msg' | globalize"
-      />
+      <skeleton-cards-loader />
     </template>
 
     <collection-loader
@@ -54,6 +60,7 @@ import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoade
 import PromoCodeViewer from './promo-codes/PromoCodeViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import CardList from '@/vue/common/CardList'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
@@ -73,6 +80,7 @@ export default {
     PromoCodeCard,
     NoDataMessage,
     CardList,
+    ErrorMessage,
   },
 
   data () {
@@ -80,7 +88,6 @@ export default {
       list: [],
       isLoaded: false,
       isLoadFailed: false,
-      isLoading: false,
       isDrawerShown: false,
       promoCodeToBrowse: {},
     }
@@ -104,22 +111,20 @@ export default {
     },
 
     async getList () {
-      this.isLoading = true
-      let result
+      let response = {}
 
       try {
-        result = await api.getWithSignature(
+        response = await api.getWithSignature(
           `/integrations/marketplace/promocodes`,
           { filter: { owner: this.accountId } },
         )
-        this.isLoaded = true
       } catch (error) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
 
-      this.isLoading = false
-      return result
+      this.isLoaded = true
+      return response
     },
 
     setList (newList) {
@@ -133,6 +138,8 @@ export default {
     },
 
     reloadList () {
+      this.isLoaded = false
+      this.isLoadFailed = false
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
 
