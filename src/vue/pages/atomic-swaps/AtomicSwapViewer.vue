@@ -1,7 +1,7 @@
 <template>
   <div class="atomic-swap-viewer">
     <atomic-swap-attributes :atomic-swap-ask="currentAtomicSwapAsk" />
-    <template v-if="isAtomicSwapOwner()">
+    <template v-if="isAtomicSwapOwner">
       <atomic-swap-actions
         :atomic-swap-ask="currentAtomicSwapAsk"
         @cancel="$emit(EVENTS.closeDrawerAndUpdateList)"
@@ -49,9 +49,6 @@ export default {
     ...mapGetters({
       accountId: vuexTypes.accountId,
     }),
-  },
-
-  methods: {
     isAtomicSwapOwner () {
       return this.currentAtomicSwapAsk.ownerId === this.accountId
     },
