@@ -1268,7 +1268,9 @@
       "payment-successfully-notification": "Mass send performed successfully.",
       "no-receivers-found": "Receivers you provided not found or cannot receive the send. Please ensure you specified the valid receivers list and try again.",
       "overpayment-error-notif": "The total amount is bigger than the available for send amount. Please decrease the amount to send and try again.",
-      "too-much-op-error-notif": "Too many receivers, the current limit is 100 receivers, please decrease the receivers count and try again."
+      "too-much-op-error-notif": "Too many receivers, the current limit is 100 receivers, please decrease the receivers count and try again.",
+      "error-msg": "An error occurred while loading.",
+      "loading-msg": "Loading..."
     },
     "mass-invitation-form": {
       "how-to-invitees-paragraph": "List all invitees emails in the box below.",
@@ -1468,7 +1470,8 @@
       "no-offers-msg-title": "No offerings yet",
       "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
       "created-successfully-notification": "Promo Code was created successfully",
-      "loading": "Loading"
+      "loading": "Loading",
+      "error-msg": "An error occurred while loading."
     },
     "promo-codes-list": {
       "no-list-title": "No Promo Codes yet",

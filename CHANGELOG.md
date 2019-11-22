@@ -10,6 +10,9 @@ for further information about branching and tagging conventions.
 #### Added
 - Customer ui for business account
 
+#### Changed
+- Data mapping scheme
+
 ## [1.4.0] - 2019-11-20
 
 ## [1.4.0-rc.3] - 2019-11-18

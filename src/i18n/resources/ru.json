@@ -1225,7 +1225,9 @@
       "payment-successfully-notification": "Активы отправлены.",
       "no-receivers-found": "Никто из перечисленных не может получить отправленные активы. Пожалуйста, перепроверьте список получателей и попробуйте еще раз.",
       "overpayment-error-notif": "Сумма отправки превышает количество доступное к отправке. Пожалуйста, уменьшите объем отправки и попробуйте снова.",
-      "too-much-op-error-notif": "Слишком много получателей, текущий лимит — 100 получателей."
+      "too-much-op-error-notif": "Слишком много получателей, текущий лимит — 100 получателей.",
+      "error-msg": "An error occurred while loading.",
+      "loading-msg": "Loading..."
     },
     "mass-invitation-form": {
       "how-to-invitees-paragraph": "Перечислите имейлы клиентов в поле ниже.",
@@ -1468,7 +1470,8 @@
       "no-offers-msg-title": "Нет предложений",
       "no-offers-msg-description": "К сожалению, у вас нет предложений. Пожалуйста, создайте предложение и попробуйте снова.",
       "created-successfully-notification": "Промокод успешно создан",
-      "loading": "Загрузка"
+      "loading": "Загрузка",
+      "error-msg": "Произошла ошибка при загрузке."
     },
     "promo-codes-list": {
       "no-list-title": "Нет промокодов",
