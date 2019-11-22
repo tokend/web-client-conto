@@ -140,18 +140,14 @@ export default {
     accountBalances () {
       try {
         let accountBalances = []
-        if (this.isAccountGeneral) {
-          /* eslint-disable max-len */
-          let businessAccountBalances = this.businessOwnerId
-            ? this.accountBalancesByOwner(this.businessOwnerId)
-            : this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+        /* eslint-disable max-len */
+        let businessAccountBalances = this.businessOwnerId
+          ? this.accountBalancesByOwner(this.businessOwnerId)
+          : this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
           /* eslint-enable max-len */
 
-          accountBalances = businessAccountBalances
-            .filter(item => +item.balance > 0)
-        } else {
-          accountBalances = this.accountOwnedAssetsBalances
-        }
+        accountBalances = businessAccountBalances
+          .filter(item => +item.balance > 0)
 
         return accountBalances
       } catch (error) {
@@ -213,11 +209,6 @@ export default {
     async loadAccountBalancesAndSetSelectedBalance () {
       await this.loadAccountBalances()
       await this.loadAssets()
-      if (this.isDrawerShown) {
-        this.selectedBalance = this.accountBalances.find(item => {
-          return item.id === this.selectedBalance.id
-        })
-      }
     },
   },
 }

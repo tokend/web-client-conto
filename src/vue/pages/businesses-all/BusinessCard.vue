@@ -15,6 +15,14 @@
       </template>
       <template slot="actions">
         <button
+          v-if="isSponsorshipPage"
+          v-ripple
+          class="app__button-flat"
+          @click="$emit(EVENTS.vueDetails)"
+        >
+          {{ 'business-card.invest-lbl' | globalize }}
+        </button>
+        <button
           v-if="!isMyBusiness(business.accountId) && !isSponsorshipPage"
           v-ripple
           class="app__button-flat"
@@ -25,7 +33,7 @@
         <button
           v-ripple
           class="app__button-flat"
-          @click="$emit(EVENTS.vueDetails)"
+          @click="goToBusiness"
         >
           {{ 'business-card.details-lbl' | globalize }}
         </button>
@@ -44,7 +52,7 @@ import { BusinessRecord } from '@/js/records/entities/business.record'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 import { Bus } from '@/js/helpers/event-bus'
@@ -85,6 +93,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      setBusinessToBrowse: vuexTypes.SELECT_BUSINESS_TO_BROWSE,
+    }),
     async addBusiness () {
       this.isSubmitting = true
       try {
@@ -102,6 +113,15 @@ export default {
         ErrorHandler.process(error)
       }
       this.isSubmitting = false
+    },
+    async goToBusiness () {
+      this.setBusinessToBrowse(this.business.record)
+      await this.$router.push({
+        ...vueRoutes.currentBusiness,
+        params: {
+          id: this.business.accountId,
+        },
+      })
     },
   },
 }

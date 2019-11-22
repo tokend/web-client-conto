@@ -640,6 +640,7 @@
       "settings": "Настройки",
       "movements": "История",
       "register-of-shares": "История",
+      "assets-movements": "Движение активов",
       "customers": "Клиенты",
       "customers-list": "Список клиентов",
       "businesses": "Компании",
@@ -666,7 +667,7 @@
     "sidebar": {
       "section-explore": "Просмотреть",
       "section-account": "Аккаунт",
-      "section-corporate": "Компания"
+      "section-general": "Раздел покупателя"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -677,7 +678,6 @@
       "filters-prefix": "Показать:",
       "something-went-wrong": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
       "can-not-load-assets": "Произошла ошибка при загрузке активов. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
-      "assets-loading-msg": "Загружаем активы…",
       "withdraw": "Вывести",
       "deposit": "Внести",
       "send": "Отправить",
@@ -1170,10 +1170,19 @@
     "atomic-swaps": {
       "explore-atomic-swaps": "Предложения",
       "create-atomic-swap-bth": "Создать предложение",
-      "new-atomic-swap": "Новое предложение",
-      "loading": "Загрузка",
+      "new-atomic-swap": "Новое предложение"
+    },
+    "atomic-swaps-requests": {
       "purchases": "Покупки",
-      "loading-error-msg": "Произошла ошибка при загрузке."
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-data-title": "Нет покупок",
+      "no-data-msg":"Здесь будет история покупки вашего предложения"
+    },
+    "atomic-swaps-requests-table": {
+      "buyer-th": "Покупатель",
+      "amount-th": "Количество",
+      "discount-th": "Скидка",
+      "total-price-th": "Итоговая цена"
     },
     "create-atomic-swap-form": {
       "asset-lbl": "Актив",
@@ -1473,10 +1482,13 @@
     "promo-code-offers-table": {
       "name-th": "Имя",
       "amount-th": "Количество",
-      "price-th": "Цена",
+      "price-th": "Цена"
+    },
+    "promo-code-offers-viewer": {
       "offers-title": "Предложения",
       "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
-      "no-data-msg": "У промокаода нет выбранных предложений."
+      "no-data-title": "Нет выбранных предложений",
+      "no-data-msg": "У промокода нет выбранных предложений."
     },
     "promo-code-form-offers-table": {
       "name-th": "Имя",
@@ -1511,7 +1523,8 @@
     },
     "business-card": {
       "add-lbl": "Добавить",
-      "details-lbl": "Детали"
+      "details-lbl": "Детали",
+      "invest-lbl": "Инвестировать"
     },
     "statistics-page": {
       "sales-history-tab": "История продаж",
@@ -1603,6 +1616,9 @@
     "failed-payment": {
       "title": "Платеж не прошел",
       "failed-msg": "Произошла ошибка при покупке актива"
+    },
+    "assets-movements": {
+      "asset-filter-label": "Актив"
     }
   }
 }
