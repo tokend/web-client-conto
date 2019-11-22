@@ -177,6 +177,7 @@ import DefaultQuoteAsset from '@/vue/fields/DefaultQuoteAssetSelectField'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
+import { vueRoutes } from '@/vue-router/routes'
 
 const VIEW_MODES = {
   enableTfa: 'enableTfa',
@@ -216,7 +217,14 @@ export default {
     }),
 
     companyLink () {
-      return `${window.location.origin}/company/${this.accountId}`
+      const businessHref = this.$router.resolve({
+        ...vueRoutes.business,
+        params: {
+          id: this.accountId,
+        },
+      }).href
+
+      return window.location.origin + businessHref
     },
   },
 
