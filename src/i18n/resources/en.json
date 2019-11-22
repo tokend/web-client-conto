@@ -1388,7 +1388,7 @@
       "no-amount-msg": "Contact the owner of the offer"
     },
     "pay-form": {
-      "email-lbl": "Recipient Email in {{appName}}"
+      "email-lbl": "Email"
     },
     "asset-viewer": {
       "description-title": "Description"

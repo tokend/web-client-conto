@@ -1388,7 +1388,7 @@
       "no-amount-msg": "Обратитесь к владельцу предложения"
     },
     "pay-form": {
-      "email-lbl":"Имейл получателя в Конто"
+      "email-lbl":"Email"
     },
     "asset-viewer": {
       "description-title": "Описание"
