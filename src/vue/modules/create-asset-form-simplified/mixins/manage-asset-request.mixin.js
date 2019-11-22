@@ -7,7 +7,6 @@ import { base, ASSET_PAIR_POLICIES } from '@tokend/js-sdk'
 import { api } from '@/api'
 import config from '@/config'
 
-import { CreateAssetRequest } from '../wrappers/create-asset-request'
 import { mapGetters, mapActions } from 'vuex'
 import { store, vuexTypes } from '@/vuex/index'
 import { DateUtil } from '@/js/utils'
@@ -33,18 +32,6 @@ export default {
     ...mapActions([
       vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
     ]),
-
-    async getCreateAssetRequestById (id, accountId) {
-      const endpoint = `/v3/create_asset_requests/${id}`
-      const { data: record } = await api.getWithSignature(endpoint, {
-        filter: {
-          requestor: accountId,
-        },
-        include: ['request_details'],
-      })
-
-      return new CreateAssetRequest(record)
-    },
 
     collectAssetAttributes (newAttributes) {
       Object.assign(this.collectedAttributes, newAttributes)

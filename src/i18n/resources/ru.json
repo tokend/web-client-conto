@@ -914,8 +914,6 @@
       "business-filter-label": "Компания"
     },
     "create-asset-form": {
-      "loading-msg": "Загружаем…",
-      "load-failed-msg": "Произошла ошибка при загрузке.",
       "next-btn": "Далее",
       "create-btn": "Создать",
       "create-request-btn": "Создать запрос",
