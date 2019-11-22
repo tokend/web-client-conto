@@ -120,6 +120,7 @@ import {
 } from '@validators'
 import { globalize } from '@/vue/filters/globalize'
 import { formatPercent } from '@/vue/filters/formatPercent'
+import { ERROR_FIELDS } from '@/js/const/error-fields.const'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -224,7 +225,7 @@ export default {
           this.isPromoCodeExist = true
         }
       } catch (error) {
-        if (error.meta.field === 'promocode') {
+        if (error.meta.field === ERROR_FIELDS.promocode) {
           this.isPromoCodeExist = false
         }
         ErrorHandler.processWithoutFeedback(error)

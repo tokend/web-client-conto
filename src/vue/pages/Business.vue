@@ -21,33 +21,44 @@
           <img class="business__small-logo" src="/static/branding/favicon.png">
         </router-link>
       </div>
+
       <template v-if="isLoaded">
-        <div class="business__description app__card">
-          <business-description
-            :business="business"
+        <template v-if="isLoadFailed">
+          <error-message
+            :message="'business.load-failed-msg' | globalize"
           />
-        </div>
+        </template>
+
+        <template v-else>
+          <template v-if="isNotFoundBusiness">
+            <no-data-message
+              icon-name="castle"
+              :title="'business.no-business-title' | globalize"
+              :message="'business.no-business-msg' | globalize"
+            />
+          </template>
+          <template v-else>
+            <div class="business__description app__card">
+              <business-description
+                :business="business"
+              />
+            </div>
+            <div class="business__shop">
+              <h1 class="business__title">
+                {{ 'business.shop' | globalize }}
+              </h1>
+            </div>
+            <atomic-swaps-explore
+              :business-id="id"
+            />
+          </template>
+        </template>
       </template>
-      <template v-else-if="!isLoaded && !isFailed">
+
+      <template v-else>
         <loader
+          class="business__loader"
           :message-id="'business.loading-msg'"
-        />
-      </template>
-      <template v-if="isFailed">
-        <no-data-message
-          icon-name="castle"
-          :title="'business.error-title' | globalize"
-          :message="'business.error-msg' | globalize"
-        />
-      </template>
-      <template v-if="!isFailed">
-        <div class="business__shop">
-          <h1 class="business__title">
-            {{ 'business.shop' | globalize }}
-          </h1>
-        </div>
-        <atomic-swaps-explore
-          :business-id="id"
         />
       </template>
 
@@ -64,11 +75,13 @@ import BusinessDescription from '@/vue/pages/business-viewer/BusinessDescription
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { BusinessRecord } from '@/js/records/entities/business.record'
+import { ERROR_FIELDS } from '@/js/const/error-fields.const'
 
 export default {
   name: 'business',
@@ -78,6 +91,7 @@ export default {
     AtomicSwapsExplore,
     Loader,
     NoDataMessage,
+    ErrorMessage,
   },
   props: {
     id: {
@@ -90,23 +104,27 @@ export default {
       vueRoutes,
       business: {},
       isLoaded: false,
-      isFailed: false,
+      isLoadFailed: false,
+      isNotFoundBusiness: false,
     }
   },
   async created () {
-    this.getBusiness()
+    await this.getBusiness()
+    this.isLoaded = true
   },
   methods: {
     async getBusiness () {
       try {
-        this.isLoaded = false
         const endpoint = `/integrations/dns/businesses/${this.id}`
         const { data } = await api.get(endpoint)
         this.business = new BusinessRecord(data)
-        this.isLoaded = true
       } catch (error) {
+        if (error.meta.field === ERROR_FIELDS.address) {
+          this.isNotFoundBusiness = true
+        } else {
+          this.isLoadFailed = true
+        }
         ErrorHandler.processWithoutFeedback(error)
-        this.isFailed = true
       }
     },
   },
@@ -235,5 +253,9 @@ export default {
     margin-top: 2.4rem;
     padding: 0 1.6rem;
     width: 100%;
+  }
+
+  .business__loader {
+    justify-content: center;
   }
 </style>

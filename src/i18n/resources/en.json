@@ -1329,8 +1329,9 @@
       "business-added-successfully-notification": "Company has been added successfully",
       "shop": "Shop",
       "loading-msg": "Loading...",
-      "error-title": "There is no such company",
-      "error-msg": "Can not load company description."
+      "no-business-title": "There is no such company",
+      "no-business-msg": "Can not load company description.",
+      "load-failed-msg": "There was an error while loading."
     },
     "business-attributes": {
       "id-key": "ID",
@@ -1393,7 +1394,8 @@
       "offer-canceled-title": "Offer was canceled",
       "offer-canceled-msg": "The owner canceled this offer",
       "no-amount-title": "Offer was sold out",
-      "no-amount-msg": "Contact the owner of the offer"
+      "no-amount-msg": "Contact the owner of the offer",
+      "load-failed-msg": "There was an error while loading."
     },
     "pay-form": {
       "email-lbl": "Recipient Email in {{appName}}"
@@ -1447,10 +1449,11 @@
       "asset-deleted-msg": "Asset successfully deleted"
     },
     "business": {
-      "error-msg": "Can not load company description.",
-      "error-title": "There is no such company",
+      "no-business-msg": "Can not load company description.",
+      "no-business-title": "There is no such company",
       "shop": "Shop",
-      "loading-msg": "Loading..."
+      "loading-msg": "Loading...",
+      "load-failed-msg": "There was an error while loading."
     },
     "promo-codes-page": {
       "create-btn": "Create",
