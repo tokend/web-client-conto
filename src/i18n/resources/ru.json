@@ -1610,6 +1610,34 @@
     "booking": {
       "booking-btn": "Бронирование",
       "booking-title": "Бронирование"
+    },
+    "booking-form": {
+      "room-lbl": "Комната",
+      "number-of-seats": "Количество мест",
+      "booking-btn": "Бронирование",
+      "booking-from-lbl": "Бронирование с",
+      "booking-to-lbl": "Бронирование по",
+      "successfully-booked-msg": "Вы успешно забронировали",
+      "price": "Сумма к оплате:",
+      "price-per-hour": "Цена за час:",
+      "no-free-places": "Нет свободных мест",
+      "wait-space": "Подождите, пока освободится место",
+      "choose-time": "Выберите время и количество мест для поиска подходящей комнаты",
+      "can-not-load-data": "При загрузке данных для бронирования произошла ошибка"
+    },
+    "booking-explorer": {
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-booking-title": "Нет бронирования",
+      "no-list-msg": "Здесь будет список бронироней"
+    },
+    "booking-card": {
+      "room-lbl": "Комната",
+      "booking-header": "Бронирование",
+      "from-lbl": "С",
+      "to-lbl": "По",
+      "participants-lbl": "Количество мест",
+      "cancel-btn": "Отменить",
+      "price-lbl": "Цена: {{amount, money}} {{asset}}"
     }
   }
 }

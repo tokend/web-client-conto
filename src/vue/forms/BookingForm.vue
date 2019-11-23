@@ -1,100 +1,211 @@
 <template>
-  <form
-    id="booking-form"
-    class="app__form"
-    @submit.prevent="isFormValid() && showConfirmation()"
-  >
-    <div class="app__form-row">
-      <div class="app__form-field">
-        <booking-date-field
-          v-model="form.startTime"
-          name="create-sale-start-time"
-          :default-hour="moment().hour()"
-          @input="touchField('form.startTime')"
-          @blur="touchField('form.startTime')"
-          :label="'booking-form.start-time-lbl' | globalize"
-          :error-message="getFieldErrorMessage('form.startTime')"
+  <div>
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'booking-form.can-not-load-data' | globalize"
         />
-      </div>
-    </div>
+      </template>
 
-    <div class="app__form-row">
-      <div class="app__form-field">
-        <booking-date-field
-          v-model="form.endTime"
-          :default-hour="moment().hour()"
-          @input="touchField('form.endTime')"
-          @blur="touchField('form.endTime')"
-          name="create-sale-end-time"
-          :label="'booking-form.end-time-lbl' | globalize"
-          :error-message="getFieldErrorMessage(
-            'form.endTime', { minDate: form.startTime || getCurrentDate() }
-          )"
-        />
-      </div>
-    </div>
-
-    <div class="app__form-row">
-      <div class="app__form-field">
-        <input-field
-          v-model="form.numberSeats"
-          @blur="touchField('form.numberSeats')"
-          name="number-seats"
-          type="number"
-          :step="1"
-          :error-message="getFieldErrorMessage('form.numberSeats', {
-            from: {
-              value: MIN_PLACE,
-            },
-            to: {
-              value: MAX_PLACE,
-            },
-          })"
-          :label="'booking-form.number-of-seats' | globalize"
-          :disabled="formMixin.isDisabled"
-        />
-      </div>
-    </div>
-
-    <div class="app__form-row">
-      <div class="app__form-field">
-        <select-field
-          :value="form.room"
-          @input="setRoom"
-          name="create-sale-type"
-          :label="'booking-form.room-lbl' | globalize"
+      <template v-else>
+        <form
+          id="booking-form"
+          class="app__form"
+          @submit.prevent="showConfirmation()"
         >
-          <option
-            v-for="room in rooms"
-            :key="room.key"
-            :value="room.value"
-          >
-            {{ room.key | globalize }}
-          </option>
-        </select-field>
-      </div>
-    </div>
+          <div class="app__form-row">
+            <div class="app__form-field">
+              <booking-date-field
+                v-model="form.startTime"
+                name="booking-start-time"
+                :default-hour="moment().hour()"
+                min-time="9:00"
+                max-time="19:00"
+                @input="touchField('form.startTime')"
+                @blur="touchField('form.startTime')"
+                :label="'booking-form.booking-from-lbl' | globalize"
+                :error-message="getFieldErrorMessage(
+                  'form.startTime', { minDate: getCurrentDate() }
+                )"
+              />
+            </div>
+          </div>
 
-    <div class="app__form-actions">
-      <form-confirmation
-        v-if="formMixin.isConfirmationShown"
-        @ok="hideConfirmation() || submit()"
-        @cancel="hideConfirmation"
+          <div class="app__form-row">
+            <div class="app__form-field">
+              <booking-date-field
+                :key="maxDate + minDate"
+                v-model="form.endTime"
+                :default-hour="moment().hour()"
+                min-time="10:00"
+                max-time="20:00"
+                @input="touchField('form.endTime')"
+                @blur="touchField('form.endTime')"
+                :disable-after="maxDate"
+                :disable-before="minDate"
+                name="booking-end-time"
+                :label="'booking-form.booking-to-lbl' | globalize"
+                :error-message="getFieldErrorMessage(
+                  'form.endTime', {
+                    minDate: form.startTime || getCurrentDate()
+                  }
+                )"
+              />
+            </div>
+          </div>
+
+          <div class="app__form-row">
+            <div class="app__form-field">
+              <input-field
+                v-model="form.numberSeats"
+                @blur="touchField('form.numberSeats')"
+                name="number-seats"
+                type="number"
+                :step="1"
+                :error-message="getFieldErrorMessage('form.numberSeats', {
+                  from: {
+                    value: MIN_PLACE,
+                  },
+                  to: {
+                    value: MAX_PLACE,
+                  },
+                })"
+                :label="'booking-form.number-of-seats' | globalize"
+                :disabled="formMixin.isDisabled"
+              />
+            </div>
+          </div>
+
+          <template v-if="freeRooms.length">
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <select-field
+                  :value="form.room"
+                  @input="setRoom"
+                  :key="selectKey"
+                  name="create-sale-type"
+                  :label="'booking-form.room-lbl' | globalize"
+                >
+                  <option
+                    v-for="room in freeRooms"
+                    :key="room"
+                    :value="room"
+                  >
+                    {{ room }}
+                  </option>
+                </select-field>
+              </div>
+            </div>
+
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <!-- eslint-disable max-len -->
+                <readonly-field
+                  :label="'booking-form.price-per-hour' | globalize"
+                  :value="pricePerHour"
+                />
+                <readonly-field
+                  :label="'booking-form.price' | globalize"
+                  :value="price"
+                />
+              </div>
+            </div>
+
+            <div class="app__form-actions">
+              <form-confirmation
+                v-if="formMixin.isConfirmationShown"
+                @ok="hideConfirmation() || submit()"
+                @cancel="hideConfirmation"
+              />
+              <button
+                v-else
+                v-ripple
+                type="submit"
+                class="change-password-form__submit-btn app__button-raised"
+                :disabled="formMixin.isDisabled"
+              >
+                {{ 'booking.booking-btn' | globalize }}
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <no-data-message
+              v-if="isLoadedSeats"
+              icon-name="calendar-multiselect"
+              :title="'booking-form.no-free-places' | globalize"
+              :message="'booking-form.wait-space' | globalize"
+            />
+            <template v-else>
+              <div class="booking-form__help-msg">
+                {{ 'booking-form.choose-time' | globalize }}
+              </div>
+            </template>
+          </template>
+        </form>
+      </template>
+    </template>
+
+    <template v-else>
+      <loader
+        :message-id="'business-viewer.loading-msg'"
       />
+    </template>
+    <template v-if="false">
       <button
-        v-else
+        @click="createCalendar"
         v-ripple
         type="submit"
         class="change-password-form__submit-btn app__button-raised"
         :disabled="formMixin.isDisabled"
       >
-        {{ 'booking.booking-btn' | globalize }}
+        create Calendar
       </button>
-    </div>
-  </form>
+      <button
+        @click="getCalendarById(1)"
+        v-ripple
+        type="submit"
+        class="change-password-form__submit-btn app__button-raised"
+        :disabled="formMixin.isDisabled"
+      >
+        get Calendar By Id
+      </button>
+      <button
+        @click="createBusinesses(1)"
+        v-ripple
+        type="submit"
+        class="change-password-form__submit-btn app__button-raised"
+        :disabled="formMixin.isDisabled"
+      >
+        create Businesses
+      </button>
+      <button
+        @click="getBusinessById(1)"
+        v-ripple
+        type="submit"
+        class="change-password-form__submit-btn app__button-raised"
+        :disabled="formMixin.isDisabled"
+      >
+        get Business By Id
+      </button>
+      <button
+        @click="getFreePlace"
+        v-ripple
+        type="submit"
+        class="change-password-form__submit-btn app__button-raised"
+        :disabled="formMixin.isDisabled"
+      >
+        get Free Place
+      </button>
+    </template>
+  </div>
 </template>
 
 <script>
+import ReadonlyField from '@/vue/fields/ReadonlyField'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+
 import FormMixin from '@/vue/mixins/form.mixin'
 import BookingMixin from '@/vue/mixins/booking.mixin'
 
@@ -105,49 +216,41 @@ import {
   amountRange,
   minDate,
 } from '@validators'
+import debounce from 'lodash/debounce'
+import { formatMoney } from '@/vue/filters/formatMoney'
+import { MathUtil } from '@/js/utils'
+import { Bus } from '@/js/helpers/event-bus'
+import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
+import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const MIN_PLACE = 1
 const MAX_PLACE = 30
 
+const EVENTS = {
+  createdBooking: 'created-booking',
+}
+
 export default {
   name: 'booking-form',
-  components: {},
-  mixins: [FormMixin, BookingMixin],
-  props: {
+  components: {
+    ReadonlyField,
+    NoDataMessage,
+    Loader,
+    ErrorMessage,
   },
+  mixins: [FormMixin, BookingMixin],
+  props: {},
   data () {
     return {
       moment,
       MIN_PLACE,
       MAX_PLACE,
-      rooms: [
-        {
-          key: 'room 1',
-          value: 'room1',
-        },
-        {
-          key: 'room 2',
-          value: 'room2',
-        },
-        {
-          key: 'room 3',
-          value: 'room3',
-        },
-        {
-          key: 'room 4',
-          value: 'room5',
-        },
-        {
-          key: 'room 5',
-          value: 'room5',
-        },
-        {
-          key: 'room 6',
-          value: 'room6',
-        },
-      ],
+      freeRooms: [],
+      isLoaded: false,
+      isLoadedSeats: false,
+      isLoadFailed: false,
       form: {
-        startTime: moment().startOf('hour').toISOString(),
+        startTime: '',
         endTime: '',
         numberSeats: '1',
         room: '',
@@ -159,37 +262,136 @@ export default {
       form: {
         startTime: {
           required,
+          minDate: minDate(this.getCurrentDate()),
         },
         endTime: {
           required,
-          minDate: minDate(this.form.startTime || moment().toISOString()),
+          minDate: minDate(this.form.startTime || this.getCurrentDate()),
         },
         numberSeats: {
           required,
           amountRange: amountRange(MIN_PLACE, MAX_PLACE),
         },
-        room: {
-          required,
-        },
       },
     }
   },
   computed: {
+    selectKey () {
+      return this.freeRooms.join('') || 'select-room'
+    },
+    maxDate () {
+      return this.form.startTime
+        ? moment(this.form.startTime).set('hour', 20).toISOString()
+        : moment().add(7, 'days').toISOString()
+    },
+    minDate () {
+      return this.form.startTime
+        ? moment(this.form.startTime).subtract(1, 'days').toISOString()
+        : ''
+    },
+    price () {
+      if (this.canGetFreeSeats) {
+        const startTime = moment(this.form.startTime)
+        const endTime = moment(this.form.endTime)
+        const hours = moment.duration(endTime.diff(startTime)).hours()
+        const pricePerHour = this.business.prices[this.form.room]
+        const totalAmount = MathUtil.multiply(
+          MathUtil.multiply(pricePerHour.amount, hours), this.form.numberSeats
+        )
+        return `${formatMoney(totalAmount)} ${pricePerHour.asset}`
+      } else {
+        return '0'
+      }
+    },
+    pricePerHour () {
+      const pricePerHour = this.business.prices[this.form.room]
+      return `${formatMoney(pricePerHour.amount)} ${pricePerHour.asset}`
+    },
+    canGetFreeSeats () {
+      return Boolean(
+        this.form.startTime &&
+        this.form.endTime &&
+        this.form.numberSeats &&
+        this.form.numberSeats < MAX_PLACE &&
+        moment(this.form.startTime).utc() < moment(this.form.endTime).utc()
+      )
+    },
   },
-  watch: {},
-  created () {
-    this.form.room = this.rooms[0].value
+  watch: {
+    'form.numberSeats' (value) {
+      this.form.numberSeats = Math.floor(value)
+      debounce(this.getFreePlace(), 300)
+    },
+    'form.startTime' (value) {
+      if (moment(value).utc() < moment(this.form.endTime).utc()) {
+        this.form.endTime = moment(this.form.startTime)
+          .add(1, 'hours')
+          .toISOString()
+      }
+      debounce(this.getFreePlace(), 300)
+    },
+    'form.endTime' () {
+      debounce(this.getFreePlace(), 300)
+    },
+  },
+  async created () {
+    await this.getBusiness()
   },
   destroyed () {
   },
   methods: {
-    submit () {
+    async submit () {
+      try {
+        await this.bookEvent(
+          1,
+          1,
+          this.form.numberSeats,
+          this.form.room,
+          this.form.startTime,
+          this.form.endTime,
+        )
+        Bus.success('booking-form.successfully-booked-msg')
+        Bus.emit('customers:updateList')
+        this.$emit(EVENTS.createdBooking)
+      } catch (e) {
+        ErrorHandler.process(e)
+      }
     },
     getCurrentDate () {
-      return moment().toISOString()
+      return moment().startOf('hour').subtract(1, 'seconds').toISOString()
     },
     setRoom (room) {
       this.form.room = room
+    },
+    async getBusiness () {
+      this.isLoaded = false
+      this.isLoadFailed = false
+      try {
+        const business = await this.getBusinessById(1)
+        this.business = new BookingBusinessRecord(business)
+      } catch (e) {
+        this.isLoadFailed = true
+        ErrorHandler.processWithoutFeedback(e)
+      }
+      this.isLoaded = true
+    },
+    async getFreePlace () {
+      if (this.canGetFreeSeats) {
+        this.isLoadedSeats = true
+        try {
+          const rooms = await this.getFree(
+            1,
+            this.form.startTime,
+            this.form.endTime,
+            this.form.numberSeats,
+            this.business.payloads
+          )
+          this.freeRooms = rooms.map(item => item.id)
+          if (this.freeRooms.length) this.form.room = this.freeRooms[0]
+        } catch (e) {
+          ErrorHandler.process(e)
+        }
+      }
     },
   },
 }
@@ -198,4 +400,9 @@ export default {
 <style lang="scss" scoped>
   @import '@/vue/forms/_app-form';
   @import '~@scss/variables';
+
+  .booking-form__help-msg {
+    font-size: 1.6rem;
+    margin-top: 2rem;
+  }
 </style>

@@ -1612,11 +1612,32 @@
       "booking-title": "Booking"
     },
     "booking-form": {
-      "start-time-lbl": "Start time",
-      "end-time-lbl": "End time",
       "room-lbl": "Room",
       "number-of-seats": "Number of seats",
-      "booking-btn": "Booking"
+      "booking-btn": "Booking",
+      "booking-from-lbl": "Booking from",
+      "booking-to-lbl": "Booking to",
+      "successfully-booked-msg": "You have successfully booked",
+      "price-per-hour": "Price per hour:",
+      "price": "Amount to pay:",
+      "can-not-load-data": "There was an error while loading data for booking",
+      "no-free-places": "No free places",
+      "wait-space": "Wait until space is available",
+      "choose-time": "Choose the time and number of seats to find the right room"
+    },
+    "booking-explorer": {
+      "loading-error-msg": "There was an error while loading.",
+      "no-booking-title": "No booking yet",
+      "no-list-msg": "Here will be the list of booking"
+    },
+    "booking-card": {
+      "room-lbl": "Room",
+      "booking-header": "Booking",
+      "from-lbl": "From",
+      "to-lbl": "To",
+      "participants-lbl": "Participants",
+      "cancel-btn": "Cancel",
+      "price-lbl": "Price: {{amount, money}} {{asset}}"
     }
   }
 }

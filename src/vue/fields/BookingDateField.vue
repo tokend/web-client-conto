@@ -75,6 +75,8 @@ export default {
     placeholder: { type: String, default: 'dd/mm/yyyy at HH:MM' },
     label: { type: String, default: '' },
     errorMessage: { type: String, default: undefined },
+    minTime: { type: String, default: '09:00' },
+    maxTime: { type: String, default: '20:00' },
   },
 
   data: _ => ({
@@ -94,9 +96,17 @@ export default {
         altFormat: this.enableTime ? 'd/m/Y at H:i' : 'd/m/Y',
         disableMobile: true,
         defaultHour: this.defaultHour,
+        minuteIncrement: 0,
+        minTime: this.minTime,
+        maxTime: this.maxTime,
         disable: [
           (date) => {
             return !(moment(date).day() % 7) || !(moment(date).day() % 6)
+          },
+          (date) => {
+            if (!this.disableBefore) return false
+            const stamp = moment(this.disableBefore)
+            return moment(date).isBefore(stamp)
           },
           (date) => {
             if (!this.disableAfter) return false

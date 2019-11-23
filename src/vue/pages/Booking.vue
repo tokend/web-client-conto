@@ -20,7 +20,8 @@
         {{ 'booking.booking-title' | globalize }}
       </template>
 
-      <booking-form />
+      <booking-form
+        @created-booking="isBookingFormDrawerShown = false" />
     </drawer>
 
     <router-view />
@@ -41,7 +42,7 @@ export default {
   },
 
   data: () => ({
-    isBookingFormDrawerShown: true,
+    isBookingFormDrawerShown: false,
   }),
 
   computed: {
