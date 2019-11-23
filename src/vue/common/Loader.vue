@@ -41,7 +41,7 @@ export default {
   height: 5rem;
   border-radius: 50%;
   position: relative;
-  margin-right: 0.5rem;
+  margin-right: 2rem;
 
   &:after,
   &:before {
