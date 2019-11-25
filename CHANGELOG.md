@@ -8,6 +8,12 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
 ## [Unreleased]
+#### Fixed
+- A bug with typo on Shop button
+- A bug with disabled filters fields on Customers page
+
+#### Changed
+- Default redirect route for customer account
 
 ## [1.5.0-rc.0] - 2019-11-23
 #### Added
