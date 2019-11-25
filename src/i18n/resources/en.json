@@ -1353,7 +1353,8 @@
       "create-btn": "Create request",
       "logout-btn": "Logout",
       "first-name-lbl": "First name",
-      "last-name-lbl": "Last name"
+      "last-name-lbl": "Last name",
+      "phone-number-lbl": "Phone number"
     },
     "sponsorship-requests": {
       "loading-msg": "Loading sponsorship requests…",

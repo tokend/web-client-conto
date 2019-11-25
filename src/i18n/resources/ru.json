@@ -1353,7 +1353,8 @@
       "create-btn": "Создать запрос",
       "logout-btn": "Выйти",
       "first-name-lbl": "Имя",
-      "last-name-lbl": "Фамилия"
+      "last-name-lbl": "Фамилия",
+      "phone-number-lbl": "Номер телефона"
     },
     "sponsorship-requests": {
       "loading-msg": "Загружаем ваши запросы…",

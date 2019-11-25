@@ -32,6 +32,21 @@
       </div>
     </div>
 
+    <div class="app__form-row">
+      <div class="app__form-field">
+        <input-field
+          :white-autofill="!isSignUpKycPage"
+          v-model="form.phoneNumber"
+          type="phone-number"
+          @blur="touchField('form.phoneNumber')"
+          name="general-kyc-phoneNumber"
+          :label="'general-kyc-form.phone-number-lbl' | globalize"
+          :error-message="getFieldErrorMessage('form.phoneNumber')"
+          :disabled="formMixin.isDisabled"
+        />
+      </div>
+    </div>
+
     <div class="app__form-actions">
       <form-confirmation
         v-if="formMixin.isConfirmationShown"
@@ -77,7 +92,7 @@ import { api } from '@/api'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
-import { required } from '@validators'
+import { required, validatePhoneNumber } from '@validators'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
@@ -97,6 +112,7 @@ export default {
     form: {
       firstName: '',
       lastName: '',
+      phoneNumber: '',
     },
     isFormSubmitting: false,
     EVENTS,
@@ -106,6 +122,7 @@ export default {
     form: {
       firstName: { required },
       lastName: { required },
+      phoneNumber: { required, validatePhoneNumber },
     },
   },
 
@@ -183,6 +200,7 @@ export default {
       return {
         first_name: this.form.firstName,
         last_name: this.form.lastName,
+        phone_number: this.form.phoneNumber,
       }
     },
 
@@ -190,6 +208,7 @@ export default {
       return {
         firstName: kycData.first_name,
         lastName: kycData.last_name,
+        phoneNumber: kycData.phone_number,
       }
     },
   },
