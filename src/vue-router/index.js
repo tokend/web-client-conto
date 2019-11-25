@@ -419,7 +419,7 @@ function redirectRouteGuard (to, from, next) {
       if (isAccountCorporate) {
         next(vueRoutes.customers)
       } else {
-        next(vueRoutes.businesses)
+        next(vueRoutes.assetsExplore)
       }
     } else {
       next()
