@@ -61,17 +61,17 @@ export default {
     isVerifyingEmail: false,
   }),
   async created () {
-    try {
-      // Verifying email if user came here from email link
-      const verificationCode = this.$route.params.encodedVerificationCode
-      if (verificationCode) {
+    // Verifying email if user came here from email link
+    const verificationCode = this.$route.params.encodedVerificationCode
+    if (verificationCode) {
+      try {
         this.isVerifyingEmail = true
         await walletsManager.verifyEmail(verificationCode)
         Bus.success('auth-pages.email-verified')
-        this.isVerifyingEmail = false
+      } catch (e) {
+        ErrorHandler.process(e)
       }
-    } catch (e) {
-      ErrorHandler.processWithoutFeedback(e)
+      this.isVerifyingEmail = false
     }
   },
 }
