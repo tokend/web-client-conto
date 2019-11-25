@@ -11,6 +11,7 @@ for further information about branching and tagging conventions.
 #### Fixed
 - A bug with typo on Shop button
 - A bug with disabled filters fields on Customers page
+- A bug when you can send payment more than once to customer on mass payment form
 
 #### Changed
 - Default redirect route for customer account
