@@ -447,6 +447,7 @@ $pwd-toggle-btn-width: 3.2rem;
   left: 0;
   font-size: 1.8rem;
   line-height: 1.25;
+  z-index: $z-phone-number-input;
 }
 
 .input-field--telegram:before {

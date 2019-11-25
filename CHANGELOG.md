@@ -8,6 +8,8 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
 ## [Unreleased]
+#### Added
+- Phone number field to general kyc form
 
 ## [1.1.0-rcunitcity.8] - 2019-11-20
 #### Added
