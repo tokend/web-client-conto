@@ -72,7 +72,7 @@ export class CsvUtil {
   static get delimiters () {
     return {
       csv: ',',
-      common: [',', '\n', '\t', ' ', ':'],
+      common: [',', '\n', '\t', ' ', ':', ';'],
     }
   }
 

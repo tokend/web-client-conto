@@ -262,9 +262,11 @@ export default {
         delimiters: CsvUtil.delimiters.common,
       })
 
+      const emailsWithoutDuplicate = [...new Set(emails)]
       const { data } = await api.get('/integrations/payment-proxy/info')
       return Promise.all(
-        emails.map(email => this.getOperationByEmail(email, data.id))
+        // eslint-disable-next-line max-len
+        emailsWithoutDuplicate.map(email => this.getOperationByEmail(email, data.id))
       )
     },
 
