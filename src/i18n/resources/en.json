@@ -116,11 +116,13 @@
       "field-error_alphaNum": "Value should consists of alphanumeric values (A-Z, a-z, 0-9)",
       "field-error_minLength": "This field must contain minimum {{minLength}} symbols",
       "field-error_selectedSameAssetCode": "Not allowed duplicated quote asset codes",
+      "field-error_selectedInternalSameType": "Not allowed duplicated Internal type",
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
       "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email, phone number or telegram",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
-      "field-error_promoCodeNotExist": "Promo Code for this offer does not exists"
+      "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
+      "field-error_assetPaymentType": "This type is not suitable for selected asset"
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -1206,6 +1208,7 @@
       "address-lbl": "Address",
       "card-number-lbl": "Card number",
       "asset-lbl": "Asset",
+      "type-lbl": "Payment method",
       "create-btn": "Create"
     },
     "atomic-swaps-explore": {
@@ -1649,6 +1652,11 @@
       "total-amount": "We get",
       "refund-btn": "Refund",
       "asset-sold-msg": "Refund has been completed"
+    },
+    "payment-methods": {
+      "4bill": "Card",
+      "coinpayments": "Coinpayments",
+      "internal": "Internal"
     }
   }
 }

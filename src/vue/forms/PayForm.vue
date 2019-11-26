@@ -52,7 +52,9 @@ import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.recor
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import { base } from '@tokend/js-sdk'
+import { api } from '@/api'
 
 export default {
   name: 'pay-form',
@@ -107,6 +109,9 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      decryptSecretSeed: vuexTypes.DECRYPT_SECRET_SEED,
+    }),
     async submit (form) {
       if (!this.isFormValid()) return
       Object.assign(this.form, form)
@@ -121,15 +126,34 @@ export default {
           this.form.promoCode,
           this.form.email
         )
-        if (atomicSwapBid.type === ATOMIC_SWAP_BID_TYPES.redirect) {
-          window.location.href = atomicSwapBid.payUrl
-        } else {
-          this.atomicSwapBidDetails = atomicSwapBid
+        switch (atomicSwapBid.type) {
+          case ATOMIC_SWAP_BID_TYPES.redirect:
+            window.location.href = atomicSwapBid.payUrl
+            break
+          case ATOMIC_SWAP_BID_TYPES.cryptoInvoice:
+            this.atomicSwapBidDetails = atomicSwapBid
+            break
+          case ATOMIC_SWAP_BID_TYPES.internal:
+            await this.sendTx(atomicSwapBid.tx)
+            break
         }
       } catch (e) {
         ErrorHandler.process(e)
       }
       this.isDisabled = false
+    },
+
+    async sendTx (tx) {
+      const secretSeed = await this.decryptSecretSeed()
+      const keypair = base.Keypair.fromSecret(secretSeed)
+      const transaction = new base.Transaction(tx)
+      transaction.sign(keypair)
+      const envelopeTx = this.getEnvelopeTx(transaction)
+      await api.postTxEnvelope(envelopeTx)
+    },
+
+    getEnvelopeTx (tx) {
+      return tx.toEnvelope().toXDR().toString('base64')
     },
   },
 }

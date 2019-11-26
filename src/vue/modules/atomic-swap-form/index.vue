@@ -35,12 +35,15 @@ import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
+import { base } from '@tokend/js-sdk'
+import { api } from '@/api'
 
 const EVENTS = {
   updateList: 'update-list',
+  updateListAndCloseDrawer: 'update-list-and-close-drawer',
 }
 
 export default {
@@ -82,6 +85,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      decryptSecretSeed: vuexTypes.DECRYPT_SECRET_SEED,
+    }),
     async handleAtomicSwapFormSubmitted (form) {
       if (!this.isFormValid()) return
       Object.assign(this.form, form)
@@ -95,16 +101,38 @@ export default {
           this.atomicSwapAsk.id,
           this.form.promoCode
         )
-        if (atomicSwapBid.type === ATOMIC_SWAP_BID_TYPES.redirect) {
-          window.location.href = atomicSwapBid.payUrl
-        } else {
-          this.atomicSwapBidDetails = atomicSwapBid
-          this.$emit(EVENTS.updateList)
+
+        switch (atomicSwapBid.type) {
+          case ATOMIC_SWAP_BID_TYPES.redirect:
+            window.location.href = atomicSwapBid.payUrl
+            break
+          case ATOMIC_SWAP_BID_TYPES.cryptoInvoice:
+            this.atomicSwapBidDetails = atomicSwapBid
+            this.$emit(EVENTS.updateList)
+            break
+          case ATOMIC_SWAP_BID_TYPES.internal:
+            await this.sendTx(atomicSwapBid.tx)
+            this.$emit(EVENTS.updateListAndCloseDrawer)
+            break
         }
       } catch (e) {
         ErrorHandler.process(e)
       }
       this.isDisabled = false
+    },
+
+    async sendTx (tx) {
+      // const secretSeed = await this.decryptSecretSeed()
+      // const keypair = base.Keypair.fromSecret(secretSeed)
+      const transaction = new base.Transaction(tx)
+      // transaction.sign(keypair)
+      // console.log(transaction)
+      // const envelopeTx = this.getEnvelopeTx(transaction)
+      await api.postTxEnvelope(transaction)
+    },
+
+    getEnvelopeTx (tx) {
+      return tx.toEnvelope().toXDR().toString('base64')
     },
   },
 }
