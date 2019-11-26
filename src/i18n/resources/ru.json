@@ -116,11 +116,13 @@
       "field-error_alphaNum": "Значение должно состоять из букв и цифр латинского алфавита (A-Z, a-z, 0-9)",
       "field-error_minLength": "Количество знаков должно превышать {{minLength}}",
       "field-error_selectedSameAssetCode": "Не могут быть выбраны два одинаковых актива",
+      "field-error_selectedInternalSameType": "Не могут быть выбраны два способа оплаты с типом внутренний платеж",
       "field-error_validatePhoneNumber": "Неверный номер телефона",
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл, телефон получателя или телеграм",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
-      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует"
+      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
+      "field-error_assetPaymentType": "Этот тип не подходит для выбранного актива"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -1205,6 +1207,7 @@
       "address-lbl": "Адрес",
       "card-number-lbl": "Номер карты",
       "asset-lbl": "Актив",
+      "type-lbl": "Способ оплаты",
       "create-btn": "Создать"
     },
     "customers-page": {
@@ -1398,7 +1401,8 @@
       "no-amount-msg": "Обратитесь к владельцу предложения"
     },
     "pay-form": {
-      "email-lbl":"Email"
+      "email-lbl":"Email",
+      "success-msg": "Покупка успешна"
     },
     "asset-viewer": {
       "description-title": "Описание"
@@ -1648,6 +1652,11 @@
       "total-amount": "Мы получим",
       "refund-btn": "Возврат",
       "asset-sold-msg": "Возврат выполнен"
+    },
+    "payment-methods": {
+      "4bill": "Оплата картой",
+      "coinpayments": "Криптоплатеж",
+      "internal": "Внутренний платеж"
     }
   }
 }

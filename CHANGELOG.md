@@ -10,6 +10,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Refund and Buyback asset
+- Allow to buy for asset inside TokenD
 
 #### Fixed
 - A bug with typo on Shop button

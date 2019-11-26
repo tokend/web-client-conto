@@ -65,6 +65,7 @@ export default {
           attributes: {
             asset: quoteAsset.asset.code,
             destination: quoteAsset.destination,
+            type: Number(quoteAsset.type),
           },
         }
       })
