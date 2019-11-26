@@ -55,6 +55,11 @@ import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
 import { base } from '@tokend/js-sdk'
 import { api } from '@/api'
+import { Bus } from '@/js/helpers/event-bus'
+
+const EVENTS = {
+  reloadAtomicSwap: 'reload-atomic-swap',
+}
 
 export default {
   name: 'pay-form',
@@ -135,6 +140,8 @@ export default {
             break
           case ATOMIC_SWAP_BID_TYPES.internal:
             await this.sendTx(atomicSwapBid.tx)
+            Bus.success('pay-form.success-msg')
+            this.$emit(EVENTS.reloadAtomicSwap)
             break
         }
       } catch (e) {

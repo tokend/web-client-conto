@@ -1402,7 +1402,8 @@
       "no-amount-msg": "Contact the owner of the offer"
     },
     "pay-form": {
-      "email-lbl": "Email"
+      "email-lbl": "Email",
+      "success-msg": "Payment successfully"
     },
     "asset-viewer": {
       "description-title": "Description"

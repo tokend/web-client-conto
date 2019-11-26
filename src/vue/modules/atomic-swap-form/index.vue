@@ -122,13 +122,12 @@ export default {
     },
 
     async sendTx (tx) {
-      // const secretSeed = await this.decryptSecretSeed()
-      // const keypair = base.Keypair.fromSecret(secretSeed)
+      const secretSeed = await this.decryptSecretSeed()
+      const keypair = base.Keypair.fromSecret(secretSeed)
       const transaction = new base.Transaction(tx)
-      // transaction.sign(keypair)
-      // console.log(transaction)
-      // const envelopeTx = this.getEnvelopeTx(transaction)
-      await api.postTxEnvelope(transaction)
+      transaction.sign(keypair)
+      const envelopeTx = this.getEnvelopeTx(transaction)
+      await api.postTxEnvelope(envelopeTx)
     },
 
     getEnvelopeTx (tx) {

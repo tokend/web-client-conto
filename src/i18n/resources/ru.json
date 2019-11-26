@@ -1401,7 +1401,8 @@
       "no-amount-msg": "Обратитесь к владельцу предложения"
     },
     "pay-form": {
-      "email-lbl":"Email"
+      "email-lbl":"Email",
+      "success-msg": "Покупка успешна"
     },
     "asset-viewer": {
       "description-title": "Описание"
