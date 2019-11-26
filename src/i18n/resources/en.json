@@ -1656,8 +1656,8 @@
     },
     "payment-methods": {
       "4bill": "Card",
-      "coinpayments": "Coinpayments",
-      "internal": "Internal"
+      "coinpayments": "Cryptocurrency",
+      "internal": "Bonus"
     }
   }
 }

@@ -1654,9 +1654,9 @@
       "asset-sold-msg": "Возврат выполнен"
     },
     "payment-methods": {
-      "4bill": "Оплата картой",
-      "coinpayments": "Криптоплатеж",
-      "internal": "Внутренний платеж"
+      "4bill": "Карта",
+      "coinpayments": "Криптовалюта",
+      "internal": "Бонус"
     }
   }
 }
