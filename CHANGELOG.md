@@ -27,6 +27,11 @@ for further information about branching and tagging conventions.
 #### Fixed
 - A bug with infinite loader at verification user email
 
+## [1.4.2] - 2019-11-22
+
+#### Fixed
+- Localization
+
 ## [1.4.1] - 2019-11-22
 
 #### Fixed
@@ -464,7 +469,8 @@ for further information about branching and tagging conventions.
 - `RECOVERY_MODE` config key due to unused anymore
 
 [Unreleased]: https://github.com/tokend/web-client/compare/1.5.0-rc.0...HEAD
-[1.5.0-rc.0]: https://github.com/tokend/web-client/compare/1.4.0...1.5.0-rc.0
+[1.5.0-rc.0]: https://github.com/tokend/web-client/compare/1.4.2...1.5.0-rc.0
+[1.4.2]: https://github.com/tokend/web-client/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/tokend/web-client/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/tokend/web-client/compare/1.4.0-rc.3...1.4.0
 [1.4.0-rc.3]: https://github.com/tokend/web-client/compare/1.4.0-rc.2...1.4.0-rc.3
