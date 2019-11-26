@@ -1154,7 +1154,9 @@
       "delete-asset-message": "Are you sure you want to delete the asset?",
       "expiration-date-title": "Expiration date",
       "asset-purchased-successfully": "Asset purchased successfully",
-      "payment-failed": "Payment failed"
+      "payment-failed": "Payment failed",
+      "refund-btn": "Refund",
+      "buy-order-loading": "Loading..."
     },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",
@@ -1619,6 +1621,34 @@
     },
     "assets-movements": {
       "asset-filter-label": "Asset"
+    },
+    "asset-buyback-viewer": {
+      "buyback-title": "Buyback",
+      "error-msg": "An error occurred while loading.",
+      "buyback-btn": "Create buyback",
+      "update-btn": "Update buyback",
+      "delete-btn": "Delete",
+      "offer-loading": "Loading...",
+      "delete-offer-message": "Are you sure you want to delete the buyback offer?",
+      "offer-deleted-msg": "Offer successfully deleted"
+    },
+    "buyback-form": {
+      "form-heading": "Buyback",
+      "amount-lbl": "Amount",
+      "price-lbl": "Price in {{quoteAsset}}",
+      "create-buyback-btn": "Create",
+      "update-buyback-btn": "Update",
+      "offer-updated-msg": "Offer successfully updated",
+      "offer-created-msg": "Offer successfully created",
+      "total-amount": "Total amount"
+    },
+    "refund-asset-form": {
+      "form-heading": "Refund",
+      "price-lbl": "Price in {{quoteAsset}}",
+      "amount-lbl": "Amount",
+      "total-amount": "We get",
+      "refund-btn": "Refund",
+      "asset-sold-msg": "Refund has been completed"
     }
   }
 }

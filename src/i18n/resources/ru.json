@@ -1158,7 +1158,8 @@
       "delete-asset-message": "Вы действительно хотите удалить актив?",
       "expiration-date-title": "Действителен до",
       "asset-purchased-successfully": "Актив успешно куплен",
-      "payment-failed": "Оплата не прошла"
+      "payment-failed": "Оплата не прошла",
+      "refund-btn": "Возврат"
     },
     "warning-banner": {
       "blocked-desc": "Ваш аккаунт был заблокирован администратором. Причина блокировки: {{reason}}",
@@ -1619,6 +1620,34 @@
     },
     "assets-movements": {
       "asset-filter-label": "Актив"
+    },
+    "asset-buyback-viewer": {
+      "buyback-title": "Выкуп актива",
+      "error-msg": "Произошла ошибка при загрузке",
+      "buyback-btn": "Создать выкуп",
+      "update-btn": "Обновить",
+      "delete-btn": "Удалить",
+      "offer-loading": "Загрузка...",
+      "delete-offer-message": "Вы уверенны что хотите удалить предложение выкупа?",
+      "offer-deleted-msg": "Предложение выкупа успешно удалено"
+    },
+    "buyback-form": {
+      "form-heading": "Выкуп",
+      "amount-lbl": "Количество",
+      "price-lbl": "Цена в {{quoteAsset}}",
+      "create-buyback-btn": "Создать",
+      "update-buyback-btn": "Обновить",
+      "offer-updated-msg": "Предложение выкупа успешно обновлено",
+      "offer-created-msg": "Предложение выкупа успешно создано",
+      "total-amount": "Общее количество"
+    },
+    "refund-asset-form": {
+      "form-heading": "Возврат",
+      "price-lbl": "Цена в {{quoteAsset}}",
+      "amount-lbl": "Количество",
+      "total-amount": "Мы получим",
+      "refund-btn": "Возврат",
+      "asset-sold-msg": "Возврат выполнен"
     }
   }
 }
