@@ -1150,7 +1150,7 @@
       "no-msg": "Нет",
       "send-btn": "Отправить",
       "issue-btn": "Выпустить",
-      "redeem-btn": "Погасить",
+      "redeem-btn": "QR-код",
       "converted-balance-title": "Конвертированный баланс",
       "vendor-code": "Артикул",
       "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
@@ -1504,7 +1504,7 @@
     },
     "asset-card": {
       "details-lbl": "Детали",
-      "transfer-lbl": "Отправить"
+      "redeem-lbl": "QR-код"
     },
     "promo-code-card": {
       "discount": "Скидка: {{ amount, percent }}",

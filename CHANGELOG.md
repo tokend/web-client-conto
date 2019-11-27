@@ -13,6 +13,7 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - Text on `SuccessfulPayment` page
+- Main button on asset card
 
 ## [1.1.0-rcunitcity.9] - 2019-11-26
 #### Added

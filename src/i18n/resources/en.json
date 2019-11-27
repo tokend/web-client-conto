@@ -1146,7 +1146,7 @@
       "no-msg": "No",
       "send-btn": "Transfer",
       "issue-btn": "Issue",
-      "redeem-btn": "Redeem",
+      "redeem-btn": "QR-code",
       "converted-balance-title": "Converted balance",
       "vendor-code": "Vendor code",
       "can-be-base-in-atomic-swap-title": "Can be base in offering",
@@ -1500,7 +1500,7 @@
     },
     "asset-card": {
       "details-lbl": "Details",
-      "transfer-lbl": "Transfer"
+      "redeem-lbl": "QR-code"
     },
     "promo-code-card": {
       "discount": "Discount: {{ amount, percent }}",
