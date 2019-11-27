@@ -11,6 +11,7 @@ for further information about branching and tagging conventions.
 #### Added
 - Refund and Buyback asset
 - Allow to buy for asset inside TokenD
+- `SUPPORT_EMAIL` and `SUPPORT_PHONE` in config
 
 #### Fixed
 - A bug with typo on Shop button
