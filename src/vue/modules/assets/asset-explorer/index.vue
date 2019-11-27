@@ -6,11 +6,11 @@
           :message="'assets.loading-error-msg' | globalize" />
       </template>
       <template v-else>
-        <template v-if="accountBalances.length">
+        <template v-if="balances.length">
           <div class="app__card-list">
             <div
               class="app__card-list-item"
-              v-for="accountBalance in accountBalances"
+              v-for="accountBalance in balances"
               :key="accountBalance.id"
             >
               <asset-card
@@ -142,17 +142,17 @@ export default {
       vuexTypes.accountBalanceByCode,
       vuexTypes.accountOwnedAssetsBalances,
       vuexTypes.isAccountGeneral,
-      vuexTypes.myBusinesses,
+      vuexTypes.accountBalances,
       vuexTypes.accountId,
     ]),
 
-    accountBalances () {
+    balances () {
       try {
         let accountBalances = []
         /* eslint-disable max-len */
         let businessAccountBalances = this.businessOwnerId
           ? this.accountBalancesByOwner(this.businessOwnerId)
-          : this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+          : this.accountBalances
           /* eslint-enable max-len */
 
         accountBalances = businessAccountBalances

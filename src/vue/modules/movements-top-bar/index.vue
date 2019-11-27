@@ -126,14 +126,14 @@ export default {
       vuexTypes.accountBalanceByCode,
       vuexTypes.assetByCode,
       vuexTypes.myBusinesses,
+      vuexTypes.balancesAssets,
     ]),
 
     assets () {
       if (this.businessOwnerId) {
         return this.assetsByOwner(this.businessOwnerId)
       } else {
-        // eslint-disable-next-line max-len
-        return this.myBusinesses.flatMap(business => this.assetsByOwner(business.accountId))
+        return this.balancesAssets
       }
     },
 

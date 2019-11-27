@@ -55,7 +55,7 @@
         </div>
 
         <template
-          v-if="form.quoteAssets[index].type !== PAYMENT_METHODS.internal.value"
+          v-if="!isInternalPaymentMethod(form.quoteAssets[index].type)"
         >
           <div class="app__form-row">
             <div class="app__form-field">
@@ -200,7 +200,6 @@ export default {
                     return true
                 }
               },
-              // eslint-disable-next-line max-len
               selectedInternalSameType: _ => !this.isInternalTypeRepeated(),
             },
           },
@@ -240,7 +239,7 @@ export default {
     isInternalTypeRepeated (type) {
       const repeatedTypes = this.form.quoteAssets
         .reduce((count, quoteAsset) => {
-          return quoteAsset.type === PAYMENT_METHODS.internal.value
+          return this.isInternalPaymentMethod(quoteAsset.type)
             ? ++count
             : count
         }, 0)
@@ -253,7 +252,7 @@ export default {
     },
 
     setQuoteAssetType (type, index) {
-      if (type === PAYMENT_METHODS.internal.value) {
+      if (this.isInternalPaymentMethod(type)) {
         this.form.quoteAssets[index].destination = this.accountId
         this.form.quoteAssets[index].asset = this.statsQuoteAsset
       } else {
@@ -284,6 +283,10 @@ export default {
           ? 'atomic-swap-quote-assets-form.address-lbl'
           : 'atomic-swap-quote-assets-form.card-number-lbl'
       )
+    },
+
+    isInternalPaymentMethod (type) {
+      return type === PAYMENT_METHODS.internal.value
     },
   },
 }

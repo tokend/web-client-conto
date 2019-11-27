@@ -4,6 +4,7 @@ import { api } from '@/api'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 import { ATOMIC_SWAP_REQUEST_TYPES } from '@/js/const/atomic-swap.const'
+import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
 
 export default {
   computed: {
@@ -60,7 +61,7 @@ export default {
     buildCreateAtomicSwapAskOperation (paymentTx, baseAssetCode, price, quoteAssets) {
       const paymentQuoteAssets = quoteAssets.map(quoteAsset => {
         return {
-          id: quoteAsset.asset.code,
+          id: this.getCreatePaymentMethodId(quoteAsset),
           type: ATOMIC_SWAP_REQUEST_TYPES.createPaymentMethod,
           attributes: {
             asset: quoteAsset.asset.code,
@@ -73,7 +74,7 @@ export default {
       // eslint-disable-next-line max-len
       const quoteAssetsKey = quoteAssets.map(quoteAsset => {
         return {
-          id: quoteAsset.asset.code,
+          id: this.getCreatePaymentMethodId(quoteAsset),
           type: ATOMIC_SWAP_REQUEST_TYPES.createPaymentMethod,
         }
       })
@@ -101,6 +102,13 @@ export default {
 
     accountBalanceId (assetCode) {
       return this.accountBalanceByCode(assetCode).id
+    },
+
+    getCreatePaymentMethodId (quoteAsset) {
+      // fix duplicate two some asset code with different type
+      return quoteAsset.type === PAYMENT_METHODS.internal.value
+        ? `I${this.statsQuoteAsset.code}`
+        : quoteAsset.asset.code
     },
   },
 }
