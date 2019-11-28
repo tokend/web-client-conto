@@ -438,8 +438,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.9...HEAD
-[1.1.0-rcunitcity.9]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.9...1.1.0-rcunitcity.10
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.10...HEAD
+[1.1.0-rcunitcity.10]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.9...1.1.0-rcunitcity.10
 [1.1.0-rcunitcity.9]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.8...1.1.0-rcunitcity.9
 [1.1.0-rcunitcity.8]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.7...1.1.0-rcunitcity.8
 [1.1.0-rcunitcity.7]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.6...1.1.0-rcunitcity.7
