@@ -10,17 +10,17 @@
           <select-field
             :label="'buy-atomic-swap-form.asset-in-which-buying' | globalize"
             name="buy-atomic-swap-quote-asset"
-            :value="form.quoteAssetCode"
-            @input="setQuoteAssetCode"
+            :value="form.paymentMethodId"
+            @input="setPaymentMethodId"
             :disabled="isDisabled"
             class="app__select"
           >
             <option
               v-for="quoteAsset in atomicSwapAsk.quoteAssets"
-              :key="quoteAsset.asset.code"
-              :value="quoteAsset.asset.code"
+              :key="quoteAsset.paymentMethodId"
+              :value="quoteAsset.paymentMethodId"
             >
-              {{ quoteAsset.asset.name }}
+              {{ getAssetName(quoteAsset) }}
             </option>
           </select-field>
         </div>
@@ -120,10 +120,12 @@ import {
 } from '@validators'
 import { globalize } from '@/vue/filters/globalize'
 import { formatPercent } from '@/vue/filters/formatPercent'
+import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
 
 const EVENTS = {
   submitted: 'submitted',
 }
+const UAH_CODE = 'UAH'
 
 export default {
   name: 'buy-atomic-swap-form',
@@ -188,7 +190,7 @@ export default {
     },
   },
   created () {
-    this.setQuoteAssetCode(this.atomicSwapAsk.quoteAssets[0].asset.code)
+    this.setPaymentMethodId(this.atomicSwapAsk.quoteAssets[0].paymentMethodId)
     this.debounceCalculateDiscountPrice = debounce(
       this.calculateDiscountPrice,
       300
@@ -202,10 +204,10 @@ export default {
       this.$emit(EVENTS.submitted, this.form)
     },
 
-    setQuoteAssetCode (code) {
-      this.form.quoteAssetCode = code
-      this.form.paymentMethodId = this.atomicSwapAsk
-        .getPaymentMethodIdByAssetCode(code)
+    setPaymentMethodId (id) {
+      this.form.paymentMethodId = id
+      this.form.quoteAssetCode = this.atomicSwapAsk
+        .getAssetCodeByPaymentMethodId(id)
     },
 
     async calculateDiscountPrice () {
@@ -230,6 +232,13 @@ export default {
         ErrorHandler.processWithoutFeedback(error)
       }
       this.isLoadingDiscount = false
+    },
+
+    getAssetName (quoteAsset) {
+      return quoteAsset.asset.code === UAH_CODE &&
+        quoteAsset.paymentMethodType === PAYMENT_METHODS.fourBill.value
+        ? 'Ukrainian hryvnia'
+        : quoteAsset.asset.name
     },
   },
 }

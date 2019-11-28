@@ -74,7 +74,7 @@
                   :key="asset.code"
                   :value="asset.code"
                 >
-                  {{ asset.name }}
+                  {{ getAssetName(asset) }}
                 </option>
               </select-field>
             <!-- eslint-enable max-len -->
@@ -148,6 +148,8 @@ import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
 const EVENTS = {
   submit: 'submit',
 }
+
+const UAH_CODE = 'UAH'
 
 export default {
   name: 'atomic-swap-quote-assets-form',
@@ -287,6 +289,12 @@ export default {
 
     isInternalPaymentMethod (type) {
       return type === PAYMENT_METHODS.internal.value
+    },
+
+    getAssetName (asset) {
+      return asset.code === UAH_CODE
+        ? 'Ukrainian hryvnia'
+        : asset.name
     },
   },
 }
