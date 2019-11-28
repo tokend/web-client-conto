@@ -10,7 +10,12 @@ export class BookingBusinessRecord {
     this.maxDuration = record.bookingDetails.maxDuration
     this.maxDuration = record.bookingDetails.minDuration
     this.capacity = record.bookingDetails.specificDetails.capacity
-    this.payloads = record.bookingDetails.specificDetails.payloads
     this.prices = record.bookingDetails.specificDetails.prices
+    this.rooms = record.bookingDetails.specificDetails
+    this.payloads = this.getRoomsName(this.rooms)
+  }
+
+  getRoomsName (rooms) {
+    return Object.keys(rooms)
   }
 }

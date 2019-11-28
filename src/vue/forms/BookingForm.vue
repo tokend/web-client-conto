@@ -150,7 +150,7 @@
         :message-id="'business-viewer.loading-msg'"
       />
     </template>
-    <template v-if="false">
+    <template v-if="true">
       <button
         @click="createCalendar"
         v-ripple
@@ -294,7 +294,7 @@ export default {
         const startTime = moment(this.form.startTime)
         const endTime = moment(this.form.endTime)
         const hours = moment.duration(endTime.diff(startTime)).hours()
-        const pricePerHour = this.business.prices[this.form.room]
+        const pricePerHour = this.business.rooms[this.form.room].price
         const totalAmount = MathUtil.multiply(
           MathUtil.multiply(pricePerHour.amount, hours), this.form.numberSeats
         )
@@ -304,7 +304,7 @@ export default {
       }
     },
     pricePerHour () {
-      const pricePerHour = this.business.prices[this.form.room]
+      const pricePerHour = this.business.rooms[this.form.room].price
       return `${formatMoney(pricePerHour.amount)} ${pricePerHour.asset}`
     },
     canGetFreeSeats () {

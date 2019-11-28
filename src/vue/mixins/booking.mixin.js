@@ -8,32 +8,100 @@ import { DateUtil } from '@/js/utils/date.util'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
-const ROOMS = [
-  'room1',
-  'room2',
-  'room3',
-]
-const PRICES = {
+const DETAILS = {
+  'rooms_meta': {
+    room1: {
+      name: 'Room #1',
+    },
+    room2: {
+      'name': 'Big room',
+    },
+    room3: {
+      'name': 'Room #3',
+    },
+  },
+  'payment_method': '1',
+}
+
+const SPECIFIC_DETAILS = {
   room1: {
-    asset: 'UAH',
-    amount: '200',
+    price: {
+      asset: 'UAH',
+      amount: '200',
+    },
+    capacity: 30,
   },
   room2: {
-    asset: 'UAH',
-    amount: '100',
+    price: {
+      asset: 'UAH',
+      amount: '100',
+    },
+    capacity: 40,
   },
   room3: {
-    asset: 'UAH',
-    amount: '130',
+    price: {
+      asset: 'UAH',
+      amount: '130',
+    },
+    capacity: 50,
   },
 }
-const CAPACITY = {
-  room1: 30,
-  room2: 40,
-  room3: 50,
-}
+
 const MIN_DURATION = '1h'
 const MAX_DURATION = '40h'
+const REFUND = '0'
+const WORK_DAYS = {
+  Monday: {
+    start: {
+      hours: 9,
+      minutes: 0,
+    },
+    end: {
+      hours: 19,
+      minutes: 0,
+    },
+  },
+  Tuesday: {
+    start: {
+      hours: 9,
+      minutes: 0,
+    },
+    end: {
+      hours: 19,
+      minutes: 0,
+    },
+  },
+  Wednesday: {
+    start: {
+      hours: 9,
+      minutes: 0,
+    },
+    end: {
+      hours: 19,
+      minutes: 0,
+    },
+  },
+  Thursday: {
+    start: {
+      hours: 9,
+      minutes: 0,
+    },
+    end: {
+      hours: 19,
+      minutes: 0,
+    },
+  },
+  Friday: {
+    start: {
+      hours: 9,
+      minutes: 0,
+    },
+    end: {
+      hours: 19,
+      minutes: 0,
+    },
+  },
+}
 
 export default {
   computed: {
@@ -69,20 +137,19 @@ export default {
 
     async updateBusinesses (calendarId, bisinessId) {
       try {
-        const response = await api.post(
-          `/integrations/booking/businesses${bisinessId}`,
+        const response = await api.patchs(
+          `/integrations/booking/businesses/${bisinessId}`,
           {
             data: {
+              work_days: WORK_DAYS,
               owner: this.accountId,
               calendar_id: +calendarId,
               name: this.kycLatestRequestData.company,
+              details: DETAILS,
               booking: {
-                specific_details: {
-                  prices: PRICES,
-                  capacity: CAPACITY,
-                  payloads: ROOMS,
-                },
+                specific_details: SPECIFIC_DETAILS,
                 confirmation_types: [0],
+                refund: REFUND,
                 min_duration: MIN_DURATION,
                 max_duration: MAX_DURATION,
               },
@@ -97,16 +164,15 @@ export default {
       try {
         const response = await api.post('/integrations/booking/businesses', {
           data: {
+            work_days: WORK_DAYS,
             owner: this.accountId,
             calendar_id: +calendarId,
             name: this.kycLatestRequestData.company,
+            details: DETAILS,
             booking: {
-              specific_details: {
-                prices: PRICES,
-                capacity: CAPACITY,
-                payloads: ROOMS,
-              },
+              specific_details: SPECIFIC_DETAILS,
               confirmation_types: [0],
+              refund: REFUND,
               min_duration: MIN_DURATION,
               max_duration: MAX_DURATION,
             },
