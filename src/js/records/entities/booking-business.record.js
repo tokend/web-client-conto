@@ -7,6 +7,9 @@ export class BookingBusinessRecord {
     this.calendarId = record.calendar.id
 
     this.details = record.details
+    this.roomNames = record.details.roomsMeta
+    this.paymentMethod = record.details.paymentMethod
+    this.workDays = record.workDays
     this.maxDuration = record.bookingDetails.maxDuration
     this.maxDuration = record.bookingDetails.minDuration
     this.capacity = record.bookingDetails.specificDetails.capacity

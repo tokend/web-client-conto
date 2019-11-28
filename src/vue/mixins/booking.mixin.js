@@ -8,19 +8,21 @@ import { DateUtil } from '@/js/utils/date.util'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
+const PAYMENT_METHOD_ID = '1'
+const DEFAULT_ASSET = 'UAH'
 const DETAILS = {
   'rooms_meta': {
     room1: {
       name: 'Room #1',
     },
     room2: {
-      'name': 'Big room',
+      name: 'Big room',
     },
     room3: {
-      'name': 'Room #3',
+      name: 'Room #3',
     },
   },
-  'payment_method': '1',
+  'payment_method': PAYMENT_METHOD_ID,
 }
 
 const SPECIFIC_DETAILS = {
@@ -103,11 +105,14 @@ const WORK_DAYS = {
   },
 }
 
+const DEFAULT_CARD_NUMBER = '4000000000000010'
+
 export default {
   computed: {
     ...mapGetters([
       vuexTypes.accountId,
       vuexTypes.kycLatestRequestData,
+      vuexTypes.walletEmail,
     ]),
   },
   methods: {
@@ -248,6 +253,70 @@ export default {
           payloads: payloads,
         })
       return response.data
+    },
+
+    async createPaymentMethod () {
+      try {
+        const response = await api.post('/integrations/escrow/methods', {
+          data: {
+            type: 'payment-methods',
+            attributes: {
+              email: this.walletEmail,
+              asset: DEFAULT_ASSET,
+              destination: DEFAULT_CARD_NUMBER,
+              details: {},
+            },
+            relationships: {
+              owner: {
+                data: {
+                  id: this.accountId,
+                  type: 'accounts',
+                },
+              },
+            },
+          },
+        })
+        return response
+      } catch (e) {
+        ErrorHandler.processWithoutFeedback(e)
+      }
+    },
+
+    async createEscow (
+      amount,
+      paymentMethodId,
+      paymentAddress,
+      assetCode,
+      subject
+    ) {
+      const response = await api
+        .post('/integrations/escrow', {
+          data: {
+            type: 'escrows',
+            attributes: {
+              amount: amount,
+              source: this.accountId,
+              source_email: this.walletEmail,
+              destination: paymentAddress,
+              asset: assetCode,
+              subject: subject,
+            },
+            relationships: {
+              'payment_method': {
+                data: {
+                  id: paymentMethodId,
+                  type: 'payment-methods',
+                },
+              },
+            },
+          },
+        })
+      return response
+    },
+
+    async getPaymentAddress () {
+      const response = await api.get('/integrations/booking/address')
+      return response.data.id
     },
   },
 }

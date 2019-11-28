@@ -91,7 +91,7 @@
                     :key="room"
                     :value="room"
                   >
-                    {{ room }}
+                    {{ business.roomNames[room].name }}
                   </option>
                 </select-field>
               </div>
@@ -150,7 +150,7 @@
         :message-id="'business-viewer.loading-msg'"
       />
     </template>
-    <template v-if="true">
+    <template v-if="false">
       <button
         @click="createCalendar"
         v-ripple
@@ -188,6 +188,15 @@
         get Business By Id
       </button>
       <button
+        @click="createPaymentMethod()"
+        v-ripple
+        type="submit"
+        class="change-password-form__submit-btn app__button-raised"
+        :disabled="formMixin.isDisabled"
+      >
+        create payment method id
+      </button>
+      <button
         @click="getFreePlace"
         v-ripple
         type="submit"
@@ -219,16 +228,11 @@ import {
 import debounce from 'lodash/debounce'
 import { formatMoney } from '@/vue/filters/formatMoney'
 import { MathUtil } from '@/js/utils'
-import { Bus } from '@/js/helpers/event-bus'
 import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const MIN_PLACE = 1
 const MAX_PLACE = 30
-
-const EVENTS = {
-  createdBooking: 'created-booking',
-}
 
 export default {
   name: 'booking-form',
@@ -245,6 +249,7 @@ export default {
       moment,
       MIN_PLACE,
       MAX_PLACE,
+      business: {},
       freeRooms: [],
       isLoaded: false,
       isLoadedSeats: false,
@@ -342,7 +347,7 @@ export default {
   methods: {
     async submit () {
       try {
-        await this.bookEvent(
+        const { data: bookEvent } = await this.bookEvent(
           1,
           1,
           this.form.numberSeats,
@@ -350,9 +355,21 @@ export default {
           this.form.startTime,
           this.form.endTime,
         )
-        Bus.success('booking-form.successfully-booked-msg')
-        Bus.emit('customers:updateList')
-        this.$emit(EVENTS.createdBooking)
+
+        const paymentAddress = await this.getPaymentAddress()
+
+        const subject = JSON.stringify({
+          'booking_id': Number(bookEvent.id),
+          'reference': bookEvent.reference,
+        })
+        const { data: escow } = await this.createEscow(
+          bookEvent.amount,
+          this.business.paymentMethod,
+          paymentAddress,
+          this.business.rooms[this.form.room].price.asset,
+          subject
+        )
+        window.location.href = escow.invoice.payUrl
       } catch (e) {
         ErrorHandler.process(e)
       }

@@ -96,7 +96,7 @@ export default {
         altFormat: this.enableTime ? 'd/m/Y at H:i' : 'd/m/Y',
         disableMobile: true,
         defaultHour: this.defaultHour,
-        minuteIncrement: 0,
+        minuteIncrement: 1,
         minTime: this.minTime,
         maxTime: this.maxTime,
         disable: [

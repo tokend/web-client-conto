@@ -17,7 +17,6 @@
             >
               <booking-card
                 :booking-record="item"
-                @delete="reloadList"
               />
             </div>
           </div>
@@ -62,6 +61,7 @@ import { BookingRecord } from '@/js/records/entities/booking.record'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
+import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
 
 export default {
   name: 'booking-explore',
@@ -79,10 +79,17 @@ export default {
       isLoadFailed: false,
       list: [],
       businessId: '1',
+      business: {},
     }
   },
-  created () {
+  async created () {
     this.listen()
+    try {
+      const business = await this.getBusinessById(1)
+      this.business = new BookingBusinessRecord(business)
+    } catch (e) {
+      ErrorHandler.processWithoutFeedback(e)
+    }
   },
   methods: {
     listen () {
@@ -96,7 +103,11 @@ export default {
       let response
       try {
         response = await api
-          .get(`/integrations/booking/businesses/${this.businessId}/bookings`)
+          .get(`/integrations/booking/businesses/${this.businessId}/bookings`, {
+            filter: {
+              owner: this.accountId,
+            },
+          })
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -106,7 +117,10 @@ export default {
     },
 
     setList (newList) {
-      this.list = newList.map(i => new BookingRecord(i))
+      this.list = newList.map(i => new BookingRecord(
+        i,
+        this.business.roomNames
+      ))
     },
 
     concatList (newChunk) {
