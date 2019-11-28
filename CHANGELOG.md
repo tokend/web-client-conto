@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
-## [Unreleased]
+## [1.5.0-rc.1] - 2019-11-28
 #### Added
 - Refund and Buyback asset
 - Allow to buy for asset inside TokenD
@@ -469,7 +469,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.5.0-rc.0...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.5.0-rc.1...HEAD
+[1.5.0-rc.1]: https://github.com/tokend/web-client/compare/1.5.0-rc.0...1.5.0-rc.1
 [1.5.0-rc.0]: https://github.com/tokend/web-client/compare/1.4.2...1.5.0-rc.0
 [1.4.2]: https://github.com/tokend/web-client/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/tokend/web-client/compare/1.4.0...1.4.1
