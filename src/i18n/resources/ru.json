@@ -7,7 +7,7 @@
             "decimalSeparator": ",",
             "groupSeparator": " ",
             "groupSize": 3,
-            "decimalPlaces": 6
+            "decimalPlaces": 2
           }
         },
         "balances": {
@@ -15,14 +15,14 @@
             "decimalSeparator": ",",
             "groupSeparator": " ",
             "groupSize": 3,
-            "decimalPlaces": 6
+            "decimalPlaces": 2
           }
         },
         "default": {
           "decimalSeparator": ",",
           "groupSeparator": " ",
           "groupSize": 3,
-          "decimalPlaces": 6
+          "decimalPlaces": 2
         },
         "integer": {
           "groupSeparator": " ",
@@ -33,7 +33,7 @@
           "decimalSeparator": ",",
           "groupSeparator": " ",
           "groupSize": 3,
-          "decimalPlaces": 6,
+          "decimalPlaces": 2,
           "suffix": "%"
         }
       }
@@ -1614,7 +1614,7 @@
     "booking-form": {
       "room-lbl": "Комната",
       "number-of-seats": "Количество мест",
-      "booking-btn": "Бронирование",
+      "booking-btn": "Забронировать",
       "booking-from-lbl": "Бронирование с",
       "booking-to-lbl": "Бронирование по",
       "successfully-booked-msg": "Вы успешно забронировали",

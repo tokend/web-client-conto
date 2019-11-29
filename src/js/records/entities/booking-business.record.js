@@ -7,18 +7,27 @@ export class BookingBusinessRecord {
     this.calendarId = record.calendar.id
 
     this.details = record.details
-    this.roomNames = record.details.roomsMeta
     this.paymentMethod = record.details.paymentMethod
     this.workDays = record.workDays
     this.maxDuration = record.bookingDetails.maxDuration
     this.maxDuration = record.bookingDetails.minDuration
-    this.capacity = record.bookingDetails.specificDetails.capacity
-    this.prices = record.bookingDetails.specificDetails.prices
-    this.rooms = record.bookingDetails.specificDetails
-    this.payloads = this.getRoomsName(this.rooms)
+    this.rooms = Object.keys(record.bookingDetails.specificDetails)
+      .map(item => ({
+        id: item,
+        ...record.bookingDetails.specificDetails[item],
+        ...this.details.roomsMeta[item],
+      }))
+    this.payloads = this.getRoomsId(this.rooms)
   }
 
-  getRoomsName (rooms) {
-    return Object.keys(rooms)
+  getRoomsId (rooms) {
+    return rooms.map(rooms => rooms.id)
+  }
+
+  getRoomById (id) {
+    const room = this.rooms.find(room => {
+      return room.id === id
+    })
+    return room
   }
 }

@@ -38,6 +38,7 @@
     </template>
     <div class="booking-explorer__collection-loader">
       <collection-loader
+        v-if="isBusinessLoaded"
         class="atomic-swaps-explore__loader"
         :first-page-loader="getList"
         @first-page-load="setList"
@@ -62,6 +63,7 @@ import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
+import { BOOKING_STATES } from '@/js/const/booking-states.const'
 
 export default {
   name: 'booking-explore',
@@ -80,6 +82,7 @@ export default {
       list: [],
       businessId: '1',
       business: {},
+      isBusinessLoaded: false,
     }
   },
   async created () {
@@ -90,6 +93,7 @@ export default {
     } catch (e) {
       ErrorHandler.processWithoutFeedback(e)
     }
+    this.isBusinessLoaded = true
   },
   methods: {
     listen () {
@@ -103,9 +107,10 @@ export default {
       let response
       try {
         response = await api
-          .get(`/integrations/booking/businesses/${this.businessId}/bookings`, {
+          .getWithSignature(`/integrations/booking/businesses/${this.businessId}/bookings`, {
             filter: {
               owner: this.accountId,
+              state: BOOKING_STATES.accepted,
             },
           })
       } catch (e) {
@@ -119,11 +124,14 @@ export default {
     setList (newList) {
       this.list = newList.map(i => new BookingRecord(
         i,
-        this.business.roomNames
+        this.business
       ))
     },
 
     concatList (newChunk) {
+      this.list = this.list.concat(
+        newChunk.map(i => new BookingRecord(i))
+      )
     },
 
     reloadList () {

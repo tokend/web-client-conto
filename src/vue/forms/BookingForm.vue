@@ -80,7 +80,7 @@
             <div class="app__form-row">
               <div class="app__form-field">
                 <select-field
-                  :value="form.room"
+                  :value="form.room.id"
                   @input="setRoom"
                   :key="selectKey"
                   name="create-sale-type"
@@ -88,10 +88,10 @@
                 >
                   <option
                     v-for="room in freeRooms"
-                    :key="room"
-                    :value="room"
+                    :key="room.id"
+                    :value="room.id"
                   >
-                    {{ business.roomNames[room].name }}
+                    {{ room.name }}
                   </option>
                 </select-field>
               </div>
@@ -124,7 +124,7 @@
                 class="change-password-form__submit-btn app__button-raised"
                 :disabled="formMixin.isDisabled"
               >
-                {{ 'booking.booking-btn' | globalize }}
+                {{ 'booking-form.booking-btn' | globalize }}
               </button>
             </div>
           </template>
@@ -298,10 +298,13 @@ export default {
       if (this.canGetFreeSeats) {
         const startTime = moment(this.form.startTime)
         const endTime = moment(this.form.endTime)
-        const hours = moment.duration(endTime.diff(startTime)).hours()
-        const pricePerHour = this.business.rooms[this.form.room].price
+        // used default divide because we don't need round mode
+        const hours = moment.duration(endTime.diff(startTime)).asMinutes() / 60
+        const pricePerHour = this.form.room.price
         const totalAmount = MathUtil.multiply(
-          MathUtil.multiply(pricePerHour.amount, hours), this.form.numberSeats
+          // eslint-disable-next-line max-len
+          MathUtil.multiply(pricePerHour.amount, hours, MathUtil.roundingModes.ROUND_HALF_UP),
+          this.form.numberSeats,
         )
         return `${formatMoney(totalAmount)} ${pricePerHour.asset}`
       } else {
@@ -309,7 +312,7 @@ export default {
       }
     },
     pricePerHour () {
-      const pricePerHour = this.business.rooms[this.form.room].price
+      const pricePerHour = this.form.room.price
       return `${formatMoney(pricePerHour.amount)} ${pricePerHour.asset}`
     },
     canGetFreeSeats () {
@@ -351,7 +354,7 @@ export default {
           1,
           1,
           this.form.numberSeats,
-          this.form.room,
+          this.form.room.id,
           this.form.startTime,
           this.form.endTime,
         )
@@ -366,7 +369,7 @@ export default {
           bookEvent.amount,
           this.business.paymentMethod,
           paymentAddress,
-          this.business.rooms[this.form.room].price.asset,
+          this.form.room.price.asset,
           subject
         )
         window.location.href = escow.invoice.payUrl
@@ -377,8 +380,8 @@ export default {
     getCurrentDate () {
       return moment().startOf('hour').subtract(1, 'seconds').toISOString()
     },
-    setRoom (room) {
-      this.form.room = room
+    setRoom (id) {
+      this.form.room = this.business.getRoomById(id)
     },
     async getBusiness () {
       this.isLoaded = false
@@ -403,10 +406,10 @@ export default {
             this.form.numberSeats,
             this.business.payloads
           )
-          this.freeRooms = rooms.map(item => item.id)
+          this.freeRooms = rooms.map(item => this.business.getRoomById(item.id))
           if (this.freeRooms.length) this.form.room = this.freeRooms[0]
         } catch (e) {
-          ErrorHandler.process(e)
+          ErrorHandler.processWithoutFeedback(e)
         }
       }
     },

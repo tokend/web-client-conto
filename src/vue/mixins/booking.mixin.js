@@ -105,7 +105,7 @@ const WORK_DAYS = {
   },
 }
 
-const DEFAULT_CARD_NUMBER = '4000000000000010'
+const DEFAULT_CARD_NUMBER = '4111111111111111'
 
 export default {
   computed: {

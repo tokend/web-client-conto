@@ -1,5 +1,7 @@
+import _isEmpty from 'lodash/isEmpty'
+
 export class BookingRecord {
-  constructor (record, roomNames) {
+  constructor (record, business) {
     this._record = record
     this.id = record.id
 
@@ -9,7 +11,7 @@ export class BookingRecord {
     this.endTime = record.endTime
     this.participants = record.participants
     this.payload = record.payload
-    this.roomName = this.getRoomName(roomNames)
+    this.roomName = this.getRoomName(business)
     this.event = record.event
     this.owner = record.owner.id
     this.cancelTill = record.cancelTill
@@ -17,7 +19,9 @@ export class BookingRecord {
     this.state = record.state
   }
 
-  getRoomName (roomNames) {
-    return roomNames[this.payload].name || ''
+  getRoomName (business) {
+    return _isEmpty(business)
+      ? this.payload
+      : business.getRoomById(this.payload).name
   }
 }
