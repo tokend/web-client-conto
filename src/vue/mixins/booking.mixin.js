@@ -59,7 +59,7 @@ const WORK_DAYS = {
       minutes: 0,
     },
     end: {
-      hours: 19,
+      hours: 20,
       minutes: 0,
     },
   },
@@ -69,7 +69,7 @@ const WORK_DAYS = {
       minutes: 0,
     },
     end: {
-      hours: 19,
+      hours: 20,
       minutes: 0,
     },
   },
@@ -79,7 +79,7 @@ const WORK_DAYS = {
       minutes: 0,
     },
     end: {
-      hours: 19,
+      hours: 20,
       minutes: 0,
     },
   },
@@ -89,7 +89,7 @@ const WORK_DAYS = {
       minutes: 0,
     },
     end: {
-      hours: 19,
+      hours: 20,
       minutes: 0,
     },
   },
@@ -99,7 +99,7 @@ const WORK_DAYS = {
       minutes: 0,
     },
     end: {
-      hours: 19,
+      hours: 20,
       minutes: 0,
     },
   },
@@ -142,7 +142,7 @@ export default {
 
     async updateBusinesses (calendarId, bisinessId) {
       try {
-        const response = await api.patchs(
+        const response = await api.patch(
           `/integrations/booking/businesses/${bisinessId}`,
           {
             data: {

@@ -77,6 +77,7 @@ export default {
     errorMessage: { type: String, default: undefined },
     minTime: { type: String, default: '09:00' },
     maxTime: { type: String, default: '20:00' },
+    workDays: { type: Object, default: _ => {} },
   },
 
   data: _ => ({
@@ -101,7 +102,8 @@ export default {
         maxTime: this.maxTime,
         disable: [
           (date) => {
-            return !(moment(date).day() % 7) || !(moment(date).day() % 6)
+            const dayOfWeek = moment(date).format('dddd').toLowerCase()
+            return !this.workDays[dayOfWeek]
           },
           (date) => {
             if (!this.disableBefore) return false
@@ -172,6 +174,11 @@ export default {
         safeConfig[FLATPICKR_HOOKS.onOpen]
       ).concat(
         (...args) => this.onOpen(...args)
+      ),
+      [FLATPICKR_HOOKS.onChange]: this.arrayify(
+        safeConfig[FLATPICKR_HOOKS.onOpen]
+      ).concat(
+        (...args) => this.onChange(...args)
       ),
     }
 
@@ -246,6 +253,17 @@ export default {
         this.$emit(EMITABLE_EVENTS.input, dateStr)
         this.$emit(EMITABLE_EVENTS.onClose)
       })
+    },
+    onChange (selectedDates, dateStr, instance) {
+      const dayOfWeek = moment(dateStr).format('dddd').toLowerCase()
+      if (!this.workDays[dayOfWeek]) return
+      const startTime = this.workDays[dayOfWeek].start
+      const endTime = this.workDays[dayOfWeek].end
+      const minTime = `${startTime.hours}:${startTime.minutes}`
+      const maxTime = `${endTime.hours}:${endTime.minutes}`
+      this.flatpickr.set('minTime', minTime)
+      this.flatpickr.set('maxTime', maxTime)
+      this.flatpickr.redraw()
     },
   },
 }

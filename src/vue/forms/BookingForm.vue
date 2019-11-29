@@ -19,14 +19,13 @@
                 v-model="form.startTime"
                 name="booking-start-time"
                 :default-hour="moment().hour()"
-                min-time="9:00"
-                max-time="19:00"
                 @input="touchField('form.startTime')"
                 @blur="touchField('form.startTime')"
                 :label="'booking-form.booking-from-lbl' | globalize"
                 :error-message="getFieldErrorMessage(
                   'form.startTime', { minDate: getCurrentDate() }
                 )"
+                :work-days="business.workDays"
               />
             </div>
           </div>
@@ -37,8 +36,6 @@
                 :key="maxDate + minDate"
                 v-model="form.endTime"
                 :default-hour="moment().hour()"
-                min-time="10:00"
-                max-time="20:00"
                 @input="touchField('form.endTime')"
                 @blur="touchField('form.endTime')"
                 :disable-after="maxDate"
@@ -50,6 +47,7 @@
                     minDate: form.startTime || getCurrentDate()
                   }
                 )"
+                :work-days="business.workDays"
               />
             </div>
           </div>
