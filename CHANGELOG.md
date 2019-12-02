@@ -9,6 +9,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Booking
+- Booking payment
 
 ## [1.4.0] - 2019-11-20
 
