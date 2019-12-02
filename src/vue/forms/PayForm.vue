@@ -53,9 +53,8 @@ import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
-import { base } from '@tokend/js-sdk'
-import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
+import { signAndSendTx } from '@/js/helpers/transaction'
 
 const EVENTS = {
   reloadAtomicSwap: 'reload-atomic-swap',
@@ -139,7 +138,7 @@ export default {
             this.atomicSwapBidDetails = atomicSwapBid
             break
           case ATOMIC_SWAP_BID_TYPES.internal:
-            await this.sendTx(atomicSwapBid.tx)
+            await signAndSendTx(atomicSwapBid.tx)
             Bus.success('pay-form.success-msg')
             this.$emit(EVENTS.reloadAtomicSwap)
             break
@@ -148,19 +147,6 @@ export default {
         ErrorHandler.process(e)
       }
       this.isDisabled = false
-    },
-
-    async sendTx (tx) {
-      const secretSeed = await this.decryptSecretSeed()
-      const keypair = base.Keypair.fromSecret(secretSeed)
-      const transaction = new base.Transaction(tx)
-      transaction.sign(keypair)
-      const envelopeTx = this.getEnvelopeTx(transaction)
-      await api.postTxEnvelope(envelopeTx)
-    },
-
-    getEnvelopeTx (tx) {
-      return tx.toEnvelope().toXDR().toString('base64')
     },
   },
 }

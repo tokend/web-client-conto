@@ -38,8 +38,7 @@ import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
 
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
-import { base } from '@tokend/js-sdk'
-import { api } from '@/api'
+import { signAndSendTx } from '@/js/helpers/transaction'
 
 const EVENTS = {
   updateList: 'update-list',
@@ -111,7 +110,7 @@ export default {
             this.$emit(EVENTS.updateList)
             break
           case ATOMIC_SWAP_BID_TYPES.internal:
-            await this.sendTx(atomicSwapBid.tx)
+            await signAndSendTx(atomicSwapBid.tx)
             this.$emit(EVENTS.updateListAndCloseDrawer)
             break
         }
@@ -119,19 +118,6 @@ export default {
         ErrorHandler.process(e)
       }
       this.isDisabled = false
-    },
-
-    async sendTx (tx) {
-      const secretSeed = await this.decryptSecretSeed()
-      const keypair = base.Keypair.fromSecret(secretSeed)
-      const transaction = new base.Transaction(tx)
-      transaction.sign(keypair)
-      const envelopeTx = this.getEnvelopeTx(transaction)
-      await api.postTxEnvelope(envelopeTx)
-    },
-
-    getEnvelopeTx (tx) {
-      return tx.toEnvelope().toXDR().toString('base64')
     },
   },
 }
