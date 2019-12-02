@@ -102,7 +102,7 @@ export default {
         maxTime: this.maxTime,
         disable: [
           (date) => {
-            const dayOfWeek = moment(date).format('dddd').toLowerCase()
+            const dayOfWeek = this.getDayOfWeek(date)
             return !this.workDays[dayOfWeek]
           },
           (date) => {
@@ -255,7 +255,7 @@ export default {
       })
     },
     onChange (selectedDates, dateStr, instance) {
-      const dayOfWeek = moment(dateStr).format('dddd').toLowerCase()
+      const dayOfWeek = this.getDayOfWeek(dateStr)
       if (!this.workDays[dayOfWeek]) return
       const startTime = this.workDays[dayOfWeek].start
       const endTime = this.workDays[dayOfWeek].end
@@ -264,6 +264,12 @@ export default {
       this.flatpickr.set('minTime', minTime)
       this.flatpickr.set('maxTime', maxTime)
       this.flatpickr.redraw()
+    },
+
+    getDayOfWeek (date) {
+      // set the English language because we get work days in English
+      moment.locale('en')
+      return moment(date).format('dddd').toLowerCase()
     },
   },
 }

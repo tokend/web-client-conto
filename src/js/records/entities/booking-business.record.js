@@ -10,7 +10,7 @@ export class BookingBusinessRecord {
     this.paymentMethod = record.details.paymentMethod
     this.workDays = record.workDays
     this.maxDuration = record.bookingDetails.maxDuration
-    this.maxDuration = record.bookingDetails.minDuration
+    this.minDuration = record.bookingDetails.minDuration
     this.rooms = Object.keys(record.bookingDetails.specificDetails)
       .map(item => ({
         id: item,

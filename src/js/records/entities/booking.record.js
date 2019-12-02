@@ -1,11 +1,12 @@
 import _isEmpty from 'lodash/isEmpty'
+import { amountToPrecision } from '@/js/helpers/amount'
 
 export class BookingRecord {
   constructor (record, business) {
     this._record = record
     this.id = record.id
 
-    this.amount = record.amount
+    this.amount = amountToPrecision(record.amount)
     this.assetCode = record.asset.id
     this.startTime = record.startTime
     this.endTime = record.endTime
