@@ -11,7 +11,7 @@
         <form
           id="booking-form"
           class="app__form"
-          @submit.prevent="showConfirmation()"
+          @submit.prevent="isFormValid() && showConfirmation()"
         >
           <div class="app__form-row">
             <div class="app__form-field">
@@ -21,6 +21,7 @@
                 :default-hour="moment().hour()"
                 @input="touchField('form.startTime')"
                 @blur="touchField('form.startTime')"
+                :disabled="formMixin.isDisabled"
                 :label="'booking-form.booking-from-lbl' | globalize"
                 :error-message="getFieldErrorMessage(
                   'form.startTime', { minDate: getCurrentDate() }
@@ -40,6 +41,7 @@
                 @blur="touchField('form.endTime')"
                 :disable-after="maxDate"
                 :disable-before="minDate"
+                :disabled="formMixin.isDisabled"
                 name="booking-end-time"
                 :label="'booking-form.booking-to-lbl' | globalize"
                 :error-message="getFieldErrorMessage(
@@ -82,6 +84,7 @@
                   @input="setRoom"
                   :key="selectKey"
                   name="create-sale-type"
+                  :disabled="formMixin.isDisabled"
                   :label="'booking-form.room-lbl' | globalize"
                 >
                   <option
@@ -109,11 +112,18 @@
               </div>
             </div>
 
+            <p class="booking-form__error-msg">
+              {{ getFieldErrorMessage('totalSelectedTimeInMinutes', {
+                minInterval: business.minDuration
+              }) }}
+            </p>
+
             <div class="app__form-actions">
               <form-confirmation
                 v-if="formMixin.isConfirmationShown"
-                @ok="hideConfirmation() || submit()"
+                @ok="submit"
                 @cancel="hideConfirmation"
+                :is-pending="isFormSubmitting"
               />
               <button
                 v-else
@@ -231,6 +241,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const MIN_PLACE = 1
 const MAX_PLACE = 30
+const SIXTY_MINUTES = 60
 
 export default {
   name: 'booking-form',
@@ -258,6 +269,7 @@ export default {
         numberSeats: '1',
         room: '',
       },
+      isFormSubmitting: false,
     }
   },
   validations () {
@@ -275,6 +287,9 @@ export default {
           required,
           amountRange: amountRange(MIN_PLACE, MAX_PLACE),
         },
+      },
+      totalSelectedTimeInMinutes: {
+        minBookingTime: () => this.isSelectedTimeMoreThanMinDuration,
       },
     }
   },
@@ -294,10 +309,7 @@ export default {
     },
     price () {
       if (this.canGetFreeSeats) {
-        const startTime = moment(this.form.startTime)
-        const endTime = moment(this.form.endTime)
-        // used default divide because we don't need round mode
-        const hours = moment.duration(endTime.diff(startTime)).asMinutes() / 60
+        const hours = this.totalSelectedTimeInMinutes / SIXTY_MINUTES
         const pricePerHour = this.form.room.price
         const totalAmount = MathUtil.multiply(
           // eslint-disable-next-line max-len
@@ -321,6 +333,17 @@ export default {
         this.form.numberSeats < MAX_PLACE &&
         moment(this.form.startTime).utc() < moment(this.form.endTime).utc()
       )
+    },
+    totalSelectedTimeInMinutes () {
+      const startTime = moment(this.form.startTime)
+      const endTime = moment(this.form.endTime)
+      // used default divide because we don't need round mode
+      return moment.duration(endTime.diff(startTime)).asMinutes()
+    },
+
+    isSelectedTimeMoreThanMinDuration () {
+      // eslint-disable-next-line max-len
+      return this.totalSelectedTimeInMinutes >= this.business.minDurationInMinutes
     },
   },
   watch: {
@@ -347,6 +370,7 @@ export default {
   },
   methods: {
     async submit () {
+      this.isFormSubmitting = true
       try {
         const { data: bookEvent } = await this.bookEvent(
           1,
@@ -374,6 +398,8 @@ export default {
       } catch (e) {
         ErrorHandler.process(e)
       }
+      this.isFormSubmitting = false
+      this.hideConfirmation()
     },
     getCurrentDate () {
       return moment().startOf('hour').subtract(1, 'seconds').toISOString()
@@ -422,5 +448,11 @@ export default {
   .booking-form__help-msg {
     font-size: 1.6rem;
     margin-top: 2rem;
+  }
+
+  .booking-form__error-msg {
+    color: $col-accent;
+    margin-top: 0.4rem;
+    font-size: 1.2rem;
   }
 </style>

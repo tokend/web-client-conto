@@ -122,7 +122,8 @@
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
       "field-error_minDate": "Date should be after {{ minDate, date }}",
-      "field-error_maxDate": "Date should be before {{ maxDate, date }}"
+      "field-error_maxDate": "Date should be before {{ maxDate, date }}",
+      "field-error_minBookingTime": "Minimum booking interval should be {{ minInterval }}"
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",

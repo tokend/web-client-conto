@@ -1,3 +1,4 @@
+import { parseDurationTime } from '@/js/helpers/parseDurationTime'
 export class BookingBusinessRecord {
   constructor (record) {
     this._record = record
@@ -11,6 +12,13 @@ export class BookingBusinessRecord {
     this.workDays = record.workDays
     this.maxDuration = record.bookingDetails.maxDuration
     this.minDuration = record.bookingDetails.minDuration
+    this.maxDurationInMinutes = parseDurationTime(
+      record.bookingDetails.maxDuration
+    )
+    this.minDurationInMinutes = parseDurationTime(
+      record.bookingDetails.minDuration
+    )
+
     this.rooms = Object.keys(record.bookingDetails.specificDetails)
       .map(item => ({
         id: item,

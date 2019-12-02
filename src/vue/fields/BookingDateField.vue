@@ -36,7 +36,7 @@
 <script>
 import Flatpickr from 'flatpickr'
 import moment from 'moment'
-
+import { LANGAUGE_CODES } from '@/js/const/languageCodes.const'
 // All supported events by Flatpickr
 const FLATPICKR_HOOKS = {
   onChange: 'onChange',
@@ -268,7 +268,7 @@ export default {
 
     getDayOfWeek (date) {
       // set the English language because we get work days in English
-      moment.locale('en')
+      moment.locale(LANGAUGE_CODES.english)
       return moment(date).format('dddd').toLowerCase()
     },
   },
