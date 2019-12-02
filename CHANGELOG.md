@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 ## [1.5.0-rc.0] - 2019-11-23
 #### Added
 - Customer ui for business account
+- `CardList` component
 
 #### Fixed
 - A bug with infinite loader at verification user email

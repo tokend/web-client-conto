@@ -1,44 +1,40 @@
 <template>
-  <div class="app__card-list">
-    <div
-      class="app__card-list-item"
-      v-for="index in numberOfCards"
-      :key="index"
-    >
-      <div class="skeleton-cards-loader">
-        <div class="skeleton-cards-loader__media">
-          <skeleton-loader template="bigIcon" />
+  <card-list :list="numberOfCards">
+    <div class="skeleton-cards-loader">
+      <div class="skeleton-cards-loader__media">
+        <skeleton-loader template="bigIcon" />
+      </div>
+      <div class="skeleton-cards-loader__body">
+        <div class="skeleton-cards-loader__header">
+          <skeleton-loader width="60%" template="smallString" />
         </div>
-        <div class="skeleton-cards-loader__body">
-          <div class="skeleton-cards-loader__header">
-            <skeleton-loader width="60%" template="smallString" />
-          </div>
-          <div class="skeleton-cards-loader__subhead">
-            <skeleton-loader width="45%" template="smallString" />
-          </div>
-          <div class="skeleton-cards-loader__content">
-            <p class="skeleton-cards-loader__content-text">
-              <skeleton-loader width="100%" template="smallString" />
-              <skeleton-loader width="100%" template="smallString" />
-            </p>
-          </div>
+        <div class="skeleton-cards-loader__subhead">
+          <skeleton-loader width="45%" template="smallString" />
         </div>
-        <div class="skeleton-cards-loader__actions">
-          <skeleton-loader template="smallButton" />
+        <div class="skeleton-cards-loader__content">
+          <p class="skeleton-cards-loader__content-text">
+            <skeleton-loader width="100%" template="smallString" />
+            <skeleton-loader width="100%" template="smallString" />
+          </p>
         </div>
       </div>
+      <div class="skeleton-cards-loader__actions">
+        <skeleton-loader template="smallButton" />
+      </div>
     </div>
-  </div>
+  </card-list>
 </template>
 
 <script>
 import SkeletonLoader from '@/vue/common/skeleton-loader/SkeletonLoader'
+import CardList from '@/vue/common/CardList'
 
 export default {
   name: 'skeleton-cards-loader',
 
   components: {
     SkeletonLoader,
+    CardList,
   },
 
   data: _ => ({
