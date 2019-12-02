@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Changed
+- Refactoring refund and buyback asset
 
 ## [1.5.0-rc.2] - 2019-11-28
 #### Fixed
@@ -28,6 +31,7 @@ for further information about branching and tagging conventions.
 ## [1.5.0-rc.0] - 2019-11-23
 #### Added
 - Customer ui for business account
+- `CardList` component
 
 #### Fixed
 - A bug with infinite loader at verification user email
