@@ -35,7 +35,7 @@ import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
 import { signAndSendTx } from '@/js/helpers/transaction'
@@ -84,9 +84,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions({
-      decryptSecretSeed: vuexTypes.DECRYPT_SECRET_SEED,
-    }),
     async handleAtomicSwapFormSubmitted (form) {
       if (!this.isFormValid()) return
       Object.assign(this.form, form)
