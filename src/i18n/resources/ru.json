@@ -122,7 +122,8 @@
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
       "field-error_minDate": "Дата должна быть позднее {{ minDate, date }}",
-      "field-error_maxDate": "Дата должна быть ранее {{ maxDate, date }}"
+      "field-error_maxDate": "Дата должна быть ранее {{ maxDate, date }}",
+      "field-error_minBookingTime": "Минимальный интервал бронирования должен быть {{ minInterval }}"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -1614,7 +1615,7 @@
     "booking-form": {
       "room-lbl": "Комната",
       "number-of-seats": "Количество мест",
-      "booking-btn": "Бронирование",
+      "booking-btn": "Забронировать",
       "booking-from-lbl": "Бронирование с",
       "booking-to-lbl": "Бронирование по",
       "successfully-booked-msg": "Вы успешно забронировали",

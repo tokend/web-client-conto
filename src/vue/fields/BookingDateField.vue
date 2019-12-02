@@ -36,7 +36,7 @@
 <script>
 import Flatpickr from 'flatpickr'
 import moment from 'moment'
-
+import { LANGAUGE_CODES } from '@/js/const/languageCodes.const'
 // All supported events by Flatpickr
 const FLATPICKR_HOOKS = {
   onChange: 'onChange',
@@ -77,6 +77,7 @@ export default {
     errorMessage: { type: String, default: undefined },
     minTime: { type: String, default: '09:00' },
     maxTime: { type: String, default: '20:00' },
+    workDays: { type: Object, default: _ => {} },
   },
 
   data: _ => ({
@@ -96,12 +97,13 @@ export default {
         altFormat: this.enableTime ? 'd/m/Y at H:i' : 'd/m/Y',
         disableMobile: true,
         defaultHour: this.defaultHour,
-        minuteIncrement: 0,
+        minuteIncrement: 1,
         minTime: this.minTime,
         maxTime: this.maxTime,
         disable: [
           (date) => {
-            return !(moment(date).day() % 7) || !(moment(date).day() % 6)
+            const dayOfWeek = this.getDayOfWeek(date)
+            return !this.workDays[dayOfWeek]
           },
           (date) => {
             if (!this.disableBefore) return false
@@ -172,6 +174,11 @@ export default {
         safeConfig[FLATPICKR_HOOKS.onOpen]
       ).concat(
         (...args) => this.onOpen(...args)
+      ),
+      [FLATPICKR_HOOKS.onChange]: this.arrayify(
+        safeConfig[FLATPICKR_HOOKS.onOpen]
+      ).concat(
+        (...args) => this.onChange(...args)
       ),
     }
 
@@ -246,6 +253,23 @@ export default {
         this.$emit(EMITABLE_EVENTS.input, dateStr)
         this.$emit(EMITABLE_EVENTS.onClose)
       })
+    },
+    onChange (selectedDates, dateStr, instance) {
+      const dayOfWeek = this.getDayOfWeek(dateStr)
+      if (!this.workDays[dayOfWeek]) return
+      const startTime = this.workDays[dayOfWeek].start
+      const endTime = this.workDays[dayOfWeek].end
+      const minTime = `${startTime.hours}:${startTime.minutes}`
+      const maxTime = `${endTime.hours}:${endTime.minutes}`
+      this.flatpickr.set('minTime', minTime)
+      this.flatpickr.set('maxTime', maxTime)
+      this.flatpickr.redraw()
+    },
+
+    getDayOfWeek (date) {
+      // set the English language because we get work days in English
+      moment.locale(LANGAUGE_CODES.english)
+      return moment(date).format('dddd').toLowerCase()
     },
   },
 }

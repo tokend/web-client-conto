@@ -11,7 +11,7 @@
         <form
           id="booking-form"
           class="app__form"
-          @submit.prevent="showConfirmation()"
+          @submit.prevent="isFormValid() && showConfirmation()"
         >
           <div class="app__form-row">
             <div class="app__form-field">
@@ -19,14 +19,14 @@
                 v-model="form.startTime"
                 name="booking-start-time"
                 :default-hour="moment().hour()"
-                min-time="9:00"
-                max-time="19:00"
                 @input="touchField('form.startTime')"
                 @blur="touchField('form.startTime')"
+                :disabled="formMixin.isDisabled"
                 :label="'booking-form.booking-from-lbl' | globalize"
                 :error-message="getFieldErrorMessage(
                   'form.startTime', { minDate: getCurrentDate() }
                 )"
+                :work-days="business.workDays"
               />
             </div>
           </div>
@@ -37,12 +37,11 @@
                 :key="maxDate + minDate"
                 v-model="form.endTime"
                 :default-hour="moment().hour()"
-                min-time="10:00"
-                max-time="20:00"
                 @input="touchField('form.endTime')"
                 @blur="touchField('form.endTime')"
                 :disable-after="maxDate"
                 :disable-before="minDate"
+                :disabled="formMixin.isDisabled"
                 name="booking-end-time"
                 :label="'booking-form.booking-to-lbl' | globalize"
                 :error-message="getFieldErrorMessage(
@@ -50,6 +49,7 @@
                     minDate: form.startTime || getCurrentDate()
                   }
                 )"
+                :work-days="business.workDays"
               />
             </div>
           </div>
@@ -80,18 +80,19 @@
             <div class="app__form-row">
               <div class="app__form-field">
                 <select-field
-                  :value="form.room"
+                  :value="form.room.id"
                   @input="setRoom"
                   :key="selectKey"
                   name="create-sale-type"
+                  :disabled="formMixin.isDisabled"
                   :label="'booking-form.room-lbl' | globalize"
                 >
                   <option
                     v-for="room in freeRooms"
-                    :key="room"
-                    :value="room"
+                    :key="room.id"
+                    :value="room.id"
                   >
-                    {{ room }}
+                    {{ room.name }}
                   </option>
                 </select-field>
               </div>
@@ -111,11 +112,18 @@
               </div>
             </div>
 
+            <p class="booking-form__error-msg">
+              {{ getFieldErrorMessage('totalSelectedTimeInMinutes', {
+                minInterval: business.minDuration
+              }) }}
+            </p>
+
             <div class="app__form-actions">
               <form-confirmation
                 v-if="formMixin.isConfirmationShown"
-                @ok="hideConfirmation() || submit()"
+                @ok="submit"
                 @cancel="hideConfirmation"
+                :is-pending="isFormSubmitting"
               />
               <button
                 v-else
@@ -124,7 +132,7 @@
                 class="change-password-form__submit-btn app__button-raised"
                 :disabled="formMixin.isDisabled"
               >
-                {{ 'booking.booking-btn' | globalize }}
+                {{ 'booking-form.booking-btn' | globalize }}
               </button>
             </div>
           </template>
@@ -188,6 +196,15 @@
         get Business By Id
       </button>
       <button
+        @click="createPaymentMethod()"
+        v-ripple
+        type="submit"
+        class="change-password-form__submit-btn app__button-raised"
+        :disabled="formMixin.isDisabled"
+      >
+        create payment method id
+      </button>
+      <button
         @click="getFreePlace"
         v-ripple
         type="submit"
@@ -219,16 +236,12 @@ import {
 import debounce from 'lodash/debounce'
 import { formatMoney } from '@/vue/filters/formatMoney'
 import { MathUtil } from '@/js/utils'
-import { Bus } from '@/js/helpers/event-bus'
 import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const MIN_PLACE = 1
 const MAX_PLACE = 30
-
-const EVENTS = {
-  createdBooking: 'created-booking',
-}
+const SIXTY_MINUTES = 60
 
 export default {
   name: 'booking-form',
@@ -245,6 +258,7 @@ export default {
       moment,
       MIN_PLACE,
       MAX_PLACE,
+      business: {},
       freeRooms: [],
       isLoaded: false,
       isLoadedSeats: false,
@@ -255,6 +269,7 @@ export default {
         numberSeats: '1',
         room: '',
       },
+      isFormSubmitting: false,
     }
   },
   validations () {
@@ -272,6 +287,9 @@ export default {
           required,
           amountRange: amountRange(MIN_PLACE, MAX_PLACE),
         },
+      },
+      totalSelectedTimeInMinutes: {
+        minBookingTime: () => this.isSelectedTimeMoreThanMinDuration,
       },
     }
   },
@@ -291,12 +309,12 @@ export default {
     },
     price () {
       if (this.canGetFreeSeats) {
-        const startTime = moment(this.form.startTime)
-        const endTime = moment(this.form.endTime)
-        const hours = moment.duration(endTime.diff(startTime)).hours()
-        const pricePerHour = this.business.prices[this.form.room]
+        const hours = this.totalSelectedTimeInMinutes / SIXTY_MINUTES
+        const pricePerHour = this.form.room.price
         const totalAmount = MathUtil.multiply(
-          MathUtil.multiply(pricePerHour.amount, hours), this.form.numberSeats
+          // eslint-disable-next-line max-len
+          MathUtil.multiply(pricePerHour.amount, hours, MathUtil.roundingModes.ROUND_HALF_UP),
+          this.form.numberSeats,
         )
         return `${formatMoney(totalAmount)} ${pricePerHour.asset}`
       } else {
@@ -304,7 +322,7 @@ export default {
       }
     },
     pricePerHour () {
-      const pricePerHour = this.business.prices[this.form.room]
+      const pricePerHour = this.form.room.price
       return `${formatMoney(pricePerHour.amount)} ${pricePerHour.asset}`
     },
     canGetFreeSeats () {
@@ -315,6 +333,17 @@ export default {
         this.form.numberSeats < MAX_PLACE &&
         moment(this.form.startTime).utc() < moment(this.form.endTime).utc()
       )
+    },
+    totalSelectedTimeInMinutes () {
+      const startTime = moment(this.form.startTime)
+      const endTime = moment(this.form.endTime)
+      // used default divide because we don't need round mode
+      return moment.duration(endTime.diff(startTime)).asMinutes()
+    },
+
+    isSelectedTimeMoreThanMinDuration () {
+      // eslint-disable-next-line max-len
+      return this.totalSelectedTimeInMinutes >= this.business.minDurationInMinutes
     },
   },
   watch: {
@@ -341,27 +370,42 @@ export default {
   },
   methods: {
     async submit () {
+      this.isFormSubmitting = true
       try {
-        await this.bookEvent(
+        const { data: bookEvent } = await this.bookEvent(
           1,
           1,
           this.form.numberSeats,
-          this.form.room,
+          this.form.room.id,
           this.form.startTime,
           this.form.endTime,
         )
-        Bus.success('booking-form.successfully-booked-msg')
-        Bus.emit('customers:updateList')
-        this.$emit(EVENTS.createdBooking)
+
+        const paymentAddress = await this.getPaymentAddress()
+
+        const subject = JSON.stringify({
+          'booking_id': Number(bookEvent.id),
+          'reference': bookEvent.reference,
+        })
+        const { data: escow } = await this.createEscow(
+          bookEvent.amount,
+          this.business.paymentMethod,
+          paymentAddress,
+          this.form.room.price.asset,
+          subject
+        )
+        window.location.href = escow.invoice.payUrl
       } catch (e) {
         ErrorHandler.process(e)
       }
+      this.isFormSubmitting = false
+      this.hideConfirmation()
     },
     getCurrentDate () {
       return moment().startOf('hour').subtract(1, 'seconds').toISOString()
     },
-    setRoom (room) {
-      this.form.room = room
+    setRoom (id) {
+      this.form.room = this.business.getRoomById(id)
     },
     async getBusiness () {
       this.isLoaded = false
@@ -386,10 +430,10 @@ export default {
             this.form.numberSeats,
             this.business.payloads
           )
-          this.freeRooms = rooms.map(item => item.id)
+          this.freeRooms = rooms.map(item => this.business.getRoomById(item.id))
           if (this.freeRooms.length) this.form.room = this.freeRooms[0]
         } catch (e) {
-          ErrorHandler.process(e)
+          ErrorHandler.processWithoutFeedback(e)
         }
       }
     },
@@ -404,5 +448,11 @@ export default {
   .booking-form__help-msg {
     font-size: 1.6rem;
     margin-top: 2rem;
+  }
+
+  .booking-form__error-msg {
+    color: $col-accent;
+    margin-top: 0.4rem;
+    font-size: 1.2rem;
   }
 </style>
