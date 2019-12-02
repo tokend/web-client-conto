@@ -17,7 +17,6 @@
             >
               <booking-card
                 :booking-record="item"
-                @delete="reloadList"
               />
             </div>
           </div>
@@ -39,6 +38,7 @@
     </template>
     <div class="booking-explorer__collection-loader">
       <collection-loader
+        v-if="isBusinessLoaded"
         class="atomic-swaps-explore__loader"
         :first-page-loader="getList"
         @first-page-load="setList"
@@ -62,6 +62,8 @@ import { BookingRecord } from '@/js/records/entities/booking.record'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
+import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
+import { BOOKING_STATES } from '@/js/const/booking-states.const'
 
 export default {
   name: 'booking-explore',
@@ -79,10 +81,19 @@ export default {
       isLoadFailed: false,
       list: [],
       businessId: '1',
+      business: {},
+      isBusinessLoaded: false,
     }
   },
-  created () {
+  async created () {
     this.listen()
+    try {
+      const business = await this.getBusinessById(1)
+      this.business = new BookingBusinessRecord(business)
+    } catch (e) {
+      ErrorHandler.processWithoutFeedback(e)
+    }
+    this.isBusinessLoaded = true
   },
   methods: {
     listen () {
@@ -96,7 +107,12 @@ export default {
       let response
       try {
         response = await api
-          .get(`/integrations/booking/businesses/${this.businessId}/bookings`)
+          .getWithSignature(`/integrations/booking/businesses/${this.businessId}/bookings`, {
+            filter: {
+              owner: this.accountId,
+              state: BOOKING_STATES.accepted,
+            },
+          })
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -106,10 +122,16 @@ export default {
     },
 
     setList (newList) {
-      this.list = newList.map(i => new BookingRecord(i))
+      this.list = newList.map(i => new BookingRecord(
+        i,
+        this.business
+      ))
     },
 
     concatList (newChunk) {
+      this.list = this.list.concat(
+        newChunk.map(i => new BookingRecord(i))
+      )
     },
 
     reloadList () {

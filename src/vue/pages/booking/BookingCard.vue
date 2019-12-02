@@ -6,7 +6,7 @@
       </template>
       <!-- eslint-disable max-len -->
       <template slot="accent-title">
-        {{ 'booking-card.room-lbl' | globalize }}: {{ bookingRecord.payload }}<br>
+        {{ 'booking-card.room-lbl' | globalize }}: {{ bookingRecord.roomName }}<br>
       </template>
       <template slot="unlimited-content">
         {{ 'booking-card.to-lbl' | globalize }}: {{ bookingRecord.endTime | formatDateDMYT }}<br>
@@ -17,15 +17,6 @@
         }) }}
         <!-- eslint-enable max-len -->
       </template>
-      <template slot="actions">
-        <button
-          v-ripple
-          class="app__button-flat"
-          @click="cancel"
-        >
-          {{ 'booking-card.cancel-btn' | globalize }}
-        </button>
-      </template>
     </card>
   </div>
 </template>
@@ -35,12 +26,6 @@ import Card from '@/vue/common/Card'
 import BookingMixin from '@/vue/mixins/booking.mixin'
 
 import { BookingRecord } from '@/js/records/entities/booking.record'
-import { mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-
-const EVENTS = {
-  delete: 'delete',
-}
 
 export default {
   name: 'booking-card',
@@ -53,23 +38,6 @@ export default {
     bookingRecord: {
       type: BookingRecord,
       required: true,
-    },
-  },
-  data () {
-    return {
-      EVENTS,
-    }
-  },
-  computed: {
-    ...mapGetters([
-      vuexTypes.statsQuoteAsset,
-      vuexTypes.accountId,
-    ]),
-  },
-  methods: {
-    async cancel () {
-      await this.cancelBooking(this.bookingRecord.id, 1)
-      this.$emit(EVENTS.delete)
     },
   },
 }

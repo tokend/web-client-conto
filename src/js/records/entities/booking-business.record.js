@@ -1,3 +1,4 @@
+import { parseDurationTime } from '@/js/helpers/parseDurationTime'
 export class BookingBusinessRecord {
   constructor (record) {
     this._record = record
@@ -7,10 +8,34 @@ export class BookingBusinessRecord {
     this.calendarId = record.calendar.id
 
     this.details = record.details
+    this.paymentMethod = record.details.paymentMethod
+    this.workDays = record.workDays
     this.maxDuration = record.bookingDetails.maxDuration
-    this.maxDuration = record.bookingDetails.minDuration
-    this.capacity = record.bookingDetails.specificDetails.capacity
-    this.payloads = record.bookingDetails.specificDetails.payloads
-    this.prices = record.bookingDetails.specificDetails.prices
+    this.minDuration = record.bookingDetails.minDuration
+    this.maxDurationInMinutes = parseDurationTime(
+      record.bookingDetails.maxDuration
+    )
+    this.minDurationInMinutes = parseDurationTime(
+      record.bookingDetails.minDuration
+    )
+
+    this.rooms = Object.keys(record.bookingDetails.specificDetails)
+      .map(item => ({
+        id: item,
+        ...record.bookingDetails.specificDetails[item],
+        ...this.details.roomsMeta[item],
+      }))
+    this.payloads = this.getRoomsId(this.rooms)
+  }
+
+  getRoomsId (rooms) {
+    return rooms.map(rooms => rooms.id)
+  }
+
+  getRoomById (id) {
+    const room = this.rooms.find(room => {
+      return room.id === id
+    })
+    return room
   }
 }
