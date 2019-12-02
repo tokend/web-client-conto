@@ -19,6 +19,7 @@ export class CustomerRecord {
     this.lastName = _get(record, 'lastName')
     this.status = _get(record, 'status')
     this.addedAt = _get(record, 'addedAt')
+    this.phone = _get(record, 'phone')
     this.balances = _get(record, 'balances', [])
       .map(item => ({
         id: item.id,

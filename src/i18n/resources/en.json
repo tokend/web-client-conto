@@ -1295,7 +1295,8 @@
       "do-mass-payment-btn": "Perform send",
       "cancel-mass-issue-btn": "Cancel",
       "email-th": "Email",
-      "added-th": "Added"
+      "added-th": "Added",
+      "phone-number-th": "Phone number"
     },
     "customers-list": {
       "customer-drawer-title": "View customer",

@@ -65,6 +65,12 @@
                 {{ 'customers-table.email-th' | globalize }}
               </table-sorter>
             </th>
+            <th
+              class="customers-table__phone-td"
+              :title="'customers-table.phone-number-th' | globalize"
+            >
+              {{ 'customers-table.phone-number-th' | globalize }}
+            </th>
             <th :title="'customers-table.status-th' | globalize">
               {{ 'customers-table.status-th' | globalize }}
             </th>
@@ -112,6 +118,17 @@
             <td :title="customer.email">
               {{ customer.email }}
             </td>
+
+            <template v-if="customer.phone">
+              <td :title="customer.phone">
+                {{ customer.phone }}
+              </td>
+            </template>
+            <template v-else>
+              <td>
+                &mdash;
+              </td>
+            </template>
 
             <td :title="getCustomerStatusTranslated(customer)">
               {{ getCustomerStatusTranslated(customer) }}
@@ -347,5 +364,9 @@ $disabled-tick-border: #e9e9e9;
 
 .customers-table__added-td {
   max-width: 21rem;
+}
+
+.customers-table__phone-td {
+  max-width: 16rem;
 }
 </style>
