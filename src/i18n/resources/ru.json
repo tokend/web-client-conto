@@ -1252,7 +1252,8 @@
       "do-mass-payment-btn": "Выполнить отправку",
       "cancel-mass-issue-btn": "Отменить",
       "email-th": "Имейл",
-      "added-th": "Добавлен"
+      "added-th": "Добавлен",
+      "phone-number-th": "Номер телефона"
     },
     "customers-list": {
       "customer-drawer-title": "Клиент",
