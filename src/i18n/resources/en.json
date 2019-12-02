@@ -1146,7 +1146,7 @@
       "no-msg": "No",
       "send-btn": "Transfer",
       "issue-btn": "Issue",
-      "redeem-btn": "Redeem",
+      "redeem-btn": "QR-code",
       "converted-balance-title": "Converted balance",
       "vendor-code": "Vendor code",
       "can-be-base-in-atomic-swap-title": "Can be base in offering",
@@ -1353,7 +1353,8 @@
       "create-btn": "Create request",
       "logout-btn": "Logout",
       "first-name-lbl": "First name",
-      "last-name-lbl": "Last name"
+      "last-name-lbl": "Last name",
+      "phone-number-lbl": "Phone number"
     },
     "sponsorship-requests": {
       "loading-msg": "Loading sponsorship requests…",
@@ -1499,7 +1500,7 @@
     },
     "asset-card": {
       "details-lbl": "Details",
-      "transfer-lbl": "Transfer"
+      "redeem-lbl": "QR-code"
     },
     "promo-code-card": {
       "discount": "Discount: {{ amount, percent }}",
@@ -1582,19 +1583,19 @@
     "successful-payment": {
       "title": "Succesful payment",
       "description-header": "Congratulations!",
-      "successful-purchased-msg": "You have successfully purchased {{ amount, number }} {{ assetName }} and now it is in your Conto account!",
+      "successful-purchased-msg": "You have successfully purchased {{ amount, number }} {{ assetName }} and now it is in your {{appName}} account!",
       "how-to-start-msg": "How to start",
       "sign-up-or-login-link-part-1": "Sign up",
       "sign-up-or-login-link-part-2": "or",
       "sign-up-or-login-link-part-3": "login",
-      "sign-up-or-login-link-part-4": "for Conto using your",
+      "sign-up-or-login-link-part-4": "for {{appName}} using your",
       "go-to-wallet-msg": "Go to the “Wallet” section and see your ticket.",
       "use-wallet-msg": "Now you can use the digital wallet to store, transfer, and redeem the ticket.",
       "transfer-msg": "Transfer by using the recipients’ email.",
       "redeem-msg": "Redeem by showing the QR code.",
-      "use-apps-msg": "You can use web-version, or you can install Conto mobile application.",
-      "conto-for-android-msg": "{{appName}} for Android:",
-      "contact-us-msg": "If you have any questions or difficulties, please contact us by the email",
+      "use-apps-msg": "You can use web-version, or you can install {{appName}} mobile application.",
+      "conto-for-android-msg": "UNIT.City Kharkiv",
+      "contact-us-msg": "If you have any questions or difficulties, please contact us",
       "asset-loading": "Asset information is loading",
       "loading-error-msg": "There was an error while loading.",
       "no-link-title": "Incorrect link",

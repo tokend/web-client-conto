@@ -24,9 +24,9 @@
         <button
           v-ripple
           class="app__button-flat"
-          @click="$emit(EVENTS.transfer, balance.asset.code)"
+          @click="$emit(EVENTS.redeem, balance.asset.code)"
         >
-          {{ 'asset-card.transfer-lbl' | globalize }}
+          {{ 'asset-card.redeem-lbl' | globalize }}
         </button>
         <button
           v-ripple
@@ -48,7 +48,7 @@ import { BalanceRecord } from '@/js/records/entities/balance.record'
 
 const EVENTS = {
   vueDetails: 'vue-details',
-  transfer: 'transfer',
+  redeem: 'redeem',
 }
 
 export default {

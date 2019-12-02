@@ -1150,7 +1150,7 @@
       "no-msg": "Нет",
       "send-btn": "Отправить",
       "issue-btn": "Выпустить",
-      "redeem-btn": "Погасить",
+      "redeem-btn": "QR-код",
       "converted-balance-title": "Конвертированный баланс",
       "vendor-code": "Артикул",
       "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
@@ -1353,7 +1353,8 @@
       "create-btn": "Создать запрос",
       "logout-btn": "Выйти",
       "first-name-lbl": "Имя",
-      "last-name-lbl": "Фамилия"
+      "last-name-lbl": "Фамилия",
+      "phone-number-lbl": "Номер телефона"
     },
     "sponsorship-requests": {
       "loading-msg": "Загружаем ваши запросы…",
@@ -1503,7 +1504,7 @@
     },
     "asset-card": {
       "details-lbl": "Детали",
-      "transfer-lbl": "Отправить"
+      "redeem-lbl": "QR-код"
     },
     "promo-code-card": {
       "discount": "Скидка: {{ amount, percent }}",
@@ -1582,20 +1583,20 @@
     "successful-payment": {
       "title": "Успешный платеж",
       "description-header": "Поздравляем!",
-      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в Conto!",
+      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в {{appName}}!",
       "how-to-start-msg": "С чего начать",
       "sign-up-or-login-link-part-1": "Зарегистрируйтесь",
-      "sign-up-or-login-link-part-2": "в Conto или",
+      "sign-up-or-login-link-part-2": "в {{appName}} или",
       "sign-up-or-login-link-part-3": "войдите",
       "sign-up-or-login-link-part-4": ", используя вашу почту",
-      "go-to-wallet-msg": "Перейдите в раздел “Кошелек” и увидите свой билет.",
-      "use-wallet-msg": "Готово, теперь вы можете использовать свой цифровой кошелек для хранения, передачи и погашения полученого актива.",
-      "transfer-msg": "Удобно передавайте актив по email.",
-      "redeem-msg": "Погашайте актив, показав QR-код!",
-      "use-apps-msg": "Вы можете использовать web-версию Conto, а можете установить мобильное приложение.",
-      "conto-for-android-msg": "{{appName}} для Android",
-      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь на почту",
-      "asset-loading": "Загружаеться информация об активе",
+      "go-to-wallet-msg": "Чтобы увидеть купленный билет в личном кабинете перейдите в раздел “Кошелек”",
+      "use-wallet-msg": "Готово, теперь вы можете использовать свой цифровой кошелек для хранения, передачи и погашения полученого билета.",
+      "transfer-msg": "Удобно передавайте билет по email.",
+      "redeem-msg": "Погашайте билет, показав QR-код!",
+      "use-apps-msg": "Вы можете использовать web-версию {{appName}}, а можете установить мобильное приложение для Android.",
+      "conto-for-android-msg": "UNIT.City Kharkiv",
+      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь",
+      "asset-loading": "Загружаеться информация о билете",
       "loading-error-msg": "Произошла ошибка при загрузке.",
       "no-link-title": "Неверная ссылка",
       "no-link-msg": "Проверьте вашу ссылку и попробуйте еще раз"

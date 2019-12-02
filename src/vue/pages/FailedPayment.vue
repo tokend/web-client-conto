@@ -10,7 +10,7 @@
         class="failed-payment__login-link"
         :to="vueRoutes.login"
       >
-        <img class="failed-payment__logo" src="/static/branding/logo.png">
+        <img class="failed-payment__logo" src="/static/branding/logo-black.svg">
       </router-link>
     </div>
 
@@ -67,6 +67,7 @@ export default {
     justify-content: space-between;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
+    align-items: center;
 
     @include respond-to(xsmall) {
       padding-left: 2rem;
@@ -89,7 +90,10 @@ export default {
   .failed-payment__logo {
     margin-top: 1rem;
     max-height: 4.5rem;
-    height: inherit;
-    width: inherit;
+    height: 2rem;
+
+    @include respond-to(xsmall) {
+      width: 9rem;
+    }
   }
 </style>

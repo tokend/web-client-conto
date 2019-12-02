@@ -23,7 +23,7 @@
         v-if="!isAssetOwner"
         v-ripple
         class="app__button-raised asset-actions__btn"
-        @click="isRedeemDrawerShown = true"
+        @click="$emit(EVENTS.redeem, asset.code)"
       >
         {{ 'assets.redeem-btn' | globalize }}
       </button>
@@ -46,22 +46,11 @@
         {{ 'assets.delete-btn' | globalize }}
       </button>
     </template>
-
-    <drawer :is-shown.sync="isRedeemDrawerShown">
-      <template slot="heading">
-        {{ 'redeem-form.form-heading' | globalize }}
-      </template>
-      <redeem-form
-        :asset-code="asset.code"
-      />
-    </drawer>
   </div>
 </template>
 
 <script>
 import FormConfirmation from '@/vue/common/FormConfirmation'
-import RedeemForm from '@/vue/forms/RedeemForm'
-import Drawer from '@/vue/common/Drawer'
 
 import { AssetRecord } from '@/js/records/entities/asset.record'
 import { mapGetters } from 'vuex'
@@ -75,21 +64,19 @@ const EVENTS = {
   updateAsset: 'update-asset',
   assetDeleted: 'asset-deleted',
   transfer: 'transfer',
+  redeem: 'redeem',
 }
 
 export default {
   name: 'asset-actions',
 
   components: {
-    RedeemForm,
-    Drawer,
     FormConfirmation,
   },
   props: {
     asset: { type: AssetRecord, required: true },
   },
   data: _ => ({
-    isRedeemDrawerShown: false,
     isPending: false,
     isAssetDeleting: false,
     isConfirmationShown: false,
