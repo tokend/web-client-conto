@@ -81,18 +81,17 @@
 <script>
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
-import _isEmpty from 'lodash/isEmpty'
 import Drawer from '@/vue/common/Drawer'
 import BuybackForm from '@/vue/forms/BuybackForm'
 import FormConfirmation from '@/vue/common/FormConfirmation'
+import BuybackAndRefundAssetMixin from '@/vue/mixins/buyback-and-refund-asset.mixin'
 
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
-import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
+import { BuybackOfferRecord } from '@/js/records/entities/buyback-offer.record'
 
 const EVENTS = {
   createBuyback: 'create-buyback',
@@ -107,6 +106,7 @@ export default {
     BuybackForm,
     FormConfirmation,
   },
+  mixins: [BuybackAndRefundAssetMixin],
   props: {
     assetCode: {
       type: String,
@@ -127,13 +127,11 @@ export default {
 
   computed: {
     ...mapGetters([
-      vuexTypes.statsQuoteAsset,
       vuexTypes.accountId,
-      vuexTypes.accountBalanceByCode,
     ]),
 
     isBuybackOfferExists () {
-      return !_isEmpty(this.buybackOffer)
+      return Boolean(this.buybackOffer.id)
     },
   },
 
@@ -156,7 +154,7 @@ export default {
             base_asset: this.assetCode,
           },
         })
-        this.buybackOffer = offers[0] || {}
+        this.buybackOffer = new BuybackOfferRecord(offers[0])
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -166,12 +164,10 @@ export default {
     async deleteOffer () {
       this.isOfferDeleting = true
       try {
-        const operation = base.ManageOfferBuilder.cancelOffer({
-          offerID: this.buybackOffer.id,
-          orderBookID: SECONDARY_MARKET_ORDER_BOOK_ID,
-          baseBalance: this.accountBalanceByCode(this.assetCode).id,
-          quoteBalance: this.accountBalanceByCode(this.statsQuoteAsset.code).id,
-        })
+        const operation = this.cancelOffer(
+          this.buybackOffer.id,
+          this.assetCode
+        )
         await api.postOperations(operation)
         await this.loadBuybackOffer()
         Bus.success('asset-buyback-viewer.offer-deleted-msg')

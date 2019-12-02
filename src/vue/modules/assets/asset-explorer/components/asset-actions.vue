@@ -91,7 +91,6 @@
 import FormConfirmation from '@/vue/common/FormConfirmation'
 import RedeemForm from '@/vue/forms/RedeemForm'
 import Drawer from '@/vue/common/Drawer'
-import _isEmpty from 'lodash/isEmpty'
 import Loader from '@/vue/common/Loader'
 import RefundAssetForm from '@/vue/forms/RefundAssetForm'
 
@@ -103,6 +102,7 @@ import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
+import { BuyOrderRecord } from '@/js/records/entities/buy-order.record'
 
 const EVENTS = {
   updateAsset: 'update-asset',
@@ -146,7 +146,7 @@ export default {
     },
 
     isBuyOrderExists () {
-      return !_isEmpty(this.buyOrder)
+      return Boolean(this.buyOrder.id)
     },
   },
 
@@ -196,7 +196,7 @@ export default {
           include: ['buy_entries'],
         })
 
-        this.buyOrder = orderBook.buyEntries[0] || {}
+        this.buyOrder = new BuyOrderRecord(orderBook.buyEntries[0])
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }

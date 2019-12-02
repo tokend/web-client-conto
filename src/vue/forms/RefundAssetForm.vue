@@ -58,17 +58,17 @@
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
 import ReadonlyField from '@/vue/fields/ReadonlyField'
+import BuybackAndRefundAssetMixin from '@/vue/mixins/buyback-and-refund-asset.mixin'
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
-import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
 import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils'
 import { formatMoney } from '@/vue/filters/formatMoney'
+import { BuyOrderRecord } from '@/js/records/entities/buy-order.record'
 
 const EVENTS = {
   operationSubmitted: 'operation-submitted',
@@ -79,11 +79,11 @@ export default {
   components: {
     ReadonlyField,
   },
-  mixins: [FormMixin],
+  mixins: [FormMixin, BuybackAndRefundAssetMixin],
 
   props: {
     assetCode: { type: String, required: true },
-    buyOrder: { type: Object, default: () => {} },
+    buyOrder: { type: BuyOrderRecord, default: () => {} },
   },
 
   data: _ => ({
@@ -97,8 +97,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      vuexTypes.statsQuoteAsset,
-      vuexTypes.accountBalanceByCode,
       vuexTypes.assetByCode,
     ]),
 
@@ -127,15 +125,12 @@ export default {
       if (!this.isFormValid()) return
       this.disableForm()
       try {
-        const operation = base.ManageOfferBuilder.manageOffer({
-          amount: this.form.amount,
-          price: this.form.price,
-          orderBookID: SECONDARY_MARKET_ORDER_BOOK_ID,
-          isBuy: false,
-          baseBalance: this.accountBalanceByCode(this.assetCode).id,
-          quoteBalance: this.accountBalanceByCode(this.statsQuoteAsset.code).id,
-          fee: '0',
-        })
+        const operation = this.createOffer(
+          this.form.amount,
+          this.form.price,
+          false,
+          this.assetCode
+        )
         await api.postOperations(operation)
         this.$emit(EVENTS.operationSubmitted)
         Bus.success('refund-asset-form.asset-sold-msg')

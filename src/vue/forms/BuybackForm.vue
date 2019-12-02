@@ -39,7 +39,7 @@
             :error-message="getFieldErrorMessage(
               'totalAmount',
               {
-                available: statsQuoteAssetBalance.balance,
+                available: statsQuoteAssetBalance,
               }
             )"
           />
@@ -66,20 +66,19 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import _isEmpty from 'lodash/isEmpty'
 import ReadonlyField from '@/vue/fields/ReadonlyField'
+import BuybackAndRefundAssetMixin from '@/vue/mixins/buyback-and-refund-asset.mixin'
 
 import { maxValueBig } from '@validators'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
-import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
 import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils'
 import { formatMoney } from '@/vue/filters/formatMoney'
+import { BuybackOfferRecord } from '@/js/records/entities/buyback-offer.record'
 
 const EVENTS = {
   operationSubmitted: 'operation-submitted',
@@ -90,11 +89,11 @@ export default {
   components: {
     ReadonlyField,
   },
-  mixins: [FormMixin],
+  mixins: [FormMixin, BuybackAndRefundAssetMixin],
 
   props: {
     assetCode: { type: String, required: true },
-    buybackOffer: { type: Object, default: () => {} },
+    buybackOffer: { type: BuybackOfferRecord, default: () => {} },
   },
 
   data: _ => ({
@@ -110,7 +109,7 @@ export default {
     return {
       totalAmount: {
         noMoreThanAvailableOnBalance: maxValueBig(
-          this.statsQuoteAssetBalance.balance
+          this.statsQuoteAssetBalance
         ),
       },
     }
@@ -118,13 +117,11 @@ export default {
 
   computed: {
     ...mapGetters([
-      vuexTypes.statsQuoteAsset,
-      vuexTypes.accountBalanceByCode,
       vuexTypes.assetByCode,
     ]),
 
     isUpdateMode () {
-      return !_isEmpty(this.buybackOffer)
+      return Boolean(this.buybackOffer.id)
     },
 
     totalAmount () {
@@ -140,7 +137,7 @@ export default {
     },
 
     statsQuoteAssetBalance () {
-      return this.accountBalanceByCode(this.statsQuoteAsset.code)
+      return this.accountBalanceByCode(this.statsQuoteAsset.code).balance
     },
   },
 
@@ -180,23 +177,18 @@ export default {
       let operations = []
 
       if (this.buybackOffer.id) {
-        operations.push(base.ManageOfferBuilder.cancelOffer({
-          offerID: this.buybackOffer.id,
-          orderBookID: SECONDARY_MARKET_ORDER_BOOK_ID,
-          baseBalance: this.accountBalanceByCode(this.assetCode).id,
-          quoteBalance: this.statsQuoteAssetBalance.id,
-        }))
+        operations.push(this.cancelOffer(
+          this.buybackOffer.id,
+          this.assetCode
+        ))
       }
 
-      operations.push(base.ManageOfferBuilder.manageOffer({
-        amount: this.form.amount,
-        price: this.form.price,
-        orderBookID: SECONDARY_MARKET_ORDER_BOOK_ID,
-        isBuy: true,
-        baseBalance: this.accountBalanceByCode(this.assetCode).id,
-        quoteBalance: this.statsQuoteAssetBalance.id,
-        fee: '0',
-      }))
+      operations.push(this.createOffer(
+        this.form.amount,
+        this.form.price,
+        true,
+        this.assetCode
+      ))
 
       return operations
     },
