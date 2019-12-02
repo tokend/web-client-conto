@@ -302,7 +302,7 @@ export default {
               subject: subject,
             },
             relationships: {
-              'payment_method': {
+              payment_method: {
                 data: {
                   id: paymentMethodId,
                   type: 'payment-methods',
