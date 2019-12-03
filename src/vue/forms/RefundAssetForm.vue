@@ -125,12 +125,12 @@ export default {
       if (!this.isFormValid()) return
       this.disableForm()
       try {
-        const operation = this.createOffer(
-          this.form.amount,
-          this.form.price,
-          false,
-          this.assetCode
-        )
+        const operation = this.createOffer({
+          amount: this.form.amount,
+          price: this.form.price,
+          isBuy: false,
+          assetCode: this.assetCode,
+        })
         await api.postOperations(operation)
         this.$emit(EVENTS.operationSubmitted)
         Bus.success('refund-asset-form.asset-sold-msg')

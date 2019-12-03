@@ -143,7 +143,6 @@ export default {
   methods: {
     async loadBuybackOffer () {
       this.isLoadFailed = false
-      this.isLoadFailed = false
 
       try {
         const { data: offers } = await api.getWithSignature('/v3/offers', {
@@ -164,10 +163,10 @@ export default {
     async deleteOffer () {
       this.isOfferDeleting = true
       try {
-        const operation = this.cancelOffer(
-          this.buybackOffer.id,
-          this.assetCode
-        )
+        const operation = this.cancelOffer({
+          offerId: this.buybackOffer.id,
+          assetCode: this.assetCode,
+        })
         await api.postOperations(operation)
         await this.loadBuybackOffer()
         Bus.success('asset-buyback-viewer.offer-deleted-msg')

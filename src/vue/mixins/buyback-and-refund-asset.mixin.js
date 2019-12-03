@@ -13,7 +13,7 @@ export default {
   },
 
   methods: {
-    createOffer (amount, price, isBuy, assetCode) {
+    createOffer ({ amount, price, isBuy, assetCode }) {
       return base.ManageOfferBuilder.manageOffer({
         amount: amount,
         price: price,
@@ -25,11 +25,11 @@ export default {
       })
     },
 
-    cancelOffer (offerId, assetCode) {
+    cancelOffer ({ offerId, assetCode }) {
       return base.ManageOfferBuilder.cancelOffer({
         offerID: offerId,
         orderBookID: SECONDARY_MARKET_ORDER_BOOK_ID,
-        baseBalance: this.accountBalanceByCode(this.assetCode).id,
+        baseBalance: this.accountBalanceByCode(assetCode).id,
         quoteBalance: this.accountBalanceByCode(this.statsQuoteAsset.code).id,
       })
     },

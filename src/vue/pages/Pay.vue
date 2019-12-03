@@ -40,7 +40,7 @@
         />
         <pay-form
           :atomic-swap-ask="atomicSwapAsk"
-          @reload-atomic-swap="getAtomicSwapAsk()"
+          @reload-atomic-swap="getAtomicSwapAsk"
           class="pay__form"
         />
       </div>

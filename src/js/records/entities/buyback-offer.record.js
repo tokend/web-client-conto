@@ -6,7 +6,6 @@ export class BuybackOfferRecord {
     this.id = _get(record, 'id')
     this.baseAmount = _get(record, 'baseAmount')
     this.baseAssetCode = _get(record, 'baseAsset.id')
-    this.isBuy = _get(record, 'isBuy')
     this.orderBookId = _get(record, 'orderBookId')
     this.owner = _get(record, 'owner.id')
     this.price = _get(record, 'price')

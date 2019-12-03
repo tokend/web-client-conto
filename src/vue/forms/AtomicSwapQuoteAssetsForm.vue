@@ -238,7 +238,7 @@ export default {
       return repeatedAssets > 1
     },
 
-    isInternalTypeRepeated (type) {
+    isInternalTypeRepeated () {
       const repeatedTypes = this.form.quoteAssets
         .reduce((count, quoteAsset) => {
           return this.isInternalPaymentMethod(quoteAsset.type)

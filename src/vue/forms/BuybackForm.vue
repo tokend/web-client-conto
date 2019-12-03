@@ -177,18 +177,18 @@ export default {
       let operations = []
 
       if (this.buybackOffer.id) {
-        operations.push(this.cancelOffer(
-          this.buybackOffer.id,
-          this.assetCode
-        ))
+        operations.push(this.cancelOffer({
+          offerId: this.buybackOffer.id,
+          assetCode: this.assetCode,
+        }))
       }
 
-      operations.push(this.createOffer(
-        this.form.amount,
-        this.form.price,
-        true,
-        this.assetCode
-      ))
+      operations.push(this.createOffer({
+        amount: this.form.amount,
+        price: this.form.price,
+        isBuy: true,
+        assetCode: this.assetCode,
+      }))
 
       return operations
     },
