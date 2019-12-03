@@ -73,10 +73,6 @@
                 }) }}
               </p>
               <br>
-              <p>
-                {{ 'successful-payment.conto-for-android-msg' | globalize }}
-              </p>
-              <!-- eslint-enable max-len -->
               <a :href="config.PLAY_MARKET_LINK">
                 <img
                   class="successful-payment__store-img"
