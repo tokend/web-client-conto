@@ -128,10 +128,13 @@ import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils'
+import _chunk from 'lodash/chunk'
 
 const EVENTS = {
   submitted: 'submitted',
 }
+
+const NUMBER_OF_OPERATIONS = 99
 
 export default {
   name: 'mass-payment-form',
@@ -231,13 +234,6 @@ export default {
           return
         }
 
-        // Core cannot handle more than 100 operations per transaction
-        if (operations.length >= 100) {
-          Bus.error('mass-payment-form.too-much-op-error-notif')
-          this.enableForm()
-          return
-        }
-
         const isOverpayment = MathUtil.compare(
           MathUtil.multiply(operations.length, this.form.amount),
           this.accountBalance.balance,
@@ -248,7 +244,12 @@ export default {
           return
         }
 
-        await api.postOperations(...operations)
+        // Core cannot handle more than 100 operations per transaction
+        const chunkArray = _chunk(operations, NUMBER_OF_OPERATIONS)
+
+        await Promise.all(chunkArray.map(
+          array => api.postOperations(...array)
+        ))
 
         await this.loadCurrentBalances()
         this.clearFieldsWithOverriding({

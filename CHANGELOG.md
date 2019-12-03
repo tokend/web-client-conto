@@ -8,6 +8,8 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
 ## [Unreleased]
+#### Added
+- Mass send allow to send to more than 100 users
 
 ## [1.5.0-rc.0] - 2019-11-23
 #### Added
