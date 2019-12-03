@@ -8,6 +8,9 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
 ## [Unreleased]
+#### Added
+- Mass send allow to send to more than 100 users
+
 #### Changed
 - Refactoring refund and buyback asset
 
@@ -46,6 +49,20 @@ for further information about branching and tagging conventions.
 
 #### Fixed
 - Localization
+
+#### Removed
+- asset creation request from `create-asset-form-simplified-module`
+- `create-asset-request` record
+- `skeleton-loader-step-form`
+- `EmptyListPlaceholder`
+- `EmptyTbodyPlaceholder`
+- `SkeletonLoaderTableBody`
+- `movements-empty-list-placeholder`
+- `movements-skeleton-loader`
+
+#### Changed
+- Data mapping scheme
+- Company link on `Security` page
 
 ## [1.4.0] - 2019-11-20
 

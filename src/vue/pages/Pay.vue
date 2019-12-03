@@ -14,49 +14,59 @@
       </router-link>
     </div>
 
-    <template v-if="isLoaded && atomicSwapAsk.isCanceled">
-      <no-data-message
-        class="pay__no-data-message"
-        icon-name="credit-card"
-        :title="'pay-page.offer-canceled-title' | globalize"
-        :message="'pay-page.offer-canceled-msg' | globalize"
-      />
-    </template>
-
-    <template v-else-if="isLoaded && !atomicSwapAsk.isAmountMoreThanZero">
-      <no-data-message
-        class="pay__no-data-message"
-        icon-name="credit-card"
-        :title="'pay-page.no-amount-title' | globalize"
-        :message="'pay-page.no-amount-msg' | globalize"
-      />
-    </template>
-
-    <template v-else-if="isLoaded">
-      <div class="pay__description">
-        <asset-viewer
-          class="pay__asset-viewer"
-          :asset-code="atomicSwapAsk.baseAssetCode"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'pay-page.load-failed-msg' | globalize"
         />
-        <pay-form
-          :atomic-swap-ask="atomicSwapAsk"
-          @reload-atomic-swap="getAtomicSwapAsk"
-          class="pay__form"
-        />
-      </div>
+      </template>
+
+      <template v-else>
+        <template v-if="atomicSwapAsk.isCanceled">
+          <no-data-message
+            class="pay__no-data-message"
+            icon-name="credit-card"
+            :title="'pay-page.offer-canceled-title' | globalize"
+            :message="'pay-page.offer-canceled-msg' | globalize"
+          />
+        </template>
+
+        <template v-else-if="!atomicSwapAsk.isAmountMoreThanZero">
+          <no-data-message
+            class="pay__no-data-message"
+            icon-name="credit-card"
+            :title="'pay-page.no-amount-title' | globalize"
+            :message="'pay-page.no-amount-msg' | globalize"
+          />
+        </template>
+
+        <template v-else-if="isNotFoundAtomicSwap">
+          <no-data-message
+            class="pay__no-data-message"
+            icon-name="credit-card"
+            :title="'pay-page.no-atomic-swap-title' | globalize"
+            :message="'pay-page.no-atomic-swap-msg' | globalize"
+          />
+        </template>
+
+        <template v-else>
+          <div class="pay__description">
+            <asset-viewer
+              class="pay__asset-viewer"
+              :asset-code="atomicSwapAsk.baseAssetCode"
+            />
+            <pay-form
+              :atomic-swap-ask="atomicSwapAsk"
+              @reload-atomic-swap="getAtomicSwapAsk"
+              class="pay__form"
+            />
+          </div>
+        </template>
+      </template>
     </template>
 
-    <template v-else-if="isLoading">
+    <template v-else>
       <pay-skeleton />
-    </template>
-
-    <template v-else-if="isNotFoundAtomicSwap">
-      <no-data-message
-        class="pay__no-data-message"
-        icon-name="credit-card"
-        :title="'pay-page.no-atomic-swap-title' | globalize"
-        :message="'pay-page.no-atomic-swap-msg' | globalize"
-      />
     </template>
 
     <div class="pay__footer-section">
@@ -71,10 +81,13 @@ import AppFooter from '@/vue/navigation/Footer'
 import AssetViewer from './pay/AssetViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import PaySkeleton from './pay/PaySkeleton'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+
 import { api } from '@/api'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
+import { errors } from '@tokend/js-sdk'
 
 export default {
   name: 'pay',
@@ -84,36 +97,38 @@ export default {
     AssetViewer,
     NoDataMessage,
     PaySkeleton,
+    ErrorMessage,
   },
 
   data () {
     return {
       atomicSwapAsk: {},
       isLoaded: false,
-      isLoading: false,
+      isLoadFailed: false,
       isNotFoundAtomicSwap: false,
       vueRoutes,
     }
   },
 
   async created () {
-    this.isLoading = true
-    try {
-      await this.getAtomicSwapAsk()
-      this.isLoaded = true
-    } catch (e) {
-      this.isLoading = false
-      this.isNotFoundAtomicSwap = true
-      ErrorHandler.processWithoutFeedback()
-    }
-    this.isLoading = false
+    await this.getAtomicSwapAsk()
+    this.isLoaded = true
   },
 
   methods: {
     async getAtomicSwapAsk () {
-      const id = this.$route.query.id
-      const { data } = await api.get(`/integrations/marketplace/offers/${id}`)
-      this.atomicSwapAsk = new AtomicSwapAskRecord(data)
+      try {
+        const id = this.$route.query.id
+        const { data } = await api.get(`/integrations/marketplace/offers/${id}`)
+        this.atomicSwapAsk = new AtomicSwapAskRecord(data)
+      } catch (e) {
+        if (e instanceof errors.NotFoundError) {
+          this.isNotFoundAtomicSwap = true
+        } else {
+          this.isLoadFailed = true
+        }
+        ErrorHandler.processWithoutFeedback(e)
+      }
     },
   },
 }

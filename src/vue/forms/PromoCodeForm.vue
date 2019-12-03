@@ -1,115 +1,129 @@
 <template>
   <div class="promo-code-form">
-    <template v-if="isLoaded && userOffers.length">
-      <form
-        novalidate
-        class="app__form"
-        @submit.prevent="isFormValid() && submit()"
-      >
-        <div class="app__form-row">
-          <div class="app__form-field">
-            <input-field
-              v-model="form.code"
-              @blur="touchField('form.code')"
-              name="promo-code-code"
-              :label="'promo-code-form.code-lbl' | globalize"
-              :error-message="getFieldErrorMessage('form.code',{
-                length: PROMOCODE_MAX_LENGTH
-              })"
-              :disabled="formMixin.isDisabled"
-            />
-          </div>
-        </div>
-
-        <div class="app__form-row">
-          <div class="app__form-field">
-            <input-field
-              white-autofill
-              v-model="form.description"
-              name="promo-code-form-description"
-              @blur="touchField('form.description')"
-              :label="'promo-code-form.description-lbl' | globalize"
-              :error-message="getFieldErrorMessage('form.description',{
-                length: DESCRIPTION_MAX_LENGTH
-              })"
-              :disabled="formMixin.isDisabled"
-            />
-          </div>
-        </div>
-
-        <div class="app__form-row">
-          <div class="app__form-field">
-            <input-field
-              white-autofill
-              @blur="touchField('form.discount')"
-              :error-message="getFieldErrorMessage('form.discount',{
-                maxValue: MAX_PERCENT_DISCOUNT,
-                minValue: MIN_PERCENT
-              })"
-              v-model="form.discount"
-              :step="inputStep"
-              :max="MAX_PERCENT_DISCOUNT"
-              :min="MIN_PERCENT"
-              type="number"
-              name="promo-code-form-discount"
-              :label="'promo-code-form.discount-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-            />
-          </div>
-        </div>
-
-        <div class="app__form-row">
-          <div class="app__form-field">
-            <input-field
-              white-autofill
-              @blur="touchField('form.maxUses')"
-              :error-message="getFieldErrorMessage('form.maxUses', {
-                minValue: MIN_INTEGER_VALUE,
-                maxValue: MAX_INT_32
-              })"
-              v-model="form.maxUses"
-              :max="MAX_INT_32"
-              :min="MIN_INTEGER_VALUE"
-              type="number"
-              name="promo-code-form-max-uses"
-              :label="'promo-code-form.max-uses-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-            />
-          </div>
-        </div>
-
-        <promo-code-form-offers-table
-          @update-offers="form.offers = $event"
-          :offers="userOffers"
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'promo-code-form.error-msg' | globalize"
         />
+      </template>
 
-        <p class="promo-code-form__offers-error-message">
-          {{ getFieldErrorMessage('form.offers') }}
-        </p>
-
-        <div class="app__form-actions">
-          <button
-            v-ripple
-            type="submit"
-            class="app__button-raised"
-            :disabled="formMixin.isDisabled"
+      <template v-else>
+        <template v-if="userOffers.length">
+          <form
+            novalidate
+            class="app__form"
+            @submit.prevent="isFormValid() && submit()"
           >
-            {{ 'promo-code-form.create-btn' | globalize }}
-          </button>
-        </div>
-      </form>
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <input-field
+                  v-model="form.code"
+                  @blur="touchField('form.code')"
+                  name="promo-code-code"
+                  :label="'promo-code-form.code-lbl' | globalize"
+                  :error-message="getFieldErrorMessage('form.code',{
+                    length: PROMOCODE_MAX_LENGTH
+                  })"
+                  :disabled="formMixin.isDisabled"
+                />
+              </div>
+            </div>
+
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <input-field
+                  white-autofill
+                  v-model="form.description"
+                  name="promo-code-form-description"
+                  @blur="touchField('form.description')"
+                  :label="'promo-code-form.description-lbl' | globalize"
+                  :error-message="getFieldErrorMessage('form.description',{
+                    length: DESCRIPTION_MAX_LENGTH
+                  })"
+                  :disabled="formMixin.isDisabled"
+                />
+              </div>
+            </div>
+
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <input-field
+                  white-autofill
+                  @blur="touchField('form.discount')"
+                  :error-message="getFieldErrorMessage('form.discount',{
+                    maxValue: MAX_PERCENT_DISCOUNT,
+                    minValue: MIN_PERCENT
+                  })"
+                  v-model="form.discount"
+                  :step="inputStep"
+                  :max="MAX_PERCENT_DISCOUNT"
+                  :min="MIN_PERCENT"
+                  type="number"
+                  name="promo-code-form-discount"
+                  :label="'promo-code-form.discount-lbl' | globalize"
+                  :disabled="formMixin.isDisabled"
+                />
+              </div>
+            </div>
+
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <input-field
+                  white-autofill
+                  @blur="touchField('form.maxUses')"
+                  :error-message="getFieldErrorMessage('form.maxUses', {
+                    minValue: MIN_INTEGER_VALUE,
+                    maxValue: MAX_INT_32
+                  })"
+                  v-model="form.maxUses"
+                  :max="MAX_INT_32"
+                  :min="MIN_INTEGER_VALUE"
+                  type="number"
+                  name="promo-code-form-max-uses"
+                  :label="'promo-code-form.max-uses-lbl' | globalize"
+                  :disabled="formMixin.isDisabled"
+                />
+              </div>
+            </div>
+
+            <promo-code-form-offers-table
+              @update-offers="form.offers = $event"
+              :offers="userOffers"
+            />
+
+            <p class="promo-code-form__offers-error-message">
+              {{ getFieldErrorMessage('form.offers') }}
+            </p>
+
+            <div class="app__form-actions">
+              <button
+                v-ripple
+                type="submit"
+                class="app__button-raised"
+                :disabled="formMixin.isDisabled"
+              >
+                {{ 'promo-code-form.create-btn' | globalize }}
+              </button>
+            </div>
+          </form>
+        </template>
+
+        <template v-else>
+          <no-data-message
+            class="mass-payment-form__no-data-message"
+            icon-name="swap-horizontal"
+            :title="'promo-code-form.no-offers-msg-title' | globalize"
+            :message="'promo-code-form.no-offers-msg-description' | globalize"
+          />
+        </template>
+      </template>
     </template>
 
-    <loader
-      v-else-if="isLoading"
-      message-id="promo-code-form.loading"
-    />
-
-    <no-data-message
-      v-else
-      :title="'promo-code-form.no-offers-msg-title' | globalize"
-      :message="'promo-code-form.no-offers-msg-description' | globalize"
-    />
+    <template v-else>
+      <loader
+        message-id="promo-code-form.loading"
+      />
+    </template>
   </div>
 </template>
 
@@ -119,6 +133,7 @@ import config from '@/config'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import PromoCodeFormOffersTable from '@/vue/pages/promo-codes/PromoCodeFormOffersTable'
 import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import {
   required,
@@ -156,6 +171,7 @@ export default {
     NoDataMessage,
     PromoCodeFormOffersTable,
     Loader,
+    ErrorMessage,
   },
 
   mixins: [FormMixin],
@@ -170,7 +186,7 @@ export default {
     },
     userOffers: [],
     isLoaded: false,
-    isLoading: false,
+    isLoadFailed: false,
     MAX_INT_32,
     MIN_INTEGER_VALUE,
     MAX_PERCENT_DISCOUNT,
@@ -223,7 +239,6 @@ export default {
 
   methods: {
     async loadOffers () {
-      this.isLoading = true
       try {
         const { data } = await api.get('/integrations/marketplace/offers', {
           filter: {
@@ -232,9 +247,9 @@ export default {
         })
         this.userOffers = data.map(i => new AtomicSwapAskRecord(i))
       } catch (error) {
+        this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(error)
       }
-      this.isLoading = false
     },
 
     async submit () {

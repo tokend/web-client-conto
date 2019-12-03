@@ -146,6 +146,7 @@ export default {
       logoutSession: vuexTypes.LOGOUT_SESSION,
       restoreSession: vuexTypes.RESTORE_SESSION,
       loadBusiness: vuexTypes.LOAD_BUSINESS,
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
@@ -162,6 +163,7 @@ export default {
       if (this[vuexTypes.isLoggedIn]) {
         await this.restoreSession()
         await this.loadAccount(this.walletAccountId)
+        await this.loadMyBusinesses()
       }
       walletsManager.useApi(api)
       factorsManager.useApi(api)

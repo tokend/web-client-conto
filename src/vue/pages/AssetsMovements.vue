@@ -32,11 +32,10 @@
       v-if="assetCode"
       :asset-code="assetCode"
       :is-history="false"
-      :key="assetCode"
     />
 
     <no-data-message
-      v-else-if="!assetCode"
+      v-else
       icon-name="trending-up"
       :title="'op-pages.no-data-title' | globalize"
       :message="'op-pages.no-data-msg' | globalize"
@@ -46,12 +45,9 @@
 
 <script>
 import NoDataMessage from '@/vue/common/NoDataMessage'
-
 import TopBar from '@/vue/common/TopBar'
 import SelectField from '@/vue/fields/SelectField'
-
 import MovementsHistory from '@/vue/modules/movements-history'
-import UpdateList from '@/vue/mixins/update-list.mixin'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { mapActions, mapGetters } from 'vuex'
@@ -66,11 +62,8 @@ export default {
     SelectField,
   },
 
-  mixins: [UpdateList],
-
   data: _ => ({
     assetCode: '',
-    historyState: 0,
   }),
 
   computed: {
@@ -84,19 +77,15 @@ export default {
   },
 
   async created () {
+    if (this.isAssetsExists) {
+      this.assetCode = this.ownedAssets[0].code
+    }
+
     try {
       await this.loadAssets()
     } catch (error) {
       ErrorHandler.processWithoutFeedback(error)
     }
-
-    if (this.isAssetsExists) {
-      this.assetCode = this.ownedAssets[0].code
-    }
-  },
-
-  beforeDestroy () {
-    this.resetUpdateListEvent('movements:updateList')
   },
 
   methods: {

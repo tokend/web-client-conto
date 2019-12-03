@@ -102,6 +102,7 @@ export default {
     ...mapActions({
       logInAccount: vuexTypes.LOG_IN,
       loadAssets: vuexTypes.LOAD_ASSETS,
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
     }),
     async submit () {
       if (!this.isFormValid()) return
@@ -113,6 +114,7 @@ export default {
           email: this.form.email.toLowerCase(),
           password: this.form.password,
         })
+        await this.loadMyBusinesses()
         await this.loadAssets()
         await this.$router.push({ name: 'app' })
       } catch (e) {

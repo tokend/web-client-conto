@@ -1,72 +1,69 @@
 <template>
   <div>
     <top-bar>
-      <template v-if="isInitialized">
-        <div
-          slot="main"
-          class="movements-top-bar__filters"
-        >
-          <template v-if="isBusinessesExists">
-            <div class="movements-top-bar__filter">
-              <select-field
-                :value="businessOwnerId"
-                @input="setBusinessOwnerId"
-                :label="'movements-top-bar.business-filter-label' | globalize"
-                class="app__select app__select-with-label--no-border"
-                need-all-option
+      <div
+        slot="main"
+        class="movements-top-bar__filters"
+      >
+        <template v-if="isBusinessesExists">
+          <div class="movements-top-bar__filter">
+            <select-field
+              :value="businessOwnerId"
+              @input="setBusinessOwnerId"
+              :label="'movements-top-bar.business-filter-label' | globalize"
+              class="app__select app__select-with-label--no-border"
+              need-all-option
+            >
+              <option
+                v-for="business in myBusinesses"
+                :key="business.accountId"
+                :value="business.accountId"
               >
-                <option
-                  v-for="business in myBusinesses"
-                  :key="business.accountId"
-                  :value="business.accountId"
-                >
-                  {{ business.name }}
-                </option>
-              </select-field>
-            </div>
-          </template>
+                {{ business.name }}
+              </option>
+            </select-field>
+          </div>
+        </template>
 
-          <template v-if="isAssetsExists">
-            <div class="movements-top-bar__filter">
-              <select-field
-                :value="assetCode"
-                @input="setAssetCode"
-                :label="'movements-top-bar.asset-filter-label' | globalize"
-                :key="`${businessOwnerId}-${assetCode}`"
-                class="app__select app__select-with-label--no-border"
+        <template v-if="isAssetsExists">
+          <div class="movements-top-bar__filter">
+            <select-field
+              v-if="assetCode"
+              :value="assetCode"
+              @input="setAssetCode"
+              :label="'movements-top-bar.asset-filter-label' | globalize"
+              :key="`${businessOwnerId}-${assetCode}`"
+              class="app__select app__select-with-label--no-border"
+            >
+              <option
+                v-for="asset in assets"
+                :key="asset.code"
+                :value="asset.code"
               >
-                <option
-                  v-for="asset in assets"
-                  :key="asset.code"
-                  :value="asset.code"
-                >
-                  {{ asset.name }}
-                </option>
-              </select-field>
-            </div>
-          </template>
-        </div>
-        <div
-          v-if="isAssetsExists"
-          class="movements-top-bar__actions"
-          slot="extra"
+                {{ asset.name }}
+              </option>
+            </select-field>
+          </div>
+        </template>
+      </div>
+      <div
+        v-if="assetCode"
+        class="movements-top-bar__actions"
+        slot="extra"
+      >
+        <button
+          v-ripple
+          class="app__button-raised movements-top-bar__actions-btn"
+          @click="isTransferDrawerShown = true"
+          :disabled="!(assetByCode(assetCode).isTransferable && isHaveBalance)"
+          :title="getMessageIdForPolicy(ASSET_POLICIES_STR.isTransferable) |
+            globalize({ asset: assetCode })
+          "
         >
-          <!-- eslint-disable max-len -->
-          <button
-            v-ripple
-            class="app__button-raised movements-top-bar__actions-btn"
-            @click="isTransferDrawerShown = true"
-            :disabled="!(assetByCode(assetCode).isTransferable && isHaveBalance)"
-            :title="getMessageIdForPolicy(ASSET_POLICIES_STR.isTransferable) |
-              globalize({ asset: assetCode })
-            "
-          >
-            <!-- eslint-enable max-len -->
-            <i class="mdi mdi-send movements-top-bar__btn-icon" />
-            {{ 'op-pages.send' | globalize }}
-          </button>
-        </div>
-      </template>
+          <i class="mdi mdi-send movements-top-bar__btn-icon" />
+          {{ 'op-pages.send' | globalize }}
+        </button>
+      </div>
     </top-bar>
 
     <drawer :is-shown.sync="isTransferDrawerShown">
@@ -93,8 +90,6 @@ import { vuexTypes } from '@/vuex'
 const EVENTS = {
   assetCodeUpdated: 'asset-code-updated',
   movementsUpdateRequired: 'movements-update-required',
-  showNoDataMessage: 'show-no-data-message',
-  showLoadingErrorMessage: 'show-loading-error-message',
 }
 
 const ASSET_POLICIES_STR = {
@@ -111,7 +106,6 @@ export default {
   },
 
   data: _ => ({
-    isInitialized: false,
     isTransferDrawerShown: false,
     assetCode: '',
     businessOwnerId: '',
@@ -157,26 +151,20 @@ export default {
         this.assetCode = this.assets[0].code
       } else {
         this.assetCode = ''
-        this.$emit(EVENTS.showNoDataMessage)
       }
     },
   },
 
   async created () {
+    if (this.isAssetsExists) {
+      this.assetCode = this.assets[0].code
+    }
     try {
       await this.loadMyBusinesses()
       await this.loadAccountBalancesDetails()
     } catch (error) {
-      this.$emit(EVENTS.showLoadingErrorMessage)
       ErrorHandler.processWithoutFeedback(error)
     }
-
-    if (this.isAssetsExists) {
-      this.assetCode = this.assets[0].code
-    } else {
-      this.$emit(EVENTS.showNoDataMessage)
-    }
-    this.isInitialized = true
   },
 
   methods: {
