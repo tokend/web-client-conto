@@ -1,24 +1,24 @@
-$col-primary: #c2185c;
+$col-primary: #ffda03;
 
 // auth
-$col-auth-titles-background-light: darken($col-primary, 5%);
-$col-auth-titles-background-dark: darken($col-primary, 33%);
+$col-auth-titles-background-light: #212121;
+$col-auth-titles-background-dark: #212121;
 $col-text-auth-title-small: #ffffff;
 $col-text-auth-version: rgba(#ffffff, 0.65);
 $col-text-auth-title-big: #ffffff;
 
-$col-btn: $col-primary;
+$col-btn: #ff615b;
 $col-text-page-heading: $col-primary;
-$col-sidebar-background: #e9eaed;
-$col-sidebar-text: rgba(#212121, 0.7);
-$col-footer-text: #212121;
+$col-sidebar-background: #212121;
+$col-sidebar-text: #e9eaed;
+$col-footer-text: rgba(#e9eaed, 0.6);
 
 $col-top-bar-tab-active: $col-btn;
 $col-text: #212121;
 $col-field-txt: $col-text;
 $col-link: $col-text;
-$col-sidebar-active-elem-text: rgba($col-sidebar-text, 1);
-$col-sidebar-active-elem-background: #f2f2f4;
+$col-sidebar-active-elem-text: #212121;
+$col-sidebar-active-elem-background: #f6f8fb;
 $col-app-content-background: #f6f8fb;
 $col-top-bar-background: #ffffff;
 

@@ -124,21 +124,21 @@
               {{ 'pages-names.booking' | globalize }}
             </span>
           </router-link>
-          <router-link
-            v-if="isAccessibleForCorporate"
-            v-ripple
-            class="sidebar__link"
-            @click.native="closeSidebar"
-            :to="vueRoutes.sponsorship"
-            tag="a"
-          >
-            <i
-              class="sidebar__link-icon mdi mdi-account-group"
-            />
-            <span>
-              {{ 'pages-names.sponsorship' | globalize }}
-            </span>
-          </router-link>
+          <!--<router-link-->
+          <!--v-if="isAccessibleForCorporate"-->
+          <!--v-ripple-->
+          <!--class="sidebar__link"-->
+          <!--@click.native="closeSidebar"-->
+          <!--:to="vueRoutes.sponsorship"-->
+          <!--tag="a"-->
+          <!--&gt;-->
+          <!--<i-->
+          <!--class="sidebar__link-icon mdi mdi-account-group"-->
+          <!--/>-->
+          <!--<span>-->
+          <!--{{ 'pages-names.sponsorship' | globalize }}-->
+          <!--</span>-->
+          <!--</router-link>-->
           <router-link
             v-if="isAccessibleForCorporate"
             v-ripple

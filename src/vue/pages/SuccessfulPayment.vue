@@ -10,7 +10,10 @@
         class="successful-payment__login-link"
         :to="vueRoutes.login"
       >
-        <img class="successful-payment__logo" src="/static/branding/logo.png">
+        <img
+          class="successful-payment__logo"
+          src="/static/branding/logo-black.svg"
+        >
       </router-link>
     </div>
 
@@ -27,7 +30,8 @@
               <p>
                 {{ 'successful-payment.successful-purchased-msg' | globalize({
                   amount: purchasedAssetInfo.buy_amount,
-                  assetName: asset.name
+                  assetName: asset.name,
+                  appName: config.APP_NAME
                 }) }}
               </p>
             </div>
@@ -45,7 +49,9 @@
                   >
                     {{ 'successful-payment.sign-up-or-login-link-part-1' | globalize }}
                   </router-link>
-                  {{ 'successful-payment.sign-up-or-login-link-part-2' | globalize }}
+                  {{ 'successful-payment.sign-up-or-login-link-part-2' | globalize({
+                    appName: config.APP_NAME
+                  }) }}
                   <router-link :to="vueRoutes.login">
                     {{ 'successful-payment.sign-up-or-login-link-part-3' | globalize }}
                   </router-link>
@@ -61,14 +67,12 @@
                 <li>{{ 'successful-payment.transfer-msg' | globalize }}</li>
                 <li>{{ 'successful-payment.redeem-msg' | globalize }}</li>
               </ul>
-              <p>{{ 'successful-payment.use-apps-msg' | globalize }}</p>
-              <br>
               <p>
-                {{ 'successful-payment.conto-for-android-msg' | globalize(
-                  { appName: config.APP_NAME, }
-                ) }}
+                {{ 'successful-payment.use-apps-msg' | globalize({
+                  appName: config.APP_NAME
+                }) }}
               </p>
-              <!-- eslint-enable max-len -->
+              <br>
               <a :href="config.PLAY_MARKET_LINK">
                 <img
                   class="successful-payment__store-img"
@@ -78,8 +82,17 @@
             </div>
             <div class="successful-payment__description-footer">
               <p>{{ 'successful-payment.contact-us-msg' | globalize }}</p>
-              <a href="mailto:contact@distributedlab.com">
-                contact@distributedlab.com
+              <a
+                v-if="config.SUPPORT_PHONE"
+                :href="`tel:${config.SUPPORT_PHONE}`"
+              >
+                {{ config.SUPPORT_PHONE }}
+              </a>
+              <a
+                v-if="config.SUPPORT_EMAIL"
+                :href="`mailto:${config.SUPPORT_EMAIL}`"
+              >
+                {{ config.SUPPORT_EMAIL }}
               </a>
             </div>
           </div>
@@ -205,6 +218,7 @@ export default {
     justify-content: space-between;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
+    align-items: center;
 
     @include respond-to(xsmall) {
       padding-left: 2rem;
@@ -240,8 +254,11 @@ export default {
   .successful-payment__logo {
     margin-top: 1rem;
     max-height: 4.5rem;
-    height: inherit;
-    width: inherit;
+    height: 2rem;
+
+    @include respond-to(xsmall) {
+      width: 9rem;
+    }
   }
 
   .successful-payment__footer-section {
@@ -259,6 +276,8 @@ export default {
   }
 
   .successful-payment__description-footer {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     margin-top: 1.8rem;
   }

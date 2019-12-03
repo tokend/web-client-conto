@@ -11,65 +11,68 @@ for further information about branching and tagging conventions.
 - Booking
 - Booking payment
 
-## [1.4.0] - 2019-11-20
+## [1.1.0-rcunitcity.12] - 2019-12-03
+#### Removed
+- UNIT.City Kharkiv inscription above google play button
 
-## [1.4.0-rc.3] - 2019-11-18
+## [1.1.0-rcunitcity.11] - 2019-12-02
+#### Added
+- Phone number on clients tab
+
+## [1.1.0-rcunitcity.10] - 2019-11-28
+#### Added 
+- `SUPPORT_EMAIL` and `SUPPORT_PHONE` in config
+
+#### Changed
+- Text on `SuccessfulPayment` page
+- Main button on asset card
+
+## [1.1.0-rcunitcity.9] - 2019-11-26
+#### Added
+- Phone number field to general kyc form
+
+## [1.1.0-rcunitcity.8] - 2019-11-20
 #### Added
 - Google market img to `SuccessfulPayment` page
 - `Added` field on Customers page
-
-#### Changed
-- Used `APP_NAME` on `SuccessfulPayment` page
-
-#### Fixed
-- A bug with sort on Customers page
-- A bug with displaying `Kyc recovery` page on mobile phone
-- A bug with trim filter search
-- Localization
-
-### "Under the hood" changes
-#### Changed
-- Now using @tokend/js-sdk@1.11.2
-
-## [1.4.0-rc.2] - 2019-11-14
-#### Fixed
-- A bub with clients export
-
-## [1.4.0-rc.1] - 2019-11-14
-#### Added
 - Clients export
-
-#### Changed
-- int ids to string in `r` routing
-
-## [1.4.0-rc.0] - 2019-11-12
-#### Added
 - `ErrorMessage` component
 - Statistics
 - Expiration date for assets
 - `Failed` and `Successful` payment pages
 - Filters on Customers page
-
-#### Fixed
-- Issue when sponsorship didn't work
-
-## [1.3.1] - 2019-11-11
-#### Changed
-- Router names from 'company' to 'business'
-
-## [1.3.0] - 2019-11-08
-#### Fixed
-- Card design(added min-height to car titles)
-- A bug when business disappears after change language
-
-## [1.3.0-rc.1] - 2019-11-06
-#### Added
 - Trim for input field 
 - Redeem default amount
 - Current company page
 - New component 'Card' for displaying all card
 - Skeleton loader for new component 'Card'
 - Global class for markdown `app__markdown`
+- `APP_NAME` in config
+
+#### Changed
+- Used `APP_NAME` on `SuccessfulPayment` page
+- Now using @tokend/js-sdk@1.11.2
+- int ids to string in `r` routing
+- Router names from 'company' to 'business'
+- Moved logo and favicon to branding folder
+- Display full price
+- Max percent discount
+- Validation on promo code form
+- Get data from store on Business pages
+
+#### Fixed
+- A bug with sort on Customers page
+- A bug with displaying `Kyc recovery` page on mobile phone
+- A bug with trim filter search
+- Localization
+- A bub with clients export
+- Issue when sponsorship didn't work
+- Card design(added min-height to car titles)
+- A bug when business disappears after change language
+- A bug with trim in input fields with type 'password'
+- A bug with typo in multi select
+- A bug with color scheme
+- A bug when don't show error message if response failed
 
 #### Removed
 - `card-viewer`
@@ -80,40 +83,33 @@ for further information about branching and tagging conventions.
 - `BusinessViewer`
 - `PromoCodeCardSkeleton`
 
-#### Changed
-- Moved logo and favicon to branding folder
-- Display full price
-- Max percent discount
-- Validation on promo code form
-- Get data from store on Business pages
-
+## [1.1.0-rcunitcity.7] - 2019-11-07
 #### Fixed
-- A bug with trim in input fields with type 'password'
-- A bug with typo in multi select
-- A bug with color scheme
-- A bug when don't show error message if response failed
+- atomic swap amount to 1.0
 
-### "Under the hood" changes
-#### Added
-- `APP_NAME` in config
+## [1.1.0-rcunitcity.6] - 2019-11-07
+#### Fixed
+- Localization
+#### Removed
+- Payment method
 
-## [1.3.0-rc.0] - 2019-10-31
+## [1.1.0-rcunitcity.5] - 2019-11-05
 ### "Under the hood" changes
 #### Changed
 - Now using @tokend/js-sdk@1.11.1
 
-## [1.2.0] - 2019-10-31
 #### Fixed
 - A bug with skeleton loader on Shop page
 - A bug when don't show error message if response failed
 
-## [1.2.0-rc.0] - 2019-10-21
+## [1.1.0-rcunitcity.4] - 2019-10-29
 #### Added
 - A clipper field
 - A banner for corporate user
 - Filter balances for customers
 - Promo codes
 - Company link
+- Confirmation on delete asset
 
 #### Changed
 - Used clipper field for avatar and banner
@@ -130,13 +126,15 @@ for further information about branching and tagging conventions.
 #### Changed
 - Renamed business to companies
 
-## [1.1.0] - 2019-10-12
+## [1.1.0-rcunitcity.3] - 2019-10-18
+#### Fixed
+- Localization text
 
-## [1.1.0-rc.3] - 2019-10-10
-#### Added
-- Confirmation on delete asset
+## [1.1.0-rcunitcity.2] - 2019-10-18
+#### Fixed
+- Localization text
 
-## [1.1.0-rc.2] - 2019-10-09
+## [1.1.0-rcunitcity.1] - 2019-10-09
 #### Fixed
 - A bug when user can't see balances with zero amount in business account
 - A bug when the name of the industry and company was not fully displayed
@@ -146,6 +144,16 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - `IMAGE_FILE_EXTENSIONS` add jpeg
+- Color scheme
+
+
+## [1.1.0-rcunitcity.0] - 2019-10-08
+#### Added
+- New logo
+- New color scheme
+#### Changed
+- Hid the fields phone number, telegram and default quote asset in settings
+
 
 ## [1.1.0-rc.1] - 2019-10-04
 #### Added
@@ -442,21 +450,20 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.4.0...HEAD
-[1.4.0]: https://github.com/tokend/web-client/compare/1.4.0-rc.3...1.4.0
-[1.4.0-rc.3]: https://github.com/tokend/web-client/compare/1.4.0-rc.2...1.4.0-rc.3
-[1.4.0-rc.2]: https://github.com/tokend/web-client/compare/1.4.0-rc.1...1.4.0-rc.2
-[1.4.0-rc.1]: https://github.com/tokend/web-client/compare/1.4.0-rc.0...1.4.0-rc.1
-[1.4.0-rc.0]: https://github.com/tokend/web-client/compare/1.3.1...1.4.0-rc.0
-[1.3.1]: https://github.com/tokend/web-client/compare/1.3.0...1.3.1
-[1.3.0]: https://github.com/tokend/web-client/compare/1.3.0-rc.1...1.3.0
-[1.3.0-rc.1]: https://github.com/tokend/web-client/compare/1.3.0-rc.0...1.3.0-rc.1
-[1.3.0-rc.0]: https://github.com/tokend/web-client/compare/1.2.0...1.3.0-rc.0
-[1.2.0]: https://github.com/tokend/web-client/compare/1.2.0-rc.0...1.2.0
-[1.2.0-rc.0]: https://github.com/tokend/web-client/compare/1.1.0...1.2.0-rc.0
-[1.1.0]: https://github.com/tokend/web-client/compare/1.1.0-rc.3...1.1.0
-[1.1.0-rc.3]: https://github.com/tokend/web-client/compare/1.1.0-rc.2...1.1.0-rc.3
-[1.1.0-rc.2]: https://github.com/tokend/web-client/compare/1.1.0-rc.1...1.1.0-rc.2
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.12...HEAD
+[1.1.0-rcunitcity.12]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.11...1.1.0-rcunitcity.12
+[1.1.0-rcunitcity.11]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.10...1.1.0-rcunitcity.11
+[1.1.0-rcunitcity.10]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.9...1.1.0-rcunitcity.10
+[1.1.0-rcunitcity.9]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.8...1.1.0-rcunitcity.9
+[1.1.0-rcunitcity.8]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.7...1.1.0-rcunitcity.8
+[1.1.0-rcunitcity.7]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.6...1.1.0-rcunitcity.7
+[1.1.0-rcunitcity.6]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.5...1.1.0-rcunitcity.6
+[1.1.0-rcunitcity.5]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.4...1.1.0-rcunitcity.5
+[1.1.0-rcunitcity.4]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.3...1.1.0-rcunitcity.4
+[1.1.0-rcunitcity.3]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.2...1.1.0-rcunitcity.3
+[1.1.0-rcunitcity.2]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.1...1.1.0-rcunitcity.2
+[1.1.0-rcunitcity.1]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.0...1.1.0-rcunitcity.1
+[1.1.0-rcunitcity.0]: https://github.com/tokend/web-client/compare/1.1.0-rc.1...1.1.0-rcunitcity.0
 [1.1.0-rc.1]: https://github.com/tokend/web-client/compare/1.1.0-rc.0...1.1.0-rc.1
 [1.1.0-rc.0]: https://github.com/tokend/web-client/compare/1.0.3-rc.11...1.1.0-rc.0
 [1.0.3-rc.11]: https://github.com/tokend/web-client/compare/1.0.3-rc.10...1.0.3-rc.11

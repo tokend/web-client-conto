@@ -17,8 +17,7 @@
           class="business__login-link"
           :to="vueRoutes.login"
         >
-          <img class="business__logo" src="/static/branding/logo.png">
-          <img class="business__small-logo" src="/static/branding/favicon.png">
+          <img class="business__logo" src="/static/branding/logo-black.svg">
         </router-link>
       </div>
       <template v-if="isLoaded">
@@ -121,7 +120,7 @@ export default {
   $full-screen-padding: 5%;
   $mobile-screen-padding: 2%;
   $full-logo-width: 13.65rem;
-  $small-logo-width: 4.5rem;
+  $small-logo-width: 9.5rem;
 
   .business {
     width: 100%;
@@ -150,6 +149,7 @@ export default {
     padding-left: 2.4rem;
     padding-right: 2.4rem;
     margin-bottom: 2.4rem;
+    align-items: center;
 
     @include respond-to(xsmall) {
       padding-left: 0;
@@ -160,22 +160,12 @@ export default {
   .business__logo {
     margin-top: 1rem;
     max-width: $full-logo-width;
-    height: inherit;
-    width: inherit;
-
-    @include respond-to-custom($sidebar-hide-bp) {
-      display: none;
-    }
-  }
-
-  .business__small-logo {
-    display: none;
+    height: 2rem;
     max-height: 4.5rem;
-    height: inherit;
-    width: inherit;
 
-    @include respond-to-custom($sidebar-hide-bp) {
-      display: block;
+    @include respond-to(xsmall) {
+      margin-top: 0;
+      width: $small-logo-width;
     }
   }
 

@@ -10,7 +10,7 @@
         class="pay__login-link"
         :to="vueRoutes.login"
       >
-        <img class="pay__logo" src="/static/branding/logo.png">
+        <img class="pay__logo" src="/static/branding/logo-black.svg">
       </router-link>
     </div>
 

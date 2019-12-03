@@ -1,3 +1,4 @@
+
 <template>
   <div class="buy-atomic-swap-form">
     <form
@@ -5,27 +6,6 @@
       class="app__form"
       @submit.prevent="submit()"
     >
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <select-field
-            :label="'buy-atomic-swap-form.asset-in-which-buying' | globalize"
-            name="buy-atomic-swap-quote-asset"
-            :value="form.quoteAssetCode"
-            @input="setQuoteAssetCode"
-            :disabled="isDisabled"
-            class="app__select"
-          >
-            <option
-              v-for="quoteAsset in atomicSwapAsk.quoteAssets"
-              :key="quoteAsset.asset.code"
-              :value="quoteAsset.asset.code"
-            >
-              {{ quoteAsset.asset.name }}
-            </option>
-          </select-field>
-        </div>
-      </div>
-
       <div class="app__form-row">
         <div class="app__form-field">
           <amount-input-field
@@ -139,7 +119,7 @@ export default {
     return {
       config,
       form: {
-        amount: '',
+        amount: '1.0',
         quoteAssetCode: '',
         paymentMethodId: '',
         promoCode: '',

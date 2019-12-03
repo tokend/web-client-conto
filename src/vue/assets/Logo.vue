@@ -1,6 +1,17 @@
 <template>
   <router-link class="logotype" :to="logoRout">
-    <img :src="logoUrl" :alt="config.APP_NAME">
+    <img
+      v-if="isLoggedIn"
+      :src="yellowLogoUrl"
+      class="logo"
+      :alt="config.APP_NAME"
+    >
+    <img
+      v-else
+      :src="blackLogoUrl"
+      class="logo"
+      :alt="config.APP_NAME"
+    >
   </router-link>
 </template>
 
@@ -11,7 +22,8 @@ import { vueRoutes } from '@/vue-router/routes'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 
-const DEFAULT_LOGO_URL = '/static/branding/logo.png'
+const DEFAULT_LOGO_URL = '/static/branding/logo-yellow.svg'
+const BLACK_LOGO_URL = '/static/branding/logo-black.svg'
 
 export default {
   data: _ => ({
@@ -23,9 +35,13 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
       vuexTypes.isAccountGeneral,
+      vuexTypes.isLoggedIn,
     ]),
-    logoUrl () {
+    yellowLogoUrl () {
       return DEFAULT_LOGO_URL
+    },
+    blackLogoUrl () {
+      return BLACK_LOGO_URL
     },
     logoRout () {
       if (this.isAccountCorporate) {
@@ -41,8 +57,6 @@ export default {
 <style lang="scss">
 .logotype img {
   max-height: 4.5rem;
-  height: inherit;
-  width: inherit;
-  margin-left: -1.1rem;
+  height: 2rem;
 }
 </style>

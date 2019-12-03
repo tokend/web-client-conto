@@ -15,7 +15,7 @@
             >
               <asset-card
                 :balance="accountBalance"
-                @transfer="transfer"
+                @redeem="redeem"
                 @vue-details="selectBalance(accountBalance)"
               />
             </div>
@@ -48,6 +48,7 @@
         <asset-actions
           :asset="selectedBalance.asset"
           @transfer="transfer"
+          @redeem="redeem"
           @update-asset="isAssetUpdateDrawerShown = true"
           @asset-deleted="(isAssetDetailsDrawerShown = false) ||
             loadAccountBalances()"
@@ -80,6 +81,16 @@
         :asset-to-transfer="selectedBalance.asset.code"
       />
     </drawer>
+
+    <drawer :is-shown.sync="isRedeemDrawerShown">
+      <template slot="heading">
+        {{ 'redeem-form.form-heading' | globalize }}
+      </template>
+      <redeem-form
+        v-if="selectedBalance.asset"
+        :asset-code="selectedBalance.asset.code"
+      />
+    </drawer>
   </div>
 </template>
 
@@ -95,6 +106,7 @@ import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplifi
 import AssetCard from './components/asset-card'
 import TransferForm from '@/vue/forms/TransferForm'
 import UpdateList from '@/vue/mixins/update-list.mixin'
+import RedeemForm from '@/vue/forms/RedeemForm'
 
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -113,6 +125,7 @@ export default {
     UpdateAssetFormSimplifiedModule,
     AssetCard,
     TransferForm,
+    RedeemForm,
   },
 
   mixins: [UpdateList],
@@ -126,6 +139,7 @@ export default {
     selectedBalance: {},
     businessOwnerId: '',
     isUpdateMode: false,
+    isRedeemDrawerShown: false,
   }),
 
   computed: {
@@ -208,6 +222,11 @@ export default {
     transfer (assetCode) {
       this.selectedBalance = this.accountBalanceByCode(assetCode)
       this.isTransferDrawerShown = true
+    },
+
+    redeem (assetCode) {
+      this.selectedBalance = this.accountBalanceByCode(assetCode)
+      this.isRedeemDrawerShown = true
     },
 
     async loadAccountBalancesAndSetSelectedBalance () {

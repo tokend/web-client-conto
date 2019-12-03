@@ -55,19 +55,12 @@ export default {
 
 .footer__text,
 .footer__link {
+  color: $col-footer-text;
   line-height: 2.5rem;
 }
 
 .footer__language-picker {
   display: inline-block;
-}
-
-.footer__link {
-  color: $col-footer-text;
-}
-
-.footer__text {
-  color: $col-footer-text;
 }
 
 .footer__language-picker,

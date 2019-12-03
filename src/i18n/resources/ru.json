@@ -117,7 +117,7 @@
       "field-error_minLength": "Количество знаков должно превышать {{minLength}}",
       "field-error_selectedSameAssetCode": "Не могут быть выбраны два одинаковых актива",
       "field-error_validatePhoneNumber": "Неверный номер телефона",
-      "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл, телефон получателя или телеграм",
+      "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
@@ -459,8 +459,8 @@
       "notification-message": "Сессия завершилась из-за продолжительного бездействия."
     },
     "auth-pages": {
-      "small-title": "Создавайте, распространяйте и торгуйте",
-      "big-title": "Бизнес в <br> вашем <br> смартфоне",
+      "small-title": "Участвуй, распространяй, создавай",
+      "big-title": "Все <br> мероприятия <br> в одном месте",
       "email": "Электронная почта",
       "code": "Код",
       "password": "Пароль",
@@ -1155,7 +1155,7 @@
       "no-msg": "Нет",
       "send-btn": "Отправить",
       "issue-btn": "Выпустить",
-      "redeem-btn": "Погасить",
+      "redeem-btn": "QR-код",
       "converted-balance-title": "Конвертированный баланс",
       "vendor-code": "Артикул",
       "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
@@ -1257,7 +1257,8 @@
       "do-mass-payment-btn": "Выполнить отправку",
       "cancel-mass-issue-btn": "Отменить",
       "email-th": "Имейл",
-      "added-th": "Добавлен"
+      "added-th": "Добавлен",
+      "phone-number-th": "Номер телефона"
     },
     "customers-list": {
       "customer-drawer-title": "Клиент",
@@ -1308,7 +1309,7 @@
     "buy-atomic-swap-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",
       "asset-in-which-buying": "Cпособ оплаты",
-      "amount": "Количество {{asset}}",
+      "amount": "Количество билетов",
       "buy": "Купить",
       "price": "Цена",
       "total-price": "Итоговая цена",
@@ -1358,7 +1359,8 @@
       "create-btn": "Создать запрос",
       "logout-btn": "Выйти",
       "first-name-lbl": "Имя",
-      "last-name-lbl": "Фамилия"
+      "last-name-lbl": "Фамилия",
+      "phone-number-lbl": "Номер телефона"
     },
     "sponsorship-requests": {
       "loading-msg": "Загружаем ваши запросы…",
@@ -1393,7 +1395,7 @@
       "no-amount-msg": "Обратитесь к владельцу предложения"
     },
     "pay-form": {
-      "email-lbl":"Имейл получателя в Конто"
+      "email-lbl":"Ваш e-mail"
     },
     "asset-viewer": {
       "description-title": "Описание"
@@ -1508,7 +1510,7 @@
     },
     "asset-card": {
       "details-lbl": "Детали",
-      "transfer-lbl": "Отправить"
+      "redeem-lbl": "QR-код"
     },
     "promo-code-card": {
       "discount": "Скидка: {{ amount, percent }}",
@@ -1587,20 +1589,19 @@
     "successful-payment": {
       "title": "Успешный платеж",
       "description-header": "Поздравляем!",
-      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в Conto!",
+      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в {{appName}}!",
       "how-to-start-msg": "С чего начать",
       "sign-up-or-login-link-part-1": "Зарегистрируйтесь",
-      "sign-up-or-login-link-part-2": "в Conto или",
+      "sign-up-or-login-link-part-2": "в {{appName}} или",
       "sign-up-or-login-link-part-3": "войдите",
       "sign-up-or-login-link-part-4": ", используя вашу почту",
-      "go-to-wallet-msg": "Перейдите в раздел “Кошелек” и увидите свой билет.",
-      "use-wallet-msg": "Готово, теперь вы можете использовать свой цифровой кошелек для хранения, передачи и погашения полученого актива.",
-      "transfer-msg": "Удобно передавайте актив по email.",
-      "redeem-msg": "Погашайте актив, показав QR-код!",
-      "use-apps-msg": "Вы можете использовать web-версию Conto, а можете установить мобильное приложение.",
-      "conto-for-android-msg": "{{appName}} для Android",
-      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь на почту",
-      "asset-loading": "Загружаеться информация об активе",
+      "go-to-wallet-msg": "Чтобы увидеть купленный билет в личном кабинете перейдите в раздел “Кошелек”",
+      "use-wallet-msg": "Готово, теперь вы можете использовать свой цифровой кошелек для хранения, передачи и погашения полученого билета.",
+      "transfer-msg": "Удобно передавайте билет по email.",
+      "redeem-msg": "Погашайте билет, показав QR-код!",
+      "use-apps-msg": "Вы можете использовать web-версию {{appName}}, а можете установить мобильное приложение для Android.",
+      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь",
+      "asset-loading": "Загружаеться информация о билете",
       "loading-error-msg": "Произошла ошибка при загрузке.",
       "no-link-title": "Неверная ссылка",
       "no-link-msg": "Проверьте вашу ссылку и попробуйте еще раз"

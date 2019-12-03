@@ -20,7 +20,7 @@ export default Object.assign(
     /**
      * App name
      */
-    APP_NAME: 'Conto',
+    APP_NAME: 'UNIT city',
 
     /**
      * URL of the Horizon server. The application is going to fetch all the
@@ -158,6 +158,16 @@ export default Object.assign(
      * Bucket url where located imgs
      */
     IMG_BUCKET_URL: 'https://conto-images.s3.eu-north-1.amazonaws.com',
+
+    /**
+     * Support email
+     */
+    SUPPORT_EMAIL: 'unitcity.events@gmail.com',
+
+    /**
+     * Support phone
+     */
+    SUPPORT_PHONE: '0800 758 595',
 
   },
   // process.env,
