@@ -98,7 +98,8 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { ERROR_FIELDS } from '@/js/const/error-fields.const'
+
+const ADDRESS_ERROR_FIELD = 'address'
 
 export default {
   name: 'business-viewer',
@@ -148,7 +149,7 @@ export default {
       }
       await this.loadMyBusinesses()
     } catch (error) {
-      if (error.meta.field === ERROR_FIELDS.address) {
+      if (error.meta.field === ADDRESS_ERROR_FIELD) {
         this.isNotFoundBusiness = true
       } else {
         this.isLoadFailed = true

@@ -81,7 +81,8 @@ import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { BusinessRecord } from '@/js/records/entities/business.record'
-import { ERROR_FIELDS } from '@/js/const/error-fields.const'
+
+const ADDRESS_ERROR_FIELD = 'address'
 
 export default {
   name: 'business',
@@ -119,7 +120,7 @@ export default {
         const { data } = await api.get(endpoint)
         this.business = new BusinessRecord(data)
       } catch (error) {
-        if (error.meta.field === ERROR_FIELDS.address) {
+        if (error.meta.field === ADDRESS_ERROR_FIELD) {
           this.isNotFoundBusiness = true
         } else {
           this.isLoadFailed = true
