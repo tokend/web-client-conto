@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
-## [Unreleased]
+## [1.1.0-rcunitcity.13]
 #### Added
 - Booking
 - Booking payment
@@ -450,7 +450,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.12...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.13...HEAD
+[1.1.0-rcunitcity.13]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.12...1.1.0-rcunitcity.13
 [1.1.0-rcunitcity.12]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.11...1.1.0-rcunitcity.12
 [1.1.0-rcunitcity.11]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.10...1.1.0-rcunitcity.11
 [1.1.0-rcunitcity.10]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.9...1.1.0-rcunitcity.10
