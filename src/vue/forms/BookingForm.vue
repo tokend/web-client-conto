@@ -402,7 +402,7 @@ export default {
       this.hideConfirmation()
     },
     getCurrentDate () {
-      return moment().startOf('hour').subtract(1, 'seconds').toISOString()
+      return moment().toISOString()
     },
     setRoom (id) {
       this.form.room = this.business.getRoomById(id)

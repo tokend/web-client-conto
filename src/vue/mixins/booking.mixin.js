@@ -11,95 +11,99 @@ import { vuexTypes } from '@/vuex'
 const PAYMENT_METHOD_ID = '1'
 const DEFAULT_ASSET = 'UAH'
 const DETAILS = {
-  'rooms_meta': {
+  rooms_meta: {
     room1: {
-      name: 'Room #1',
-    },
-    room2: {
-      name: 'Big room',
-    },
-    room3: {
-      name: 'Room #3',
+      name: 'Coworking',
+      logo_url: 'https://unit.city/wp-content/uploads/2018/06/2018.06.11_XXX_0571-Edit.jpg',
     },
   },
-  'payment_method': PAYMENT_METHOD_ID,
+  payment_method: PAYMENT_METHOD_ID,
 }
 
 const SPECIFIC_DETAILS = {
   room1: {
     price: {
       asset: 'UAH',
-      amount: '200',
-    },
-    capacity: 30,
-  },
-  room2: {
-    price: {
-      asset: 'UAH',
       amount: '100',
     },
-    capacity: 40,
-  },
-  room3: {
-    price: {
-      asset: 'UAH',
-      amount: '130',
-    },
-    capacity: 50,
+    capacity: 58,
   },
 }
 
+const ROOM_CAPACITY = {
+  room1: 58,
+}
+
 const MIN_DURATION = '1h'
-const MAX_DURATION = '40h'
-const REFUND = '0'
+const MAX_DURATION = '120h'
 const WORK_DAYS = {
   Monday: {
     start: {
-      hours: 9,
+      hours: 0,
       minutes: 0,
     },
     end: {
-      hours: 20,
+      hours: 24,
       minutes: 0,
     },
   },
   Tuesday: {
     start: {
-      hours: 9,
+      hours: 0,
       minutes: 0,
     },
     end: {
-      hours: 20,
+      hours: 24,
       minutes: 0,
     },
   },
   Wednesday: {
     start: {
-      hours: 9,
+      hours: 0,
       minutes: 0,
     },
     end: {
-      hours: 20,
+      hours: 24,
       minutes: 0,
     },
   },
   Thursday: {
     start: {
-      hours: 9,
+      hours: 0,
       minutes: 0,
     },
     end: {
-      hours: 20,
+      hours: 24,
       minutes: 0,
     },
   },
   Friday: {
     start: {
-      hours: 9,
+      hours: 0,
       minutes: 0,
     },
     end: {
-      hours: 20,
+      hours: 24,
+      minutes: 0,
+    },
+  },
+  Saturday: {
+    start: {
+      hours: 0,
+      minutes: 0,
+    },
+    end: {
+      hours: 24,
+      minutes: 0,
+    },
+  },
+  Sunday: {
+    start: {
+      hours: 0,
+      minutes: 0,
+    },
+    end: {
+      hours: 24,
       minutes: 0,
     },
   },
@@ -121,6 +125,7 @@ export default {
         const response = await api.post('/integrations/scheduler/calendars', {
           data: {
             owner: this.accountId,
+            capacity: ROOM_CAPACITY,
             details: {},
           },
         })
@@ -154,7 +159,6 @@ export default {
               booking: {
                 specific_details: SPECIFIC_DETAILS,
                 confirmation_types: [0],
-                refund: REFUND,
                 min_duration: MIN_DURATION,
                 max_duration: MAX_DURATION,
               },
@@ -177,7 +181,6 @@ export default {
             booking: {
               specific_details: SPECIFIC_DETAILS,
               confirmation_types: [0],
-              refund: REFUND,
               min_duration: MIN_DURATION,
               max_duration: MAX_DURATION,
             },
