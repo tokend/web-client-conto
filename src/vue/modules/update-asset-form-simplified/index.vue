@@ -1,17 +1,19 @@
 <template>
   <div class="update-asset-form-simplified">
     <template v-if="isLoaded">
-      <information-step-form
-        :record="request || asset"
-        :is-disabled.sync="isDisabled"
-        @submit="submit"
-      />
-    </template>
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'update-asset-form-simplified.load-failed-msg' | globalize"
+        />
+      </template>
 
-    <template v-else-if="isLoadFailed">
-      <p class="update-asset-form-simplified__error-msg">
-        {{ 'update-asset-form-simplified.load-failed-msg' | globalize }}
-      </p>
+      <template v-else>
+        <information-step-form
+          :record="request || asset"
+          :is-disabled.sync="isDisabled"
+          @submit="submit"
+        />
+      </template>
     </template>
 
     <template v-else>
@@ -23,12 +25,11 @@
 <script>
 import ManageAssetRequestMixin from './mixins/manage-asset-request.mixin'
 import SkeletonLoaderStepForm from './components/skeleton-loader-step-form'
-
 import InformationStepForm from './components/information-step-form'
+import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
@@ -41,6 +42,7 @@ export default {
   components: {
     InformationStepForm,
     SkeletonLoaderStepForm,
+    ErrorMessage,
   },
   mixins: [ManageAssetRequestMixin],
   props: {
@@ -72,13 +74,13 @@ export default {
 
   async created () {
     await this.init()
+    this.isLoaded = true
   },
 
   methods: {
     async init () {
       try {
         await this.loadUpdateAssetRecord()
-        this.isLoaded = true
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)

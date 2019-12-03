@@ -673,7 +673,6 @@
     "op-pages": {
       "filters-prefix": "Show:",
       "something-went-wrong": "Something went wrong",
-      "can-not-load-assets": "There was an error while loading assets",
       "withdraw": "Withdraw",
       "deposit": "Deposit",
       "send": "Send",
@@ -911,8 +910,6 @@
       "business-filter-label": "Company"
     },
     "create-asset-form": {
-      "loading-msg": "Loading…",
-      "load-failed-msg": "There was an error while loading.",
       "next-btn": "Next",
       "create-btn": "Create",
       "create-request-btn": "Create request",
@@ -1269,7 +1266,9 @@
       "payment-successfully-notification": "Mass send performed successfully.",
       "no-receivers-found": "Receivers you provided not found or cannot receive the send. Please ensure you specified the valid receivers list and try again.",
       "overpayment-error-notif": "The total amount is bigger than the available for send amount. Please decrease the amount to send and try again.",
-      "too-much-op-error-notif": "Too many receivers, the current limit is 100 receivers, please decrease the receivers count and try again."
+      "too-much-op-error-notif": "Too many receivers, the current limit is 100 receivers, please decrease the receivers count and try again.",
+      "error-msg": "An error occurred while loading.",
+      "loading-msg": "Loading..."
     },
     "mass-invitation-form": {
       "how-to-invitees-paragraph": "List all invitees emails in the box below.",
@@ -1330,8 +1329,9 @@
       "business-added-successfully-notification": "Company has been added successfully",
       "shop": "Shop",
       "loading-msg": "Loading...",
-      "error-title": "There is no such company",
-      "error-msg": "Can not load company description."
+      "no-business-title": "There is no such company",
+      "no-business-msg": "Can not load company description.",
+      "load-failed-msg": "There was an error while loading."
     },
     "business-attributes": {
       "id-key": "ID",
@@ -1394,7 +1394,8 @@
       "offer-canceled-title": "Offer was canceled",
       "offer-canceled-msg": "The owner canceled this offer",
       "no-amount-title": "Offer was sold out",
-      "no-amount-msg": "Contact the owner of the offer"
+      "no-amount-msg": "Contact the owner of the offer",
+      "load-failed-msg": "There was an error while loading."
     },
     "pay-form": {
       "email-lbl": "Email"
@@ -1448,10 +1449,11 @@
       "asset-deleted-msg": "Asset successfully deleted"
     },
     "business": {
-      "error-msg": "Can not load company description.",
-      "error-title": "There is no such company",
+      "no-business-msg": "Can not load company description.",
+      "no-business-title": "There is no such company",
       "shop": "Shop",
-      "loading-msg": "Loading..."
+      "loading-msg": "Loading...",
+      "load-failed-msg": "There was an error while loading."
     },
     "promo-codes-page": {
       "create-btn": "Create",
@@ -1466,7 +1468,8 @@
       "no-offers-msg-title": "No offerings yet",
       "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
       "created-successfully-notification": "Promo Code was created successfully",
-      "loading": "Loading"
+      "loading": "Loading",
+      "error-msg": "An error occurred while loading."
     },
     "promo-codes-list": {
       "no-list-title": "No Promo Codes yet",

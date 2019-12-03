@@ -1,138 +1,142 @@
 <template>
   <div class="transfer app__page-content-wrp">
     <template v-if="isLoaded">
-      <template v-if="!assets.length">
-        <h2 class="app__page-heading">
-          {{ 'transfer-form.no-assets-heading' | globalize }}
-        </h2>
-        <p class="app__page-explanations app__page-explanations--secondary">
-          {{ 'transfer-form.no-assets' | globalize }}
-        </p>
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'transfer-form.loading-error-msg' | globalize"
+        />
       </template>
 
       <template v-else>
-        <form
-          id="transfer-form"
-          @submit.prevent="trySend"
-        >
-          <div class="app__form-row">
-            <div class="app__form-field">
-              <select-field
-                name="transfer-asset"
-                :value="form.asset.code"
-                @input="setAsset"
-                :label="'transfer-form.asset-lbl' | globalize"
-                :readonly="formMixin.isDisabled"
-              >
-                <option
-                  v-for="asset in assets"
-                  :key="asset.code"
-                  :value="asset.code"
+        <template v-if="assets.length">
+          <form
+            id="transfer-form"
+            @submit.prevent="trySend"
+          >
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <select-field
+                  name="transfer-asset"
+                  :value="form.asset.code"
+                  @input="setAsset"
+                  :label="'transfer-form.asset-lbl' | globalize"
+                  :readonly="formMixin.isDisabled"
                 >
-                  {{ asset.name }}
-                </option>
-              </select-field>
-              <template v-if="form.asset.code">
-                <p class="app__form-field-description">
-                  {{
-                    'transfer-form.balance' | globalize({
-                      amount: balance.balance,
-                      available: balance.balance
-                    })
-                  }}
-                </p>
+                  <option
+                    v-for="asset in assets"
+                    :key="asset.code"
+                    :value="asset.code"
+                  >
+                    {{ asset.name }}
+                  </option>
+                </select-field>
+                <template v-if="form.asset.code">
+                  <p class="app__form-field-description">
+                    {{
+                      'transfer-form.balance' | globalize({
+                        amount: balance.balance,
+                        available: balance.balance
+                      })
+                    }}
+                  </p>
+                </template>
+              </div>
+            </div>
+
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <amount-input-field
+                  v-model="form.amount"
+                  name="transfer-amount"
+                  validation-type="outgoing"
+                  :max="balance.balance"
+                  :label="'transfer-form.amount-lbl' | globalize"
+                  :asset="form.asset"
+                  is-max-button-shown
+                  :readonly="formMixin.isDisabled"
+                />
+              </div>
+            </div>
+
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <input-field
+                  name="transfer-recipient"
+                  v-model.trim="form.recipient"
+                  :label="'transfer-form.recipient-lbl' | globalize"
+                  :error-message="getFieldErrorMessage('form.recipient')"
+                  @blur="touchField('form.recipient')"
+                  :disabled="formMixin.isDisabled"
+                />
+              </div>
+            </div>
+
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <textarea-field
+                  name="transfer-description"
+                  v-model="form.subject"
+                  :label="'transfer-form.subject-lbl' | globalize({
+                    length: 250
+                  })"
+                  :maxlength="250"
+                  :readonly="formMixin.isDisabled"
+                />
+              </div>
+            </div>
+
+            <div class="app__form-actions">
+              <template v-if="formMixin.isConfirmationShown">
+                <form-confirmation
+                  message-id="transfer-form.approving-msg"
+                  @ok="trySend"
+                  @cancel="hideConfirmationForm"
+                />
               </template>
-            </div>
-          </div>
-
-          <div class="app__form-row">
-            <div class="app__form-field">
-              <amount-input-field
-                v-model="form.amount"
-                name="transfer-amount"
-                validation-type="outgoing"
-                :max="balance.balance"
-                :label="'transfer-form.amount-lbl' | globalize"
-                :asset="form.asset"
-                is-max-button-shown
-                :readonly="formMixin.isDisabled"
-              />
-            </div>
-          </div>
-
-          <div class="app__form-row">
-            <div class="app__form-field">
-              <input-field
-                name="transfer-recipient"
-                v-model.trim="form.recipient"
-                :label="'transfer-form.recipient-lbl' | globalize"
-                :error-message="getFieldErrorMessage('form.recipient')"
-                @blur="touchField('form.recipient')"
+              <button
+                v-ripple
+                v-if="!formMixin.isConfirmationShown"
+                type="submit"
+                class="app__form-submit-btn app__button-raised"
                 :disabled="formMixin.isDisabled"
-              />
+                form="transfer-form"
+              >
+                {{ 'transfer-form.submit-btn' | globalize }}
+              </button>
             </div>
-          </div>
+          </form>
+        </template>
 
-          <div class="app__form-row">
-            <div class="app__form-field">
-              <textarea-field
-                name="transfer-description"
-                v-model="form.subject"
-                :label="'transfer-form.subject-lbl' | globalize({
-                  length: 250
-                })"
-                :maxlength="250"
-                :readonly="formMixin.isDisabled"
-              />
-            </div>
-          </div>
-
-          <div class="app__form-actions">
-            <template v-if="formMixin.isConfirmationShown">
-              <form-confirmation
-                message-id="transfer-form.approving-msg"
-                @ok="trySend"
-                @cancel="hideConfirmationForm"
-              />
-            </template>
-            <button
-              v-ripple
-              v-if="!formMixin.isConfirmationShown"
-              type="submit"
-              class="app__form-submit-btn app__button-raised"
-              :disabled="formMixin.isDisabled"
-              form="transfer-form"
-            >
-              {{ 'transfer-form.submit-btn' | globalize }}
-            </button>
-          </div>
-        </form>
+        <template v-else>
+          <no-data-message
+            class="mass-payment-form__no-data-message"
+            icon-name="coins"
+            :title="'transfer-form.no-assets-heading' | globalize"
+            :message="'transfer-form.no-assets' | globalize"
+          />
+        </template>
       </template>
     </template>
 
-    <template v-else-if="!isLoadingFailed">
-      <transfer-form-skeleton-loader />
-    </template>
-
     <template v-else>
-      <p>
-        {{ 'transfer-form.loading-error-msg' | globalize }}
-      </p>
+      <transfer-form-skeleton-loader />
     </template>
   </div>
 </template>
 
 <script>
 import TransferFormSkeletonLoader from './TransferFormSkeletonLoader'
-
 import FormMixin from '@/vue/mixins/form.mixin'
 import IdentityGetterMixin from '@/vue/mixins/identity-getter'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import config from '@/config'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+
 import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { base } from '@tokend/js-sdk'
-import config from '@/config'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
 import { globalize } from '@/vue/filters/globalize'
@@ -150,6 +154,8 @@ export default {
   name: 'transfers-form',
   components: {
     TransferFormSkeletonLoader,
+    ErrorMessage,
+    NoDataMessage,
   },
   mixins: [
     FormMixin,
@@ -172,7 +178,7 @@ export default {
       opts: {},
     },
     isLoaded: false,
-    isLoadingFailed: false,
+    isLoadFailed: false,
     isFeesLoaded: false,
     vueRoutes,
     config,
@@ -205,11 +211,11 @@ export default {
     try {
       await this.loadCurrentBalances()
       this.setAsset()
-      this.isLoaded = true
     } catch (e) {
-      this.isLoadingFailed = true
+      this.isLoadFailed = true
       ErrorHandler.processWithoutFeedback(e)
     }
+    this.isLoaded = true
   },
   methods: {
     globalize,

@@ -123,16 +123,12 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-
 import md5 from 'js-md5'
 import moment from 'moment'
+import config from '@/config'
 
 import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
 import { ASSET_POLICIES } from '@tokend/js-sdk'
-
-import { DocumentContainer } from '@/js/helpers/DocumentContainer'
-
-import { CreateAssetRequest } from '../wrappers/create-asset-request'
 
 import {
   required,
@@ -140,7 +136,6 @@ import {
   amountRange,
 } from '@validators'
 
-import config from '@/config'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
@@ -158,7 +153,6 @@ export default {
   name: 'information-step-form',
   mixins: [FormMixin],
   props: {
-    request: { type: CreateAssetRequest, default: null },
     isDisabled: { type: Boolean, default: false },
   },
 
@@ -210,29 +204,12 @@ export default {
     },
   },
 
-  created () {
-    if (this.request) {
-      this.populateForm()
-    }
-  },
-
   methods: {
     getAssetCode () {
       let hash = md5.create()
       const assetInformation = this.form.name + this.accountId + +new Date()
       hash.update(assetInformation)
       return hash.toString().substring(0, 6).toUpperCase()
-    },
-
-    populateForm () {
-      this.form = {
-        name: this.request.assetName,
-        code: this.request.assetCode,
-        logo: this.request.logoKey
-          ? new DocumentContainer(this.request.logo)
-          : null,
-        policies: this.request.policy,
-      }
     },
 
     submit () {

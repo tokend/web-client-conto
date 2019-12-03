@@ -27,6 +27,20 @@ for further information about branching and tagging conventions.
 #### Fixed
 - Localization
 
+#### Removed
+- asset creation request from `create-asset-form-simplified-module`
+- `create-asset-request` record
+- `skeleton-loader-step-form`
+- `EmptyListPlaceholder`
+- `EmptyTbodyPlaceholder`
+- `SkeletonLoaderTableBody`
+- `movements-empty-list-placeholder`
+- `movements-skeleton-loader`
+
+#### Changed
+- Data mapping scheme
+- Company link on `Security` page
+
 ## [1.4.0] - 2019-11-20
 
 ## [1.4.0-rc.3] - 2019-11-18

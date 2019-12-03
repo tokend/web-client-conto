@@ -14,7 +14,6 @@
       <select-field
         :value="filters.status"
         @input="setStatus"
-        :disabled="isFilterDisabled"
         :label="'customers-filters.status-lbl' | globalize"
         need-all-option
       >
@@ -32,7 +31,6 @@
         :white-autofill="false"
         v-model="filters.search"
         :label="'customers-filters.search-lbl' | globalize"
-        :disabled="isFilterDisabled"
         :trim="false"
       />
     </div>

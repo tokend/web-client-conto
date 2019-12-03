@@ -121,6 +121,7 @@ import {
 import { globalize } from '@/vue/filters/globalize'
 import { formatPercent } from '@/vue/filters/formatPercent'
 
+const PROMOCODE_ERROR_FIELD = 'promocode'
 const EVENTS = {
   submitted: 'submitted',
 }
@@ -224,7 +225,7 @@ export default {
           this.isPromoCodeExist = true
         }
       } catch (error) {
-        if (error.meta.field === 'promocode') {
+        if (error.meta.field === PROMOCODE_ERROR_FIELD) {
           this.isPromoCodeExist = false
         }
         ErrorHandler.processWithoutFeedback(error)

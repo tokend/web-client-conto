@@ -185,7 +185,7 @@ const router = new Router({
               props: true,
             },
             {
-              path: '/companies/:id',
+              path: '/businesses/:id',
               name: vueRoutes.currentBusiness.name,
               component: BusinessViewer,
               props: true,

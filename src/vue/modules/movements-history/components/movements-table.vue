@@ -34,49 +34,26 @@
       </tr>
     </thead>
 
-    <template v-if="isMovementsLoaded">
-      <movements-table-row
-        v-for="movement in movements"
-        :is-customer-movements="isCustomerMovements"
-        :movement="movement"
-        :key="movement.id"
-      />
-
-      <empty-tbody-placeholder
-        v-if="!movements.length"
-        :is-customer-movements="isCustomerMovements"
-      />
-    </template>
-
-    <template v-for="index in 3">
-      <movements-skeleton-loader
-        v-if="!isMovementsLoaded"
-        :key="index"
-        :is-customer-movements="isCustomerMovements"
-      />
-    </template>
+    <movements-table-row
+      v-for="movement in movements"
+      :is-customer-movements="isCustomerMovements"
+      :movement="movement"
+      :key="movement.id"
+    />
   </table>
 </template>
 
 <script>
 import MovementsTableRow from './movements-table-row'
-import MovementsSkeletonLoader from './movements-skeleton-loader.vue'
-import EmptyTbodyPlaceholder from './movements-empty-list-placeholder.vue'
 
 export default {
   name: 'movement-list-renderer',
   components: {
     MovementsTableRow,
-    MovementsSkeletonLoader,
-    EmptyTbodyPlaceholder,
   },
   props: {
     movements: {
       type: Array, /** {@link Movement} **/
-      required: true,
-    },
-    isMovementsLoaded: {
-      type: Boolean,
       required: true,
     },
     isCustomerMovements: {
