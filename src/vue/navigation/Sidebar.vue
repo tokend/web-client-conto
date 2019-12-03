@@ -110,6 +110,20 @@
               {{ 'pages-names.movements' | globalize }}
             </span>
           </router-link>
+          <router-link
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.booking"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-calendar-multiselect"
+            />
+            <span>
+              {{ 'pages-names.booking' | globalize }}
+            </span>
+          </router-link>
           <!--<router-link-->
           <!--v-if="isAccessibleForCorporate"-->
           <!--v-ripple-->

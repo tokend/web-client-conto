@@ -18,10 +18,22 @@
       </div>
       <div
         class="card__content"
-        v-if="isSlotDisplayed(SLOT_NAMES.content)"
+        v-if="isSlotDisplayed(SLOT_NAMES.content)
+          || isSlotDisplayed(SLOT_NAMES.unlimitedContent)"
       >
-        <p class="card__content-text">
+        <p
+          v-if="isSlotDisplayed(SLOT_NAMES.content)"
+          class="card__content-text"
+        >
           <slot :name="SLOT_NAMES.content" />
+        </p>
+        <p
+          v-if="isSlotDisplayed(SLOT_NAMES.unlimitedContent)"
+          class="card__unlimited-content-text"
+        >
+          <slot
+            :name="SLOT_NAMES.unlimitedContent"
+          />
         </p>
       </div>
     </div>
@@ -38,6 +50,7 @@ const SLOT_NAMES = {
   subhead: 'subhead',
   accentTitle: 'accent-title',
   content: 'content',
+  unlimitedContent: 'unlimited-content',
   actions: 'actions',
 }
 export default {
@@ -130,8 +143,6 @@ export default {
 
   .card__content {
     margin-top: 1rem;
-    height: $content-height;
-    max-height: $content-height;
   }
 
   .card__content-text {
@@ -142,6 +153,10 @@ export default {
         $col-sale-card-background,
         15ch
     );
+    opacity: 0.54;
+  }
+
+  .card__unlimited-content-text {
     opacity: 0.54;
   }
 

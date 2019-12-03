@@ -120,7 +120,11 @@
       "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
-      "field-error_promoCodeNotExist": "Promo Code for this offer does not exists"
+      "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
+      "field-error_minDate": "Date should be after {{ minDate, date }}",
+      "field-error_maxDate": "Date should be before {{ maxDate, date }}",
+      "field-error_minBookingTime": "Minimum booking time {{ minTime }}",
+      "field-error_maxBookingTime": "Maximum booking time {{ maxTime }}"
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -643,7 +647,8 @@
       "atomic-swaps": "Shop",
       "kyc-recovery": "KYC Recovery",
       "promo-codes": "Promo Codes",
-      "statistics": "Statistics"
+      "statistics": "Statistics",
+      "booking": "Booking"
     },
     "passport": {
       "account-unverified": "General account",
@@ -1205,7 +1210,7 @@
       "owned-by-me-filter-lbl": "Owned by me",
       "loading-error-msg": "There was an error while loading."
     },
-    "buy-atomic-swap-form":{
+    "buy-atomic-swap-form": {
       "available": "Available {{amount, money}} {{asset}}",
       "asset-in-which-buying": "Payment method",
       "amount": "Amount to buy {{asset}}",
@@ -1478,7 +1483,7 @@
       "price-th": "Price",
       "offers-title": "Offers",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
-      "no-data-msg":"Promo Code don't have any offers yet."
+      "no-data-msg": "Promo Code don't have any offers yet."
     },
     "promo-code-form-offers-table": {
       "name-th": "Name",
@@ -1555,19 +1560,19 @@
       "pending": "Pending"
     },
     "statistics-sales-history-attributes-viewer": {
-      "date-key":"Date",
-      "amount-key":"Amount",
-      "discount-key":"Discount",
-      "total-price-key":"Total price",
-      "buyer-key":"Buyer",
-      "promo-code-key":"Promo Code"
+      "date-key": "Date",
+      "amount-key": "Amount",
+      "discount-key": "Discount",
+      "total-price-key": "Total price",
+      "buyer-key": "Buyer",
+      "promo-code-key": "Promo Code"
     },
     "statistics-general": {
       "no-assets-title": "No assets yet",
       "no-assets-msg": "Company don't have any assets yet.",
       "no-data-title": "No sold assets history yet",
       "no-data-msg": "Here will be your sold assets history",
-      "error-msg":"An error occurred while loading the list."
+      "error-msg": "An error occurred while loading the list."
     },
     "statistics-general-table": {
       "asset-th": "Asset",
@@ -1604,6 +1609,38 @@
     "failed-payment": {
       "title": "Payment failed",
       "failed-msg": "An error occurred while purchasing the asset"
+    },
+    "booking": {
+      "booking-btn": "Booking",
+      "booking-title": "Booking"
+    },
+    "booking-form": {
+      "room-lbl": "Room",
+      "number-of-seats": "Number of seats",
+      "booking-btn": "Book",
+      "booking-from-lbl": "Booking from",
+      "booking-to-lbl": "Booking to",
+      "successfully-booked-msg": "You have successfully booked",
+      "price-per-hour": "Price per hour:",
+      "price": "Amount to pay:",
+      "can-not-load-data": "There was an error while loading data for booking",
+      "no-free-places": "No free places",
+      "wait-space": "Wait until space is available",
+      "choose-time": "Choose the time and number of seats to find the right room"
+    },
+    "booking-explorer": {
+      "loading-error-msg": "There was an error while loading.",
+      "no-booking-title": "No booking yet",
+      "no-list-msg": "Here will be the list of booking"
+    },
+    "booking-card": {
+      "room-lbl": "Room",
+      "booking-header": "Booking",
+      "from-lbl": "From",
+      "to-lbl": "To",
+      "participants-lbl": "Participants",
+      "cancel-btn": "Cancel",
+      "price-lbl": "Price: {{amount, money}} {{asset}}"
     }
   }
 }

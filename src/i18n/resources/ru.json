@@ -120,7 +120,11 @@
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
-      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует"
+      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
+      "field-error_minDate": "Дата должна быть позднее {{ minDate, date }}",
+      "field-error_maxDate": "Дата должна быть ранее {{ maxDate, date }}",
+      "field-error_minBookingTime": "Минимальное время бронирования {{ minTime }}",
+      "field-error_maxBookingTime": "Максимальное время бронирования {{ maxTime }}"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -647,7 +651,8 @@
       "atomic-swaps": "Магазин",
       "kyc-recovery": "Восстановление по KYC",
       "promo-codes": "Промокоды",
-      "statistics": "Статистика"
+      "statistics": "Статистика",
+      "booking": "Бронирование"
     },
     "passport": {
       "account-us-accredited": "Аккредитованный инвестор (США)",
@@ -1604,6 +1609,38 @@
     "failed-payment": {
       "title": "Платеж не прошел",
       "failed-msg": "Произошла ошибка при покупке актива"
+    },
+    "booking": {
+      "booking-btn": "Бронирование",
+      "booking-title": "Бронирование"
+    },
+    "booking-form": {
+      "room-lbl": "Комната",
+      "number-of-seats": "Количество мест",
+      "booking-btn": "Забронировать",
+      "booking-from-lbl": "Бронирование с",
+      "booking-to-lbl": "Бронирование по",
+      "successfully-booked-msg": "Вы успешно забронировали",
+      "price": "Сумма к оплате:",
+      "price-per-hour": "Цена за час:",
+      "no-free-places": "Нет свободных мест",
+      "wait-space": "Подождите, пока освободится место",
+      "choose-time": "Выберите время и количество мест для поиска подходящей комнаты",
+      "can-not-load-data": "При загрузке данных для бронирования произошла ошибка"
+    },
+    "booking-explorer": {
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-booking-title": "Нет бронирования",
+      "no-list-msg": "Здесь будет список бронироней"
+    },
+    "booking-card": {
+      "room-lbl": "Комната",
+      "booking-header": "Бронирование",
+      "from-lbl": "С",
+      "to-lbl": "По",
+      "participants-lbl": "Количество мест",
+      "cancel-btn": "Отменить",
+      "price-lbl": "Цена: {{amount, money}} {{asset}}"
     }
   }
 }
