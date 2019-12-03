@@ -1398,7 +1398,7 @@
       "load-failed-msg": "There was an error while loading."
     },
     "pay-form": {
-      "email-lbl": "Recipient Email in {{appName}}"
+      "email-lbl": "Email"
     },
     "asset-viewer": {
       "description-title": "Description"

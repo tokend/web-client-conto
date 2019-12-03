@@ -1398,7 +1398,7 @@
       "load-failed-msg": "Произошла ошибка при загрузке."
     },
     "pay-form": {
-      "email-lbl":"Имейл получателя в Конто"
+      "email-lbl":"Email"
     },
     "asset-viewer": {
       "description-title": "Описание"

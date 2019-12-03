@@ -7,19 +7,13 @@
       </template>
       <template v-else>
         <template v-if="accountBalances.length">
-          <div class="app__card-list">
-            <div
-              class="app__card-list-item"
-              v-for="accountBalance in accountBalances"
-              :key="accountBalance.id"
-            >
-              <asset-card
-                :balance="accountBalance"
-                @transfer="transfer"
-                @vue-details="selectBalance(accountBalance)"
-              />
-            </div>
-          </div>
+          <card-list v-slot="{ item }" :list="accountBalances">
+            <asset-card
+              :balance="item"
+              @transfer="transfer"
+              @vue-details="selectBalance(item)"
+            />
+          </card-list>
         </template>
         <template v-else>
           <no-data-message
@@ -87,6 +81,7 @@
 import Drawer from '@/vue/common/Drawer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import CardList from '@/vue/common/CardList'
 
 import AssetAttributesViewer from '../shared/components/asset-attributes-viewer'
 import AssetActions from './components/asset-actions'
@@ -113,6 +108,7 @@ export default {
     UpdateAssetFormSimplifiedModule,
     AssetCard,
     TransferForm,
+    CardList,
   },
 
   mixins: [UpdateList],

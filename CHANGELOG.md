@@ -6,9 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+
 ## [Unreleased]
+
+## [1.5.0-rc.0] - 2019-11-23
 #### Added
 - Customer ui for business account
+- `CardList` component
+
+#### Fixed
+- A bug with infinite loader at verification user email
+
+## [1.4.2] - 2019-11-22
+
+#### Fixed
+- Localization
+
+## [1.4.1] - 2019-11-22
+
+#### Fixed
+- Localization
 
 #### Removed
 - asset creation request from `create-asset-form-simplified-module`
@@ -455,7 +472,10 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.4.0...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.5.0-rc.0...HEAD
+[1.5.0-rc.0]: https://github.com/tokend/web-client/compare/1.4.2...1.5.0-rc.0
+[1.4.2]: https://github.com/tokend/web-client/compare/1.4.1...1.4.2
+[1.4.1]: https://github.com/tokend/web-client/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/tokend/web-client/compare/1.4.0-rc.3...1.4.0
 [1.4.0-rc.3]: https://github.com/tokend/web-client/compare/1.4.0-rc.2...1.4.0-rc.3
 [1.4.0-rc.2]: https://github.com/tokend/web-client/compare/1.4.0-rc.1...1.4.0-rc.2

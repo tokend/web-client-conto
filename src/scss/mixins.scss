@@ -164,8 +164,3 @@
     background: linear-gradient(to right, #ffffff00 0%, $bg-color 88%);
   }
 }
-
-@mixin list-item-count($count) {
-  flex: 0 1 calc(100% / #{$count} - (#{$list-item-margin}));
-  max-width: calc(100% / #{$count} - (#{$list-item-margin}));
-}

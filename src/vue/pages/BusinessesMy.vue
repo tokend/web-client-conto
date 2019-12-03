@@ -7,18 +7,12 @@
       </template>
       <template v-else>
         <template v-if="myBusinesses.length">
-          <div class="app__card-list">
-            <div
-              class="app__card-list-item"
-              v-for="item in myBusinesses"
-              :key="item.accountId"
-            >
-              <business-card
-                :business="item"
-                @vue-details="selectItem(item)"
-              />
-            </div>
-          </div>
+          <card-list v-slot="{ item }" :list="myBusinesses">
+            <business-card
+              :business="item"
+              @vue-details="selectItem(item)"
+            />
+          </card-list>
         </template>
         <template v-else>
           <no-data-message
@@ -41,6 +35,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import BusinessCard from './businesses-all/BusinessCard'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
+import CardList from '@/vue/common/CardList'
 
 import { vueRoutes } from '@/vue-router/routes'
 import { vuexTypes } from '@/vuex'
@@ -55,6 +50,7 @@ export default {
     SkeletonCardsLoader,
     NoDataMessage,
     ErrorMessage,
+    CardList,
   },
 
   data () {
