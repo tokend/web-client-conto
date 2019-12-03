@@ -123,7 +123,8 @@
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
       "field-error_minDate": "Дата должна быть позднее {{ minDate, date }}",
       "field-error_maxDate": "Дата должна быть ранее {{ maxDate, date }}",
-      "field-error_minBookingTime": "Минимальный интервал бронирования должен быть {{ minInterval }}"
+      "field-error_minBookingTime": "Минимальное время бронирования {{ minTime }}",
+      "field-error_maxBookingTime": "Максимальное время бронирования {{ maxTime }}"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
