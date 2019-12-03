@@ -36,78 +36,6 @@ const ROOM_CAPACITY = {
 
 const MIN_DURATION = '1h'
 const MAX_DURATION = '120h'
-const WORK_DAYS = {
-  Monday: {
-    start: {
-      hours: 0,
-      minutes: 0,
-    },
-    end: {
-      hours: 24,
-      minutes: 0,
-    },
-  },
-  Tuesday: {
-    start: {
-      hours: 0,
-      minutes: 0,
-    },
-    end: {
-      hours: 24,
-      minutes: 0,
-    },
-  },
-  Wednesday: {
-    start: {
-      hours: 0,
-      minutes: 0,
-    },
-    end: {
-      hours: 24,
-      minutes: 0,
-    },
-  },
-  Thursday: {
-    start: {
-      hours: 0,
-      minutes: 0,
-    },
-    end: {
-      hours: 24,
-      minutes: 0,
-    },
-  },
-  Friday: {
-    start: {
-      hours: 0,
-      minutes: 0,
-    },
-    end: {
-      hours: 24,
-      minutes: 0,
-    },
-  },
-  Saturday: {
-    start: {
-      hours: 0,
-      minutes: 0,
-    },
-    end: {
-      hours: 24,
-      minutes: 0,
-    },
-  },
-  Sunday: {
-    start: {
-      hours: 0,
-      minutes: 0,
-    },
-    end: {
-      hours: 24,
-      minutes: 0,
-    },
-  },
-}
 
 const DEFAULT_CARD_NUMBER = '4111111111111111'
 
@@ -151,7 +79,7 @@ export default {
           `/integrations/booking/businesses/${bisinessId}`,
           {
             data: {
-              work_days: WORK_DAYS,
+              work_days: null,
               owner: this.accountId,
               calendar_id: +calendarId,
               name: this.kycLatestRequestData.company,
@@ -173,7 +101,7 @@ export default {
       try {
         const response = await api.post('/integrations/booking/businesses', {
           data: {
-            work_days: WORK_DAYS,
+            work_days: null,
             owner: this.accountId,
             calendar_id: +calendarId,
             name: this.kycLatestRequestData.company,

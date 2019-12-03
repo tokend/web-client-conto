@@ -19,6 +19,7 @@
                 v-model="form.startTime"
                 name="booking-start-time"
                 :default-hour="moment().hour()"
+                :default-minute="moment().minutes()"
                 @input="touchField('form.startTime')"
                 @blur="touchField('form.startTime')"
                 :disabled="formMixin.isDisabled"
@@ -26,7 +27,6 @@
                 :error-message="getFieldErrorMessage(
                   'form.startTime', { minDate: getCurrentDate() }
                 )"
-                :work-days="business.workDays"
               />
             </div>
           </div>
@@ -34,12 +34,12 @@
           <div class="app__form-row">
             <div class="app__form-field">
               <booking-date-field
-                :key="maxDate + minDate"
+                :key="minDate"
                 v-model="form.endTime"
                 :default-hour="moment().hour()"
+                :default-minute="moment().minutes()"
                 @input="touchField('form.endTime')"
                 @blur="touchField('form.endTime')"
-                :disable-after="maxDate"
                 :disable-before="minDate"
                 :disabled="formMixin.isDisabled"
                 name="booking-end-time"
@@ -49,8 +49,14 @@
                     minDate: form.startTime || getCurrentDate()
                   }
                 )"
-                :work-days="business.workDays"
               />
+
+              <p class="booking-form__error-msg">
+                {{ getFieldErrorMessage('totalSelectedTimeInMinutes', {
+                  minTime: humanizeDurationTime(business.minDurationInMinutes),
+                  maxTime: humanizeDurationTime(business.maxDurationInMinutes)
+                }) }}
+              </p>
             </div>
           </div>
 
@@ -111,12 +117,6 @@
                 />
               </div>
             </div>
-
-            <p class="booking-form__error-msg">
-              {{ getFieldErrorMessage('totalSelectedTimeInMinutes', {
-                minInterval: business.minDuration
-              }) }}
-            </p>
 
             <div class="app__form-actions">
               <form-confirmation
@@ -196,6 +196,15 @@
         get Business By Id
       </button>
       <button
+        @click="updateBusinesses(1,1)"
+        v-ripple
+        type="submit"
+        class="change-password-form__submit-btn app__button-raised"
+        :disabled="formMixin.isDisabled"
+      >
+        update Business
+      </button>
+      <button
         @click="createPaymentMethod()"
         v-ripple
         type="submit"
@@ -240,7 +249,7 @@ import { BookingBusinessRecord } from '@/js/records/entities/booking-business.re
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const MIN_PLACE = 1
-const MAX_PLACE = 30
+const MAX_PLACE = 58
 const SIXTY_MINUTES = 60
 
 export default {
@@ -290,17 +299,13 @@ export default {
       },
       totalSelectedTimeInMinutes: {
         minBookingTime: () => this.isSelectedTimeMoreThanMinDuration,
+        maxBookingTime: () => this.isMaxDurationMoreThanSelectedTime,
       },
     }
   },
   computed: {
     selectKey () {
       return this.freeRooms.join('') || 'select-room'
-    },
-    maxDate () {
-      return this.form.startTime
-        ? moment(this.form.startTime).set('hour', 20).toISOString()
-        : moment().add(7, 'days').toISOString()
     },
     minDate () {
       return this.form.startTime
@@ -330,7 +335,7 @@ export default {
         this.form.startTime &&
         this.form.endTime &&
         this.form.numberSeats &&
-        this.form.numberSeats < MAX_PLACE &&
+        this.form.numberSeats <= MAX_PLACE &&
         moment(this.form.startTime).utc() < moment(this.form.endTime).utc()
       )
     },
@@ -345,18 +350,17 @@ export default {
       // eslint-disable-next-line max-len
       return this.totalSelectedTimeInMinutes >= this.business.minDurationInMinutes
     },
+    isMaxDurationMoreThanSelectedTime () {
+      // eslint-disable-next-line max-len
+      return this.business.maxDurationInMinutes >= this.totalSelectedTimeInMinutes
+    },
   },
   watch: {
     'form.numberSeats' (value) {
       this.form.numberSeats = Math.floor(value)
       debounce(this.getFreePlace(), 300)
     },
-    'form.startTime' (value) {
-      if (moment(value).utc() < moment(this.form.endTime).utc()) {
-        this.form.endTime = moment(this.form.startTime)
-          .add(1, 'hours')
-          .toISOString()
-      }
+    'form.startTime' () {
       debounce(this.getFreePlace(), 300)
     },
     'form.endTime' () {
@@ -436,6 +440,10 @@ export default {
           ErrorHandler.processWithoutFeedback(e)
         }
       }
+    },
+
+    humanizeDurationTime (time) {
+      return moment.duration(time, 'minutes').humanize()
     },
   },
 }

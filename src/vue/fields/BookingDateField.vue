@@ -36,7 +36,6 @@
 <script>
 import Flatpickr from 'flatpickr'
 import moment from 'moment'
-import { LANGAUGE_CODES } from '@/js/const/languageCodes.const'
 // All supported events by Flatpickr
 const FLATPICKR_HOOKS = {
   onChange: 'onChange',
@@ -70,14 +69,14 @@ export default {
     allowInput: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     defaultHour: { type: Number, default: 12 },
+    defaultMinute: { type: Number, default: 0 },
     disableBefore: { type: String, default: '' },
     disableAfter: { type: String, default: '' },
     placeholder: { type: String, default: 'dd/mm/yyyy at HH:MM' },
     label: { type: String, default: '' },
     errorMessage: { type: String, default: undefined },
-    minTime: { type: String, default: '09:00' },
-    maxTime: { type: String, default: '20:00' },
-    workDays: { type: Object, default: _ => {} },
+    minTime: { type: String, default: '00:00' },
+    maxTime: { type: String, default: '23:59' },
   },
 
   data: _ => ({
@@ -97,14 +96,11 @@ export default {
         altFormat: this.enableTime ? 'd/m/Y at H:i' : 'd/m/Y',
         disableMobile: true,
         defaultHour: this.defaultHour,
+        defaultMinute: this.defaultMinute,
         minuteIncrement: 1,
         minTime: this.minTime,
         maxTime: this.maxTime,
         disable: [
-          (date) => {
-            const dayOfWeek = this.getDayOfWeek(date)
-            return !this.workDays[dayOfWeek]
-          },
           (date) => {
             if (!this.disableBefore) return false
             const stamp = moment(this.disableBefore)
@@ -174,11 +170,6 @@ export default {
         safeConfig[FLATPICKR_HOOKS.onOpen]
       ).concat(
         (...args) => this.onOpen(...args)
-      ),
-      [FLATPICKR_HOOKS.onChange]: this.arrayify(
-        safeConfig[FLATPICKR_HOOKS.onOpen]
-      ).concat(
-        (...args) => this.onChange(...args)
       ),
     }
 
@@ -253,23 +244,6 @@ export default {
         this.$emit(EMITABLE_EVENTS.input, dateStr)
         this.$emit(EMITABLE_EVENTS.onClose)
       })
-    },
-    onChange (selectedDates, dateStr, instance) {
-      const dayOfWeek = this.getDayOfWeek(dateStr)
-      if (!this.workDays[dayOfWeek]) return
-      const startTime = this.workDays[dayOfWeek].start
-      const endTime = this.workDays[dayOfWeek].end
-      const minTime = `${startTime.hours}:${startTime.minutes}`
-      const maxTime = `${endTime.hours}:${endTime.minutes}`
-      this.flatpickr.set('minTime', minTime)
-      this.flatpickr.set('maxTime', maxTime)
-      this.flatpickr.redraw()
-    },
-
-    getDayOfWeek (date) {
-      // set the English language because we get work days in English
-      moment.locale(LANGAUGE_CODES.english)
-      return moment(date).format('dddd').toLowerCase()
     },
   },
 }

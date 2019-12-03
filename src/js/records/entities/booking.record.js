@@ -12,7 +12,7 @@ export class BookingRecord {
     this.endTime = record.endTime
     this.participants = record.participants
     this.payload = record.payload
-    this.roomName = this.getRoomName(business)
+    this.room = this.getRoom(business)
     this.event = record.event
     this.owner = record.owner.id
     this.cancelTill = record.cancelTill
@@ -20,9 +20,9 @@ export class BookingRecord {
     this.state = record.state
   }
 
-  getRoomName (business) {
+  getRoom (business) {
     return _isEmpty(business)
-      ? this.payload
-      : business.getRoomById(this.payload).name
+      ? { name: this.payload }
+      : business.getRoomById(this.payload)
   }
 }
