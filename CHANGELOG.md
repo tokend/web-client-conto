@@ -11,6 +11,9 @@ for further information about branching and tagging conventions.
 #### Added
 - Mass send allow to send to more than 100 users
 
+#### Fixed
+- A bug when own company show on sponsorflow
+
 ## [1.5.0-rc.0] - 2019-11-23
 #### Added
 - Customer ui for business account

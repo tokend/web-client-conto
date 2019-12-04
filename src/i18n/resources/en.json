@@ -1335,8 +1335,7 @@
     "business-attributes": {
       "id-key": "ID",
       "owner-key": "Owner",
-      "industry-key": "Industry",
-      "my-business-label": "It's your company"
+      "industry-key": "Industry"
     },
     "businesses-my": {
       "no-list-title": "No companies here yet",
