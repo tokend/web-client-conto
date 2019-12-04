@@ -1624,7 +1624,7 @@
       "amount-lbl": "Amount per 1 holder",
       "add-asset-btn": "Add asset",
       "send-btn": "Send",
-      "balance": "Balance is {{amount, money}}"
+      "balance": "Available: {{amount, money}}"
     }
   }
 }
