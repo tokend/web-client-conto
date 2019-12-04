@@ -1325,7 +1325,8 @@
       "asset-description-lbl": "Описание актива",
       "promo-code-lbl": "Промокод",
       "discount": "Скидка",
-      "calculating-msg": "Рассчитываем..."
+      "calculating-msg": "Рассчитываем...",
+      "success-msg": "Покупка успешна"
     },
     "kyc-recovery": {
       "submit-again-lbl": "Отпарвить заново",

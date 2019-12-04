@@ -1229,7 +1229,8 @@
       "asset-description-lbl": "Asset description",
       "promo-code-lbl": "Promo Code",
       "discount": "Discount",
-      "calculating-msg": "Calculating..."
+      "calculating-msg": "Calculating...",
+      "success-msg": "Payment successfully"
     },
     "atomic-swap-actions": {
       "cancel-btn": "Cancel offering",

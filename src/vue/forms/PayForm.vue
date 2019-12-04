@@ -54,7 +54,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 import { Bus } from '@/js/helpers/event-bus'
-import { signAndSendTx } from '@/js/helpers/transaction'
+import { api } from '@/api'
 
 const EVENTS = {
   reloadAtomicSwap: 'reload-atomic-swap',
@@ -135,7 +135,7 @@ export default {
             this.atomicSwapBidDetails = atomicSwapBid
             break
           case ATOMIC_SWAP_BID_TYPES.internal:
-            await signAndSendTx(atomicSwapBid.tx)
+            await api.signAndSendTransaction(atomicSwapBid.tx)
             Bus.success('pay-form.success-msg')
             this.$emit(EVENTS.reloadAtomicSwap)
             break

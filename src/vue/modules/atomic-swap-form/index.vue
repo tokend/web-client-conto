@@ -36,9 +36,9 @@ import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.recor
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
-
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
-import { signAndSendTx } from '@/js/helpers/transaction'
+import { api } from '@/api'
+import { Bus } from '@/js/helpers/event-bus'
 
 const EVENTS = {
   updateList: 'update-list',
@@ -107,7 +107,8 @@ export default {
             this.$emit(EVENTS.updateList)
             break
           case ATOMIC_SWAP_BID_TYPES.internal:
-            await signAndSendTx(atomicSwapBid.tx)
+            await api.signAndSendTransaction(atomicSwapBid.tx)
+            Bus.success('buy-atomic-swap-form.success-msg')
             this.$emit(EVENTS.updateListAndCloseDrawer)
             break
         }

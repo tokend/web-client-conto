@@ -31,21 +31,21 @@
           />
         </template>
 
-        <template v-else-if="!atomicSwapAsk.isAmountMoreThanZero">
-          <no-data-message
-            class="pay__no-data-message"
-            icon-name="credit-card"
-            :title="'pay-page.no-amount-title' | globalize"
-            :message="'pay-page.no-amount-msg' | globalize"
-          />
-        </template>
-
         <template v-else-if="isNotFoundAtomicSwap">
           <no-data-message
             class="pay__no-data-message"
             icon-name="credit-card"
             :title="'pay-page.no-atomic-swap-title' | globalize"
             :message="'pay-page.no-atomic-swap-msg' | globalize"
+          />
+        </template>
+
+        <template v-else-if="!atomicSwapAsk.isAmountMoreThanZero">
+          <no-data-message
+            class="pay__no-data-message"
+            icon-name="credit-card"
+            :title="'pay-page.no-amount-title' | globalize"
+            :message="'pay-page.no-amount-msg' | globalize"
           />
         </template>
 
