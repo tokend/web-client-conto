@@ -14,6 +14,10 @@ for further information about branching and tagging conventions.
 #### Changed
 - Refactoring refund and buyback asset
 
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.11.3
+
 ## [1.5.0-rc.2] - 2019-11-28
 #### Fixed
 - A bug when duplicate two asset name in payment methods select
