@@ -1265,7 +1265,7 @@
       "no-assets-msg-description": "Unfortunately, you do not have any assets now, please create an asset and try again.",
       "payment-successfully-notification": "Mass send performed successfully.",
       "no-receivers-found": "Receivers you provided not found or cannot receive the send. Please ensure you specified the valid receivers list and try again.",
-      "overpayment-error-notif": "The total amount is bigger than the available for send amount. Please decrease the amount to send and try again.",
+      "overpayment-error-notif": "The total amount {{assets}} is bigger than the available for send amount. Please decrease the amount to send and try again.",
       "error-msg": "An error occurred while loading.",
       "loading-msg": "Loading..."
     },
@@ -1621,6 +1621,14 @@
     },
     "assets-movements": {
       "asset-filter-label": "Asset"
+    },
+    "multiple-assets-send-form": {
+      "assets-subheading": "Asset {{ number }}",
+      "asset-lbl": "Asset",
+      "amount-lbl": "Amount per 1 holder",
+      "add-asset-btn": "Add asset",
+      "send-btn": "Send",
+      "balance": "Balance is {{amount, money}}"
     }
   }
 }

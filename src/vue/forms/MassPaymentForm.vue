@@ -9,7 +9,7 @@
 
       <template v-else>
         <template v-if="transferableBalancesAssets.length">
-          <form @submit.prevent="submit()">
+          <form>
             <div class="app__form-row">
               <div class="app__form-field">
                 <p class="mass-payment-form__description">
@@ -29,64 +29,11 @@
               </div>
             </div>
 
-            <div class="app__form-row">
-              <div class="app__form-field">
-                <select-field
-                  name="mass-payment-asset-code"
-                  v-model="form.assetCode"
-                  :label="'mass-payment-form.asset-lbl' | globalize"
-                  @blur="touchField('form.assetCode')"
-                  :error-message="getFieldErrorMessage('form.assetCode')"
-                  :disabled="formMixin.isDisabled"
-                >
-                  <option
-                    v-for="asset in transferableBalancesAssets"
-                    :key="asset.code"
-                    :value="asset.code"
-                  >
-                    {{ asset.name }}
-                  </option>
-                </select-field>
-
-                <template v-if="form.assetCode">
-                  <p class="app__form-field-description">
-                    {{
-                      // eslint-disable-next-line max-len
-                      'mass-payment-form.available-for-payment-hint' | globalize({
-                        amount: {
-                          value: accountBalance.balance,
-                          currency: form.assetCode
-                        }
-                      })
-                    }}
-                  </p>
-                </template>
-              </div>
-            </div>
-
-            <div class="app__form-row">
-              <div class="app__form-field">
-                <amount-input-field
-                  v-model="form.amount"
-                  name="mass-payment-amount"
-                  validation-type="outgoing"
-                  :label="'mass-payment-form.amount-lbl' | globalize"
-                  :asset="assetByCode(form.assetCode)"
-                  :disabled="formMixin.isDisabled"
-                />
-              </div>
-            </div>
-
-            <div class="app__form-actions">
-              <button
-                v-ripple
-                :disabled="formMixin.isDisabled"
-                class="app__form-submit-btn app__button-raised"
-                type="submit"
-              >
-                {{ 'mass-payment-form.submit-btn' | globalize }}
-              </button>
-            </div>
+            <multiple-assets-send-form
+              :is-disabled.sync="formMixin.isDisabled"
+              :assets="transferableBalancesAssets"
+              @submit="(form.assets = $event) && submit()"
+            />
           </form>
         </template>
 
@@ -115,6 +62,9 @@ import IdentityGetterMixin from '@/vue/mixins/identity-getter'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import Loader from '@/vue/common/Loader'
+import MultipleAssetsSendForm from '@/vue/forms/MultipleAssetsSendForm'
+
+import _chunk from 'lodash/chunk'
 
 import { required } from '@validators'
 
@@ -128,7 +78,7 @@ import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils'
-import _chunk from 'lodash/chunk'
+import { globalize } from '@/vue/filters/globalize'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -143,6 +93,7 @@ export default {
     NoDataMessage,
     ErrorMessage,
     Loader,
+    MultipleAssetsSendForm,
   },
 
   mixins: [FormMixin, IdentityGetterMixin],
@@ -158,9 +109,8 @@ export default {
   data () {
     return {
       form: {
-        assetCode: '',
+        assets: [],
         receivers: '',
-        amount: String(this.amount) || '',
       },
       isLoaded: false,
       isLoadFailed: false,
@@ -170,9 +120,6 @@ export default {
   validations () {
     return {
       form: {
-        assetCode: {
-          required,
-        },
         receivers: {
           required,
         },
@@ -183,14 +130,11 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.transferableAssetsBalancesByOwner,
-      vuexTypes.assetByCode,
       vuexTypes.accountBalanceByCode,
       vuexTypes.accountId,
+      vuexTypes.assetByCode,
     ]),
 
-    accountBalance () {
-      return this.accountBalanceByCode(this.form.assetCode)
-    },
     transferableBalancesAssets () {
       return this.transferableAssetsBalancesByOwner(this.accountId)
         .filter(i => +i.balance > 0)
@@ -204,10 +148,6 @@ export default {
     try {
       await this.loadAssets()
       await this.loadCurrentBalances()
-
-      if (this.transferableBalancesAssets.length) {
-        this.form.assetCode = this.transferableBalancesAssets[0].code
-      }
     } catch (e) {
       this.isLoadFailed = true
       ErrorHandler.processWithoutFeedback(e)
@@ -227,19 +167,30 @@ export default {
 
       try {
         const operations = await this.buildOperationsToSubmit()
-
         if (!operations.length) {
           Bus.error('mass-payment-form.no-receivers-found')
           this.enableForm()
           return
         }
 
-        const isOverpayment = MathUtil.compare(
-          MathUtil.multiply(operations.length, this.form.amount),
-          this.accountBalance.balance,
-        ) > 0
-        if (isOverpayment) {
-          Bus.error('mass-payment-form.overpayment-error-notif')
+        let overpaymentAssets = []
+
+        this.form.assets.forEach(asset => {
+          const isOverpayment = MathUtil.compare(
+            MathUtil.multiply(operations.length, asset.amount),
+            this.accountBalanceByCode(asset.code).balance,
+          ) > 0
+
+          if (isOverpayment) {
+            overpaymentAssets.push(this.assetByCode(asset.code).name)
+          }
+        })
+
+        if (overpaymentAssets.length) {
+          const msg = globalize('mass-payment-form.overpayment-error-notif', {
+            assets: overpaymentAssets.join(', '),
+          })
+          Bus.error(msg)
           this.enableForm()
           return
         }
@@ -254,7 +205,7 @@ export default {
         await this.loadCurrentBalances()
         this.clearFieldsWithOverriding({
           receivers: this.form.receivers,
-          assetCode: this.form.assetCode,
+          assets: this.form.assets,
         })
         this.$emit(EVENTS.submitted)
         Bus.success('mass-payment-form.payment-successfully-notification')
@@ -275,20 +226,29 @@ export default {
       }
     },
 
-    async getOperationByEmail (email, proxyPaymentAccountId) {
+    async getOperationsByEmail (email, proxyPaymentAccountId) {
       const receiverId = await this.getReceiverIdByEmail(email)
-      if (receiverId) {
-        return this.getOperation(receiverId, { subject: '' })
-      } else {
-        return this.getOperation(
-          proxyPaymentAccountId,
-          {
-            subject: '',
-            sender: this.accountId,
-            email: email,
-          }
-        )
-      }
+      return this.form.assets.map(asset => {
+        if (receiverId) {
+          return this.getOperation({
+            destinationAccountId: receiverId,
+            subject: { subject: '' },
+            amount: asset.amount,
+            assetCode: asset.code,
+          })
+        } else {
+          return this.getOperation({
+            destinationAccountId: proxyPaymentAccountId,
+            subject: {
+              subject: '',
+              sender: this.accountId,
+              email: email,
+            },
+            amount: asset.amount,
+            assetCode: asset.code,
+          })
+        }
+      })
     },
 
     async buildOperationsToSubmit () {
@@ -299,17 +259,19 @@ export default {
       })
 
       const { data } = await api.get('/integrations/payment-proxy/info')
-      return Promise.all(
-        emails.map(email => this.getOperationByEmail(email, data.id))
+
+      const operations = await Promise.all(
+        emails.map(email => this.getOperationsByEmail(email, data.id))
       )
+      return operations.flat()
     },
 
-    getOperation (destinationAccountId, subject) {
+    getOperation ({ destinationAccountId, amount, assetCode, subject }) {
       return base
         .PaymentBuilder.payment({
-          sourceBalanceId: this.accountBalance.id,
+          sourceBalanceId: this.accountBalanceByCode(assetCode).id,
           destination: destinationAccountId,
-          amount: String(this.form.amount),
+          amount: String(amount),
           feeData: {
             sourceFee: {
               percent: '0',
@@ -322,7 +284,7 @@ export default {
             sourcePaysForDest: false,
           },
           subject: JSON.stringify(subject),
-          asset: this.form.assetCode,
+          asset: assetCode,
         })
     },
   },
