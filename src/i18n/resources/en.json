@@ -1255,12 +1255,8 @@
       "customers-list-page": "Customers list"
     },
     "mass-payment-form": {
-      "asset-lbl": "Asset",
-      "available-for-payment-hint": "Available: {{amount, money}}",
-      "amount-lbl": "Amount",
       "how-to-receivers-paragraph": "List all receivers emails in the box below. Each receiver will gain the amount you specified in the “Amount” field. If the available amount is insufficient the operation will fail and no asset will be issued to anyone. Not found users and the ones that do not have balance in the selected asset will not receive the issuance but all the others will.",
       "receivers-lbl": "Receivers",
-      "submit-btn": "Send",
       "no-assets-msg-title": "No issuable assets yet",
       "no-assets-msg-description": "Unfortunately, you do not have any assets now, please create an asset and try again.",
       "payment-successfully-notification": "Mass send performed successfully.",
