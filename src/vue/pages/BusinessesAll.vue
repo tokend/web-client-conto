@@ -105,7 +105,6 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.accountId,
-      vuexTypes.isAccountGeneral,
       vuexTypes.allBusinesses,
     ]),
 
