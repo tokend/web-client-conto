@@ -36,11 +36,13 @@ import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.recor
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
-
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
+import { api } from '@/api'
+import { Bus } from '@/js/helpers/event-bus'
 
 const EVENTS = {
   updateList: 'update-list',
+  updateListAndCloseDrawer: 'update-list-and-close-drawer',
 }
 
 export default {
@@ -95,11 +97,20 @@ export default {
           this.atomicSwapAsk.id,
           this.form.promoCode
         )
-        if (atomicSwapBid.type === ATOMIC_SWAP_BID_TYPES.redirect) {
-          window.location.href = atomicSwapBid.payUrl
-        } else {
-          this.atomicSwapBidDetails = atomicSwapBid
-          this.$emit(EVENTS.updateList)
+
+        switch (atomicSwapBid.type) {
+          case ATOMIC_SWAP_BID_TYPES.redirect:
+            window.location.href = atomicSwapBid.payUrl
+            break
+          case ATOMIC_SWAP_BID_TYPES.cryptoInvoice:
+            this.atomicSwapBidDetails = atomicSwapBid
+            this.$emit(EVENTS.updateList)
+            break
+          case ATOMIC_SWAP_BID_TYPES.internal:
+            await api.signAndSendTransaction(atomicSwapBid.tx)
+            Bus.success('buy-atomic-swap-form.success-msg')
+            this.$emit(EVENTS.updateListAndCloseDrawer)
+            break
         }
       } catch (e) {
         ErrorHandler.process(e)

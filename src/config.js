@@ -159,6 +159,16 @@ export default Object.assign(
      */
     IMG_BUCKET_URL: 'https://conto-images.s3.eu-north-1.amazonaws.com',
 
+    /**
+     * Support email
+     */
+    SUPPORT_EMAIL: 'contact@distributedlab.com',
+
+    /**
+     * Support phone
+     */
+    SUPPORT_PHONE: '',
+
   },
   // process.env,
   process.env

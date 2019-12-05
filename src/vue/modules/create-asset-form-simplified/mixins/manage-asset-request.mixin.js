@@ -102,7 +102,7 @@ export default {
         base: this.collectedAttributes.code,
         quote: this.businessStatsQuoteAsset,
         action: base.xdr.ManageAssetPairAction.create(),
-        policies: +ASSET_PAIR_POLICIES.currentPriceRestriction,
+        policies: +ASSET_PAIR_POLICIES.tradeableSecondaryMarket,
         physicalPrice: '' + this.collectedAttributes.price,
         physicalPriceCorrection: '1',
         maxPriceStep: '1',

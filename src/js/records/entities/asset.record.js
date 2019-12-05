@@ -23,7 +23,7 @@ export class AssetRecord {
     this.details = record.details
     this.name = safeGet(record, 'details.name')
     this.externalSystemType = safeGet(record, 'details.externalSystemType')
-    this.isCoinpayments = safeGet(record, 'details.isCoinpayments')
+    this.isCoinpayments = safeGet(record, 'details.isCoinpayments') || false
 
     this.logo = safeGet(record, 'details.logo')
     this.logoKey = safeGet(record, 'details.logo.key')

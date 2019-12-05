@@ -31,21 +31,21 @@
           />
         </template>
 
-        <template v-else-if="!atomicSwapAsk.isAmountMoreThanZero">
-          <no-data-message
-            class="pay__no-data-message"
-            icon-name="credit-card"
-            :title="'pay-page.no-amount-title' | globalize"
-            :message="'pay-page.no-amount-msg' | globalize"
-          />
-        </template>
-
         <template v-else-if="isNotFoundAtomicSwap">
           <no-data-message
             class="pay__no-data-message"
             icon-name="credit-card"
             :title="'pay-page.no-atomic-swap-title' | globalize"
             :message="'pay-page.no-atomic-swap-msg' | globalize"
+          />
+        </template>
+
+        <template v-else-if="!atomicSwapAsk.isAmountMoreThanZero">
+          <no-data-message
+            class="pay__no-data-message"
+            icon-name="credit-card"
+            :title="'pay-page.no-amount-title' | globalize"
+            :message="'pay-page.no-amount-msg' | globalize"
           />
         </template>
 
@@ -57,6 +57,7 @@
             />
             <pay-form
               :atomic-swap-ask="atomicSwapAsk"
+              @reload-atomic-swap="getAtomicSwapAsk"
               class="pay__form"
             />
           </div>
@@ -110,13 +111,14 @@ export default {
   },
 
   async created () {
-    await this.getAtomicSwapAsk(this.$route.query.id)
+    await this.getAtomicSwapAsk()
     this.isLoaded = true
   },
 
   methods: {
-    async getAtomicSwapAsk (id) {
+    async getAtomicSwapAsk () {
       try {
+        const id = this.$route.query.id
         const { data } = await api.get(`/integrations/marketplace/offers/${id}`)
         this.atomicSwapAsk = new AtomicSwapAskRecord(data)
       } catch (e) {

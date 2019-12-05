@@ -3,7 +3,7 @@
     <div class="customers-filters__filter-field">
       <multi-select-field
         class="app__multiselect-field"
-        :disabled="isFilterDisabled"
+        :disabled="!activeOwnedAssets.length"
         :label="'customers-filters.balances-lbl' | globalize"
         @selected="emitSelectedBalances"
         :options="selectionOptions"
@@ -89,10 +89,6 @@ export default {
       vuexTypes.activeOwnedAssets,
       vuexTypes.accountId,
     ]),
-
-    isFilterDisabled () {
-      return Boolean(!this.activeOwnedAssets.length || this.isLoadFailed)
-    },
   },
 
   watch: {

@@ -15,6 +15,31 @@ for further information about branching and tagging conventions.
 #### Fixed
 - A bug when own company show on sponsorflow
 
+#### Changed
+- Refactoring refund and buyback asset
+
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.11.3
+
+## [1.5.0-rc.2] - 2019-11-28
+#### Fixed
+- A bug when duplicate two asset name in payment methods select
+
+## [1.5.0-rc.1] - 2019-11-28
+#### Added
+- Refund and Buyback asset
+- Allow to buy for asset inside TokenD
+- `SUPPORT_EMAIL` and `SUPPORT_PHONE` in config
+
+#### Fixed
+- A bug with typo on Shop button
+- A bug with disabled filters fields on Customers page
+- A bug when you can send payment more than once to customer on mass payment form
+
+#### Changed
+- Default redirect route for customer account
+
 ## [1.5.0-rc.0] - 2019-11-23
 #### Added
 - Customer ui for business account
@@ -478,7 +503,9 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.5.0-rc.0...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.5.0-rc.2...HEAD
+[1.5.0-rc.2]: https://github.com/tokend/web-client/compare/1.5.0-rc.1...1.5.0-rc.2
+[1.5.0-rc.1]: https://github.com/tokend/web-client/compare/1.5.0-rc.0...1.5.0-rc.1
 [1.5.0-rc.0]: https://github.com/tokend/web-client/compare/1.4.2...1.5.0-rc.0
 [1.4.2]: https://github.com/tokend/web-client/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/tokend/web-client/compare/1.4.0...1.4.1

@@ -50,6 +50,8 @@
         </template>
         <atomic-swap-form
           @update-list="updateList()"
+          @update-list-and-close-drawer="(isBuyFormDrawerShown = false) ||
+            updateList()"
           :atomic-swap-ask="atomicSwapToBrowse"
         />
       </drawer>

@@ -129,14 +129,14 @@ export default {
 
   computed: {
     ...mapGetters([
-      vuexTypes.transferableAssetsBalancesByOwner,
+      vuexTypes.transferableAssetsBalances,
       vuexTypes.accountBalanceByCode,
       vuexTypes.accountId,
       vuexTypes.assetByCode,
     ]),
 
     transferableBalancesAssets () {
-      return this.transferableAssetsBalancesByOwner(this.accountId)
+      return this.transferableAssetsBalances
         .filter(i => +i.balance > 0)
         .map(i => i.asset)
     },
@@ -258,10 +258,12 @@ export default {
         delimiters: CsvUtil.delimiters.common,
       })
 
+      const emailsWithoutDuplicate = [...new Set(emails)]
       const { data } = await api.get('/integrations/payment-proxy/info')
 
       const operations = await Promise.all(
-        emails.map(email => this.getOperationsByEmail(email, data.id))
+        // eslint-disable-next-line max-len
+        emailsWithoutDuplicate.map(email => this.getOperationsByEmail(email, data.id))
       )
       return operations.flat()
     },

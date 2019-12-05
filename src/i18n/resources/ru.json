@@ -116,11 +116,13 @@
       "field-error_alphaNum": "Значение должно состоять из букв и цифр латинского алфавита (A-Z, a-z, 0-9)",
       "field-error_minLength": "Количество знаков должно превышать {{minLength}}",
       "field-error_selectedSameAssetCode": "Не могут быть выбраны два одинаковых актива",
+      "field-error_selectedInternalSameType": "Не могут быть выбраны два способа оплаты с типом внутренний платеж",
       "field-error_validatePhoneNumber": "Неверный номер телефона",
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл, телефон получателя или телеграм",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
-      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует"
+      "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
+      "field-error_assetPaymentType": "Этот тип не подходит для выбранного актива"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -1155,7 +1157,8 @@
       "delete-asset-message": "Вы действительно хотите удалить актив?",
       "expiration-date-title": "Действителен до",
       "asset-purchased-successfully": "Актив успешно куплен",
-      "payment-failed": "Оплата не прошла"
+      "payment-failed": "Оплата не прошла",
+      "refund-btn": "Возврат"
     },
     "warning-banner": {
       "blocked-desc": "Ваш аккаунт был заблокирован администратором. Причина блокировки: {{reason}}",
@@ -1201,6 +1204,7 @@
       "address-lbl": "Адрес",
       "card-number-lbl": "Номер карты",
       "asset-lbl": "Актив",
+      "type-lbl": "Способ оплаты",
       "create-btn": "Создать"
     },
     "customers-page": {
@@ -1316,7 +1320,8 @@
       "asset-description-lbl": "Описание актива",
       "promo-code-lbl": "Промокод",
       "discount": "Скидка",
-      "calculating-msg": "Рассчитываем..."
+      "calculating-msg": "Рассчитываем...",
+      "success-msg": "Покупка успешна"
     },
     "kyc-recovery": {
       "submit-again-lbl": "Отпарвить заново",
@@ -1392,7 +1397,8 @@
       "load-failed-msg": "Произошла ошибка при загрузке."
     },
     "pay-form": {
-      "email-lbl":"Email"
+      "email-lbl":"Email",
+      "success-msg": "Покупка успешна"
     },
     "asset-viewer": {
       "description-title": "Описание"
@@ -1592,19 +1598,19 @@
     "successful-payment": {
       "title": "Успешный платеж",
       "description-header": "Поздравляем!",
-      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в Conto!",
+      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в {{appName}}!",
       "how-to-start-msg": "С чего начать",
       "sign-up-or-login-link-part-1": "Зарегистрируйтесь",
-      "sign-up-or-login-link-part-2": "в Conto или",
+      "sign-up-or-login-link-part-2": "в {{appName}} или",
       "sign-up-or-login-link-part-3": "войдите",
       "sign-up-or-login-link-part-4": ", используя вашу почту",
       "go-to-wallet-msg": "Перейдите в раздел “Кошелек” и увидите свой билет.",
       "use-wallet-msg": "Готово, теперь вы можете использовать свой цифровой кошелек для хранения, передачи и погашения полученого актива.",
       "transfer-msg": "Удобно передавайте актив по email.",
       "redeem-msg": "Погашайте актив, показав QR-код!",
-      "use-apps-msg": "Вы можете использовать web-версию Conto, а можете установить мобильное приложение.",
+      "use-apps-msg": "Вы можете использовать web-версию {{appName}}, а можете установить мобильное приложение.",
       "conto-for-android-msg": "{{appName}} для Android",
-      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь на почту",
+      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь",
       "asset-loading": "Загружаеться информация об активе",
       "loading-error-msg": "Произошла ошибка при загрузке.",
       "no-link-title": "Неверная ссылка",
@@ -1616,6 +1622,39 @@
     },
     "assets-movements": {
       "asset-filter-label": "Актив"
+    },
+    "asset-buyback-viewer": {
+      "buyback-title": "Выкуп актива",
+      "error-msg": "Произошла ошибка при загрузке",
+      "buyback-btn": "Создать выкуп",
+      "update-btn": "Обновить",
+      "delete-btn": "Удалить",
+      "offer-loading": "Загрузка...",
+      "delete-offer-message": "Вы уверенны что хотите удалить предложение выкупа?",
+      "offer-deleted-msg": "Предложение выкупа успешно удалено"
+    },
+    "buyback-form": {
+      "form-heading": "Выкуп",
+      "amount-lbl": "Количество",
+      "price-lbl": "Цена в {{quoteAsset}}",
+      "create-buyback-btn": "Создать",
+      "update-buyback-btn": "Обновить",
+      "offer-updated-msg": "Предложение выкупа успешно обновлено",
+      "offer-created-msg": "Предложение выкупа успешно создано",
+      "total-amount": "Общее количество"
+    },
+    "refund-asset-form": {
+      "form-heading": "Возврат",
+      "price-lbl": "Цена в {{quoteAsset}}",
+      "amount-lbl": "Количество",
+      "total-amount": "Мы получим",
+      "refund-btn": "Возврат",
+      "asset-sold-msg": "Возврат выполнен"
+    },
+    "payment-methods": {
+      "4bill": "Карта",
+      "coinpayments": "Криптовалюта",
+      "internal": "Бонус"
     },
     "multiple-assets-send-form": {
       "assets-subheading": "Актив {{ number }}",

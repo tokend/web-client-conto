@@ -34,45 +34,74 @@
           <div class="app__form-field">
             <!-- eslint-disable max-len -->
             <select-field
-              :value="form.quoteAssets[index].asset.code"
-              @input="setQuoteAssetByCode($event, index)"
-              name="create-atomic-swap-asset"
-              :label="'atomic-swap-quote-assets-form.asset-lbl' | globalize"
-              @blur="touchField(`form.quoteAssets[${index}].asset`)"
-              :error-message="getFieldErrorMessage(`form.quoteAssets[${index}].asset`)"
+              :value="form.quoteAssets[index].type"
+              @input="setQuoteAssetType($event, index)"
+              name="create-atomic-swap-quote-asset-type"
+              :label="'atomic-swap-quote-assets-form.type-lbl' | globalize"
+              @blur="touchField(`form.quoteAssets[${index}].type`)"
+              :error-message="getFieldErrorMessage(`form.quoteAssets[${index}].type`)"
               :disabled="isDisabled"
             >
               <option
-                v-for="asset in quoteAtomicSwapAssets"
-                :key="asset.code"
-                :value="asset.code"
+                v-for="paymentMethod in PAYMENT_METHODS"
+                :key="paymentMethod.value"
+                :value="paymentMethod.value"
               >
-                {{ asset.name }}
+                {{ paymentMethod.labelTranslationId | globalize }}
               </option>
             </select-field>
             <!-- eslint-enable max-len -->
           </div>
         </div>
-        <div class="app__form-row">
-          <div class="app__form-field">
-            <!-- eslint-disable max-len -->
-            <input-field
-              white-autofill
-              v-model="form.quoteAssets[index].destination"
-              @blur="touchField(`form.quoteAssets[${index}].destination`)"
-              :error-message="getFieldErrorMessage(
-                `form.quoteAssets[${index}].destination`,
-                {
-                  destinationLabel: getDestinationLabel(form.quoteAssets[index].asset)
-                }
-              )"
-              :name="'create-atomic-swap-quote-asset-destination'"
-              :label="getDestinationLabel(form.quoteAssets[index].asset)"
-              :disabled="isDisabled"
-            />
+
+        <template
+          v-if="!isInternalPaymentMethod(form.quoteAssets[index].type)"
+        >
+          <div class="app__form-row">
+            <div class="app__form-field">
+              <!-- eslint-disable max-len -->
+              <select-field
+                :value="form.quoteAssets[index].asset.code"
+                @input="setQuoteAssetByCode($event, index)"
+                name="create-atomic-swap-asset"
+                :label="'atomic-swap-quote-assets-form.asset-lbl' | globalize"
+                @blur="touchField(`form.quoteAssets[${index}].asset`)"
+                :error-message="getFieldErrorMessage(`form.quoteAssets[${index}].asset`)"
+                :disabled="isDisabled"
+              >
+                <option
+                  v-for="asset in quoteAtomicSwapAssets"
+                  :key="asset.code"
+                  :value="asset.code"
+                >
+                  {{ getAssetName(asset) }}
+                </option>
+              </select-field>
             <!-- eslint-enable max-len -->
+            </div>
           </div>
-        </div>
+
+          <div class="app__form-row">
+            <div class="app__form-field">
+              <!-- eslint-disable max-len -->
+              <input-field
+                white-autofill
+                v-model="form.quoteAssets[index].destination"
+                @blur="touchField(`form.quoteAssets[${index}].destination`)"
+                :error-message="getFieldErrorMessage(
+                  `form.quoteAssets[${index}].destination`,
+                  {
+                    destinationLabel: getDestinationLabel(form.quoteAssets[index].type)
+                  }
+                )"
+                :name="'create-atomic-swap-quote-asset-destination'"
+                :label="getDestinationLabel(form.quoteAssets[index].type)"
+                :disabled="isDisabled"
+              />
+            <!-- eslint-enable max-len -->
+            </div>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -114,10 +143,13 @@ import {
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { globalize } from '@/vue/filters/globalize'
+import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
 
 const EVENTS = {
   submit: 'submit',
 }
+
+const UAH_CODE = 'UAH'
 
 export default {
   name: 'atomic-swap-quote-assets-form',
@@ -127,11 +159,12 @@ export default {
   },
   data: _ => ({
     form: {
-      quoteAssets: [{ asset: {}, destination: '' }],
+      quoteAssets: [{ asset: {}, destination: '', type: PAYMENT_METHODS.fourBill.value }],
     },
     isLoaded: false,
     isLoadFailed: false,
     isFormSubmitting: false,
+    PAYMENT_METHODS,
   }),
 
   validations () {
@@ -141,15 +174,35 @@ export default {
           $each: {
             asset: {
               required,
-              selectedSameAssetCode: asset => !this.isAssetRepeated(asset.code),
+              // eslint-disable-next-line max-len
+              selectedSameAssetCode: (asset, quoteAsset) => !this.isAssetRepeated(asset.code, quoteAsset.type),
             },
             destination: {
               required,
               cryptoAddressOrCreditCardNumber: (value, quoteAsset) => {
-                return quoteAsset.asset.isCoinpayments
-                  ? address(quoteAsset.asset.code)(value)
-                  : cardNumber(value)
+                switch (quoteAsset.type) {
+                  case PAYMENT_METHODS.fourBill.value:
+                    return cardNumber(value)
+                  case PAYMENT_METHODS.coinpayments.value:
+                    return address(quoteAsset.asset.code)(value)
+                  default:
+                    return true
+                }
               },
+            },
+            type: {
+              required,
+              assetPaymentType: (value, quoteAsset) => {
+                switch (value) {
+                  case PAYMENT_METHODS.fourBill.value:
+                    return !quoteAsset.asset.isCoinpayments
+                  case PAYMENT_METHODS.coinpayments.value:
+                    return quoteAsset.asset.isCoinpayments
+                  default:
+                    return true
+                }
+              },
+              selectedInternalSameType: _ => !this.isInternalTypeRepeated(),
             },
           },
         },
@@ -158,10 +211,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      quoteAtomicSwapAssets: vuexTypes.quoteAtomicSwapAssets,
-      assetByCode: vuexTypes.assetByCode,
-    }),
+    ...mapGetters([
+      vuexTypes.quoteAtomicSwapAssets,
+      vuexTypes.assetByCode,
+      vuexTypes.accountId,
+      vuexTypes.statsQuoteAsset,
+    ]),
   },
 
   async created () {
@@ -172,10 +227,10 @@ export default {
       this.$emit(EVENTS.submit, this.form)
     },
 
-    isAssetRepeated (assetCode) {
+    isAssetRepeated (assetCode, type) {
       const repeatedAssets = this.form.quoteAssets
         .reduce((count, quoteAsset) => {
-          return quoteAsset.asset.code === assetCode
+          return quoteAsset.asset.code === assetCode && quoteAsset.type === type
             ? ++count
             : count
         }, 0)
@@ -183,14 +238,36 @@ export default {
       return repeatedAssets > 1
     },
 
+    isInternalTypeRepeated () {
+      const repeatedTypes = this.form.quoteAssets
+        .reduce((count, quoteAsset) => {
+          return this.isInternalPaymentMethod(quoteAsset.type)
+            ? ++count
+            : count
+        }, 0)
+
+      return repeatedTypes > 1
+    },
+
     setQuoteAssetByCode (code, index) {
       this.form.quoteAssets[index].asset = this.assetByCode(code)
+    },
+
+    setQuoteAssetType (type, index) {
+      if (this.isInternalPaymentMethod(type)) {
+        this.form.quoteAssets[index].destination = this.accountId
+        this.form.quoteAssets[index].asset = this.statsQuoteAsset
+      } else {
+        this.form.quoteAssets[index].destination = ''
+      }
+      this.form.quoteAssets[index].type = type
     },
 
     addQuoteAsset () {
       this.form.quoteAssets.push({
         destination: '',
         asset: this.quoteAtomicSwapAssets[0],
+        type: PAYMENT_METHODS.fourBill.value,
       })
     },
 
@@ -202,12 +279,22 @@ export default {
       return this.form.quoteAssets.length > 1
     },
 
-    getDestinationLabel (asset) {
+    getDestinationLabel (type) {
       return globalize(
-        asset.isCoinpayments
+        type === PAYMENT_METHODS.coinpayments.value
           ? 'atomic-swap-quote-assets-form.address-lbl'
           : 'atomic-swap-quote-assets-form.card-number-lbl'
       )
+    },
+
+    isInternalPaymentMethod (type) {
+      return type === PAYMENT_METHODS.internal.value
+    },
+
+    getAssetName (asset) {
+      return asset.code === UAH_CODE
+        ? 'Ukrainian hryvnia'
+        : asset.name
     },
   },
 }

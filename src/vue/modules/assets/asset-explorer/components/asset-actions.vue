@@ -1,50 +1,66 @@
 <template>
   <div class="asset-actions">
-    <form-confirmation
-      v-if="isConfirmationShown"
-      message-id="assets.delete-asset-message"
-      ok-button-text-id="assets.delete-btn"
-      :is-pending="isAssetDeleting"
-      is-danger-color
-      @ok="deleteAsset"
-      @cancel="isConfirmationShown = false"
-    />
+    <template v-if="isLoaded">
+      <form-confirmation
+        v-if="isConfirmationShown"
+        message-id="assets.delete-asset-message"
+        ok-button-text-id="assets.delete-btn"
+        :is-pending="isAssetDeleting"
+        is-danger-color
+        @ok="deleteAsset"
+        @cancel="isConfirmationShown = false"
+      />
 
+      <template v-else>
+        <button
+          v-ripple
+          class="app__button-raised asset-actions__btn"
+          @click="$emit(EVENTS.transfer, asset.code)"
+        >
+          {{ 'assets.send-btn' | globalize }}
+        </button>
+
+        <button
+          v-if="!isAssetOwner"
+          v-ripple
+          class="app__button-raised asset-actions__btn"
+          @click="isRedeemDrawerShown = true"
+        >
+          {{ 'assets.redeem-btn' | globalize }}
+        </button>
+
+        <button
+          v-if="isAssetOwner"
+          v-ripple
+          class="app__button-raised asset-actions__btn"
+          @click="$emit(EVENTS.updateAsset)"
+        >
+          {{ 'assets.update-btn' | globalize }}
+        </button>
+
+        <button
+          v-if="isAssetOwner"
+          v-ripple
+          class="app__button-raised asset-actions__btn"
+          @click="isConfirmationShown = true"
+        >
+          {{ 'assets.delete-btn' | globalize }}
+        </button>
+
+        <button
+          v-if="!isAssetOwner && isBuyOrderExists"
+          v-ripple
+          class="app__button-raised asset-actions__btn"
+          @click="isRefundAssetDrawerShown = true"
+        >
+          {{ 'assets.refund-btn' | globalize }}
+        </button>
+      </template>
+    </template>
     <template v-else>
-      <button
-        v-ripple
-        class="app__button-raised asset-actions__btn"
-        @click="$emit(EVENTS.transfer, asset.code)"
-      >
-        {{ 'assets.send-btn' | globalize }}
-      </button>
-
-      <button
-        v-if="!isAssetOwner"
-        v-ripple
-        class="app__button-raised asset-actions__btn"
-        @click="isRedeemDrawerShown = true"
-      >
-        {{ 'assets.redeem-btn' | globalize }}
-      </button>
-
-      <button
-        v-if="isAssetOwner"
-        v-ripple
-        class="app__button-raised asset-actions__btn"
-        @click="$emit(EVENTS.updateAsset)"
-      >
-        {{ 'assets.update-btn' | globalize }}
-      </button>
-
-      <button
-        v-if="isAssetOwner"
-        v-ripple
-        class="app__button-raised asset-actions__btn"
-        @click="isConfirmationShown = true"
-      >
-        {{ 'assets.delete-btn' | globalize }}
-      </button>
+      <loader
+        message-id="assets.buy-order-loading"
+      />
     </template>
 
     <drawer :is-shown.sync="isRedeemDrawerShown">
@@ -55,6 +71,19 @@
         :asset-code="asset.code"
       />
     </drawer>
+
+    <drawer :is-shown.sync="isRefundAssetDrawerShown">
+      <template slot="heading">
+        {{ 'refund-asset-form.form-heading' | globalize }}
+      </template>
+      <refund-asset-form
+        :asset-code="asset.code"
+        :buy-order="buyOrder"
+        @operation-submitted="(isRefundAssetDrawerShown = false) ||
+          (loadBuyOrder() && $emit(EVENTS.assetRefunded))
+        "
+      />
+    </drawer>
   </div>
 </template>
 
@@ -62,6 +91,8 @@
 import FormConfirmation from '@/vue/common/FormConfirmation'
 import RedeemForm from '@/vue/forms/RedeemForm'
 import Drawer from '@/vue/common/Drawer'
+import Loader from '@/vue/common/Loader'
+import RefundAssetForm from '@/vue/forms/RefundAssetForm'
 
 import { AssetRecord } from '@/js/records/entities/asset.record'
 import { mapGetters } from 'vuex'
@@ -70,11 +101,14 @@ import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
+import { OrderRecord } from '@/js/records/entities/order.record'
 
 const EVENTS = {
   updateAsset: 'update-asset',
   assetDeleted: 'asset-deleted',
   transfer: 'transfer',
+  assetRefunded: 'asset-refunded',
 }
 
 export default {
@@ -84,6 +118,8 @@ export default {
     RedeemForm,
     Drawer,
     FormConfirmation,
+    Loader,
+    RefundAssetForm,
   },
   props: {
     asset: { type: AssetRecord, required: true },
@@ -94,16 +130,30 @@ export default {
     isAssetDeleting: false,
     isConfirmationShown: false,
     EVENTS,
+    buyOrder: {},
+    isRefundAssetDrawerShown: false,
+    isLoaded: true,
   }),
 
   computed: {
-    ...mapGetters({
-      accountId: vuexTypes.accountId,
-    }),
+    ...mapGetters([
+      vuexTypes.accountId,
+      vuexTypes.statsQuoteAsset,
+    ]),
 
     isAssetOwner () {
       return this.asset.owner === this.accountId
     },
+
+    isBuyOrderExists () {
+      return Boolean(this.buyOrder.id)
+    },
+  },
+
+  async created () {
+    if (!this.isAssetOwner) {
+      await this.loadBuyOrder()
+    }
   },
 
   methods: {
@@ -136,6 +186,21 @@ export default {
         return response
       })
       await Promise.all(promises)
+    },
+
+    async loadBuyOrder () {
+      this.isLoaded = false
+      try {
+        const endpoint = `/v3/order_books/${this.asset.code}:${this.statsQuoteAsset.code}:${SECONDARY_MARKET_ORDER_BOOK_ID}`
+        const { data: orderBook } = await api.get(endpoint, {
+          include: ['buy_entries'],
+        })
+
+        this.buyOrder = new OrderRecord(orderBook.buyEntries[0])
+      } catch (error) {
+        ErrorHandler.processWithoutFeedback(error)
+      }
+      this.isLoaded = true
     },
   },
 }

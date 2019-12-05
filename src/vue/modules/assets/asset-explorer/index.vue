@@ -6,8 +6,8 @@
           :message="'assets.loading-error-msg' | globalize" />
       </template>
       <template v-else>
-        <template v-if="accountBalances.length">
-          <card-list v-slot="{ item }" :list="accountBalances">
+        <template v-if="balances.length">
+          <card-list v-slot="{ item }" :list="balances">
             <asset-card
               :balance="item"
               @transfer="transfer"
@@ -45,8 +45,14 @@
           @update-asset="isAssetUpdateDrawerShown = true"
           @asset-deleted="(isAssetDetailsDrawerShown = false) ||
             loadAccountBalances()"
+          @asset-refunded="loadAccountBalances()"
         />
       </div>
+
+      <asset-buyback-viewer
+        v-if="selectedBalance.asset && isAssetOwner"
+        :asset-code="selectedBalance.asset.code"
+      />
     </drawer>
 
     <drawer :is-shown.sync="isAssetUpdateDrawerShown">
@@ -90,6 +96,7 @@ import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplifi
 import AssetCard from './components/asset-card'
 import TransferForm from '@/vue/forms/TransferForm'
 import UpdateList from '@/vue/mixins/update-list.mixin'
+import AssetBuybackViewer from './components/asset-buyback-viewer'
 
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -108,6 +115,7 @@ export default {
     UpdateAssetFormSimplifiedModule,
     AssetCard,
     TransferForm,
+    AssetBuybackViewer,
     CardList,
   },
 
@@ -125,21 +133,22 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      accountBalancesByOwner: vuexTypes.accountBalancesByOwner,
-      accountBalanceByCode: vuexTypes.accountBalanceByCode,
-      accountOwnedAssetsBalances: vuexTypes.accountOwnedAssetsBalances,
-      isAccountGeneral: vuexTypes.isAccountGeneral,
-      myBusinesses: vuexTypes.myBusinesses,
-    }),
+    ...mapGetters([
+      vuexTypes.accountBalancesByOwner,
+      vuexTypes.accountBalanceByCode,
+      vuexTypes.accountOwnedAssetsBalances,
+      vuexTypes.isAccountGeneral,
+      vuexTypes.accountBalances,
+      vuexTypes.accountId,
+    ]),
 
-    accountBalances () {
+    balances () {
       try {
         let accountBalances = []
         /* eslint-disable max-len */
         let businessAccountBalances = this.businessOwnerId
           ? this.accountBalancesByOwner(this.businessOwnerId)
-          : this.myBusinesses.flatMap(business => this.accountBalancesByOwner(business.accountId))
+          : this.accountBalances
           /* eslint-enable max-len */
 
         accountBalances = businessAccountBalances
@@ -155,6 +164,10 @@ export default {
       return this.isAssetDetailsDrawerShown ||
          this.isTransferDrawerShown ||
         this.isAssetUpdateDrawerShown
+    },
+
+    isAssetOwner () {
+      return this.selectedBalance.asset.owner === this.accountId
     },
   },
 
