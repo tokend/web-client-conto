@@ -10,6 +10,10 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Mass send allow to send to more than 100 users
+- Mass send allow to send a few assets
+
+#### Fixed
+- A bug when own company show on sponsorflow
 
 #### Changed
 - Refactoring refund and buyback asset
