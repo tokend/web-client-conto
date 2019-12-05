@@ -102,7 +102,7 @@ import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
-import { BuyOrderRecord } from '@/js/records/entities/buy-order.record'
+import { OrderRecord } from '@/js/records/entities/order.record'
 
 const EVENTS = {
   updateAsset: 'update-asset',
@@ -196,7 +196,7 @@ export default {
           include: ['buy_entries'],
         })
 
-        this.buyOrder = new BuyOrderRecord(orderBook.buyEntries[0])
+        this.buyOrder = new OrderRecord(orderBook.buyEntries[0])
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }

@@ -78,7 +78,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils'
 import { formatMoney } from '@/vue/filters/formatMoney'
-import { BuybackOfferRecord } from '@/js/records/entities/buyback-offer.record'
+import { OfferRecord } from '@/js/records/entities/offer.record'
 
 const EVENTS = {
   operationSubmitted: 'operation-submitted',
@@ -93,7 +93,7 @@ export default {
 
   props: {
     assetCode: { type: String, required: true },
-    buybackOffer: { type: BuybackOfferRecord, default: () => {} },
+    buybackOffer: { type: OfferRecord, default: () => {} },
   },
 
   data: _ => ({

@@ -91,7 +91,7 @@ import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
-import { BuybackOfferRecord } from '@/js/records/entities/buyback-offer.record'
+import { OfferRecord } from '@/js/records/entities/offer.record'
 
 const EVENTS = {
   createBuyback: 'create-buyback',
@@ -153,7 +153,7 @@ export default {
             base_asset: this.assetCode,
           },
         })
-        this.buybackOffer = new BuybackOfferRecord(offers[0])
+        this.buybackOffer = new OfferRecord(offers[0])
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)

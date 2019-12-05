@@ -68,7 +68,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils'
 import { formatMoney } from '@/vue/filters/formatMoney'
-import { BuyOrderRecord } from '@/js/records/entities/buy-order.record'
+import { OrderRecord } from '@/js/records/entities/order.record'
 
 const EVENTS = {
   operationSubmitted: 'operation-submitted',
@@ -83,7 +83,7 @@ export default {
 
   props: {
     assetCode: { type: String, required: true },
-    buyOrder: { type: BuyOrderRecord, default: () => {} },
+    buyOrder: { type: OrderRecord, default: () => {} },
   },
 
   data: _ => ({
