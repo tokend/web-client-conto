@@ -10,12 +10,6 @@
         <p class="business-attributes__name">
           {{ business.name }}
         </p>
-        <p
-          v-if="isMyBusiness"
-          class="business-attributes__my-business-label"
-        >
-          {{ 'business-attributes.my-business-label' | globalize }}
-        </p>
       </div>
     </div>
     <!-- eslint-disable-next-line max-len -->
@@ -61,8 +55,6 @@
 import EmailGetter from '@/vue/common/EmailGetter'
 import BusinessLogo from './BusinessLogo'
 import { BusinessRecord } from '@/js/records/entities/business.record'
-import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'business-attributes',
@@ -76,16 +68,6 @@ export default {
     business: {
       type: BusinessRecord,
       required: true,
-    },
-  },
-
-  computed: {
-    ...mapGetters({
-      accountId: vuexTypes.accountId,
-    }),
-
-    isMyBusiness () {
-      return this.business.accountId === this.accountId
     },
   },
 }
@@ -118,12 +100,5 @@ export default {
 
 .business-attributes__info {
   margin-left: 1.8rem;
-}
-
-.business-attributes__my-business-label {
-  margin-top: 0.1rem;
-  font-size: 1.4rem;
-  line-height: 1.29;
-  color: $col-text;
 }
 </style>

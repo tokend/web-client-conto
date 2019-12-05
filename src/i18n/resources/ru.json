@@ -1288,8 +1288,7 @@
     "business-attributes": {
       "id-key": "Идентификатор",
       "owner-key": "Владелец",
-      "industry-key": "Индустрия",
-      "my-business-label": "Это ваша компания"
+      "industry-key": "Индустрия"
     },
     "businesses-my": {
       "no-list-title": "Нет компаний",

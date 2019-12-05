@@ -8,8 +8,8 @@
       </template>
 
       <template v-else>
-        <template v-if="allBusinesses.length">
-          <card-list v-slot="{ item }" :list="allBusinesses">
+        <template v-if="businesses.length">
+          <card-list v-slot="{ item }" :list="businesses">
             <business-card
               :business="item"
               @vue-details="selectItem(item)"
@@ -50,14 +50,13 @@
       <business-attributes
         :business="currentBusiness"
       />
-      <template v-if="!isBusinessOwner">
-        <h3 class="businesses-all__bussiness-assets-title">
-          {{ 'businesses-all.business-assets-title' | globalize }}
-        </h3>
-        <business-assets-viewer
-          :business="currentBusiness"
-        />
-      </template>
+
+      <h3 class="businesses-all__bussiness-assets-title">
+        {{ 'businesses-all.business-assets-title' | globalize }}
+      </h3>
+      <business-assets-viewer
+        :business="currentBusiness"
+      />
     </drawer>
   </div>
 </template>
@@ -77,6 +76,7 @@ import CardList from '@/vue/common/CardList'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { vueRoutes } from '@/vue-router/routes'
 
 export default {
   name: 'businesses-all',
@@ -103,14 +103,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      accountId: vuexTypes.accountId,
-      isAccountGeneral: vuexTypes.isAccountGeneral,
-      allBusinesses: vuexTypes.allBusinesses,
-    }),
+    ...mapGetters([
+      vuexTypes.accountId,
+      vuexTypes.allBusinesses,
+    ]),
 
-    isBusinessOwner () {
-      return Boolean(this.currentBusiness.accountId === this.accountId)
+    isSponsorshipPage () {
+      return this.$route.name === vueRoutes.sponsorshipAllBusinesses.name
+    },
+
+    businesses () {
+      let businesses = []
+      if (this.isSponsorshipPage) {
+        businesses = this.allBusinesses
+          .filter(item => item.accountId !== this.accountId)
+      } else {
+        businesses = this.allBusinesses
+      }
+      return businesses
     },
   },
 
