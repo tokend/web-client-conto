@@ -89,6 +89,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    email: {
+      type: String,
+      default: '',
+    },
   },
   data: _ => ({
     form: {
@@ -111,7 +115,7 @@ export default {
   },
 
   created () {
-    const email = this.$route.params.email
+    const email = this.$route.params.email || this.email
     if (email) {
       this.form.email = email
     }

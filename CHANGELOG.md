@@ -11,6 +11,7 @@ for further information about branching and tagging conventions.
 #### Added
 - Mass send allow to send to more than 100 users
 - Mass send allow to send a few assets
+- Registration by invitation link
 
 #### Fixed
 - A bug when own company show on sponsorflow

@@ -7,6 +7,7 @@
 
       <div class="auth-page__content">
         <signup-form
+          :email="email"
           :is-disabled="formMixin.isDisabled"
           :submit-event="'submit'"
           @submit="handleChildFormSubmit"
@@ -31,6 +32,7 @@
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
 import SignupForm from '@/vue/forms/SignupForm'
+import _isEmpty from 'lodash/isEmpty'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { base } from '@tokend/js-sdk'
@@ -48,15 +50,34 @@ export default {
   data: _ => ({
     recoveryKeypair: null,
     password: null,
-    email: null,
+    email: '',
     vueRoutes,
     isConfirmedSeedCopied: false,
+    inviteVerificationInfo: {},
   }),
+
   computed: {
     ...mapGetters({
       walletAccountId: vuexTypes.walletAccountId,
     }),
+
+    isInviteVerificationInfoExists () {
+      return !_isEmpty(this.inviteVerificationInfo)
+    },
+
+    isCurrentAndVerificationEmailsIdentical () {
+      return this.email === this.inviteVerificationInfo.email
+    },
   },
+
+  created () {
+    this.inviteVerificationInfo = this.$route.params.inviteVerificationInfo
+
+    if (this.isInviteVerificationInfoExists) {
+      this.email = this.inviteVerificationInfo.email
+    }
+  },
+
   methods: {
     ...mapActions({
       storeWallet: vuexTypes.STORE_WALLET,
@@ -82,10 +103,17 @@ export default {
           this.recoveryKeypair
         )
         if (response.data.verified) {
-          await this.storeWallet(wallet)
-          await this.loadAccount(this.walletAccountId)
-          await this.loadKyc()
-          await this.$router.push(vueRoutes.signupKyc)
+          await this.loadAccountInfoAndPushToSignupKyc(wallet)
+        } else if (this.isInviteVerificationInfoExists &&
+          this.isCurrentAndVerificationEmailsIdentical) {
+          const encodedVerificationInfo = btoa(JSON.stringify({
+            meta: {
+              wallet_id: wallet.id,
+              token: this.inviteVerificationInfo.token,
+            },
+          }))
+          await walletsManager.verifyEmail(encodedVerificationInfo)
+          await this.loadAccountInfoAndPushToSignupKyc(wallet)
         } else {
           await this.$router.push({
             ...vueRoutes.verify,
@@ -102,6 +130,13 @@ export default {
         ErrorHandler.process(e)
       }
       this.enableForm()
+    },
+
+    async loadAccountInfoAndPushToSignupKyc (wallet) {
+      await this.storeWallet(wallet)
+      await this.loadAccount(this.walletAccountId)
+      await this.loadKyc()
+      await this.$router.push(vueRoutes.signupKyc)
     },
   },
 }

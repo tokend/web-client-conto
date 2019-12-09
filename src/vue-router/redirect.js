@@ -4,6 +4,7 @@ import { store, vuexTypes } from '@/vuex'
 const REDIRECT_TYPES = {
   apiVerify: 'api-verify',
   marketplacePayment: 'marketplace-payment',
+  inviteVerify: 'invite-verify',
 }
 
 export const resolveRedirect = (to, from, next) => {
@@ -17,6 +18,9 @@ export const resolveRedirect = (to, from, next) => {
     case REDIRECT_TYPES.marketplacePayment:
       handlePurchasedAssetRedirect(decodedValue.meta, next)
       break
+    case REDIRECT_TYPES.inviteVerify:
+      handleInviteRedirect(decodedValue.meta, next)
+      break
   }
 }
 
@@ -24,6 +28,13 @@ function handleEmailRedirect (encodedVerificationCode, next) {
   next({
     ...vueRoutes.login,
     params: { encodedVerificationCode },
+  })
+}
+
+function handleInviteRedirect (decodedInviteVerificationInfo, next) {
+  next({
+    ...vueRoutes.signup,
+    params: { inviteVerificationInfo: decodedInviteVerificationInfo },
   })
 }
 
