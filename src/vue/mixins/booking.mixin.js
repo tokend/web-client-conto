@@ -99,7 +99,7 @@ export default {
     },
     async createBusinesses (calendarId) {
       try {
-        const response = await api.post('/integrations/booking/businesses', {
+        const response = await api.postWithSignature('/integrations/booking/businesses', {
           data: {
             work_days: null,
             owner: this.accountId,

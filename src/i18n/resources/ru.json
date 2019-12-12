@@ -1631,7 +1631,9 @@
     "booking-explorer": {
       "loading-error-msg": "Произошла ошибка при загрузке.",
       "no-booking-title": "Нет бронирования",
-      "no-list-msg": "Здесь будет список бронироней"
+      "no-list-msg": "Здесь будет список бронированей",
+      "qr-code-drawer-heading": "QR код",
+      "qr-code-msg": "Отсканируйте этот QR код в мобильном приложении"
     },
     "booking-card": {
       "room-lbl": "Комната",
@@ -1639,7 +1641,7 @@
       "from-lbl": "С",
       "to-lbl": "По",
       "participants-lbl": "Количество мест",
-      "cancel-btn": "Отменить",
+      "qr-code-btn": "QR код",
       "price-lbl": "Цена: {{amount, money}} {{asset}}"
     }
   }

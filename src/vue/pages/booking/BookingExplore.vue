@@ -17,6 +17,8 @@
             >
               <booking-card
                 :booking-record="item"
+                @show-qr-code="(bookingQrCodeValue = $event) &&
+                  (isQrCodeDrawerShown = true)"
               />
             </div>
           </div>
@@ -46,6 +48,22 @@
         ref="listCollectionLoader"
       />
     </div>
+
+    <drawer :is-shown.sync="isQrCodeDrawerShown">
+      <template slot="heading">
+        {{ 'booking-explorer.qr-code-drawer-heading' | globalize }}
+      </template>
+
+      <qr-code-wrapper
+        class="booking-explorer__qr-code"
+        :value="bookingQrCodeValue"
+        :size="250"
+      />
+
+      <p class="booking-explorer__qr-code-msg">
+        {{ 'booking-explorer.qr-code-msg' | globalize }}
+      </p>
+    </drawer>
   </div>
 </template>
 
@@ -56,6 +74,8 @@ import CollectionLoader from '@/vue/common/CollectionLoader'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import Drawer from '@/vue/common/Drawer'
+import QrCodeWrapper from '@/vue/common/QrCodeWrapper'
 
 import { BookingRecord } from '@/js/records/entities/booking.record'
 
@@ -73,6 +93,8 @@ export default {
     SkeletonCardsLoader,
     ErrorMessage,
     BookingCard,
+    Drawer,
+    QrCodeWrapper,
   },
   mixins: [BookingMixin],
   data () {
@@ -83,8 +105,11 @@ export default {
       businessId: '1',
       business: {},
       isBusinessLoaded: false,
+      isQrCodeDrawerShown: false,
+      bookingQrCodeValue: '',
     }
   },
+
   async created () {
     this.listen()
     try {
@@ -95,6 +120,7 @@ export default {
     }
     this.isBusinessLoaded = true
   },
+
   methods: {
     listen () {
       Bus.on('customers:updateList', () => {
@@ -141,9 +167,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .booking-explorer__collection-loader {
     margin-top: 1rem;
   }
 
+  .booking-explorer__qr-code {
+    margin-top: 5rem;
+    text-align: center;
+  }
+
+  .booking-explorer__qr-code-msg {
+    margin-top: 5rem;
+    text-align: center;
+  }
 </style>

@@ -18,6 +18,7 @@ export class BookingRecord {
     this.cancelTill = record.cancelTill
     this.lockTime = record.lockTime
     this.state = record.state
+    this.reference = record.reference
   }
 
   getRoom (business) {
