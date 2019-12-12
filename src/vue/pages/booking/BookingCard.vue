@@ -23,6 +23,15 @@
         }) }}
         <!-- eslint-enable max-len -->
       </template>
+      <template slot="actions">
+        <button
+          v-ripple
+          class="app__button-flat"
+          @click="generateQrCode"
+        >
+          {{ 'booking-card.qr-code-btn' | globalize }}
+        </button>
+      </template>
     </card>
   </div>
 </template>
@@ -33,6 +42,10 @@ import BookingMixin from '@/vue/mixins/booking.mixin'
 import CardLogo from '@/vue/common/CardLogo'
 
 import { BookingRecord } from '@/js/records/entities/booking.record'
+
+const EVENTS = {
+  showQrCode: 'show-qr-code',
+}
 
 export default {
   name: 'booking-card',
@@ -46,6 +59,19 @@ export default {
     bookingRecord: {
       type: BookingRecord,
       required: true,
+    },
+  },
+
+  data () {
+    return {
+      EVENTS,
+    }
+  },
+
+  methods: {
+    generateQrCode () {
+      const qrCodeValue = btoa(`tokend://booking.conto?reference=${this.bookingRecord.reference}`)
+      this.$emit(EVENTS.showQrCode, qrCodeValue)
     },
   },
 }

@@ -1631,7 +1631,9 @@
     "booking-explorer": {
       "loading-error-msg": "There was an error while loading.",
       "no-booking-title": "No booking yet",
-      "no-list-msg": "Here will be the list of booking"
+      "no-list-msg": "Here will be the list of booking",
+      "qr-code-drawer-heading": "QR code",
+      "qr-code-msg": "Scan this QR code in a mobile application"
     },
     "booking-card": {
       "room-lbl": "Room",
@@ -1639,7 +1641,7 @@
       "from-lbl": "From",
       "to-lbl": "To",
       "participants-lbl": "Participants",
-      "cancel-btn": "Cancel",
+      "qr-code-btn": "QR code",
       "price-lbl": "Price: {{amount, money}} {{asset}}"
     }
   }
