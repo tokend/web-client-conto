@@ -14,6 +14,7 @@ for further information about branching and tagging conventions.
 
 #### Fixed
 - A bug when own company show on sponsorflow
+- A bug with color scheme
 
 #### Changed
 - Refactoring refund and buyback asset
