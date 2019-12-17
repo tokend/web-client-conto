@@ -117,7 +117,7 @@
       "field-error_minLength": "Количество знаков должно превышать {{minLength}}",
       "field-error_selectedSameAssetCode": "Не могут быть выбраны два одинаковых актива",
       "field-error_validatePhoneNumber": "Неверный номер телефона",
-      "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл",
+      "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл или имя пользователя телеграм или номер телефона",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
@@ -903,7 +903,8 @@
       "submit-btn": "Отправить",
       "payment-successful": "Активы отправлены",
       "recipient-not-found": "Получатель не найден",
-      "approving-msg": "Этот пользователь не существует в системе. Вы уверены, что хотите отправить?"
+      "approving-msg": "Этот пользователь не существует в системе. Вы уверены, что хотите отправить?",
+      "recipient-note": "Номер телефона без «+», имя пользователя telegram без «@»"
     },
     "assets-page": {
       "create-asset-title": "Создать",

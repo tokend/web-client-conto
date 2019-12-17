@@ -117,7 +117,7 @@
       "field-error_minLength": "This field must contain minimum {{minLength}} symbols",
       "field-error_selectedSameAssetCode": "Not allowed duplicated quote asset codes",
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
-      "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email",
+      "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email or phone number or telegram username",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
@@ -899,7 +899,8 @@
       "submit-btn": "Send",
       "payment-successful": "Transfer successful",
       "recipient-not-found": "Recipient not found",
-      "approving-msg": "This user does not exist in system. Are you sure want to send?"
+      "approving-msg": "This user does not exist in system. Are you sure want to send?",
+      "recipient-note": "Phone number without '+', telegram username without '@'"
     },
     "assets-page": {
       "explore-title": "Explore assets",

@@ -70,6 +70,7 @@
                 @blur="touchField('form.recipient')"
                 :disabled="formMixin.isDisabled"
               />
+              {{ 'transfer-form.recipient-note' | globalize }}
             </div>
           </div>
 
