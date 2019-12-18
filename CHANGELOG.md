@@ -23,6 +23,8 @@ for further information about branching and tagging conventions.
 #### Changed
 - Now using @tokend/js-sdk@1.11.3
 
+## [1.5.0] - 2019-12-18
+
 ## [1.5.0-rc.2] - 2019-11-28
 #### Fixed
 - A bug when duplicate two asset name in payment methods select
@@ -504,7 +506,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.5.0-rc.2...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.5.0...HEAD
+[1.5.0]: https://github.com/tokend/web-client/compare/1.5.0-rc.2...1.5.0
 [1.5.0-rc.2]: https://github.com/tokend/web-client/compare/1.5.0-rc.1...1.5.0-rc.2
 [1.5.0-rc.1]: https://github.com/tokend/web-client/compare/1.5.0-rc.0...1.5.0-rc.1
 [1.5.0-rc.0]: https://github.com/tokend/web-client/compare/1.4.2...1.5.0-rc.0
