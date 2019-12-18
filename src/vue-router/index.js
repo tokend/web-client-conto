@@ -18,10 +18,11 @@ import BusinessesAll from '@/vue/pages/BusinessesAll'
 import BusinessViewer from '@/vue/pages/BusinessViewer'
 
 import Assets from '@/vue/pages/Assets'
-import AssetExplorer from '@/vue/pages/AssetExplorer'
+import AssetExplorer from '@modules/assets/asset-explorer'
 import AtomicSwaps from '@/vue/pages/AtomicSwaps'
 import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
 import Movements from '@/vue/pages/Movements'
+import AssetsMovements from '@/vue/pages/AssetsMovements'
 import Sponsorship from '@/vue/pages/Sponsorship'
 import SponsorshipIncomingRequestsPage from '@/vue/pages/SponsorshipIncomingRequestsPage'
 import SponsorshipOutgoingRequestsPage from '@/vue/pages/SponsorshipOutgoingRequestsPage'
@@ -177,9 +178,6 @@ const router = new Router({
               component: BusinessesMy,
               beforeEnter: inAppRouteGuard,
               props: true,
-              meta: {
-                isGeneralOnly: true,
-              },
             },
             {
               path: '/businesses/all',
@@ -187,9 +185,6 @@ const router = new Router({
               component: BusinessesAll,
               beforeEnter: inAppRouteGuard,
               props: true,
-              meta: {
-                isGeneralOnly: true,
-              },
             },
             {
               path: '/companies/:id',
@@ -197,9 +192,6 @@ const router = new Router({
               component: BusinessViewer,
               props: true,
               beforeEnter: inAppRouteGuard,
-              meta: {
-                isGeneralOnly: true,
-              },
             },
           ],
         },
@@ -293,6 +285,15 @@ const router = new Router({
             pageNameTranslationId: 'pages-names.movements',
           },
           component: Movements,
+          beforeEnter: inAppRouteGuard,
+        },
+        {
+          path: '/assets-movements',
+          name: vueRoutes.assetsMovements.name,
+          meta: {
+            pageNameTranslationId: 'pages-names.assets-movements',
+          },
+          component: AssetsMovements,
           beforeEnter: inAppRouteGuard,
         },
         {
@@ -437,7 +438,7 @@ function redirectRouteGuard (to, from, next) {
       if (isAccountCorporate) {
         next(vueRoutes.customers)
       } else {
-        next(vueRoutes.businesses)
+        next(vueRoutes.assetsExplore)
       }
     } else {
       next()

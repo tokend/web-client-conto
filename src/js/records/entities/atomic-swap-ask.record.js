@@ -19,6 +19,7 @@ export class AtomicSwapAskRecord {
       .map(item => ({
         asset: store.getters[vuexTypes.assetByCode](item.asset),
         paymentMethodId: item.id,
+        paymentMethodType: String(item.type.value),
         destination: _get(item, 'destination') || '',
       }))
   }
@@ -28,6 +29,13 @@ export class AtomicSwapAskRecord {
       return quoteAsset.asset.code === assetCode
     })
     return quoteAsset.paymentMethodId
+  }
+
+  getAssetCodeByPaymentMethodId (id) {
+    const quoteAsset = this.quoteAssets.find(quoteAsset => {
+      return quoteAsset.paymentMethodId === id
+    })
+    return quoteAsset.asset.code
   }
 
   get isAmountMoreThanZero () {

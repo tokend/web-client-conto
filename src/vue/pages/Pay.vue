@@ -40,6 +40,7 @@
         />
         <pay-form
           :atomic-swap-ask="atomicSwapAsk"
+          @reload-atomic-swap="getAtomicSwapAsk()"
           class="pay__form"
         />
       </div>
@@ -98,7 +99,7 @@ export default {
   async created () {
     this.isLoading = true
     try {
-      await this.getAtomicSwapAsk(this.$route.query.id)
+      await this.getAtomicSwapAsk()
       this.isLoaded = true
     } catch (e) {
       this.isLoading = false
@@ -109,7 +110,8 @@ export default {
   },
 
   methods: {
-    async getAtomicSwapAsk (id) {
+    async getAtomicSwapAsk () {
+      const id = this.$route.query.id
       const { data } = await api.get(`/integrations/marketplace/offers/${id}`)
       this.atomicSwapAsk = new AtomicSwapAskRecord(data)
     },

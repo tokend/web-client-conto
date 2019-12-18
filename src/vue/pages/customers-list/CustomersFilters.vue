@@ -3,7 +3,7 @@
     <div class="customers-filters__filter-field">
       <multi-select-field
         class="app__multiselect-field"
-        :disabled="isFilterDisabled"
+        :disabled="!activeOwnedAssets.length"
         :label="'customers-filters.balances-lbl' | globalize"
         @selected="emitSelectedBalances"
         :options="selectionOptions"
@@ -14,7 +14,6 @@
       <select-field
         :value="filters.status"
         @input="setStatus"
-        :disabled="isFilterDisabled"
         :label="'customers-filters.status-lbl' | globalize"
         need-all-option
       >
@@ -32,7 +31,6 @@
         :white-autofill="false"
         v-model="filters.search"
         :label="'customers-filters.search-lbl' | globalize"
-        :disabled="isFilterDisabled"
         :trim="false"
       />
     </div>
@@ -91,10 +89,6 @@ export default {
       vuexTypes.activeOwnedAssets,
       vuexTypes.accountId,
     ]),
-
-    isFilterDisabled () {
-      return Boolean(!this.activeOwnedAssets.length || this.isLoadFailed)
-    },
   },
 
   watch: {

@@ -1,131 +1,114 @@
 <template>
   <div class="atomic-swap-requests">
-    <div class="app__table app__table--last-td-to-right">
-      <template
-        v-if="isAtomicSwapRequestsLoaded && !isAtomicSwapRequestsLoadFailed"
-      >
-        <h4
-          v-if="atomicSwapRequests.length"
-          class="atomic-swap-requests__header"
-        >
-          {{ 'atomic-swaps.purchases' | globalize }}
-        </h4>
-        <table>
-          <tbody>
-            <tr v-for="item in atomicSwapRequests" :key="item.id">
-              <td>
-                <email-getter :account-id="item.buyerId" />
-              </td>
-              <td>
-                <!-- eslint-disable-next-line max-len -->
-                {{ item.amount | formatMoney }} ({{ item.convertedAmount | formatMoney }} {{ item.quoteAsset.quoteAsset }})
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <h4 class="atomic-swap-requests__header">
+      {{ 'atomic-swaps-requests.purchases' | globalize }}
+    </h4>
+    <template v-if="isLoaded">
+      <template v-if="isLoadFailed">
+        <error-message
+          :message="'atomic-swaps-requests.loading-error-msg' | globalize"
+        />
       </template>
-      <loader
-        v-else-if="!isAtomicSwapRequestsLoadFailed"
-        message-id="atomic-swaps.loading"
-      />
-      <div v-else>
-        {{ 'atomic-swaps.loading-error-msg' | globalize }}
-      </div>
-    </div>
-    <div>
-      <collection-loader
-        v-if="!isAtomicSwapRequestsLoadFailed"
-        v-show="isAtomicSwapRequestsLoaded"
-        :first-page-loader="loadAtomicSwapRequestsFirstPage"
-        @first-page-load="setAtomicSwapRequests"
-        @next-page-load="concatAtomicSwapRequests"
-      />
-    </div>
+
+      <template v-else>
+        <template v-if="atomicSwapRequests.length">
+          <atomic-swap-requests-table
+            :atomic-swap-requests="atomicSwapRequests"
+          />
+        </template>
+
+        <template v-else>
+          <no-data-message
+            icon-name="swap-horizontal"
+            :title="'atomic-swaps-requests.no-data-title' | globalize"
+            :message="'atomic-swaps-requests.no-data-msg' | globalize"
+          />
+        </template>
+      </template>
+    </template>
+
+    <template v-else>
+      <skeleton-loader-table :cells="3" />
+    </template>
+
+    <collection-loader
+      v-show="isLoaded"
+      :first-page-loader="loadAtomicSwapRequestsFirstPage"
+      @first-page-load="setAtomicSwapRequests"
+      @next-page-load="concatAtomicSwapRequests"
+    />
   </div>
 </template>
 
 <script>
-import EmailGetter from '@/vue/common/EmailGetter'
 import CollectionLoader from '@/vue/common/CollectionLoader'
-import Loader from '@/vue/common/Loader'
+import ErrorMessage from '@/vue/common/ErrorMessage'
+import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTable'
+import NoDataMessage from '@/vue/common/NoDataMessage'
+import AtomicSwapRequestsTable from './AtomicSwapRequestsTable'
 
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
-import { AtomicSwapRequestsRecord } from '@/js/records/requests/atomic-swap-requests.record'
 import { api } from '@/api'
-
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-
 import { ErrorHandler } from '@/js/helpers/error-handler'
-
-import { REQUEST_STATES } from '@/js/const/request-states.const'
+import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
+import { BuyRequestRecord } from '@/js/records/entities/buy-request.record'
 
 export default {
   name: 'atomic-swap-requests',
   components: {
-    EmailGetter,
     CollectionLoader,
-    Loader,
+    ErrorMessage,
+    SkeletonLoaderTable,
+    NoDataMessage,
+    AtomicSwapRequestsTable,
   },
   props: {
     atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
   },
   data () {
     return {
-      isAtomicSwapRequestsLoaded: false,
-      isAtomicSwapRequestsLoadFailed: false,
+      isLoaded: false,
+      isLoadFailed: false,
       atomicSwapRequests: [],
     }
   },
   computed: {
     ...mapGetters([
       vuexTypes.accountId,
-      vuexTypes.assetByCode,
     ]),
   },
   methods: {
     async loadAtomicSwapRequestsFirstPage () {
-      this.isAtomicSwapRequestsLoaded = false
+      let response = {}
+
       try {
-        const response = await api.getWithSignature(
-          '/v3/create_atomic_swap_bid_requests',
+        response = await api.getWithSignature(
+          '/integrations/marketplace/buy_requests',
           {
             filter: {
-              'state': REQUEST_STATES.approved,
-              'request_details.ask_owner': this.accountId,
-              'request_details.ask_id': this.atomicSwapAsk.id,
+              'seller': this.accountId,
+              'offer': this.atomicSwapAsk.id,
+              'status': BUY_REQUEST_STATUSES.paid.value,
             },
             include: ['request_details', 'request_details.quote_asset'],
           })
-        this.isAtomicSwapRequestsLoaded = true
-        return response
       } catch (e) {
         ErrorHandler.processWithoutFeedback(e)
-        this.isAtomicSwapRequestsLoadFailed = true
+        this.isLoadFailed = true
       }
+      this.isLoaded = true
+      return response
     },
     setAtomicSwapRequests (atomicSwapRequests) {
       this.atomicSwapRequests = atomicSwapRequests
-        .map(item => new AtomicSwapRequestsRecord(
-          item,
-          // eslint-disable-next-line max-len
-          this.assetByCode(this.atomicSwapAsk.baseAssetCode).trailingDigitsCount,
-          this.assetByCode(item.requestDetails.quoteAsset.quoteAsset)
-            .trailingDigitsCount,
-        )
-        )
+        .map(item => new BuyRequestRecord(item))
     },
     concatAtomicSwapRequests (atomicSwapRequests) {
       this.atomicSwapRequests.concat(
         atomicSwapRequests.data
-          .map(item => new AtomicSwapRequestsRecord(
-            item,
-            // eslint-disable-next-line max-len
-            this.assetByCode(this.atomicSwapAsk.baseAssetCode).trailingDigitsCount,
-            this.assetByCode(item.requestDetails.quoteAsset.quoteAsset)
-              .trailingDigitsCount,
-          )
-          )
+          .map(item => new BuyRequestRecord(item))
       )
     },
   },

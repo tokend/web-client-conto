@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [1.1.0-rcunitcity.16] - 2019-12-18
+#### Added
+- Refund and Buyback asset
+- Allow to buy for asset inside TokenD
+- `SUPPORT_EMAIL` and `SUPPORT_PHONE` in config
+- Customer ui for business account
+
+#### Changed
+- Default redirect route for customer account
+
+#### Fixed
+- A bug with infinite loader at verification user email
+- Localization
+- A bug with typo on Shop button
+- A bug with disabled filters fields on Customers page
+- A bug when you can send payment more than once to customer on mass payment form
+- A bug when duplicate two asset name in payment methods select
+
 ## [1.1.0-rcunitcity.15] - 2019-12-17
 #### Fixed
 - A bug with validation recipient field
@@ -458,7 +476,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.15...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.16...HEAD
+[1.1.0-rcunitcity.16]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.15...1.1.0-rcunitcity.16
 [1.1.0-rcunitcity.15]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.14...1.1.0-rcunitcity.15
 [1.1.0-rcunitcity.14]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.13...1.1.0-rcunitcity.14
 [1.1.0-rcunitcity.13]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.12...1.1.0-rcunitcity.13

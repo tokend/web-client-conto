@@ -70,7 +70,9 @@
                 @blur="touchField('form.recipient')"
                 :disabled="formMixin.isDisabled"
               />
-              {{ 'transfer-form.recipient-note' | globalize }}
+              <p class="transfer__recipient-note">
+                {{ 'transfer-form.recipient-note' | globalize }}
+              </p>
             </div>
           </div>
 
@@ -364,5 +366,9 @@ export default {
 
 .transfer-form__discover-asset-btn {
   margin-top: 2.5rem;
+}
+
+.transfer__recipient-note {
+  opacity: 0.5;
 }
 </style>

@@ -116,6 +116,7 @@
       "field-error_alphaNum": "Value should consists of alphanumeric values (A-Z, a-z, 0-9)",
       "field-error_minLength": "This field must contain minimum {{minLength}} symbols",
       "field-error_selectedSameAssetCode": "Not allowed duplicated quote asset codes",
+      "field-error_selectedInternalSameType": "Not allowed duplicated Internal type",
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
       "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email or phone number or telegram username",
       "field-error_telegramUsername": "The telegram username is incorrect",
@@ -124,7 +125,8 @@
       "field-error_minDate": "Date should be after {{ minDate, date }}",
       "field-error_maxDate": "Date should be before {{ maxDate, date }}",
       "field-error_minBookingTime": "Minimum booking time {{ minTime }}",
-      "field-error_maxBookingTime": "Maximum booking time {{ maxTime }}"
+      "field-error_maxBookingTime": "Maximum booking time {{ maxTime }}",
+      "field-error_assetPaymentType": "This type is not suitable for selected asset"
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -640,6 +642,7 @@
       "settings": "Settings",
       "movements": "History",
       "register-of-shares": "History",
+      "assets-movements": "Assets movements",
       "customers": "Customers",
       "customers-list": "Customers list",
       "businesses": "Companies",
@@ -667,7 +670,7 @@
     "sidebar": {
       "section-explore": "Explorations",
       "section-account": "My account",
-      "section-corporate": "Company"
+      "section-general": "Customer tab"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
@@ -678,7 +681,6 @@
       "filters-prefix": "Show:",
       "something-went-wrong": "Something went wrong",
       "can-not-load-assets": "There was an error while loading assets",
-      "assets-loading-msg": "Loading the assets…",
       "withdraw": "Withdraw",
       "deposit": "Deposit",
       "send": "Send",
@@ -1160,7 +1162,9 @@
       "delete-asset-message": "Are you sure you want to delete the asset?",
       "expiration-date-title": "Expiration date",
       "asset-purchased-successfully": "Asset purchased successfully",
-      "payment-failed": "Payment failed"
+      "payment-failed": "Payment failed",
+      "refund-btn": "Refund",
+      "buy-order-loading": "Loading..."
     },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}",
@@ -1176,10 +1180,19 @@
     "atomic-swaps": {
       "explore-atomic-swaps": "Explore offerings",
       "create-atomic-swap-bth": "Create",
-      "new-atomic-swap": "New offering",
-      "loading": "Loading",
+      "new-atomic-swap": "New offering"
+    },
+    "atomic-swaps-requests": {
       "purchases": "Purchases",
-      "loading-error-msg": "There was an error while loading."
+      "loading-error-msg": "There was an error while loading.",
+      "no-data-title": "No purchases",
+      "no-data-msg":"Here will be the purchase history of your offer"
+    },
+    "atomic-swaps-requests-table": {
+      "buyer-th": "Buyer",
+      "amount-th": "Amount",
+      "discount-th": "Discount",
+      "total-price-th": "Total price"
     },
     "create-atomic-swap-form": {
       "asset-lbl": "Asset",
@@ -1201,6 +1214,7 @@
       "address-lbl": "Address",
       "card-number-lbl": "Card number",
       "asset-lbl": "Asset",
+      "type-lbl": "Payment method",
       "create-btn": "Create"
     },
     "atomic-swaps-explore": {
@@ -1396,7 +1410,8 @@
       "no-amount-msg": "Contact the owner of the offer"
     },
     "pay-form": {
-      "email-lbl": "Your email"
+      "email-lbl": "Your email",
+      "success-msg": "Payment successfully"
     },
     "asset-viewer": {
       "description-title": "Description"
@@ -1481,10 +1496,13 @@
     "promo-code-offers-table": {
       "name-th": "Name",
       "amount-th": "Amount",
-      "price-th": "Price",
+      "price-th": "Price"
+    },
+    "promo-code-offers-viewer": {
       "offers-title": "Offers",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
-      "no-data-msg": "Promo Code don't have any offers yet."
+      "no-data-title": "No offers yet",
+      "no-data-msg":"Promo Code doesn't have any offers yet."
     },
     "promo-code-form-offers-table": {
       "name-th": "Name",
@@ -1515,7 +1533,8 @@
     },
     "business-card": {
       "add-lbl": "Add",
-      "details-lbl": "Details"
+      "details-lbl": "Details",
+      "invest-lbl": "Invest"
     },
     "movements-top-bar": {
       "business-filter-label": "Company",
@@ -1601,6 +1620,7 @@
       "transfer-msg": "Transfer by using the recipients’ email.",
       "redeem-msg": "Redeem by showing the QR code.",
       "use-apps-msg": "You can use web-version, or you can install {{appName}} mobile application.",
+      "conto-for-android-msg": "{{appName}} for Android:",
       "contact-us-msg": "If you have any questions or difficulties, please contact us",
       "asset-loading": "Asset information is loading",
       "loading-error-msg": "There was an error while loading.",
@@ -1644,6 +1664,42 @@
       "participants-lbl": "Participants",
       "qr-code-btn": "QR code",
       "price-lbl": "Price: {{amount, money}} {{asset}}"
+    },
+    "assets-movements": {
+      "asset-filter-label": "Asset"
+    },
+    "asset-buyback-viewer": {
+      "buyback-title": "Buyback",
+      "error-msg": "An error occurred while loading.",
+      "buyback-btn": "Create buyback",
+      "update-btn": "Update buyback",
+      "delete-btn": "Delete",
+      "offer-loading": "Loading...",
+      "delete-offer-message": "Are you sure you want to delete the buyback offer?",
+      "offer-deleted-msg": "Offer successfully deleted"
+    },
+    "buyback-form": {
+      "form-heading": "Buyback",
+      "amount-lbl": "Amount",
+      "price-lbl": "Price in {{quoteAsset}}",
+      "create-buyback-btn": "Create",
+      "update-buyback-btn": "Update",
+      "offer-updated-msg": "Offer successfully updated",
+      "offer-created-msg": "Offer successfully created",
+      "total-amount": "Total amount"
+    },
+    "refund-asset-form": {
+      "form-heading": "Refund",
+      "price-lbl": "Price in {{quoteAsset}}",
+      "amount-lbl": "Amount",
+      "total-amount": "We get",
+      "refund-btn": "Refund",
+      "asset-sold-msg": "Refund has been completed"
+    },
+    "payment-methods": {
+      "4bill": "Card",
+      "coinpayments": "Cryptocurrency",
+      "internal": "Bonus"
     }
   }
 }

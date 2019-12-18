@@ -17,6 +17,7 @@ export class AtomicSwapBidRecord {
     this.requestIdentifier = _get(record, 'requestDetails.creatorDetails.requestIdentifier')
     this.type = _get(record, 'type') || ''
     this.payUrl = _get(record, 'data.payUrl') || ''
+    this.tx = _get(record, 'data.tx') || ''
   }
 
   _calculateEndTime () {

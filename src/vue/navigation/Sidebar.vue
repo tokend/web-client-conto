@@ -34,11 +34,8 @@
       </section>
 
       <section class="sidebar__links-section">
-        <nav
-          class="sidebar__links-group"
-        >
+        <nav class="sidebar__links-group" v-if="isAccountCorporate">
           <router-link
-            v-if="isAccessibleForCorporate"
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -53,7 +50,83 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccountGeneral"
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.atomicSwaps"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-swap-horizontal"
+            />
+            <span>
+              {{ 'pages-names.atomic-swaps' | globalize }}
+            </span>
+          </router-link>
+          <!--<router-link-->
+          <!--v-ripple-->
+          <!--class="sidebar__link"-->
+          <!--@click.native="closeSidebar"-->
+          <!--:to="vueRoutes.sponsorship"-->
+          <!--tag="a"-->
+          <!--&gt;-->
+          <!--<i-->
+          <!--class="sidebar__link-icon mdi mdi-account-group"-->
+          <!--/>-->
+          <!--<span>-->
+          <!--{{ 'pages-names.sponsorship' | globalize }}-->
+          <!--</span>-->
+          <!--</router-link>-->
+          <router-link
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.promoCodes"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-ticket-percent"
+            />
+            <span>
+              {{ 'pages-names.promo-codes' | globalize }}
+            </span>
+          </router-link>
+          <router-link
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.statistics"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-chart-areaspline"
+            />
+            <span>
+              {{ 'pages-names.statistics' | globalize }}
+            </span>
+          </router-link>
+          <router-link
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            :to="vueRoutes.assetsMovements"
+            tag="a"
+          >
+            <i
+              class="sidebar__link-icon mdi mdi-file-document-box-outline"
+            />
+            <span>
+              {{ 'pages-names.assets-movements' | globalize }}
+            </span>
+          </router-link>
+        </nav>
+        <nav class="sidebar__links-group">
+          <p
+            class="sidebar__links-group-title"
+          >
+            {{ "sidebar.section-general" | globalize }}
+          </p>
+          <router-link
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -82,21 +155,6 @@
             </span>
           </router-link>
           <router-link
-            v-if="isAccessibleForCorporate"
-            v-ripple
-            class="sidebar__link"
-            @click.native="closeSidebar"
-            :to="vueRoutes.atomicSwaps"
-            tag="a"
-          >
-            <i
-              class="sidebar__link-icon mdi mdi-swap-horizontal"
-            />
-            <span>
-              {{ 'pages-names.atomic-swaps' | globalize }}
-            </span>
-          </router-link>
-          <router-link
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
@@ -122,51 +180,6 @@
             />
             <span>
               {{ 'pages-names.booking' | globalize }}
-            </span>
-          </router-link>
-          <!--<router-link-->
-          <!--v-if="isAccessibleForCorporate"-->
-          <!--v-ripple-->
-          <!--class="sidebar__link"-->
-          <!--@click.native="closeSidebar"-->
-          <!--:to="vueRoutes.sponsorship"-->
-          <!--tag="a"-->
-          <!--&gt;-->
-          <!--<i-->
-          <!--class="sidebar__link-icon mdi mdi-account-group"-->
-          <!--/>-->
-          <!--<span>-->
-          <!--{{ 'pages-names.sponsorship' | globalize }}-->
-          <!--</span>-->
-          <!--</router-link>-->
-          <router-link
-            v-if="isAccessibleForCorporate"
-            v-ripple
-            class="sidebar__link"
-            @click.native="closeSidebar"
-            :to="vueRoutes.promoCodes"
-            tag="a"
-          >
-            <i
-              class="sidebar__link-icon mdi mdi-ticket-percent"
-            />
-            <span>
-              {{ 'pages-names.promo-codes' | globalize }}
-            </span>
-          </router-link>
-          <router-link
-            v-if="isAccessibleForCorporate"
-            v-ripple
-            class="sidebar__link"
-            @click.native="closeSidebar"
-            :to="vueRoutes.statistics"
-            tag="a"
-          >
-            <i
-              class="sidebar__link-icon mdi mdi-chart-areaspline"
-            />
-            <span>
-              {{ 'pages-names.statistics' | globalize }}
             </span>
           </router-link>
         </nav>
@@ -233,12 +246,7 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
-      vuexTypes.isAccountGeneral,
     ]),
-
-    isAccessibleForCorporate () {
-      return this.isAccountCorporate
-    },
   },
 
   created () {
