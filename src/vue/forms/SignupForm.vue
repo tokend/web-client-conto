@@ -111,7 +111,9 @@ export default {
   },
 
   created () {
-    const email = this.$route.params.email
+    const email = this.$route.params.email ||
+      this.$route.params.inviteVerificationInfo.email
+
     if (email) {
       this.form.email = email
     }
