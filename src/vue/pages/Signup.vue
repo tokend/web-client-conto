@@ -71,10 +71,6 @@ export default {
 
   created () {
     this.inviteVerificationInfo = this.$route.params.inviteVerificationInfo
-
-    if (this.isInviteVerificationInfoExists) {
-      this.email = this.inviteVerificationInfo.email
-    }
   },
 
   methods: {
