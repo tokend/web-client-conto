@@ -7,7 +7,6 @@
 
       <div class="auth-page__content">
         <signup-form
-          :email="email"
           :is-disabled="formMixin.isDisabled"
           :submit-event="'submit'"
           @submit="handleChildFormSubmit"
