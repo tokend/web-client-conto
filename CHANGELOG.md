@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
+## [Unreleased]
+#### Changed
+- Payment to non-existing accounts
+
+### "Under the hood" changes
+#### Changed
+- Now using @tokend/js-sdk@1.12.1
+
 ## [1.6.0-rc.0] - 2019-12-18
 #### Added
 - Mass send allow to send to more than 100 users
