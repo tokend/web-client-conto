@@ -5,7 +5,6 @@ import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 import { ATOMIC_SWAP_REQUEST_TYPES } from '@/js/const/atomic-swap.const'
 import { AtomicSwapBidRecord } from '@/js/records/entities/atomic-swap-bid.record'
-import { base } from '@tokend/js-sdk'
 
 export default {
   mixins: [ IdentityGetterMixin ],
@@ -22,7 +21,7 @@ export default {
       let accountId = this.accountId
 
       if (email) {
-        const senderAccountId = await this.getSenderAccountId(email)
+        const senderAccountId = await this.getAccountIdByIdentifier(email)
         if (senderAccountId) {
           accountId = senderAccountId
         } else {
@@ -60,14 +59,6 @@ export default {
             ),
           },
         },
-      }
-    },
-
-    async getSenderAccountId (recipient) {
-      if (!base.Keypair.isValidPublicKey(recipient)) {
-        return this.getAccountIdByIdentifier(recipient)
-      } else {
-        return recipient
       }
     },
   },
