@@ -259,8 +259,9 @@ export default {
     async sendOnNotExistAccount () {
       if (this.isFormValid()) {
         try {
-          const { data } = await api.get('/integrations/payment-proxy/info')
-          this.recipientAccountId = data.id
+          this.formMixin.isConfirmationShown = false
+          // eslint-disable-next-line max-len
+          this.recipientAccountId = await this.createAccountAndGetAccountIdByEmail(this.form.recipient)
           this.submit()
         } catch (e) {
           ErrorHandler.process(e)

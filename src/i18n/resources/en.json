@@ -1269,7 +1269,8 @@
       "no-receivers-found": "Receivers you provided not found or cannot receive the send. Please ensure you specified the valid receivers list and try again.",
       "overpayment-error-notif": "The total amount {{assets}} is bigger than the available for send amount. Please decrease the amount to send and try again.",
       "error-msg": "An error occurred while loading.",
-      "loading-msg": "Loading..."
+      "loading-msg": "Loading...",
+      "mass-send-not-available": "Mass sending of assets to unregistered accounts is not available"
     },
     "mass-invitation-form": {
       "how-to-invitees-paragraph": "List all invitees emails in the box below.",

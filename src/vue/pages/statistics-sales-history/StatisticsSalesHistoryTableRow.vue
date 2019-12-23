@@ -4,25 +4,15 @@
       class="statistics-sales-history-table-row__brief
              statistics-sales-history-table-row__brief--with-shadow"
     >
-      <template v-if="buyRequest.senderAccountId">
-        <td
-          class="statistics-sales-history-table-row__cell"
-          :title="buyRequest.senderAccountId"
-        >
-          <email-getter
-            :is-copy-button="false"
-            :account-id="buyRequest.senderAccountId"
-          />
-        </td>
-      </template>
-      <template v-else>
-        <td
-          class="statistics-sales-history-table-row__cell"
-          :title="buyRequest.senderEmail"
-        >
-          {{ buyRequest.senderEmail }}
-        </td>
-      </template>
+      <td
+        class="statistics-sales-history-table-row__cell"
+        :title="buyRequest.senderAccountId"
+      >
+        <email-getter
+          :is-copy-button="false"
+          :account-id="buyRequest.senderAccountId"
+        />
+      </td>
 
       <td
         class="statistics-sales-history-table-row__cell"

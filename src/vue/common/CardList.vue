@@ -49,7 +49,7 @@ export default {
     window.addEventListener('resize', this.setCardWidth)
   },
   destroyed () {
-    window.addEventListener('resize', this.setCardWidth)
+    window.removeEventListener('resize', this.setCardWidth)
   },
   methods: {
     setCardWidth () {
