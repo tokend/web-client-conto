@@ -120,5 +120,15 @@ export default {
         return this.telegramUsernameByAccountId(accountId)
       }
     },
+
+    async createAccountAndGetAccountIdByEmail (email) {
+      const { data } = await api.post('/identities', {
+        data: {
+          type: 'identity',
+          attributes: { email: email },
+        },
+      })
+      return data.address
+    },
   },
 }

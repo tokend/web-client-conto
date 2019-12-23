@@ -19,25 +19,15 @@
       </thead>
       <tbody>
         <tr v-for="item in atomicSwapRequests" :key="item.id">
-          <template v-if="item.senderAccountId">
-            <td
-              class="atomic-swap-requests-table__buyer-cell"
-              :title="item.senderAccountId"
-            >
-              <email-getter
-                :is-copy-button="false"
-                :account-id="item.senderAccountId"
-              />
-            </td>
-          </template>
-          <template v-else>
-            <td
-              class="atomic-swap-requests-table__buyer-cell"
-              :title="item.senderEmail"
-            >
-              {{ item.senderEmail }}
-            </td>
-          </template>
+          <td
+            class="atomic-swap-requests-table__buyer-cell"
+            :title="item.senderAccountId"
+          >
+            <email-getter
+              :is-copy-button="false"
+              :account-id="item.senderAccountId"
+            />
+          </td>
           <td>
             {{ item.amount | formatMoney }}
           </td>

@@ -112,6 +112,7 @@ export default {
         assets: [],
         receivers: '',
       },
+      isEmailNotRegistered: false,
       isLoaded: false,
       isLoadFailed: false,
     }
@@ -167,7 +168,11 @@ export default {
 
       try {
         const operations = await this.buildOperationsToSubmit()
-        if (!operations.length) {
+        if (this.isEmailNotRegistered) {
+          Bus.error('mass-payment-form.mass-send-not-available')
+          this.enableForm()
+          return
+        } else if (!operations.length) {
           Bus.error('mass-payment-form.no-receivers-found')
           this.enableForm()
           return
@@ -228,27 +233,18 @@ export default {
 
     async getOperationsByEmail (email, proxyPaymentAccountId) {
       const receiverId = await this.getReceiverIdByEmail(email)
-      return this.form.assets.map(asset => {
-        if (receiverId) {
+      if (receiverId) {
+        return this.form.assets.map(asset => {
           return this.getOperation({
             destinationAccountId: receiverId,
             subject: { subject: '' },
             amount: asset.amount,
             assetCode: asset.code,
           })
-        } else {
-          return this.getOperation({
-            destinationAccountId: proxyPaymentAccountId,
-            subject: {
-              subject: '',
-              sender: this.accountId,
-              email: email,
-            },
-            amount: asset.amount,
-            assetCode: asset.code,
-          })
-        }
-      })
+        })
+      } else {
+        this.isEmailNotRegistered = true
+      }
     },
 
     async buildOperationsToSubmit () {
@@ -258,12 +254,12 @@ export default {
         delimiters: CsvUtil.delimiters.common,
       })
 
+      this.isEmailNotRegistered = false
+
       const emailsWithoutDuplicate = [...new Set(emails)]
-      const { data } = await api.get('/integrations/payment-proxy/info')
 
       const operations = await Promise.all(
-        // eslint-disable-next-line max-len
-        emailsWithoutDuplicate.map(email => this.getOperationsByEmail(email, data.id))
+        emailsWithoutDuplicate.map(email => this.getOperationsByEmail(email))
       )
       return operations.flat()
     },

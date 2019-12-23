@@ -58,15 +58,10 @@
             {{ 'statistics-sales-history-attributes-viewer.buyer-key' | globalize }}
           </td>
           <td class="statistics-sales-history-attributes-viewer__table-cell">
-            <template v-if="buyRequest.senderAccountId">
-              <email-getter
-                :is-copy-button="false"
-                :account-id="buyRequest.senderAccountId"
-              />
-            </template>
-            <template v-else>
-              {{ buyRequest.senderEmail }}
-            </template>
+            <email-getter
+              :is-copy-button="false"
+              :account-id="buyRequest.senderAccountId"
+            />
           </td>
         </tr>
       </tbody>
