@@ -112,7 +112,7 @@ export default {
         assets: [],
         receivers: '',
       },
-      isExistNotRegisterEmail: false,
+      isEmailNotRegister: false,
       isLoaded: false,
       isLoadFailed: false,
     }
@@ -163,13 +163,12 @@ export default {
     }),
 
     async submit () {
-      this.isExistNotRegisterEmail = false
       if (!this.isFormValid()) return
       this.disableForm()
 
       try {
         const operations = await this.buildOperationsToSubmit()
-        if (this.isExistNotRegisterEmail) {
+        if (this.isEmailNotRegister) {
           Bus.error('mass-payment-form.mass-send-not-available')
           this.enableForm()
           return
@@ -244,7 +243,7 @@ export default {
           })
         })
       } else {
-        this.isExistNotRegisterEmail = true
+        this.isEmailNotRegister = true
       }
     },
 
@@ -254,6 +253,8 @@ export default {
         filterEmpty: true,
         delimiters: CsvUtil.delimiters.common,
       })
+
+      this.isEmailNotRegister = false
 
       const emailsWithoutDuplicate = [...new Set(emails)]
 
