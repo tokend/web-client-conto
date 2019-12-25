@@ -79,6 +79,7 @@ export default {
       loadAccount: vuexTypes.LOAD_ACCOUNT,
       loadKyc: vuexTypes.LOAD_KYC,
       loadKvEntries: vuexTypes.LOAD_KV_ENTRIES,
+      loadWallet: vuexTypes.LOAD_WALLET,
     }),
     handleChildFormSubmit (form) {
       this.email = form.email
@@ -98,7 +99,8 @@ export default {
           this.recoveryKeypair
         )
         if (response.data.verified) {
-          await this.loadAccountInfoAndPushToSignupKyc(wallet)
+          await this.storeWallet(wallet)
+          await this.loadAccountInfoAndPushToSignupKyc()
         } else if (this.isInviteVerificationInfoExists &&
           this.isCurrentAndVerificationEmailsIdentical) {
           const encodedVerificationInfo = btoa(JSON.stringify({
@@ -108,7 +110,12 @@ export default {
             },
           }))
           await walletsManager.verifyEmail(encodedVerificationInfo)
-          await this.loadAccountInfoAndPushToSignupKyc(wallet)
+          // temporary fix
+          await this.loadWallet({
+            email: this.email.toLowerCase(),
+            password: this.password,
+          })
+          await this.loadAccountInfoAndPushToSignupKyc()
         } else {
           await this.$router.push({
             ...vueRoutes.verify,
@@ -127,8 +134,7 @@ export default {
       this.enableForm()
     },
 
-    async loadAccountInfoAndPushToSignupKyc (wallet) {
-      await this.storeWallet(wallet)
+    async loadAccountInfoAndPushToSignupKyc () {
       await this.loadAccount(this.walletAccountId)
       await this.loadKyc()
       await this.$router.push(vueRoutes.signupKyc)
