@@ -42,8 +42,11 @@
         ref="listCollectionLoader"
       />
     </div>
-    <template v-if="isLoggedIn">
-      <drawer :is-shown.sync="isBuyFormDrawerShown">
+    <template>
+      <drawer
+        v-if="isLoggedIn"
+        :is-shown.sync="isBuyFormDrawerShown"
+      >
         <template slot="heading">
           {{ 'atomic-swaps-explore.buying' |
             globalize({asset: atomicSwapToBrowse.baseAssetName}) }}
