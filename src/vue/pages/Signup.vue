@@ -110,7 +110,8 @@ export default {
             },
           }))
           await walletsManager.verifyEmail(encodedVerificationInfo)
-          // temporary fix
+          // temporary fix when wallet unverified we don't get info about
+          // session
           await this.loadWallet({
             email: this.email.toLowerCase(),
             password: this.password,
