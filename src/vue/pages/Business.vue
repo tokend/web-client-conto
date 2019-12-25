@@ -38,7 +38,10 @@
             />
           </template>
           <template v-else>
-            <div class="business__description app__card">
+            <div
+              class="business__description app__card"
+              v-if="business.bannerKey || business.description"
+            >
               <business-description
                 :business="business"
               />

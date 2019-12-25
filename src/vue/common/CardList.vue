@@ -56,7 +56,7 @@ export default {
       const numberOfCards = this.getNumberOfCards()
 
       this.styleObject = {
-        'grid-template-columns': `repeat(${numberOfCards}, 1fr)`,
+        'grid-template-columns': `repeat(${numberOfCards}, minmax(25rem, 1fr))`,
       }
     },
 
