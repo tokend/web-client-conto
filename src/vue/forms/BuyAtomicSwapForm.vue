@@ -16,7 +16,7 @@
             class="app__select"
           >
             <option
-              v-for="quoteAsset in atomicSwapAsk.quoteAssets"
+              v-for="quoteAsset in quoteAssets"
               :key="quoteAsset.paymentMethodId"
               :value="quoteAsset.paymentMethodId"
             >
@@ -174,10 +174,20 @@ export default {
     ...mapGetters([
       vuexTypes.assetByCode,
       vuexTypes.statsQuoteAsset,
+      vuexTypes.isLoggedIn,
     ]),
 
     isDiscountExist () {
       return Boolean(+this.discount)
+    },
+    quoteAssets () {
+      if (this.isLoggedIn) {
+        return this.atomicSwapAsk.quoteAssets.filter(
+          item => +item.paymentMethodType !== +PAYMENT_METHODS.internal.value
+        )
+      } else {
+        return this.atomicSwapAsk.quoteAssets
+      }
     },
   },
   watch: {
