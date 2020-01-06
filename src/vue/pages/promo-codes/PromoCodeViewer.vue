@@ -5,14 +5,14 @@
     />
 
     <form-confirmation
-      v-if="isConfirmationShown"
+      v-if="isDeletePromoCodeConfirmationShown"
       class="promo-code-viewer__form-confirmation"
       message-id="promo-code-viewer.delete-promo-code-message"
       ok-button-text-id="promo-code-viewer.delete-btn"
       :is-pending="isPromoCodeDeleting"
       is-danger-color
       @ok="deletePromoCode"
-      @cancel="isConfirmationShown = false"
+      @cancel="isDeletePromoCodeConfirmationShown = false"
     />
 
     <template v-else>
@@ -27,7 +27,7 @@
         <button
           v-ripple
           class="app__button-raised promo-code-viewer__action-btn"
-          @click="isConfirmationShown = true"
+          @click="isDeletePromoCodeConfirmationShown = true"
         >
           {{ 'promo-code-viewer.delete-btn' | globalize }}
         </button>
@@ -82,7 +82,7 @@ export default {
 
   data: _ => ({
     isPromoCodeDeleting: false,
-    isConfirmationShown: false,
+    isDeletePromoCodeConfirmationShown: false,
     isUpdatePromoCodeFormShown: false,
     EVENTS,
   }),

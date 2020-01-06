@@ -97,8 +97,6 @@ import {
 } from '@/js/const/numbers.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
-import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
 import { MathUtil } from '@/js/utils'
@@ -127,7 +125,6 @@ export default {
       description: '',
       maxUses: null,
     },
-    userOffers: [],
     MAX_INT_32,
     MIN_INTEGER_VALUE,
     MAX_PERCENT_DISCOUNT,
@@ -137,10 +134,6 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      accountId: vuexTypes.accountId,
-    }),
-
     inputStep () {
       return inputStepByDigitsCount(config.DECIMAL_POINTS)
     },
