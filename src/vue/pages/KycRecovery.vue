@@ -12,7 +12,15 @@
       <wallet-recovery-tfa-code-form
         v-if="!isWalletRecoveryFormDisplay"
         :error="recoveryError"
+        @send-kyc-recovery-request="createKycRecoveryRequest"
       />
+
+      <template v-if="isKycRecoveryInProgress">
+        <loader
+          class="auth-page__verification-loader"
+          message-id="auth-pages.verifying-email-msg"
+        />
+      </template>
 
       <div class="auth-page__tips">
         <div class="auth-page__tip">
@@ -31,24 +39,44 @@
 <script>
 import WalletRecoveryForm from '@/vue/forms/WalletRecoveryForm'
 import WalletRecoveryTfaCodeForm from '@/vue/forms/WalletRecoveryTfaCodeForm'
+import Loader from '@/vue/common/Loader'
 
 import { vueRoutes } from '@/vue-router/routes'
+import { ErrorHandler } from '@/js/helpers/error-handler'
+import { mapActions } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 export default {
   name: 'kyc-recovery',
   components: {
     WalletRecoveryForm,
     WalletRecoveryTfaCodeForm,
+    Loader,
   },
   data: _ => ({
     isWalletRecoveryFormDisplay: true,
     recoveryError: {},
     vueRoutes,
+    isKycRecoveryInProgress: false,
   }),
   methods: {
+    ...mapActions({
+      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
+    }),
+
     checkError (error) {
       this.recoveryError = error
       this.isWalletRecoveryFormDisplay = false
+    },
+
+    async createKycRecoveryRequest () {
+      this.isKycRecoveryInProgress = true
+      try {
+        await this.sendKycRecoveryRequest()
+      } catch (e) {
+        ErrorHandler.process(e)
+      }
+      this.isKycRecoveryInProgress = false
     },
   },
 }

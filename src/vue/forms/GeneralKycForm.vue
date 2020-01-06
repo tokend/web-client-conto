@@ -81,7 +81,6 @@ import { required } from '@validators'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
-import { REQUEST_STATES_STR } from '@/js/const/request-states.const'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -115,9 +114,6 @@ export default {
       isAccountRoleReseted: vuexTypes.isAccountRoleReseted,
       accountRoleToSet: vuexTypes.kycAccountRoleToSet,
       previousAccountRole: vuexTypes.kycPreviousRequestAccountRoleToSet,
-      kycRecoveryBlobId: vuexTypes.kycRecoveryBlobId,
-      kycRecoveryState: vuexTypes.kycRecoveryState,
-      kycRecoveryRequestBlob: vuexTypes.kycRecoveryRequestBlob,
     }),
 
     isFormPopulatable () {
@@ -132,13 +128,7 @@ export default {
   },
 
   async created () {
-    if (
-      this.isKycRecoveryPage &&
-      this.kycRecoveryBlobId &&
-      (this.kycRecoveryState !== REQUEST_STATES_STR.permanentlyRejected)
-    ) {
-      this.form = this.parseKycData(this.kycRecoveryRequestBlob)
-    } else if (!this.isKycRecoveryPage && this.isFormPopulatable) {
+    if (this.isFormPopulatable) {
       this.form = this.parseKycData(this.kycLatestRequestData)
     }
   },
@@ -160,17 +150,13 @@ export default {
       this.isFormSubmitting = true
       try {
         const kycBlobId = await this.createKycBlob(BLOB_TYPES.kycGeneral)
-        if (this.isKycRecoveryPage) {
-          await this.sendKycRecoveryRequest(kycBlobId)
-          this.$emit(EVENTS.kycRecoverySubmit)
-        } else {
-          const operation = this.createKycOperation(
-            kycBlobId,
-            this.kvEntryGeneralRoleId,
-          )
-          await api.postOperations(operation)
-          await this.loadKyc()
-        }
+
+        const operation = this.createKycOperation(
+          kycBlobId,
+          this.kvEntryGeneralRoleId,
+        )
+        await api.postOperations(operation)
+        await this.loadKyc()
         this.$emit(EVENTS.submitted)
       } catch (e) {
         ErrorHandler.process(e)

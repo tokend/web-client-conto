@@ -64,10 +64,10 @@ export const actions = {
   // for unverified user
   async [vuexTypes.SEND_KYC_RECOVERY_REQUEST] (
     { getters, rootGetters, commit },
-    blobId = ''
+    { blobId = '', accountId = '' }
   ) {
     const opts = {
-      targetAccount: rootGetters[vuexTypes.accountId],
+      targetAccount: accountId || rootGetters[vuexTypes.accountId],
       signers: [
         {
           publicKey: rootGetters[vuexTypes.walletPublicKey],

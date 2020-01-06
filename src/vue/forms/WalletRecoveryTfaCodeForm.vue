@@ -44,13 +44,16 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import { required } from '@validators'
 import { errors } from '@/js/errors'
-import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { factorsManager } from '@/api'
 
 const FACTOR_TYPES = {
   totp: 'totp',
   email: 'email',
+}
+
+const EVENTS = {
+  sendKycRecoveryRequest: 'send-kyc-recovery-request',
 }
 export default {
   name: 'wallet-recovery-tfa-code-form',
@@ -81,7 +84,7 @@ export default {
       try {
         await factorsManager
           .verifyTotpFactorAndRetry(this.error, this.form.code)
-        await this.$router.push(vueRoutes.login)
+        this.$emit(EVENTS.sendKycRecoveryRequest)
       } catch (err) {
         ErrorHandler.process(err)
       }
