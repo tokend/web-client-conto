@@ -1233,11 +1233,13 @@
       "success-msg": "Payment successfully"
     },
     "atomic-swap-actions": {
-      "cancel-btn": "Cancel offering",
+      "cancel-btn": "Cancel offer",
       "yes-msg": "Yes",
       "no-msg": "No",
-      "cancellation-msg": "Are you sure to cancel the atomic swap?",
-      "atomic-swap-canceled-msg": "Your offer successfully cancelled"
+      "cancellation-msg": "Are you sure to cancel the offer?",
+      "atomic-swap-canceled-msg": "Your offer successfully cancelled",
+      "update-atomic-swap-drawer-title": "Update offer",
+      "update-btn": "Update offer"
     },
     "atomic-swap-attributes": {
       "id-key": "ID",

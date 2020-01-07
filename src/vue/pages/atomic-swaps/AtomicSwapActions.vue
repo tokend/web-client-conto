@@ -3,17 +3,38 @@
     <button
       v-ripple
       v-if="!formMixin.isConfirmationShown"
-      class="app__button-raised app__button-raised--danger"
+      class="app__button-raised atomic-swap-actions__btn"
+      :disabled="isAtomicSwapCanceling"
+      @click="isUpdateAtomicSwapDrawerShown = true"
+    >
+      {{ 'atomic-swap-actions.update-btn' | globalize }}
+    </button>
+    <button
+      v-ripple
+      v-if="!formMixin.isConfirmationShown"
+      class="app__button-raised atomic-swap-actions__btn"
       :disabled="isAtomicSwapCanceling"
       @click="cancelRequest"
     >
       {{ 'atomic-swap-actions.cancel-btn' | globalize }}
     </button>
+
+    <drawer :is-shown.sync="isUpdateAtomicSwapDrawerShown">
+      <template slot="heading">
+        {{ 'atomic-swap-actions.update-atomic-swap-drawer-title' | globalize }}
+      </template>
+
+      <update-atomic-swap-form
+        :atomic-swap-ask="atomicSwapAsk"
+      />
+    </drawer>
   </div>
 </template>
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
+import UpdateAtomicSwapForm from '@/vue/forms/UpdateAtomicSwapForm'
+import Drawer from '@/vue/common/Drawer'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
@@ -25,6 +46,12 @@ const EVENTS = {
 
 export default {
   name: 'atomic-swap-actions',
+
+  components: {
+    UpdateAtomicSwapForm,
+    Drawer,
+  },
+
   mixins: [FormMixin],
 
   props: {
@@ -33,6 +60,7 @@ export default {
 
   data: _ => ({
     isAtomicSwapCanceling: false,
+    isUpdateAtomicSwapDrawerShown: false,
     EVENTS,
   }),
 
@@ -57,6 +85,14 @@ export default {
 <style lang="scss" scoped>
 .atomic-swap-actions {
   display: flex;
-  margin-top: 2rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.atomic-swap-actions__btn {
+  max-width: 20rem;
+  width: 100%;
+  margin-top: 1rem;
 }
 </style>
