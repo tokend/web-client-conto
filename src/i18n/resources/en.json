@@ -616,12 +616,8 @@
       "image-type-note": "image (Max 32mb)",
       "company-lbl": "Company",
       "description-lbl": "Description",
-      "headquarters-lbl": "Headquarters (Optional)",
       "industry-lbl": "Industry (Optional)",
-      "website-lbl": "Website (Optional)",
       "request-submitted-msg": "Your request has been submitted successfully",
-      "card-number-lbl": "Card number (Optional)",
-      "invitation-code-lbl": "Invitation code (Optional)",
       "banner-lbl": "Banner (Optional)"
     },
     "input-field": {
