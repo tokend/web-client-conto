@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
-## [Unreleased]
+## [Unreleased] - 2020-01-06
 #### Added
+- Filter for `paymentMethodType` on pay page
 - Update Promo Code form
 
 ## [1.6.0] - 2019-12-25
