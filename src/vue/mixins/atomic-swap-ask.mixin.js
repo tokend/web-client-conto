@@ -16,7 +16,7 @@ export default {
   },
 
   methods: {
-    async createAtomicSwapAsk (baseAssetCode, amount, price, quoteAssets) {
+    async createAtomicSwapAsk ({ baseAssetCode, amount, price, quoteAssets }) {
       const paymentTx = await this.getPaymentTx(baseAssetCode, amount)
 
       const atomicSwapAskOperation = this.buildCreateAtomicSwapAskOperation(
@@ -103,7 +103,7 @@ export default {
         : quoteAsset.asset.code
     },
 
-    async updateAtomicSwapAsk (atomicSwapId, baseAssetCode, amount, price) {
+    async updateAtomicSwapAsk ({ atomicSwapId, baseAssetCode, amount, price }) {
       let attributes = {}
 
       if (amount) {

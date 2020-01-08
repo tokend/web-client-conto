@@ -163,12 +163,12 @@ export default {
           await api.postOperations(createIssuanceOperation)
         }
 
-        await this.createAtomicSwapAsk(
-          this.form.asset.code,
-          this.form.amount,
-          this.form.price,
-          this.form.quoteAssets
-        )
+        await this.createAtomicSwapAsk({
+          baseAssetCode: this.form.asset.code,
+          amount: this.form.amount,
+          price: this.form.price,
+          quoteAssets: this.form.quoteAssets,
+        })
         Bus.success('create-atomic-swap-form.created-atomic-swap-msg')
         this.$emit(EVENTS.createdAtomicSwap)
       } catch (e) {

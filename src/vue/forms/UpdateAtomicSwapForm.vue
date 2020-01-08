@@ -2,7 +2,7 @@
   <form
     novalidate
     class="app__form update-atomic-swap-form"
-    @submit.prevent="submit()"
+    @submit.prevent="submit"
   >
     <div class="app__form-row">
       <div class="app__form-field">
@@ -38,6 +38,7 @@
       v-ripple
       class="app__button-raised update-atomic-swap-form__update-btn"
       :disabled="formMixin.isDisabled"
+      type="submit"
     >
       {{ 'update-atomic-swap-form.update-btn' | globalize }}
     </button>
@@ -109,12 +110,12 @@ export default {
       this.disableForm()
 
       try {
-        await this.updateAtomicSwapAsk(
-          this.atomicSwapAsk.id,
-          this.atomicSwapAsk.baseAssetCode,
-          this.form.amount,
-          this.form.price
-        )
+        await this.updateAtomicSwapAsk({
+          atomicSwapId: this.atomicSwapAsk.id,
+          baseAssetCode: this.atomicSwapAsk.baseAssetCode,
+          amount: this.form.amount,
+          price: this.form.price,
+        })
         Bus.success('update-atomic-swap-form.updated-atomic-swap-msg')
         this.$emit(EVENTS.updatedAtomicSwap)
       } catch (e) {
