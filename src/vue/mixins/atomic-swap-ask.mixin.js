@@ -106,7 +106,7 @@ export default {
     async updateAtomicSwapAsk (atomicSwapId, baseAssetCode, amount, price) {
       let attributes = {}
 
-      if (+amount) {
+      if (amount) {
         const paymentTx = await this.getPaymentTx(baseAssetCode, amount)
         attributes.tx = paymentTx
       }
