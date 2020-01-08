@@ -17,15 +17,8 @@ export default {
 
   methods: {
     async createAtomicSwapAsk (baseAssetCode, amount, price, quoteAssets) {
-      const { _rawResponse: marketplace } = await api.getWithSignature('/integrations/marketplace/info')
-      const paymentAccount = marketplace.data.attributes.payment_account
-      const paymentOperation = this.getPaymentOperation(
-        paymentAccount,
-        amount,
-        baseAssetCode
-      )
-      const paymentTx = await api.getTransaction(paymentOperation)
-      // eslint-disable-next-line max-len
+      const paymentTx = await this.getPaymentTx(baseAssetCode, amount)
+
       const atomicSwapAskOperation = this.buildCreateAtomicSwapAskOperation(
         paymentTx,
         baseAssetCode,
@@ -71,7 +64,6 @@ export default {
         }
       })
 
-      // eslint-disable-next-line max-len
       const quoteAssetsKey = quoteAssets.map(quoteAsset => {
         return {
           id: this.getCreatePaymentMethodId(quoteAsset),
@@ -109,6 +101,38 @@ export default {
       return quoteAsset.type === PAYMENT_METHODS.internal.value
         ? `I${this.statsQuoteAsset.code}`
         : quoteAsset.asset.code
+    },
+
+    async updateAtomicSwapAsk (atomicSwapId, baseAssetCode, amount, price) {
+      let attributes = {}
+
+      if (+amount) {
+        const paymentTx = await this.getPaymentTx(baseAssetCode, amount)
+        attributes.tx = paymentTx
+      }
+
+      if (price) {
+        attributes.price = price
+      }
+
+      await api.patchWithSignature(`/integrations/marketplace/offers/${atomicSwapId}`, {
+        data: {
+          type: ATOMIC_SWAP_REQUEST_TYPES.createOffer,
+          attributes: attributes,
+        },
+      })
+    },
+
+    async getPaymentTx (baseAssetCode, amount) {
+      const { _rawResponse: marketplace } = await api.getWithSignature('/integrations/marketplace/info')
+      const paymentAccount = marketplace.data.attributes.payment_account
+      const paymentOperation = this.getPaymentOperation(
+        paymentAccount,
+        amount,
+        baseAssetCode
+      )
+      const tx = await api.getTransaction(paymentOperation)
+      return tx
     },
   },
 }

@@ -122,7 +122,8 @@
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
-      "field-error_assetPaymentType": "Этот тип не подходит для выбранного актива"
+      "field-error_assetPaymentType": "Этот тип не подходит для выбранного актива",
+      "field-error_sameAtomicSwapPrice": "Цена должна быть меньше или больше текущей"
     },
     "errors": {
       "default": "Что-то пошло не так. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
@@ -1168,7 +1169,6 @@
       "copied": "Скопировано"
     },
     "atomic-swaps": {
-      "explore-atomic-swaps": "Предложения",
       "create-atomic-swap-bth": "Создать предложение",
       "new-atomic-swap": "Новое предложение"
     },
@@ -1666,6 +1666,12 @@
       "add-asset-btn": "Добавить актив",
       "send-btn": "Отправить",
       "balance": "Доступно {{amount, money}}"
+    },
+    "update-atomic-swap-form": {
+      "amount-lbl": "Количество добавляемое к текущему предложению",
+      "price-lbl": "Цена ({{asset}})",
+      "updated-atomic-swap-msg": "Предложение успешно обновлено",
+      "update-btn": "Обновить"
     }
   }
 }

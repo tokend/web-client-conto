@@ -122,7 +122,8 @@
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
-      "field-error_assetPaymentType": "This type is not suitable for selected asset"
+      "field-error_assetPaymentType": "This type is not suitable for selected asset",
+      "field-error_sameAtomicSwapPrice": "This price should be less or greater than current"
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -1169,9 +1170,8 @@
       "set-asset-msg": "Default quote asset successfully set"
     },
     "atomic-swaps": {
-      "explore-atomic-swaps": "Explore offerings",
       "create-atomic-swap-bth": "Create",
-      "new-atomic-swap": "New offering"
+      "new-atomic-swap": "New offer"
     },
     "atomic-swaps-requests": {
       "purchases": "Purchases",
@@ -1210,9 +1210,9 @@
     },
     "atomic-swaps-explore": {
       "buying": "Buying {{asset}}",
-      "atomic-swap-drawer-title": "Offering details",
-      "no-list-title": "No offerings yet",
-      "no-list-msg": "Here will be the list of offerings",
+      "atomic-swap-drawer-title": "Offer details",
+      "no-list-title": "No offers yet",
+      "no-list-msg": "Here will be the list of offers",
       "owned-by-me-filter-lbl": "Owned by me",
       "loading-error-msg": "There was an error while loading."
     },
@@ -1469,7 +1469,7 @@
       "description-lbl": "Description(Optional)",
       "max-uses-lbl": "Max uses(Optional)",
       "discount-lbl": "Discount(%)",
-      "no-offers-msg-title": "No offerings yet",
+      "no-offers-msg-title": "No offers yet",
       "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
       "created-successfully-notification": "Promo Code was created successfully",
       "loading": "Loading",
@@ -1667,6 +1667,12 @@
       "add-asset-btn": "Add asset",
       "send-btn": "Send",
       "balance": "Available: {{amount, money}}"
+    },
+    "update-atomic-swap-form": {
+      "amount-lbl": "Amount to add to current offer",
+      "price-lbl": "Price ({{asset}})",
+      "updated-atomic-swap-msg": "Offer successfully updated",
+      "update-btn": "Update"
     }
   }
 }

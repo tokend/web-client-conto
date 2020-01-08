@@ -14,6 +14,7 @@
           :asset="atomicSwapAsk.baseAssetCode"
           :disabled="formMixin.isDisabled"
           is-max-button-shown
+          :required="!form.price"
         />
       </div>
     </div>
@@ -27,21 +28,31 @@
           })"
           :asset="statsQuoteAsset.code"
           :disabled="formMixin.isDisabled"
+          :required="!form.amount"
+          :error-message="getFieldErrorMessage('form.price')"
         />
       </div>
     </div>
+
+    <button
+      v-ripple
+      class="app__button-raised update-atomic-swap-form__update-btn"
+      :disabled="formMixin.isDisabled"
+    >
+      {{ 'update-atomic-swap-form.update-btn' | globalize }}
+    </button>
   </form>
 </template>
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
 import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
-import {
-  required,
-} from '@validators'
+
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { mapActions } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 const EVENTS = {
   updatedAtomicSwap: 'updated-atomic-swap',
@@ -71,26 +82,38 @@ export default {
   validations () {
     return {
       form: {
-        amount: {
-          required,
-        },
         price: {
-          required,
+          sameAtomicSwapPrice: _ => !this.isSameAtomicSwapPrice,
         },
       },
     }
   },
 
+  computed: {
+    isSameAtomicSwapPrice () {
+      return +this.form.price === +this.atomicSwapAsk.price
+    },
+  },
+
+  created () {
+    this.loadAccountBalances()
+  },
+
   methods: {
+    ...mapActions({
+      loadAccountBalances: vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
+    }),
+
     async submit () {
       if (!this.isFormValid()) return
       this.disableForm()
 
       try {
-        await this.createAtomicSwapAsk(
+        await this.updateAtomicSwapAsk(
+          this.atomicSwapAsk.id,
           this.atomicSwapAsk.baseAssetCode,
           this.form.amount,
-          this.form.price,
+          this.form.price
         )
         Bus.success('update-atomic-swap-form.updated-atomic-swap-msg')
         this.$emit(EVENTS.updatedAtomicSwap)
@@ -106,4 +129,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/vue/forms/app-form';
+
+.update-atomic-swap-form__update-btn {
+  margin-top: 5rem;
+}
 </style>

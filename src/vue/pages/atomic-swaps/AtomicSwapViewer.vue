@@ -4,7 +4,7 @@
     <template v-if="isAtomicSwapOwner">
       <atomic-swap-actions
         :atomic-swap-ask="currentAtomicSwapAsk"
-        @cancel="$emit(EVENTS.closeDrawerAndUpdateList)"
+        @close-drawer-and-update-list="$emit(EVENTS.closeDrawerAndUpdateList)"
       />
       <atomic-swap-requests :atomic-swap-ask="currentAtomicSwapAsk" />
     </template>

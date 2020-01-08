@@ -26,6 +26,8 @@
 
       <update-atomic-swap-form
         :atomic-swap-ask="atomicSwapAsk"
+        @updated-atomic-swap="(isUpdateAtomicSwapDrawerShown = false) ||
+          $emit(EVENTS.closeDrawerAndUpdateList)"
       />
     </drawer>
   </div>
@@ -41,7 +43,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const EVENTS = {
-  cancel: 'cancel',
+  closeDrawerAndUpdateList: 'close-drawer-and-update-list',
 }
 
 export default {
@@ -72,7 +74,7 @@ export default {
       try {
         await api.deleteWithSignature(`/integrations/marketplace/offers/${this.atomicSwapAsk.id}`)
         Bus.success('atomic-swap-actions.atomic-swap-canceled-msg')
-        this.$emit(EVENTS.cancel)
+        this.$emit(EVENTS.closeDrawerAndUpdateList)
       } catch (e) {
         this.isAtomicSwapCanceling = false
         ErrorHandler.process(e)
@@ -91,8 +93,7 @@ export default {
 }
 
 .atomic-swap-actions__btn {
-  max-width: 20rem;
-  width: 100%;
+  min-width: 12rem;
   margin-top: 1rem;
 }
 </style>
