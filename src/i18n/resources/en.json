@@ -1673,7 +1673,8 @@
       "description-lbl": "Description",
       "max-uses-lbl": "Max uses",
       "discount-lbl": "Discount(%)",
-      "updated-successfully-notification": "Promo Code was updated successfully"
+      "updated-successfully-notification": "Promo Code was updated successfully",
+      "used": "Used: {{ used }}"
     }
   }
 }

@@ -48,17 +48,22 @@
             white-autofill
             @blur="touchField('form.maxUses')"
             :error-message="getFieldErrorMessage('form.maxUses', {
-              minValue: MIN_INTEGER_VALUE,
+              minValue: minMaxUsesValue,
               maxValue: MAX_INT_32
             })"
             v-model="form.maxUses"
             :max="MAX_INT_32"
-            :min="MIN_INTEGER_VALUE"
+            :min="minMaxUsesValue"
             type="number"
             name="update-promo-code-form-max-uses"
             :label="'update-promo-code-form.max-uses-lbl' | globalize"
             :disabled="formMixin.isDisabled"
           />
+          <p class="app__form-field-description">
+            {{ 'update-promo-code-form.used' | globalize({
+              used: promoCode.used,
+            }) }}
+          </p>
         </div>
       </div>
 
@@ -91,7 +96,6 @@ import {
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 import {
   MAX_INT_32,
-  MIN_INTEGER_VALUE,
   MAX_PERCENT_DISCOUNT,
   MIN_PERCENT,
 } from '@/js/const/numbers.const'
@@ -126,7 +130,6 @@ export default {
       maxUses: null,
     },
     MAX_INT_32,
-    MIN_INTEGER_VALUE,
     MAX_PERCENT_DISCOUNT,
     MIN_PERCENT,
     DESCRIPTION_MAX_LENGTH,
@@ -136,6 +139,10 @@ export default {
   computed: {
     inputStep () {
       return inputStepByDigitsCount(config.DECIMAL_POINTS)
+    },
+
+    minMaxUsesValue () {
+      return this.promoCode.used + 1
     },
   },
 
@@ -157,7 +164,7 @@ export default {
             return Boolean(this.promoCode.maxUses)
           }),
           integer,
-          minValue: minValue(MIN_INTEGER_VALUE),
+          minValue: minValue(this.minMaxUsesValue),
           maxValue: maxValue(MAX_INT_32),
         },
         discount: {

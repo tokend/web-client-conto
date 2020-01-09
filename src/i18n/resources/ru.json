@@ -1672,7 +1672,8 @@
       "description-lbl": "Описание",
       "max-uses-lbl": "Количество использований",
       "discount-lbl": "Скидка(%)",
-      "updated-successfully-notification": "Промокод успешно обновлен"
+      "updated-successfully-notification": "Промокод успешно обновлен",
+      "used": "Использовано: {{ used }}"
     }
   }
 }
