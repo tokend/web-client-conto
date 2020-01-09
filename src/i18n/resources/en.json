@@ -1482,7 +1482,9 @@
     "promo-code-viewer": {
       "delete-btn": "Delete",
       "promo-code-deleted-successfully-notification": "Promo Code successfully deleted",
-      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?"
+      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?",
+      "update-btn": "Update",
+      "update-promo-code-drawer-title": "Update Promo Code"
     },
     "promo-code-offers-table": {
       "name-th": "Name",
@@ -1665,6 +1667,14 @@
       "add-asset-btn": "Add asset",
       "send-btn": "Send",
       "balance": "Available: {{amount, money}}"
+    },
+    "update-promo-code-form": {
+      "update-btn": "Update",
+      "description-lbl": "Description",
+      "max-uses-lbl": "Max uses",
+      "discount-lbl": "Discount(%)",
+      "updated-successfully-notification": "Promo Code was updated successfully",
+      "used": "Used: {{ used }}"
     }
   }
 }

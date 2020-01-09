@@ -10,6 +10,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased] - 2020-01-06
 #### Added
 - Filter for `paymentMethodType` on pay page
+- Update Promo Code form
 
 ## [1.6.0] - 2019-12-25
 #### Fixed
