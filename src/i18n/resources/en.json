@@ -488,7 +488,8 @@
       "know-credentials-answer": "Sign in now",
       "have-an-account-question": "Already have an account?",
       "have-an-account-answer": "Sign in now",
-      "verifying-email-msg": "Please wait while we verifying your email address.",
+      "verifying-email-msg": "Please wait while we verifying your email address",
+      "kyc-recovery-msg": "Please wait while we recover your account",
       "submit-processing": "Processing…"
     },
     "settings-page": {
@@ -593,21 +594,6 @@
       "permanently-rejected-reason": "Rejection reason:",
       "additional-info-title": "Additional information (provided by admin or KYC service): "
     },
-    "kyc-recovery-state-message": {
-      "approved-title": "KYC recovery approved",
-      "pending-title": "KYC recovery in progress",
-      "rejected-title": "KYC recovery rejected",
-      "permanently-rejected-title": "KYC recovery rejected permanently",
-      "approved-desc": "Your KYC recovery request was approved by administrator. Now you can access all the features.",
-      "pending-desc": "Your KYC recovery request is being processed. You will be able access all the features once the request is reviewed.",
-      "rejected-desc": "Your KYC recovery request was rejected by administrator. Please, resolve all the issues and send the request again.",
-      "permanently-rejected-desc": "Your KYC recovery request was permanently rejected by administrator.",
-      "rejected-reason": "Rejection reason:",
-      "permanently-rejected-reason": "Rejection reason:",
-      "limited-functionality-msg": "Currently application functionality is limited",
-      "sign-out-btn": "Sign out",
-      "loading-msg": "Loading"
-    },
     "verification-form": {
       "account-information-lbl": "Account information",
       "create-btn": "Create request",
@@ -644,7 +630,6 @@
       "businesses": "Companies",
       "sponsorship": "Sponsorship",
       "atomic-swaps": "Shop",
-      "kyc-recovery": "KYC Recovery",
       "promo-codes": "Promo Codes",
       "statistics": "Statistics"
     },

@@ -18,7 +18,6 @@ export default {
       kycState: vuexTypes.kycState,
       kycRequestId: vuexTypes.kycRequestId,
       accountId: vuexTypes.accountId,
-      kycRecoveryState: vuexTypes.kycRecoveryState,
     }),
     isUpdatableKycRequest () {
       return (

@@ -5,20 +5,21 @@
     </h2>
 
     <div class="auth-page__content">
-      <wallet-recovery-form
-        v-if="isWalletRecoveryFormDisplay"
-        @error="checkError"
-      />
-      <wallet-recovery-tfa-code-form
-        v-if="!isWalletRecoveryFormDisplay"
-        :error="recoveryError"
-        @send-kyc-recovery-request="createKycRecoveryRequest"
-      />
-
       <template v-if="isKycRecoveryInProgress">
         <loader
           class="auth-page__verification-loader"
-          message-id="auth-pages.verifying-email-msg"
+          message-id="auth-pages.kyc-recovery-msg"
+        />
+      </template>
+      <template v-else>
+        <wallet-recovery-form
+          v-if="isWalletRecoveryFormDisplay"
+          @error="checkError"
+        />
+        <wallet-recovery-tfa-code-form
+          v-if="!isWalletRecoveryFormDisplay"
+          :error="recoveryError"
+          @send-kyc-recovery-request="createKycRecoveryRequest"
         />
       </template>
 
@@ -43,8 +44,10 @@ import Loader from '@/vue/common/Loader'
 
 import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { mapActions } from 'vuex'
+import { api } from '@/api'
+import { base } from '@tokend/js-sdk'
 import { vuexTypes } from '@/vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'kyc-recovery',
@@ -53,26 +56,45 @@ export default {
     WalletRecoveryTfaCodeForm,
     Loader,
   },
+
   data: _ => ({
     isWalletRecoveryFormDisplay: true,
     recoveryError: {},
     vueRoutes,
     isKycRecoveryInProgress: false,
   }),
-  methods: {
-    ...mapActions({
-      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
-    }),
 
+  computed: {
+    ...mapGetters([
+      vuexTypes.kvDefaultSignerRoleId,
+    ]),
+  },
+
+  methods: {
     checkError (error) {
       this.recoveryError = error
       this.isWalletRecoveryFormDisplay = false
     },
 
-    async createKycRecoveryRequest () {
+    async createKycRecoveryRequest (wallet) {
       this.isKycRecoveryInProgress = true
       try {
-        await this.sendKycRecoveryRequest()
+        const opts = {
+          targetAccount: wallet.accountId,
+          signers: [
+            {
+              publicKey: wallet.keypair.accountId(),
+              roleID: String(this.kvDefaultSignerRoleId),
+              weight: '1000',
+              identity: '1',
+              details: {},
+            },
+          ],
+          creatorDetails: {},
+        }
+        await api.postOperations(
+          base.CreateKYCRecoveryRequestBuilder.create(opts)
+        )
       } catch (e) {
         ErrorHandler.process(e)
       }

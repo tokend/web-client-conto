@@ -90,12 +90,6 @@ const router = new Router({
       props: true,
     },
     {
-      path: '/kyc-recovery-management',
-      name: vueRoutes.kycRecoveryManagement.name,
-      component: resolve => require(['@/vue/pages/KycRecovery/KycRecoveryManagement'], resolve),
-      beforeEnter: kycRecoveryGuard,
-    },
-    {
       path: '/auth',
       name: vueRoutes.auth.name,
       component: resolve => require(['@/vue/pages/Auth'], resolve),
@@ -378,17 +372,6 @@ const router = new Router({
 
 export default router
 
-// doesn't allow to visit kyc recovery management page if user's kyc recovery
-// is not initialized
-function kycRecoveryGuard (to, from, next) {
-  const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
-  const isKycRecoveryInProgress = store
-    .getters[vuexTypes.accountKycRecoveryStatus]
-  isLoggedIn && isKycRecoveryInProgress
-    ? next()
-    : next(vueRoutes.app)
-}
-
 // doesn't allow to visit signup kyc page if user's is logged out
 function signupKycPageGuard (to, from, next) {
   const isLoggedIn = store.getters[vuexTypes.isLoggedIn]
@@ -409,12 +392,7 @@ function redirectRouteGuard (to, from, next) {
   const isAccountUnverified = store.getters[vuexTypes.isAccountUnverified]
 
   if (isLoggedIn && !isAccountUnverified) {
-    const isKycRecoveryInProgress = store
-      .getters[vuexTypes.isKycRecoveryInProgress]
-
-    if (isKycRecoveryInProgress) {
-      next(vueRoutes.kycRecoveryManagement)
-    } else if (to.name === vueRoutes.app.name) {
+    if (to.name === vueRoutes.app.name) {
       const isAccountCorporate = store.getters[vuexTypes.isAccountCorporate]
       if (isAccountCorporate) {
         next(vueRoutes.customers)

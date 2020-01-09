@@ -78,14 +78,13 @@ import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 import { required } from '@validators'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
 const EVENTS = {
   submitted: 'submitted',
   logout: 'logout',
-  kycRecoverySubmit: 'kyc-recovery-submit',
 }
 
 export default {
@@ -134,9 +133,6 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
-    }),
     tryToSubmit () {
       if (!this.isFormValid()) return
       if (this.isSignUpKycPage) {

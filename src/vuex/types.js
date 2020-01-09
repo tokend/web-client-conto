@@ -37,10 +37,6 @@ const mutations = {
   SET_ACCOUNT_ROLE_RESETED: 'SET_ACCOUNT_ROLE_RESETED',
   SET_KYC_LATEST_REQUEST_DATA: 'SET_KYC_LATEST_REQUEST_DATA',
 
-  // kyc recovery
-  SET_KYC_RECOVERY_LATEST_REQUEST: 'SET_KYC_RECOVERY_LATEST_REQUEST',
-  SET_KYC_RECOVERY_LATEST_REQUEST_BLOB: 'SET_KYC_RECOVERY_LATEST_REQUEST_BLOB',
-
   // assets
   SET_ASSETS: 'SET_ASSETS',
   UPDATE_ASSETS: 'UPDATE_ASSETS',
@@ -98,13 +94,6 @@ const actions = {
   LOAD_KYC_RELATED_REQUEST: 'LOAD_KYC_RELATED_REQUEST',
   LOAD_KYC_LATEST_DATA: 'LOAD_KYC_LATEST_DATA',
 
-  // kyc recovery
-  LOAD_KYC_RECOVERY_LATEST_REQUEST: 'LOAD_KYC_RECOVERY_LATEST_REQUEST',
-  LOAD_KYC_RECOVERY: 'LOAD_KYC_RECOVERY',
-  LOAD_KYC_RECOVERY_LATEST_REQUEST_BLOB:
-    'LOAD_KYC_RECOVERY_LATEST_REQUEST_BLOB',
-  SEND_KYC_RECOVERY_REQUEST: 'SEND_KYC_RECOVERY_REQUEST',
-
   // assets
   LOAD_ASSETS: 'LOAD_ASSETS',
 
@@ -159,7 +148,6 @@ const getters = {
   accountBalanceByCode: 'accountBalanceByCode',
   accountRoleId: 'accountRoleId',
   accountDepositAddresses: 'accountDepositAddresses',
-  accountKycRecoveryStatus: 'accountKycRecoveryStatus',
 
   isAccountGeneral: 'isAccountGeneral',
   isAccountCorporate: 'isAccountCorporate',
@@ -206,21 +194,6 @@ const getters = {
   kycLatestRequestData: 'kycLatestRequestData',
   kycAvatarKey: 'kycAvatarKey',
   isAccountRoleReseted: 'isAccountRoleReseted',
-
-  // kyc recovery
-  kycRecoveryRequestId: 'kycRecoveryRequestId',
-  kycRecoveryState: 'kycRecoveryState',
-  kycRecoveryStateI: 'kycRecoveryStateI',
-  kycRecoveryRequestBlob: 'kycRecoveryRequestBlob',
-  kycRecoveryRejectReason: 'kycRecoveryRejectReason',
-  kycRecoveryBlobId: 'kycRecoveryBlobId',
-  isNoKycRecoveryInProgress: 'isNoKycRecoveryInProgress',
-  isKycRecoveryInProgress: 'isKycRecoveryInProgress',
-  isKycRecoveryInited: 'isKycRecoveryInited',
-  isKycRecoveryApproved: 'isKycRecoveryApproved',
-  isKycRecoveryPending: 'isKycRecoveryPending',
-  isKycRecoveryRejected: 'isKycRecoveryRejected',
-  isKycRecoveryPermanentlyRejected: 'isKycRecoveryPermanentlyRejected',
 
   // assets
   assets: 'assets',

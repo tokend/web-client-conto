@@ -9,7 +9,6 @@ import kyc from './kyc.module'
 import identities from './identities.module'
 import keyValue from './key-value.module'
 import businesses from './businesses.module'
-import kycRecovery from './kyc-recovery.module'
 import movementsHistory from './movements-history.module'
 import sponsorshipRequests from './sponsorship-requests.module'
 import { vuexTypes } from '@/vuex/types'
@@ -35,12 +34,9 @@ export const rootModule = {
       await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
       await dispatch(vuexTypes.LOAD_KV_ENTRIES)
 
-      const isKycRecoveryInProgress = getters[vuexTypes.isKycRecoveryInProgress]
       const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
 
-      if (!isKycRecoveryInProgress) {
-        await dispatch(vuexTypes.LOAD_KYC)
-      }
+      await dispatch(vuexTypes.LOAD_KYC)
       if (isAccountCorporate) {
         await dispatch(
           vuexTypes.LOAD_BUSINESS,
@@ -94,7 +90,6 @@ function buildStore () {
       identities,
       keyValue,
       idleHandler,
-      kycRecovery,
       movementsHistory,
       sponsorshipRequests,
       businesses,

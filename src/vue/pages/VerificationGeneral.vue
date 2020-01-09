@@ -15,10 +15,6 @@
 import GeneralKycForm from '@/vue/forms/GeneralKycForm'
 import { Bus } from '@/js/helpers/event-bus'
 
-const EVENTS = {
-  kycRecoverySubmit: 'kyc-recovery-submit',
-}
-
 export default {
   name: 'verification-general-form',
   components: {
@@ -28,7 +24,6 @@ export default {
   methods: {
     showSuccessMessage () {
       Bus.success('verification-form.request-submitted-msg')
-      this.$emit(EVENTS.kycRecoverySubmit)
     },
   },
 }
