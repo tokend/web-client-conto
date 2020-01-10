@@ -148,7 +148,7 @@ export default {
       if (!this.isFormValid()) return
       this.disableForm()
 
-      let amount = this.isAmountChanged
+      const amount = this.isAmountChanged
         ? MathUtil.subtract(this.form.amount, this.atomicSwapAsk.amount)
         : ''
       const price = this.isPriceChanged ? this.form.price : ''
