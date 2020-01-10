@@ -9,14 +9,12 @@
         <amount-input-field
           v-model="form.amount"
           name="update-atomic-swap-amount"
-          validation-type="outgoing"
+          :max="maxAmount"
+          :min="atomicSwapAsk.amount"
           :label="'update-atomic-swap-form.amount-lbl' | globalize"
           :asset="atomicSwapAsk.baseAssetCode"
           :disabled="formMixin.isDisabled"
           is-max-button-shown
-          :error-message="getFieldErrorMessage('form.amount', {
-            minValue: atomicSwapAsk.amount
-          })"
         />
       </div>
     </div>
@@ -95,9 +93,6 @@ export default {
   validations () {
     return {
       form: {
-        amount: {
-          minValue: minValue(this.atomicSwapAsk.amount),
-        },
         price: {
           required,
           minValue: minValue(this.minPrice),
@@ -110,6 +105,7 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.assetByCode,
+      vuexTypes.accountBalanceByCode,
     ]),
 
     isPriceChanged () {
@@ -118,6 +114,13 @@ export default {
 
     isAmountChanged () {
       return +this.form.amount !== +this.atomicSwapAsk.amount
+    },
+
+    maxAmount () {
+      return MathUtil.add(
+        this.accountBalanceByCode(this.atomicSwapAsk.baseAssetCode).balance,
+        this.atomicSwapAsk.amount
+      )
     },
   },
 
