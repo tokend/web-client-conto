@@ -85,9 +85,9 @@ export default {
     label: { type: String, default: 'Label' },
     value: { type: [String, Number], default: undefined },
     monospaced: { type: Boolean, default: false },
-    errorMessage: { type: String, default: undefined },
+    errorMessage: { type: String, default: '' },
     whiteAutofill: { type: Boolean, default: true },
-    type: { type: String, default: undefined },
+    type: { type: String, default: '' },
     trim: { type: Boolean, default: true },
   },
 
