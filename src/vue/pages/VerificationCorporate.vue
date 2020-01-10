@@ -116,7 +116,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
-import { required, validateUrl, cardNumber } from '@validators'
+import { required } from '@validators'
 
 const EMPTY_DOCUMENT = {
   mime_type: '',
@@ -145,19 +145,9 @@ export default {
   }),
 
   validations () {
-    const websiteRule = {
-      validateUrl,
-    }
-
-    const cardNumberRule = {
-      cardNumber,
-    }
-
     return {
       form: {
         company: { required },
-        website: this.form.website ? websiteRule : {},
-        cardNumber: this.form.cardNumber ? cardNumberRule : {},
       },
     }
   },
