@@ -1,10 +1,12 @@
 import { base } from '@tokend/js-sdk'
 import { api } from '@/api'
+import config from '@/config'
 
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 import { ATOMIC_SWAP_REQUEST_TYPES } from '@/js/const/atomic-swap.const'
 import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
+import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
 export default {
   computed: {
@@ -13,6 +15,12 @@ export default {
       accountId: vuexTypes.accountId,
       statsQuoteAsset: vuexTypes.statsQuoteAsset,
     }),
+
+    inputStep () {
+      return this.statsQuoteAsset.trailingDigitsCount
+        ? inputStepByDigitsCount(this.statsQuoteAsset.trailingDigitsCount)
+        : inputStepByDigitsCount(config.DECIMAL_POINTS)
+    },
   },
 
   methods: {

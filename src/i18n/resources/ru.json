@@ -1482,7 +1482,9 @@
     "promo-code-viewer": {
       "delete-btn": "Удалить",
       "promo-code-deleted-successfully-notification": "Промокод успешно удален",
-      "delete-promo-code-message": "Вы действительно хотите удалить промокод?"
+      "delete-promo-code-message": "Вы действительно хотите удалить промокод?",
+      "update-btn": "Обновить",
+      "update-promo-code-drawer-title": "Обновление промокода"
     },
     "promo-code-offers-table": {
       "name-th": "Имя",
@@ -1665,6 +1667,14 @@
       "add-asset-btn": "Добавить актив",
       "send-btn": "Отправить",
       "balance": "Доступно {{amount, money}}"
+    },
+    "update-promo-code-form": {
+      "update-btn": "Обновить",
+      "description-lbl": "Описание",
+      "max-uses-lbl": "Количество использований",
+      "discount-lbl": "Скидка(%)",
+      "updated-successfully-notification": "Промокод успешно обновлен",
+      "used": "Использовано: {{ used }}"
     },
     "update-atomic-swap-form": {
       "amount-lbl": "Количество",

@@ -116,7 +116,7 @@ export default {
   created () {
     this.form.price = amountToPrecision(
       this.buyOrder.price,
-      this.statsQuoteAsset.precision
+      this.statsQuoteAsset.trailingDigitsCount
     )
   },
 

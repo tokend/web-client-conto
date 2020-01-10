@@ -46,7 +46,7 @@
 
       <promo-code-viewer
         :promo-code="promoCodeToBrowse"
-        @promo-code-deleted="closeDrawerAndUpdateList"
+        @close-drawer-and-update-list="closeDrawerAndUpdateList"
       />
     </drawer>
   </div>

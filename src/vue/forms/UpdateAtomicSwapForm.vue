@@ -61,15 +61,14 @@ import config from '@/config'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import {
   minValue,
   maxValue,
   required,
 } from '@validators'
-import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
-import { formatMoney } from '@/vue/filters/formatMoney'
+import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils/math.util'
 
 const EVENTS = {
@@ -110,16 +109,16 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      vuexTypes.assetByCode,
+    ]),
+
     isPriceChanged () {
       return +this.form.price !== +this.atomicSwapAsk.price
     },
 
     isAmountChanged () {
       return +this.form.amount !== +this.atomicSwapAsk.amount
-    },
-
-    inputStep () {
-      return inputStepByDigitsCount(config.DECIMAL_POINTS)
     },
   },
 
@@ -135,8 +134,14 @@ export default {
 
     populateForm () {
       this.form = {
-        amount: formatMoney(this.atomicSwapAsk.amount),
-        price: formatMoney(this.atomicSwapAsk.price),
+        amount: amountToPrecision(
+          this.atomicSwapAsk.amount,
+          this.assetByCode(this.atomicSwapAsk.baseAssetCode).trailingDigitsCount
+        ),
+        price: amountToPrecision(
+          this.atomicSwapAsk.price,
+          this.statsQuoteAsset.trailingDigitsCount
+        ),
       }
     },
 

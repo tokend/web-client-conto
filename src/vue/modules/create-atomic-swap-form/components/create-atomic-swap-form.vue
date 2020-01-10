@@ -94,7 +94,6 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils/math.util'
-import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
 const EVENTS = {
   createdAtomicSwap: 'created-atomic-swap',
@@ -158,10 +157,6 @@ export default {
       return this.isAssetOwner
         ? VALIDATION_TYPES.atomicSwap
         : VALIDATION_TYPES.outgoing
-    },
-
-    inputStep () {
-      return inputStepByDigitsCount(config.DECIMAL_POINTS)
     },
   },
 
