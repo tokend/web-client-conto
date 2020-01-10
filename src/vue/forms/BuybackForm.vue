@@ -145,11 +145,11 @@ export default {
     if (this.isUpdateMode) {
       this.form.amount = amountToPrecision(
         this.buybackOffer.baseAmount,
-        this.assetByCode(this.assetCode).precision
+        this.assetByCode(this.assetCode).trailingDigitsCount
       )
       this.form.price = amountToPrecision(
         this.buybackOffer.price,
-        this.statsQuoteAsset.precision
+        this.statsQuoteAsset.trailingDigitsCount
       )
     }
   },

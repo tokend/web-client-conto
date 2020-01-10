@@ -11,6 +11,7 @@ for further information about branching and tagging conventions.
 #### Added
 - Filter for `paymentMethodType` on pay page
 - Update Promo Code form
+- Update offer form
 
 ## [1.6.0] - 2019-12-25
 #### Fixed

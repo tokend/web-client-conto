@@ -59,12 +59,12 @@ export default {
       )
 
       if (this.collectedAttributes.isSellable) {
-        await this.createAtomicSwapAsk(
-          this.collectedAttributes.code,
-          this.collectedAttributes.amountToSell,
-          this.collectedAttributes.price,
-          this.collectedAttributes.quoteAssets,
-        )
+        await this.createAtomicSwapAsk({
+          baseAssetCode: this.collectedAttributes.code,
+          amount: this.collectedAttributes.amountToSell,
+          price: this.collectedAttributes.price,
+          quoteAssets: this.collectedAttributes.quoteAssets,
+        })
       }
     },
 

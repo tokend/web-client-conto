@@ -11,7 +11,7 @@
       :min="minAmount"
       :max="maxAmount"
       :step="step"
-      :error-message="getFieldErrorMessage('value', {
+      :error-message="errorMessage || getFieldErrorMessage('value', {
         from: {
           value: minAmount,
           currency: assetRecord.code,
@@ -45,7 +45,7 @@ import { MathUtil } from '@/js/utils/math.util'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import config from '@/config'
-import { required, amountRange } from '@validators'
+import { amountRange, requiredIf } from '@validators'
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
 const EVENTS = {
@@ -75,6 +75,8 @@ export default {
     isMaxButtonShown: { type: Boolean, default: false },
     min: { type: [Number, String], default: config.MIN_AMOUNT },
     max: { type: [Number, String], default: config.MAX_AMOUNT },
+    required: { type: Boolean, default: true },
+    errorMessage: { type: String, default: '' },
   },
 
   data: _ => ({
@@ -84,7 +86,7 @@ export default {
   validations () {
     return {
       value: {
-        required,
+        required: requiredIf(function () { return this.required }),
         amountRange: amountRange(this.minAmount, this.maxAmount),
       },
     }

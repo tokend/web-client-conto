@@ -1168,7 +1168,6 @@
       "copied": "Скопировано"
     },
     "atomic-swaps": {
-      "explore-atomic-swaps": "Предложения",
       "create-atomic-swap-bth": "Создать предложение",
       "new-atomic-swap": "Новое предложение"
     },
@@ -1348,7 +1347,9 @@
       "yes-msg": "Да",
       "no-msg": "Нет",
       "cancellation-msg": "Уверены, что хотите отменить предложение?",
-      "atomic-swap-canceled-msg": "Предложение отменено"
+      "atomic-swap-canceled-msg": "Предложение отменено",
+      "update-atomic-swap-drawer-title": "Обновление предложения",
+      "update-btn": "Обновить предложение"
     },
     "abbreviation-numbers": {
       "thousand": "тыс",
@@ -1674,6 +1675,12 @@
       "discount-lbl": "Скидка(%)",
       "updated-successfully-notification": "Промокод успешно обновлен",
       "used": "Использовано: {{ used }}"
+    },
+    "update-atomic-swap-form": {
+      "amount-lbl": "Количество",
+      "price-lbl": "Цена ({{asset}})",
+      "updated-atomic-swap-msg": "Предложение успешно обновлено",
+      "update-btn": "Обновить"
     }
   }
 }
