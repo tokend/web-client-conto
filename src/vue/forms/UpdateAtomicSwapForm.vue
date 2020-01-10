@@ -105,7 +105,6 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.assetByCode,
-      vuexTypes.accountBalanceByCode,
     ]),
 
     isPriceChanged () {
