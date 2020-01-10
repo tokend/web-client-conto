@@ -82,9 +82,9 @@ export default {
       }
       this.disableForm()
       try {
-        const { data } = await factorsManager
+        await factorsManager
           .verifyTotpFactorAndRetry(this.error, this.form.code)
-        this.$emit(EVENTS.sendKycRecoveryRequest, data)
+        this.$emit(EVENTS.sendKycRecoveryRequest)
       } catch (err) {
         ErrorHandler.process(err)
       }

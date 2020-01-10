@@ -15,6 +15,7 @@
         <wallet-recovery-form
           v-if="isWalletRecoveryFormDisplay"
           @error="checkError"
+          @set-password-and-email="setPasswordAndEmail"
         />
         <wallet-recovery-tfa-code-form
           v-if="!isWalletRecoveryFormDisplay"
@@ -47,7 +48,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 import { vuexTypes } from '@/vuex'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'kyc-recovery',
@@ -62,28 +63,48 @@ export default {
     recoveryError: {},
     vueRoutes,
     isKycRecoveryInProgress: false,
+    email: '',
+    password: '',
   }),
 
   computed: {
     ...mapGetters([
       vuexTypes.kvDefaultSignerRoleId,
+      vuexTypes.walletAccountId,
+      vuexTypes.walletPublicKey,
     ]),
   },
 
   methods: {
+    ...mapActions({
+      loadWallet: vuexTypes.LOAD_WALLET,
+      loadAccount: vuexTypes.LOAD_ACCOUNT,
+      loadKyc: vuexTypes.LOAD_KYC,
+      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+    }),
+
     checkError (error) {
       this.recoveryError = error
       this.isWalletRecoveryFormDisplay = false
     },
 
-    async createKycRecoveryRequest (wallet) {
+    setPasswordAndEmail ({ email, password }) {
+      this.email = email
+      this.password = password
+    },
+
+    async createKycRecoveryRequest () {
       this.isKycRecoveryInProgress = true
       try {
+        await this.loadWallet({
+          email: this.email.toLowerCase(),
+          password: this.password,
+        })
         const opts = {
-          targetAccount: wallet.accountId,
+          targetAccount: this.walletAccountId,
           signers: [
             {
-              publicKey: wallet.keypair.accountId(),
+              publicKey: this.walletPublicKey,
               roleID: String(this.kvDefaultSignerRoleId),
               weight: '1000',
               identity: '1',
@@ -95,10 +116,14 @@ export default {
         await api.postOperations(
           base.CreateKYCRecoveryRequestBuilder.create(opts)
         )
+        await this.loadAccount(this.walletAccountId)
+        await this.loadKyc()
+        await this.loadMyBusinesses()
+        await this.$router.push({ name: 'app' })
       } catch (e) {
         ErrorHandler.process(e)
+        this.isKycRecoveryInProgress = false
       }
-      this.isKycRecoveryInProgress = false
     },
   },
 }
