@@ -122,8 +122,7 @@
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
-      "field-error_assetPaymentType": "This type is not suitable for selected asset",
-      "field-error_sameAtomicSwapPrice": "This price should be less or greater than current"
+      "field-error_assetPaymentType": "This type is not suitable for selected asset"
     },
     "errors": {
       "default": "Something bad happened. Please try again later or contact the system owner.",
@@ -1669,7 +1668,7 @@
       "balance": "Available: {{amount, money}}"
     },
     "update-atomic-swap-form": {
-      "amount-lbl": "Amount to add to current offer",
+      "amount-lbl": "Amount",
       "price-lbl": "Price ({{asset}})",
       "updated-atomic-swap-msg": "Offer successfully updated",
       "update-btn": "Update"

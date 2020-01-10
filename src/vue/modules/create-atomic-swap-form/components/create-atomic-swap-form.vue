@@ -50,13 +50,21 @@
     </div>
     <div class="app__form-row">
       <div class="app__form-field">
-        <amount-input-field
+        <input-field
           v-model="form.price"
+          type="number"
+          :step="inputStep"
+          :max="MAX_AMOUNT"
+          :min="MIN_AMOUNT"
+          @blur="touchField('form.price')"
           name="create-atomic-swap-quote-asset-price"
           :label="'create-atomic-swap-form.price-lbl' | globalize({
             asset: statsQuoteAsset.code
           })"
-          :asset="statsQuoteAsset.code"
+          :error-message="getFieldErrorMessage('form.price', {
+            maxValue: MAX_AMOUNT,
+            minValue: MIN_AMOUNT
+          })"
           :disabled="formMixin.isDisabled"
         />
       </div>
@@ -72,8 +80,12 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
 import AtomicSwapQuoteAssetsForm from '@/vue/forms/AtomicSwapQuoteAssetsForm'
+import config from '@/config'
+
 import {
   required,
+  minValue,
+  maxValue,
 } from '@validators'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -82,6 +94,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils/math.util'
+import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
 const EVENTS = {
   createdAtomicSwap: 'created-atomic-swap',
@@ -107,6 +120,8 @@ export default {
     },
     isLoaded: false,
     isLoadFailed: false,
+    MIN_AMOUNT: config.MIN_AMOUNT,
+    MAX_AMOUNT: config.MAX_AMOUNT,
   }),
 
   validations () {
@@ -118,6 +133,8 @@ export default {
         },
         price: {
           required,
+          minValue: minValue(this.MIN_AMOUNT),
+          maxValue: maxValue(this.MAX_AMOUNT),
         },
       },
     }
@@ -141,6 +158,10 @@ export default {
       return this.isAssetOwner
         ? VALIDATION_TYPES.atomicSwap
         : VALIDATION_TYPES.outgoing
+    },
+
+    inputStep () {
+      return inputStepByDigitsCount(config.DECIMAL_POINTS)
     },
   },
 

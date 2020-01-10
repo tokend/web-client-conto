@@ -76,7 +76,7 @@ export default {
     min: { type: [Number, String], default: config.MIN_AMOUNT },
     max: { type: [Number, String], default: config.MAX_AMOUNT },
     required: { type: Boolean, default: true },
-    errorMessage: { type: String, default: undefined },
+    errorMessage: { type: String, default: '' },
   },
 
   data: _ => ({
