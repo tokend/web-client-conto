@@ -26,16 +26,16 @@
           v-model="form.price"
           type="number"
           :step="inputStep"
-          :max="MAX_AMOUNT"
-          :min="MIN_AMOUNT"
+          :max="MAX_PRICE"
+          :min="minPrice"
           @blur="touchField('form.price')"
           name="update-atomic-swap-quote-asset-price"
           :label="'update-atomic-swap-form.price-lbl' | globalize({
             asset: statsQuoteAsset.code
           })"
           :error-message="getFieldErrorMessage('form.price', {
-            maxValue: MAX_AMOUNT,
-            minValue: MIN_AMOUNT
+            maxValue: MAX_PRICE,
+            minValue: minPrice
           })"
           :disabled="formMixin.isDisabled"
         />
@@ -89,8 +89,7 @@ export default {
       amount: '',
       price: '',
     },
-    MIN_AMOUNT: config.MIN_AMOUNT,
-    MAX_AMOUNT: config.MAX_AMOUNT,
+    MAX_PRICE: config.MAX_AMOUNT,
   }),
 
   validations () {
@@ -101,8 +100,8 @@ export default {
         },
         price: {
           required,
-          minValue: minValue(this.MIN_AMOUNT),
-          maxValue: maxValue(this.MAX_AMOUNT),
+          minValue: minValue(this.minPrice),
+          maxValue: maxValue(this.MAX_PRICE),
         },
       },
     }

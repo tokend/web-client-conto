@@ -21,6 +21,10 @@ export default {
         ? inputStepByDigitsCount(this.statsQuoteAsset.trailingDigitsCount)
         : inputStepByDigitsCount(config.DECIMAL_POINTS)
     },
+
+    minPrice () {
+      return this.inputStep || config.MIN_AMOUNT
+    },
   },
 
   methods: {
