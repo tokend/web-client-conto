@@ -23,7 +23,7 @@
         <input-field
           v-model="form.price"
           type="number"
-          :step="inputStep"
+          :step="minPrice"
           :max="MAX_PRICE"
           :min="minPrice"
           @blur="touchField('form.price')"
@@ -75,13 +75,10 @@ const EVENTS = {
 
 export default {
   name: 'update-atomic-swap-form',
-
   mixins: [FormMixin, AtomicSwapAskMixin],
-
   props: {
     atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
   },
-
   data: _ => ({
     form: {
       amount: '',

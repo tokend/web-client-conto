@@ -48,18 +48,14 @@ const EVENTS = {
 
 export default {
   name: 'atomic-swap-actions',
-
   components: {
     UpdateAtomicSwapForm,
     Drawer,
   },
-
   mixins: [FormMixin],
-
   props: {
     atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
   },
-
   data: _ => ({
     isAtomicSwapCanceling: false,
     isUpdateAtomicSwapDrawerShown: false,

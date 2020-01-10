@@ -1,6 +1,6 @@
+import config from '@/config'
 import { base } from '@tokend/js-sdk'
 import { api } from '@/api'
-import config from '@/config'
 
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
@@ -16,14 +16,10 @@ export default {
       statsQuoteAsset: vuexTypes.statsQuoteAsset,
     }),
 
-    inputStep () {
+    minPrice () {
       return this.statsQuoteAsset.trailingDigitsCount
         ? inputStepByDigitsCount(this.statsQuoteAsset.trailingDigitsCount)
         : inputStepByDigitsCount(config.DECIMAL_POINTS)
-    },
-
-    minPrice () {
-      return this.inputStep || config.MIN_AMOUNT
     },
   },
 

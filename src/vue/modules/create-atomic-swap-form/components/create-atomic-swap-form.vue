@@ -53,7 +53,7 @@
         <input-field
           v-model="form.price"
           type="number"
-          :step="inputStep"
+          :step="minPrice"
           :max="MAX_PRICE"
           :min="minPrice"
           @blur="touchField('form.price')"
