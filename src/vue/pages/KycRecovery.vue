@@ -56,7 +56,6 @@ export default {
     WalletRecoveryTfaCodeForm,
     Loader,
   },
-
   data: _ => ({
     isWalletRecoveryFormDisplay: true,
     recoveryError: {},
