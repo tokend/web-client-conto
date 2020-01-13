@@ -50,9 +50,6 @@ describe('vuex types unit tests', () => {
     for (const key of getModuleKeys(idleHandler)) {
       expect(vuexTypes).to.have.property(key)
     }
-    for (const key of getModuleKeys(kycRecovery)) {
-      expect(vuexTypes).to.have.property(key)
-    }
     for (const key of getModuleKeys(movementsHistory)) {
       expect(vuexTypes).to.have.property(key)
     }
