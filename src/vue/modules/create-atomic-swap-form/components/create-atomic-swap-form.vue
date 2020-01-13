@@ -50,13 +50,21 @@
     </div>
     <div class="app__form-row">
       <div class="app__form-field">
-        <amount-input-field
+        <input-field
           v-model="form.price"
+          type="number"
+          :step="minPrice"
+          :max="MAX_PRICE"
+          :min="minPrice"
+          @blur="touchField('form.price')"
           name="create-atomic-swap-quote-asset-price"
           :label="'create-atomic-swap-form.price-lbl' | globalize({
             asset: statsQuoteAsset.code
           })"
-          :asset="statsQuoteAsset.code"
+          :error-message="getFieldErrorMessage('form.price', {
+            maxValue: MAX_PRICE,
+            minValue: minPrice
+          })"
           :disabled="formMixin.isDisabled"
         />
       </div>
@@ -72,8 +80,12 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
 import AtomicSwapQuoteAssetsForm from '@/vue/forms/AtomicSwapQuoteAssetsForm'
+import config from '@/config'
+
 import {
   required,
+  minValue,
+  maxValue,
 } from '@validators'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -107,6 +119,7 @@ export default {
     },
     isLoaded: false,
     isLoadFailed: false,
+    MAX_PRICE: config.MAX_AMOUNT,
   }),
 
   validations () {
@@ -118,6 +131,8 @@ export default {
         },
         price: {
           required,
+          minValue: minValue(this.minPrice),
+          maxValue: maxValue(this.MAX_PRICE),
         },
       },
     }
@@ -163,12 +178,12 @@ export default {
           await api.postOperations(createIssuanceOperation)
         }
 
-        await this.createAtomicSwapAsk(
-          this.form.asset.code,
-          this.form.amount,
-          this.form.price,
-          this.form.quoteAssets
-        )
+        await this.createAtomicSwapAsk({
+          baseAssetCode: this.form.asset.code,
+          amount: this.form.amount,
+          price: this.form.price,
+          quoteAssets: this.form.quoteAssets,
+        })
         Bus.success('create-atomic-swap-form.created-atomic-swap-msg')
         this.$emit(EVENTS.createdAtomicSwap)
       } catch (e) {

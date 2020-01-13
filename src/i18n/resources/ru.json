@@ -1153,7 +1153,6 @@
       "copied": "Скопировано"
     },
     "atomic-swaps": {
-      "explore-atomic-swaps": "Предложения",
       "create-atomic-swap-bth": "Создать предложение",
       "new-atomic-swap": "Новое предложение"
     },
@@ -1333,7 +1332,9 @@
       "yes-msg": "Да",
       "no-msg": "Нет",
       "cancellation-msg": "Уверены, что хотите отменить предложение?",
-      "atomic-swap-canceled-msg": "Предложение отменено"
+      "atomic-swap-canceled-msg": "Предложение отменено",
+      "update-atomic-swap-drawer-title": "Обновление предложения",
+      "update-btn": "Обновить предложение"
     },
     "abbreviation-numbers": {
       "thousand": "тыс",
@@ -1466,7 +1467,9 @@
     "promo-code-viewer": {
       "delete-btn": "Удалить",
       "promo-code-deleted-successfully-notification": "Промокод успешно удален",
-      "delete-promo-code-message": "Вы действительно хотите удалить промокод?"
+      "delete-promo-code-message": "Вы действительно хотите удалить промокод?",
+      "update-btn": "Обновить",
+      "update-promo-code-drawer-title": "Обновление промокода"
     },
     "promo-code-offers-table": {
       "name-th": "Имя",
@@ -1649,6 +1652,20 @@
       "add-asset-btn": "Добавить актив",
       "send-btn": "Отправить",
       "balance": "Доступно {{amount, money}}"
+    },
+    "update-promo-code-form": {
+      "update-btn": "Обновить",
+      "description-lbl": "Описание",
+      "max-uses-lbl": "Количество использований",
+      "discount-lbl": "Скидка(%)",
+      "updated-successfully-notification": "Промокод успешно обновлен",
+      "used": "Использовано: {{ used }}"
+    },
+    "update-atomic-swap-form": {
+      "amount-lbl": "Количество",
+      "price-lbl": "Цена ({{asset}})",
+      "updated-atomic-swap-msg": "Предложение успешно обновлено",
+      "update-btn": "Обновить"
     }
   }
 }

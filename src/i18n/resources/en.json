@@ -1154,9 +1154,8 @@
       "set-asset-msg": "Default quote asset successfully set"
     },
     "atomic-swaps": {
-      "explore-atomic-swaps": "Explore offerings",
       "create-atomic-swap-bth": "Create",
-      "new-atomic-swap": "New offering"
+      "new-atomic-swap": "New offer"
     },
     "atomic-swaps-requests": {
       "purchases": "Purchases",
@@ -1195,9 +1194,9 @@
     },
     "atomic-swaps-explore": {
       "buying": "Buying {{asset}}",
-      "atomic-swap-drawer-title": "Offering details",
-      "no-list-title": "No offerings yet",
-      "no-list-msg": "Here will be the list of offerings",
+      "atomic-swap-drawer-title": "Offer details",
+      "no-list-title": "No offers yet",
+      "no-list-msg": "Here will be the list of offers",
       "owned-by-me-filter-lbl": "Owned by me",
       "loading-error-msg": "There was an error while loading."
     },
@@ -1218,11 +1217,13 @@
       "success-msg": "Payment successfully"
     },
     "atomic-swap-actions": {
-      "cancel-btn": "Cancel offering",
+      "cancel-btn": "Cancel offer",
       "yes-msg": "Yes",
       "no-msg": "No",
-      "cancellation-msg": "Are you sure to cancel the atomic swap?",
-      "atomic-swap-canceled-msg": "Your offer successfully cancelled"
+      "cancellation-msg": "Are you sure to cancel the offer?",
+      "atomic-swap-canceled-msg": "Your offer successfully cancelled",
+      "update-atomic-swap-drawer-title": "Update offer",
+      "update-btn": "Update offer"
     },
     "atomic-swap-attributes": {
       "id-key": "ID",
@@ -1452,7 +1453,7 @@
       "description-lbl": "Description(Optional)",
       "max-uses-lbl": "Max uses(Optional)",
       "discount-lbl": "Discount(%)",
-      "no-offers-msg-title": "No offerings yet",
+      "no-offers-msg-title": "No offers yet",
       "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
       "created-successfully-notification": "Promo Code was created successfully",
       "loading": "Loading",
@@ -1467,7 +1468,9 @@
     "promo-code-viewer": {
       "delete-btn": "Delete",
       "promo-code-deleted-successfully-notification": "Promo Code successfully deleted",
-      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?"
+      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?",
+      "update-btn": "Update",
+      "update-promo-code-drawer-title": "Update Promo Code"
     },
     "promo-code-offers-table": {
       "name-th": "Name",
@@ -1650,6 +1653,20 @@
       "add-asset-btn": "Add asset",
       "send-btn": "Send",
       "balance": "Available: {{amount, money}}"
+    },
+    "update-promo-code-form": {
+      "update-btn": "Update",
+      "description-lbl": "Description",
+      "max-uses-lbl": "Max uses",
+      "discount-lbl": "Discount(%)",
+      "updated-successfully-notification": "Promo Code was updated successfully",
+      "used": "Used: {{ used }}"
+    },
+    "update-atomic-swap-form": {
+      "amount-lbl": "Amount",
+      "price-lbl": "Price ({{asset}})",
+      "updated-atomic-swap-msg": "Offer successfully updated",
+      "update-btn": "Update"
     }
   }
 }
