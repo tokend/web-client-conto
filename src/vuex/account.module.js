@@ -47,6 +47,23 @@ export const actions = {
     )
     commit(vuexTypes.SET_ACCOUNT_BALANCES_DETAILS, data.states)
   },
+
+  async [vuexTypes.INIT_ACCOUNT] ({ getters, dispatch, rootGetters }) {
+    await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
+    await dispatch(vuexTypes.LOAD_KV_ENTRIES)
+
+    const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
+
+    await dispatch(vuexTypes.LOAD_KYC)
+    if (isAccountCorporate) {
+      await dispatch(
+        vuexTypes.LOAD_BUSINESS,
+        rootGetters[vuexTypes.accountId]
+      )
+    }
+    await dispatch(vuexTypes.LOAD_MY_BUSINESSES)
+    await dispatch(vuexTypes.LOAD_ASSETS)
+  },
 }
 
 export const getters = {

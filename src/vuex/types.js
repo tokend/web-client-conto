@@ -76,6 +76,7 @@ const actions = {
   // account
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
   LOAD_ACCOUNT_BALANCES_DETAILS: 'LOAD_ACCOUNT_BALANCES_DETAILS',
+  INIT_ACCOUNT: 'INIT_ACCOUNT',
 
   // wallet
   LOAD_WALLET: 'LOAD_WALLET',
@@ -93,6 +94,9 @@ const actions = {
   LOAD_KYC_LATEST_REQUEST_DATA: 'LOAD_KYC_LATEST_REQUEST_DATA',
   LOAD_KYC_RELATED_REQUEST: 'LOAD_KYC_RELATED_REQUEST',
   LOAD_KYC_LATEST_DATA: 'LOAD_KYC_LATEST_DATA',
+
+  // kyc recovery
+  SEND_KYC_RECOVERY_REQUEST: 'SEND_KYC_RECOVERY_REQUEST',
 
   // assets
   LOAD_ASSETS: 'LOAD_ASSETS',
@@ -194,6 +198,9 @@ const getters = {
   kycLatestRequestData: 'kycLatestRequestData',
   kycAvatarKey: 'kycAvatarKey',
   isAccountRoleReseted: 'isAccountRoleReseted',
+
+  // kyc recovery
+  isKycRecoveryInProgress: 'isKycRecoveryInProgress',
 
   // assets
   assets: 'assets',

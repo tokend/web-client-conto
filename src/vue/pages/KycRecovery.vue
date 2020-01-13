@@ -45,10 +45,9 @@ import Loader from '@/vue/common/Loader'
 
 import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { api } from '@/api'
-import { base } from '@tokend/js-sdk'
 import { vuexTypes } from '@/vuex'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
+import { delay } from '@/js/helpers/delay'
 
 export default {
   name: 'kyc-recovery',
@@ -67,20 +66,11 @@ export default {
     password: '',
   }),
 
-  computed: {
-    ...mapGetters([
-      vuexTypes.kvDefaultSignerRoleId,
-      vuexTypes.walletAccountId,
-      vuexTypes.walletPublicKey,
-    ]),
-  },
-
   methods: {
     ...mapActions({
       loadWallet: vuexTypes.LOAD_WALLET,
-      loadAccount: vuexTypes.LOAD_ACCOUNT,
-      loadKyc: vuexTypes.LOAD_KYC,
-      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
+      initAccount: vuexTypes.INIT_ACCOUNT,
     }),
 
     checkError (error) {
@@ -100,29 +90,14 @@ export default {
           email: this.email.toLowerCase(),
           password: this.password,
         })
-        const opts = {
-          targetAccount: this.walletAccountId,
-          signers: [
-            {
-              publicKey: this.walletPublicKey,
-              roleID: String(this.kvDefaultSignerRoleId),
-              weight: '1000',
-              identity: '1',
-              details: {},
-            },
-          ],
-          creatorDetails: {},
-        }
-        await api.postOperations(
-          base.CreateKYCRecoveryRequestBuilder.create(opts)
-        )
-        await this.loadAccount(this.walletAccountId)
-        await this.loadKyc()
-        await this.loadMyBusinesses()
+
+        await this.sendKycRecoveryRequest()
+        await delay(5000)
+        await this.initAccount()
         await this.$router.push({ name: 'app' })
       } catch (e) {
-        ErrorHandler.process(e)
         this.isKycRecoveryInProgress = false
+        ErrorHandler.process(e)
       }
     },
   },

@@ -9,6 +9,7 @@ import kyc from './kyc.module'
 import identities from './identities.module'
 import keyValue from './key-value.module'
 import businesses from './businesses.module'
+import kycRecovery from './kyc-recovery.module'
 import movementsHistory from './movements-history.module'
 import sponsorshipRequests from './sponsorship-requests.module'
 import { vuexTypes } from '@/vuex/types'
@@ -28,22 +29,11 @@ export const rootModule = {
     [vuexTypes.LOG_OUT] ({ commit }) {
       commit(vuexTypes.CLEAR_STATE)
     },
-    // eslint-disable-next-line max-len
-    async [vuexTypes.LOG_IN] ({ getters, dispatch, rootGetters }, { email, password }) {
+    async [vuexTypes.LOG_IN] ({ dispatch }, { email, password }) {
       await dispatch(vuexTypes.LOAD_WALLET, { email, password })
-      await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
-      await dispatch(vuexTypes.LOAD_KV_ENTRIES)
-
-      const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
-
-      await dispatch(vuexTypes.LOAD_KYC)
-      if (isAccountCorporate) {
-        await dispatch(
-          vuexTypes.LOAD_BUSINESS,
-          rootGetters[vuexTypes.accountId]
-        )
-      }
+      await dispatch(vuexTypes.INIT_ACCOUNT)
     },
+
     async [vuexTypes.RESTORE_SESSION] ({ getters, dispatch }) {
       let walletSeed
       try {
@@ -90,6 +80,7 @@ function buildStore () {
       identities,
       keyValue,
       idleHandler,
+      kycRecovery,
       movementsHistory,
       sponsorshipRequests,
       businesses,

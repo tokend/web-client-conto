@@ -7,6 +7,7 @@ import kyc from './kyc.module'
 import wallet from './wallet.module'
 import keyValue from './key-value.module'
 import idleHandler from './idle-handler.module'
+import kycRecovery from './kyc-recovery.module'
 import identities from './identities.module'
 import businesses from './businesses.module'
 import movementsHistory from './movements-history.module'
@@ -49,6 +50,9 @@ describe('vuex types unit tests', () => {
     for (const key of getModuleKeys(idleHandler)) {
       expect(vuexTypes).to.have.property(key)
     }
+    for (const key of getModuleKeys(kycRecovery)) {
+      expect(vuexTypes).to.have.property(key)
+    }
     for (const key of getModuleKeys(movementsHistory)) {
       expect(vuexTypes).to.have.property(key)
     }
@@ -71,6 +75,7 @@ describe('vuex types unit tests', () => {
       ...getModuleKeys(identities),
       ...getModuleKeys(keyValue),
       ...getModuleKeys(idleHandler),
+      ...getModuleKeys(kycRecovery),
       ...getModuleKeys(movementsHistory),
       ...getModuleKeys(sponsorshipRequests),
       ...getModuleKeys(businesses),
