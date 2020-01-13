@@ -95,9 +95,9 @@ export default {
         await this.initAccount()
         await this.$router.push({ name: 'app' })
       } catch (e) {
-        this.isKycRecoveryInProgress = false
         ErrorHandler.process(e)
       }
+      this.isKycRecoveryInProgress = false
     },
   },
 }

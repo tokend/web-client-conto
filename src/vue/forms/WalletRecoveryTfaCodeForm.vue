@@ -11,6 +11,7 @@
             @blur="touchField('form.code')"
             name="wallet-recovery-code"
             :label="'auth-pages.code' | globalize"
+            :disabled="formMixin.isDisabled"
             :error-message="getFieldErrorMessage('form.code')"
             :white-autofill="false"
           />
