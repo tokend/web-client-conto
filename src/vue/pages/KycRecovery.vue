@@ -47,7 +47,6 @@ import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapActions } from 'vuex'
-import { delay } from '@/js/helpers/delay'
 
 export default {
   name: 'kyc-recovery',
@@ -91,7 +90,6 @@ export default {
         })
 
         await this.sendKycRecoveryRequest()
-        await delay(5000)
         await this.initAccount()
         await this.$router.push({ name: 'app' })
       } catch (e) {
