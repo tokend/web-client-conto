@@ -96,13 +96,11 @@ export default {
     ...mapGetters([
       vuexTypes.walletAccountId,
       vuexTypes.walletEmail,
-      vuexTypes.isKycRecoveryInProgress,
     ]),
   },
   methods: {
     ...mapActions({
       logInAccount: vuexTypes.LOG_IN,
-      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
     }),
     async submit () {
       if (!this.isFormValid()) return
@@ -114,9 +112,6 @@ export default {
           email: this.form.email.toLowerCase(),
           password: this.form.password,
         })
-        if (this.isKycRecoveryInProgress) {
-          await this.sendKycRecoveryRequest()
-        }
         await this.$router.push({ name: 'app' })
       } catch (e) {
         this.processAuthError(e)

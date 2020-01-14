@@ -38,6 +38,8 @@ export const sessionStoragePlugin = store => {
             'email': vuexTypes.walletEmail,
           })
         }
+
+        setLocalStorage(state)
         break
       }
       default:
@@ -47,13 +49,17 @@ export const sessionStoragePlugin = store => {
 
         if (isUpdateLogoutAtMutation && !savedStore) break
 
-        localStorage.setItem(config.STORAGE_KEY, JSON.stringify({
-          account: state.account,
-          wallet: state.wallet,
-          kyc: state.kyc,
-          keyValue: state.keyValue,
-          idleHandler: state.idleHandler,
-        }))
+        setLocalStorage(state)
     }
   })
+}
+
+function setLocalStorage (state) {
+  localStorage.setItem(config.STORAGE_KEY, JSON.stringify({
+    account: state.account,
+    wallet: state.wallet,
+    kyc: state.kyc,
+    keyValue: state.keyValue,
+    idleHandler: state.idleHandler,
+  }))
 }

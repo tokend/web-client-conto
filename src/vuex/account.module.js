@@ -50,11 +50,17 @@ export const actions = {
 
   async [vuexTypes.INIT_ACCOUNT] ({ getters, dispatch, rootGetters }) {
     await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
+
+    // eslint-disable-next-line max-len
+    const isKycRecoveryInProgress = rootGetters[vuexTypes.isKycRecoveryInProgress]
+    if (isKycRecoveryInProgress) {
+      await dispatch(vuexTypes.SEND_KYC_RECOVERY_REQUEST)
+    }
+
     await dispatch(vuexTypes.LOAD_KV_ENTRIES)
+    await dispatch(vuexTypes.LOAD_KYC)
 
     const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
-
-    await dispatch(vuexTypes.LOAD_KYC)
     if (isAccountCorporate) {
       await dispatch(
         vuexTypes.LOAD_BUSINESS,

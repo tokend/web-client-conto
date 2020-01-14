@@ -53,6 +53,7 @@ import StatusMessage from '@/vue/common/StatusMessage'
 import Navbar from '@/vue/navigation/Navbar.vue'
 import Sidebar from '@/vue/navigation/Sidebar.vue'
 import WarningBanner from '@/vue/common/WarningBanner'
+import config from '@/config'
 
 import { isCompatibleBrowser } from '@/js/helpers/is-compatible-browser'
 
@@ -70,7 +71,6 @@ import {
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
-import config from '@/config'
 import { i18n } from '@/i18n'
 import { Bus } from '@/js/helpers/event-bus'
 
@@ -102,6 +102,7 @@ export default {
       vuexTypes.kycRequestBlockReason,
       vuexTypes.account,
       vuexTypes.isAccountCorporate,
+      vuexTypes.isKycRecoveryInProgress,
     ]),
     isNavigationRendered () {
       return this.$route.matched.some(m => m.meta.isNavigationRendered)
@@ -147,6 +148,8 @@ export default {
       restoreSession: vuexTypes.RESTORE_SESSION,
       loadBusiness: vuexTypes.LOAD_BUSINESS,
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
+      logOutAccount: vuexTypes.LOG_OUT,
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
@@ -160,9 +163,12 @@ export default {
 
       await this.loadKvEntries()
 
-      if (this[vuexTypes.isLoggedIn]) {
+      if (this.isLoggedIn) {
         await this.restoreSession()
         await this.loadAccount(this.walletAccountId)
+        if (this.isKycRecoveryInProgress) {
+          await this.sendKycRecoveryRequest()
+        }
         await this.loadMyBusinesses()
       }
       walletsManager.useApi(api)
@@ -184,7 +190,7 @@ export default {
       window.onstorage = (storage) => {
         const isSameStorageKey = storage.key === config.STORAGE_KEY
 
-        if ((this[vuexTypes.isLoggedIn] ||
+        if ((this.isLoggedIn ||
           storage.newValue !== storage.oldValue) &&
           isSameStorageKey) {
           this.popState()

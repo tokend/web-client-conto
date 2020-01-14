@@ -20,7 +20,7 @@
         <wallet-recovery-tfa-code-form
           v-if="!isWalletRecoveryFormDisplay"
           :error="recoveryError"
-          @send-kyc-recovery-request="createKycRecoveryRequest"
+          @verified="createKycRecoveryRequest"
         />
       </template>
 

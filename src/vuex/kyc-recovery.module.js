@@ -6,7 +6,7 @@ import { base } from '@tokend/js-sdk'
 import { KYC_RECOVERY_STATES } from '@/js/const/kyc-recovery-states.const'
 
 export const actions = {
-  async [vuexTypes.SEND_KYC_RECOVERY_REQUEST] ({ rootGetters }) {
+  async [vuexTypes.SEND_KYC_RECOVERY_REQUEST] ({ dispatch, rootGetters }) {
     const opts = {
       targetAccount: rootGetters[vuexTypes.walletAccountId],
       signers: [
@@ -20,7 +20,14 @@ export const actions = {
       ],
       creatorDetails: {},
     }
-    await api.postOperations(base.CreateKYCRecoveryRequestBuilder.create(opts))
+    try {
+      // eslint-disable-next-line max-len
+      await api.postOperations(base.CreateKYCRecoveryRequestBuilder.create(opts))
+    } catch {
+      // logout if user has kyc recovery status inited and request is failed
+      dispatch(vuexTypes.LOG_OUT)
+      location.reload()
+    }
   },
 }
 

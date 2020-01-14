@@ -54,7 +54,7 @@ const FACTOR_TYPES = {
 }
 
 const EVENTS = {
-  sendKycRecoveryRequest: 'send-kyc-recovery-request',
+  verified: 'verified',
 }
 export default {
   name: 'wallet-recovery-tfa-code-form',
@@ -85,7 +85,7 @@ export default {
       try {
         await factorsManager
           .verifyTotpFactorAndRetry(this.error, this.form.code)
-        this.$emit(EVENTS.sendKycRecoveryRequest)
+        this.$emit(EVENTS.verified)
       } catch (err) {
         ErrorHandler.process(err)
       }
