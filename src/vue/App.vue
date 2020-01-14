@@ -149,7 +149,6 @@ export default {
       loadBusiness: vuexTypes.LOAD_BUSINESS,
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
       sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
-      logOutAccount: vuexTypes.LOG_OUT,
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
