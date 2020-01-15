@@ -55,61 +55,9 @@
         <div class="app__form-field">
           <input-field
             white-autofill
-            v-model="form.headquarters"
-            name="verification-corporate-headquarters"
-            :label="'verification-form.headquarters-lbl' | globalize"
-            :disabled="formMixin.isDisabled"
-          />
-        </div>
-      </div>
-
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <input-field
-            white-autofill
             v-model="form.industry"
             name="verification-corporate-industry"
             :label="'verification-form.industry-lbl' | globalize"
-            :disabled="formMixin.isDisabled"
-          />
-        </div>
-      </div>
-
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <input-field
-            white-autofill
-            v-model="form.website"
-            @blur="touchField('form.website')"
-            name="verification-corporate-website"
-            :label="'verification-form.website-lbl' | globalize"
-            :error-message="getFieldErrorMessage('form.website')"
-            :disabled="formMixin.isDisabled"
-          />
-        </div>
-      </div>
-
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <input-field
-            white-autofill
-            v-model="form.cardNumber"
-            @blur="touchField('form.cardNumber')"
-            name="verification-corporate-card-number"
-            :label="'verification-form.card-number-lbl' | globalize"
-            :error-message="getFieldErrorMessage('form.cardNumber')"
-            :disabled="formMixin.isDisabled"
-          />
-        </div>
-      </div>
-
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <input-field
-            white-autofill
-            v-model="form.invite"
-            name="verification-corporate-invitation-code"
-            :label="'verification-form.invitation-code-lbl' | globalize"
             :disabled="formMixin.isDisabled"
           />
         </div>
@@ -168,7 +116,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
-import { required, validateUrl, cardNumber } from '@validators'
+import { required } from '@validators'
 
 const EMPTY_DOCUMENT = {
   mime_type: '',
@@ -189,11 +137,7 @@ export default {
       company: '',
       avatar: null,
       banner: null,
-      headquarters: '',
       industry: '',
-      website: '',
-      cardNumber: '',
-      invite: '',
       description: '',
     },
     isFormSubmitting: false,
@@ -201,19 +145,9 @@ export default {
   }),
 
   validations () {
-    const websiteRule = {
-      validateUrl,
-    }
-
-    const cardNumberRule = {
-      cardNumber,
-    }
-
     return {
       form: {
         company: { required },
-        website: this.form.website ? websiteRule : {},
-        cardNumber: this.form.cardNumber ? cardNumberRule : {},
       },
     }
   },
@@ -305,9 +239,7 @@ export default {
     createKycData () {
       return {
         company: this.form.company,
-        headquarters: this.form.headquarters,
         industry: this.form.industry,
-        homepage: this.form.website,
         description: this.form.description,
         documents: {
           [DOCUMENT_TYPES.kycAvatar]: this.form.avatar
@@ -317,8 +249,6 @@ export default {
             ? this.form.banner.getDetailsForSave()
             : EMPTY_DOCUMENT,
         },
-        bank_account: this.form.cardNumber ? this.form.cardNumber : null,
-        invite: this.form.invite,
       }
     },
 
@@ -336,12 +266,8 @@ export default {
             kycData.documents[DOCUMENT_TYPES.bravo]
           )
           : null,
-        headquarters: kycData.headquarters,
         industry: kycData.industry,
         description: kycData.description,
-        website: kycData.homepage,
-        cardNumber: kycData.bank_account,
-        invite: kycData.invite,
       }
     },
   },
