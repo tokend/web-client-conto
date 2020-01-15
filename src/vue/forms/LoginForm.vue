@@ -64,7 +64,7 @@ import FormMixin from '@/vue/mixins/form.mixin'
 
 import { required, requiredIf, email } from '@validators'
 import { vuexTypes } from '@/vuex'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
 import { factorsManager } from '@/api'
@@ -101,6 +101,9 @@ export default {
   methods: {
     ...mapActions({
       logInAccount: vuexTypes.LOG_IN,
+    }),
+    ...mapMutations({
+      clearWalletAndAccount: vuexTypes.CLEAR_WALLET_AND_ACCOUNT,
     }),
     async submit () {
       if (!this.isFormValid()) return
@@ -162,6 +165,7 @@ export default {
             error,
             'errors.default'
           )
+          this.clearWalletAndAccount()
           break
         default:
           ErrorHandler.process(error)

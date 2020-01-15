@@ -55,6 +55,10 @@ export const rootModule = {
     },
   },
   mutations: {
+    [vuexTypes.CLEAR_WALLET_AND_ACCOUNT] (state) {
+      state.account.account = {}
+      state.wallet.wallet = {}
+    },
     // These mutations are being subscribed by plugins
     [vuexTypes.POP_STATE] () { },
     [vuexTypes.CLEAR_STATE] () { },

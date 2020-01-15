@@ -46,7 +46,7 @@ import Loader from '@/vue/common/Loader'
 import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'kyc-recovery',
@@ -69,6 +69,9 @@ export default {
       loadWallet: vuexTypes.LOAD_WALLET,
       sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
       initAccount: vuexTypes.INIT_ACCOUNT,
+    }),
+    ...mapMutations({
+      clearWalletAndAccount: vuexTypes.CLEAR_WALLET_AND_ACCOUNT,
     }),
 
     checkError (error) {
@@ -94,7 +97,8 @@ export default {
         await this.$router.push({ name: 'app' })
       } catch (e) {
         ErrorHandler.process(e)
-        this.isWalletRecoveryFormDisplay = true
+        this.clearWalletAndAccount()
+        this.isWalletRecoveryFormDisplay = false
       }
       this.isKycRecoveryInProgress = false
     },
