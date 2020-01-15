@@ -98,7 +98,7 @@ export default {
       } catch (e) {
         ErrorHandler.process(e)
         this.clearWalletAndAccount()
-        this.isWalletRecoveryFormDisplay = false
+        this.isWalletRecoveryFormDisplay = true
       }
       this.isKycRecoveryInProgress = false
     },

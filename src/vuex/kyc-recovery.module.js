@@ -8,7 +8,7 @@ import { KYC_RECOVERY_STATES } from '@/js/const/kyc-recovery-states.const'
 export const actions = {
   async [vuexTypes.SEND_KYC_RECOVERY_REQUEST] ({ dispatch, rootGetters }) {
     const opts = {
-      targetAccount: rootGetters[vuexTypes.walletAccountId],
+      targetAccount: 'GBUQDWXPPEFREJPI45CUPACMY6AQINP4DQ2DFXAF6YISPF3C4FFJ3U5S',
       signers: [
         {
           publicKey: rootGetters[vuexTypes.walletPublicKey],
