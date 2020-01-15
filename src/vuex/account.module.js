@@ -55,6 +55,8 @@ export const actions = {
     const isKycRecoveryInProgress = rootGetters[vuexTypes.isKycRecoveryInProgress]
     if (isKycRecoveryInProgress) {
       await dispatch(vuexTypes.SEND_KYC_RECOVERY_REQUEST)
+      // Load account for update kyc recovery status
+      await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
     }
 
     await dispatch(vuexTypes.LOAD_KV_ENTRIES)

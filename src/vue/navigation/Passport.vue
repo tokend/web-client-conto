@@ -180,7 +180,6 @@ export default {
     logOut () {
       this.closeDropdown()
       this.logOutAccount()
-      location.reload()
     },
 
     async goSettings () {

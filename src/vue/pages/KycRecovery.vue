@@ -94,6 +94,7 @@ export default {
         await this.$router.push({ name: 'app' })
       } catch (e) {
         ErrorHandler.process(e)
+        this.isWalletRecoveryFormDisplay = true
       }
       this.isKycRecoveryInProgress = false
     },

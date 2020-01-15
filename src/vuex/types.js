@@ -200,6 +200,7 @@ const getters = {
   isAccountRoleReseted: 'isAccountRoleReseted',
 
   // kyc recovery
+  accountKycRecoveryStatus: 'accountKycRecoveryStatus',
   isKycRecoveryInProgress: 'isKycRecoveryInProgress',
 
   // assets

@@ -102,7 +102,6 @@ export default {
       vuexTypes.kycRequestBlockReason,
       vuexTypes.account,
       vuexTypes.isAccountCorporate,
-      vuexTypes.isKycRecoveryInProgress,
     ]),
     isNavigationRendered () {
       return this.$route.matched.some(m => m.meta.isNavigationRendered)
@@ -118,6 +117,7 @@ export default {
   watch: {
     isLoggedIn (value) {
       if (!document.hasFocus() || !value) {
+        this.isAppInitialized = false
         location.reload()
       }
     },
@@ -148,10 +148,10 @@ export default {
       restoreSession: vuexTypes.RESTORE_SESSION,
       loadBusiness: vuexTypes.LOAD_BUSINESS,
       loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
-      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
+      clearState: vuexTypes.CLEAR_STATE,
     }),
     async initApp () {
       api.useBaseURL(config.HORIZON_SERVER)
@@ -165,9 +165,6 @@ export default {
       if (this.isLoggedIn) {
         await this.restoreSession()
         await this.loadAccount(this.walletAccountId)
-        if (this.isKycRecoveryInProgress) {
-          await this.sendKycRecoveryRequest()
-        }
         await this.loadMyBusinesses()
       }
       walletsManager.useApi(api)
@@ -187,12 +184,13 @@ export default {
 
     watchChangesInLocalStorage () {
       window.onstorage = (storage) => {
-        const isSameStorageKey = storage.key === config.STORAGE_KEY
+        const isLocalStorageExists = localStorage.getItem(config.STORAGE_KEY)
 
         if ((this.isLoggedIn ||
-          storage.newValue !== storage.oldValue) &&
-          isSameStorageKey) {
+          storage.newValue !== storage.oldValue) && isLocalStorageExists) {
           this.popState()
+        } else {
+          this.clearState()
         }
       }
     },

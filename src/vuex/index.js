@@ -60,9 +60,9 @@ export const rootModule = {
     [vuexTypes.CLEAR_STATE] () { },
   },
   getters: {
-    [vuexTypes.isLoggedIn]: (_, getters) => !_isEmpty(
-      getters[vuexTypes.account]
-    ),
+    // eslint-disable-next-line max-len
+    [vuexTypes.isLoggedIn]: (_, getters) => !_isEmpty(getters[vuexTypes.account]) &&
+      !getters[vuexTypes.isKycRecoveryInProgress],
   },
   state: {},
 }

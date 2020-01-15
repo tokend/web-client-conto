@@ -157,6 +157,12 @@ export default {
             'auth-pages.wrong-tfa-code-err'
           )
           break
+        case errors.TransactionError:
+          ErrorHandler.process(
+            error,
+            'errors.default'
+          )
+          break
         default:
           ErrorHandler.process(error)
       }

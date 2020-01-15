@@ -7,6 +7,7 @@ export const sessionStoragePlugin = store => {
     switch (mutation.type) {
       case vuexTypes.CLEAR_STATE: {
         localStorage.removeItem(config.STORAGE_KEY)
+        store.replaceState({})
         ErrorTracker.setLoggedInUser({})
         break
       }
@@ -43,12 +44,6 @@ export const sessionStoragePlugin = store => {
         break
       }
       default:
-        const savedStore = localStorage.getItem(config.STORAGE_KEY)
-        // eslint-disable-next-line max-len
-        const isUpdateLogoutAtMutation = mutation.type === vuexTypes.UPDATE_LOGOUT_AT
-
-        if (isUpdateLogoutAtMutation && !savedStore) break
-
         setLocalStorage(state)
     }
   })
