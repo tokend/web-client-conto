@@ -47,6 +47,31 @@ export const actions = {
     )
     commit(vuexTypes.SET_ACCOUNT_BALANCES_DETAILS, data.states)
   },
+
+  async [vuexTypes.INIT_ACCOUNT] ({ getters, dispatch, rootGetters }) {
+    await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
+
+    // eslint-disable-next-line max-len
+    const isKycRecoveryInProgress = rootGetters[vuexTypes.isKycRecoveryInProgress]
+    if (isKycRecoveryInProgress) {
+      await dispatch(vuexTypes.SEND_KYC_RECOVERY_REQUEST)
+      // Load account for update kyc recovery status
+      await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
+    }
+
+    await dispatch(vuexTypes.LOAD_KV_ENTRIES)
+    await dispatch(vuexTypes.LOAD_KYC)
+
+    const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
+    if (isAccountCorporate) {
+      await dispatch(
+        vuexTypes.LOAD_BUSINESS,
+        rootGetters[vuexTypes.accountId]
+      )
+    }
+    await dispatch(vuexTypes.LOAD_MY_BUSINESSES)
+    await dispatch(vuexTypes.LOAD_ASSETS)
+  },
 }
 
 export const getters = {

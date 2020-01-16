@@ -53,6 +53,7 @@ import StatusMessage from '@/vue/common/StatusMessage'
 import Navbar from '@/vue/navigation/Navbar.vue'
 import Sidebar from '@/vue/navigation/Sidebar.vue'
 import WarningBanner from '@/vue/common/WarningBanner'
+import config from '@/config'
 
 import { isCompatibleBrowser } from '@/js/helpers/is-compatible-browser'
 
@@ -70,7 +71,6 @@ import {
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
-import config from '@/config'
 import { i18n } from '@/i18n'
 import { Bus } from '@/js/helpers/event-bus'
 
@@ -117,6 +117,7 @@ export default {
   watch: {
     isLoggedIn (value) {
       if (!document.hasFocus() || !value) {
+        this.isAppInitialized = false
         location.reload()
       }
     },
@@ -150,6 +151,7 @@ export default {
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
+      clearState: vuexTypes.CLEAR_STATE,
     }),
     async initApp () {
       api.useBaseURL(config.HORIZON_SERVER)
@@ -160,7 +162,7 @@ export default {
 
       await this.loadKvEntries()
 
-      if (this[vuexTypes.isLoggedIn]) {
+      if (this.isLoggedIn) {
         await this.restoreSession()
         await this.loadAccount(this.walletAccountId)
         await this.loadMyBusinesses()
@@ -182,12 +184,13 @@ export default {
 
     watchChangesInLocalStorage () {
       window.onstorage = (storage) => {
-        const isSameStorageKey = storage.key === config.STORAGE_KEY
+        const isLocalStorageExists = localStorage.getItem(config.STORAGE_KEY)
 
-        if ((this[vuexTypes.isLoggedIn] ||
-          storage.newValue !== storage.oldValue) &&
-          isSameStorageKey) {
+        if ((this.isLoggedIn ||
+          storage.newValue !== storage.oldValue) && isLocalStorageExists) {
           this.popState()
+        } else {
+          this.clearState()
         }
       }
     },

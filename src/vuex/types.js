@@ -2,6 +2,7 @@ const mutations = {
   // root
   CLEAR_STATE: 'CLEAR_STATE',
   POP_STATE: 'POP_STATE',
+  CLEAR_WALLET_AND_ACCOUNT: 'CLEAR_WALLET_AND_ACCOUNT',
 
   // key-value
   SET_KV_ENTRY_GENERAL_ROLE_ID: 'SET_KV_ENTRY_GENERAL_ROLE_ID',
@@ -36,10 +37,6 @@ const mutations = {
   SET_KYC_LATEST_DATA: 'SET_KYC_LATEST_DATA',
   SET_ACCOUNT_ROLE_RESETED: 'SET_ACCOUNT_ROLE_RESETED',
   SET_KYC_LATEST_REQUEST_DATA: 'SET_KYC_LATEST_REQUEST_DATA',
-
-  // kyc recovery
-  SET_KYC_RECOVERY_LATEST_REQUEST: 'SET_KYC_RECOVERY_LATEST_REQUEST',
-  SET_KYC_RECOVERY_LATEST_REQUEST_BLOB: 'SET_KYC_RECOVERY_LATEST_REQUEST_BLOB',
 
   // assets
   SET_ASSETS: 'SET_ASSETS',
@@ -80,6 +77,7 @@ const actions = {
   // account
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
   LOAD_ACCOUNT_BALANCES_DETAILS: 'LOAD_ACCOUNT_BALANCES_DETAILS',
+  INIT_ACCOUNT: 'INIT_ACCOUNT',
 
   // wallet
   LOAD_WALLET: 'LOAD_WALLET',
@@ -99,10 +97,6 @@ const actions = {
   LOAD_KYC_LATEST_DATA: 'LOAD_KYC_LATEST_DATA',
 
   // kyc recovery
-  LOAD_KYC_RECOVERY_LATEST_REQUEST: 'LOAD_KYC_RECOVERY_LATEST_REQUEST',
-  LOAD_KYC_RECOVERY: 'LOAD_KYC_RECOVERY',
-  LOAD_KYC_RECOVERY_LATEST_REQUEST_BLOB:
-    'LOAD_KYC_RECOVERY_LATEST_REQUEST_BLOB',
   SEND_KYC_RECOVERY_REQUEST: 'SEND_KYC_RECOVERY_REQUEST',
 
   // assets
@@ -159,7 +153,6 @@ const getters = {
   accountBalanceByCode: 'accountBalanceByCode',
   accountRoleId: 'accountRoleId',
   accountDepositAddresses: 'accountDepositAddresses',
-  accountKycRecoveryStatus: 'accountKycRecoveryStatus',
 
   isAccountGeneral: 'isAccountGeneral',
   isAccountCorporate: 'isAccountCorporate',
@@ -208,19 +201,8 @@ const getters = {
   isAccountRoleReseted: 'isAccountRoleReseted',
 
   // kyc recovery
-  kycRecoveryRequestId: 'kycRecoveryRequestId',
-  kycRecoveryState: 'kycRecoveryState',
-  kycRecoveryStateI: 'kycRecoveryStateI',
-  kycRecoveryRequestBlob: 'kycRecoveryRequestBlob',
-  kycRecoveryRejectReason: 'kycRecoveryRejectReason',
-  kycRecoveryBlobId: 'kycRecoveryBlobId',
-  isNoKycRecoveryInProgress: 'isNoKycRecoveryInProgress',
+  accountKycRecoveryStatus: 'accountKycRecoveryStatus',
   isKycRecoveryInProgress: 'isKycRecoveryInProgress',
-  isKycRecoveryInited: 'isKycRecoveryInited',
-  isKycRecoveryApproved: 'isKycRecoveryApproved',
-  isKycRecoveryPending: 'isKycRecoveryPending',
-  isKycRecoveryRejected: 'isKycRecoveryRejected',
-  isKycRecoveryPermanentlyRejected: 'isKycRecoveryPermanentlyRejected',
 
   // assets
   assets: 'assets',

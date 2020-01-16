@@ -72,6 +72,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 const EVENT = {
   error: 'error',
+  setPasswordAndEmail: 'set-password-and-email',
 }
 export default {
   name: 'wallet-recovery-form',
@@ -108,6 +109,10 @@ export default {
         return
       }
       this.disableForm()
+      this.$emit(EVENT.setPasswordAndEmail, {
+        password: this.form.password,
+        email: this.form.email,
+      })
       try {
         await walletsManager.kycRecovery(
           this.form.email.toLowerCase(),

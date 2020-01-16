@@ -47,7 +47,6 @@ export default {
 
     logOut () {
       this.logOutAccount()
-      location.reload()
     },
   },
 }

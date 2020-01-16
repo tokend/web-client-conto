@@ -6,8 +6,6 @@ import { mapGetters, mapActions } from 'vuex'
 import { api } from '@/api'
 import { base } from '@tokend/js-sdk'
 
-import { vueRoutes } from '@/vue-router/routes'
-
 import { REQUEST_STATES_STR } from '@/js/const/request-states.const'
 
 const KYC_CREATION_REQUEST_ID = '0'
@@ -20,33 +18,24 @@ export default {
       kycState: vuexTypes.kycState,
       kycRequestId: vuexTypes.kycRequestId,
       accountId: vuexTypes.accountId,
-      kycRecoveryState: vuexTypes.kycRecoveryState,
     }),
+
     isUpdatableKycRequest () {
       return (
         this.kycState === REQUEST_STATES_STR.rejected ||
         this.kycState === REQUEST_STATES_STR.pending
       )
     },
-    isKycRecoveryPage () {
-      return this.$route.name === vueRoutes.kycRecoveryManagement.name
-    },
+
     isExistingRequest () {
-      if (this.isKycRecoveryPage) {
-        return this.kycRecoveryState &&
-          (
-            this.kycRecoveryState === REQUEST_STATES_STR.pending ||
-            this.kycRecoveryState === REQUEST_STATES_STR.rejected
-          )
-      } else {
-        return this.kycState &&
+      return this.kycState &&
           (
             this.kycState === REQUEST_STATES_STR.pending ||
             this.kycState === REQUEST_STATES_STR.rejected
           )
-      }
     },
   },
+
   methods: {
     ...mapActions({
       loadKyc: vuexTypes.LOAD_KYC,

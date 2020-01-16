@@ -64,7 +64,7 @@ import FormMixin from '@/vue/mixins/form.mixin'
 
 import { required, requiredIf, email } from '@validators'
 import { vuexTypes } from '@/vuex'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
 import { factorsManager } from '@/api'
@@ -101,8 +101,9 @@ export default {
   methods: {
     ...mapActions({
       logInAccount: vuexTypes.LOG_IN,
-      loadAssets: vuexTypes.LOAD_ASSETS,
-      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
+    }),
+    ...mapMutations({
+      clearWalletAndAccount: vuexTypes.CLEAR_WALLET_AND_ACCOUNT,
     }),
     async submit () {
       if (!this.isFormValid()) return
@@ -114,8 +115,6 @@ export default {
           email: this.form.email.toLowerCase(),
           password: this.form.password,
         })
-        await this.loadMyBusinesses()
-        await this.loadAssets()
         await this.$router.push({ name: 'app' })
       } catch (e) {
         this.processAuthError(e)
@@ -160,6 +159,13 @@ export default {
             error,
             'auth-pages.wrong-tfa-code-err'
           )
+          break
+        case errors.TransactionError:
+          ErrorHandler.process(
+            error,
+            'errors.default'
+          )
+          this.clearWalletAndAccount()
           break
         default:
           ErrorHandler.process(error)

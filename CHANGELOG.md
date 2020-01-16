@@ -13,6 +13,9 @@ for further information about branching and tagging conventions.
 - Update Promo Code form
 - Update offer form
 
+#### Changed
+- KYC recovery without filling out a form
+
 ## [1.6.0] - 2019-12-25
 #### Fixed
 - A bug with displaying atomic swap details

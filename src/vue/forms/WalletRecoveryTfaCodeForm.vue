@@ -11,6 +11,7 @@
             @blur="touchField('form.code')"
             name="wallet-recovery-code"
             :label="'auth-pages.code' | globalize"
+            :disabled="formMixin.isDisabled"
             :error-message="getFieldErrorMessage('form.code')"
             :white-autofill="false"
           />
@@ -44,13 +45,16 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import { required } from '@validators'
 import { errors } from '@/js/errors'
-import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { factorsManager } from '@/api'
 
 const FACTOR_TYPES = {
   totp: 'totp',
   email: 'email',
+}
+
+const EVENTS = {
+  verified: 'verified',
 }
 export default {
   name: 'wallet-recovery-tfa-code-form',
@@ -81,7 +85,7 @@ export default {
       try {
         await factorsManager
           .verifyTotpFactorAndRetry(this.error, this.form.code)
-        await this.$router.push(vueRoutes.login)
+        this.$emit(EVENTS.verified)
       } catch (err) {
         ErrorHandler.process(err)
       }

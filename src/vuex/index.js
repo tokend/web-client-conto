@@ -29,25 +29,11 @@ export const rootModule = {
     [vuexTypes.LOG_OUT] ({ commit }) {
       commit(vuexTypes.CLEAR_STATE)
     },
-    // eslint-disable-next-line max-len
-    async [vuexTypes.LOG_IN] ({ getters, dispatch, rootGetters }, { email, password }) {
+    async [vuexTypes.LOG_IN] ({ dispatch }, { email, password }) {
       await dispatch(vuexTypes.LOAD_WALLET, { email, password })
-      await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
-      await dispatch(vuexTypes.LOAD_KV_ENTRIES)
-
-      const isKycRecoveryInProgress = getters[vuexTypes.isKycRecoveryInProgress]
-      const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
-
-      if (!isKycRecoveryInProgress) {
-        await dispatch(vuexTypes.LOAD_KYC)
-      }
-      if (isAccountCorporate) {
-        await dispatch(
-          vuexTypes.LOAD_BUSINESS,
-          rootGetters[vuexTypes.accountId]
-        )
-      }
+      await dispatch(vuexTypes.INIT_ACCOUNT)
     },
+
     async [vuexTypes.RESTORE_SESSION] ({ getters, dispatch }) {
       let walletSeed
       try {
@@ -69,14 +55,18 @@ export const rootModule = {
     },
   },
   mutations: {
+    [vuexTypes.CLEAR_WALLET_AND_ACCOUNT] (state) {
+      state.account.account = {}
+      state.wallet.wallet = {}
+    },
     // These mutations are being subscribed by plugins
     [vuexTypes.POP_STATE] () { },
     [vuexTypes.CLEAR_STATE] () { },
   },
   getters: {
-    [vuexTypes.isLoggedIn]: (_, getters) => !_isEmpty(
-      getters[vuexTypes.account]
-    ),
+    // eslint-disable-next-line max-len
+    [vuexTypes.isLoggedIn]: (_, getters) => !_isEmpty(getters[vuexTypes.account]) &&
+      !getters[vuexTypes.isKycRecoveryInProgress],
   },
   state: {},
 }

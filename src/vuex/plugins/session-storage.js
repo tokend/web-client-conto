@@ -7,6 +7,7 @@ export const sessionStoragePlugin = store => {
     switch (mutation.type) {
       case vuexTypes.CLEAR_STATE: {
         localStorage.removeItem(config.STORAGE_KEY)
+        store.replaceState({})
         ErrorTracker.setLoggedInUser({})
         break
       }
@@ -38,22 +39,22 @@ export const sessionStoragePlugin = store => {
             'email': vuexTypes.walletEmail,
           })
         }
+
+        setLocalStorage(state)
         break
       }
       default:
-        const savedStore = localStorage.getItem(config.STORAGE_KEY)
-        // eslint-disable-next-line max-len
-        const isUpdateLogoutAtMutation = mutation.type === vuexTypes.UPDATE_LOGOUT_AT
-
-        if (isUpdateLogoutAtMutation && !savedStore) break
-
-        localStorage.setItem(config.STORAGE_KEY, JSON.stringify({
-          account: state.account,
-          wallet: state.wallet,
-          kyc: state.kyc,
-          keyValue: state.keyValue,
-          idleHandler: state.idleHandler,
-        }))
+        setLocalStorage(state)
     }
   })
+}
+
+function setLocalStorage (state) {
+  localStorage.setItem(config.STORAGE_KEY, JSON.stringify({
+    account: state.account,
+    wallet: state.wallet,
+    kyc: state.kyc,
+    keyValue: state.keyValue,
+    idleHandler: state.idleHandler,
+  }))
 }

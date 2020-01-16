@@ -21,35 +21,33 @@
           />
         </div>
       </div>
-      <template v-if="!isKycRecoveryPage">
-        <div class="app__form-row">
-          <div class="app__form-field">
-            <clipper-field
-              v-model="form.avatar"
-              name="verification-corporate-avatar"
-              :note="'verification-form.image-type-note' | globalize"
-              :document-type="DOCUMENT_TYPES.kycAvatar"
-              :label="'verification-form.avatar-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-              :ratio="1"
-            />
-          </div>
+      <div class="app__form-row">
+        <div class="app__form-field">
+          <clipper-field
+            v-model="form.avatar"
+            name="verification-corporate-avatar"
+            :note="'verification-form.image-type-note' | globalize"
+            :document-type="DOCUMENT_TYPES.kycAvatar"
+            :label="'verification-form.avatar-lbl' | globalize"
+            :disabled="formMixin.isDisabled"
+            :ratio="1"
+          />
         </div>
+      </div>
 
-        <div class="app__form-row">
-          <div class="app__form-field">
-            <clipper-field
-              v-model="form.banner"
-              name="verification-corporate-avatar"
-              :note="'verification-form.image-type-note' | globalize"
-              :document-type="DOCUMENT_TYPES.bravo"
-              :label="'verification-form.banner-lbl' | globalize"
-              :disabled="formMixin.isDisabled"
-              :ratio="3/1"
-            />
-          </div>
+      <div class="app__form-row">
+        <div class="app__form-field">
+          <clipper-field
+            v-model="form.banner"
+            name="verification-corporate-avatar"
+            :note="'verification-form.image-type-note' | globalize"
+            :document-type="DOCUMENT_TYPES.bravo"
+            :label="'verification-form.banner-lbl' | globalize"
+            :disabled="formMixin.isDisabled"
+            :ratio="3/1"
+          />
         </div>
-      </template>
+      </div>
 
       <div class="app__form-row">
         <div class="app__form-field">
@@ -103,7 +101,6 @@ import _get from 'lodash/get'
 import { api } from '@/api'
 
 import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
-import { REQUEST_STATES_STR } from '@/js/const/request-states.const'
 
 import { BLOB_TYPES } from '@tokend/js-sdk'
 
@@ -113,7 +110,7 @@ import { DocumentContainer } from '@/js/helpers/DocumentContainer'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 import { required } from '@validators'
@@ -122,10 +119,6 @@ const EMPTY_DOCUMENT = {
   mime_type: '',
   name: '',
   key: '',
-}
-
-const EVENTS = {
-  kycRecoverySubmit: 'kyc-recovery-submit',
 }
 
 export default {
@@ -158,10 +151,6 @@ export default {
       isAccountRoleReseted: vuexTypes.isAccountRoleReseted,
       accountRoleToSet: vuexTypes.kycAccountRoleToSet,
       previousAccountRole: vuexTypes.kycPreviousRequestAccountRoleToSet,
-      kycRecoveryState: vuexTypes.kycRecoveryState,
-      kycRecoveryRequestId: vuexTypes.kycRecoveryRequestId,
-      kycRecoveryBlobId: vuexTypes.kycRecoveryBlobId,
-      kycRecoveryRequestBlob: vuexTypes.kycRecoveryRequestBlob,
     }),
 
     isFormPopulatable () {
@@ -172,21 +161,12 @@ export default {
   },
 
   created () {
-    if (this.isFormPopulatable && !this.isKycRecoveryPage) {
+    if (this.isFormPopulatable) {
       this.form = this.parseKycData(this.kycLatestRequestData)
-    } else if (
-      this.kycRecoveryBlobId &&
-      (this.kycRecoveryState !== REQUEST_STATES_STR.permanentlyRejected)
-    ) {
-      this.form = this.parseKycData(this.kycRecoveryRequestBlob)
     }
   },
 
   methods: {
-    ...mapActions({
-      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
-    }),
-
     async submit () {
       if (!this.isFormValid()) return
 
@@ -194,30 +174,23 @@ export default {
       this.isFormSubmitting = true
 
       try {
-        if (!this.isKycRecoveryPage) {
-          const documents = [
-            this.form.avatar,
-            this.form.banner,
-          ]
-          await uploadDocuments(documents)
-        }
+        const documents = [
+          this.form.avatar,
+          this.form.banner,
+        ]
+        await uploadDocuments(documents)
 
         const kycBlobId = await this.createKycBlob(BLOB_TYPES.kycCorporate)
 
-        if (this.isKycRecoveryPage) {
-          await this.sendKycRecoveryRequest(kycBlobId)
-          this.$emit(EVENTS.kycRecoverySubmit)
-        } else {
-          const operation = this.createKycOperation(
-            kycBlobId,
-            this.kvEntryCorporateRoleId
-          )
+        const operation = this.createKycOperation(
+          kycBlobId,
+          this.kvEntryCorporateRoleId
+        )
 
-          await api.postOperations(operation)
-          Bus.emit('updateAccountRole')
-          await this.loadKyc()
-          Bus.success('verification-form.request-submitted-msg')
-        }
+        await api.postOperations(operation)
+        Bus.emit('updateAccountRole')
+        await this.loadKyc()
+        Bus.success('verification-form.request-submitted-msg')
         this.scrollTop()
       } catch (e) {
         ErrorHandler.process(e)
