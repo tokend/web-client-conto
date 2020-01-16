@@ -20,7 +20,7 @@
         <wallet-recovery-tfa-code-form
           v-if="!isWalletRecoveryFormDisplay"
           :error="recoveryError"
-          @verified="createKycRecoveryRequest"
+          @verified="accountRecovery"
         />
       </template>
 
@@ -84,7 +84,7 @@ export default {
       this.password = password
     },
 
-    async createKycRecoveryRequest () {
+    async accountRecovery () {
       this.isKycRecoveryInProgress = true
       try {
         await this.loadWallet({
