@@ -17,6 +17,10 @@ import BusinessesMy from '@/vue/pages/BusinessesMy'
 import BusinessesAll from '@/vue/pages/BusinessesAll'
 import BusinessViewer from '@/vue/pages/BusinessViewer'
 
+import Polls from '@/vue/pages/Polls'
+import PollsAll from '@/vue/pages/PollsAll'
+import PollRequestsModule from '@/vue/modules/requests/poll-requests'
+
 import Assets from '@/vue/pages/Assets'
 import AssetExplorer from '@modules/assets/asset-explorer'
 import AtomicSwaps from '@/vue/pages/AtomicSwaps'
@@ -361,6 +365,33 @@ const router = new Router({
                   beforeEnter: inAppRouteGuard,
                 },
               ],
+            },
+          ],
+        },
+        {
+          path: '/polls',
+          name: vueRoutes.polls.name,
+          meta: { pageNameTranslationId: 'pages-names.polls' },
+          component: Polls,
+          beforeEnter: inAppRouteGuard,
+          redirect: vueRoutes.allPolls,
+          children: [
+            {
+              path: '/polls/all',
+              name: vueRoutes.allPolls.name,
+              props: true,
+              component: PollsAll,
+              beforeEnter: inAppRouteGuard,
+            },
+            {
+              path: '/polls/poll-requests',
+              name: vueRoutes.pollRequests.name,
+              props: true,
+              component: PollRequestsModule,
+              meta: {
+                isCorporateOnly: true,
+              },
+              beforeEnter: inAppRouteGuard,
             },
           ],
         },

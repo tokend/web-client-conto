@@ -12,9 +12,10 @@ import businesses from './businesses.module'
 import kycRecovery from './kyc-recovery.module'
 import movementsHistory from './movements-history.module'
 import sponsorshipRequests from './sponsorship-requests.module'
+import idleHandler from './idle-handler.module'
+import pollRequests from '@/vue/modules/requests/poll-requests/store'
 import { vuexTypes } from '@/vuex/types'
 import { sessionStoragePlugin } from './plugins/session-storage'
-import idleHandler from './idle-handler.module'
 import { errors } from '@/js/errors'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { useWallet } from '@/api'
@@ -88,6 +89,7 @@ function buildStore () {
       movementsHistory,
       sponsorshipRequests,
       businesses,
+      'poll-requests': pollRequests,
     },
     plugins: [sessionStoragePlugin],
   })

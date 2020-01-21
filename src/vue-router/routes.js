@@ -41,4 +41,7 @@ export const vueRoutes = Object.freeze({
   successfulPayment: { name: 'app.successful-payment' },
   failedPayment: { name: 'app.failed-payment' },
   assetsMovements: { name: 'app.assetsMovements' },
+  polls: { name: 'app.polls' },
+  pollRequests: { name: 'app.poll-requests' },
+  allPolls: { name: 'app.all-polls' },
 })

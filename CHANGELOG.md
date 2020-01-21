@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 - Filter for `paymentMethodType` on pay page
 - Update Promo Code form
 - Update offer form
+- Polls
 
 #### Changed
 - KYC recovery without filling out a form
