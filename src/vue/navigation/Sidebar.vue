@@ -168,6 +168,22 @@
               {{ 'pages-names.movements' | globalize }}
             </span>
           </router-link>
+          <router-link
+            key="polls"
+            v-ripple
+            class="sidebar__link"
+            @click.native="closeSidebar"
+            tag="a"
+            :to="vueRoutes.polls"
+          >
+            <i
+              class="sidebar__link-icon"
+              :class="`mdi mdi-vote`"
+            />
+            <span>
+              {{ 'pages-names.polls' | globalize }}
+            </span>
+          </router-link>
         </nav>
         <nav
           class="sidebar__links-group"

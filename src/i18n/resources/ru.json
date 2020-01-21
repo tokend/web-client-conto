@@ -631,6 +631,7 @@
       "sponsorship": "Спонсорство",
       "atomic-swaps": "Магазин",
       "promo-codes": "Промокоды",
+      "polls": "Опросы",
       "statistics": "Статистика"
     },
     "passport": {
@@ -1662,6 +1663,141 @@
       "price-lbl": "Цена ({{asset}})",
       "updated-atomic-swap-msg": "Предложение успешно обновлено",
       "update-btn": "Обновить"
+    },
+    "poll-requests": {
+      "details-title": "Запросы на создание опросов",
+      "loading-msg": "Загружаем…",
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "poll-header": "Вопрос",
+      "request-state-header": "Состояние запроса",
+      "created-header": "Создан",
+      "last-updated-header": "Последнее обновление",
+      "details-btn": "Подробности",
+      "no-request-history-title": "Нет истории запросов",
+      "no-request-history-desc": "Здесь будет список ваших запросов",
+      "request-canceled-msg": "Запрос отменен",
+      "start-time-title": "Дата начала",
+      "end-time-title": "Дата окончания",
+      "number-of-choices-title": "Количество вариантов ответов",
+      "permission-type-title": "Переголосование разрешено?",
+      "poll-data-title": "Детали опроса",
+      "question-title": "Вопрос:",
+      "yes-msg": "Да",
+      "no-msg": "Нет",
+      "cancellation-msg": "Вы уверены, что хотите отменить запрос?",
+      "update-btn": "Обновить",
+      "cancel-btn": "ОТМЕНИТЬ",
+      "choice-title": "Вариант {{number}}",
+      "restricted-type-desc": "Переголосование запрещено",
+      "unrestricted-type-desc": "Переголосование разрешено"
+    },
+    "polls": {
+      "create-poll": "Новый опрос",
+      "update-poll": "Обновить опрос",
+      "overview-title": "Детали опроса",
+      "new-poll": "Новый опрос",
+      "all": "Все опросы",
+      "requests": "Запросы"
+    },
+    "create-poll-form": {
+      "permission-type-lbl": "Можно переголосовать?",
+      "start-time-lbl": "Дата начала",
+      "end-time-lbl": "Дата окончания",
+      "question-lbl": "Вопрос",
+      "description-lbl": "Вариант {{number}}",
+      "create-btn": "Создать запрос",
+      "request-submitted-msg": "Запрос на создание опроса отправлен.",
+      "restricted-poll-lbl": "Переголосование запрещено",
+      "unrestricted-poll-lbl": "Переголосование разрешено",
+      "load-failed-msg": "Возникла ошибка при загрузке. Пожалуйста, повторите попытку позже или свяжитесь с владельцем системы.",
+      "add-choice-btn": "Добавить вариант ответа"
+    },
+    "polls-all": {
+      "state-open": "Открыт",
+      "state-passed": "Завершен",
+      "state-failed": "Провален",
+      "state-canceled": "Отменен",
+      "vote-drawer-title": "Голосовать",
+      "no-list-title": "Нет опросов",
+      "no-list-msg": "Не найдено опросов по данным критериям.",
+      "owned-by-me-filter-lbl": "Создан мной",
+      "result-provided-by-me-filter-lbl": "Результат предоставляется мной"
+    },
+    "poll-card": {
+      "author-prefix": "Создано",
+      "id-prefix": "#{{id}}",
+      "ends-at-row": "Завершается <span title='{{time, dmyt}}'>{{time, calendar-inline}}</span>",
+      "ended-at-row": "Завершен <span title='{{time, dmyt}}'>{{time, calendar-inline}}</span>, {{state}}",
+      "state-inline-open": "открыт",
+      "state-inline-passed": "завершен",
+      "state-inline-failed": "провален",
+      "state-inline-canceled": "отменен"
+    },
+    "poll-viewer": {
+      "vote-tab": "Голосовать",
+      "details-tab": "Детали",
+      "manage-tab": "Обновить",
+      "participants-tab": "Участники"
+    },
+    "poll-vote-form": {
+      "submit-btn": "Голосовать",
+      "submitted-notification": "Голос отправлен",
+      "repeat-vote-msg": "Вы уже проголосовали в этом опросе, новый голос заменит текущий.",
+      "repeat-vote-disabled-msg": "Вы уже проголосовали в этом опросе, повторное голосование не допускается в данном опросе.",
+      "remove-vote-btn": "Отозвать голос",
+      "remove-vote-confirmation-msg": "Вы уверены, что хотите отозвать свой текущий голос?",
+      "removed-notification": "Голос отозван"
+    },
+    "poll-update-end-time-form": {
+      "submit-btn": "Обновить",
+      "submitted-notification": "Опрос обновлен",
+      "new-end-time-lbl": "Новая дата завершения",
+      "update-date-notification": "Дата завершения обновлена",
+      "update-end-time-subheading": "Обновить дату завершения",
+      "current-end-time-title": "Текущая дата завершения: {{time, dmyt}}"
+    },
+    "cancel-poll-form": {
+      "cancel-poll-btn": "Отменить опрос",
+      "cancel-poll-confirmation-msg": "Вы уверены, что хотите отменить опрос?",
+      "cancel-notification": "Опрос отменен",
+      "cancel-poll-subheading": "Отменить опрос",
+      "cancel-poll-description": "Отменяет опрос",
+      "yes-btn": "Да",
+      "no-btn": "Нет"
+    },
+    "close-poll-form": {
+      "close-poll-btn": "Закрыть опрос",
+      "close-poll-confirmation-msg": "Вы уверены, что хотите закрыть опрос?",
+      "close-notification": "Опрос закрыт",
+      "close-poll-subheading": "Закрыть опрос",
+      "close-poll-description": "Закрыть опрос с результатом:",
+      "passed-poll-result": "Завершен",
+      "failed-poll-result": "Провален",
+      "yes-btn": "Да",
+      "no-btn": "Нет"
+    },
+    "poll-participants": {
+      "email-lbl": "Имейл",
+      "choice-lbl": "Голос",
+      "no-request-history-desc": "Здесь будет список участников опроса"
+    },
+    "poll-attributes": {
+      "id-key": "Идентификатор опроса",
+      "owner-key": "Владелец",
+      "start-time-key": "Дата начала",
+      "end-time-key": "Дата окончания",
+      "state-key": "Состояние",
+      "permission-type-key": "Переголосование разрешено?",
+      "number-of-choices-key": "Количество вариантов ответа",
+      "is-ongoing-key": "В процессе?",
+      "state-open-val": "Открыт",
+      "state-passed-val": "Завершен",
+      "state-failed-val": "Провален",
+      "state-canceled-val": "Отменен",
+      "permission-type-restricted-val": "Переголосование запрещено",
+      "permission-type-unrestricted-val": "Переголосование разрешено",
+      "yes-val": "Да",
+      "no-val": "Нет"
     }
   }
 }
