@@ -20,7 +20,7 @@ export default Object.assign(
     /**
      * App name
      */
-    APP_NAME: 'Conto',
+    APP_NAME: 'CBDC',
 
     /**
      * URL of the Horizon server. The application is going to fetch all the

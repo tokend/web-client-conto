@@ -13,6 +13,7 @@ for further information about branching and tagging conventions.
 - Update Promo Code form
 - Update offer form
 - Polls
+- Branding
 
 #### Changed
 - KYC recovery without filling out a form

@@ -43,6 +43,6 @@ export default {
   max-height: 4.5rem;
   height: inherit;
   width: inherit;
-  margin-left: -1.1rem;
+  margin-left: -0.1rem;
 }
 </style>

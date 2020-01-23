@@ -27,12 +27,6 @@
         </router-link>
       </section>
 
-      <section class="sidebar__scheme-label-section">
-        <p class="sidebar__scheme-label">
-          {{ label }}
-        </p>
-      </section>
-
       <section class="sidebar__links-section">
         <nav class="sidebar__links-group" v-if="isAccountCorporate">
           <router-link
@@ -375,14 +369,8 @@ $content-item-right-padding: 2.4rem;
 }
 
 .sidebar__logo {
-  max-width: 9.5rem;
-  width: 100%;
-  height: 3.1rem;
+  height: 4.7rem;
   display: block;
-}
-
-.sidebar__scheme-label-section {
-  padding: 1.6rem $content-item-right-padding 0 $content-item-left-padding;
 }
 
 .sidebar__scheme-label {
