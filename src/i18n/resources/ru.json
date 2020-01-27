@@ -1583,7 +1583,7 @@
     "successful-payment": {
       "title": "Успешный платеж",
       "description-header": "Поздравляем!",
-      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в {{appName}}!",
+      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем цифровом кошельке в {{appName}}!",
       "how-to-start-msg": "С чего начать",
       "sign-up-or-login-link-part-1": "Зарегистрируйтесь",
       "sign-up-or-login-link-part-2": "в {{appName}} или",
