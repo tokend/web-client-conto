@@ -181,7 +181,7 @@ export default {
       return Boolean(+this.discount)
     },
     quoteAssets () {
-      if (this.isLoggedIn) {
+      if (!this.isLoggedIn) {
         return this.atomicSwapAsk.quoteAssets.filter(
           item => +item.paymentMethodType !== +PAYMENT_METHODS.internal.value
         )

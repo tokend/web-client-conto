@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
+## [Unreleased]
+#### Fixed
+- A bug with filter for `paymentMethodType` on pay page
+
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added
 - Filter for `paymentMethodType` on pay page
