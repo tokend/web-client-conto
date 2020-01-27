@@ -87,6 +87,7 @@ export default {
             price: price,
             price_asset: this.statsQuoteAsset.code,
             base_asset: baseAssetCode,
+            buy_limit: '1',
           },
           relationships: {
             payment_methods: {
