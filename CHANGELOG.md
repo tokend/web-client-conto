@@ -14,6 +14,7 @@ for further information about branching and tagging conventions.
 - Update offer form
 - Polls
 - Branding
+- Buy limit for offers
 
 #### Changed
 - KYC recovery without filling out a form
