@@ -121,6 +121,7 @@ import {
 import { globalize } from '@/vue/filters/globalize'
 import { formatPercent } from '@/vue/filters/formatPercent'
 import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
+import { MathUtil } from '@/js/utils'
 
 const PROMOCODE_ERROR_FIELD = 'promocode'
 const EVENTS = {
@@ -194,7 +195,10 @@ export default {
     form: {
       deep: true,
       handler: function () {
-        this.totalPrice = 0
+        this.totalPrice = MathUtil.multiply(
+          this.form.amount || 0,
+          this.atomicSwapAsk.price
+        )
         this.discount = 0
         this.debounceCalculateDiscountPrice()
       },

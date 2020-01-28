@@ -15,6 +15,7 @@ for further information about branching and tagging conventions.
   Successful payment page
 - A bug when Russian is not set in Safari by default if you use Russian 
   in system and use the application for the first time
+- A bug when you enter a nonexistent promotional code the price becomes 0
 
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added
