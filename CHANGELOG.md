@@ -13,6 +13,8 @@ for further information about branching and tagging conventions.
 - A bug with typo on Successful payment page
 - A bug when the email field is not filled after going from the page 
   Successful payment page
+- A bug when Russian is not set in Safari by default if you use Russian 
+  in system and use the application for the first time
 
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added
