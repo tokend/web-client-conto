@@ -267,6 +267,9 @@ const router = new Router({
               name: vueRoutes.atomicSwapsExplore.name,
               component: AtomicSwapsExplore,
               beforeEnter: inAppRouteGuard,
+              meta: {
+                isCorporateOnly: true,
+              },
             },
           ],
         },
@@ -284,6 +287,7 @@ const router = new Router({
           name: vueRoutes.assetsMovements.name,
           meta: {
             pageNameTranslationId: 'pages-names.assets-movements',
+            isCorporateOnly: true,
           },
           component: AssetsMovements,
           beforeEnter: inAppRouteGuard,

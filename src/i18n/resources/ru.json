@@ -1068,7 +1068,7 @@
       "go-back-btn": "Назад",
       "title": "Загрузки",
       "mobile-apps-header": "Все ваши активы прямо на вашем телефоне",
-      "mobile-apps-desc": "Чтобы получить доступ к своим ресурсам повсюду, установите приложение TokenD на свое мобильное устройство.",
+      "mobile-apps-desc": "Чтобы получить доступ к своим ресурсам повсюду, установите приложение {{appName}} на свое мобильное устройство.",
       "pre-issuance-learn-more-link": "Узнать больше",
       "pre-issuance-apps-header": "Предварительная выдача активов в автономном режиме",
       "pre-issuance-apps-desc": "Чтобы предварительно авторизовать выдачу активов, установите инструмент предварительной выдачи на своем компьютере",
@@ -1583,7 +1583,7 @@
     "successful-payment": {
       "title": "Успешный платеж",
       "description-header": "Поздравляем!",
-      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем кабинете в {{appName}}!",
+      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем цифровом кошельке в {{appName}}!",
       "how-to-start-msg": "С чего начать",
       "sign-up-or-login-link-part-1": "Зарегистрируйтесь",
       "sign-up-or-login-link-part-2": "в {{appName}} или",

@@ -10,6 +10,13 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Fixed
 - A bug with filter for `paymentMethodType` on pay page
+- A bug with typo on Successful payment page
+- A bug when the email field is not filled after going from the page 
+  Successful payment page
+- A bug when Russian is not set in Safari by default if you use Russian 
+  in system and use the application for the first time
+- A bug when you enter a nonexistent promotional code the price becomes 0
+- A bug when user has access to inaccessible routes
 
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added

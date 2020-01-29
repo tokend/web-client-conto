@@ -39,21 +39,29 @@
               </p>
               <ol class="successful-payment__">
                 <li>
-                  <!-- eslint-disable max-len -->
-
                   <router-link
-                    :to="{ name: vueRoutes.signup.name, params: { email: purchasedAssetInfo.email }}"
+                    :to="{
+                      name: vueRoutes.signup.name,
+                      params: { email: purchasedAssetInfo.email }
+                    }"
                   >
+                    <!-- eslint-disable max-len -->
                     {{ 'successful-payment.sign-up-or-login-link-part-1' | globalize }}
                   </router-link>
                   {{ 'successful-payment.sign-up-or-login-link-part-2' | globalize({
                     appName: config.APP_NAME
                   }) }}
-                  <router-link :to="vueRoutes.login">
+                  <router-link
+                    :to="{
+                      name: vueRoutes.login.name,
+                      params: { email: purchasedAssetInfo.email }
+                    }"
+                  >
                     {{ 'successful-payment.sign-up-or-login-link-part-3' | globalize }}
                   </router-link>
                   {{ 'successful-payment.sign-up-or-login-link-part-4' | globalize }}
                   {{ purchasedAssetInfo.email }}
+                  <!-- eslint-enable max-len -->
                 </li>
                 <li>{{ 'successful-payment.go-to-wallet-msg' | globalize }}</li>
               </ol>
@@ -75,7 +83,6 @@
                   { appName: config.APP_NAME, }
                 ) }}
               </p>
-              <!-- eslint-enable max-len -->
               <a :href="config.PLAY_MARKET_LINK">
                 <img
                   class="successful-payment__store-img"
