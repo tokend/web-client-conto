@@ -27,6 +27,11 @@ for further information about branching and tagging conventions.
 #### Changed
 - KYC recovery without filling out a form
 
+## [1.6.1] - 2020-01-30
+### Changed
+
+* Increased promo code length to 36 symbols
+
 ## [1.6.0] - 2019-12-25
 #### Fixed
 - A bug with displaying atomic swap details
@@ -548,7 +553,8 @@ for further information about branching and tagging conventions.
 - `RECOVERY_MODE` config key due to unused anymore
 
 [Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...HEAD
-[1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.0...1.7.0-rc.0
+[1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.1...1.7.0-rc.0
+[1.6.1]: https://github.com/tokend/web-client/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/tokend/web-client/compare/1.6.0-rc.3...1.6.0
 [1.6.0-rc.3]: https://github.com/tokend/web-client/compare/1.6.0-rc.2...1.6.0-rc.3
 [1.6.0-rc.2]: https://github.com/tokend/web-client/compare/1.6.0-rc.1...1.6.0-rc.2
