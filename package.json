@@ -1,6 +1,6 @@
 {
-  "name": "tokend-web-client-conto",
-  "version": "1.6.0",
+  "name": "nbu-company-app",
+  "version": "2.0.0-rc.0",
   "description": "TokenD web-client-conto",
   "author": "Distributed Lab <contact@distributedlab.com>",
   "private": true,
