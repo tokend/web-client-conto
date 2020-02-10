@@ -161,7 +161,7 @@ const EVENTS = {
   closeDrawerAndUpdateList: 'close-drawer-and-update-list',
 }
 
-const PROMOCODE_MAX_LENGTH = 12
+const PROMOCODE_MAX_LENGTH = 36
 const DESCRIPTION_MAX_LENGTH = 255
 
 export default {

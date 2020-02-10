@@ -14,6 +14,13 @@ for further information about branching and tagging conventions.
 #### Fixed
 - A bug with filter for `paymentMethodType` on pay page
 - Hidden 'Polls' 
+- A bug with typo on Successful payment page
+- A bug when the email field is not filled after going from the page 
+  Successful payment page
+- A bug when Russian is not set in Safari by default if you use Russian 
+  in system and use the application for the first time
+- A bug when you enter a nonexistent promotional code the price becomes 0
+- A bug when user has access to inaccessible routes
 
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added
@@ -23,6 +30,11 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - KYC recovery without filling out a form
+
+## [1.6.1] - 2020-01-30
+### Changed
+
+* Increased promo code length to 36 symbols
 
 ## [1.6.0] - 2019-12-25
 #### Fixed
@@ -545,7 +557,8 @@ for further information about branching and tagging conventions.
 - `RECOVERY_MODE` config key due to unused anymore
 
 [Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...HEAD
-[1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.0...1.7.0-rc.0
+[1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.1...1.7.0-rc.0
+[1.6.1]: https://github.com/tokend/web-client/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/tokend/web-client/compare/1.6.0-rc.3...1.6.0
 [1.6.0-rc.3]: https://github.com/tokend/web-client/compare/1.6.0-rc.2...1.6.0-rc.3
 [1.6.0-rc.2]: https://github.com/tokend/web-client/compare/1.6.0-rc.1...1.6.0-rc.2

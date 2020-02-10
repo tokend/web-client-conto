@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
 // i18next api:
 // https://www.i18next.com/overview/api
@@ -26,8 +26,11 @@ class I18n {
   }
 
   async init () {
+    const languageDetector = new LanguageDetector()
+    languageDetector.addDetector(this.customNavigatorLanguageDetector())
+
     await this._i18nextInstance
-      .use(i18nextBrowserLanguageDetector)
+      .use(languageDetector)
       .init(this._i18nextConfig)
 
     // on init, i18n detected and set language, now we should apply it
@@ -150,6 +153,18 @@ class I18n {
       whitelist: ['en', 'ru'],
       // set to true if you need en-US/en-UK lng's:
       nonExplicitWhitelist: false,
+      detection: {
+        order: [
+          'querystring',
+          'cookie',
+          'localStorage',
+          'customNavigatorLanguageDetector',
+          'navigator',
+          'htmlTag',
+          'path',
+          'subdomain',
+        ],
+      },
       interpolation: {
         format: (param, format) => {
           const lngConfig = this._i18nextInstance
@@ -203,6 +218,17 @@ class I18n {
               return param
           }
         },
+      },
+    }
+  }
+  customNavigatorLanguageDetector () {
+    return {
+      name: 'customNavigatorLanguageDetector',
+      lookup () {
+        const browserLangCode = window.navigator.userLanguage
+          ? window.navigator.userLanguage : window.navigator.language
+
+        return browserLangCode.substring(0, 2)
       },
     }
   }
