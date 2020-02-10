@@ -371,7 +371,10 @@ const router = new Router({
         {
           path: '/polls',
           name: vueRoutes.polls.name,
-          meta: { pageNameTranslationId: 'pages-names.polls' },
+          meta: {
+            pageNameTranslationId: 'pages-names.polls',
+            isDisabled: true,
+          },
           component: Polls,
           beforeEnter: inAppRouteGuard,
           redirect: vueRoutes.allPolls,
@@ -380,6 +383,9 @@ const router = new Router({
               path: '/polls/all',
               name: vueRoutes.allPolls.name,
               props: true,
+              meta: {
+                isDisabled: true,
+              },
               component: PollsAll,
               beforeEnter: inAppRouteGuard,
             },
@@ -389,6 +395,7 @@ const router = new Router({
               props: true,
               component: PollRequestsModule,
               meta: {
+                isDisabled: true,
                 isCorporateOnly: true,
               },
               beforeEnter: inAppRouteGuard,
@@ -445,7 +452,10 @@ function inAppRouteGuard (to, from, next) {
   const isAccountGeneral = store.getters[vuexTypes.isAccountGeneral]
   const isCorporateRouter = _get(to, 'meta.isCorporateOnly')
   const isGeneralRouter = _get(to, 'meta.isGeneralOnly')
-  if (isAccountCorporate && isCorporateRouter) {
+  const isDisabled = _get(to, 'meta.isDisabled')
+  if (isDisabled) {
+    next(vueRoutes.app)
+  } else if (isAccountCorporate && isCorporateRouter) {
     next()
   } else if (isAccountGeneral && isGeneralRouter) {
     next()

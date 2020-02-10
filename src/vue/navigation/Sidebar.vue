@@ -169,6 +169,7 @@
             </span>
           </router-link>
           <router-link
+            v-if="false"
             key="polls"
             v-ripple
             class="sidebar__link"
