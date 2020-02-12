@@ -1727,8 +1727,8 @@
     "poll-card": {
       "author-prefix": "By",
       "id-prefix": "#{{id}}",
-      "ends-at-row": "Ends <span title='{{time, dmyt}}'>{{time, dmyt}}</span>",
-      "ended-at-row": "Ended <span title='{{time, dmyt}}'>{{time, dmyt}}</span>",
+      "ends-at-row": "Ends {{time, dmyt}}",
+      "ended-at-row": "Ended {{time, dmyt}}",
       "state-inline-open": "open",
       "state-inline-passed": "passed",
       "state-inline-failed": "failed",

@@ -9,20 +9,14 @@
       </template>
       <template slot="subhead">
         <template v-if="poll.isOpen && !poll.isEnded">
-          <vue-markdown
-            :html="true"
-            :source="'poll-card.ends-at-row'|globalize({ time: poll.endsAt })"
-          />
+          {{ 'poll-card.ends-at-row'|globalize({ time: poll.endsAt }) }}
         </template>
 
         <template v-else>
-          <vue-markdown
-            :html="true"
-            :source="'poll-card.ended-at-row' | globalize({
-              time: poll.endsAt,
-              state: translatePollStateInline(poll),
-            })"
-          />
+          {{ 'poll-card.ended-at-row' | globalize({
+            time: poll.endsAt,
+            state: translatePollStateInline(poll),
+          }) }}
         </template>
       </template>
 
@@ -49,7 +43,6 @@
 
 <script>
 import EmailGetter from '@/vue/common/EmailGetter'
-import VueMarkdown from 'vue-markdown'
 import Card from '@/vue/common/Card'
 import { PollRecord } from '@/js/records/entities/poll.record'
 
@@ -62,7 +55,6 @@ export default {
 
   components: {
     EmailGetter,
-    VueMarkdown,
     Card,
   },
 
