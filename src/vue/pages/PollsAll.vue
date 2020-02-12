@@ -31,20 +31,13 @@
     </div>
 
     <template v-if="list.length">
-      <div class="polls-all__list">
-        <div
-          class="polls-all__list-item-wrp"
-          v-for="item in list"
-          :key="item.id"
-        >
-          <button
-            class="polls-all__list-item-btn"
-            @click="selectItem(item)"
-          >
-            <poll-card :poll="item" />
-          </button>
-        </div>
-      </div>
+      <card-list v-slot="{ item }" :list="list">
+        <poll-card
+          :poll="item"
+          class="polls-all__list-item-btn"
+          @vote="selectItem(item)"
+        />
+      </card-list>
     </template>
 
     <template v-else-if="!list.length && isLoading">
@@ -105,7 +98,7 @@ import Drawer from '@/vue/common/Drawer'
 import PollViewer from './polls-all/PollViewer'
 import PollCard from './polls-all/PollCard'
 import PollCardSkeleton from './polls-all/PollCardSkeleton'
-
+import CardList from '@/vue/common/CardList'
 import { PollRecord } from '@/js/records/entities/poll.record'
 
 import SelectFilterField from '@/vue/fields/SelectFilterField'
@@ -122,6 +115,7 @@ export default {
     PollCardSkeleton,
     NoDataMessage,
     SelectFilterField,
+    CardList,
   },
 
   mixins: [UpdateList],

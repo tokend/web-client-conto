@@ -1,58 +1,61 @@
 <template>
   <div class="poll-card">
-    <p class="poll-card__title">
-      <span class="poll-card__number">
+    <card>
+      <template slot="header">
         {{ 'poll-card.id-prefix' | globalize({ id: poll.id }) }}
-      </span>
-      <span class="poll-card__question">
+      </template>
+      <template slot="content">
         {{ poll.question }}
-      </span>
-    </p>
+      </template>
+      <template slot="subhead">
+        <template v-if="poll.isOpen && !poll.isEnded">
+          {{ 'poll-card.ends-at-row'|globalize({ time: poll.endsAt }) }}
+        </template>
 
-    <template v-if="poll.isOpen && !poll.isEnded">
-      <vue-markdown
-        class="poll-card__status"
-        :html="true"
-        :source="'poll-card.ends-at-row' | globalize({ time: poll.endsAt })"
-      />
-    </template>
+        <template v-else>
+          {{ 'poll-card.ended-at-row' | globalize({
+            time: poll.endsAt,
+            state: translatePollStateInline(poll),
+          }) }}
+        </template>
+      </template>
 
-    <template v-else>
-      <vue-markdown
-        class="poll-card__status"
-        :html="true"
-        :source="'poll-card.ended-at-row' | globalize({
-          time: poll.endsAt,
-          state: translatePollStateInline(poll),
-        })"
-      />
-    </template>
-
-    <p class="poll-card__author">
-      <span class="poll-card__author-prefix">
+      <template slot="accent-title">
         {{ 'poll-card.author-prefix' | globalize }}
-      </span>
-      <email-getter
-        is-titled
-        :account-id="poll.ownerId"
-        :is-copy-button="false"
-      />
-    </p>
+        <email-getter
+          is-titled
+          :account-id="poll.ownerId"
+          :is-copy-button="false"
+        />
+      </template>
+      <template slot="actions">
+        <button
+          v-ripple
+          class="app__button-flat"
+          @click="$emit(EVENTS.vote)"
+        >
+          {{ 'poll-card.vote-lbl' | globalize }}
+        </button>
+      </template>
+    </card>
   </div>
 </template>
 
 <script>
 import EmailGetter from '@/vue/common/EmailGetter'
-import VueMarkdown from 'vue-markdown'
-
+import Card from '@/vue/common/Card'
 import { PollRecord } from '@/js/records/entities/poll.record'
+
+const EVENTS = {
+  vote: 'vote',
+}
 
 export default {
   name: 'poll-card',
 
   components: {
     EmailGetter,
-    VueMarkdown,
+    Card,
   },
 
   props: {
@@ -60,6 +63,12 @@ export default {
       type: PollRecord,
       required: true,
     },
+  },
+
+  data () {
+    return {
+      EVENTS,
+    }
   },
 
   methods: {
@@ -86,45 +95,4 @@ export default {
 @import '~@scss/variables';
 @import '~@scss/mixins';
 
-.poll-card {
-  border-radius: 0.4rem;
-  box-shadow: 0 0.5rem 1rem 0 $col-sale-card-shadow;
-  background-color: $col-sale-card-background;
-  padding: 1.6rem;
-  min-width: 0;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  overflow-x: hidden;
-}
-
-.poll-card__title {
-  margin-bottom: 1.6rem;
-  font-size: 1.6rem;
-
-  @include multi-line-ellipsis(1.6rem * 1.5, 2, true);
-}
-
-.poll-card__number {
-  color: $col-text-secondary;
-  font-size: inherit;
-  margin-right: 0.5ch;
-}
-
-.poll-card__status,
-.poll-card__author {
-  color: $col-text-secondary;
-  font-size: 1.3rem;
-  line-height: 1.5;
-}
-
-.poll-card__author {
-  white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.poll-card__question {
-  color: $col-text;
-}
 </style>

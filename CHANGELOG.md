@@ -10,6 +10,10 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Polls
+- Vote button to poll's card
+
+#### Changed
+- Poll's card end date format
 
 #### Fixed
 - A bug with filter for `paymentMethodType` on pay page
