@@ -1727,12 +1727,13 @@
     "poll-card": {
       "author-prefix": "By",
       "id-prefix": "#{{id}}",
-      "ends-at-row": "Ends <span title='{{time, dmyt}}'>{{time, calendar-inline}}</span>",
-      "ended-at-row": "Ended <span title='{{time, dmyt}}'>{{time, calendar-inline}}</span>, {{state}}",
+      "ends-at-row": "Ends <span title='{{time, dmyt}}'>{{time, dmyt}}</span>",
+      "ended-at-row": "Ended <span title='{{time, dmyt}}'>{{time, dmyt}}</span>",
       "state-inline-open": "open",
       "state-inline-passed": "passed",
       "state-inline-failed": "failed",
-      "state-inline-canceled": "canceled"
+      "state-inline-canceled": "canceled",
+      "vote-lbl": "Vote"
     },
     "poll-viewer": {
       "vote-tab": "Vote",
