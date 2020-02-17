@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Changed
+- Booking form for business owner
+
 ## [1.1.0-rcunitcity.16] - 2019-12-18
 #### Added
 - Refund and Buyback asset

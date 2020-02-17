@@ -41,9 +41,12 @@ export const telegramUsername = value => {
   return /^[a-zA-Z0-9_-]{3,16}$/.test(value)
 }
 export const emailOrPhoneNumberOrTelegram = value => {
-  return validateEmail(value) ||
-    validatePhoneNumber(value) ||
+  return emailOrPhoneNumber(value) ||
     telegramUsername(value)
+}
+export const emailOrPhoneNumber = value => {
+  return validateEmail(value) ||
+    validatePhoneNumber(value)
 }
 export const accountId = value => {
   return base.Keypair.isValidPublicKey(value)

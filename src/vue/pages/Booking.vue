@@ -21,7 +21,7 @@
       </template>
 
       <booking-form
-        @created-booking="isBookingFormDrawerShown = false" />
+        @created-booking="closeDrawerAndUpdateList" />
     </drawer>
 
     <router-view />
@@ -32,6 +32,7 @@
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
 import BookingForm from '@/vue/forms/BookingForm'
+import { Bus } from '@/js/helpers/event-bus'
 
 export default {
   name: 'atomic-swaps',
@@ -45,10 +46,11 @@ export default {
     isBookingFormDrawerShown: false,
   }),
 
-  computed: {
-  },
-
   methods: {
+    closeDrawerAndUpdateList () {
+      this.isBookingFormDrawerShown = false
+      Bus.emit('booking:updateList')
+    },
   },
 }
 </script>
