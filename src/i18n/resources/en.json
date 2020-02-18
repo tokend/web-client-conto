@@ -1633,7 +1633,9 @@
     },
     "booking": {
       "booking-btn": "Booking",
-      "booking-title": "Booking"
+      "booking-title": "Booking",
+      "explore-tab": "Explore booking",
+      "schedule-tab": "Schedule"
     },
     "booking-form": {
       "room-lbl": "Room",
@@ -1700,6 +1702,12 @@
       "4bill": "Card",
       "coinpayments": "Cryptocurrency",
       "internal": "Bonus"
+    },
+    "booking-schedule": {
+      "loading-error-msg": "There was an error while loading.",
+      "room-lbl": "Room",
+      "date-lbl": "Date",
+      "loading-msg": "Loading..."
     }
   }
 }

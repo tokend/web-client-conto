@@ -57,6 +57,9 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
 
+const START_WORK_HOURS = 9
+const END_WORK_HOURS = 20
+
 export default {
   name: 'booking-schedule',
   components: {
@@ -88,6 +91,16 @@ export default {
     endTime () {
       const endTime = moment(this.filters.date).hour('20').minutes('00')
       return endTime.toISOString()
+    },
+
+    schedule () {
+      let arr = []
+      for (let i = START_WORK_HOURS; i < END_WORK_HOURS; i++) {
+        arr.push({
+          time: `${i}-${i + 1}`,
+        })
+      }
+      return arr
     },
   },
 
@@ -138,17 +151,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .booking-explorer__collection-loader {
-    margin-top: 1rem;
-  }
+@import '~@scss/variables.scss';
+@import '~@scss/mixins';
 
-  .booking-explorer__qr-code {
-    margin-top: 5rem;
-    text-align: center;
-  }
+$media-desktop-custom: 1005px;
+$media-small-desktop-custom: 851px;
 
-  .booking-explorer__qr-code-msg {
-    margin-top: 5rem;
-    text-align: center;
+.booking-schedule__filters {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.booking-schedule__filter-field {
+  margin: 0.7rem;
+  min-width: 14rem;
+  width: calc(25% - 1.4rem);
+
+  @include respond-to-custom($media-desktop-custom) {
+    width: calc(33% - 1.4rem);
   }
+  @include respond-to-custom($media-small-desktop-custom) {
+    width: calc(50% - 1.4rem);
+  }
+  @include respond-to-custom($sidebar-hide-bp) {
+    width: calc(33% - 1.4rem);
+  }
+  @include respond-to(small) {
+    flex: 1 0;
+  }
+}
 </style>
