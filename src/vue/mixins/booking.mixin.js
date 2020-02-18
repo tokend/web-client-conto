@@ -132,7 +132,8 @@ export default {
       participants,
       room,
       startTime,
-      endTime
+      endTime,
+      customer
     ) {
       const response = await api
         .post(`/integrations/booking/businesses/${businessId}/bookings`, {
@@ -143,7 +144,18 @@ export default {
             'start_time': moment(startTime).toISOString(),
             'end_time': moment(endTime).toISOString(),
             'participants': +participants,
-            'details': {},
+            ...(customer
+              ? {
+                'details': { customer },
+                'state': {
+                  value: 1,
+                  name: 'accepted',
+                },
+              }
+              : {
+                'details': {},
+              }
+            ),
           },
         })
       return response

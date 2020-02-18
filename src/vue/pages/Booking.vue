@@ -29,7 +29,7 @@
       </template>
 
       <booking-form
-        @created-booking="isBookingFormDrawerShown = false" />
+        @created-booking="closeDrawerAndUpdateList" />
     </drawer>
 
     <router-view />
@@ -43,6 +43,7 @@ import BookingForm from '@/vue/forms/BookingForm'
 import { vueRoutes } from '@/vue-router/routes'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
+import { Bus } from '@/js/helpers/event-bus'
 
 export default {
   name: 'booking',
@@ -61,6 +62,13 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
     ]),
+  },
+
+  methods: {
+    closeDrawerAndUpdateList () {
+      this.isBookingFormDrawerShown = false
+      Bus.emit('booking:updateList')
+    },
   },
 }
 </script>

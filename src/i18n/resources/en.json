@@ -119,6 +119,7 @@
       "field-error_selectedInternalSameType": "Not allowed duplicated Internal type",
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
       "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email or phone number or telegram username",
+      "field-error_emailOrPhoneNumber": "This field should be a valid email or phone number",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
@@ -1649,7 +1650,9 @@
       "can-not-load-data": "There was an error while loading data for booking",
       "no-free-places": "No free places",
       "wait-space": "Wait until space is available",
-      "choose-time": "Choose the time and number of seats to find the right room"
+      "choose-time": "Choose the time and number of seats to find the right room",
+      "customer": "Сustomer email or phone",
+      "customer-note": "Phone number without '+'"
     },
     "booking-explorer": {
       "loading-error-msg": "There was an error while loading.",

@@ -159,8 +159,8 @@ export default {
 
   methods: {
     listen () {
-      Bus.on('cusromers:updateList', () => {
-        this.reloadList()
+      Bus.on('booking:updateList', () => {
+        this.loadFreeAndBusyPlaces()
       })
     },
     async loadFreeAndBusyPlaces () {

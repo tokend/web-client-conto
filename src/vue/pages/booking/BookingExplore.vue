@@ -123,7 +123,7 @@ export default {
 
   methods: {
     listen () {
-      Bus.on('customers:updateList', () => {
+      Bus.on('booking:updateList', () => {
         this.reloadList()
       })
     },
