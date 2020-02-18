@@ -119,6 +119,7 @@
       "field-error_selectedInternalSameType": "Не могут быть выбраны два способа оплаты с типом внутренний платеж",
       "field-error_validatePhoneNumber": "Неверный номер телефона",
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл или имя пользователя телеграм или номер телефона",
+      "field-error_emailOrPhoneNumber": "Неверный имейл или номер телефона",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
@@ -1646,7 +1647,9 @@
       "no-free-places": "Нет свободных мест",
       "wait-space": "Подождите, пока освободится место",
       "choose-time": "Выберите время и количество мест для поиска подходящей комнаты",
-      "can-not-load-data": "При загрузке данных для бронирования произошла ошибка"
+      "can-not-load-data": "При загрузке данных для бронирования произошла ошибка",
+      "customer": "Имейл или телефон клиента",
+      "customer-note": "Номер телефона без «+»"
     },
     "booking-explorer": {
       "loading-error-msg": "Произошла ошибка при загрузке.",
