@@ -1,6 +1,14 @@
 <template>
   <div class="atomic-swaps">
     <top-bar>
+      <template v-if="isAccountCorporate" slot="main">
+        <router-link :to="vueRoutes.bookingExplore">
+          <span>{{ 'booking.explore-tab' | globalize }}</span>
+        </router-link>
+        <router-link :to="vueRoutes.bookingSchedule">
+          <span>{{ 'booking.schedule-tab' | globalize }}</span>
+        </router-link>
+      </template>
       <template slot="extra">
         <button
           v-ripple
@@ -32,9 +40,12 @@
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
 import BookingForm from '@/vue/forms/BookingForm'
+import { vueRoutes } from '@/vue-router/routes'
+import { vuexTypes } from '@/vuex'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: 'atomic-swaps',
+  name: 'booking',
   components: {
     TopBar,
     Drawer,
@@ -43,15 +54,13 @@ export default {
 
   data: () => ({
     isBookingFormDrawerShown: false,
+    vueRoutes,
   }),
 
   computed: {
-  },
-
-  methods: {
+    ...mapGetters([
+      vuexTypes.isAccountCorporate,
+    ]),
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

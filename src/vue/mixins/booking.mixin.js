@@ -158,20 +158,17 @@ export default {
       }
     },
 
-    async freebusy (calendarId, startTime, endTime) {
+    async freebusy (calendarId, startTime, endTime, room) {
       try {
         const response = await api
-          .get(`/integrations/scheduler/calendar/${calendarId}/freebusy`, {
-            filter: {
-              payload: 'room1',
-              limit: 100,
-              'start-time': startTime,
-              'end-time': endTime,
-            },
+          .get(`/integrations/scheduler/calendars/${calendarId}/freebusy`, {
+            payload: room,
+            'start-time': DateUtil.toTimestamp(startTime),
+            'end-time': DateUtil.toTimestamp(endTime),
           })
         return response
       } catch (e) {
-
+        ErrorHandler.processWithoutFeedback(e)
       }
     },
 

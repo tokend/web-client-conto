@@ -40,6 +40,7 @@ import SuccessfulPayment from '@/vue/pages/SuccessfulPayment'
 import FailedPayment from '@/vue/pages/FailedPayment'
 import Booking from '@/vue/pages/Booking'
 import BookingExplore from '@/vue/pages/booking/BookingExplore'
+import BookingSchedule from '@/vue/pages/booking/BookingSchedule'
 
 Vue.use(Router)
 
@@ -386,6 +387,15 @@ const router = new Router({
               name: vueRoutes.bookingExplore.name,
               component: BookingExplore,
               beforeEnter: inAppRouteGuard,
+            },
+            {
+              path: '/booking/schedule',
+              name: vueRoutes.bookingSchedule.name,
+              component: BookingSchedule,
+              beforeEnter: inAppRouteGuard,
+              meta: {
+                isCorporateOnly: true,
+              },
             },
           ],
         },
