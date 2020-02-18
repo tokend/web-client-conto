@@ -33,7 +33,35 @@
             />
           </div>
         </div>
-        <div>dsc</div>
+        <div class="app__table app__table--with-shadow booking-schedule__table">
+          <table>
+            <thead>
+              <tr>
+                <th :title="'booking-schedule.time-th' | globalize">
+                  {{ 'booking-schedule.time-th' | globalize }}
+                </th>
+                <th :title="'booking-schedule.places-th' | globalize">
+                  {{ 'booking-schedule.places-th' | globalize }}
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                v-for="period in schedule"
+                :key="period.time"
+              >
+                <td :title="period.time">
+                  {{ period.time }}
+                </td>
+
+                <td :title="period.busyPlaces">
+                  {{ period.busyPlaces }} / {{ currentRoom.capacity }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </template>
     </template>
 
@@ -52,6 +80,7 @@ import SelectField from '@/vue/fields/SelectField'
 import DateField from '@/vue/fields/DateField'
 import BookingMixin from '@/vue/mixins/booking.mixin'
 import moment from 'moment'
+import _uniqBy from 'lodash/uniqBy'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
@@ -98,9 +127,14 @@ export default {
       for (let i = START_WORK_HOURS; i < END_WORK_HOURS; i++) {
         arr.push({
           time: `${i}-${i + 1}`,
+          busyPlaces: this.getBusyPlaces(i),
         })
       }
       return arr
+    },
+
+    currentRoom () {
+      return this.business.getRoomById(this.filters.room)
     },
   },
 
@@ -146,6 +180,30 @@ export default {
       }
       this.isLoaded = true
     },
+    getBusyPlaces (hour) {
+      const bookRooms = this.freeAndBusyPlaces.filter(book => {
+        const startPeriod = moment(book.startTime)
+          .set({ hour: hour, minute: 0, second: 0, millisecond: 0 })
+        const endPeriod = moment(book.startTime)
+          .set({ hour: hour + 1, minute: 0, second: 0, millisecond: 0 })
+
+        const bookStart = moment(book.startTime)
+        const bookEnd = moment(book.endTime)
+        if (startPeriod.isBetween(bookStart, bookEnd, null, '[)') ||
+          endPeriod.isBetween(bookStart, bookEnd, null, '(]')) {
+          return true
+        }
+      })
+
+      const events = bookRooms.flatMap(book => book.events || [])
+
+      const eventsWithoutDuplicate = _uniqBy(events, 'id')
+      const busyPlaces = eventsWithoutDuplicate
+        .reduce((count, room) => {
+          return count + room.participants
+        }, 0)
+      return busyPlaces
+    },
   },
 }
 </script>
@@ -180,5 +238,9 @@ $media-small-desktop-custom: 851px;
   @include respond-to(small) {
     flex: 1 0;
   }
+}
+
+.booking-schedule__table {
+  margin-top: 3rem;
 }
 </style>

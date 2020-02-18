@@ -165,6 +165,7 @@ export default {
             payload: room,
             'start-time': DateUtil.toTimestamp(startTime),
             'end-time': DateUtil.toTimestamp(endTime),
+            include: ['events'],
           })
         return response
       } catch (e) {

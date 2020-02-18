@@ -1707,7 +1707,9 @@
       "loading-error-msg": "There was an error while loading.",
       "room-lbl": "Room",
       "date-lbl": "Date",
-      "loading-msg": "Loading..."
+      "loading-msg": "Loading...",
+      "places-th": "Number of seats",
+      "time-th": "Time"
     }
   }
 }
