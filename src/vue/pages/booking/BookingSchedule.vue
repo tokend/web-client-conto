@@ -114,11 +114,11 @@ export default {
 
   computed: {
     startTime () {
-      const startTime = moment(this.filters.date).hour('09').minutes('00')
+      const startTime = moment(this.filters.date).hour(START_WORK_HOURS).minutes('00')
       return startTime.toISOString()
     },
     endTime () {
-      const endTime = moment(this.filters.date).hour('20').minutes('00')
+      const endTime = moment(this.filters.date).hour(END_WORK_HOURS).minutes('00')
       return endTime.toISOString()
     },
 
