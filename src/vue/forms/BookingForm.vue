@@ -158,7 +158,7 @@
         :message-id="'business-viewer.loading-msg'"
       />
     </template>
-    <template>
+    <template v-if="false">
       <button
         @click="createCalendar"
         v-ripple

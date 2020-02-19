@@ -74,7 +74,7 @@ export default {
     ]),
     isBookingBusinessesPage () {
       return this.$route.name === vueRoutes.bookingBusinesses.name
-    }
+    },
   },
 }
 </script>

@@ -1635,7 +1635,8 @@
       "booking-title": "Бронирование",
       "explore-tab": "Бронирование",
       "schedule-tab": "Расписание",
-      "rooms-tab": "Комнаты"
+      "rooms-tab": "Комнаты",
+      "add-room-btn": "Добавить комнату"
     },
     "booking-form": {
       "room-lbl": "Комната",
@@ -1708,6 +1709,25 @@
       "room-lbl": "Комната",
       "date-lbl": "Дата",
       "loading-msg": "Загрузка..."
+    },
+    "booking-business": {
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-rooms-title": "Нет комнат",
+      "no-list-msg": "Здесь будет список комнат",
+      "room-form-header": "Комната"
+    },
+    "room-card": {
+      "capacity": "Размер: {{capacity}}",
+      "price": "Цена: {{amount, money}}{{asset}}",
+      "edit": "Изменить"
+    },
+    "room-form": {
+      "name-lbl": "Имя",
+      "capacity-lbl": "Размер",
+      "price-lbl": "Цена",
+      "logo-url-lbl": "Url картинки",
+      "update-btn": "Обновить",
+      "create-btn": "Создать"
     }
   }
 }

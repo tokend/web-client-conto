@@ -40,7 +40,7 @@ import CardLogo from '@/vue/common/CardLogo'
 import { BookingRoomRecord } from '@/js/records/entities/booking-room.record'
 
 const EVENTS = {
-  edit: 'edit'
+  edit: 'edit',
 }
 
 export default {
