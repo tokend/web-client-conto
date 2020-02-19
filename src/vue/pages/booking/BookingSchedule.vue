@@ -72,9 +72,6 @@
               <tr
                 v-for="period in schedule"
                 :key="period.time"
-                @click="isHaveEmptyPlaces(period.countBusyPlaces) ? bookRoom(period) : ''"
-                class="booking-schedule__table-tr"
-                :class="{'booking-schedule__table-tr--disabled': !isHaveEmptyPlaces(period.countBusyPlaces)}"
               >
                 <!-- eslint-enable max-len -->
                 <td :title="`${period.startTime}-${period.endTime}`">
