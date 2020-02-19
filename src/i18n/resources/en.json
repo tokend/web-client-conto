@@ -1636,7 +1636,9 @@
       "booking-btn": "Booking",
       "booking-title": "Booking",
       "explore-tab": "Explore booking",
-      "schedule-tab": "Schedule"
+      "schedule-tab": "Schedule",
+      "rooms-tab": "Rooms",
+      "add-room-btn": "Add room"
     },
     "booking-form": {
       "room-lbl": "Room",
@@ -1717,6 +1719,25 @@
       "room-schedule": "Schedule: {{startTime}}-{{endTime}}",
       "room-price": "Price: {{amount, money}} {{assetCode}}",
       "room-capacity": "Number of seats: {{capacity}}"
+    },
+    "booking-business": {
+      "loading-error-msg": "There was an error while loading.",
+      "no-rooms-title": "No rooms yet",
+      "no-list-msg": "Here will be the list of rooms",
+      "room-form-header": "Room"
+    },
+    "room-card": {
+      "capacity": "Capacity: {{capacity}}",
+      "price": "Price: {{amount, money}}{{asset}}",
+      "edit": "Edit"
+    },
+    "room-form": {
+      "name-lbl": "Name",
+      "capacity-lbl": "Capacity",
+      "price-lbl": "Price",
+      "logo-url-lbl": "Logo Url",
+      "update-btn": "Update",
+      "create-btn": "Create"
     }
   }
 }
