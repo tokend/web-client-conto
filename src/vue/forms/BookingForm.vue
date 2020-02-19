@@ -13,6 +13,24 @@
           class="app__form"
           @submit.prevent="isFormValid() && showConfirmation()"
         >
+          <template v-if="isAccountCorporate">
+            <div class="app__form-row">
+              <div class="app__form-field">
+                <input-field
+                  v-model="form.customer"
+                  @blur="touchField('form.customer')"
+                  name="customer"
+                  :error-message="getFieldErrorMessage('form.customer')"
+                  :label="'booking-form.customer' | globalize"
+                  :disabled="formMixin.isDisabled"
+                />
+                <p class="booking__customer-note">
+                  {{ 'booking-form.customer-note' | globalize }}
+                </p>
+              </div>
+            </div>
+          </template>
+
           <div class="app__form-row">
             <div class="app__form-field">
               <booking-date-field
@@ -231,26 +249,33 @@ import ReadonlyField from '@/vue/fields/ReadonlyField'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
-
 import FormMixin from '@/vue/mixins/form.mixin'
 import BookingMixin from '@/vue/mixins/booking.mixin'
-
 import moment from 'moment'
+import debounce from 'lodash/debounce'
+import _isEmpty from 'lodash/isEmpty'
 
 import {
   required,
   amountRange,
   minDate,
+  requiredIf,
+  emailOrPhoneNumber,
 } from '@validators'
-import debounce from 'lodash/debounce'
 import { formatMoney } from '@/vue/filters/formatMoney'
 import { MathUtil } from '@/js/utils'
 import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 const MIN_PLACE = 1
 const MAX_PLACE = 58
 const SIXTY_MINUTES = 60
+
+const EVENTS = {
+  createdBooking: 'created-booking',
+}
 
 export default {
   name: 'booking-form',
@@ -261,7 +286,9 @@ export default {
     ErrorMessage,
   },
   mixins: [FormMixin, BookingMixin],
-  props: {},
+  props: {
+    period: { type: Object, default: () => {} },
+  },
   data () {
     return {
       moment,
@@ -277,6 +304,7 @@ export default {
         endTime: '',
         numberSeats: '1',
         room: '',
+        customer: '',
       },
       isFormSubmitting: false,
     }
@@ -296,6 +324,10 @@ export default {
           required,
           amountRange: amountRange(MIN_PLACE, MAX_PLACE),
         },
+        customer: {
+          required: requiredIf(function () { return this.isAccountCorporate }),
+          emailOrPhoneNumber: this.isAccountCorporate ? emailOrPhoneNumber : {},
+        },
       },
       totalSelectedTimeInMinutes: {
         minBookingTime: () => this.isSelectedTimeMoreThanMinDuration,
@@ -304,6 +336,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      vuexTypes.isAccountCorporate,
+    ]),
+
     selectKey () {
       return this.freeRooms.join('') || 'select-room'
     },
@@ -354,6 +390,9 @@ export default {
       // eslint-disable-next-line max-len
       return this.business.maxDurationInMinutes >= this.totalSelectedTimeInMinutes
     },
+    isPeriodExists () {
+      return !_isEmpty(this.period)
+    },
   },
   watch: {
     'form.numberSeats' (value) {
@@ -369,8 +408,10 @@ export default {
   },
   async created () {
     await this.getBusiness()
-  },
-  destroyed () {
+    if (this.isPeriodExists) {
+      this.form.startTime = this.period.start.toISOString()
+      this.form.endTime = this.period.end.toISOString()
+    }
   },
   methods: {
     async submit () {
@@ -383,22 +424,27 @@ export default {
           this.form.room.id,
           this.form.startTime,
           this.form.endTime,
+          this.form.customer
         )
 
-        const paymentAddress = await this.getPaymentAddress()
+        if (this.isAccountCorporate) {
+          this.$emit(EVENTS.createdBooking)
+        } else {
+          const paymentAddress = await this.getPaymentAddress()
 
-        const subject = JSON.stringify({
-          'booking_id': Number(bookEvent.id),
-          'reference': bookEvent.reference,
-        })
-        const { data: escow } = await this.createEscow(
-          bookEvent.amount,
-          this.business.paymentMethod,
-          paymentAddress,
-          this.form.room.price.asset,
-          subject
-        )
-        window.location.href = escow.invoice.payUrl
+          const subject = JSON.stringify({
+            'booking_id': Number(bookEvent.id),
+            'reference': bookEvent.reference,
+          })
+          const { data: escow } = await this.createEscow(
+            bookEvent.amount,
+            this.business.paymentMethod,
+            paymentAddress,
+            this.form.room.price.asset,
+            subject
+          )
+          window.location.href = escow.invoice.payUrl
+        }
       } catch (e) {
         ErrorHandler.process(e)
       }
@@ -462,5 +508,9 @@ export default {
     color: $col-accent;
     margin-top: 0.4rem;
     font-size: 1.2rem;
+  }
+
+  .booking__customer-note {
+    opacity: 0.5;
   }
 </style>

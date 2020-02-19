@@ -75,7 +75,7 @@ export default {
 
     async updateBusinesses (calendarId, bisinessId) {
       try {
-        const response = await api.patch(
+        const response = await api.patchWithSignature(
           `/integrations/booking/businesses/${bisinessId}`,
           {
             data: {
@@ -86,7 +86,7 @@ export default {
               details: DETAILS,
               booking: {
                 specific_details: SPECIFIC_DETAILS,
-                confirmation_types: [0],
+                confirmation_types: [0, 1],
                 min_duration: MIN_DURATION,
                 max_duration: MAX_DURATION,
               },
@@ -108,7 +108,7 @@ export default {
             details: DETAILS,
             booking: {
               specific_details: SPECIFIC_DETAILS,
-              confirmation_types: [0],
+              confirmation_types: [0, 1],
               min_duration: MIN_DURATION,
               max_duration: MAX_DURATION,
             },
@@ -132,18 +132,30 @@ export default {
       participants,
       room,
       startTime,
-      endTime
+      endTime,
+      customer
     ) {
       const response = await api
         .post(`/integrations/booking/businesses/${businessId}/bookings`, {
           data: {
-            'confirmation_type': 0,
+            'confirmation_type': customer ? 1 : 0,
             'payload': room,
             'source': this.accountId,
             'start_time': moment(startTime).toISOString(),
             'end_time': moment(endTime).toISOString(),
             'participants': +participants,
-            'details': {},
+            ...(customer
+              ? {
+                'details': { customer },
+                'state': {
+                  value: 1,
+                  name: 'accepted',
+                },
+              }
+              : {
+                'details': {},
+              }
+            ),
           },
         })
       return response
@@ -165,6 +177,7 @@ export default {
             payload: room,
             'start-time': DateUtil.toTimestamp(startTime),
             'end-time': DateUtil.toTimestamp(endTime),
+            include: ['events'],
           })
         return response
       } catch (e) {

@@ -119,6 +119,7 @@
       "field-error_selectedInternalSameType": "Не могут быть выбраны два способа оплаты с типом внутренний платеж",
       "field-error_validatePhoneNumber": "Неверный номер телефона",
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл или имя пользователя телеграм или номер телефона",
+      "field-error_emailOrPhoneNumber": "Неверный имейл или номер телефона",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",
@@ -1649,7 +1650,9 @@
       "no-free-places": "Нет свободных мест",
       "wait-space": "Подождите, пока освободится место",
       "choose-time": "Выберите время и количество мест для поиска подходящей комнаты",
-      "can-not-load-data": "При загрузке данных для бронирования произошла ошибка"
+      "can-not-load-data": "При загрузке данных для бронирования произошла ошибка",
+      "customer": "Имейл или телефон клиента",
+      "customer-note": "Номер телефона без «+»"
     },
     "booking-explorer": {
       "loading-error-msg": "Произошла ошибка при загрузке.",
@@ -1665,7 +1668,8 @@
       "to-lbl": "По",
       "participants-lbl": "Количество мест",
       "qr-code-btn": "QR код",
-      "price-lbl": "Цена: {{amount, money}} {{asset}}"
+      "price-lbl": "Цена: {{amount, money}} {{asset}}",
+      "email-or-phone-customer-lbl": "Имейл или телефон клиента"
     },
     "assets-movements": {
       "asset-filter-label": "Актив"
@@ -1707,7 +1711,12 @@
       "loading-error-msg": "Произошла ошибка при загрузке.",
       "room-lbl": "Комната",
       "date-lbl": "Дата",
-      "loading-msg": "Загрузка..."
+      "loading-msg": "Загрузка...",
+      "places-th": "Количество мест",
+      "time-th": "Время",
+      "room-schedule": "График работы: {{startTime}}-{{endTime}}",
+      "room-price": "Цена: {{amount, money}} {{assetCode}}",
+      "room-capacity": "Количество мест: {{capacity}}"
     }
   }
 }

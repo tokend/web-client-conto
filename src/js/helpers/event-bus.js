@@ -80,6 +80,8 @@ export class EventBus extends Vue {
       atomicSwapsUpdateList: 'atomicSwaps:updateList',
       updateAccountRole: 'updateAccountRole',
       promoCodesUpdateList: 'promoCodes:updateList',
+      bookingUpdateList: 'booking:updateList',
+      bookingBookRoom: 'booking:bookRoom',
     }
   }
 
