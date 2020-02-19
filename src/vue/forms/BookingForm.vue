@@ -253,6 +253,7 @@ import FormMixin from '@/vue/mixins/form.mixin'
 import BookingMixin from '@/vue/mixins/booking.mixin'
 import moment from 'moment'
 import debounce from 'lodash/debounce'
+import _isEmpty from 'lodash/isEmpty'
 
 import {
   required,
@@ -285,7 +286,9 @@ export default {
     ErrorMessage,
   },
   mixins: [FormMixin, BookingMixin],
-  props: {},
+  props: {
+    period: { type: Object, default: () => {} },
+  },
   data () {
     return {
       moment,
@@ -387,6 +390,9 @@ export default {
       // eslint-disable-next-line max-len
       return this.business.maxDurationInMinutes >= this.totalSelectedTimeInMinutes
     },
+    isPeriodExists () {
+      return !_isEmpty(this.period)
+    },
   },
   watch: {
     'form.numberSeats' (value) {
@@ -402,8 +408,10 @@ export default {
   },
   async created () {
     await this.getBusiness()
-  },
-  destroyed () {
+    if (this.isPeriodExists) {
+      this.form.startTime = this.period.start.toISOString()
+      this.form.endTime = this.period.end.toISOString()
+    }
   },
   methods: {
     async submit () {

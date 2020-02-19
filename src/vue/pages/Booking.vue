@@ -29,6 +29,7 @@
       </template>
 
       <booking-form
+        :period="period"
         @created-booking="closeDrawerAndUpdateList" />
     </drawer>
 
@@ -54,6 +55,7 @@ export default {
   },
 
   data: () => ({
+    period: {},
     isBookingFormDrawerShown: false,
     vueRoutes,
   }),
@@ -64,8 +66,16 @@ export default {
     ]),
   },
 
+  created () {
+    Bus.on('booking:bookRoom', payload => {
+      this.period = payload
+      this.isBookingFormDrawerShown = true
+    })
+  },
+
   methods: {
     closeDrawerAndUpdateList () {
+      this.period = {}
       this.isBookingFormDrawerShown = false
       Bus.emit('booking:updateList')
     },

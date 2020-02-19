@@ -52,7 +52,9 @@
             }) }}
           </p>
         </div>
-        <div class="app__table app__table--with-shadow booking-schedule__table">
+        <div
+          class="app__table app__table--with-shadow booking-schedule__table"
+        >
           <table>
             <thead>
               <tr>
@@ -66,16 +68,23 @@
             </thead>
 
             <tbody>
+              <!-- eslint-disable max-len -->
               <tr
                 v-for="period in schedule"
                 :key="period.time"
+                @click="isHaveEmptyPlaces(period.countBusyPlaces) ? bookRoom(period) : ''"
+                class="booking-schedule__table-tr"
+                :class="{'booking-schedule__table-tr--disabled': !isHaveEmptyPlaces(period.countBusyPlaces)}"
               >
-                <td :title="period.time">
-                  {{ period.time }}
+                <!-- eslint-enable max-len -->
+                <td :title="`${period.startTime}-${period.endTime}`">
+                  {{ period.startTime }}-{{ period.endTime }}
                 </td>
 
-                <td :title="`${period.busyPlaces}/${currentRoom.capacity}`">
-                  {{ period.busyPlaces }}/{{ currentRoom.capacity }}
+                <td
+                  :title="`${period.countBusyPlaces}/${currentRoom.capacity}`"
+                >
+                  {{ period.countBusyPlaces }}/{{ currentRoom.capacity }}
                 </td>
               </tr>
             </tbody>
@@ -147,8 +156,9 @@ export default {
       let arr = []
       for (let i = START_WORK_HOURS; i < END_WORK_HOURS; i++) {
         arr.push({
-          time: `${i}-${i + 1}`,
-          busyPlaces: this.getBusyPlaces(i),
+          startTime: i,
+          endTime: i + 1,
+          countBusyPlaces: this.getCountBusyPlaces(i),
         })
       }
       return arr
@@ -202,13 +212,9 @@ export default {
       }
       this.isLoaded = true
     },
-    getBusyPlaces (hour) {
+    getCountBusyPlaces (hour) {
       const timelines = this.freeAndBusyPlaces.filter(book => {
-        const startPeriod = moment(book.startTime)
-          .set({ hour: hour, minute: 0, second: 0, millisecond: 0 })
-        const endPeriod = moment(book.startTime)
-          .set({ hour: hour + 1, minute: 0, second: 0, millisecond: 0 })
-
+        const { start: startPeriod, end: endPeriod } = this.getPeriodTime(hour)
         const bookStart = moment(book.startTime)
         const bookEnd = moment(book.endTime)
         if (startPeriod.isBetween(bookStart, bookEnd, null, '[)') ||
@@ -225,6 +231,27 @@ export default {
           return count + event.participants
         }, 0)
       return countBusyPlaces
+    },
+
+    isHaveEmptyPlaces (countBusyPlaces) {
+      return countBusyPlaces < this.currentRoom.capacity
+    },
+
+    getPeriodTime (hour) {
+      const startPeriod = moment(this.filters.date)
+        .set({ hour: hour, minute: 0, second: 0, millisecond: 0 })
+      const endPeriod = moment(this.filters.date)
+        .set({ hour: hour + 1, minute: 0, second: 0, millisecond: 0 })
+
+      return {
+        start: startPeriod,
+        end: endPeriod,
+      }
+    },
+
+    bookRoom (period) {
+      const time = this.getPeriodTime(period.startTime)
+      Bus.emit('booking:bookRoom', time)
     },
   },
 }
@@ -275,6 +302,14 @@ $media-small-desktop-custom: 851px;
 
   p {
     font-size: 1.6rem;
+  }
+}
+
+.booking-schedule__table-tr {
+  cursor: pointer;
+
+  &--disabled {
+    cursor: not-allowed;
   }
 }
 </style>
