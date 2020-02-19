@@ -60,7 +60,7 @@ export class BookingBusinessRecord {
     this.rooms.forEach(item => {
       details[item.id] = {
         price: item.price,
-        capacity: item.capacity,
+        capacity: +item.capacity,
       }
     })
     return details
