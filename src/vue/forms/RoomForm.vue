@@ -102,10 +102,7 @@
       <div class="app__form-actions">
         <form-confirmation
           v-if="formMixin.isConfirmationShown"
-          message-id="assets.delete-asset-message"
-          ok-button-text-id="assets.delete-btn"
           :is-pending="isPending"
-          is-danger-color
           @ok="submit"
           @cancel="hideConfirmation"
         />

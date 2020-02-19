@@ -95,10 +95,12 @@ export default {
       }
     },
   },
-  async created () {
+  mounted () {
     Bus.on('booking:showAddRoomForm', () => {
       this.isRoomFormShown = true
     })
+  },
+  async created () {
     this.getList()
   },
   destroyed () {
@@ -109,7 +111,7 @@ export default {
       this.isLoaded = false
       this.isLoadFailed = false
       try {
-        const { data } = await await api
+        const { data } = await api
           .get(`/integrations/booking/businesses/${this.businessId}`)
         this.business = new BookingBusinessRecord(data)
       } catch (e) {
