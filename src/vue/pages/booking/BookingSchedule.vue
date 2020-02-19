@@ -33,6 +33,25 @@
             />
           </div>
         </div>
+        <div class="booking-schedule__room-info">
+          <p>
+            {{ 'booking-schedule.room-schedule' | globalize({
+              startTime: START_WORK_HOURS,
+              endTime: END_WORK_HOURS
+            }) }}
+          </p>
+          <p>
+            {{ 'booking-schedule.room-price' | globalize({
+              amount: currentRoom.price.amount,
+              assetCode: currentRoom.price.asset
+            }) }}
+          </p>
+          <p>
+            {{ 'booking-schedule.room-capacity' | globalize({
+              capacity: currentRoom.capacity,
+            }) }}
+          </p>
+        </div>
         <div class="app__table app__table--with-shadow booking-schedule__table">
           <table>
             <thead>
@@ -109,6 +128,8 @@ export default {
       isLoaded: false,
       isLoadFailed: false,
       moment,
+      END_WORK_HOURS,
+      START_WORK_HOURS,
     }
   },
 
@@ -246,6 +267,14 @@ $media-small-desktop-custom: 851px;
 
   table tbody tr td {
     width: 50%;
+  }
+}
+
+.booking-schedule__room-info {
+  margin-top: 3rem;
+
+  p {
+    font-size: 1.6rem;
   }
 }
 </style>

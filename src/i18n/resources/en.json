@@ -1713,7 +1713,10 @@
       "date-lbl": "Date",
       "loading-msg": "Loading...",
       "places-th": "Number of seats",
-      "time-th": "Time"
+      "time-th": "Time",
+      "room-schedule": "Schedule: {{startTime}}-{{endTime}}",
+      "room-price": "Price: {{amount, money}} {{assetCode}}",
+      "room-capacity": "Number of seats: {{capacity}}"
     }
   }
 }

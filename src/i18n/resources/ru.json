@@ -1712,7 +1712,10 @@
       "date-lbl": "Дата",
       "loading-msg": "Загрузка...",
       "places-th": "Количество мест",
-      "time-th": "Время"
+      "time-th": "Время",
+      "room-schedule": "График работы: {{startTime}}-{{endTime}}",
+      "room-price": "Цена: {{amount, money}} {{assetCode}}",
+      "room-capacity": "Количество мест: {{capacity}}"
     }
   }
 }
