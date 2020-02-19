@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
-## [Unreleased]
+## [1.1.0-rcunitcity.17] - 2020-02-19
 #### Added
 - Schedule
 
@@ -483,7 +483,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.16...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.17...HEAD
+[1.1.0-rcunitcity.17]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.16...1.1.0-rcunitcity.17
 [1.1.0-rcunitcity.16]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.15...1.1.0-rcunitcity.16
 [1.1.0-rcunitcity.15]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.14...1.1.0-rcunitcity.15
 [1.1.0-rcunitcity.14]: https://github.com/tokend/web-client/compare/1.1.0-rcunitcity.13...1.1.0-rcunitcity.14
