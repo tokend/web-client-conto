@@ -55,8 +55,8 @@
                   {{ period.time }}
                 </td>
 
-                <td :title="period.busyPlaces">
-                  {{ period.busyPlaces }} / {{ currentRoom.capacity }}
+                <td :title="`${period.busyPlaces}/${currentRoom.capacity}`">
+                  {{ period.busyPlaces }}/{{ currentRoom.capacity }}
                 </td>
               </tr>
             </tbody>
@@ -149,6 +149,7 @@ export default {
 
   async created () {
     try {
+      this.listen()
       const business = await this.getBusinessById(1)
       this.business = new BookingBusinessRecord(business)
       this.filters.room = this.business.rooms[0].id
@@ -181,7 +182,7 @@ export default {
       this.isLoaded = true
     },
     getBusyPlaces (hour) {
-      const bookRooms = this.freeAndBusyPlaces.filter(book => {
+      const timelines = this.freeAndBusyPlaces.filter(book => {
         const startPeriod = moment(book.startTime)
           .set({ hour: hour, minute: 0, second: 0, millisecond: 0 })
         const endPeriod = moment(book.startTime)
@@ -195,14 +196,14 @@ export default {
         }
       })
 
-      const events = bookRooms.flatMap(book => book.events || [])
+      const events = timelines.flatMap(timeline => timeline.events || [])
 
       const eventsWithoutDuplicate = _uniqBy(events, 'id')
-      const busyPlaces = eventsWithoutDuplicate
-        .reduce((count, room) => {
-          return count + room.participants
+      const countBusyPlaces = eventsWithoutDuplicate
+        .reduce((count, event) => {
+          return count + event.participants
         }, 0)
-      return busyPlaces
+      return countBusyPlaces
     },
   },
 }
@@ -242,5 +243,9 @@ $media-small-desktop-custom: 851px;
 
 .booking-schedule__table {
   margin-top: 3rem;
+
+  table tbody tr td {
+    width: 50%;
+  }
 }
 </style>

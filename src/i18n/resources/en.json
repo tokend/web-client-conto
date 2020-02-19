@@ -1668,7 +1668,8 @@
       "to-lbl": "To",
       "participants-lbl": "Participants",
       "qr-code-btn": "QR code",
-      "price-lbl": "Price: {{amount, money}} {{asset}}"
+      "price-lbl": "Price: {{amount, money}} {{asset}}",
+      "email-or-phone-customer-lbl": "Customer email or phone"
     },
     "assets-movements": {
       "asset-filter-label": "Asset"

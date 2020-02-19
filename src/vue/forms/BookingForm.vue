@@ -13,7 +13,7 @@
           class="app__form"
           @submit.prevent="isFormValid() && showConfirmation()"
         >
-          <template v-if="isBusinessOwner">
+          <template v-if="isAccountCorporate">
             <div class="app__form-row">
               <div class="app__form-field">
                 <input-field
@@ -322,8 +322,8 @@ export default {
           amountRange: amountRange(MIN_PLACE, MAX_PLACE),
         },
         customer: {
-          required: requiredIf(function () { return this.isBusinessOwner }),
-          emailOrPhoneNumber: this.isBusinessOwner ? emailOrPhoneNumber : {},
+          required: requiredIf(function () { return this.isAccountCorporate }),
+          emailOrPhoneNumber: this.isAccountCorporate ? emailOrPhoneNumber : {},
         },
       },
       totalSelectedTimeInMinutes: {
@@ -334,7 +334,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      vuexTypes.accountId,
+      vuexTypes.isAccountCorporate,
     ]),
 
     selectKey () {
@@ -387,9 +387,6 @@ export default {
       // eslint-disable-next-line max-len
       return this.business.maxDurationInMinutes >= this.totalSelectedTimeInMinutes
     },
-    isBusinessOwner () {
-      return this.accountId === this.business.owner
-    },
   },
   watch: {
     'form.numberSeats' (value) {
@@ -422,7 +419,7 @@ export default {
           this.form.customer
         )
 
-        if (this.isBusinessOwner) {
+        if (this.isAccountCorporate) {
           this.$emit(EVENTS.createdBooking)
         } else {
           const paymentAddress = await this.getPaymentAddress()

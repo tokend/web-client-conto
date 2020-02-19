@@ -20,7 +20,10 @@
         {{ 'booking-card.price-lbl' | globalize({
           amount: bookingRecord.amount,
           asset: bookingRecord.assetCode
-        }) }}
+        }) }}<br>
+        <template v-if="bookingRecord.customer">
+          {{ 'booking-card.email-or-phone-customer-lbl' | globalize }}: {{ bookingRecord.customer }}
+        </template>
         <!-- eslint-enable max-len -->
       </template>
       <template slot="actions">

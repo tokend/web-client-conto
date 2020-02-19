@@ -1,4 +1,5 @@
 import _isEmpty from 'lodash/isEmpty'
+import _get from 'lodash/get'
 import { amountToPrecision } from '@/js/helpers/amount'
 
 export class BookingRecord {
@@ -19,6 +20,7 @@ export class BookingRecord {
     this.lockTime = record.lockTime
     this.state = record.state
     this.reference = record.reference
+    this.customer = _get(record, 'details.customer')
   }
 
   getRoom (business) {

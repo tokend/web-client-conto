@@ -1667,7 +1667,8 @@
       "to-lbl": "По",
       "participants-lbl": "Количество мест",
       "qr-code-btn": "QR код",
-      "price-lbl": "Цена: {{amount, money}} {{asset}}"
+      "price-lbl": "Цена: {{amount, money}} {{asset}}",
+      "email-or-phone-customer-lbl": "Имейл или телефон клиента"
     },
     "assets-movements": {
       "asset-filter-label": "Актив"
