@@ -75,7 +75,7 @@ export default {
 
     async updateBusinesses (calendarId, bisinessId) {
       try {
-        const response = await api.patch(
+        const response = await api.patchWithSignature(
           `/integrations/booking/businesses/${bisinessId}`,
           {
             data: {
@@ -86,7 +86,7 @@ export default {
               details: DETAILS,
               booking: {
                 specific_details: SPECIFIC_DETAILS,
-                confirmation_types: [0],
+                confirmation_types: [0, 1],
                 min_duration: MIN_DURATION,
                 max_duration: MAX_DURATION,
               },
@@ -108,7 +108,7 @@ export default {
             details: DETAILS,
             booking: {
               specific_details: SPECIFIC_DETAILS,
-              confirmation_types: [0],
+              confirmation_types: [0, 1],
               min_duration: MIN_DURATION,
               max_duration: MAX_DURATION,
             },
@@ -138,7 +138,7 @@ export default {
       const response = await api
         .post(`/integrations/booking/businesses/${businessId}/bookings`, {
           data: {
-            'confirmation_type': 0,
+            'confirmation_type': customer ? 1 : 0,
             'payload': room,
             'source': this.accountId,
             'start_time': moment(startTime).toISOString(),
@@ -170,20 +170,18 @@ export default {
       }
     },
 
-    async freebusy (calendarId, startTime, endTime) {
+    async freebusy (calendarId, startTime, endTime, room) {
       try {
         const response = await api
-          .get(`/integrations/scheduler/calendar/${calendarId}/freebusy`, {
-            filter: {
-              payload: 'room1',
-              limit: 100,
-              'start-time': startTime,
-              'end-time': endTime,
-            },
+          .get(`/integrations/scheduler/calendars/${calendarId}/freebusy`, {
+            payload: room,
+            'start-time': DateUtil.toTimestamp(startTime),
+            'end-time': DateUtil.toTimestamp(endTime),
+            include: ['events'],
           })
         return response
       } catch (e) {
-
+        ErrorHandler.processWithoutFeedback(e)
       }
     },
 

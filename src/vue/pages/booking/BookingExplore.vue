@@ -26,7 +26,6 @@
 
         <template v-else>
           <no-data-message
-            class="atomic-swaps-explore__no-data-message"
             icon-name="calendar-multiselect"
             :title="'booking-explorer.no-booking-title' | globalize"
             :message="'booking-explorer.no-list-msg' | globalize"
@@ -41,7 +40,6 @@
     <div class="booking-explorer__collection-loader">
       <collection-loader
         v-if="isBusinessLoaded"
-        class="atomic-swaps-explore__loader"
         :first-page-loader="getList"
         @first-page-load="setList"
         @next-page-load="concatList"
@@ -119,6 +117,10 @@ export default {
       ErrorHandler.processWithoutFeedback(e)
     }
     this.isBusinessLoaded = true
+  },
+
+  destroyed () {
+    Bus.resetEvent('booking:updateList')
   },
 
   methods: {

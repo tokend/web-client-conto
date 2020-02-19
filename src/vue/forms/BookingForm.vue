@@ -13,7 +13,7 @@
           class="app__form"
           @submit.prevent="isFormValid() && showConfirmation()"
         >
-          <template v-if="isBusinessOwner">
+          <template v-if="isAccountCorporate">
             <div class="app__form-row">
               <div class="app__form-field">
                 <input-field
@@ -253,6 +253,7 @@ import FormMixin from '@/vue/mixins/form.mixin'
 import BookingMixin from '@/vue/mixins/booking.mixin'
 import moment from 'moment'
 import debounce from 'lodash/debounce'
+import _isEmpty from 'lodash/isEmpty'
 
 import {
   required,
@@ -285,7 +286,9 @@ export default {
     ErrorMessage,
   },
   mixins: [FormMixin, BookingMixin],
-  props: {},
+  props: {
+    period: { type: Object, default: () => {} },
+  },
   data () {
     return {
       moment,
@@ -322,8 +325,8 @@ export default {
           amountRange: amountRange(MIN_PLACE, MAX_PLACE),
         },
         customer: {
-          required: requiredIf(function () { return this.isBusinessOwner }),
-          emailOrPhoneNumber: this.isBusinessOwner ? emailOrPhoneNumber : {},
+          required: requiredIf(function () { return this.isAccountCorporate }),
+          emailOrPhoneNumber: this.isAccountCorporate ? emailOrPhoneNumber : {},
         },
       },
       totalSelectedTimeInMinutes: {
@@ -334,7 +337,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      vuexTypes.accountId,
+      vuexTypes.isAccountCorporate,
     ]),
 
     selectKey () {
@@ -387,8 +390,8 @@ export default {
       // eslint-disable-next-line max-len
       return this.business.maxDurationInMinutes >= this.totalSelectedTimeInMinutes
     },
-    isBusinessOwner () {
-      return this.accountId === this.business.owner
+    isPeriodExists () {
+      return !_isEmpty(this.period)
     },
   },
   watch: {
@@ -405,8 +408,10 @@ export default {
   },
   async created () {
     await this.getBusiness()
-  },
-  destroyed () {
+    if (this.isPeriodExists) {
+      this.form.startTime = this.period.start.toISOString()
+      this.form.endTime = this.period.end.toISOString()
+    }
   },
   methods: {
     async submit () {
@@ -422,7 +427,7 @@ export default {
           this.form.customer
         )
 
-        if (this.isBusinessOwner) {
+        if (this.isAccountCorporate) {
           this.$emit(EVENTS.createdBooking)
         } else {
           const paymentAddress = await this.getPaymentAddress()

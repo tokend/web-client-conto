@@ -1,8 +1,28 @@
 <template>
   <div class="atomic-swaps">
     <top-bar>
+      <template v-if="isAccountCorporate" slot="main">
+        <router-link :to="vueRoutes.bookingExplore">
+          <span>{{ 'booking.explore-tab' | globalize }}</span>
+        </router-link>
+        <router-link :to="vueRoutes.bookingSchedule">
+          <span>{{ 'booking.schedule-tab' | globalize }}</span>
+        </router-link>
+        <router-link :to="vueRoutes.bookingBusinesses">
+          <span>{{ 'booking.rooms-tab' | globalize }}</span>
+        </router-link>
+      </template>
       <template slot="extra">
         <button
+          v-ripple
+          v-if="isBookingBusinessesPage && isAccountCorporate"
+          class="app__button-raised"
+          @click="showAddRoomForm"
+        >
+          {{ 'booking.add-room-btn' | globalize }}
+        </button>
+        <button
+          v-else
           v-ripple
           class="app__button-raised"
           @click="isBookingFormDrawerShown = true"
@@ -21,6 +41,7 @@
       </template>
 
       <booking-form
+        :period="period"
         @created-booking="closeDrawerAndUpdateList" />
     </drawer>
 
@@ -32,10 +53,13 @@
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
 import BookingForm from '@/vue/forms/BookingForm'
+import { vueRoutes } from '@/vue-router/routes'
+import { vuexTypes } from '@/vuex'
+import { mapGetters } from 'vuex'
 import { Bus } from '@/js/helpers/event-bus'
 
 export default {
-  name: 'atomic-swaps',
+  name: 'booking',
   components: {
     TopBar,
     Drawer,
@@ -43,17 +67,40 @@ export default {
   },
 
   data: () => ({
+    period: {},
     isBookingFormDrawerShown: false,
+    vueRoutes,
   }),
+
+  computed: {
+    ...mapGetters([
+      vuexTypes.isAccountCorporate,
+    ]),
+    isBookingBusinessesPage () {
+      return this.$route.name === vueRoutes.bookingBusinesses.name
+    },
+  },
+
+  created () {
+    Bus.on('booking:bookRoom', payload => {
+      this.period = payload
+      this.isBookingFormDrawerShown = true
+    })
+  },
+
+  destroyed () {
+    Bus.resetEvent('booking:bookRoom')
+  },
 
   methods: {
     closeDrawerAndUpdateList () {
+      this.period = {}
       this.isBookingFormDrawerShown = false
       Bus.emit('booking:updateList')
+    },
+    showAddRoomForm () {
+      Bus.emit('booking:showAddRoomForm')
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

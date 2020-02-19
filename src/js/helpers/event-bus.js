@@ -81,6 +81,8 @@ export class EventBus extends Vue {
       updateAccountRole: 'updateAccountRole',
       promoCodesUpdateList: 'promoCodes:updateList',
       bookingUpdateList: 'booking:updateList',
+      bookingBookRoom: 'booking:bookRoom',
+      bookingShowAddRoomForm: 'booking:showAddRoomForm',
     }
   }
 

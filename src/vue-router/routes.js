@@ -44,4 +44,6 @@ export const vueRoutes = Object.freeze({
   booking: { name: 'app.booking' },
   bookingExplore: { name: 'app.booking-explore' },
   assetsMovements: { name: 'app.assetsMovements' },
+  bookingSchedule: { name: 'app.booking-schedule' },
+  bookingBusinesses: { name: 'app.booking-rooms' },
 })

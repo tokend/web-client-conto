@@ -1634,7 +1634,11 @@
     },
     "booking": {
       "booking-btn": "Booking",
-      "booking-title": "Booking"
+      "booking-title": "Booking",
+      "explore-tab": "Explore booking",
+      "schedule-tab": "Schedule",
+      "rooms-tab": "Rooms",
+      "add-room-btn": "Add room"
     },
     "booking-form": {
       "room-lbl": "Room",
@@ -1666,7 +1670,8 @@
       "to-lbl": "To",
       "participants-lbl": "Participants",
       "qr-code-btn": "QR code",
-      "price-lbl": "Price: {{amount, money}} {{asset}}"
+      "price-lbl": "Price: {{amount, money}} {{asset}}",
+      "email-or-phone-customer-lbl": "Customer email or phone"
     },
     "assets-movements": {
       "asset-filter-label": "Asset"
@@ -1703,6 +1708,36 @@
       "4bill": "Card",
       "coinpayments": "Cryptocurrency",
       "internal": "Bonus"
+    },
+    "booking-schedule": {
+      "loading-error-msg": "There was an error while loading.",
+      "room-lbl": "Room",
+      "date-lbl": "Date",
+      "loading-msg": "Loading...",
+      "places-th": "Number of seats",
+      "time-th": "Time",
+      "room-schedule": "Schedule: {{startTime}}-{{endTime}}",
+      "room-price": "Price: {{amount, money}} {{assetCode}}",
+      "room-capacity": "Number of seats: {{capacity}}"
+    },
+    "booking-business": {
+      "loading-error-msg": "There was an error while loading.",
+      "no-rooms-title": "No rooms yet",
+      "no-list-msg": "Here will be the list of rooms",
+      "room-form-header": "Room"
+    },
+    "room-card": {
+      "capacity": "Capacity: {{capacity}}",
+      "price": "Price: {{amount, money}}{{asset}}",
+      "edit": "Edit"
+    },
+    "room-form": {
+      "name-lbl": "Name",
+      "capacity-lbl": "Capacity",
+      "price-lbl": "Price",
+      "logo-url-lbl": "Logo Url",
+      "update-btn": "Update",
+      "create-btn": "Create"
     }
   }
 }

@@ -1633,7 +1633,11 @@
     },
     "booking": {
       "booking-btn": "Бронирование",
-      "booking-title": "Бронирование"
+      "booking-title": "Бронирование",
+      "explore-tab": "Бронирование",
+      "schedule-tab": "Расписание",
+      "rooms-tab": "Комнаты",
+      "add-room-btn": "Добавить комнату"
     },
     "booking-form": {
       "room-lbl": "Комната",
@@ -1665,7 +1669,8 @@
       "to-lbl": "По",
       "participants-lbl": "Количество мест",
       "qr-code-btn": "QR код",
-      "price-lbl": "Цена: {{amount, money}} {{asset}}"
+      "price-lbl": "Цена: {{amount, money}} {{asset}}",
+      "email-or-phone-customer-lbl": "Имейл или телефон клиента"
     },
     "assets-movements": {
       "asset-filter-label": "Актив"
@@ -1702,6 +1707,36 @@
       "4bill": "Карта",
       "coinpayments": "Криптовалюта",
       "internal": "Бонус"
+    },
+    "booking-schedule": {
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "room-lbl": "Комната",
+      "date-lbl": "Дата",
+      "loading-msg": "Загрузка...",
+      "places-th": "Количество мест",
+      "time-th": "Время",
+      "room-schedule": "График работы: {{startTime}}-{{endTime}}",
+      "room-price": "Цена: {{amount, money}} {{assetCode}}",
+      "room-capacity": "Количество мест: {{capacity}}"
+    },
+    "booking-business": {
+      "loading-error-msg": "Произошла ошибка при загрузке.",
+      "no-rooms-title": "Нет комнат",
+      "no-list-msg": "Здесь будет список комнат",
+      "room-form-header": "Комната"
+    },
+    "room-card": {
+      "capacity": "Размер: {{capacity}}",
+      "price": "Цена: {{amount, money}}{{asset}}",
+      "edit": "Изменить"
+    },
+    "room-form": {
+      "name-lbl": "Имя",
+      "capacity-lbl": "Размер",
+      "price-lbl": "Цена",
+      "logo-url-lbl": "Url картинки",
+      "update-btn": "Обновить",
+      "create-btn": "Создать"
     }
   }
 }
