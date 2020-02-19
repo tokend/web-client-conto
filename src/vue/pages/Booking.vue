@@ -8,6 +8,9 @@
         <router-link :to="vueRoutes.bookingSchedule">
           <span>{{ 'booking.schedule-tab' | globalize }}</span>
         </router-link>
+        <router-link :to="vueRoutes.bookingBusinesses">
+          <span>{{ 'booking.rooms-tab' | globalize }}</span>
+        </router-link>
       </template>
       <template slot="extra">
         <button
@@ -16,6 +19,14 @@
           @click="isBookingFormDrawerShown = true"
         >
           {{ 'booking.booking-btn' | globalize }}
+        </button>
+        <button
+          v-ripple
+          v-if="isBookingBusinessesPage && isAccountCorporate"
+          class="app__button-raised"
+          @click="isBookingFormDrawerShown = true"
+        >
+          {{ 'booking.add-room-btn' | globalize }}
         </button>
       </template>
     </top-bar>
@@ -61,6 +72,9 @@ export default {
     ...mapGetters([
       vuexTypes.isAccountCorporate,
     ]),
+    isBookingBusinessesPage () {
+      return this.$route.name === vueRoutes.bookingBusinesses.name
+    }
   },
 }
 </script>

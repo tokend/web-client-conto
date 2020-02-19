@@ -1634,7 +1634,8 @@
       "booking-btn": "Бронирование",
       "booking-title": "Бронирование",
       "explore-tab": "Бронирование",
-      "schedule-tab": "Расписание"
+      "schedule-tab": "Расписание",
+      "rooms-tab": "Комнаты"
     },
     "booking-form": {
       "room-lbl": "Комната",
