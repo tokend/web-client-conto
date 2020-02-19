@@ -15,18 +15,19 @@
       <template slot="extra">
         <button
           v-ripple
+          v-if="isBookingBusinessesPage && isAccountCorporate"
+          class="app__button-raised"
+          @click="showAddRoomForm"
+        >
+          {{ 'booking.add-room-btn' | globalize }}
+        </button>
+        <button
+          v-else
+          v-ripple
           class="app__button-raised"
           @click="isBookingFormDrawerShown = true"
         >
           {{ 'booking.booking-btn' | globalize }}
-        </button>
-        <button
-          v-ripple
-          v-if="isBookingBusinessesPage && isAccountCorporate"
-          class="app__button-raised"
-          @click="isBookingFormDrawerShown = true"
-        >
-          {{ 'booking.add-room-btn' | globalize }}
         </button>
       </template>
     </top-bar>
@@ -77,7 +78,7 @@ export default {
     ]),
     isBookingBusinessesPage () {
       return this.$route.name === vueRoutes.bookingBusinesses.name
-    }
+    },
   },
 
   created () {
@@ -87,11 +88,18 @@ export default {
     })
   },
 
+  destroyed () {
+    Bus.resetEvent('booking:bookRoom')
+  },
+
   methods: {
     closeDrawerAndUpdateList () {
       this.period = {}
       this.isBookingFormDrawerShown = false
       Bus.emit('booking:updateList')
+    },
+    showAddRoomForm () {
+      Bus.emit('booking:showAddRoomForm')
     },
   },
 }
