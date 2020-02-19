@@ -61,6 +61,7 @@ import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 import { BookingBusinessRecord } from '@/js/records/entities/booking-business.record'
+import { Bus } from '@/js/helpers/event-bus'
 
 export default {
   name: 'booking-businesses',
@@ -87,11 +88,21 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    isRoomFormShown (val) {
+      if (!val) {
+        this.selectedRoom = {}
+      }
+    },
+  },
   async created () {
+    Bus.on('booking:showAddRoomForm', () => {
+      this.isRoomFormShown = true
+    })
     this.getList()
   },
   destroyed () {
+    Bus.resetEvent('booking:showAddRoomForm')
   },
   methods: {
     async getList () {

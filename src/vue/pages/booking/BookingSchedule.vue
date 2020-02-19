@@ -186,6 +186,10 @@ export default {
     }
   },
 
+  destroyed () {
+    Bus.resetEvent('booking:updateList')
+  },
+
   methods: {
     listen () {
       Bus.on('booking:updateList', () => {

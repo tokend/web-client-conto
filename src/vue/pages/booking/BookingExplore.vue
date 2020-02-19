@@ -119,6 +119,10 @@ export default {
     this.isBusinessLoaded = true
   },
 
+  destroyed () {
+    Bus.resetEvent('booking:updateList')
+  },
+
   methods: {
     listen () {
       Bus.on('booking:updateList', () => {
