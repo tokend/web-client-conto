@@ -111,8 +111,8 @@ export default {
     },
 
     step () {
-      return this.assetRecord.trailingDigitsCount
-        ? inputStepByDigitsCount(this.assetRecord.trailingDigitsCount)
+      return this.assetRecord.trailingDigits
+        ? inputStepByDigitsCount(this.assetRecord.trailingDigits)
         : inputStepByDigitsCount(config.DECIMAL_POINTS)
     },
 
