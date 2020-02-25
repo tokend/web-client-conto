@@ -47,6 +47,7 @@ import { vuexTypes } from '@/vuex'
 import config from '@/config'
 import { amountRange, requiredIf } from '@validators'
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
+import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const EVENTS = {
   input: 'input',
@@ -73,7 +74,7 @@ export default {
     value: { type: [Number, String], default: undefined },
     validationType: { type: String, default: '' },
     isMaxButtonShown: { type: Boolean, default: false },
-    min: { type: [Number, String], default: config.MIN_AMOUNT },
+    min: { type: [Number, String], default: '' },
     max: { type: [Number, String], default: config.MAX_AMOUNT },
     required: { type: Boolean, default: true },
     errorMessage: { type: String, default: '' },
@@ -165,6 +166,12 @@ export default {
         },
       }
     },
+  },
+  created () {
+    if (this.min && this.min < this.step) {
+      ErrorHandler.processWithoutFeedback(
+        new Error('Min value cannot be less than step'))
+    }
   },
 }
 </script>

@@ -11,6 +11,7 @@ for further information about branching and tagging conventions.
 #### Added
 - Polls
 - Vote button to poll's card
+- Error message when input amount is less than min amount
 
 #### Changed
 - Poll's card end date format
@@ -25,6 +26,7 @@ for further information about branching and tagging conventions.
   in system and use the application for the first time
 - A bug when you enter a nonexistent promotional code the price becomes 0
 - A bug when user has access to inaccessible routes
+- Trailing digits in amount input field
 
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added
