@@ -155,7 +155,6 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
-    isCardRequired: { type: Boolean, default: true },
   },
   data: _ => ({
     form: {
@@ -179,14 +178,14 @@ export default {
             },
             destination: {
               minValue: (value) => {
-                if (value.length > 0 || this.isCardRequired) {
+                if (value.length > 0) {
                   return required
                 } else {
                   return true
                 }
               },
               cryptoAddressOrCreditCardNumber: (value, quoteAsset) => {
-                if (value.length > 0 || this.isCardRequired) {
+                if (value.length > 0) {
                   switch (quoteAsset.type) {
                     case PAYMENT_METHODS.fourBill.value:
                       return cardNumber(value)
