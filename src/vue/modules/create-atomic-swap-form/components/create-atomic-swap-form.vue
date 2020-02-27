@@ -72,6 +72,7 @@
     <atomic-swap-quote-assets-form
       :is-disabled.sync="formMixin.isDisabled"
       @submit="setQuoteAssets($event) || submit()"
+      :is-card-required="false"
     />
   </form>
 </template>

@@ -115,7 +115,6 @@
           @click="addQuoteAsset()"
           :disabled="isDisabled"
         >
-          <!-- eslint-disable-next-line max-len -->
           {{ 'atomic-swap-quote-assets-form.add-asset-btn' | globalize }}
         </button>
       </div>
@@ -156,6 +155,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
+    isCardRequired: { type: Boolean, default: true },
   },
   data: _ => ({
     form: {
@@ -178,15 +178,25 @@ export default {
               selectedSameAssetCode: (asset, quoteAsset) => !this.isAssetRepeated(asset.code, quoteAsset.type),
             },
             destination: {
-              required,
+              minValue: (value) => {
+                if (value.length > 0 || this.isCardRequired) {
+                  return required
+                } else {
+                  return true
+                }
+              },
               cryptoAddressOrCreditCardNumber: (value, quoteAsset) => {
-                switch (quoteAsset.type) {
-                  case PAYMENT_METHODS.fourBill.value:
-                    return cardNumber(value)
-                  case PAYMENT_METHODS.coinpayments.value:
-                    return address(quoteAsset.asset.code)(value)
-                  default:
-                    return true
+                if (value.length > 0 || this.isCardRequired) {
+                  switch (quoteAsset.type) {
+                    case PAYMENT_METHODS.fourBill.value:
+                      return cardNumber(value)
+                    case PAYMENT_METHODS.coinpayments.value:
+                      return address(quoteAsset.asset.code)(value)
+                    default:
+                      return true
+                  }
+                } else {
+                  return true
                 }
               },
             },
