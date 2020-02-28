@@ -177,13 +177,6 @@ export default {
               selectedSameAssetCode: (asset, quoteAsset) => !this.isAssetRepeated(asset.code, quoteAsset.type),
             },
             destination: {
-              minValue: (value) => {
-                if (value.length > 0) {
-                  return required
-                } else {
-                  return true
-                }
-              },
               cryptoAddressOrCreditCardNumber: (value, quoteAsset) => {
                 if (value.length > 0) {
                   switch (quoteAsset.type) {
