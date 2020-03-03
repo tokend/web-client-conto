@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
-## [1.8.0-contotest.0] - 2020-03-03
+## [1.8.0-contotest.1] - 2020-03-03
 #### Added
 - Polls
 - Vote button to poll's card
@@ -563,8 +563,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.8.0-contotest.0...HEAD
-[1.8.0-contotest.0]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...1.8.0-contotest.0
+[Unreleased]: https://github.com/tokend/web-client/compare/1.8.0-contotest.1...HEAD
+[1.8.0-contotest.1]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...1.8.0-contotest.1
 [1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.1...1.7.0-rc.0
 [1.6.1]: https://github.com/tokend/web-client/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/tokend/web-client/compare/1.6.0-rc.3...1.6.0

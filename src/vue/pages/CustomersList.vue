@@ -16,6 +16,7 @@
           <template v-if="list.length">
             <!-- eslint-disable max-len -->
             <customers-table
+              :key="listKey"
               :customers-list="list"
               :selected-balances="selectedBalances"
               @details-button-clicked="setCustomerToBrowse($event)"
@@ -126,6 +127,7 @@ export default {
 
   data () {
     return {
+      listKey: +new Date() + '',
       list: [],
       assetCode: '',
       isLoaded: false,
@@ -195,13 +197,19 @@ export default {
         }
       }
       this.isLoaded = true
-
+      this.listKey = +new Date() + ''
       return result
     },
 
     setList (newList) {
+      /* eslint-disable-next-line no-console */
+      console.log('setList')
       try {
         this.list = newList.map(i => new CustomerRecord(i))
+        /* eslint-disable-next-line no-console */
+        console.log('this.list')
+        /* eslint-disable-next-line no-console */
+        console.log(this.list)
       } catch (e) {
         /* eslint-disable-next-line no-console */
         console.log('setList-error')
@@ -235,9 +243,19 @@ export default {
     },
 
     setCustomerToBrowse ($event) {
+      /* eslint-disable-next-line no-console */
+      console.log('$event-setCustomerToBrowse')
+      /* eslint-disable-next-line no-console */
+      console.log($event)
       this.customerToBrowse = $event
       this.assetCode = this.assetsCodes[0]
       this.isDrawerShown = true
+      /* eslint-disable-next-line no-console */
+      console.log('this')
+      /* eslint-disable-next-line no-console */
+      console.log(this)
+      /* eslint-disable-next-line no-console */
+      console.log('this.isDrawerShown = ' + this.isDrawerShown)
     },
   },
 }
