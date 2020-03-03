@@ -9,6 +9,10 @@ const STATUSES = Object.freeze({
 
 export class CustomerRecord {
   constructor (record) {
+    /* eslint-disable-next-line no-console */
+    console.log('CustomerRecord')
+    /* eslint-disable-next-line no-console */
+    console.log(record)
     this._record = record
 
     this.id = record.id

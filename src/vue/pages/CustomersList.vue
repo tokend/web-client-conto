@@ -167,6 +167,8 @@ export default {
     },
 
     async getList () {
+      /* eslint-disable-next-line no-console */
+      console.log('getList')
       let result
 
       try {
@@ -177,6 +179,10 @@ export default {
           },
         )
       } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.log('getList-error')
+        /* eslint-disable-next-line no-console */
+        console.error(error)
         // TODO: remove whe back-end returns empty data instead of 404
         if (error instanceof errors.NotFoundError) {
           result = {
@@ -194,16 +200,32 @@ export default {
     },
 
     setList (newList) {
-      this.list = newList.map(i => new CustomerRecord(i))
+      try {
+        this.list = newList.map(i => new CustomerRecord(i))
+      } catch (e) {
+        /* eslint-disable-next-line no-console */
+        console.log('setList-error')
+        /* eslint-disable-next-line no-console */
+        console.error(e)
+      }
     },
 
     concatList (newChunk) {
-      this.list = this.list.concat(
-        newChunk.map(i => new CustomerRecord(i))
-      )
+      try {
+        this.list = this.list.concat(
+          newChunk.map(i => new CustomerRecord(i))
+        )
+      } catch (e) {
+        /* eslint-disable-next-line no-console */
+        console.log('concatList-error')
+        /* eslint-disable-next-line no-console */
+        console.error(e)
+      }
     },
 
     reloadList () {
+      /* eslint-disable-next-line no-console */
+      console.log('reloadList')
       this.isLoadFailed = false
       return this.$refs.listCollectionLoader.loadFirstPage()
     },
