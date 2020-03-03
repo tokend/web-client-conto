@@ -115,7 +115,6 @@
           @click="addQuoteAsset()"
           :disabled="isDisabled"
         >
-          <!-- eslint-disable-next-line max-len -->
           {{ 'atomic-swap-quote-assets-form.add-asset-btn' | globalize }}
         </button>
       </div>
@@ -178,11 +177,15 @@ export default {
               selectedSameAssetCode: (asset, quoteAsset) => !this.isAssetRepeated(asset.code, quoteAsset.type),
             },
             destination: {
-              required,
               cryptoAddressOrCreditCardNumber: (value, quoteAsset) => {
                 switch (quoteAsset.type) {
-                  case PAYMENT_METHODS.fourBill.value:
-                    return cardNumber(value)
+                  case PAYMENT_METHODS.fourBill.value: {
+                    if (value.length > 0) {
+                      return cardNumber(value)
+                    } else {
+                      return true
+                    }
+                  }
                   case PAYMENT_METHODS.coinpayments.value:
                     return address(quoteAsset.asset.code)(value)
                   default:
