@@ -1,6 +1,6 @@
 <template>
   <div class="atomic-swaps">
-    <top-bar>
+    <top-bar class="atomic-swaps__top-bar">
       <template slot="extra">
         <button
           v-if="isAccountCorporate"
@@ -74,4 +74,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .atomic-swaps {
+    &__top-bar {
+      margin-bottom: 1.7rem;
+    }
+  }
 </style>

@@ -1195,7 +1195,8 @@
       "no-list-title": "No offers yet",
       "no-list-msg": "Here will be the list of offers",
       "owned-by-me-filter-lbl": "Owned by me",
-      "loading-error-msg": "There was an error while loading."
+      "loading-error-msg": "There was an error while loading.",
+      "search-lbl": "Search"
     },
     "buy-atomic-swap-form":{
       "available": "Available {{amount, money}} {{asset}}",
