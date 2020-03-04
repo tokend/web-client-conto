@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 - Polls
 - Vote button to poll's card
 - Error message when input amount is less than min amount
+- Copy link button to offer details
 
 #### Changed
 - Poll's card end date format
