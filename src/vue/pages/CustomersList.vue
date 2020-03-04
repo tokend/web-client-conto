@@ -71,7 +71,12 @@
               :key="asset"
               :value="asset"
             >
-              {{ assetByCode(asset).name }}
+              <template v-if="assetByCode(asset)">
+                {{ assetByCode(asset).name }}
+              </template>
+              <template>
+                {{ asset }}
+              </template>
             </option>
           </select-field>
         </div>
