@@ -12,6 +12,7 @@ for further information about branching and tagging conventions.
 - Polls
 - Vote button to poll's card
 - Error message when input amount is less than min amount
+- Opportunity specify empty card number while creating marketplace offer
 - Copy link button to offer details
 
 #### Changed
@@ -28,6 +29,10 @@ for further information about branching and tagging conventions.
 - A bug when you enter a nonexistent promotional code the price becomes 0
 - A bug when user has access to inaccessible routes
 - Trailing digits in amount input field
+- Translation for role permission error
+- Text position for cell phones on security page
+- Date field text overflow
+- Margins in footer
 
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added
@@ -37,6 +42,10 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - KYC recovery without filling out a form
+
+## [1.6.2] - 2020-03-04
+#### Fixed
+- A bug with removed asset on customer page
 
 ## [1.6.1] - 2020-01-30
 ### Changed
@@ -563,8 +572,13 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
+<<<<<<< HEAD
 [Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...HEAD
 [1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.1...1.7.0-rc.0
+=======
+[Unreleased]: https://github.com/tokend/web-client/compare/1.6.2...HEAD
+[1.6.2]: https://github.com/tokend/web-client/compare/1.6.1...1.6.2
+>>>>>>> fix
 [1.6.1]: https://github.com/tokend/web-client/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/tokend/web-client/compare/1.6.0-rc.3...1.6.0
 [1.6.0-rc.3]: https://github.com/tokend/web-client/compare/1.6.0-rc.2...1.6.0-rc.3

@@ -72,7 +72,7 @@ export default {
 
 .footer__language-picker,
 .footer__link {
-  margin: 0 1rem;
+  margin: 0 0.5rem;
 
   &:not(:first-child) {
     margin-left: 0;

@@ -332,6 +332,10 @@ export default {
   transition: all $field-transition-duration;
   pointer-events: none;
   color: $field-color-unfocused;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @include text-font-sizes;
 }
