@@ -1,1 +1,0 @@
-export const MAX_DISPLAYING_AMOUNT = 10000000

@@ -2,21 +2,8 @@
   <div
     id="app"
     v-if="isAppInitialized"
-    :key="appKey">
-    <warning-banner
-      v-if="isNotSupportedBrowser && !isSupportedBrowsersPage"
-      :message="'common.browser-not-supported' | globalize"
-      message-type="warning"
-    >
-      <router-link
-        tag="a"
-        :to="vueRoutes.supportedBrowsers.name"
-        class="app__warning-message-link"
-      >
-        {{ 'warning-banner.supported-browsers-list' | globalize }}
-      </router-link>
-    </warning-banner>
-
+    :key="appKey"
+  >
     <template v-if="isLoggedIn && isNavigationRendered">
       <warning-banner
         v-if="isAccountBlocked"
@@ -55,8 +42,6 @@ import Sidebar from '@/vue/navigation/Sidebar.vue'
 import WarningBanner from '@/vue/common/WarningBanner'
 import config from '@/config'
 
-import { isCompatibleBrowser } from '@/js/helpers/is-compatible-browser'
-
 import {
   mapGetters,
   mapActions,
@@ -85,7 +70,6 @@ export default {
   },
 
   data: () => ({
-    isNotSupportedBrowser: false,
     isAppInitialized: false,
     vueRoutes,
     lang: i18n.language,
@@ -105,9 +89,6 @@ export default {
     ]),
     isNavigationRendered () {
       return this.$route.matched.some(m => m.meta.isNavigationRendered)
-    },
-    isSupportedBrowsersPage () {
-      return this.$route.name === vueRoutes.supportedBrowsers.name
     },
     appKey () {
       return `${this.accountRole}${this.lang}`
@@ -129,7 +110,6 @@ export default {
 
     this.startIdle()
 
-    this.detectIncompatibleBrowser()
     i18n.onLanguageChanged(lng => (this.lang = lng))
 
     this.watchChangesInLocalStorage()
@@ -172,9 +152,6 @@ export default {
       documentsManager.useApi(api)
       if (this.isAccountCorporate) this.loadBusiness(this.walletAccountId)
       await this.loadAssets()
-    },
-    detectIncompatibleBrowser () {
-      this.isNotSupportedBrowser = !isCompatibleBrowser()
     },
 
     async getDecryptedSecretSeed () {

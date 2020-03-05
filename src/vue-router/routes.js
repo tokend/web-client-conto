@@ -16,7 +16,6 @@ export const vueRoutes = Object.freeze({
   assetsExplore: { name: 'app.assets-explore' },
   terms: { name: 'terms' },
   downloads: { name: 'downloads' },
-  supportedBrowsers: { name: 'supported-browsers' },
   myAssets: { name: 'app.my-assets' },
   registerOfShares: { name: 'app.register-of-shares' },
   atomicSwaps: { name: 'app.atomic-swaps' },
