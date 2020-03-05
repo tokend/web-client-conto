@@ -74,9 +74,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .atomic-swaps {
-    &__top-bar {
-      margin-bottom: 1.7rem;
-    }
+  .atomic-swaps__top-bar {
+    margin-bottom: 1rem;
   }
 </style>

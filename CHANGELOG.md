@@ -13,7 +13,7 @@ for further information about branching and tagging conventions.
 - Vote button to poll's card
 - Error message when input amount is less than min amount
 - Opportunity specify empty card number while creating marketplace offer
-- Marketplace search for offers
+- Search to marketplace page
 
 #### Changed
 - Poll's card end date format

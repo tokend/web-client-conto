@@ -17,11 +17,7 @@
 
       <template v-else>
         <template v-if="list.length">
-          <card-list
-            v-slot="{ item }"
-            :list="list"
-            class="atomic-swaps-explore__card-list"
-          >
+          <card-list v-slot="{ item }" :list="list">
             <atomic-swap-card
               :atomic-swap-ask="item"
               @buy="buyAsset(item)"
@@ -241,19 +237,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.atomic-swaps-explore {
-  &__loader {
-    margin-top: 1rem;
-  }
-
-  &__search {
-    margin: 0.7rem;
-    min-width: 14rem;
-    width: calc(25% - 1.4rem);
-  }
-
-  &__card-list {
-    margin-top: 2rem;
-  }
+.atomic-swaps-explore__loader {
+  margin-top: 1rem;
 }
+
+.atomic-swaps-explore__search {
+  margin: 1.7rem 0.7rem 2.7rem;
+  min-width: 14rem;
+  width: calc(25% - 1.4rem);
+}
+
 </style>
