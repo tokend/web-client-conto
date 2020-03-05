@@ -28,6 +28,10 @@ for further information about branching and tagging conventions.
 - A bug when you enter a nonexistent promotional code the price becomes 0
 - A bug when user has access to inaccessible routes
 - Trailing digits in amount input field
+- Translation for role permission error
+- Text position for cell phones on security page
+- Date field text overflow
+- Margins in footer
 
 ## [1.7.0-rc.0] - 2020-01-24
 #### Added
