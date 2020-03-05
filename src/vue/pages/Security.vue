@@ -282,12 +282,15 @@ export default {
 .security-page__row-title {
   font-size: 1.8rem;
   color: $col-text;
+  margin-right: 1rem;
 }
 
 .security-page__row-action {
   font-size: 1.3rem;
   cursor: pointer;
   color: $col-link;
+  margin-left: 1rem;
+  text-align: right;
 }
 
 .secret-seed__description,

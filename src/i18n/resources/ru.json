@@ -373,7 +373,7 @@
       "op_min_amount_too_big": "There is no receivers which can receive more than minPayoutAmount",
       "op_incorrect_precision": "The asset we operate on, does not allow such precise amounts",
       "op_incorrect_amount_precision": "The asset we operate on, does not allow such precise amounts",
-      "op_no_role_permission": "Role permission for operation doesn't exist",
+      "op_no_role_permission": "Разрешение роли для операции не существует",
       "op_invalid_trailing_digits_count": "Count of trailing digits must be equal or less than 6",
       "op_atomic_swap_bid_overflow": "Quote amount one of quote asset has exceeded limit",
       "op_base_asset_not_found": "There is no asset with such asset code",
