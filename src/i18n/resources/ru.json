@@ -656,7 +656,8 @@
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
       "terms": "Соглашение",
-      "download-apps": "Загрузки"
+      "download-apps": "Загрузки",
+      "support-apps": "Помощь"
     },
     "op-pages": {
       "filters-prefix": "Показать:",

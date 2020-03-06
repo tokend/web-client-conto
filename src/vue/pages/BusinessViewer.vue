@@ -92,7 +92,6 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
-import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
@@ -121,7 +120,6 @@ export default {
 
   data () {
     return {
-      vueRoutes,
       isLoaded: false,
       isLoadFailed: false,
       isSubmitting: false,
