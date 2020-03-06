@@ -1287,7 +1287,8 @@
       "atomic-swap-drawer-title": "Детали предложения",
       "no-list-title": "Нет предложений",
       "no-list-msg": "Здесь будут предложения",
-      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже.",
+      "search-lbl": "Поиск"
     },
     "buy-atomic-swap-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",
