@@ -670,7 +670,8 @@
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
       "terms": "Terms",
-      "download-apps": "Downloads"
+      "download-apps": "Downloads",
+      "support-apps": "Support"
     },
     "op-pages": {
       "filters-prefix": "Show:",

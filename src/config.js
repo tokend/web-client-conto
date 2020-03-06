@@ -169,6 +169,11 @@ export default Object.assign(
      */
     SUPPORT_PHONE: '',
 
+    /**
+     * Support url
+     */
+    SUPPORT_URL: '',
+
   },
   // process.env,
   process.env
