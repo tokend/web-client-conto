@@ -38,11 +38,10 @@
             </td>
             <td>
               <span
-                class="link-getter"
-                :class="{ 'link-getter--justify-end': rightSide }"
+                class="atomic-swap-attributes__link-getter"
               >
                 <span
-                  class="link-getter__value"
+                  class="atomic-swap-attributes__link-getter-value"
                 >
                   {{ url }}
                 </span>
@@ -52,14 +51,14 @@
                   :message="'atomic-swap-attributes.link-copied' | globalize"
                 >
                   <button
-                    v-show="isCopyButton"
-                    class="link-getter__copy-button  app__button-icon"
+                    class="atomic-swap-attributes__link-getter-copy-button
+                      app__button-icon"
                     :id="`clipboard-btn-${_uid}`"
                     :data-clipboard-text="url"
                     @click="changeBtnIcon"
                   >
                     <i
-                      class="mdi link-getter__icon"
+                      class="mdi atomic-swap-attributes__link-getter-icon"
                       :class="isCopyBtnPressed ?
                         'mdi-clipboard-check' :
                         'mdi-clipboard-text'"
@@ -144,14 +143,6 @@ export default {
       type: AtomicSwapAskRecord,
       required: true,
     },
-    isCopyButton: {
-      type: Boolean,
-      default: true,
-    },
-    rightSide: {
-      type: Boolean,
-      default: false,
-    },
   },
   data: _ => ({
     isCopyBtnPressed: false,
@@ -193,44 +184,42 @@ export default {
 <style lang="scss">
 @import '~@scss/variables';
 
-.atomic-swap-attributes__quote-asset-header {
-  margin: 2rem 0;
-}
-
-.link-getter {
-  display: inline-flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row-reverse;
-}
-
-.link-getter--justify-end {
-  justify-content: flex-end;
-}
-
-.link-getter__value {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.link-getter__copy-button {
-  color: $col-primary-inactive;
-  margin-left: 0.5rem;
-  min-height: 1rem;
-  min-width: 1rem;
-  transition: 0.1s ease-out;
-  padding: 0;
-
-  &:hover {
-    color: $col-primary-inactive-hover-darken;
-    background: none;
+.atomic-swap-attributes {
+  &__quote-asset-header {
+    margin: 2rem 0;
   }
-}
 
-.link-getter__icon {
-  &:before {
-    vertical-align: middle;
+  &__link-getter {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+
+  &__link-getter-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__link-getter-copy-button {
+    color: $col-primary-inactive;
+    margin-left: 0.5rem;
+    min-height: 1rem;
+    min-width: 1rem;
+    transition: 0.1s ease-out;
+    padding: 0;
+
+    &:hover {
+      color: $col-primary-inactive-hover-darken;
+      background: none;
+    }
+  }
+
+  &__link-getter-icon {
+    &:before {
+      vertical-align: middle;
+    }
   }
 }
 </style>

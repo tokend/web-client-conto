@@ -13,7 +13,7 @@ for further information about branching and tagging conventions.
 - Vote button to poll's card
 - Error message when input amount is less than min amount
 - Opportunity specify empty card number while creating marketplace offer
-- Copy link button to offer details
+- Pay asset link to offer details
 
 #### Changed
 - Poll's card end date format
