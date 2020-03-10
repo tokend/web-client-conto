@@ -176,7 +176,7 @@ export default {
 
       try {
         result = await api.getWithSignature(
-          `/integrations/dns/businesses/${this.accountId}/clients`, {
+          `/integrations/dns/businesses/GB6RXMSM77D4PAJKAD3LWLZ2YTDB47P72VVU27QCDZ6O4FSHBECQYVCV/clients`, {
             include: ['balances'],
             ...({ ...this.customerFilters, ...this.sortingParameters }),
           },

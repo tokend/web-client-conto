@@ -266,7 +266,7 @@ export default {
     getCustomerBalance (customerBalances, selectedBalance) {
       const balance = customerBalances
         .find(i => i.assetCode === selectedBalance)
-      return balance.amount
+      return balance ? balance.amount : '0'
     },
 
     setActiveKeyAndEmitSorting (sortingKey) {

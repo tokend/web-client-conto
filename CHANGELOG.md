@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
+## [1.6.5] - 2020-03-10
+#### Fixed
+- A bug with displaying not exist asset on customer page
+
 ## [1.6.4] - 2020-03-10
 #### Fixed
 - A bug with unused language
@@ -544,7 +548,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.6.4...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.6.5...HEAD
+[1.6.5]: https://github.com/tokend/web-client/compare/1.6.4...1.6.5
 [1.6.4]: https://github.com/tokend/web-client/compare/1.6.3...1.6.4
 [1.6.3]: https://github.com/tokend/web-client/compare/1.6.2...1.6.3
 [1.6.2]: https://github.com/tokend/web-client/compare/1.6.1...1.6.2
