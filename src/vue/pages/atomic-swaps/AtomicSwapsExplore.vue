@@ -1,5 +1,13 @@
 <template>
   <div class="atomic-swaps-explore">
+    <div class="atomic-swaps-explore__search">
+      <input-field
+        :white-autofill="false"
+        v-model="search"
+        :label="'atomic-swaps-explore.search-lbl' | globalize"
+        :trim="false"
+      />
+    </div>
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
@@ -83,6 +91,7 @@ import AtomicSwapForm from '@modules/atomic-swap-form'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import CardList from '@/vue/common/CardList'
 import ErrorMessage from '@/vue/common/ErrorMessage'
+import InputField from '@/vue/fields/InputField'
 
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -90,6 +99,8 @@ import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
+
+import debounce from 'lodash/debounce'
 
 export default {
   name: 'atomic-swaps-explore',
@@ -104,6 +115,7 @@ export default {
     SkeletonCardsLoader,
     CardList,
     ErrorMessage,
+    InputField,
   },
 
   mixins: [UpdateList],
@@ -124,6 +136,7 @@ export default {
       filters: {
         isOwnedByCurrentUser: false,
       },
+      search: '',
     }
   },
 
@@ -139,6 +152,7 @@ export default {
     'filters.isOwnedByCurrentUser' () {
       this.reloadList()
     },
+    search: debounce(function () { this.reloadList() }, 300),
   },
 
   async created () {
@@ -164,6 +178,7 @@ export default {
       try {
         response = await api.get('/integrations/marketplace/offers', {
           filter: filter,
+          search: this.search,
         })
       } catch (error) {
         this.isLoadFailed = true
@@ -225,4 +240,11 @@ export default {
 .atomic-swaps-explore__loader {
   margin-top: 1rem;
 }
+
+.atomic-swaps-explore__search {
+  margin: 1.7rem 0.7rem 2.7rem;
+  min-width: 14rem;
+  width: calc(25% - 1.4rem);
+}
+
 </style>
