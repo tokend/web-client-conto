@@ -150,7 +150,7 @@ class I18n {
       fallbackLng: 'en',
       debug: false,
       resources: {},
-      whitelist: ['en', 'ru', 'uk'],
+      whitelist: ['en', 'ru'],
       // set to true if you need en-US/en-UK lng's:
       nonExplicitWhitelist: false,
       detection: {

@@ -43,6 +43,10 @@ for further information about branching and tagging conventions.
 #### Changed
 - KYC recovery without filling out a form
 
+## [1.6.4] - 2020-03-10
+#### Fixed
+- A bug with unused language
+
 ## [1.6.3] - 2020-03-06
 #### Added
 - Support url to footer
@@ -578,6 +582,8 @@ for further information about branching and tagging conventions.
 
 [Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...HEAD
 [1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.2...1.7.0-rc.0
+[1.6.4]: https://github.com/tokend/web-client/compare/1.6.3...1.6.4
+[1.6.3]: https://github.com/tokend/web-client/compare/1.6.2...1.6.3
 [1.6.2]: https://github.com/tokend/web-client/compare/1.6.1...1.6.2
 [1.6.1]: https://github.com/tokend/web-client/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/tokend/web-client/compare/1.6.0-rc.3...1.6.0
