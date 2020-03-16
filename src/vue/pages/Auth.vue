@@ -113,8 +113,8 @@ export default {
 }
 
 .auth__form {
-  padding: 8rem 11rem;
   position: relative;
+  padding: 8rem 11rem 9rem;
 
   @include respond-to(large) {
     padding: 6rem 7rem;
@@ -140,7 +140,7 @@ export default {
 }
 
 .auth__footer-section {
-  padding: 1.6rem;
+  margin-bottom: 1.6rem;
   position: absolute;
   bottom: 0;
   left: 0;

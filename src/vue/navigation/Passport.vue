@@ -53,6 +53,13 @@
 
         <div class="passport__dropdown-actions-wrp">
           <button
+            class="app__button-flat passport__dropdown-btn"
+            @click="goSupport"
+          >
+            {{ 'footer.support-apps' | globalize }}
+          </button>
+
+          <button
             v-if="isAccountCorporate"
             class="passport__dropdown-btn app__button-flat"
             @click="openCompanyPage"
@@ -185,6 +192,10 @@ export default {
     async goSettings () {
       this.closeDropdown()
       await this.$router.push(vueRoutes.settings)
+    },
+
+    goSupport () {
+      location.href = config.SUPPORT_URL
     },
 
     async openCompanyPage () {
