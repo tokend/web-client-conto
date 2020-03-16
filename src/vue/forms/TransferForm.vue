@@ -295,7 +295,7 @@ export default {
       return base.PaymentBuilder.payment({
         sourceBalanceId: this.balance.id,
         destination: this.recipientAccountId,
-        amount: this.form.amount,
+        amount: this.form.amount.replace(/,/, '.'),
         feeData: {
           sourceFee: {
             percent: '0',

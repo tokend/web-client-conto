@@ -1289,7 +1289,7 @@
       "no-list-title": "Нет предложений",
       "no-list-msg": "Здесь будут предложения",
       "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже.",
-      "search-lbl": "Поиск"
+      "search-lbl": "Поиск по имени актива"
     },
     "buy-atomic-swap-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",
