@@ -150,9 +150,11 @@ export default {
           ? this.accountBalancesByOwner(this.businessOwnerId)
           : this.accountBalances
           /* eslint-enable max-len */
-
         accountBalances = businessAccountBalances
-          .filter(item => +item.balance > 0)
+          .filter(
+            item => +item.balance > 0 ||
+            item.asset.owner === this.accountId
+          )
 
         return accountBalances
       } catch (error) {
