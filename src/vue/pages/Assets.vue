@@ -3,7 +3,7 @@
     <top-bar>
       <template slot="main">
         <template v-if="myBusinesses.length">
-          <div class="assets-page__filter">
+          <div class="assets-page__top-bar-filter">
             <select-field
               :value="businessOwnerId"
               @input="setBusinessOwnerId"
@@ -121,10 +121,22 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@scss/variables';
+
 .assets-page__btn-icon {
   display: flex;
   font-size: 1.8rem;
   margin-right: 0.5rem;
   margin-top: -0.4rem;
+}
+
+.assets-page__top-bar-filter {
+  max-width: 40vw;
+}
+
+@media (max-width: $sidebar-hide-bp) {
+  .assets-page__create-btn {
+    margin-top: 0.4rem;
+  }
 }
 </style>
