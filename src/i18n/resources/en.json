@@ -631,7 +631,7 @@
       "statistics": "Statistics"
     },
     "passport": {
-      "account-unverified": "General account",
+      "account-unverified": "Unverified account",
       "account-corporate": "Company account",
       "account-us-accredited": "Verified accredited investor (US)",
       "account-us-verified": "Verified account (US)",
