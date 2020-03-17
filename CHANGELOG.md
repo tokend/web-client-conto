@@ -13,6 +13,7 @@ for further information about branching and tagging conventions.
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
+- A bug when phone number input accept letter values
 
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
