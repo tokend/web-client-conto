@@ -214,6 +214,10 @@ export default {
     justify-content: space-between;
   }
 
+  .app__button-raised {
+    margin-top: 0.1rem;
+  }
+
   .business-viewer__top-bar {
     width: 100%;
     display: flex;

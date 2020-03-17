@@ -233,8 +233,15 @@ export default {
   }
 }
 
+@media (max-width: $sidebar-hide-bp) {
+  .movements-top-bar__actions-btn {
+    margin-top: 2rem;
+  }
+}
+
 .movements-top-bar__filter {
   margin-right: 3rem;
+  max-width: 18vw;
 
   @include respond-to-custom($sidebar-hide-bp) {
     margin-bottom: 1rem;

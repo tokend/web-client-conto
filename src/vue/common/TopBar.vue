@@ -42,7 +42,7 @@ export default {
 .top-bar {
   display: flex;
   align-items: center;
-  min-height: 6.5rem;
+  min-height: 5rem;
   background-color: $col-top-bar-background;
   color: $col-top-bar-text;
   margin:
@@ -59,8 +59,7 @@ export default {
       -1 * $content-side-paddings-sm
       2rem
       -1 * $content-side-paddings-sm;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: start;
   }
 }
