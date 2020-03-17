@@ -11,6 +11,9 @@ for further information about branching and tagging conventions.
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
 
+#### Fixed
+- A bug with don't displaying zero amount your asset in Wallet
+
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
 - Polls
