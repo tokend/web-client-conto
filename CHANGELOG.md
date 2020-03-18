@@ -8,6 +8,9 @@ Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
 ## Unreleased
+#### Added
+- Email valdiation on MassInvitationForm
+
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
 
