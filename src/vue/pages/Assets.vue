@@ -122,6 +122,7 @@ export default {
 
 <style lang="scss">
 @import '~@scss/variables';
+@import '~@scss/mixins';
 
 .assets-page__btn-icon {
   display: flex;
@@ -134,8 +135,8 @@ export default {
   max-width: 20rem;
 }
 
-@media (max-width: $sidebar-hide-bp) {
-  .assets-page__create-btn {
+.assets-page__create-btn {
+  @include respond-to-custom($sidebar-hide-bp) {
     margin-top: 0.4rem;
   }
 }
