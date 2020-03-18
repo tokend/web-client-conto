@@ -88,6 +88,9 @@ export default {
       vuexTypes.myBusinesses,
       vuexTypes.accountId,
     ]),
+    isAccountHaveBusiness () {
+      return this.myBusinesses.find(item => item.accountId === this.accountId)
+    },
   },
 
   watch: {
@@ -98,7 +101,8 @@ export default {
 
   async created () {
     await this.loadMyBusinesses()
-    if (this.isAccountCorporate) {
+
+    if (this.isAccountCorporate && this.isAccountHaveBusiness !== undefined) {
       this.setBusinessOwnerId(this.accountId)
     }
   },

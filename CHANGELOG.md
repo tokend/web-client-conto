@@ -15,6 +15,7 @@ for further information about branching and tagging conventions.
 - A bug with don't displaying zero amount your asset in Wallet
 - A bug when user have wrong status of his account
 - A bug when phone number input accept letter values
+- A bug with auto select corporate company in Assets
 
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
