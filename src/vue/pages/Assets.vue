@@ -131,7 +131,7 @@ export default {
 }
 
 .assets-page__top-bar-filter {
-  max-width: 40vw;
+  max-width: 20rem;
 }
 
 @media (max-width: $sidebar-hide-bp) {

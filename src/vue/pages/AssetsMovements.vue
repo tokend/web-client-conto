@@ -114,7 +114,7 @@ export default {
 
   .assets-movements__top-bar-filter {
     margin-right: 3rem;
-    max-width: 55vw;
+    max-width: 20rem;
 
     @include respond-to-custom($sidebar-hide-bp) {
       margin-bottom: 1rem;
