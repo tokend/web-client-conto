@@ -10,6 +10,7 @@ for further information about branching and tagging conventions.
 ## Unreleased
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- change name section Wallet to Balances
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
