@@ -1262,7 +1262,8 @@
       "invitees-lbl": "Invitees",
       "submit-btn": "Invite",
       "invited-successfully-notification": "Mass invitation performed successfully.",
-      "no-invitees-found": "Receivers you provided not found or cannot receive the invitation. Please ensure you specified the valid receivers list and try again."
+      "no-invitees-found": "Receivers you provided not found or cannot receive the invitation. Please ensure you specified the valid receivers list and try again.",
+      "invalid-emails": "You provided invalid email. Please ensure you specified the valid emails and try again."
     },
     "customer-attributes": {
       "id-key": "ID",
