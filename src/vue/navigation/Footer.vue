@@ -1,27 +1,40 @@
 <template>
   <footer class="footer">
-    <span class="footer__text">
-      {{ 'footer.copyright' | globalize({ year: currentYear }) }}
-    </span>
-    <span class="footer__links">
+    <language-picker class="footer__language-picker" />
+    <div>
       <router-link
         class="footer__link"
         :to="vueRoutes.terms"
-      >{{ 'footer.terms' | globalize }}</router-link>
+      >
+        {{ 'footer.terms' | globalize }}
+      </router-link>
 
       <router-link
         class="footer__link"
         :to="vueRoutes.downloads"
-      >{{ 'footer.download-apps' | globalize }}</router-link>
+      >
+        {{ 'footer.download-apps' | globalize }}
+      </router-link>
 
-      <language-picker class="footer__language-picker" />
-    </span>
+      <a
+        class="footer__link"
+        :href="config.SUPPORT_URL"
+      >
+        {{ 'footer.support-apps' | globalize }}
+      </a>
+    </div>
+    <div>
+      <span class="footer__text">
+        {{ 'footer.copyright' | globalize({ year: currentYear }) }}
+      </span>
+    </div>
   </footer>
 </template>
 
 <script>
 import { vueRoutes } from '@/vue-router/routes'
 import LanguagePicker from './footer/LanguagePicker'
+import config from '@/config'
 
 export default {
   name: 'app-footer',
@@ -32,6 +45,7 @@ export default {
 
   data: () => ({
     vueRoutes,
+    config,
   }),
 
   computed: {
@@ -47,10 +61,9 @@ export default {
 
 .footer {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap-reverse;
-  justify-content: center;
+  flex-direction: column;
   width: 100%;
+  align-items: center;
 }
 
 .footer__text,
@@ -62,17 +75,13 @@ export default {
   display: inline-block;
 }
 
-.footer__link {
-  color: $col-footer-text;
-}
-
 .footer__text {
   color: $col-footer-text;
 }
 
-.footer__language-picker,
 .footer__link {
-  margin: 0 0.5rem;
+  color: $col-footer-text;
+  margin: 0 1rem;
 
   &:not(:first-child) {
     margin-left: 0;

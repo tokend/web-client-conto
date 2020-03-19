@@ -51,7 +51,7 @@
                   :message="'atomic-swap-attributes.link-copied' | globalize"
                 >
                   <button
-                    class="atomic-swap-attributes__link-getter-copy-button
+                    class="atomic-swap-attributes__copy-button
                       app__button-icon"
                     :id="`clipboard-btn-${_uid}`"
                     :data-clipboard-text="url"
@@ -184,42 +184,40 @@ export default {
 <style lang="scss">
 @import '~@scss/variables';
 
-.atomic-swap-attributes {
-  &__quote-asset-header {
-    margin: 2rem 0;
+.atomic-swap-attributes__quote-asset-header {
+  margin: 2rem 0;
+}
+
+.atomic-swap-attributes__link-getter {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.atomic-swap-attributes__link-getter-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.atomic-swap-attributes__copy-button {
+  color: $col-primary-inactive;
+  margin-left: 0.5rem;
+  min-height: 1rem;
+  min-width: 1rem;
+  transition: 0.1s ease-out;
+  padding: 0;
+
+  &:hover {
+    color: $col-primary-inactive-hover-darken;
+    background: none;
   }
+}
 
-  &__link-getter {
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row-reverse;
-  }
-
-  &__link-getter-value {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__link-getter-copy-button {
-    color: $col-primary-inactive;
-    margin-left: 0.5rem;
-    min-height: 1rem;
-    min-width: 1rem;
-    transition: 0.1s ease-out;
-    padding: 0;
-
-    &:hover {
-      color: $col-primary-inactive-hover-darken;
-      background: none;
-    }
-  }
-
-  &__link-getter-icon {
-    &:before {
-      vertical-align: middle;
-    }
+.atomic-swap-attributes__link-getter-icon {
+  &:before {
+    vertical-align: middle;
   }
 }
 </style>

@@ -631,7 +631,7 @@
       "statistics": "Statistics"
     },
     "passport": {
-      "account-unverified": "General account",
+      "account-unverified": "Unverified account",
       "account-corporate": "Company account",
       "account-us-accredited": "Verified accredited investor (US)",
       "account-us-verified": "Verified account (US)",
@@ -652,7 +652,8 @@
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
       "terms": "Terms",
-      "download-apps": "Downloads"
+      "download-apps": "Downloads",
+      "support-apps": "Support"
     },
     "op-pages": {
       "filters-prefix": "Show:",
@@ -1195,7 +1196,8 @@
       "no-list-title": "No offers yet",
       "no-list-msg": "Here will be the list of offers",
       "owned-by-me-filter-lbl": "Owned by me",
-      "loading-error-msg": "There was an error while loading."
+      "loading-error-msg": "There was an error while loading.",
+      "search-lbl": "Search"
     },
     "buy-atomic-swap-form":{
       "available": "Available {{amount, money}} {{asset}}",
@@ -1262,7 +1264,8 @@
       "invitees-lbl": "Invitees",
       "submit-btn": "Invite",
       "invited-successfully-notification": "Mass invitation performed successfully.",
-      "no-invitees-found": "Receivers you provided not found or cannot receive the invitation. Please ensure you specified the valid receivers list and try again."
+      "no-invitees-found": "Receivers you provided not found or cannot receive the invitation. Please ensure you specified the valid receivers list and try again.",
+      "invalid-emails": "You provided invalid email. Please ensure you specified the valid emails and try again."
     },
     "customer-attributes": {
       "id-key": "ID",

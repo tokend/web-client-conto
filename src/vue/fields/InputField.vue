@@ -161,11 +161,15 @@ export default {
     },
 
     normalizeTargetValue (target) {
-      if (this.type === INPUT_TYPES.number && target.value !== '') {
+      if (target.value === '') return
+
+      if (this.type === INPUT_TYPES.number) {
         const normalizeValue = this.normalizeDecimalPrecision(
           this.normalizeRange(target.value)
         )
         if (target.value !== normalizeValue) target.value = normalizeValue
+      } else if (this.type === INPUT_TYPES.phoneNumber) {
+        target.value = target.value.replace(/\D+/, '')
       }
     },
 

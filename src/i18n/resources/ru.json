@@ -644,7 +644,7 @@
       "sign-out-btn": "Выйти",
       "balances-subheading": "Баланс",
       "show-more-link": "Показать больше",
-      "account-unverified": "Стандартный аккаунт",
+      "account-unverified": "Неподтвержденный аккаунт",
       "account-corporate": "Аккаунт бизнеса",
       "company-btn": "Компания"
     },
@@ -656,7 +656,8 @@
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
       "terms": "Соглашение",
-      "download-apps": "Загрузки"
+      "download-apps": "Загрузки",
+      "support-apps": "Помощь"
     },
     "op-pages": {
       "filters-prefix": "Показать:",
@@ -1213,7 +1214,8 @@
       "invitees-lbl": "Приглашаемые",
       "submit-btn": "Пригласить",
       "invited-successfully-notification": "Приглашения разосланы.",
-      "no-invitees-found": "Никто из перечисленных не может получить приглашение. Пожалуйста, перепроверьте список приглашаемых и попробуйте еще раз."
+      "no-invitees-found": "Никто из перечисленных не может получить приглашение. Пожалуйста, перепроверьте список приглашаемых и попробуйте еще раз.",
+      "invalid-emails": "Вы указали неверный имейл. Пожалуйста, перепроверьте список и попробуйте еще раз."
     },
     "customer-attributes": {
       "id-key": "Идентификатор",
@@ -1287,7 +1289,8 @@
       "atomic-swap-drawer-title": "Детали предложения",
       "no-list-title": "Нет предложений",
       "no-list-msg": "Здесь будут предложения",
-      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
+      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже.",
+      "search-lbl": "Поиск"
     },
     "buy-atomic-swap-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",

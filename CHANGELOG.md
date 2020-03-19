@@ -7,13 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
-## [Unreleased]
+## Unreleased
+#### Added
+- Email valdiation on MassInvitationForm
+- Pay asset link to offer details
+
+#### Changed
+- const MAX_INT_32 on value corresponding to the name
+
+#### Fixed
+- A bug with don't displaying zero amount your asset in Wallet
+- A bug when user have wrong status of his account
+- A bug when phone number input accept letter values
+- A bug when information about history of transaction don't display
+
+## [1.7.0-rc.1] - 2020-03-10
 #### Added
 - Polls
 - Vote button to poll's card
 - Error message when input amount is less than min amount
 - Opportunity specify empty card number while creating marketplace offer
-- Pay asset link to offer details
+- Search to marketplace page
 
 #### Changed
 - Poll's card end date format
@@ -42,6 +56,14 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - KYC recovery without filling out a form
+
+## [1.6.4] - 2020-03-10
+#### Fixed
+- A bug with unused language
+
+## [1.6.3] - 2020-03-06
+#### Added
+- Support url to footer
 
 ## [1.6.2] - 2020-03-04
 #### Fixed
@@ -572,13 +594,12 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-<<<<<<< HEAD
-[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...HEAD
-[1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.1...1.7.0-rc.0
-=======
-[Unreleased]: https://github.com/tokend/web-client/compare/1.6.2...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.1...HEAD
+[1.7.0-rc.1]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...1.7.0-rc.1
+[1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.4...1.7.0-rc.0
+[1.6.4]: https://github.com/tokend/web-client/compare/1.6.3...1.6.4
+[1.6.3]: https://github.com/tokend/web-client/compare/1.6.2...1.6.3
 [1.6.2]: https://github.com/tokend/web-client/compare/1.6.1...1.6.2
->>>>>>> fix
 [1.6.1]: https://github.com/tokend/web-client/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/tokend/web-client/compare/1.6.0-rc.3...1.6.0
 [1.6.0-rc.3]: https://github.com/tokend/web-client/compare/1.6.0-rc.2...1.6.0-rc.3
