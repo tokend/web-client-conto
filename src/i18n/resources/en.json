@@ -921,7 +921,7 @@
       "preissued-amount-lbl": "Initial pre-issued amount",
       "terms-lbl": "Upload terms",
       "terms-note": "JPG, PNG, PDF, max 5 mb.",
-      "request-submitted-msg": "Your request was successfully processed. Please, wait for approval",
+      "request-submitted-msg": "Your request was successfully approved",
       "pre-issuance-guide-link": "More on pre-issuance",
       "stellar-integration-subheading": "Stellar network",
       "issuance-subheading": "Issuance",
