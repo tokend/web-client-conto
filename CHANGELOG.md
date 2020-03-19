@@ -594,11 +594,16 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
+<<<<<<< HEAD
 [Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.1...HEAD
 [1.7.0-rc.1]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...1.7.0-rc.1
 [1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.4...1.7.0-rc.0
 [1.6.4]: https://github.com/tokend/web-client/compare/1.6.3...1.6.4
 [1.6.3]: https://github.com/tokend/web-client/compare/1.6.2...1.6.3
+=======
+[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...HEAD
+[1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.2...1.7.0-rc.0
+>>>>>>> f1339285760dcf0d0f2825011f52512df5781df5
 [1.6.2]: https://github.com/tokend/web-client/compare/1.6.1...1.6.2
 [1.6.1]: https://github.com/tokend/web-client/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/tokend/web-client/compare/1.6.0-rc.3...1.6.0
