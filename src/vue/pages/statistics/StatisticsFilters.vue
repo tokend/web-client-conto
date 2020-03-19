@@ -24,19 +24,22 @@
         v-model="filters.dateFrom"
         :enable-time="true"
         :disabled="isFilterDisabled"
-        :disable-after="moment().toISOString()"
+        :disable-after="getDisableDate"
         :label="'statistics-filters.date-from-lbl' | globalize"
       />
     </div>
 
     <div class="statistics-filters__filter-field">
+      <!-- eslint-disable max-len -->
       <date-field
         v-model="filters.dateTo"
         :disabled="isFilterDisabled"
         :disable-after="moment().toISOString()"
+        :disable-before="moment(filters.dateFrom).subtract(1, 'days').toISOString()"
         :enable-time="true"
         :label="'statistics-filters.date-to-lbl' | globalize"
       />
+      <!-- eslint-enable max-len -->
     </div>
 
     <template v-if="isSalesHistoryPage">
@@ -132,12 +135,21 @@ export default {
     isFilterDisabled () {
       return Boolean(!this.ownedAssets.length || this.isLoadFailed)
     },
+
+    getDisableDate () {
+      return this.filters.dateTo
+        ? moment(this.filters.dateTo).toISOString()
+        : moment().toISOString()
+    },
   },
 
   watch: {
     filters: {
       deep: true,
       handler: function (value) {
+        if (moment(value.dateFrom).isAfter(moment(value.dateTo))) {
+          return
+        }
         this.$emit(EVENTS.setFiltersAndUpdateList, value)
       },
     },
