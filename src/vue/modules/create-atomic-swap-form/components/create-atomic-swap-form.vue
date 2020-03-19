@@ -23,7 +23,10 @@
           </option>
         </select-field>
         <template v-if="form.asset.code">
-          <p class="app__form-field-description">
+          <p
+            class="app__form-field-description"
+            :class="{ 'app__form-field-description--error': zeroBalance }"
+          >
             {{
               'create-atomic-swap-form.available-balance' | globalize({
                 amount: accountBalance.balance,
@@ -43,7 +46,7 @@
           :validation-type="getValidationType"
           :label="'create-atomic-swap-form.amount-lbl' | globalize"
           :asset="form.asset"
-          :disabled="formMixin.isDisabled"
+          :disabled="formMixin.isDisabled || zeroBalance"
           is-max-button-shown
         />
       </div>
@@ -65,12 +68,12 @@
             maxValue: MAX_PRICE,
             minValue: minPrice
           })"
-          :disabled="formMixin.isDisabled"
+          :disabled="formMixin.isDisabled || zeroBalance"
         />
       </div>
     </div>
     <atomic-swap-quote-assets-form
-      :is-disabled.sync="formMixin.isDisabled"
+      :is-disabled.sync="formMixin.isDisabled || zeroBalance"
       @submit="setQuoteAssets($event) || submit()"
     />
   </form>
@@ -146,6 +149,10 @@ export default {
 
     accountBalance () {
       return this.accountBalanceByCode(this.form.asset.code)
+    },
+
+    zeroBalance () {
+      return +this.accountBalance.balance === 0
     },
 
     isAssetOwner () {

@@ -10,6 +10,7 @@ for further information about branching and tagging conventions.
 ## Unreleased
 #### Added
 - Email valdiation on MassInvitationForm
+- Atomic swap form disabling if balance is 0
 
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
