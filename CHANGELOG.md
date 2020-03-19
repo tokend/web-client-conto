@@ -13,6 +13,7 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- links app footer and passport open new tab
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
