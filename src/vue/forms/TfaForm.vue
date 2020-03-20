@@ -12,7 +12,9 @@
             name="tfa-password"
             type="password"
             :trim="false"
-            :error-message="getFieldErrorMessage('form.password')"
+            :error-message="getFieldErrorMessage('form.password', {
+              length: MAX_FIELD_LENGTH.password
+            })"
             :label="'tfa-form.password-lbl' | globalize"
             :disabled="formMixin.isDisabled"
           />
@@ -85,7 +87,7 @@ import FormMixin from '@/vue/mixins/form.mixin'
 import KeyViewer from '@/vue/common/KeyViewer'
 import ClipboardField from '@/vue/fields/ClipboardField'
 
-import { required, password } from '@validators'
+import { required, password, maxLength } from '@validators'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
@@ -95,6 +97,7 @@ import { errors } from '@tokend/js-sdk'
 
 import { vuexTypes } from '@/vuex'
 import { mapGetters, mapActions } from 'vuex'
+import { MAX_FIELD_LENGTH } from '@/js/const/field-length.const'
 
 const ENABLED_FACTOR_PRIORITY = 1
 const EVENTS = {
@@ -114,10 +117,15 @@ export default {
       password: '',
       code: '',
     },
+    MAX_FIELD_LENGTH,
   }),
   validations: {
     form: {
-      password: { required, password },
+      password: {
+        required,
+        password,
+        maxLength: maxLength(MAX_FIELD_LENGTH.password),
+      },
       code: { required },
     },
   },
