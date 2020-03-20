@@ -8,33 +8,20 @@
       <div class="app__form-row">
         <div class="app__form-field">
           <select-field
-            v-if="quoteAssets.length"
             :label="'buy-atomic-swap-form.asset-in-which-buying' | globalize"
             name="buy-atomic-swap-quote-asset"
             :value="form.paymentMethodId"
             @input="setPaymentMethodId"
             :disabled="isDisabled"
             class="app__select"
+            :error-message="getBonusErrorMessage"
           >
             <option
-              v-for="quoteAsset in quoteAssets"
+              v-for="quoteAsset in atomicSwapAsk.quoteAssets"
               :key="quoteAsset.paymentMethodId"
               :value="quoteAsset.paymentMethodId"
             >
               {{ getAssetName(quoteAsset) }}
-            </option>
-          </select-field>
-
-          <select-field
-            v-else
-            :label="'buy-atomic-swap-form.asset-in-which-buying' | globalize"
-            name="buy-atomic-swap-quote-asset"
-            :value="form.paymentMethodId"
-            class="app__select"
-            :error-message="'buy-atomic-swap-form.buy-for-bonus' | globalize"
-          >
-            <option>
-              {{ PAYMENT_METHODS.internal.labelTranslationId | globalize }}
             </option>
           </select-field>
         </div>
@@ -50,7 +37,7 @@
             :label="'buy-atomic-swap-form.amount' | globalize({
               asset: atomicSwapAsk.baseAssetName
             })"
-            :disabled="isDisabled"
+            :disabled="isDisabled || isSelectedBonus"
           />
           <p class="app__form-field-description">
             {{ 'buy-atomic-swap-form.available' | globalize({
@@ -69,6 +56,7 @@
             :label="'buy-atomic-swap-form.promo-code-lbl' | globalize"
             @blur="touchField('form.promoCode')"
             :error-message="getFieldErrorMessage('form.promoCode')"
+            :disabled="isDisabled || isSelectedBonus"
           />
         </div>
       </div>
@@ -104,7 +92,7 @@
         <button
           v-ripple
           type="submit"
-          :disabled="isDisabled || isSelectedBonusPayment"
+          :disabled="isDisabled || isSelectedBonus"
           class="app__button-raised buy-atomic-swap-form__btn"
         >
           <template>
@@ -166,8 +154,8 @@ export default {
       totalPrice: '',
       isLoadingDiscount: false,
       isPromoCodeExist: false,
+      isSelectedBonus: false,
       globalize,
-      PAYMENT_METHODS,
     }
   },
   validations () {
@@ -196,18 +184,15 @@ export default {
     isDiscountExist () {
       return Boolean(+this.discount)
     },
-    quoteAssets () {
-      if (!this.isLoggedIn) {
-        return this.atomicSwapAsk.quoteAssets.filter(
-          item => +item.paymentMethodType !== +PAYMENT_METHODS.internal.value
-        )
-      } else {
-        return this.atomicSwapAsk.quoteAssets
-      }
+
+    isBonusSelected () {
+      return this.form.paymentMethodId === PAYMENT_METHODS.internal.value
     },
-    isSelectedBonusPayment () {
-      return this.form.paymentMethodId ===
-        globalize(PAYMENT_METHODS.internal.labelTranslationId)
+
+    getBonusErrorMessage () {
+      return this.isBonusSelected
+        ? globalize('buy-atomic-swap-form.buy-for-bonus')
+        : ''
     },
   },
   watch: {
@@ -222,17 +207,16 @@ export default {
         this.debounceCalculateDiscountPrice()
       },
     },
+    'form.paymentMethodId' () {
+      if (this.isBonusSelected) {
+        this.isSelectedBonus = true
+      } else {
+        this.isSelectedBonus = false
+      }
+    },
   },
   created () {
-    if (
-      this.atomicSwapAsk.quoteAssets[0].paymentMethodType ===
-        PAYMENT_METHODS.internal.value
-    ) {
-      this.form.paymentMethodId =
-        globalize(PAYMENT_METHODS.internal.labelTranslationId)
-    } else {
-      this.setPaymentMethodId(this.atomicSwapAsk.quoteAssets[0].paymentMethodId)
-    }
+    this.setPaymentMethodId(this.atomicSwapAsk.quoteAssets[0].paymentMethodId)
     this.debounceCalculateDiscountPrice = debounce(
       this.calculateDiscountPrice,
       300
