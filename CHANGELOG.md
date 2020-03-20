@@ -19,6 +19,7 @@ for further information about branching and tagging conventions.
 - A bug when user have wrong status of his account
 - A bug when phone number input accept letter values
 - A bug when information about history of transaction don't display
+- A bug with wrong display bonus payment type for non-authorized users
 
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
