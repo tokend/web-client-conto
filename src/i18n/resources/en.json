@@ -1126,7 +1126,7 @@
       "native-stellar-asset-type-lbl": "Native",
       "yes-msg": "Yes",
       "no-msg": "No",
-      "send-btn": "Transfer",
+      "send-btn": "Send",
       "issue-btn": "Issue",
       "redeem-btn": "Redeem",
       "converted-balance-title": "Converted balance",
@@ -1504,7 +1504,7 @@
     },
     "asset-card": {
       "details-lbl": "Details",
-      "transfer-lbl": "Transfer"
+      "transfer-lbl": "Send"
     },
     "promo-code-card": {
       "discount": "Discount: {{ amount, percent }}",

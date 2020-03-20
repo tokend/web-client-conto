@@ -14,6 +14,7 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- "transfer" buttons to "send"
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
