@@ -21,7 +21,7 @@
                   @blur="touchField('form.code')"
                   name="promo-code-code"
                   :label="'promo-code-form.code-lbl' | globalize"
-                  :error-message="getFieldErrorMessage('form.code',{
+                  :error-message="getFieldErrorMessage('form.code', {
                     length: PROMOCODE_MAX_LENGTH
                   })"
                   :disabled="formMixin.isDisabled"
@@ -37,7 +37,7 @@
                   name="promo-code-form-description"
                   @blur="touchField('form.description')"
                   :label="'promo-code-form.description-lbl' | globalize"
-                  :error-message="getFieldErrorMessage('form.description',{
+                  :error-message="getFieldErrorMessage('form.description', {
                     length: DESCRIPTION_MAX_LENGTH
                   })"
                   :disabled="formMixin.isDisabled"
@@ -50,7 +50,7 @@
                 <input-field
                   white-autofill
                   @blur="touchField('form.discount')"
-                  :error-message="getFieldErrorMessage('form.discount',{
+                  :error-message="getFieldErrorMessage('form.discount', {
                     maxValue: MAX_PERCENT_DISCOUNT,
                     minValue: MIN_PERCENT
                   })"
