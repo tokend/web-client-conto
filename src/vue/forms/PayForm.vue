@@ -18,7 +18,7 @@
               }
             )"
             :error-message="getFieldErrorMessage('form.email', {
-              lenght: MAX_FIELD_LENGTH.email
+              length: MAX_FIELD_LENGTH.email
             })"
           />
         </div>
