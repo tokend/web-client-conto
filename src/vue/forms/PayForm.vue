@@ -17,7 +17,9 @@
                 appName: config.APP_NAME,
               }
             )"
-            :error-message="getFieldErrorMessage('form.email')"
+            :error-message="getFieldErrorMessage('form.email', {
+              lenght: MAX_FIELD_LENGTH.email
+            })"
           />
         </div>
       </div>
@@ -47,7 +49,7 @@ import AddressViewer from '@/vue/common/address-viewer'
 import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
 import config from '@/config'
 
-import { required, email } from '@validators'
+import { required, email, maxLength } from '@validators'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -55,6 +57,7 @@ import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { api } from '@/api'
+import { MAX_FIELD_LENGTH } from '@/js/const/field-length.const'
 
 const EVENTS = {
   reloadAtomicSwap: 'reload-atomic-swap',
@@ -84,6 +87,7 @@ export default {
         amount: '',
       },
       config,
+      MAX_FIELD_LENGTH,
     }
   },
 
@@ -93,6 +97,7 @@ export default {
         email: {
           required,
           email,
+          maxLength: maxLength(MAX_FIELD_LENGTH.email),
         },
       },
     }
