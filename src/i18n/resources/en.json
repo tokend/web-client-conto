@@ -1550,7 +1550,7 @@
       "rejected-status-td": "Rejected",
       "paid-status-td": "Paid",
       "timeout-status-td": "Not paid",
-      "pending-status-th": "Pending"
+      "pending-status-td": "Pending"
     },
     "buy-request-statuses": {
       "rejected": "Rejected",
