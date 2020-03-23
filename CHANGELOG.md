@@ -10,9 +10,12 @@ for further information about branching and tagging conventions.
 ## Unreleased
 #### Added
 - Email valdiation on MassInvitationForm
+- Titles to assets movements table
+- validation maxLength for email and password
 
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- "transfer" buttons to "send"
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
@@ -20,6 +23,7 @@ for further information about branching and tagging conventions.
 - A bug when phone number input accept letter values
 - A bug when information about history of transaction don't display
 - Incorrect asset creation success message
+- A bug with pending status in sales history statistics table
 
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
