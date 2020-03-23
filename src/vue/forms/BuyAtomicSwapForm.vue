@@ -154,7 +154,6 @@ export default {
       totalPrice: '',
       isLoadingDiscount: false,
       isPromoCodeExist: false,
-      isSelectedBonus: false,
       globalize,
     }
   },
@@ -185,12 +184,12 @@ export default {
       return Boolean(+this.discount)
     },
 
-    isBonusSelected () {
+    isSelectedBonus () {
       return this.form.paymentMethodId === PAYMENT_METHODS.internal.value
     },
 
     getBonusErrorMessage () {
-      return this.isBonusSelected
+      return this.isSelectedBonus
         ? globalize('buy-atomic-swap-form.buy-for-bonus')
         : ''
     },
@@ -206,13 +205,6 @@ export default {
         this.discount = 0
         this.debounceCalculateDiscountPrice()
       },
-    },
-    'form.paymentMethodId' () {
-      if (this.isBonusSelected) {
-        this.isSelectedBonus = true
-      } else {
-        this.isSelectedBonus = false
-      }
     },
   },
   created () {
