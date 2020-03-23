@@ -924,7 +924,7 @@
       "preissued-amount-lbl": "Предэмитировано",
       "terms-lbl": "Соглашение",
       "terms-note": "JPG, PNG, PDF, максимум 5 МБ.",
-      "request-submitted-msg": "Запрос отправлен",
+      "request-submitted-msg": "Запрос успешно выполнен",
       "pre-issuance-guide-link": "Подробнее о предварительной выдаче (предэмиссии)",
       "stellar-integration-subheading": "Сеть Stellar",
       "issuance-subheading": "Выпуск",
@@ -1214,7 +1214,8 @@
       "invitees-lbl": "Приглашаемые",
       "submit-btn": "Пригласить",
       "invited-successfully-notification": "Приглашения разосланы.",
-      "no-invitees-found": "Никто из перечисленных не может получить приглашение. Пожалуйста, перепроверьте список приглашаемых и попробуйте еще раз."
+      "no-invitees-found": "Никто из перечисленных не может получить приглашение. Пожалуйста, перепроверьте список приглашаемых и попробуйте еще раз.",
+      "invalid-emails": "Вы указали неверный имейл. Пожалуйста, перепроверьте список и попробуйте еще раз."
     },
     "customer-attributes": {
       "id-key": "Идентификатор",
