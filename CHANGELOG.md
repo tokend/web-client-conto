@@ -11,9 +11,11 @@ for further information about branching and tagging conventions.
 #### Added
 - Email valdiation on MassInvitationForm
 - Titles to assets movements table
+- validation maxLength for email and password
 
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- "transfer" buttons to "send"
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
