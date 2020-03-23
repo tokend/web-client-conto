@@ -15,6 +15,7 @@ for further information about branching and tagging conventions.
 
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- change name section Wallet to Balances
 - "transfer" buttons to "send"
 
 #### Fixed
