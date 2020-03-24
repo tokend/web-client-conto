@@ -10,6 +10,7 @@ for further information about branching and tagging conventions.
 ## Unreleased
 #### Added
 - Email valdiation on MassInvitationForm
+- Pay asset link to offer details
 - Titles to assets movements table
 - validation maxLength for email and password
 

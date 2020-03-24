@@ -1326,7 +1326,9 @@
       "address-key": "Адрес",
       "quote-assets-subheading": "Котируемый актив №{{ number }}",
       "destination-key": "Назначение",
-      "buy-for": "Вы можете купить за:"
+      "buy-for": "Вы можете купить за:",
+      "link-to-buy-asset": "Ссылка на покупку актива",
+      "link-copied": "Скопировано"
     },
     "atomic-swap-actions": {
       "cancel-btn": "Отменить предложение",
