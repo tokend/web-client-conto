@@ -46,7 +46,10 @@
     </template>
 
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.source-pays-for-destination-lbl' | globalize"
+      >
         {{ 'movements-history.source-pays-for-destination-lbl' | globalize }}
       </td>
       <td class="attributes-viewer__table-cell">
@@ -54,7 +57,10 @@
       </td>
     </tr>
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.subject-lbl' | globalize"
+      >
         {{ 'movements-history.subject-lbl' | globalize }}
       </td>
       <td class="attributes-viewer__table-cell">
@@ -62,7 +68,10 @@
       </td>
     </tr>
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.payment-sender-lbl' | globalize"
+      >
         {{ 'movements-history.payment-sender-lbl' | globalize }}
       </td>
       <td class="attributes-viewer__table-cell">
@@ -70,7 +79,10 @@
       </td>
     </tr>
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.payment-recipient-lbl' | globalize"
+      >
         {{ 'movements-history.payment-recipient-lbl' | globalize }}
       </td>
       <td class="attributes-viewer__table-cell">
