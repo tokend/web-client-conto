@@ -5,7 +5,6 @@
       <router-link
         class="footer__link"
         :to="vueRoutes.terms"
-        target="_blank"
       >
         {{ 'footer.terms' | globalize }}
       </router-link>
@@ -13,7 +12,6 @@
       <router-link
         class="footer__link"
         :to="vueRoutes.downloads"
-        target="_blank"
       >
         {{ 'footer.download-apps' | globalize }}
       </router-link>

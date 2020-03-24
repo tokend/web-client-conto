@@ -17,7 +17,7 @@ for further information about branching and tagging conventions.
 - const MAX_INT_32 on value corresponding to the name
 - change name section Wallet to Balances
 - "transfer" buttons to "send"
-- links app footer and passport open new tab
+- link support app footer and passport open new tab
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet

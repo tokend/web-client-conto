@@ -191,8 +191,7 @@ export default {
 
     async goSettings () {
       this.closeDropdown()
-      let settingsPage = await this.$router.resolve(vueRoutes.settings)
-      window.open(settingsPage.href, '_blank')
+      await this.$router.push(vueRoutes.settings)
     },
 
     goSupport () {
@@ -201,13 +200,12 @@ export default {
 
     async openCompanyPage () {
       this.closeDropdown()
-      let companyPage = await this.$router.resolve({
+      await this.$router.push({
         ...vueRoutes.business,
         params: {
           id: this.accountId,
         },
       })
-      window.open(companyPage.href, '_blank')
     },
   },
 }
