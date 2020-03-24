@@ -131,6 +131,14 @@ export default {
       },
     },
 
+    disableBefore () {
+      this.flatpickr.redraw()
+    },
+
+    disableAfter () {
+      this.flatpickr.redraw()
+    },
+
     /**
      * We can set disabled state only directly, because of flatpickr does not
      * provide any config options

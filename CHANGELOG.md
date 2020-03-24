@@ -11,15 +11,26 @@ for further information about branching and tagging conventions.
 #### Added
 - Email valdiation on MassInvitationForm
 - Pay asset link to offer details
+- Titles to assets movements table
+- validation maxLength for email and password
 
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- change name section Wallet to Balances
+- "transfer" buttons to "send"
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
+- A bug with wrong max possible value in RefundAssetForm
 - A bug when user have wrong status of his account
 - A bug when phone number input accept letter values
+- A bug with auto select corporate company in Assets
 - A bug when information about history of transaction don't display
+- A bug with wrong display bonus payment type for non-authorized users
+- Incorrect asset creation success message
+- A bug with pending status in sales history statistics table
+- A bug when user can to select end period date earlier than start period date
+  on Statistics page
 
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
