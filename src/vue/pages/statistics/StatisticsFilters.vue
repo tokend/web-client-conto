@@ -30,16 +30,16 @@
     </div>
 
     <div class="statistics-filters__filter-field">
-      <!-- eslint-disable max-len -->
       <date-field
         v-model="filters.dateTo"
         :disabled="isFilterDisabled"
         :disable-after="moment().toISOString()"
-        :disable-before="moment(filters.dateFrom).subtract(1, 'days').toISOString()"
+        :disable-before="moment(filters.dateFrom)
+          .subtract(1, 'days').toISOString()
+        "
         :enable-time="true"
         :label="'statistics-filters.date-to-lbl' | globalize"
       />
-      <!-- eslint-enable max-len -->
     </div>
 
     <template v-if="isSalesHistoryPage">
