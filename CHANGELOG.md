@@ -26,6 +26,8 @@ for further information about branching and tagging conventions.
 - A bug with wrong display bonus payment type for non-authorized users
 - Incorrect asset creation success message
 - A bug with pending status in sales history statistics table
+- A bug when user can to select end period date earlier than start period date
+  on Statistics page
 
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
