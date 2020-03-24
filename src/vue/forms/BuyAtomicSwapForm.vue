@@ -14,9 +14,10 @@
             @input="setPaymentMethodId"
             :disabled="isDisabled"
             class="app__select"
+            :error-message="getBonusErrorMessage"
           >
             <option
-              v-for="quoteAsset in quoteAssets"
+              v-for="quoteAsset in atomicSwapAsk.quoteAssets"
               :key="quoteAsset.paymentMethodId"
               :value="quoteAsset.paymentMethodId"
             >
@@ -36,7 +37,7 @@
             :label="'buy-atomic-swap-form.amount' | globalize({
               asset: atomicSwapAsk.baseAssetName
             })"
-            :disabled="isDisabled"
+            :disabled="isDisabled || isSelectedBonus"
           />
           <p class="app__form-field-description">
             {{ 'buy-atomic-swap-form.available' | globalize({
@@ -55,6 +56,7 @@
             :label="'buy-atomic-swap-form.promo-code-lbl' | globalize"
             @blur="touchField('form.promoCode')"
             :error-message="getFieldErrorMessage('form.promoCode')"
+            :disabled="isDisabled || isSelectedBonus"
           />
         </div>
       </div>
@@ -90,7 +92,7 @@
         <button
           v-ripple
           type="submit"
-          :disabled="isDisabled"
+          :disabled="isDisabled || isSelectedBonus"
           class="app__button-raised buy-atomic-swap-form__btn"
         >
           <template>
@@ -181,14 +183,15 @@ export default {
     isDiscountExist () {
       return Boolean(+this.discount)
     },
-    quoteAssets () {
-      if (!this.isLoggedIn) {
-        return this.atomicSwapAsk.quoteAssets.filter(
-          item => +item.paymentMethodType !== +PAYMENT_METHODS.internal.value
-        )
-      } else {
-        return this.atomicSwapAsk.quoteAssets
-      }
+
+    isSelectedBonus () {
+      return this.form.paymentMethodId === PAYMENT_METHODS.internal.value
+    },
+
+    getBonusErrorMessage () {
+      return this.isSelectedBonus
+        ? globalize('buy-atomic-swap-form.buy-for-bonus')
+        : ''
     },
   },
   watch: {

@@ -1306,7 +1306,8 @@
       "promo-code-lbl": "Промокод",
       "discount": "Скидка",
       "calculating-msg": "Рассчитываем...",
-      "success-msg": "Покупка успешна"
+      "success-msg": "Покупка успешна",
+      "buy-for-bonus": "Только авторизованые пользователи могут покупать активы за бонусы"
     },
     "kyc-recovery": {
       "submit-again-lbl": "Отпарвить заново",

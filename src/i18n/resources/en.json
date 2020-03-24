@@ -1213,7 +1213,8 @@
       "promo-code-lbl": "Promo Code",
       "discount": "Discount",
       "calculating-msg": "Calculating...",
-      "success-msg": "Payment successfully"
+      "success-msg": "Payment successfully",
+      "buy-for-bonus": "Only authorized users can buy asset for bonuse"
     },
     "atomic-swap-actions": {
       "cancel-btn": "Cancel offer",
