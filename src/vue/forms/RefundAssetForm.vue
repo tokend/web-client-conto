@@ -24,7 +24,7 @@
           <amount-input-field
             v-model="form.amount"
             name="refund-asset-form-amount"
-            :max="buyOrder.baseAmount"
+            :max="getMaxAmount"
             :label="'refund-asset-form.amount-lbl' | globalize"
             :asset="assetCode"
             :disabled="formMixin.isDisabled"
@@ -98,6 +98,7 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.assetByCode,
+      vuexTypes.accountBalanceByCode,
     ]),
 
     totalAmount () {
@@ -106,6 +107,14 @@ export default {
         this.form.amount || 0,
         MathUtil.roundingModes.ROUND_DOWN
       )
+    },
+
+    getMaxAmount () {
+      let maxAmount = this.accountBalanceByCode(this.assetCode).balance
+      if (maxAmount > this.buyOrder.baseAmount) {
+        maxAmount = this.buyOrder.baseAmount
+      }
+      return maxAmount
     },
 
     isTotalAmountExists () {

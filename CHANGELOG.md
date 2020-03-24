@@ -20,6 +20,7 @@ for further information about branching and tagging conventions.
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
+- A bug with wrong max possible value in RefundAssetForm
 - A bug when user have wrong status of his account
 - A bug when phone number input accept letter values
 - A bug with auto select corporate company in Assets
