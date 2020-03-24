@@ -110,11 +110,11 @@ export default {
     },
 
     getMaxAmount () {
-      let result = this.accountBalanceByCode(this.assetCode).balance
-      if (result > this.buyOrder.baseAmount) {
-        result = this.buyOrder.baseAmount
+      let maxAmount = this.accountBalanceByCode(this.assetCode).balance
+      if (maxAmount > this.buyOrder.baseAmount) {
+        maxAmount = this.buyOrder.baseAmount
       }
-      return result
+      return maxAmount
     },
 
     isTotalAmountExists () {
