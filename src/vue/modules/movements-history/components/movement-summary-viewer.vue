@@ -1,7 +1,10 @@
 <template>
   <tbody>
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.type-lbl' | globalize"
+      >
         {{ 'movements-history.type-lbl' | globalize }}
       </td>
       <td class="attributes-viewer__table-cell">
@@ -9,7 +12,10 @@
       </td>
     </tr>
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.operation-lbl' | globalize"
+      >
         {{ 'movements-history.operation-lbl' | globalize }}
       </td>
       <td class="attributes-viewer__table-cell">
@@ -17,7 +23,10 @@
       </td>
     </tr>
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.date-lbl' | globalize"
+      >
         {{ 'movements-history.date-lbl' | globalize }}
       </td>
       <td class="attributes-viewer__table-cell">

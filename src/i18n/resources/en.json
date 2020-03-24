@@ -616,7 +616,7 @@
       "submit-processing": "Processing…"
     },
     "pages-names": {
-      "assets": "Wallet",
+      "assets": "Balances",
       "settings": "Settings",
       "movements": "History",
       "register-of-shares": "History",
@@ -921,7 +921,7 @@
       "preissued-amount-lbl": "Initial pre-issued amount",
       "terms-lbl": "Upload terms",
       "terms-note": "JPG, PNG, PDF, max 5 mb.",
-      "request-submitted-msg": "Your request was successfully processed. Please, wait for approval",
+      "request-submitted-msg": "Your request was successfully approved",
       "pre-issuance-guide-link": "More on pre-issuance",
       "stellar-integration-subheading": "Stellar network",
       "issuance-subheading": "Issuance",
@@ -1551,7 +1551,7 @@
       "rejected-status-td": "Rejected",
       "paid-status-td": "Paid",
       "timeout-status-td": "Not paid",
-      "pending-status-th": "Pending"
+      "pending-status-td": "Pending"
     },
     "buy-request-statuses": {
       "rejected": "Rejected",
