@@ -12,6 +12,7 @@
             v-model="form.invitees"
             :label="'mass-invitation-form.invitees-lbl' | globalize"
             :disabled="formMixin.isDisabled"
+            required
             @blur="touchField('form.invitees')"
             :error-message="getFieldErrorMessage('form.invitees')"
             rows="8"
@@ -35,7 +36,7 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import { required } from '@validators'
+import { required, validateEmail } from '@validators'
 
 import { CsvUtil } from '@/js/utils/csv.util'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -64,6 +65,7 @@ export default {
       form: {
         invitees: this.invitees || '',
       },
+      isEmailInvalid: false,
     }
   },
 
@@ -94,12 +96,17 @@ export default {
           delimiters: CsvUtil.delimiters.common,
         })
 
+        const validEmails = this.buildEmailsToSubmit(emails)
+
+        if (this.isEmailInvalid) {
+          Bus.error('mass-invitation-form.invalid-emails')
+          this.enableForm()
+          return
+        }
+
         const endpoint = `/integrations/dns/businesses/${this.accountId}/clients`
         const body = {
-          data: emails.map(email => ({
-            type: 'clients',
-            attributes: { email },
-          })),
+          data: validEmails,
         }
         await api.postWithSignature(endpoint, body)
 
@@ -110,6 +117,24 @@ export default {
       }
 
       this.enableForm()
+    },
+
+    buildEmailsToSubmit (emails) {
+      const validEmails = []
+      this.isEmailInvalid = false
+
+      emails.forEach(email => {
+        if (validateEmail(email)) {
+          validEmails.push({
+            type: 'clients',
+            attributes: { email },
+          })
+        } else {
+          this.isEmailInvalid = true
+        }
+      })
+
+      return validEmails
     },
   },
 }
