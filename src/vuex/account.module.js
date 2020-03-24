@@ -71,6 +71,7 @@ export const actions = {
     }
     await dispatch(vuexTypes.LOAD_MY_BUSINESSES)
     await dispatch(vuexTypes.LOAD_ASSETS)
+    await dispatch(vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS)
   },
 }
 
