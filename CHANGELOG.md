@@ -22,6 +22,7 @@ for further information about branching and tagging conventions.
 - A bug with don't displaying zero amount your asset in Wallet
 - A bug when user have wrong status of his account
 - A bug when phone number input accept letter values
+- A bug with auto select corporate company in Assets
 - A bug when information about history of transaction don't display
 - A bug with wrong display bonus payment type for non-authorized users
 - Incorrect asset creation success message
