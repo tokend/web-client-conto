@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
-## Unreleased
+## [1.7.0-rc.2] - 2020-03-25
 #### Added
 - Email valdiation on MassInvitationForm
 - Pay asset link to offer details
@@ -605,7 +605,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.1...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.2...HEAD
+[1.7.0-rc.2]: https://github.com/tokend/web-client/compare/1.7.0-rc.1...1.7.0-rc.2
 [1.7.0-rc.1]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...1.7.0-rc.1
 [1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.4...1.7.0-rc.0
 [1.6.4]: https://github.com/tokend/web-client/compare/1.6.3...1.6.4
