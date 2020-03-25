@@ -1,7 +1,10 @@
 <template>
   <tbody>
     <tr class="attributes-viewer__table-row">
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="'movements-history.amount-lbl' | globalize"
+      >
         {{ 'movements-history.amount-lbl' | globalize }}
       </td>
       <td
