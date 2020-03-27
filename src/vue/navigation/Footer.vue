@@ -19,6 +19,7 @@
       <a
         class="footer__link"
         :href="config.SUPPORT_URL"
+        target="_blank"
       >
         {{ 'footer.support-apps' | globalize }}
       </a>
