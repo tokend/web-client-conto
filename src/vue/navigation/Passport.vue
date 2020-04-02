@@ -195,7 +195,7 @@ export default {
     },
 
     goSupport () {
-      location.href = config.SUPPORT_URL
+      window.open(config.SUPPORT_URL, '_blank')
     },
 
     async openCompanyPage () {

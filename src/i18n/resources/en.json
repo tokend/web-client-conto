@@ -616,7 +616,7 @@
       "submit-processing": "Processing…"
     },
     "pages-names": {
-      "assets": "Wallet",
+      "assets": "Balances",
       "settings": "Settings",
       "movements": "History",
       "register-of-shares": "History",
@@ -921,7 +921,7 @@
       "preissued-amount-lbl": "Initial pre-issued amount",
       "terms-lbl": "Upload terms",
       "terms-note": "JPG, PNG, PDF, max 5 mb.",
-      "request-submitted-msg": "Your request was successfully processed. Please, wait for approval",
+      "request-submitted-msg": "Your request was successfully approved",
       "pre-issuance-guide-link": "More on pre-issuance",
       "stellar-integration-subheading": "Stellar network",
       "issuance-subheading": "Issuance",
@@ -1126,7 +1126,7 @@
       "native-stellar-asset-type-lbl": "Native",
       "yes-msg": "Yes",
       "no-msg": "No",
-      "send-btn": "Transfer",
+      "send-btn": "Send",
       "issue-btn": "Issue",
       "redeem-btn": "Redeem",
       "converted-balance-title": "Converted balance",
@@ -1213,7 +1213,8 @@
       "promo-code-lbl": "Promo Code",
       "discount": "Discount",
       "calculating-msg": "Calculating...",
-      "success-msg": "Payment successfully"
+      "success-msg": "Payment successfully",
+      "buy-for-bonus": "Only authorized users can buy asset for bonuse"
     },
     "atomic-swap-actions": {
       "cancel-btn": "Cancel offer",
@@ -1235,7 +1236,9 @@
       "address-key": "Address",
       "quote-assets-subheading": "Quote asset #{{ number }}",
       "destination-key": "Destination",
-      "buy-for": "You can buy for:"
+      "buy-for": "You can buy for:",
+      "link-to-buy-asset": "Link to buy asset",
+      "link-copied": "Copied"
     },
     "customers-page": {
       "invite-btn": "Invite client",
@@ -1262,7 +1265,8 @@
       "invitees-lbl": "Invitees",
       "submit-btn": "Invite",
       "invited-successfully-notification": "Mass invitation performed successfully.",
-      "no-invitees-found": "Receivers you provided not found or cannot receive the invitation. Please ensure you specified the valid receivers list and try again."
+      "no-invitees-found": "Receivers you provided not found or cannot receive the invitation. Please ensure you specified the valid receivers list and try again.",
+      "invalid-emails": "You provided invalid email. Please ensure you specified the valid emails and try again."
     },
     "customer-attributes": {
       "id-key": "ID",
@@ -1503,7 +1507,7 @@
     },
     "asset-card": {
       "details-lbl": "Details",
-      "transfer-lbl": "Transfer"
+      "transfer-lbl": "Send"
     },
     "promo-code-card": {
       "discount": "Discount: {{ amount, percent }}",
@@ -1549,7 +1553,7 @@
       "rejected-status-td": "Rejected",
       "paid-status-td": "Paid",
       "timeout-status-td": "Not paid",
-      "pending-status-th": "Pending"
+      "pending-status-td": "Pending"
     },
     "buy-request-statuses": {
       "rejected": "Rejected",

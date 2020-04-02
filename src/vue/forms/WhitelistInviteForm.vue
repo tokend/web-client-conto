@@ -16,7 +16,9 @@
             @blur="touchField('form.email')"
             name="whitelist-invite-email"
             :label="'whitelist-invite-form.email-lbl' | globalize"
-            :error-message="getFieldErrorMessage('form.email')"
+            :error-message="getFieldErrorMessage('form.email', {
+              length: MAX_FIELD_LENGTH.email
+            })"
             :disabled="formMixin.isDisabled"
           />
         </div>
@@ -52,9 +54,11 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 
 import { api } from '@/api'
 
-import { required, email } from '@validators'
+import { required, email, maxLength } from '@validators'
 
 import { SaleRecord } from '@/js/records/entities/sale.record'
+
+import { MAX_FIELD_LENGTH } from '@/js/const/field-length.const'
 
 const EVENTS = {
   invited: 'invited',
@@ -72,12 +76,17 @@ export default {
       email: '',
     },
     isFormSubmitting: false,
+    MAX_FIELD_LENGTH,
   }),
 
   validations () {
     return {
       form: {
-        email: { required, email },
+        email: {
+          required,
+          email,
+          maxLength: maxLength(MAX_FIELD_LENGTH.email),
+        },
       },
     }
   },

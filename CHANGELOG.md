@@ -6,16 +6,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [Unreleased]
+#### Added
+- Atomic swap form disabling if balance is 0
 
-## Unreleased
+#### Fixed
+- number input field
+- A bug with displaying asset and company with a long name in TopBar
+
+## [1.7.0-rc.3] - 2020-03-25
+#### Fixed
+- A bug with impossibility use a comma as a separator in Firefox brow
+
+## [1.7.0-rc.2] - 2020-03-25
+#### Added
+- Email valdiation on MassInvitationForm
+- Pay asset link to offer details
+- Titles to assets movements table
+- validation maxLength for email and password
+
 #### Changed
 - const MAX_INT_32 on value corresponding to the name
+- change name section Wallet to Balances
+- "transfer" buttons to "send"
+- link support app footer and passport open new tab
 
 #### Fixed
 - A bug with don't displaying zero amount your asset in Wallet
-- A bug with displaying asset and company with a long name in TopBar
+- A bug with wrong max possible value in RefundAssetForm
 - A bug when user have wrong status of his account
 - A bug when phone number input accept letter values
+- A bug with auto select corporate company in Assets
+- A bug when information about history of transaction don't display
+- A bug with wrong display bonus payment type for non-authorized users
+- Incorrect asset creation success message
+- A bug with pending status in sales history statistics table
+- A bug when user can to select end period date earlier than start period date
+  on Statistics page
 
 ## [1.7.0-rc.1] - 2020-03-10
 #### Added
@@ -590,7 +617,9 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.1...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.3...HEAD
+[1.7.0-rc.3]: https://github.com/tokend/web-client/compare/1.7.0-rc.2...1.7.0-rc.3
+[1.7.0-rc.2]: https://github.com/tokend/web-client/compare/1.7.0-rc.1...1.7.0-rc.2
 [1.7.0-rc.1]: https://github.com/tokend/web-client/compare/1.7.0-rc.0...1.7.0-rc.1
 [1.7.0-rc.0]: https://github.com/tokend/web-client/compare/1.6.4...1.7.0-rc.0
 [1.6.4]: https://github.com/tokend/web-client/compare/1.6.3...1.6.4
