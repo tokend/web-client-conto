@@ -8,6 +8,9 @@
   margin-bottom: 2.4rem;
   color: $col-text-page-heading;
 
+  @include respond-to-height(950px) {
+    margin-bottom: 1.6rem;
+  }
   @include respond-to-height(750px) {
     margin-bottom: 1rem;
   }
@@ -16,6 +19,9 @@
 .auth-page__tips {
   margin-top: 5.5rem;
 
+  @include respond-to-height(950px) {
+    margin-top: 4.5rem;
+  }
   @include respond-to-height(750px) {
     margin-top: 3.5rem;
   }

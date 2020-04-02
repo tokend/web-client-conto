@@ -12,6 +12,9 @@ $field-to-field-gap: 2rem;
   &:not(:first-child) {
     margin-top: $margin-row-to-row;
 
+    @include respond-to-height(950px) {
+      margin-top: 1.6rem;
+    }
     @include respond-to-height(750px) {
       margin-top: 1rem;
     }
@@ -56,6 +59,9 @@ $field-to-field-gap: 2rem;
   &:not(:first-child) {
     margin-top: 5rem;
 
+    @include respond-to-height(950px) {
+      margin-top: 4rem;
+    }
     @include respond-to-height(750px) {
       margin-top: 3rem;
     }
