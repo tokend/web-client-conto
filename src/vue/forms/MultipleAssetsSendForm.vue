@@ -227,10 +227,6 @@ export default {
 }
 
 .multiple-assets-send-form__delete-asset-btn {
-  margin-top: 1.4rem;
-  margin-left: 0.6rem;
-  max-width: 2.4rem;
-  max-height: 2.4rem;
   color: $col-primary-flat-inactive;
   transition: 0.2s color;
 
