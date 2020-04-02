@@ -210,6 +210,10 @@ export default {
 .movements-top-bar__actions-btn {
   margin-right: 1.2rem;
 
+  @include respond-to-custom($sidebar-hide-bp) {
+    margin-top: 2rem;
+  }
+
   &:last-child {
     margin-right: 0;
   }
@@ -235,6 +239,7 @@ export default {
 
 .movements-top-bar__filter {
   margin-right: 3rem;
+  max-width: 20rem;
 
   @include respond-to-custom($sidebar-hide-bp) {
     margin-bottom: 1rem;
