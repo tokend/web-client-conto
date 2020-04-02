@@ -10,8 +10,6 @@ for further information about branching and tagging conventions.
 #### Added
 - Atomic swap form disabling if balance is 0
 
-
-## [Unreleased]
 #### Fixed
 - number input field
 
