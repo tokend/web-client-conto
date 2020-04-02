@@ -7,10 +7,18 @@
   font-weight: 400;
   margin-bottom: 2.4rem;
   color: $col-text-page-heading;
+
+  @include respond-to-height(750px) {
+    margin-bottom: 1rem;
+  }
 }
 
 .auth-page__tips {
   margin-top: 5.5rem;
+
+  @include respond-to-height(750px) {
+    margin-top: 3.5rem;
+  }
 }
 
 .auth-page__explanations {

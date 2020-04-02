@@ -11,6 +11,10 @@ $field-to-field-gap: 2rem;
 
   &:not(:first-child) {
     margin-top: $margin-row-to-row;
+
+    @include respond-to-height(750px) {
+      margin-top: 1rem;
+    }
   }
 
   & > .app__form-field {
@@ -51,6 +55,10 @@ $field-to-field-gap: 2rem;
 
   &:not(:first-child) {
     margin-top: 5rem;
+
+    @include respond-to-height(750px) {
+      margin-top: 3rem;
+    }
   }
 
   & > button + button {

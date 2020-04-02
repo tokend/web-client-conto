@@ -135,7 +135,7 @@ export default {
     margin-bottom: 12rem;
   }
   @include respond-to-height(750px) {
-    margin-bottom: 6.4rem;
+    margin-bottom: 3.2rem;
   }
 }
 
