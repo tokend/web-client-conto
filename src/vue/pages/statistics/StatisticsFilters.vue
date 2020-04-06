@@ -153,6 +153,16 @@ export default {
         this.$emit(EVENTS.setFiltersAndUpdateList, value)
       },
     },
+    'filters.dateTo' () {
+      if (moment(this.filters.dateTo).isBefore(moment(this.filters.dateFrom))) {
+        this.filters.dateTo = ''
+      }
+    },
+    'filters.dateFrom' () {
+      if (moment(this.filters.dateFrom).isBefore(moment(this.filters.dateTo))) {
+        this.filters.dateFrom = ''
+      }
+    },
   },
 
   async created () {
