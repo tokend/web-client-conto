@@ -18,8 +18,9 @@
       <button
         class="passport__email-btn"
         @click="toggleDropdown"
+        :title="email"
       >
-        {{ email }}
+        {{ email | cropAddress(10) }}
         <i
           class="passport__dropdown-status-icon mdi mdi-chevron-down"
           :class="{
@@ -46,8 +47,11 @@
             {{ 'passport.signed-in-as' | globalize }}
           </span>
           <br>
-          <span class="passport__dropdown-signed-in-email">
-            {{ email }}
+          <span
+            class="passport__dropdown-signed-in-email"
+            :title="email"
+          >
+            {{ email | cropAddress(15) }}
           </span>
         </div>
 
