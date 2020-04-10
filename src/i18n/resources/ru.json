@@ -1651,7 +1651,7 @@
     "multiple-assets-send-form": {
       "assets-subheading": "Актив {{ number }}",
       "asset-lbl": "Актив",
-      "amount-lbl": "Количество актива на отправку",
+      "amount-lbl": "Количество актива каждому получателю",
       "add-asset-btn": "Добавить актив",
       "send-btn": "Отправить",
       "balance": "Доступно {{amount, money}}"
