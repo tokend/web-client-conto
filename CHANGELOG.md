@@ -13,6 +13,7 @@ for further information about branching and tagging conventions.
 #### Changed
 - filter cropAddress
 - maximum validation email length to backend can accept
+- Label in multiple assets send form
 
 #### Fixed
 - number input field
