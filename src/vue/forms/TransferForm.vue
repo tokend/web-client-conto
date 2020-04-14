@@ -64,7 +64,8 @@
                   name="transfer-recipient"
                   v-model.trim="form.recipient"
                   :label="'transfer-form.recipient-lbl' | globalize"
-                  :error-message="getFieldErrorMessage('form.recipient')"
+                  :error-message="getFieldErrorMessage('form.recipient') ||
+                    sendYourselfError"
                   @blur="touchField('form.recipient')"
                   :disabled="formMixin.isDisabled"
                 />
@@ -98,7 +99,7 @@
                 v-if="!formMixin.isConfirmationShown"
                 type="submit"
                 class="app__form-submit-btn app__button-raised"
-                :disabled="formMixin.isDisabled"
+                :disabled="formMixin.isDisabled || isSameID"
                 form="transfer-form"
               >
                 {{ 'transfer-form.submit-btn' | globalize }}
@@ -182,6 +183,8 @@ export default {
     isFeesLoaded: false,
     vueRoutes,
     config,
+    isSameID: false,
+    sendYourselfError: '',
   }),
   validations () {
     return {
@@ -197,6 +200,7 @@ export default {
       vuexTypes.accountId,
       vuexTypes.transferableAssetsBalances,
       vuexTypes.accountBalanceByCode,
+      vuexTypes.walletEmail,
     ]),
     balance () {
       return this.accountBalanceByCode(this.form.asset.code)
@@ -207,6 +211,18 @@ export default {
         .map(i => i.asset)
     },
   },
+  watch: {
+    'form.recipient' () {
+      if (this.form.recipient === this.walletEmail) {
+        this.isSameID = true
+        this.sendYourselfError = globalize('transaction-errors.op_send_yourself')
+        return this.sendYourselfError
+      }
+      this.isSameID = false
+      this.sendYourselfError = ''
+    },
+  },
+
   async created () {
     try {
       await this.loadCurrentBalances()

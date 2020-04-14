@@ -448,7 +448,8 @@
       "op_update_end_time_request_already_exists": "This request already exists",
       "op_update_end_time_request_not_found": "Associated request cannot not found",
       "op_sale_create_tasks_not_found": "There is no key value for crowdfunding creation tasks",
-      "op_sale_update_details_tasks_not_found": "There is no key value for crowdfunding details update tasks"
+      "op_sale_update_details_tasks_not_found": "There is no key value for crowdfunding details update tasks",
+      "op_send_yourself": "You can't send an asset to yourself"
     },
     "idle-message": {
       "notification-message": "You have been logged out due to long inactivity."
