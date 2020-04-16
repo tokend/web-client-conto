@@ -68,6 +68,10 @@ module.exports = {
           from: path.resolve(__dirname, resolveApp('static/branding')),
           to: 'static/branding',
         },
+        {
+          from: path.resolve(__dirname, resolveApp('static/env.js')),
+          to: 'static/env.js',
+        },
       ]),
       ...optionalPlugins,
     ],
