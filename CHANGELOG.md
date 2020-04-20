@@ -19,6 +19,7 @@ for further information about branching and tagging conventions.
 - number input field
 - A bug with displaying asset and company with a long name in TopBar
 - A bug with wrong displaying long email in Passport
+- Validation of phone number's digits quantity from 4 to 8 digits
 
 ## [1.7.0-rc.3] - 2020-03-25
 #### Fixed
