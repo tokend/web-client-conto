@@ -39,7 +39,8 @@
         v-ripple
         type="submit"
         class="phone-number-form__btn app__button-raised"
-        :disabled="formMixin.isDisabled || isPhoneNumberChanged"
+        :disabled="formMixin.isDisabled || isPhoneNumberChanged ||
+          isTooShortPnoneNumber"
       >
         <template v-if="isPhoneEnabled">
           {{ 'phone-number-form.change-btn' | globalize }}
@@ -84,6 +85,7 @@ export default {
     isShowSmsCode: false,
     userPhoneNumber: '',
     totpFactorError: {},
+    isTooShortPnoneNumber: true,
   }),
 
   validations: {
@@ -100,6 +102,14 @@ export default {
     }),
     isPhoneNumberChanged () {
       return this.userPhoneNumber === this.form.phoneNumber
+    },
+  },
+
+  watch: {
+    'form.phoneNumber' () {
+      if (this.form.phoneNumber.length > 7) {
+        this.isTooShortPnoneNumber = false
+      }
     },
   },
 
