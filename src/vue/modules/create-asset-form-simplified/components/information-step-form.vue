@@ -204,6 +204,14 @@ export default {
     },
   },
 
+  watch: {
+    'form.expirationDate' () {
+      if (moment(this.form.expirationDate).isBefore(moment())) {
+        this.form.expirationDate = moment().format('YYYY-MM-DD HH:mm')
+      }
+    },
+  },
+
   methods: {
     getAssetCode () {
       let hash = md5.create()
