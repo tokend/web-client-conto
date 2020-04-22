@@ -10,11 +10,17 @@ for further information about branching and tagging conventions.
 #### Added
 - Atomic swap form disabling if balance is 0
 
+#### Changed
+- filter cropAddress
+- maximum validation email length to backend can accept
+- Label in multiple assets send form
+
 #### Fixed
 - number input field
 - A bug with displaying asset and company with a long name in TopBar
 - A bug with possibility select date period start after date period end
   in StatisticsFilters
+- A bug with wrong displaying long email in Passport
 
 ## [1.7.0-rc.3] - 2020-03-25
 #### Fixed

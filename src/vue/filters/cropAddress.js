@@ -1,3 +1,7 @@
-export function cropAddress (value) {
-  return `${value.slice(0, 4)}…${value.slice(-4)}`
+export function cropAddress (string, reduceValue = 4) {
+  if (string.length > 2 * reduceValue) {
+    return `${string.slice(0, reduceValue)}…${string.slice(-reduceValue)}`
+  } else {
+    return string
+  }
 }
