@@ -40,7 +40,7 @@
         type="submit"
         class="phone-number-form__btn app__button-raised"
         :disabled="formMixin.isDisabled || isPhoneNumberChanged ||
-          isTooShortPnoneNumber"
+          !isHaveEightNumber"
       >
         <template v-if="isPhoneEnabled">
           {{ 'phone-number-form.change-btn' | globalize }}
@@ -85,7 +85,7 @@ export default {
     isShowSmsCode: false,
     userPhoneNumber: '',
     totpFactorError: {},
-    isTooShortPnoneNumber: true,
+    // isTooShortPnoneNumber: true,
   }),
 
   validations: {
@@ -103,15 +103,20 @@ export default {
     isPhoneNumberChanged () {
       return this.userPhoneNumber === this.form.phoneNumber
     },
-  },
-
-  watch: {
-    'form.phoneNumber' () {
-      if (this.form.phoneNumber.length > 7) {
-        this.isTooShortPnoneNumber = false
-      }
+    isHaveEightNumber () {
+      return this.form.phoneNumber.length > 7
     },
   },
+
+  // watch: {
+  //   'form.phoneNumber' () {
+  //     if (this.form.phoneNumber.length > 7) {
+  //       this.isTooShortPnoneNumber = false
+  //     } else {
+  //       this.isTooShortPnoneNumber = true
+  //     }
+  //   },
+  // },
 
   async created () {
     const phoneNumber = await this.getPhoneByAccountId(this.accountId, true)
