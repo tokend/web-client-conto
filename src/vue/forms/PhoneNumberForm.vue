@@ -85,7 +85,6 @@ export default {
     isShowSmsCode: false,
     userPhoneNumber: '',
     totpFactorError: {},
-    // isTooShortPnoneNumber: true,
   }),
 
   validations: {
@@ -107,16 +106,6 @@ export default {
       return this.form.phoneNumber.length > 7
     },
   },
-
-  // watch: {
-  //   'form.phoneNumber' () {
-  //     if (this.form.phoneNumber.length > 7) {
-  //       this.isTooShortPnoneNumber = false
-  //     } else {
-  //       this.isTooShortPnoneNumber = true
-  //     }
-  //   },
-  // },
 
   async created () {
     const phoneNumber = await this.getPhoneByAccountId(this.accountId, true)
