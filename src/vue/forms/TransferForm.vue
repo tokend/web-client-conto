@@ -64,8 +64,7 @@
                   name="transfer-recipient"
                   v-model.trim="form.recipient"
                   :label="'transfer-form.recipient-lbl' | globalize"
-                  :error-message="getFieldErrorMessage('form.recipient') ||
-                    sendYourselfError"
+                  :error-message="getFieldErrorMessage('form.recipient')"
                   @blur="touchField('form.recipient')"
                   :disabled="formMixin.isDisabled"
                 />
@@ -99,7 +98,7 @@
                 v-if="!formMixin.isConfirmationShown"
                 type="submit"
                 class="app__form-submit-btn app__button-raised"
-                :disabled="formMixin.isDisabled || isSameID"
+                :disabled="formMixin.isDisabled"
                 form="transfer-form"
               >
                 {{ 'transfer-form.submit-btn' | globalize }}
@@ -145,6 +144,7 @@ import {
   required,
   emailOrPhoneNumberOrTelegram,
   email,
+  sendYourself,
 } from '@validators'
 
 const EVENTS = {
@@ -183,15 +183,21 @@ export default {
     isFeesLoaded: false,
     vueRoutes,
     config,
-    isSameID: false,
-    sendYourselfError: '',
   }),
   validations () {
     return {
       form: {
         recipient: this.isSendingOnNotExistAccount
-          ? { required, email }
-          : { required, emailOrPhoneNumberOrTelegram },
+          ? {
+            required,
+            email,
+            sendYourself: sendYourself(this.form.recipient, this.walletEmail),
+          }
+          : {
+            required,
+            emailOrPhoneNumberOrTelegram,
+            sendYourself: sendYourself(this.form.recipient, this.walletEmail),
+          },
       },
     }
   },
@@ -211,18 +217,6 @@ export default {
         .map(i => i.asset)
     },
   },
-  watch: {
-    'form.recipient' () {
-      if (this.form.recipient === this.walletEmail) {
-        this.isSameID = true
-        this.sendYourselfError = globalize('transaction-errors.op_send_yourself')
-        return this.sendYourselfError
-      }
-      this.isSameID = false
-      this.sendYourselfError = ''
-    },
-  },
-
   async created () {
     try {
       await this.loadCurrentBalances()

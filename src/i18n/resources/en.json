@@ -119,6 +119,7 @@
       "field-error_selectedInternalSameType": "Not allowed duplicated Internal type",
       "field-error_validatePhoneNumber": "Make sure the phone number is correct",
       "field-error_emailOrPhoneNumberOrTelegram": "This field should be a valid email, phone number or telegram",
+      "field-error_sendYourself": "You can't send an asset to yourself",
       "field-error_telegramUsername": "The telegram username is incorrect",
       "field-error_cryptoAddressOrCreditCardNumber": "This field should be valid {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Promo Code for this offer does not exists",
