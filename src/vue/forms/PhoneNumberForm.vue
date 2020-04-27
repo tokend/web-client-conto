@@ -40,7 +40,7 @@
         type="submit"
         class="phone-number-form__btn app__button-raised"
         :disabled="formMixin.isDisabled || isPhoneNumberChanged ||
-          !isHaveEightNumber"
+          !isPhoneNumberLengthCorrect"
       >
         <template v-if="isPhoneEnabled">
           {{ 'phone-number-form.change-btn' | globalize }}
@@ -102,7 +102,7 @@ export default {
     isPhoneNumberChanged () {
       return this.userPhoneNumber === this.form.phoneNumber
     },
-    isHaveEightNumber () {
+    isPhoneNumberLengthCorrect () {
       return this.form.phoneNumber.length > 7
     },
   },
