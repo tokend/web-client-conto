@@ -40,7 +40,7 @@
         type="submit"
         class="phone-number-form__btn app__button-raised"
         :disabled="formMixin.isDisabled || isPhoneNumberChanged ||
-          !isPhoneNumberLengthCorrect"
+          !isMinPhoneNumberLengthReached"
       >
         <template v-if="isPhoneEnabled">
           {{ 'phone-number-form.change-btn' | globalize }}
@@ -102,7 +102,7 @@ export default {
     isPhoneNumberChanged () {
       return this.userPhoneNumber === this.form.phoneNumber
     },
-    isPhoneNumberLengthCorrect () {
+    isMinPhoneNumberLengthReached () {
       return this.form.phoneNumber.length > 7
     },
   },
