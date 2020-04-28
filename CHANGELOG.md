@@ -22,6 +22,8 @@ for further information about branching and tagging conventions.
   in StatisticsFilters
 - A bug with wrong displaying long email in Passport
 - A possibility select expiration date of asset before current time
+- A bug with text layering when appears validation error of input field on
+  sign in, recovery and register pages
 
 ## [1.7.0-rc.3] - 2020-03-25
 #### Fixed
