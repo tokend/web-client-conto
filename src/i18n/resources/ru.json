@@ -119,6 +119,7 @@
       "field-error_selectedInternalSameType": "Не могут быть выбраны два способа оплаты с типом внутренний платеж",
       "field-error_validatePhoneNumber": "Неверный номер телефона",
       "field-error_emailOrPhoneNumberOrTelegram": "Неверный имейл, телефон получателя или телеграм",
+      "field-error_sendYourself": "Вы не можете отправить актив самому себе",
       "field-error_telegramUsername": "Имя пользователя неверное",
       "field-error_cryptoAddressOrCreditCardNumber": "Неверный {{ destinationLabel, lowercase }}",
       "field-error_promoCodeNotExist": "Такого промокода для этого предложения не существует",

@@ -9,6 +9,7 @@ for further information about branching and tagging conventions.
 ## [Unreleased]
 #### Added
 - Atomic swap form disabling if balance is 0
+- Error when you try to send yourself
 
 #### Changed
 - filter cropAddress
