@@ -21,7 +21,7 @@ export const mutations = {
 export const actions = {
   async [vuexTypes.LOAD_ACCOUNT] ({ commit }, accountId) {
     const response = await api.getWithSignature(`/v3/accounts/${accountId}`, {
-      include: ['external_system_ids', 'balances', 'balances.state', 'balances.asset'],
+      include: ['external_system_ids', 'balances', 'balances.state', 'balances.asset', 'kyc_data'],
     })
     commit(vuexTypes.SET_ACCOUNT, response.data)
   },
@@ -122,6 +122,8 @@ export const getters = {
   [vuexTypes.isAccountBlocked]: (a, getters, b, rootGetters) =>
     getters[vuexTypes.accountRoleId] ===
     rootGetters[vuexTypes.kvEntryBlockedRoleId],
+  [vuexTypes.accountKycBlob]: state =>
+    _get(state, 'account.kycData.kycData.blobId'),
 }
 
 export default {
