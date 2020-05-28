@@ -153,6 +153,7 @@ const getters = {
   accountBalanceByCode: 'accountBalanceByCode',
   accountRoleId: 'accountRoleId',
   accountDepositAddresses: 'accountDepositAddresses',
+  accountKycBlob: 'accountKycBlob',
 
   isAccountGeneral: 'isAccountGeneral',
   isAccountCorporate: 'isAccountCorporate',
@@ -199,6 +200,7 @@ const getters = {
   kycLatestRequestData: 'kycLatestRequestData',
   kycAvatarKey: 'kycAvatarKey',
   isAccountRoleReseted: 'isAccountRoleReseted',
+  isAccountAndRequestBlobIdentical: 'isAccountAndRequestBlobIdentical',
 
   // kyc recovery
   accountKycRecoveryStatus: 'accountKycRecoveryStatus',

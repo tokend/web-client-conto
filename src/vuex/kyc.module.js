@@ -133,20 +133,18 @@ export const actions = {
     commit(vuexTypes.SET_KYC_LATEST_REQUEST_DATA, blob.value)
   },
 
-  async [vuexTypes.LOAD_KYC_LATEST_DATA] ({ rootGetters, commit }) {
+  async [vuexTypes.LOAD_KYC_LATEST_DATA] ({ getters, rootGetters, commit }) {
     const accountId = rootGetters[vuexTypes.accountId]
-    const { data: account } = await api.getWithSignature(
-      `/v3/accounts/${accountId}`,
-      { include: ['kyc_data'] }
-    )
+    const latestAccountBlobId = rootGetters[vuexTypes.accountKycBlob]
+    const isAccountAndRequestBlobIdentical =
+      getters[vuexTypes.isAccountAndRequestBlobIdentical]
 
-    const latestBlobId = safeGet(account, 'kycData.kycData.blobId')
-    if (!latestBlobId) {
+    if (!latestAccountBlobId || isAccountAndRequestBlobIdentical) {
       return
     }
 
     const latestBlobResponse = await api.getWithSignature(
-      `/accounts/${accountId}/blobs/${latestBlobId}`
+      `/accounts/${accountId}/blobs/${latestAccountBlobId}`
     )
     const latestData = latestBlobResponse.data.value
 
@@ -178,10 +176,13 @@ export const getters = {
   [vuexTypes.kycLatestRequestData]: state => JSON.parse(
     state.latestRequestData
   ),
-  [vuexTypes.kycAvatarKey]: state => safeGet(
-    JSON.parse(state.latestData),
-    'documents.kyc_avatar.key'
-  ),
+  [vuexTypes.kycAvatarKey]: (state, getters) =>
+    getters[vuexTypes.isAccountAndRequestBlobIdentical]
+      ? safeGet(JSON.parse(state.latestRequestData), 'documents.kyc_avatar.key')
+      : safeGet(JSON.parse(state.latestData), 'documents.kyc_avatar.key'),
+  [vuexTypes.isAccountAndRequestBlobIdentical]: (a, getters, b, rootGetters) =>
+    Boolean(getters[vuexTypes.kycLatestRequestBlobId] ===
+    rootGetters[vuexTypes.accountKycBlob]),
 }
 
 export default {
