@@ -63,7 +63,7 @@ describe('kyc.module end-to-end test', () => {
     })
 
     it('kycLatestData', () => {
-      expect(store.getters[vuexTypes.kycLatestData])
+      expect(store.getters[vuexTypes.kycLatestRequestData])
         .to.deep.equal(latestKycData)
     })
   })
