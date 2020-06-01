@@ -86,3 +86,6 @@ export const validatePhoneNumber = value => {
 export const minDate = (minDate) => value => {
   return moment(value).isAfter(moment(minDate))
 }
+
+export const sendYourself = (recipient, sender) => () =>
+  recipient !== sender

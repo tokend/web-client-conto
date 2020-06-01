@@ -117,12 +117,12 @@ export default {
   padding: 8rem 11rem 9rem;
 
   @include respond-to(large) {
-    padding: 6rem 7rem;
+    padding: 9rem 7rem;
   }
   @include respond-to(medium) {
     margin: 0 auto;
     max-width: 48rem;
-    padding: 6rem 1.6rem;
+    padding: 9rem 1.6rem;
     width: 100%;
   }
 }

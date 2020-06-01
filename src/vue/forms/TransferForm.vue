@@ -144,6 +144,7 @@ import {
   required,
   emailOrPhoneNumberOrTelegram,
   email,
+  sendYourself,
 } from '@validators'
 
 const EVENTS = {
@@ -187,8 +188,16 @@ export default {
     return {
       form: {
         recipient: this.isSendingOnNotExistAccount
-          ? { required, email }
-          : { required, emailOrPhoneNumberOrTelegram },
+          ? {
+            required,
+            email,
+            sendYourself: sendYourself(this.form.recipient, this.walletEmail),
+          }
+          : {
+            required,
+            emailOrPhoneNumberOrTelegram,
+            sendYourself: sendYourself(this.form.recipient, this.walletEmail),
+          },
       },
     }
   },
@@ -197,6 +206,7 @@ export default {
       vuexTypes.accountId,
       vuexTypes.transferableAssetsBalances,
       vuexTypes.accountBalanceByCode,
+      vuexTypes.walletEmail,
     ]),
     balance () {
       return this.accountBalanceByCode(this.form.asset.code)

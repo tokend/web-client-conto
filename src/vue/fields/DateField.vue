@@ -113,7 +113,7 @@ export default {
   watch: {
     value (newValue) {
       // Prevent updates if v-model value is same as input's current value
-      if (newValue === this.flatpickrDate) return
+      if (moment(newValue).isSame(moment(this.flatpickrDate, 'minutes'))) return
       // Sets the current selected date after value changed
       if (this.flatpickr) this.flatpickr.setDate(newValue, true)
     },
@@ -227,20 +227,20 @@ export default {
      *
      * @link https://flatpickr.js.org/events/#events
      */
-    onOpen (selectedDates, dateStr, instance) {
+    onOpen () {
       this.isCalendarOpen = true
       // Let's wait for DOM to be updated
       this.$nextTick(() => {
         this.$emit(EMITABLE_EVENTS.onOpen)
       })
     },
-    onClose (selectedDates, dateStr, instance) {
+    onClose () {
       this.isCalendarOpen = false
-      this.flatpickrDate = dateStr
-      this.flatpickr.setDate(dateStr, true)
+      this.flatpickrDate = this.value
+      this.flatpickr.setDate(this.value, true)
       // Let's wait for DOM to be updated
       this.$nextTick(() => {
-        this.$emit(EMITABLE_EVENTS.input, dateStr)
+        this.$emit(EMITABLE_EVENTS.input, this.value)
         this.$emit(EMITABLE_EVENTS.onClose)
       })
     },
