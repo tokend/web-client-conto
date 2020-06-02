@@ -1,18 +1,33 @@
-import { base } from '@tokend/js-sdk'
-import normalizeUrl from 'normalize-url'
 import packageJson from '../package.json'
+import _isEmpty from 'lodash/isEmpty'
+import { base } from '@tokend/js-sdk'
 
-function normalizeEnvUrls (env) {
-  let envCopy = Object.assign(env)
+const config = {}
 
-  if (envCopy.hasOwnProperty('HORIZON_SERVER')) {
-    envCopy.HORIZON_SERVER = normalizeUrl(envCopy.HORIZON_SERVER)
+const env = _isEmpty(document.ENV)
+  ? process.env
+  : document.ENV
+
+Object.keys(env).forEach(varName => {
+  const value = normalize(env[varName])
+  if (varName.startsWith('VUE_APP')) {
+    let key = varName.replace('VUE_APP_', '')
+    config[key] = value
+  } else {
+    config[varName] = value
   }
-  if (envCopy.hasOwnProperty('FILE_STORAGE')) {
-    envCopy.FILE_STORAGE = normalizeUrl(envCopy.FILE_STORAGE)
+})
+
+function normalize (value) {
+  if (value === 'true') {
+    return true
   }
 
-  return envCopy
+  if (value === 'false') {
+    return false
+  }
+
+  return value
 }
 
 export default Object.assign(
@@ -177,9 +192,9 @@ export default Object.assign(
   },
   // process.env,
   process.env
-    ? Object.assign(process.env, normalizeEnvUrls(process.env))
+    ? config
     : process.env,
   document.ENV
-    ? Object.assign(document.ENV, normalizeEnvUrls(document.ENV))
+    ? config
     : document.ENV,
 )
