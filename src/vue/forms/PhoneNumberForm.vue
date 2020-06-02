@@ -39,7 +39,8 @@
         v-ripple
         type="submit"
         class="phone-number-form__btn app__button-raised"
-        :disabled="formMixin.isDisabled || isPhoneNumberChanged"
+        :disabled="formMixin.isDisabled || isPhoneNumberChanged ||
+          !isPhoneNumberValid"
       >
         <template v-if="isPhoneEnabled">
           {{ 'phone-number-form.change-btn' | globalize }}
@@ -100,6 +101,9 @@ export default {
     }),
     isPhoneNumberChanged () {
       return this.userPhoneNumber === this.form.phoneNumber
+    },
+    isPhoneNumberValid () {
+      return validatePhoneNumber(this.form.phoneNumber)
     },
   },
 

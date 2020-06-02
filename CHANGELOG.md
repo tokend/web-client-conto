@@ -22,6 +22,7 @@ for further information about branching and tagging conventions.
 - A bug with possibility select date period start after date period end
   in StatisticsFilters
 - A bug with wrong displaying long email in Passport
+- Validation of phone number's digits quantity from 4 to 8 digits
 - A possibility select expiration date of asset before current time
 - A bug with text layering when appears validation error of input field on
   sign in, recovery and register pages

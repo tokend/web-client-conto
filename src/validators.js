@@ -80,7 +80,7 @@ export const validateUrl = url => {
 }
 
 export const validatePhoneNumber = value => {
-  return /^[1-9]{1}[0-9]{3,14}$/i.test(value)
+  return /^[1-9]{1}[0-9]{7,14}$/i.test(value)
 }
 
 export const minDate = (minDate) => value => {
