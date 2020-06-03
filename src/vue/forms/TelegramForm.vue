@@ -23,7 +23,9 @@
           <p>
             {{ 'telegram-form.info-msg' | globalize }}:
           </p>
-          <a :href="botUrl">{{ botUrl }}</a>
+          <a :href="botUrl">
+            {{ botUrl }}
+          </a>
         </div>
       </div>
       <transition name="telegram-form__transition">

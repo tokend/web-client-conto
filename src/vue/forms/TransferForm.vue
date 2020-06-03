@@ -77,9 +77,9 @@
                   name="transfer-description"
                   v-model="form.subject"
                   :label="'transfer-form.subject-lbl' | globalize({
-                    length: 250
+                    length: MAX_SUBJECT_LENGTH
                   })"
-                  :maxlength="250"
+                  :maxlength="MAX_SUBJECT_LENGTH"
                   :readonly="formMixin.isDisabled"
                 />
               </div>
@@ -151,6 +151,8 @@ const EVENTS = {
   operationSubmitted: 'operation-submitted',
 }
 
+const MAX_SUBJECT_LENGTH = 1000
+
 export default {
   name: 'transfers-form',
   components: {
@@ -166,6 +168,7 @@ export default {
     assetToTransfer: { type: String, default: '' },
   },
   data: () => ({
+    MAX_SUBJECT_LENGTH,
     recipientAccountId: '',
     isSendingOnNotExistAccount: false,
     form: {
@@ -294,14 +297,14 @@ export default {
       this.isSendingOnNotExistAccount = false
     },
     buildPaymentOperation () {
-      let subject = {
-        subject: this.form.subject,
-      }
-      if (this.isSendingOnNotExistAccount) {
-        subject.sender = this.accountId
-        subject.email = this.form.recipient
-      }
-      subject = JSON.stringify(subject)
+      // let subject = {
+      //   subject: this.form.subject,
+      // }
+      // if (this.isSendingOnNotExistAccount) {
+      //   subject.sender = this.accountId
+      //   subject.email = this.form.recipient
+      // }
+      // subject = JSON.stringify(subject)
       return base.PaymentBuilder.payment({
         sourceBalanceId: this.balance.id,
         destination: this.recipientAccountId,
@@ -317,7 +320,7 @@ export default {
           },
           sourcePaysForDest: this.form.isPaidForRecipient,
         },
-        subject: subject,
+        subject: this.form.subject,
         asset: this.form.asset.code,
       })
     },

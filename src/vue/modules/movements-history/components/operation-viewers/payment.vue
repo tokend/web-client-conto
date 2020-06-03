@@ -63,7 +63,10 @@
       >
         {{ 'movements-history.subject-lbl' | globalize }}
       </td>
-      <td class="attributes-viewer__table-cell">
+      <td
+        class="attributes-viewer__table-cell"
+        :title="operationDetails.subject"
+      >
         {{ operationDetails.subject }}
       </td>
     </tr>
