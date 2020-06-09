@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## [1.7.0-rc.6] - 2020-06-09
+#### Fixed
+- A bug with displaying init-loader logo in index.html
+
 ## [1.7.0-rc.5] - 2020-06-03
 #### Changed
 - Payment subject size from 250 to 1000
@@ -639,7 +643,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.5...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.6...HEAD
+[1.7.0-rc.6]: https://github.com/tokend/web-client/compare/1.7.0-rc.5...1.7.0-rc.6
 [1.7.0-rc.5]: https://github.com/tokend/web-client/compare/1.7.0-rc.4...1.7.0-rc.5
 [1.7.0-rc.4]: https://github.com/tokend/web-client/compare/1.7.0-rc.3...1.7.0-rc.4
 [1.7.0-rc.3]: https://github.com/tokend/web-client/compare/1.7.0-rc.2...1.7.0-rc.3
