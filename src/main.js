@@ -9,6 +9,7 @@ import config from './config'
 import NProgress from 'nprogress'
 import router from '@/vue-router'
 import VuejsClipper from 'vuejs-clipper'
+import VueHead from 'vue-head'
 import moment from 'moment'
 
 import { buildStore } from '@/vuex'
@@ -47,6 +48,7 @@ async function init () {
       clipperBasic: true,
     },
   })
+  Vue.use(VueHead)
   Vue.directive('ripple', ripple)
   Vue.filter('globalize', globalize)
   Vue.filter('globalizeCountry', globalizeCountry)

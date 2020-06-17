@@ -1786,6 +1786,9 @@
       "permission-type-unrestricted-val": "Переголосование разрешено",
       "yes-val": "Да",
       "no-val": "Нет"
+    },
+    "smart-banner": {
+      "open-store-btn": "ОТКРЫТЬ"
     }
   }
 }
