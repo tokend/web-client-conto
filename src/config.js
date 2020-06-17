@@ -201,7 +201,6 @@ export default Object.assign(
     PLAY_MARKET_ICON: 'https://lh3.googleusercontent.com/OgEkAMSJk3RpQd-IHRFh9TiKMjmnR-Q86tcMcylp-FL0385WQBn0uZ5LsFhFtHVttMI=s180-rw',
     APP_STORE_ID: '',
     APP_STORE_ICON: '',
-
   },
   // process.env,
   process.env
