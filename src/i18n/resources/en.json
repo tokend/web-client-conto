@@ -1140,7 +1140,7 @@
       "purchases": "Purchases",
       "loading-error-msg": "There was an error while loading.",
       "no-data-title": "No purchases",
-      "no-data-msg":"Here will be the purchase history of your offer"
+      "no-data-msg": "Here will be the purchase history of your offer"
     },
     "atomic-swaps-requests-table": {
       "buyer-th": "Buyer",
@@ -1180,7 +1180,7 @@
       "loading-error-msg": "There was an error while loading.",
       "search-lbl": "Search"
     },
-    "buy-atomic-swap-form":{
+    "buy-atomic-swap-form": {
       "available": "Available {{amount, money}} {{asset}}",
       "asset-in-which-buying": "Payment method",
       "amount": "Amount to buy {{asset}}",
@@ -1465,7 +1465,7 @@
       "offers-title": "Offers",
       "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
       "no-data-title": "No offers yet",
-      "no-data-msg":"Promo Code doesn't have any offers yet."
+      "no-data-msg": "Promo Code doesn't have any offers yet."
     },
     "promo-code-form-offers-table": {
       "name-th": "Name",
@@ -1543,19 +1543,19 @@
       "pending": "Pending"
     },
     "statistics-sales-history-attributes-viewer": {
-      "date-key":"Date",
-      "amount-key":"Amount",
-      "discount-key":"Discount",
-      "total-price-key":"Total price",
-      "buyer-key":"Buyer",
-      "promo-code-key":"Promo Code"
+      "date-key": "Date",
+      "amount-key": "Amount",
+      "discount-key": "Discount",
+      "total-price-key": "Total price",
+      "buyer-key": "Buyer",
+      "promo-code-key": "Promo Code"
     },
     "statistics-general": {
       "no-assets-title": "No assets yet",
       "no-assets-msg": "Company don't have any assets yet.",
       "no-data-title": "No sold assets history yet",
       "no-data-msg": "Here will be your sold assets history",
-      "error-msg":"An error occurred while loading the list."
+      "error-msg": "An error occurred while loading the list."
     },
     "statistics-general-table": {
       "asset-th": "Asset",
@@ -1787,6 +1787,9 @@
       "permission-type-unrestricted-val": "Re-vote allowed",
       "yes-val": "Yes",
       "no-val": "No"
+    },
+    "smart-banner": {
+      "open-store-btn": "OPEN"
     }
   }
 }

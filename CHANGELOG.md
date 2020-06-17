@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
+## Unreleased
+#### Added
+- Smart App Banner
+
 ## [1.7.0-rc.6] - 2020-06-09
 #### Fixed
 - A bug with displaying init-loader logo in index.html
@@ -38,7 +42,7 @@ for further information about branching and tagging conventions.
 - A possibility select expiration date of asset before current time
 - A bug with text layering when appears validation error of input field on
   sign in, recovery and register pages
-- A bug when sends a few requests to get blob 
+- A bug when sends a few requests to get blob
 
 ## [1.7.0-rc.3] - 2020-03-25
 #### Fixed
@@ -83,11 +87,11 @@ for further information about branching and tagging conventions.
 
 #### Fixed
 - A bug with filter for `paymentMethodType` on pay page
-- Hidden 'Polls' 
+- Hidden 'Polls'
 - A bug with typo on Successful payment page
-- A bug when the email field is not filled after going from the page 
+- A bug when the email field is not filled after going from the page
   Successful payment page
-- A bug when Russian is not set in Safari by default if you use Russian 
+- A bug when Russian is not set in Safari by default if you use Russian
   in system and use the application for the first time
 - A bug when you enter a nonexistent promotional code the price becomes 0
 - A bug when user has access to inaccessible routes
@@ -265,7 +269,7 @@ for further information about branching and tagging conventions.
 
 ## [1.3.0-rc.1] - 2019-11-06
 #### Added
-- Trim for input field 
+- Trim for input field
 - Redeem default amount
 - Current company page
 - New component 'Card' for displaying all card
@@ -487,7 +491,7 @@ for further information about branching and tagging conventions.
 - Filter assets on send by asset owner
 
 #### Fixed
--Rename assets to wallet, 
+-Rename assets to wallet,
 -Hid assets with 0 balance
 
 ## [1.0.0] - 2019-08-23
@@ -540,7 +544,7 @@ for further information about branching and tagging conventions.
 - Bug with displaying balances
 
 #### Changed
-- Hid asset explorer tabs 
+- Hid asset explorer tabs
 
 ## [1.0.0-rc.5] - 2019-08-02
 #### Added
@@ -586,7 +590,7 @@ for further information about branching and tagging conventions.
 - Trailing digits for create new asset
 
 ## [1.0.0-rc.1] - 2019-07-25
-#### Added 
+#### Added
 - Display asset logo full cover on Assets page
 - Refresh lists after submit transactions
 

@@ -189,6 +189,19 @@ export default Object.assign(
      */
     SUPPORT_URL: '',
 
+    /**
+     * Related Mobile application configuration. You can omit:
+     * MOBILE_APP_NAME, MOBILE_APP_AUTHOR - The Smart App Banner won’t show
+     * PLAY_MARKET_ID - Play Market prompt won’t show
+     * APP_STORE_ID - App Store prompt won’t show
+     */
+    MOBILE_APP_NAME: 'Conto',
+    MOBILE_APP_AUTHOR: 'Distributed Lab',
+    PLAY_MARKET_ID: 'org.tokend.conto',
+    PLAY_MARKET_ICON: 'https://lh3.googleusercontent.com/OgEkAMSJk3RpQd-IHRFh9TiKMjmnR-Q86tcMcylp-FL0385WQBn0uZ5LsFhFtHVttMI=s180-rw',
+    APP_STORE_ID: '',
+    APP_STORE_ICON: '',
+
   },
   // process.env,
   process.env
