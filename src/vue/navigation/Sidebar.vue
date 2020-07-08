@@ -19,12 +19,10 @@
       :class="{ 'sidebar__aside--closed': !isOpened }"
     >
       <section class="sidebar__logo-section">
-        <router-link
+        <logo
+          class="sidebar__logo"
           @click.native="closeSidebar"
-          :to="vueRoutes.app"
-        >
-          <logo class="sidebar__logo" />
-        </router-link>
+        />
       </section>
 
       <section class="sidebar__scheme-label-section">
@@ -376,7 +374,6 @@ $content-item-right-padding: 2.4rem;
 }
 
 .sidebar__logo {
-  max-width: 9.5rem;
   width: 100%;
   height: 3.1rem;
   display: block;

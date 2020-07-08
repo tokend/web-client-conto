@@ -40,9 +40,6 @@ export default {
 
 <style lang="scss">
 .logotype img {
-  max-height: 4.5rem;
   height: inherit;
-  width: inherit;
-  margin-left: -1.1rem;
 }
 </style>
