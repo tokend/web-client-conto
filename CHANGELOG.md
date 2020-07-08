@@ -10,6 +10,9 @@ for further information about branching and tagging conventions.
 #### Added
 - Smart App Banner
 
+#### Fixed
+- Logo outside section
+
 ## [1.7.0-rc.6] - 2020-06-09
 #### Fixed
 - A bug with displaying init-loader logo in index.html

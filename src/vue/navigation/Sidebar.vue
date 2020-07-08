@@ -19,12 +19,10 @@
       :class="{ 'sidebar__aside--closed': !isOpened }"
     >
       <section class="sidebar__logo-section">
-        <router-link
+        <logo
+          class="sidebar__logo"
           @click.native="closeSidebar"
-          :to="vueRoutes.app"
-        >
-          <logo class="sidebar__logo" />
-        </router-link>
+        />
       </section>
 
       <section class="sidebar__scheme-label-section">
