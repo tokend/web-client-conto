@@ -42,6 +42,5 @@ export default {
 .logotype img {
   max-height: 4.5rem;
   height: inherit;
-  width: inherit;
 }
 </style>
