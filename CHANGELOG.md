@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
-## Unreleased
+## [1.7.0] - 2020-07-16
 #### Added
 - Smart App Banner
 
@@ -650,7 +650,8 @@ for further information about branching and tagging conventions.
 #### Removed
 - `RECOVERY_MODE` config key due to unused anymore
 
-[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0-rc.6...HEAD
+[Unreleased]: https://github.com/tokend/web-client/compare/1.7.0...HEAD
+[1.7.0]: https://github.com/tokend/web-client/compare/1.7.0-rc.6...1.7.0
 [1.7.0-rc.6]: https://github.com/tokend/web-client/compare/1.7.0-rc.5...1.7.0-rc.6
 [1.7.0-rc.5]: https://github.com/tokend/web-client/compare/1.7.0-rc.4...1.7.0-rc.5
 [1.7.0-rc.4]: https://github.com/tokend/web-client/compare/1.7.0-rc.3...1.7.0-rc.4
