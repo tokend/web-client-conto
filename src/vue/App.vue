@@ -49,12 +49,6 @@ import {
   mapActions,
   mapMutations,
 } from 'vuex'
-import {
-  api,
-  documentsManager,
-  walletsManager,
-  factorsManager,
-} from '@/api'
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
@@ -122,7 +116,6 @@ export default {
 
   methods: {
     ...mapActions({
-      loadKvEntries: vuexTypes.LOAD_KV_ENTRIES,
       loadAssets: vuexTypes.LOAD_ASSETS,
       loadAccount: vuexTypes.LOAD_ACCOUNT,
       decryptSecretSeed: vuexTypes.DECRYPT_SECRET_SEED,
@@ -137,22 +130,11 @@ export default {
       clearState: vuexTypes.CLEAR_STATE,
     }),
     async initApp () {
-      api.useBaseURL(config.HORIZON_SERVER)
-      documentsManager.useStorageURL(config.FILE_STORAGE)
-
-      const { data: networkDetails } = await api.getRaw('/')
-      api.useNetworkDetails(networkDetails)
-
-      await this.loadKvEntries()
-
       if (this.isLoggedIn) {
         await this.restoreSession()
         await this.loadAccount(this.walletAccountId)
         await this.loadMyBusinesses()
       }
-      walletsManager.useApi(api)
-      factorsManager.useApi(api)
-      documentsManager.useApi(api)
       if (this.isAccountCorporate) this.loadBusiness(this.walletAccountId)
       await this.loadAssets()
     },

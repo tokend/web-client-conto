@@ -7,9 +7,7 @@ import factors from './factors.module'
 import wallet from './wallet.module'
 import kyc from './kyc.module'
 import identities from './identities.module'
-import keyValue from './key-value.module'
 import businesses from './businesses.module'
-import kycRecovery from './kyc-recovery.module'
 import movementsHistory from './movements-history.module'
 import sponsorshipRequests from './sponsorship-requests.module'
 import idleHandler from './idle-handler.module'
@@ -67,7 +65,7 @@ export const rootModule = {
   getters: {
     // eslint-disable-next-line max-len
     [vuexTypes.isLoggedIn]: (_, getters) => !_isEmpty(getters[vuexTypes.account]) &&
-      !getters[vuexTypes.isKycRecoveryInProgress],
+      !getters[vuexTypes.isAccountKycRecoveryInProgress],
   },
   state: {},
 }
@@ -83,9 +81,7 @@ function buildStore () {
       wallet,
       kyc,
       identities,
-      keyValue,
       idleHandler,
-      kycRecovery,
       movementsHistory,
       sponsorshipRequests,
       businesses,

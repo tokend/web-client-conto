@@ -1,47 +1,61 @@
 <template>
-  <div class="verification-general-form">
-    <p class="verification-general-form__account-info-title">
-      {{ 'verification-form.account-information-lbl' | globalize }}
+  <div class="verification-general">
+    <p class="verification-general__account-info-title">
+      {{ 'verification-general.account-information-lbl' | globalize }}
     </p>
 
-    <general-kyc-form
-      class="verification-general-form__tag"
-      @submitted="showSuccessMessage()"
+    <kyc-general-form
+      class="verification-general__tag"
+      :former="former"
+      @submitted="onFormSubmit()"
     />
   </div>
 </template>
 
 <script>
-import GeneralKycForm from '@/vue/forms/GeneralKycForm'
-import { Bus } from '@/js/helpers/event-bus'
+import KycGeneralForm from '@/vue/forms/KycGeneralForm'
+import { scrollToTop } from '@/js/helpers/scroll-helpers'
+import { mapGetters } from 'vuex'
+import { vuexTypes } from '@/vuex'
+import { KycGeneralFormer } from '@/js/formers/KycGeneralFormer'
 
 export default {
-  name: 'verification-general-form',
+  name: 'verification-general',
   components: {
-    GeneralKycForm,
+    KycGeneralForm,
+  },
+
+  computed: {
+    ...mapGetters([
+      vuexTypes.kycRequest,
+    ]),
+
+    former () {
+      return new KycGeneralFormer(this.kycRequest)
+    },
   },
 
   methods: {
-    showSuccessMessage () {
-      Bus.success('verification-form.request-submitted-msg')
+    async onFormSubmit () {
+      scrollToTop()
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@/vue/forms/app-form';
+@import '~@scss/mixins';
 
-.verification-general-form {
+.verification-general {
   margin-top: 4rem;
 }
 
-.verification-general-form__account-info-title {
+.verification-general__account-info-title {
   color: $col-text;
   font-size: 1.3rem;
 }
 
-.verification-general-form__tag {
+.verification-general__tag {
   margin-top: 1rem;
   background-color: $col-block-bg;
   padding: 2.4rem;

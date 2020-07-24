@@ -576,8 +576,7 @@
       "permanently-rejected-reason": "Rejection reason:",
       "additional-info-title": "Additional information (provided by admin or KYC service): "
     },
-    "verification-form": {
-      "account-information-lbl": "Account information",
+    "kyc-corporate-form": {
       "create-btn": "Create request",
       "update-btn": "Update",
       "avatar-lbl": "Logo (Optional)",
@@ -1327,13 +1326,14 @@
       "billion": "B",
       "trillion": "T"
     },
-    "general-kyc-form": {
+    "kyc-general-form": {
       "login-btn": "Login",
       "update-btn": "Update",
       "create-btn": "Create request",
       "logout-btn": "Logout",
       "first-name-lbl": "First name",
-      "last-name-lbl": "Last name"
+      "last-name-lbl": "Last name",
+      "request-submitted-msg": "Your request has been submitted successfully"
     },
     "sponsorship-requests": {
       "loading-msg": "Loading sponsorship requests…",
@@ -1790,6 +1790,12 @@
     },
     "smart-banner": {
       "open-store-btn": "OPEN"
+    },
+    "verification-general": {
+      "account-information-lbl": "Account information"
+    },
+    "verification-corporate": {
+      "account-information-lbl": "Account information"
     }
   }
 }

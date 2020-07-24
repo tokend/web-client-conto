@@ -1,11 +1,9 @@
-import { base } from '@tokend/js-sdk'
+import { base, Document } from '@tokend/js-sdk'
 import { REQUEST_STATES } from '@/js/const/request-states.const'
 
 import { api } from '@/api'
-import { uploadDocuments } from '@/js/helpers/upload-documents'
 
 import { UpdateAssetRequest } from '../wrappers/update-asset-request'
-import { DocumentContainer } from '@/js/helpers/DocumentContainer'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex/index'
 import { DateUtil } from '@/js/utils'
@@ -76,7 +74,7 @@ export default {
         this.collectedAttributes.logo,
         this.collectedAttributes.terms,
       ]
-      await uploadDocuments(assetDocuments)
+      await Document.uploadDocumentsDeep(assetDocuments)
 
       await api.postOperations(
         this.$buildAssetUpdateRequestOperation(requestId),
@@ -93,8 +91,8 @@ export default {
         policies: this.collectedAttributes.policies,
         creatorDetails: {
           name: this.collectedAttributes.name,
-          logo: this.$getDocumentDetailsOrEmptyDocument(logo),
-          terms: this.$getDocumentDetailsOrEmptyDocument(terms),
+          logo: logo,
+          terms: terms,
           description: this.collectedAttributes.description,
           stellar: {},
           ...(this.collectedAttributes.expirationDate
@@ -109,14 +107,6 @@ export default {
 
     collectAssetAttributes (newAttributes) {
       Object.assign(this.collectedAttributes, newAttributes)
-    },
-
-    $getDocumentDetailsOrEmptyDocument (doc) {
-      if (doc instanceof DocumentContainer) {
-        return doc.getDetailsForSave()
-      }
-
-      return DocumentContainer.getEmptyDetailsForSave()
     },
   },
 }

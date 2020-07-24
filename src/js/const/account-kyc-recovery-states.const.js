@@ -1,4 +1,4 @@
-export const KYC_RECOVERY_STATES = Object.freeze({
+export const ACCOUNT_KYC_RECOVERY_STATES = Object.freeze({
   none: 0,
   inited: 1,
   pending: 2,

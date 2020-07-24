@@ -83,9 +83,6 @@ import FormMixin from '@/vue/mixins/form.mixin'
 import moment from 'moment'
 
 import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
-
-import { DocumentContainer } from '@/js/helpers/DocumentContainer'
-
 import {
   required,
   maxLength,
@@ -96,6 +93,7 @@ import { vuexTypes } from '@/vuex'
 
 import { UpdateAssetRequest } from '../wrappers/update-asset-request'
 import { AssetRecord } from '@/js/records/entities/asset.record'
+import { Document } from '@tokend/js-sdk'
 
 const EVENTS = {
   submit: 'submit',
@@ -116,7 +114,7 @@ export default {
     form: {
       name: '',
       code: '',
-      logo: null,
+      logo: new Document(),
       policies: 0,
       description: '',
       expirationDate: '',
@@ -161,9 +159,7 @@ export default {
         name: this.record.name,
         code: this.record.code,
         description: this.record.description,
-        logo: this.record.logoKey
-          ? new DocumentContainer(this.record.logo)
-          : null,
+        logo: new Document(this.record.logo),
         policies: this.record.policy,
         expirationDate: this.record.expirationDate,
       }
