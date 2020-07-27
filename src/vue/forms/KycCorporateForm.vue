@@ -98,7 +98,6 @@
 
 <script>
 import formMixin from '@/vue/mixins/form.mixin'
-import config from '@/config'
 
 import { KycCorporateFormer } from '@/js/formers/KycCorporateFormer'
 import { api } from '@/api'
@@ -107,7 +106,10 @@ import { Bus } from '@/js/helpers/event-bus'
 import { mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { required } from '@validators'
-import { delay } from '@/js/helpers/delay'
+
+const EVENTS = {
+  submitted: 'submitted',
+}
 
 export default {
   name: 'kyc-corporate-form',
@@ -160,7 +162,7 @@ export default {
         } else if (this.former.isRecoveryOpBuilder) {
           await this.afterKycRecoverySubmit()
         }
-        this.$emit('submitted')
+        this.$emit(EVENTS.submitted)
       } catch (e) {
         ErrorHandler.process(e)
       }
@@ -168,13 +170,11 @@ export default {
     },
 
     async afterKycSubmit () {
-      await delay(config.RELOAD_TIMEOUT) // w8 for the horizon ingest
-      await this.loadKyc() // update the current kyc state
+      await this.loadKyc()
       Bus.success('kyc-corporate-form.request-submitted-msg')
     },
 
     async afterKycRecoverySubmit () {
-      await delay(config.RELOAD_TIMEOUT)
       await this.loadAccount()
       await this.loadKycRecovery()
       Bus.success('kyc-corporate-form.request-submitted-msg')

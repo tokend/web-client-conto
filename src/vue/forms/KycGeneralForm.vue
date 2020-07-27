@@ -71,7 +71,6 @@
 
 <script>
 import formMixin from '@/vue/mixins/form.mixin'
-import config from '@/config'
 
 import { KycGeneralFormer } from '@/js/formers/KycGeneralFormer'
 import { api } from '@/api'
@@ -81,7 +80,6 @@ import { mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 import { required } from '@validators'
-import { delay } from '@/js/helpers/delay'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -153,19 +151,16 @@ export default {
     },
 
     async afterKycSubmit () {
-      await delay(config.RELOAD_TIMEOUT) // w8 for the horizon ingest
-      await this.loadKyc() // update the current kyc state
+      await this.loadKyc()
       Bus.success('kyc-general-form.request-submitted-msg')
     },
 
     async afterSignUpKycSubmit () {
-      await delay(config.RELOAD_TIMEOUT) // w8 for the horizon ingest
       await this.loadAccount(this.walletAccountId)
       await this.$router.push(vueRoutes.app)
     },
 
     async afterKycRecoverySubmit () {
-      await delay(config.RELOAD_TIMEOUT)
       await this.loadAccount()
       await this.loadKycRecovery()
       Bus.success('kyc-general-form.request-submitted-msg')

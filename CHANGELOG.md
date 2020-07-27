@@ -13,7 +13,6 @@ for further information about branching and tagging conventions.
   - `api-helpers.js` - Includes reusable actions with the API
   - `kyc-helpers` - Includes kyc-related helpers
   - `scroll-helpers.js` - At the moment only `scrollToTop()` action
-  - `delay.js` - Promise version of the setTimeout
 - Records:
   - New `BlobRecord`
   - New `KycRecord`
