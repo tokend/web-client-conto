@@ -128,6 +128,7 @@ export default {
       loadKyc: vuexTypes.LOAD_KYC,
       loadAccount: vuexTypes.LOAD_ACCOUNT,
       logOutAccount: vuexTypes.LOG_OUT,
+      loadKycRecovery: vuexTypes.LOAD_KYC_RECOVERY,
     }),
 
     async submit () {
@@ -140,6 +141,8 @@ export default {
           await this.afterSignUpKycSubmit()
         } else if (this.former.isUpdateOpBuilder) {
           await this.afterKycSubmit()
+        } else if (this.former.isRecoveryOpBuilder) {
+          await this.afterKycRecoverySubmit()
         }
 
         this.$emit(EVENTS.submitted)
@@ -159,6 +162,13 @@ export default {
       await delay(config.RELOAD_TIMEOUT) // w8 for the horizon ingest
       await this.loadAccount(this.walletAccountId)
       await this.$router.push(vueRoutes.app)
+    },
+
+    async afterKycRecoverySubmit () {
+      await delay(config.RELOAD_TIMEOUT)
+      await this.loadAccount()
+      await this.loadKycRecovery()
+      Bus.success('kyc-general-form.request-submitted-msg')
     },
 
     async confirm () {

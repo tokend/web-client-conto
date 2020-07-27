@@ -131,6 +131,11 @@ export const getters = {
     if (!state) return false
     return Object.values(ACCOUNT_KYC_RECOVERY_STATES).includes(state)
   },
+
+  [vuexTypes.isAccountKycRecoveryInitiated]: (_, getters) => {
+    const state = getters[vuexTypes.accountKycRecoveryStatus]
+    return state === ACCOUNT_KYC_RECOVERY_STATES.initiated
+  },
 }
 
 export default {

@@ -3,9 +3,11 @@ import { base, BLOB_TYPES, Document } from '@tokend/js-sdk'
 import { doc, str, reqId } from './op-build-helpers'
 import { KycCorporateRecord } from '@/js/records/entities/kyc-corporate.record'
 import { KycRequestRecord } from '@/js/records/requests/kyc-request.record'
+import { KycRecoveryRequestRecord } from '@/js/records/requests/kyc-recovery-request.record'
 import { BlobRecord } from '@/js/records/entities/blob.record'
 import { createPrivateBlob, getCurrentAccId } from '@/js/helpers/api-helpers'
 import { keyValues } from '@/key-values'
+import { buildKycRecoveryOp } from '@/js/helpers/kyc-helpers'
 
 /**
  * Collects the attributes for kyc-corporate operations
@@ -29,7 +31,9 @@ export class KycCorporateFormer extends Former {
   /* eslint-disable max-len */
   _opBuilder = this._opBuilder || this._buildOpUpdate
   get isUpdateOpBuilder () { return this._opBuilder === this._buildOpUpdate }
+  get isRecoveryOpBuilder () { return this._opBuilder === this._buildOpRecovery }
   useUpdateOpBuilder () { this._opBuilder = this._buildOpUpdate; return this }
+  useRecoveryOpBuilder () { this._opBuilder = this._buildOpRecovery; return this }
   /* eslint-enable max-len */
 
   get willUpdateRequest () {
@@ -44,7 +48,7 @@ export class KycCorporateFormer extends Former {
   }
 
   // eslint-disable-next-line max-len
-  /** @param {KycCorporateRecord|KycRequestRecord} source */
+  /** @param {KycCorporateRecord|KycRequestRecord|KycRecoveryRequestRecord} source */
   populate (source) {
     switch (source.constructor) {
       case KycCorporateRecord:
@@ -53,6 +57,10 @@ export class KycCorporateFormer extends Former {
 
       case KycRequestRecord:
         this._populateFromRequest(source)
+        break
+
+      case KycRecoveryRequestRecord:
+        this._populateFromRecoveryRequest(source)
         break
 
       default:
@@ -83,6 +91,12 @@ export class KycCorporateFormer extends Former {
     this.attrs.requestId = source.updatableId
   }
 
+  /** @param {KycRecoveryRequestRecord} source */
+  _populateFromRecoveryRequest (source) {
+    this._populateFromRequest(source)
+    this.useRecoveryOpBuilder()
+  }
+
   async _buildOpUpdate () {
     const blob = await this._createBlob()
 
@@ -94,6 +108,12 @@ export class KycCorporateFormer extends Former {
     }
 
     return base.CreateChangeRoleRequestBuilder.createChangeRoleRequest(opts)
+  }
+
+  async _buildOpRecovery () {
+    const blob = await this._createBlob()
+    const requestId = this.attrs.requestId
+    return buildKycRecoveryOp({ requestId, blobId: blob.id })
   }
 
   async _createBlob () {

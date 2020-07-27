@@ -70,11 +70,7 @@ export default {
     },
 
     async submitUpdateAssetRequest (requestId) {
-      const assetDocuments = [
-        this.collectedAttributes.logo,
-        this.collectedAttributes.terms,
-      ]
-      await Document.uploadDocumentsDeep(assetDocuments)
+      await Document.uploadDocumentsDeep(this.collectedAttributes)
 
       await api.postOperations(
         this.$buildAssetUpdateRequestOperation(requestId),
@@ -82,17 +78,13 @@ export default {
     },
 
     $buildAssetUpdateRequestOperation (requestId) {
-      const logo = this.collectedAttributes.logo
-      const terms = this.collectedAttributes.terms
-
       const opts = {
         requestID: requestId ? String(requestId) : NEW_UPDATE_ASSET_REQUEST_ID,
         code: this.collectedAttributes.code,
         policies: this.collectedAttributes.policies,
         creatorDetails: {
           name: this.collectedAttributes.name,
-          logo: logo,
-          terms: terms,
+          logo: this.collectedAttributes.logo,
           description: this.collectedAttributes.description,
           stellar: {},
           ...(this.collectedAttributes.expirationDate

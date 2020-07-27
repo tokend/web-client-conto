@@ -145,6 +145,8 @@ export default {
   methods: {
     ...mapActions({
       loadKyc: vuexTypes.LOAD_KYC,
+      loadAccount: vuexTypes.LOAD_ACCOUNT,
+      loadKycRecovery: vuexTypes.LOAD_KYC_RECOVERY,
     }),
 
     async submit () {
@@ -153,7 +155,11 @@ export default {
         const ops = await this.former.buildOps()
         await api.postOperations(...ops)
 
-        await this.afterKycSubmit()
+        if (this.former.isUpdateOpBuilder) {
+          await this.afterKycSubmit()
+        } else if (this.former.isRecoveryOpBuilder) {
+          await this.afterKycRecoverySubmit()
+        }
         this.$emit('submitted')
       } catch (e) {
         ErrorHandler.process(e)
@@ -164,6 +170,13 @@ export default {
     async afterKycSubmit () {
       await delay(config.RELOAD_TIMEOUT) // w8 for the horizon ingest
       await this.loadKyc() // update the current kyc state
+      Bus.success('kyc-corporate-form.request-submitted-msg')
+    },
+
+    async afterKycRecoverySubmit () {
+      await delay(config.RELOAD_TIMEOUT)
+      await this.loadAccount()
+      await this.loadKycRecovery()
       Bus.success('kyc-corporate-form.request-submitted-msg')
     },
 

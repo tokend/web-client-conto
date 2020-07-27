@@ -20,6 +20,10 @@ const mutations = {
   SET_KYC_BLOB: 'SET_KYC_BLOB',
   SET_KYC_REQUEST_BLOB: 'SET_KYC_REQUEST_BLOB',
 
+  // kyc recovery
+  SET_KYC_RECOVERY_REQUEST: 'SET_KYC_RECOVERY_REQUEST',
+  SET_KYC_RECOVERY_REQUEST_BLOB: 'SET_KYC_RECOVERY_REQUEST_BLOB',
+
   // assets
   SET_ASSETS: 'SET_ASSETS',
   UPDATE_ASSETS: 'UPDATE_ASSETS',
@@ -73,6 +77,11 @@ const actions = {
   LOAD_KYC_REQUEST_BLOB: 'LOAD_KYC_REQUEST_BLOB',
   LOAD_KYC_BLOB: 'LOAD_KYC_BLOB',
 
+  // kyc recovery
+  LOAD_KYC_RECOVERY: 'LOAD_KYC_RECOVERY',
+  LOAD_KYC_RECOVERY_REQUEST: 'LOAD_KYC_RECOVERY_REQUEST',
+  LOAD_KYC_RECOVERY_REQUEST_BLOB: 'LOAD_KYC_RECOVERY_REQUEST_BLOB',
+
   // assets
   LOAD_ASSETS: 'LOAD_ASSETS',
 
@@ -116,6 +125,7 @@ const getters = {
   accountKycBlob: 'accountKycBlob',
   accountKycRecoveryStatus: 'accountKycRecoveryStatus',
   isAccountKycRecoveryInProgress: 'isAccountKycRecoveryInProgress',
+  isAccountKycRecoveryInitiated: 'isAccountKycRecoveryInitiated',
 
   isAccountGeneral: 'isAccountGeneral',
   isAccountCorporate: 'isAccountCorporate',
@@ -150,6 +160,9 @@ const getters = {
   // kyc
   kyc: 'kyc',
   kycRequest: 'kycRequest',
+
+  // kyc recovery
+  kycRecoveryRequest: 'kycRecoveryRequest',
 
   // assets
   assets: 'assets',

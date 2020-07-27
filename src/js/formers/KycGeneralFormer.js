@@ -6,6 +6,8 @@ import { KycRequestRecord } from '@/js/records/requests/kyc-request.record'
 import { BlobRecord } from '@/js/records/entities/blob.record'
 import { createPrivateBlob, getCurrentAccId } from '@/js/helpers/api-helpers'
 import { keyValues } from '@/key-values'
+import { buildKycRecoveryOp } from '@/js/helpers/kyc-helpers'
+import { KycRecoveryRequestRecord } from '@/js/records/requests/kyc-recovery-request.record'
 
 /**
  * Collects the attributes for kyc-general operations
@@ -26,7 +28,9 @@ export class KycGeneralFormer extends Former {
   /* eslint-disable max-len */
   _opBuilder = this._opBuilder || this._buildOpUpdate
   get isUpdateOpBuilder () { return this._opBuilder === this._buildOpUpdate }
+  get isRecoveryOpBuilder () { return this._opBuilder === this._buildOpRecovery }
   useUpdateOpBuilder () { this._opBuilder = this._buildOpUpdate; return this }
+  useRecoveryOpBuilder () { this._opBuilder = this._buildOpRecovery; return this }
   /* eslint-enable max-len */
 
   get willUpdateRequest () {
@@ -40,7 +44,7 @@ export class KycGeneralFormer extends Former {
   }
 
   // eslint-disable-next-line max-len
-  /** @param {KycGeneralRecord|KycRequestRecord} source */
+  /** @param {KycGeneralRecord|KycRequestRecord|KycRecoveryRequestRecord} source */
   populate (source) {
     switch (source.constructor) {
       case KycGeneralRecord:
@@ -49,6 +53,10 @@ export class KycGeneralFormer extends Former {
 
       case KycRequestRecord:
         this._populateFromRequest(source)
+        break
+
+      case KycRecoveryRequestRecord:
+        this._populateFromRecoveryRequest(source)
         break
 
       default:
@@ -76,6 +84,12 @@ export class KycGeneralFormer extends Former {
     this.attrs.requestId = source.updatableId
   }
 
+  /** @param {KycRecoveryRequestRecord} source */
+  _populateFromRecoveryRequest (source) {
+    this._populateFromRequest(source)
+    this.useRecoveryOpBuilder()
+  }
+
   async _buildOpUpdate () {
     const blob = await this._createBlob()
 
@@ -87,6 +101,12 @@ export class KycGeneralFormer extends Former {
     }
 
     return base.CreateChangeRoleRequestBuilder.createChangeRoleRequest(opts)
+  }
+
+  async _buildOpRecovery () {
+    const blob = await this._createBlob()
+    const requestId = this.attrs.requestId
+    return buildKycRecoveryOp({ requestId, blobId: blob.id })
   }
 
   async _createBlob () {

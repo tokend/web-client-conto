@@ -26,15 +26,14 @@
         </p>
 
         <div
-          v-if="kycRequestExternalDetails &&
-            Object.keys(kycRequestExternalDetails).length > 0"
+          v-if="Object.keys(kycRequest.externalDetails || {}).length > 0"
           class="verification-state-message__external-details"
         >
           <h4 class="verification-state-message__external-details-title">
             {{ 'verification-state-message.additional-info-title' | globalize }}
           </h4>
           <p
-            v-for="(value, key) in kycRequestExternalDetails"
+            v-for="(value, key) in kycRequest.externalDetails"
             class="verification-state-message__external-detail-msg"
             :key="key"
           >

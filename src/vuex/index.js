@@ -6,6 +6,7 @@ import assets from './assets.module'
 import factors from './factors.module'
 import wallet from './wallet.module'
 import kyc from './kyc.module'
+import kycRecovery from './kyc-recovery.module'
 import identities from './identities.module'
 import businesses from './businesses.module'
 import movementsHistory from './movements-history.module'
@@ -85,6 +86,7 @@ function buildStore () {
       movementsHistory,
       sponsorshipRequests,
       businesses,
+      kycRecovery,
       'poll-requests': pollRequests,
     },
     plugins: [sessionStoragePlugin],

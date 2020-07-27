@@ -40,11 +40,7 @@ export default {
      * @param {string|number} requestId - request Id
      */
     async submitCreateAssetRequest (requestId) {
-      const assetDocuments = [
-        this.collectedAttributes.logo,
-        this.collectedAttributes.terms,
-      ]
-      await Document.uploadDocumentsDeep(assetDocuments)
+      await Document.uploadDocumentsDeep(this.collectedAttributes)
 
       await api.postOperations(
         this.$buildAssetCreationRequestOperation(requestId),
@@ -67,9 +63,6 @@ export default {
     },
 
     $buildAssetCreationRequestOperation (requestId) {
-      const logo = this.collectedAttributes.logo
-      const terms = this.collectedAttributes.terms
-
       const opts = {
         requestID: requestId ? String(requestId) : NEW_CREATE_ASSET_REQUEST_ID,
         trailingDigitsCount: config.DECIMAL_POINTS,
@@ -81,8 +74,7 @@ export default {
         initialPreissuedAmount: config.MAX_AMOUNT,
         creatorDetails: {
           name: this.collectedAttributes.name,
-          logo: logo,
-          terms: terms,
+          logo: this.collectedAttributes.logo,
           stellar: {},
           description: this.collectedAttributes.description,
           ...(this.collectedAttributes.expirationDate
