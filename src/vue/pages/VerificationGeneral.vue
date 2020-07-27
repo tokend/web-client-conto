@@ -7,7 +7,7 @@
     <kyc-general-form
       class="verification-general__tag"
       :former="former"
-      @submitted="onFormSubmit()"
+      @submitted="onFormSubmit"
     />
   </div>
 </template>

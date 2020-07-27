@@ -7,7 +7,7 @@
     <kyc-corporate-form
       class="verification-corporate__tag"
       :former="former"
-      @submitted="onFormSubmit()"
+      @submitted="onFormSubmit"
     />
   </div>
 </template>
