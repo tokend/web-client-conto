@@ -89,9 +89,10 @@ import moment from 'moment'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { api, loadingDataViaLoop } from '@/api'
+import { api } from '@/api'
 import { BUY_REQUEST_STATUSES } from '@/js/const/buy-request-statuses.const'
 import { vueRoutes } from '@/vue-router/routes'
+import { loadAllResponsePages } from '@/js/helpers/api-helpers'
 
 const EVENTS = {
   setFiltersAndUpdateList: 'set-filters-and-update-list',
@@ -206,7 +207,7 @@ export default {
           page: { limit: 100 },
         },
       )
-      const data = await loadingDataViaLoop(response)
+      const data = await loadAllResponsePages(response)
 
       this.promoCodes = data
     },
