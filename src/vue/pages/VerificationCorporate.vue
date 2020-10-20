@@ -66,7 +66,14 @@
           <span class="verification-corporate-form__account-description-title">
             {{ 'verification-form.description-lbl' | globalize }}
           </span>
-          <markdown-field v-model="form.description" />
+          <markdown-field
+            v-model="form.description"
+            @blur="touchField('form.description')"
+            :error-message="getFieldErrorMessage(
+              'form.description',
+              { length: DESCRIPTION_MAX_LENGTH }
+            )"
+          />
         </div>
       </div>
 
@@ -113,13 +120,14 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
-import { required } from '@validators'
+import { required, maxLength } from '@validators'
 
 const EMPTY_DOCUMENT = {
   mime_type: '',
   name: '',
   key: '',
 }
+const DESCRIPTION_MAX_LENGTH = 8000
 
 export default {
   name: 'verification-corporate-form',
@@ -135,12 +143,16 @@ export default {
     },
     isFormSubmitting: false,
     DOCUMENT_TYPES,
+    DESCRIPTION_MAX_LENGTH,
   }),
 
   validations () {
     return {
       form: {
         company: { required },
+        description: {
+          maxLength: maxLength(DESCRIPTION_MAX_LENGTH),
+        },
       },
     }
   },
