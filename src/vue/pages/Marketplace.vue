@@ -1,6 +1,6 @@
 <template>
-  <div class="atomic-swaps">
-    <top-bar class="atomic-swaps__top-bar">
+  <div class="marketplace">
+    <top-bar class="marketplace__top-bar">
       <template slot="extra">
         <button
           v-if="isAccountCorporate"
@@ -8,7 +8,7 @@
           class="app__button-raised"
           @click="isAtomicSwapsCreateDrawerShown = true"
         >
-          {{ 'atomic-swaps.create-atomic-swap-bth' | globalize }}
+          {{ 'marketplace.create-atomic-swap-bth' | globalize }}
         </button>
       </template>
     </top-bar>
@@ -18,7 +18,7 @@
       :close-by-click-outside="false"
     >
       <template slot="heading">
-        {{ 'atomic-swaps.new-atomic-swap' | globalize }}
+        {{ 'marketplace.new-atomic-swap' | globalize }}
       </template>
 
       <create-atomic-swap-form
@@ -40,7 +40,7 @@ import { vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
 
 export default {
-  name: 'atomic-swaps',
+  name: 'marketplace',
   components: {
     TopBar,
     Drawer,
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .atomic-swaps__top-bar {
+  .marketplace__top-bar {
     margin-bottom: 1rem;
   }
 </style>

@@ -611,7 +611,7 @@
       "customers-list": "Список клиентов",
       "businesses": "Компании",
       "sponsorship": "Спонсорство",
-      "atomic-swaps": "Магазин",
+      "marketplace": "Магазин",
       "promo-codes": "Промокоды",
       "polls": "Опросы",
       "statistics": "Статистика"
@@ -1131,7 +1131,7 @@
     "clipboard-field": {
       "copied": "Скопировано"
     },
-    "atomic-swaps": {
+    "marketplace": {
       "create-atomic-swap-bth": "Создать предложение",
       "new-atomic-swap": "Новое предложение"
     },

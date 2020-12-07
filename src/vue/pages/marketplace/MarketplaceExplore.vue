@@ -1,6 +1,6 @@
 <template>
-  <div class="atomic-swaps-explore">
-    <div class="atomic-swaps-explore__search">
+  <div class="marketplace-explore">
+    <div class="marketplace-explore__search">
       <input-field
         :white-autofill="false"
         v-model="search"
@@ -28,7 +28,7 @@
 
         <template v-else>
           <no-data-message
-            class="atomic-swaps-explore__no-data-message"
+            class="marketplace-explore__no-data-message"
             icon-name="swap-horizontal"
             :title="'atomic-swaps-explore.no-list-title' | globalize"
             :message="'atomic-swaps-explore.no-list-msg' | globalize"
@@ -41,9 +41,9 @@
       <skeleton-cards-loader />
     </template>
 
-    <div class="atomic-swaps-explore__requests-collection-loader">
+    <div class="marketplace-explore__requests-collection-loader">
       <collection-loader
-        class="atomic-swaps-explore__loader"
+        class="marketplace-explore__loader"
         :first-page-loader="getList"
         @first-page-load="setList"
         @next-page-load="concatList"
@@ -103,7 +103,7 @@ import { mapGetters, mapActions } from 'vuex'
 import debounce from 'lodash/debounce'
 
 export default {
-  name: 'atomic-swaps-explore',
+  name: 'marketplace-explore',
 
   components: {
     CollectionLoader,
@@ -237,14 +237,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.atomic-swaps-explore__loader {
+.marketplace-explore__loader {
   margin-top: 1rem;
 }
 
-.atomic-swaps-explore__search {
+.marketplace-explore__search {
   margin: 1.7rem 0.7rem 2.7rem;
   min-width: 14rem;
   width: calc(25% - 1.4rem);
 }
-
 </style>

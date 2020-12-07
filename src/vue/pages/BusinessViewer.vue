@@ -70,7 +70,7 @@
               {{ 'business-viewer.shop' | globalize }}
             </h1>
           </div>
-          <atomic-swaps-explore
+          <marketplace-explore
             :business-id="business.accountId"
           />
         </template>
@@ -87,7 +87,7 @@
 
 <script>
 import BusinessDescription from '@/vue/pages/business-viewer/BusinessDescription'
-import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
+import MarketplaceExplore from '@/vue/pages/marketplace/MarketplaceExplore'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import Loader from '@/vue/common/Loader'
 import ErrorMessage from '@/vue/common/ErrorMessage'
@@ -105,7 +105,7 @@ export default {
 
   components: {
     BusinessDescription,
-    AtomicSwapsExplore,
+    MarketplaceExplore,
     Loader,
     NoDataMessage,
     ErrorMessage,

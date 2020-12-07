@@ -51,14 +51,14 @@
             v-ripple
             class="sidebar__link"
             @click.native="closeSidebar"
-            :to="vueRoutes.atomicSwaps"
+            :to="vueRoutes.marketplace"
             tag="a"
           >
             <i
               class="sidebar__link-icon mdi mdi-swap-horizontal"
             />
             <span>
-              {{ 'pages-names.atomic-swaps' | globalize }}
+              {{ 'pages-names.marketplace' | globalize }}
             </span>
           </router-link>
           <router-link

@@ -23,8 +23,8 @@ import PollRequestsModule from '@/vue/modules/requests/poll-requests'
 
 import Assets from '@/vue/pages/Assets'
 import AssetExplorer from '@modules/assets/asset-explorer'
-import AtomicSwaps from '@/vue/pages/AtomicSwaps'
-import AtomicSwapsExplore from '@/vue/pages/atomic-swaps/AtomicSwapsExplore'
+import Marketplace from '@/vue/pages/Marketplace'
+import MarketplaceExplore from '@/vue/pages/marketplace/MarketplaceExplore'
 import Movements from '@/vue/pages/Movements'
 import AssetsMovements from '@/vue/pages/AssetsMovements'
 import Sponsorship from '@/vue/pages/Sponsorship'
@@ -253,18 +253,18 @@ const router = new Router({
           ],
         },
         {
-          path: '/atomic-swaps',
-          name: vueRoutes.atomicSwaps.name,
+          path: '/marketplace',
+          name: vueRoutes.marketplace.name,
           meta: {
-            pageNameTranslationId: 'pages-names.atomic-swaps',
+            pageNameTranslationId: 'pages-names.marketplace',
           },
-          component: AtomicSwaps,
-          redirect: vueRoutes.atomicSwapsExplore,
+          component: Marketplace,
+          redirect: vueRoutes.marketplaceExplore,
           children: [
             {
-              path: '/atomic-swaps/explore',
-              name: vueRoutes.atomicSwapsExplore.name,
-              component: AtomicSwapsExplore,
+              path: '/marketplace/explore',
+              name: vueRoutes.marketplaceExplore.name,
+              component: MarketplaceExplore,
               beforeEnter: inAppRouteGuard,
               meta: {
                 isCorporateOnly: true,

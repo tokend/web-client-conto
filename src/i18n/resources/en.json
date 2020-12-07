@@ -607,7 +607,7 @@
       "customers-list": "Customers list",
       "businesses": "Companies",
       "sponsorship": "Sponsorship",
-      "atomic-swaps": "Shop",
+      "marketplace": "Shop",
       "promo-codes": "Promo Codes",
       "polls": "Polls",
       "statistics": "Statistics"
@@ -1132,7 +1132,7 @@
       "not-set-msg": "Not set",
       "set-asset-msg": "Default quote asset successfully set"
     },
-    "atomic-swaps": {
+    "marketplace": {
       "create-atomic-swap-bth": "Create",
       "new-atomic-swap": "New offer"
     },
