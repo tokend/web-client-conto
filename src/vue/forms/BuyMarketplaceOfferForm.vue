@@ -20,7 +20,7 @@
             <option
               v-for="quoteAsset in marketplaceOfferAsk.quoteAssets"
               :key="quoteAsset.paymentMethodId"
-              :value="quoteAsset.paymentMethodId"
+              :value="quoteAsset.paymentMethodType"
             >
               {{ getAssetName(quoteAsset) }}
             </option>
@@ -38,7 +38,7 @@
             :label="'buy-marketplace-offer-form.amount' | globalize({
               asset: marketplaceOfferAsk.baseAssetName
             })"
-            :disabled="isDisabled || isSelectedBonus"
+            :disabled="isDisabled"
           />
           <p class="app__form-field-description">
             {{ 'buy-marketplace-offer-form.available' | globalize({
@@ -57,7 +57,7 @@
             :label="'buy-marketplace-offer-form.promo-code-lbl' | globalize"
             @blur="touchField('form.promoCode')"
             :error-message="getFieldErrorMessage('form.promoCode')"
-            :disabled="isDisabled || isSelectedBonus"
+            :disabled="isDisabled"
           />
         </div>
       </div>
@@ -93,7 +93,7 @@
         <button
           v-ripple
           type="submit"
-          :disabled="isDisabled || isSelectedBonus"
+          :disabled="isDisabled"
           class="app__button-raised buy-marketplace-offer-form__btn"
         >
           <template>
@@ -190,8 +190,12 @@ export default {
       return this.form.paymentMethodId === PAYMENT_METHODS.internal.value
     },
 
+    isCanUseBonus () {
+      return this.isSelectedBonus && Boolean(this.accountId)
+    },
+
     getBonusErrorMessage () {
-      return this.isSelectedBonus
+      return !this.isCanUseBonus && this.isSelectedBonus
         ? globalize('buy-marketplace-offer-form.buy-for-bonus')
         : ''
     },
