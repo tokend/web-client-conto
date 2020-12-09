@@ -893,8 +893,6 @@
       "logo-note": "JPG или PNG, не менее 120x120 пикселей",
       "transferable-lbl": "Можно передавать",
       "withdrawable-lbl": "Можно выводить",
-      "can-be-base-in-atomic-swap-lbl": "Может быть базовым активом в прямом обмене",
-      "can-be-quote-in-atomic-swap-lbl": "Можно быть котируемым активом в прямом обмене",
       "verification-not-required-lbl": "Не требуется подтверждение аккаунта",
       "security-asset-lbl": "Security (требуется аккредитация для резидентов США)",
       "verification-required-lbl": "Подтверждение аккаунта",
@@ -1004,9 +1002,7 @@
       "credit-alphanum12-stellar-asset-type-lbl": "Буквенно-цифровой 12",
       "native-stellar-asset-type-lbl": "Нативный",
       "yes-msg": "Да",
-      "no-msg": "Нет",
-      "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
-      "can-be-quote-in-atomic-swap-title": "Может быть котируемым активом в предложении"
+      "no-msg": "Нет"
     },
     "file-field": {
       "upload-file-title": "Перетяните файл или кликните",
@@ -1117,8 +1113,6 @@
       "redeem-btn": "Погасить",
       "converted-balance-title": "Конвертированный баланс",
       "vendor-code": "Артикул",
-      "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
-      "can-be-quote-in-atomic-swap-title": "Может быть котируемым активом в предложении",
       "delete-asset-message": "Вы действительно хотите удалить актив?",
       "expiration-date-title": "Действителен до",
       "asset-purchased-successfully": "Актив успешно куплен",
@@ -1132,22 +1126,22 @@
       "copied": "Скопировано"
     },
     "marketplace": {
-      "create-atomic-swap-bth": "Создать предложение",
-      "new-atomic-swap": "Новое предложение"
+      "create-marketplace-offer-bth": "Создать предложение",
+      "new-marketplace-offer": "Новое предложение"
     },
-    "atomic-swaps-requests": {
+    "marketplace-offer-requests": {
       "purchases": "Покупки",
       "loading-error-msg": "Произошла ошибка при загрузке.",
       "no-data-title": "Нет покупок",
       "no-data-msg":"Здесь будет история покупки вашего предложения"
     },
-    "atomic-swaps-requests-table": {
+    "marketplace-offer-requests-table": {
       "buyer-th": "Покупатель",
       "amount-th": "Количество",
       "discount-th": "Скидка",
       "total-price-th": "Итоговая цена"
     },
-    "create-atomic-swap-form": {
+    "create-marketplace-offer-form": {
       "asset-lbl": "Актив",
       "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже",
       "amount-lbl": "Количество",
@@ -1155,13 +1149,13 @@
       "create-btn": "Создать",
       "price-lbl": "Цена ({{asset}})",
       "available-balance": "Баланс: {{amount, number}}",
-      "no-base-atomic-swap-assets-title": "Нет базовых активов",
-      "no-base-atomic-swap-assets-msg": "Пожалуйста, создайте актив, который может быть базовым в предложении, чтобы создать прямую покупку",
-      "no-quote-atomic-swap-assets-title": "Нет котируемых активов",
-      "no-quote-atomic-swap-assets-msg": "Пожалуйста, создайте актив, который может быть котируемым в предложении, чтобы создать прямую покупку",
-      "created-atomic-swap-msg": "Предложение успешно создано"
+      "no-base-marketplace-offer-assets-title": "Нет базовых активов",
+      "no-base-marketplace-offer-assets-msg": "Пожалуйста, создайте актив, который может быть базовым в предложении, чтобы создать прямую покупку",
+      "no-quote-marketplace-offer-assets-title": "Нет котируемых активов",
+      "no-quote-marketplace-offer-assets-msg": "Пожалуйста, создайте актив, который может быть котируемым в предложении, чтобы создать прямую покупку",
+      "created-marketplace-offer-msg": "Предложение успешно создано"
     },
-    "atomic-swap-quote-assets-form": {
+    "marketplace-offer-quote-assets-form": {
       "assets-subheading": "Котируемый актив {{number}}",
       "add-asset-btn": "Добавить котируемый актив",
       "address-lbl": "Адрес",
@@ -1264,16 +1258,16 @@
       "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы",
       "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
     },
-    "atomic-swaps-explore": {
+    "marketplace-explore": {
       "owned-by-me-filter-lbl": "Принадлежит мне",
       "buying": "Покупка {{asset}}",
-      "atomic-swap-drawer-title": "Детали предложения",
+      "marketplace-offer-drawer-title": "Детали предложения",
       "no-list-title": "Нет предложений",
       "no-list-msg": "Здесь будут предложения",
       "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже.",
       "search-lbl": "Поиск"
     },
-    "buy-atomic-swap-form":{
+    "buy-marketplace-offer-form":{
       "available": "Доступно для покупки {{amount, money}} {{asset}}",
       "asset-in-which-buying": "Cпособ оплаты",
       "amount": "Количество {{asset}}",
@@ -1296,7 +1290,7 @@
       "email-code": "Введите код, отправленный вам по электронной почте",
       "tfa-code": "Введите 2FA код"
     },
-    "atomic-swap-attributes": {
+    "marketplace-offer-attributes": {
       "id-key": "Идентификатор",
       "owner-key": "Владелец",
       "base-asset-key": "Код базового актива",
@@ -1311,13 +1305,13 @@
       "link-to-buy-asset": "Ссылка на покупку актива",
       "link-copied": "Скопировано"
     },
-    "atomic-swap-actions": {
+    "marketplace-offer-actions": {
       "cancel-btn": "Отменить предложение",
       "yes-msg": "Да",
       "no-msg": "Нет",
       "cancellation-msg": "Уверены, что хотите отменить предложение?",
-      "atomic-swap-canceled-msg": "Предложение отменено",
-      "update-atomic-swap-drawer-title": "Обновление предложения",
+      "marketplace-offer-canceled-msg": "Предложение отменено",
+      "update-marketplace-offer-drawer-title": "Обновление предложения",
       "update-btn": "Обновить предложение"
     },
     "abbreviation-numbers": {
@@ -1483,7 +1477,7 @@
       "business-filter-label": "Компания",
       "asset-filter-label": "Актив"
     },
-    "atomic-swap-card": {
+    "marketplace-offer-card": {
       "available": "Доступно: {{ amount, balance }}",
       "price": "Цена: {{ amount, number }} {{code}}",
       "buy-lbl": "Купить",
@@ -1645,10 +1639,10 @@
       "updated-successfully-notification": "Промокод успешно обновлен",
       "used": "Использовано: {{ used }}"
     },
-    "update-atomic-swap-form": {
+    "update-marketplace-offer-form": {
       "amount-lbl": "Количество",
       "price-lbl": "Цена ({{asset}})",
-      "updated-atomic-swap-msg": "Предложение успешно обновлено",
+      "updated-marketplace-offer-msg": "Предложение успешно обновлено",
       "update-btn": "Обновить"
     },
     "poll-requests": {

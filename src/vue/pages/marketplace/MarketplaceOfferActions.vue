@@ -1,33 +1,36 @@
 <template>
-  <div class="atomic-swap-actions">
+  <div class="marketplace-offer-actions">
     <button
       v-ripple
       v-if="!formMixin.isConfirmationShown"
-      class="app__button-raised atomic-swap-actions__btn"
-      :disabled="isAtomicSwapCanceling"
-      @click="isUpdateAtomicSwapDrawerShown = true"
+      class="app__button-raised marketplace-offer-actions__btn"
+      :disabled="isMarketplaceOfferCanceling"
+      @click="isUpdateMarketplaceOfferDrawerShown = true"
     >
-      {{ 'atomic-swap-actions.update-btn' | globalize }}
+      {{ 'marketplace-offer-actions.update-btn' | globalize }}
     </button>
     <button
       v-ripple
       v-if="!formMixin.isConfirmationShown"
-      class="app__button-raised atomic-swap-actions__btn"
-      :disabled="isAtomicSwapCanceling"
+      class="app__button-raised marketplace-offer-actions__btn"
+      :disabled="isMarketplaceOfferCanceling"
       @click="cancelRequest"
     >
-      {{ 'atomic-swap-actions.cancel-btn' | globalize }}
+      {{ 'marketplace-offer-actions.cancel-btn' | globalize }}
     </button>
 
-    <drawer :is-shown.sync="isUpdateAtomicSwapDrawerShown">
+    <drawer :is-shown.sync="isUpdateMarketplaceOfferDrawerShown">
       <template slot="heading">
-        {{ 'atomic-swap-actions.update-atomic-swap-drawer-title' | globalize }}
+        {{ 'marketplace-offer-actions.update-marketplace-offer-drawer-title' |
+          globalize }}
       </template>
 
-      <update-atomic-swap-form
+      <update-marketplace-offer-form
         :atomic-swap-ask="atomicSwapAsk"
-        @updated-atomic-swap="(isUpdateAtomicSwapDrawerShown = false) ||
-          $emit(EVENTS.closeDrawerAndUpdateList)"
+        @updated-marketplace-offer="
+          (isUpdateMarketplaceOfferDrawerShown = false) ||
+            $emit(EVENTS.closeDrawerAndUpdateList)
+        "
       />
     </drawer>
   </div>
@@ -35,7 +38,7 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import UpdateAtomicSwapForm from '@/vue/forms/UpdateAtomicSwapForm'
+import UpdateMarketplaceOfferForm from '@/vue/forms/UpdateMarketplaceOfferForm'
 import Drawer from '@/vue/common/Drawer'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { api } from '@/api'
@@ -47,9 +50,9 @@ const EVENTS = {
 }
 
 export default {
-  name: 'atomic-swap-actions',
+  name: 'marketplace-offer-actions',
   components: {
-    UpdateAtomicSwapForm,
+    UpdateMarketplaceOfferForm,
     Drawer,
   },
   mixins: [FormMixin],
@@ -57,22 +60,22 @@ export default {
     atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
   },
   data: _ => ({
-    isAtomicSwapCanceling: false,
-    isUpdateAtomicSwapDrawerShown: false,
+    isMarketplaceOfferCanceling: false,
+    isUpdateMarketplaceOfferDrawerShown: false,
     EVENTS,
   }),
 
   methods: {
     async cancelRequest () {
       this.hideConfirmation()
-      this.isAtomicSwapCanceling = true
+      this.isMarketplaceOfferCanceling = true
 
       try {
         await api.deleteWithSignature(`/integrations/marketplace/offers/${this.atomicSwapAsk.id}`)
-        Bus.success('atomic-swap-actions.atomic-swap-canceled-msg')
+        Bus.success('marketplace-offer-actions.marketplace-offer-canceled-msg')
         this.$emit(EVENTS.closeDrawerAndUpdateList)
       } catch (e) {
-        this.isAtomicSwapCanceling = false
+        this.isMarketplaceOfferCanceling = false
         ErrorHandler.process(e)
       }
     },
@@ -81,14 +84,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.atomic-swap-actions {
+.marketplace-offer-actions {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 1rem;
 }
 
-.atomic-swap-actions__btn {
+.marketplace-offer-actions__btn {
   min-width: 12rem;
   margin-top: 1rem;
 }

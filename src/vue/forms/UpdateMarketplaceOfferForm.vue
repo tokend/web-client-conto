@@ -1,17 +1,17 @@
 <template>
   <form
     novalidate
-    class="app__form update-atomic-swap-form"
+    class="app__form update-marketplace-offer-form"
     @submit.prevent="submit"
   >
     <div class="app__form-row">
       <div class="app__form-field">
         <amount-input-field
           v-model="form.amount"
-          name="update-atomic-swap-amount"
+          name="update-marketplace-offer-amount"
           :max="maxAmount"
           :min="atomicSwapAsk.amount"
-          :label="'update-atomic-swap-form.amount-lbl' | globalize"
+          :label="'update-marketplace-offer-form.amount-lbl' | globalize"
           :asset="atomicSwapAsk.baseAssetCode"
           :disabled="formMixin.isDisabled"
           is-max-button-shown
@@ -27,8 +27,8 @@
           :max="MAX_PRICE"
           :min="minPrice"
           @blur="touchField('form.price')"
-          name="update-atomic-swap-quote-asset-price"
-          :label="'update-atomic-swap-form.price-lbl' | globalize({
+          name="update-marketplace-offer-quote-asset-price"
+          :label="'update-marketplace-offer-form.price-lbl' | globalize({
             asset: statsQuoteAsset.code
           })"
           :error-message="getFieldErrorMessage('form.price', {
@@ -42,18 +42,18 @@
 
     <button
       v-ripple
-      class="app__button-raised update-atomic-swap-form__update-btn"
+      class="app__button-raised update-marketplace-offer-form__update-btn"
       :disabled="formMixin.isDisabled || (!isPriceChanged && !isAmountChanged)"
       type="submit"
     >
-      {{ 'update-atomic-swap-form.update-btn' | globalize }}
+      {{ 'update-marketplace-offer-form.update-btn' | globalize }}
     </button>
   </form>
 </template>
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
+import MarketplaceOfferBidMixin from '@/vue/mixins/marketplace-offer-ask.mixin'
 import config from '@/config'
 
 import { Bus } from '@/js/helpers/event-bus'
@@ -70,12 +70,12 @@ import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils/math.util'
 
 const EVENTS = {
-  updatedAtomicSwap: 'updated-atomic-swap',
+  updatedMarketplaceOffer: 'updated-marketplace-offer',
 }
 
 export default {
-  name: 'update-atomic-swap-form',
-  mixins: [FormMixin, AtomicSwapAskMixin],
+  name: 'update-marketplace-offer-form',
+  mixins: [FormMixin, MarketplaceOfferBidMixin],
   props: {
     atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
   },
@@ -159,8 +159,8 @@ export default {
           amount: amount,
           price: price,
         })
-        Bus.success('update-atomic-swap-form.updated-atomic-swap-msg')
-        this.$emit(EVENTS.updatedAtomicSwap)
+        Bus.success('update-marketplace-offer-form.updated-marketplace-offer-msg')
+        this.$emit(EVENTS.updatedMarketplaceOffer)
       } catch (e) {
         ErrorHandler.process(e)
       }
@@ -174,7 +174,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/vue/forms/app-form';
 
-.update-atomic-swap-form__update-btn {
+.update-marketplace-offer-form__update-btn {
   margin-top: 5rem;
 }
 </style>

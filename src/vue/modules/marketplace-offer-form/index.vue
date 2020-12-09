@@ -1,37 +1,37 @@
 <template>
   <div>
     <div
-      class="atomic-swap__asset-description"
+      class="marketplace-offer-form__asset-description"
       v-if="assetByCode(atomicSwapAsk.baseAssetCode).description"
     >
       <p
-        class="atomic-swap__asset-description-lbl"
+        class="marketplace-offer-form__asset-description-lbl"
       >
-        {{ 'buy-atomic-swap-form.asset-description-lbl' | globalize }}:
+        {{ 'buy-marketplace-offer-form.asset-description-lbl' | globalize }}:
       </p>
       <p>{{ assetByCode(atomicSwapAsk.baseAssetCode).description }}</p>
     </div>
-    <buy-atomic-swap-form
-      v-if="!isAtomicSwapBidCreated"
+    <buy-marketplace-offer-form
+      v-if="!isMarketplaceOfferBidCreated"
       :atomic-swap-ask="atomicSwapAsk"
       :is-disabled="isDisabled"
-      @submitted="handleAtomicSwapFormSubmitted"
+      @submitted="handleMarketplaceOfferFormSubmitted"
     />
     <address-viewer
       v-else
       :asset-code="form.quoteAssetCode"
-      :amount="atomicSwapBidDetails.amount"
-      :address="atomicSwapBidDetails.address"
-      :end-time="atomicSwapBidDetails.endTime"
+      :amount="marketplaceOfferBidDetails.amount"
+      :address="marketplaceOfferBidDetails.address"
+      :end-time="marketplaceOfferBidDetails.endTime"
     />
   </div>
 </template>
 
 <script>
-import BuyAtomicSwapForm from '@/vue/forms/BuyAtomicSwapForm'
+import BuyMarketplaceOfferForm from '@/vue/forms/BuyMarketplaceOfferForm'
 import FormMixin from '@/vue/mixins/form.mixin'
 import AddressViewer from '@/vue/common/address-viewer'
-import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
+import MarketplaceOfferBidMixin from '@/vue/mixins/marketplace-offer-bid.mixin'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
@@ -46,12 +46,12 @@ const EVENTS = {
 }
 
 export default {
-  name: 'atomic-swap',
+  name: 'marketplace-offer-form',
   components: {
-    BuyAtomicSwapForm,
+    BuyMarketplaceOfferForm,
     AddressViewer,
   },
-  mixins: [FormMixin, AtomicSwapBidMixin],
+  mixins: [FormMixin, MarketplaceOfferBidMixin],
   props: {
     atomicSwapAsk: {
       type: AtomicSwapAskRecord,
@@ -67,7 +67,7 @@ export default {
         promoCode: '',
       },
       isDisabled: false,
-      atomicSwapBidDetails: {
+      marketplaceOfferBidDetails: {
         address: '',
         endTime: -1,
         amount: '',
@@ -79,12 +79,12 @@ export default {
       vuexTypes.assetByCode,
     ]),
 
-    isAtomicSwapBidCreated () {
-      return Boolean(this.atomicSwapBidDetails.address)
+    isMarketplaceOfferBidCreated () {
+      return Boolean(this.marketplaceOfferBidDetails.address)
     },
   },
   methods: {
-    async handleAtomicSwapFormSubmitted (form) {
+    async handleMarketplaceOfferFormSubmitted (form) {
       if (!this.isFormValid()) return
       Object.assign(this.form, form)
 
@@ -103,12 +103,12 @@ export default {
             window.location.href = atomicSwapBid.payUrl
             break
           case ATOMIC_SWAP_BID_TYPES.cryptoInvoice:
-            this.atomicSwapBidDetails = atomicSwapBid
+            this.marketplaceOfferBidDetails = atomicSwapBid
             this.$emit(EVENTS.updateList)
             break
           case ATOMIC_SWAP_BID_TYPES.internal:
             await api.signAndSendTransaction(atomicSwapBid.tx)
-            Bus.success('buy-atomic-swap-form.success-msg')
+            Bus.success('buy-marketplace-offer-form.success-msg')
             this.$emit(EVENTS.updateListAndCloseDrawer)
             break
         }
@@ -124,11 +124,11 @@ export default {
 <style lang="scss" scoped>
   @import '~@/scss/variables';
 
-  .atomic-swap__asset-description {
+  .marketplace-offer-form__asset-description {
     margin-bottom: 2.4rem;
   }
 
-  .atomic-swap__asset-description-lbl {
+  .marketplace-offer-form__asset-description-lbl {
     font-size: 1.2rem;
     color: $col-text-inactive;
   }

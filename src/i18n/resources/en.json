@@ -890,8 +890,6 @@
       "logo-note": "JPG or PNG, no less than 120x120 px",
       "transferable-lbl": "Transferable",
       "withdrawable-lbl": "Withdrawable",
-      "can-be-base-in-atomic-swap-lbl": "Can be base in atomic swap",
-      "can-be-quote-in-atomic-swap-lbl": "Can be quote in atomic swap",
       "verification-not-required-lbl": "Does not require verification",
       "security-asset-lbl": "Security (requires accreditation for US residents)",
       "verification-required-lbl": "Requires verification",
@@ -1000,9 +998,7 @@
       "credit-alphanum12-stellar-asset-type-lbl": "Alphanumeric 12",
       "native-stellar-asset-type-lbl": "Native",
       "yes-msg": "Yes",
-      "no-msg": "No",
-      "can-be-base-in-atomic-swap-title": "Can be base in offering",
-      "can-be-quote-in-atomic-swap-title": "Can be quote in offering"
+      "no-msg": "No"
     },
     "file-field": {
       "upload-file-title": "Drag a file here or click to browse",
@@ -1113,8 +1109,6 @@
       "redeem-btn": "Redeem",
       "converted-balance-title": "Converted balance",
       "vendor-code": "Vendor code",
-      "can-be-base-in-atomic-swap-title": "Can be base in offering",
-      "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
       "delete-asset-message": "Are you sure you want to delete the asset?",
       "expiration-date-title": "Expiration date",
       "asset-purchased-successfully": "Asset purchased successfully",
@@ -1133,22 +1127,22 @@
       "set-asset-msg": "Default quote asset successfully set"
     },
     "marketplace": {
-      "create-atomic-swap-bth": "Create",
-      "new-atomic-swap": "New offer"
+      "create-marketplace-offer-bth": "Create",
+      "new-marketplace-offer": "New offer"
     },
-    "atomic-swaps-requests": {
+    "marketplace-offer-requests": {
       "purchases": "Purchases",
       "loading-error-msg": "There was an error while loading.",
       "no-data-title": "No purchases",
       "no-data-msg": "Here will be the purchase history of your offer"
     },
-    "atomic-swaps-requests-table": {
+    "marketplace-offer-requests-table": {
       "buyer-th": "Buyer",
       "amount-th": "Amount",
       "discount-th": "Discount",
       "total-price-th": "Total price"
     },
-    "create-atomic-swap-form": {
+    "create-marketplace-offer-form": {
       "asset-lbl": "Asset",
       "load-failed-msg": "There was an error while loading. Please, try again later",
       "amount-lbl": "Amount",
@@ -1156,13 +1150,13 @@
       "create-btn": "Create",
       "price-lbl": "Price ({{asset}})",
       "available-balance": "Balance: {{amount, number}}",
-      "no-base-atomic-swap-assets-title": "No base offering assets yet",
-      "no-base-atomic-swap-assets-msg": "Please create an asset to create offering",
-      "no-quote-atomic-swap-assets-title": "No quote offering assets yet",
-      "no-quote-atomic-swap-assets-msg": "Please create an asset to create offering",
-      "created-atomic-swap-msg": "Offering successfully created"
+      "no-base-marketplace-offer-assets-title": "No base offering assets yet",
+      "no-base-marketplace-offer-assets-msg": "Please create an asset to create offering",
+      "no-quote-marketplace-offer-assets-title": "No quote offering assets yet",
+      "no-quote-marketplace-offer-assets-msg": "Please create an asset to create offering",
+      "created-marketplace-offer-msg": "Offering successfully created"
     },
-    "atomic-swap-quote-assets-form": {
+    "marketplace-offer-quote-assets-form": {
       "assets-subheading": "Quote asset {{ number }}",
       "add-asset-btn": "Add quote asset",
       "address-lbl": "Address",
@@ -1171,16 +1165,16 @@
       "type-lbl": "Payment method",
       "create-btn": "Create"
     },
-    "atomic-swaps-explore": {
+    "marketplace-explore": {
       "buying": "Buying {{asset}}",
-      "atomic-swap-drawer-title": "Offer details",
+      "marketplace-offer-drawer-title": "Offer details",
       "no-list-title": "No offers yet",
       "no-list-msg": "Here will be the list of offers",
       "owned-by-me-filter-lbl": "Owned by me",
       "loading-error-msg": "There was an error while loading.",
       "search-lbl": "Search"
     },
-    "buy-atomic-swap-form": {
+    "buy-marketplace-offer-form": {
       "available": "Available {{amount, money}} {{asset}}",
       "asset-in-which-buying": "Payment method",
       "amount": "Amount to buy {{asset}}",
@@ -1197,16 +1191,16 @@
       "success-msg": "Payment successfully",
       "buy-for-bonus": "Only authorized users can buy asset for bonuse"
     },
-    "atomic-swap-actions": {
+    "marketplace-offer-actions": {
       "cancel-btn": "Cancel offer",
       "yes-msg": "Yes",
       "no-msg": "No",
       "cancellation-msg": "Are you sure to cancel the offer?",
-      "atomic-swap-canceled-msg": "Your offer successfully cancelled",
-      "update-atomic-swap-drawer-title": "Update offer",
+      "marketplace-offer-canceled-msg": "Your offer successfully cancelled",
+      "update-marketplace-offer-drawer-title": "Update offer",
       "update-btn": "Update offer"
     },
-    "atomic-swap-attributes": {
+    "marketplace-offer-attributes": {
       "id-key": "ID",
       "owner-key": "Owner",
       "base-asset-key": "Base asset code",
@@ -1360,8 +1354,6 @@
     },
     "pay-page": {
       "pay-title": "Pay",
-      "no-atomic-swap-title": "No such offer found",
-      "no-atomic-swap-msg": "Please make sure the link is correct",
       "offer-canceled-title": "Offer was canceled",
       "offer-canceled-msg": "The owner canceled this offer",
       "no-amount-title": "Offer was sold out",
@@ -1480,7 +1472,7 @@
       "max-uses-key": "Max uses",
       "used-key": "Used"
     },
-    "atomic-swap-card": {
+    "marketplace-offer-card": {
       "available": "Available: {{ amount, balance }}",
       "price": "Price: {{ amount, number }} {{code}}",
       "buy-lbl": "Buy",
@@ -1646,10 +1638,10 @@
       "updated-successfully-notification": "Promo Code was updated successfully",
       "used": "Used: {{ used }}"
     },
-    "update-atomic-swap-form": {
+    "update-marketplace-offer-form": {
       "amount-lbl": "Amount",
       "price-lbl": "Price ({{asset}})",
-      "updated-atomic-swap-msg": "Offer successfully updated",
+      "updated-marketplace-offer-msg": "Offer successfully updated",
       "update-btn": "Update"
     },
     "poll-requests": {

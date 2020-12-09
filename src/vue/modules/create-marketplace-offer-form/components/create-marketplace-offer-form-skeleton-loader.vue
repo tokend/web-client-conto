@@ -46,7 +46,7 @@ import SkeletonLoader from '@/vue/common/skeleton-loader/SkeletonLoader'
 import SkeletonLoaderField from '@/vue/common/skeleton-loader/SkeletonLoaderField'
 
 export default {
-  name: 'create-atomic-swap-form-skeleton-loader',
+  name: 'create-marketplace-offer-form-skeleton-loader',
   components: {
     SkeletonLoader,
     SkeletonLoaderField,

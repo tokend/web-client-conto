@@ -1,5 +1,5 @@
 <template>
-  <div class="buy-atomic-swap-form">
+  <div class="buy-marketplace-offer-form">
     <form
       novalidate
       class="app__form"
@@ -8,8 +8,9 @@
       <div class="app__form-row">
         <div class="app__form-field">
           <select-field
-            :label="'buy-atomic-swap-form.asset-in-which-buying' | globalize"
-            name="buy-atomic-swap-quote-asset"
+            :label="'buy-marketplace-offer-form.asset-in-which-buying' |
+              globalize"
+            name="buy-marketplace-offer-quote-asset"
             :value="form.paymentMethodId"
             @input="setPaymentMethodId"
             :disabled="isDisabled"
@@ -31,16 +32,16 @@
         <div class="app__form-field">
           <amount-input-field
             v-model="form.amount"
-            name="buy-atomic-swap-amount"
+            name="buy-marketplace-offer-amount"
             :asset="assetByCode(atomicSwapAsk.baseAssetCode)"
             :max="atomicSwapAsk.amount"
-            :label="'buy-atomic-swap-form.amount' | globalize({
+            :label="'buy-marketplace-offer-form.amount' | globalize({
               asset: atomicSwapAsk.baseAssetName
             })"
             :disabled="isDisabled || isSelectedBonus"
           />
           <p class="app__form-field-description">
-            {{ 'buy-atomic-swap-form.available' | globalize({
+            {{ 'buy-marketplace-offer-form.available' | globalize({
               amount: atomicSwapAsk.amount,
               asset: '',
             }) }}
@@ -52,8 +53,8 @@
         <div class="app__form-field">
           <input-field
             v-model="form.promoCode"
-            name="buy-atomic-swap-promo-code"
-            :label="'buy-atomic-swap-form.promo-code-lbl' | globalize"
+            name="buy-marketplace-offer-promo-code"
+            :label="'buy-marketplace-offer-form.promo-code-lbl' | globalize"
             @blur="touchField('form.promoCode')"
             :error-message="getFieldErrorMessage('form.promoCode')"
             :disabled="isDisabled || isSelectedBonus"
@@ -65,23 +66,23 @@
         <div class="app__form-field">
           <!-- eslint-disable max-len -->
           <readonly-field
-            class="buy-atomic-swap-form__price"
-            :label="'buy-atomic-swap-form.price' | globalize"
+            class="buy-marketplace-offer-form__price"
+            :label="'buy-marketplace-offer-form.price' | globalize"
             :value="`${formatMoney(atomicSwapAsk.price)} ${statsQuoteAsset.code}`"
           />
           <!-- eslint-enable max-len -->
 
           <readonly-field
             v-if="isDiscountExist"
-            class="buy-atomic-swap-form__discount"
-            :label="'buy-atomic-swap-form.discount' | globalize"
+            class="buy-marketplace-offer-form__discount"
+            :label="'buy-marketplace-offer-form.discount' | globalize"
             :value="`${formatPercent(discount)}`"
           />
 
           <readonly-field
-            :label="'buy-atomic-swap-form.total-price' | globalize"
+            :label="'buy-marketplace-offer-form.total-price' | globalize"
             :value="isLoadingDiscount
-              ? `${globalize('buy-atomic-swap-form.calculating-msg')}`
+              ? `${globalize('buy-marketplace-offer-form.calculating-msg')}`
               :`${formatMoney(totalPrice)} ${statsQuoteAsset.code}`
             "
           />
@@ -93,10 +94,10 @@
           v-ripple
           type="submit"
           :disabled="isDisabled || isSelectedBonus"
-          class="app__button-raised buy-atomic-swap-form__btn"
+          class="app__button-raised buy-marketplace-offer-form__btn"
         >
           <template>
-            {{ 'buy-atomic-swap-form.buy' | globalize }}
+            {{ 'buy-marketplace-offer-form.buy' | globalize }}
           </template>
         </button>
       </div>
@@ -132,7 +133,7 @@ const EVENTS = {
 const UAH_CODE = 'UAH'
 
 export default {
-  name: 'buy-atomic-swap-form',
+  name: 'buy-marketplace-offer-form',
   components: {
     ReadonlyField,
   },
@@ -190,7 +191,7 @@ export default {
 
     getBonusErrorMessage () {
       return this.isSelectedBonus
-        ? globalize('buy-atomic-swap-form.buy-for-bonus')
+        ? globalize('buy-marketplace-offer-form.buy-for-bonus')
         : ''
     },
   },
@@ -265,12 +266,12 @@ export default {
 <style lang="scss" scoped>
   @import '~@/vue/forms/app-form';
 
-  .buy-atomic-swap-form__price,
-  .buy-atomic-swap-form__discount {
+  .buy-marketplace-offer-form__price,
+  .buy-marketplace-offer-form__discount {
     margin-bottom: 0.5rem;
   }
 
-  .buy-atomic-swap-form__btn {
+  .buy-marketplace-offer-form__btn {
     max-width: 14rem;
     width: 100%;
   }

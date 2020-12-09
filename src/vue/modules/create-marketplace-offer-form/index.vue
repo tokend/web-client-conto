@@ -1,9 +1,9 @@
 <template>
-  <div class="create-atomic-swap">
+  <div class="create-marketplace-offer">
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
-          :message="'create-atomic-swap-form.load-failed-msg' | globalize"
+          :message="'create-marketplace-offer-form.load-failed-msg' | globalize"
         />
       </template>
 
@@ -11,8 +11,8 @@
         <template
           v-if="baseAtomicSwapBalancesAssets.length &&
             quoteAtomicSwapAssets.length">
-          <create-atomic-swap-form
-            @created-atomic-swap="$emit(EVENTS.createdAtomicSwap)"
+          <create-marketplace-offer-form
+            @created-marketplace-offer="$emit(EVENTS.createdMarketplaceOffer)"
           />
         </template>
 
@@ -20,16 +20,16 @@
           <!-- eslint-disable max-len -->
           <no-data-message
             icon-name="alert-circle"
-            :title="'create-atomic-swap-form.no-base-atomic-swap-assets-title' | globalize"
-            :message="'create-atomic-swap-form.no-base-atomic-swap-assets-msg' | globalize"
+            :title="'create-marketplace-offer-form.no-base-marketplace-offer-assets-title' | globalize"
+            :message="'create-marketplace-offer-form.no-base-marketplace-offer-assets-msg' | globalize"
           />
         </template>
 
         <template v-else>
           <no-data-message
             icon-name="alert-circle"
-            :title="'create-atomic-swap-form.no-quote-atomic-swap-assets-title' | globalize"
-            :message="'create-atomic-swap-form.no-quote-atomic-swap-assets-msg' | globalize"
+            :title="'create-marketplace-offer-form.no-quote-marketplace-offer-assets-title' | globalize"
+            :message="'create-marketplace-offer-form.no-quote-marketplace-offer-assets-msg' | globalize"
           />
           <!-- eslint-enable max-len -->
         </template>
@@ -37,15 +37,15 @@
     </template>
 
     <template v-else>
-      <create-atomic-swap-form-skeleton-loader />
+      <create-marketplace-offer-form-skeleton-loader />
     </template>
   </div>
 </template>
 
 <script>
 import NoDataMessage from '@/vue/common/NoDataMessage'
-import CreateAtomicSwapFormSkeletonLoader from './components/create-atomic-swap-form-skeleton-loader'
-import CreateAtomicSwapForm from './components/create-atomic-swap-form'
+import CreateMarketplaceOfferFormSkeletonLoader from './components/create-marketplace-offer-form-skeleton-loader'
+import CreateMarketplaceOfferForm from './components/create-marketplace-offer-form'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { mapActions, mapGetters } from 'vuex'
@@ -53,15 +53,15 @@ import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 const EVENTS = {
-  createdAtomicSwap: 'created-atomic-swap',
+  createdMarketplaceOffer: 'created-marketplace-offer',
 }
 
 export default {
-  name: 'create-atomic-swap-form-module',
+  name: 'create-marketplace-offer-form-module',
   components: {
     NoDataMessage,
-    CreateAtomicSwapFormSkeletonLoader,
-    CreateAtomicSwapForm,
+    CreateMarketplaceOfferFormSkeletonLoader,
+    CreateMarketplaceOfferForm,
     ErrorMessage,
   },
   data: _ => ({

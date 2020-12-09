@@ -6,23 +6,23 @@
           v-if="isAccountCorporate"
           v-ripple
           class="app__button-raised"
-          @click="isAtomicSwapsCreateDrawerShown = true"
+          @click="isMarketplaceOfferCreateDrawerShown = true"
         >
-          {{ 'marketplace.create-atomic-swap-bth' | globalize }}
+          {{ 'marketplace.create-marketplace-offer-bth' | globalize }}
         </button>
       </template>
     </top-bar>
 
     <drawer
-      :is-shown.sync="isAtomicSwapsCreateDrawerShown"
+      :is-shown.sync="isMarketplaceOfferCreateDrawerShown"
       :close-by-click-outside="false"
     >
       <template slot="heading">
-        {{ 'marketplace.new-atomic-swap' | globalize }}
+        {{ 'marketplace.new-marketplace-offer' | globalize }}
       </template>
 
-      <create-atomic-swap-form
-        @created-atomic-swap="closeDrawerAndUpdateList()"
+      <create-marketplace-offer-form
+        @created-marketplace-offer="closeDrawerAndUpdateList()"
       />
     </drawer>
 
@@ -33,7 +33,7 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
-import CreateAtomicSwapForm from '@/vue/modules/create-atomic-swap-form'
+import CreateMarketplaceOfferForm from '@/vue/modules/create-marketplace-offer-form'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -44,13 +44,13 @@ export default {
   components: {
     TopBar,
     Drawer,
-    CreateAtomicSwapForm,
+    CreateMarketplaceOfferForm,
   },
 
   mixins: [UpdateList],
 
   data: () => ({
-    isAtomicSwapsCreateDrawerShown: false,
+    isMarketplaceOfferCreateDrawerShown: false,
     vueRoutes,
   }),
 
@@ -66,7 +66,7 @@ export default {
 
   methods: {
     closeDrawerAndUpdateList () {
-      this.isAtomicSwapsCreateDrawerShown = false
+      this.isMarketplaceOfferCreateDrawerShown = false
       this.emitUpdateList('atomicSwaps:updateList')
     },
   },

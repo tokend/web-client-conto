@@ -1,11 +1,11 @@
 <template>
-  <div class="atomic-swap-attributes">
+  <div class="marketplace-offer-attributes">
     <div class="app__table app__table--last-td-to-right">
       <table>
         <tbody>
           <tr>
             <td>
-              {{ 'atomic-swap-attributes.base-asset-name' | globalize }}
+              {{ 'marketplace-offer-attributes.base-asset-name' | globalize }}
             </td>
             <td>
               {{ atomicSwapAsk.baseAssetName }}
@@ -13,7 +13,7 @@
           </tr>
           <tr>
             <td>
-              {{ 'atomic-swap-attributes.amount-key' | globalize }}
+              {{ 'marketplace-offer-attributes.amount-key' | globalize }}
             </td>
             <td :title="atomicSwapAsk.amount | formatMoney">
               {{ atomicSwapAsk.amount | formatBalance }}
@@ -22,7 +22,7 @@
 
           <tr>
             <td>
-              {{ 'atomic-swap-attributes.price-key' | globalize }}
+              {{ 'marketplace-offer-attributes.price-key' | globalize }}
             </td>
             <td :title="atomicSwapAsk.price | formatMoney">
               {{ {
@@ -34,31 +34,32 @@
           </tr>
           <tr>
             <td>
-              {{ 'atomic-swap-attributes.link-to-buy-asset' | globalize }}
+              {{ 'marketplace-offer-attributes.link-to-buy-asset' | globalize }}
             </td>
             <td>
               <span
-                class="atomic-swap-attributes__link-getter"
+                class="marketplace-offer-attributes__link-getter"
               >
                 <span
-                  class="atomic-swap-attributes__link-getter-value"
+                  class="marketplace-offer-attributes__link-getter-value"
                 >
                   {{ url }}
                 </span>
 
                 <tooltip
                   :show="isCopiedTooltipShown"
-                  :message="'atomic-swap-attributes.link-copied' | globalize"
+                  :message="'marketplace-offer-attributes.link-copied' |
+                    globalize"
                 >
                   <button
-                    class="atomic-swap-attributes__copy-button
+                    class="marketplace-offer-attributes__copy-button
                       app__button-icon"
                     :id="`clipboard-btn-${_uid}`"
                     :data-clipboard-text="url"
                     @click="changeBtnIcon"
                   >
                     <i
-                      class="mdi atomic-swap-attributes__link-getter-icon"
+                      class="mdi marketplace-offer-attributes__link-getter-icon"
                       :class="isCopyBtnPressed ?
                         'mdi-clipboard-check' :
                         'mdi-clipboard-text'"
@@ -80,8 +81,8 @@
         class="app__table app__table--last-td-to-right"
         :key="quoteAsset.asset.code"
       >
-        <h4 class="atomic-swap-attributes__quote-asset-header">
-          {{ 'atomic-swap-attributes.quote-assets-subheading'
+        <h4 class="marketplace-offer-attributes__quote-asset-header">
+          {{ 'marketplace-offer-attributes.quote-assets-subheading'
             | globalize({ number: index + 1 })
           }}
         </h4>
@@ -89,7 +90,7 @@
           <tbody>
             <tr>
               <td>
-                {{ 'atomic-swap-attributes.quote-asset-key' | globalize }}
+                {{ 'marketplace-offer-attributes.quote-asset-key' | globalize }}
               </td>
               <td>
                 {{ quoteAsset.asset.code }}
@@ -97,7 +98,7 @@
             </tr>
             <tr>
               <td>
-                {{ 'atomic-swap-attributes.destination-key' | globalize }}
+                {{ 'marketplace-offer-attributes.destination-key' | globalize }}
               </td>
               <td>
                 {{ quoteAsset.destination }}
@@ -108,8 +109,8 @@
       </div>
     </template>
     <template v-else>
-      <p class="atomic-swap-attributes__quote-asset-header">
-        {{ 'atomic-swap-attributes.buy-for' | globalize }}
+      <p class="marketplace-offer-attributes__quote-asset-header">
+        {{ 'marketplace-offer-attributes.buy-for' | globalize }}
         <template
           v-for="(quoteAsset, index) in atomicSwapAsk.quoteAssets"
         >
@@ -134,7 +135,7 @@ import Tooltip from '@/vue/common/Tooltip'
 import Clipboard from 'clipboard'
 
 export default {
-  name: 'atomic-swap-attributes',
+  name: 'marketplace-offer-attributes',
   components: {
     Tooltip,
   },
@@ -184,24 +185,24 @@ export default {
 <style lang="scss">
 @import '~@scss/variables';
 
-.atomic-swap-attributes__quote-asset-header {
+.marketplace-offer-attributes__quote-asset-header {
   margin: 2rem 0;
 }
 
-.atomic-swap-attributes__link-getter {
+.marketplace-offer-attributes__link-getter {
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: row-reverse;
 }
 
-.atomic-swap-attributes__link-getter-value {
+.marketplace-offer-attributes__link-getter-value {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.atomic-swap-attributes__copy-button {
+.marketplace-offer-attributes__copy-button {
   color: $col-primary-inactive;
   margin-left: 0.5rem;
   min-height: 1rem;
@@ -215,7 +216,7 @@ export default {
   }
 }
 
-.atomic-swap-attributes__link-getter-icon {
+.marketplace-offer-attributes__link-getter-icon {
   &:before {
     vertical-align: middle;
   }

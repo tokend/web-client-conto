@@ -1,4 +1,4 @@
-import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
+import MarketplaceOfferBidMixin from '@/vue/mixins/marketplace-offer-ask.mixin'
 import { uploadDocuments } from '@/js/helpers/upload-documents'
 import { DocumentContainer } from '@/js/helpers/DocumentContainer'
 
@@ -8,13 +8,13 @@ import { api } from '@/api'
 import config from '@/config'
 
 import { mapGetters, mapActions } from 'vuex'
-import { store, vuexTypes } from '@/vuex/index'
+import { store, vuexTypes } from '@/vuex'
 import { DateUtil } from '@/js/utils'
 
 const NEW_CREATE_ASSET_REQUEST_ID = '0'
 
 export default {
-  mixins: [AtomicSwapAskMixin],
+  mixins: [MarketplaceOfferBidMixin],
   data () {
     return {
       collectedAttributes: {},

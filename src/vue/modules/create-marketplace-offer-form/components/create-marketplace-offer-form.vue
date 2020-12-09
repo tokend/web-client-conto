@@ -1,7 +1,7 @@
 <template>
   <form
     novalidate
-    class="app__form create-atomic-swap-form"
+    class="app__form create-marketplace-offer-form"
     @submit.prevent="submit()"
   >
     <div class="app__form-row">
@@ -9,8 +9,8 @@
         <select-field
           :value="form.asset.code"
           @input="setAssetByCode"
-          name="create-atomic-swap-asset"
-          :label="'create-atomic-swap-form.asset-lbl' | globalize"
+          name="create-marketplace-offer-asset"
+          :label="'create-marketplace-offer-form.asset-lbl' | globalize"
           @blur="touchField('form.asset')"
           :disabled="formMixin.isDisabled"
         >
@@ -28,7 +28,7 @@
             :class="{ 'app__form-field-description--error': isHaveBalance }"
           >
             {{
-              'create-atomic-swap-form.available-balance' | globalize({
+              'create-marketplace-offer-form.available-balance' | globalize({
                 amount: accountBalance.balance,
                 available: accountBalance.balance
               })
@@ -42,9 +42,9 @@
       <div class="app__form-field">
         <amount-input-field
           v-model="form.amount"
-          name="create-atomic-swap-amount"
+          name="create-marketplace-offer-amount"
           :validation-type="getValidationType"
-          :label="'create-atomic-swap-form.amount-lbl' | globalize"
+          :label="'create-marketplace-offer-form.amount-lbl' | globalize"
           :asset="form.asset"
           :disabled="formMixin.isDisabled || isHaveBalance"
           is-max-button-shown
@@ -60,8 +60,8 @@
           :max="MAX_PRICE"
           :min="minPrice"
           @blur="touchField('form.price')"
-          name="create-atomic-swap-quote-asset-price"
-          :label="'create-atomic-swap-form.price-lbl' | globalize({
+          name="create-marketplace-offer-quote-asset-price"
+          :label="'create-marketplace-offer-form.price-lbl' | globalize({
             asset: statsQuoteAsset.code
           })"
           :error-message="getFieldErrorMessage('form.price', {
@@ -72,7 +72,7 @@
         />
       </div>
     </div>
-    <atomic-swap-quote-assets-form
+    <marketplace-offer-quote-assets-form
       :is-disabled.sync="formMixin.isDisabled || isHaveBalance"
       @submit="setQuoteAssets($event) || submit()"
     />
@@ -81,8 +81,8 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
-import AtomicSwapQuoteAssetsForm from '@/vue/forms/AtomicSwapQuoteAssetsForm'
+import MarketplaceOfferBidMixin from '@/vue/mixins/marketplace-offer-ask.mixin'
+import MarketplaceOfferQuoteAssetsForm from '@/vue/forms/MarketplaceOfferQuoteAssetsForm'
 import config from '@/config'
 
 import {
@@ -99,20 +99,20 @@ import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils/math.util'
 
 const EVENTS = {
-  createdAtomicSwap: 'created-atomic-swap',
+  createdMarketplaceOffer: 'created-marketplace-offer',
 }
 
 const VALIDATION_TYPES = {
   outgoing: 'outgoing',
-  atomicSwap: 'atomicSwap',
+  marketplaceOffer: 'marketplaceOffer',
 }
 
 export default {
-  name: 'create-atomic-swap-form',
+  name: 'create-marketplace-offer-form',
   components: {
-    AtomicSwapQuoteAssetsForm,
+    MarketplaceOfferQuoteAssetsForm,
   },
-  mixins: [FormMixin, AtomicSwapAskMixin],
+  mixins: [FormMixin, MarketplaceOfferBidMixin],
   data: _ => ({
     form: {
       asset: {},
@@ -161,7 +161,7 @@ export default {
 
     getValidationType () {
       return this.isAssetOwner
-        ? VALIDATION_TYPES.atomicSwap
+        ? VALIDATION_TYPES.marketplaceOffer
         : VALIDATION_TYPES.outgoing
     },
   },
@@ -191,8 +191,8 @@ export default {
           price: this.form.price,
           quoteAssets: this.form.quoteAssets,
         })
-        Bus.success('create-atomic-swap-form.created-atomic-swap-msg')
-        this.$emit(EVENTS.createdAtomicSwap)
+        Bus.success('create-marketplace-offer-form.created-marketplace-offer-msg')
+        this.$emit(EVENTS.createdMarketplaceOffer)
       } catch (e) {
         ErrorHandler.process(e)
       }
@@ -237,11 +237,11 @@ export default {
 <style lang="scss" scoped>
 @import '~@/vue/forms/app-form';
 
-.create-atomic-swap-form__amount-wrapper {
+.create-marketplace-offer-form__amount-wrapper {
   display: flex;
 }
 
-.create-atomic-swap-form__asset-code {
+.create-marketplace-offer-form__asset-code {
   margin-left: 1rem;
   padding-top: 1.8rem;
   font-size: 1.8rem;

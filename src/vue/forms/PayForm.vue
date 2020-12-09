@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <buy-atomic-swap-form
+      <buy-marketplace-offer-form
         class="pay-form__atomic-swap-bid"
         @submitted="submit"
         :is-disabled="isDisabled"
@@ -44,9 +44,9 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import BuyAtomicSwapForm from '@/vue/forms/BuyAtomicSwapForm'
+import BuyMarketplaceOfferForm from '@/vue/forms/BuyMarketplaceOfferForm'
 import AddressViewer from '@/vue/common/address-viewer'
-import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
+import MarketplaceOfferBidMixin from '@/vue/mixins/marketplace-offer-bid.mixin'
 import config from '@/config'
 
 import { required, email, maxLength } from '@validators'
@@ -66,10 +66,10 @@ const EVENTS = {
 export default {
   name: 'pay-form',
   components: {
-    BuyAtomicSwapForm,
+    BuyMarketplaceOfferForm,
     AddressViewer,
   },
-  mixins: [FormMixin, AtomicSwapBidMixin],
+  mixins: [FormMixin, MarketplaceOfferBidMixin],
   props: { atomicSwapAsk: { type: AtomicSwapAskRecord, required: true } },
   data () {
     return {

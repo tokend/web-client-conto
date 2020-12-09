@@ -1,19 +1,19 @@
 <template>
   <form
     novalidate
-    class="app__form atomic-swap-quote-assets-form"
+    class="app__form marketplace-offer-quote-assets-form"
     @submit.prevent="submit()"
   >
     <div
-      class="atomic-swap-quote-assets-form__asset-wrp"
+      class="marketplace-offer-quote-assets-form__asset-wrp"
       v-for="(quoteAsset, index) in form.quoteAssets"
       :key="index"
     >
-      <div class="atomic-swap-quote-assets-form__asset">
-        <div class="atomic-swap-quote-assets-form__assets-subheading-wrp">
+      <div class="marketplace-offer-quote-assets-form__asset">
+        <div class="marketplace-offer-quote-assets-form__assets-subheading-wrp">
           <!-- eslint-disable-next-line max-len -->
-          <h3 class="app__form-subheading atomic-swap-quote-assets-form__assets-subheading">
-            {{ 'atomic-swap-quote-assets-form.assets-subheading' |
+          <h3 class="app__form-subheading marketplace-offer-quote-assets-form__assets-subheading">
+            {{ 'marketplace-offer-quote-assets-form.assets-subheading' |
               globalize({number: index + 1})
             }}
           </h3>
@@ -21,12 +21,12 @@
           <button
             v-if="canDeleteQuoteAsset(index + 1)"
             type="button"
-            class="atomic-swap-quote-assets-form__delete-asset-btn"
+            class="marketplace-offer-quote-assets-form__delete-asset-btn"
             @click="deleteQuoteAsset(index)"
             :disabled="isDisabled"
           >
             <!-- eslint-disable-next-line max-len -->
-            <i class="mdi mdi-minus-circle-outline atomic-swap-quote-assets-form__delete-asset-icon" />
+            <i class="mdi mdi-minus-circle-outline marketplace-offer-quote-assets-form__delete-asset-icon" />
           </button>
         </div>
 
@@ -36,8 +36,8 @@
             <select-field
               :value="form.quoteAssets[index].type"
               @input="setQuoteAssetType($event, index)"
-              name="create-atomic-swap-quote-asset-type"
-              :label="'atomic-swap-quote-assets-form.type-lbl' | globalize"
+              name="create-marketplace-offer-quote-asset-type"
+              :label="'marketplace-offer-quote-assets-form.type-lbl' | globalize"
               @blur="touchField(`form.quoteAssets[${index}].type`)"
               :error-message="getFieldErrorMessage(`form.quoteAssets[${index}].type`)"
               :disabled="isDisabled"
@@ -63,8 +63,8 @@
               <select-field
                 :value="form.quoteAssets[index].asset.code"
                 @input="setQuoteAssetByCode($event, index)"
-                name="create-atomic-swap-asset"
-                :label="'atomic-swap-quote-assets-form.asset-lbl' | globalize"
+                name="create-marketplace-offer-asset"
+                :label="'marketplace-offer-quote-assets-form.asset-lbl' | globalize"
                 @blur="touchField(`form.quoteAssets[${index}].asset`)"
                 :error-message="getFieldErrorMessage(`form.quoteAssets[${index}].asset`)"
                 :disabled="isDisabled"
@@ -94,7 +94,7 @@
                     destinationLabel: getDestinationLabel(form.quoteAssets[index].type)
                   }
                 )"
-                :name="'create-atomic-swap-quote-asset-destination'"
+                name="create-marketplace-offer-quote-asset-destination"
                 :label="getDestinationLabel(form.quoteAssets[index].type)"
                 :disabled="isDisabled"
               />
@@ -106,16 +106,16 @@
     </div>
 
     <div
-      class="atomic-swap-quote-assets-form__add-asset-wrp"
+      class="marketplace-offer-quote-assets-form__add-asset-wrp"
     >
-      <div class="atomic-swap-quote-assets-form__add-asset">
+      <div class="marketplace-offer-quote-assets-form__add-asset">
         <button
-          class="atomic-swap-quote-assets-form__add-asset-btn"
+          class="marketplace-offer-quote-assets-form__add-asset-btn"
           type="button"
           @click="addQuoteAsset()"
           :disabled="isDisabled"
         >
-          {{ 'atomic-swap-quote-assets-form.add-asset-btn' | globalize }}
+          {{ 'marketplace-offer-quote-assets-form.add-asset-btn' | globalize }}
         </button>
       </div>
     </div>
@@ -123,10 +123,12 @@
     <div class="app__form-actions">
       <button
         v-ripple
-        class="atomic-swap-quote-assets-form__submit-btn app__button-raised"
+        class="
+          marketplace-offer-quote-assets-form__submit-btn app__button-raised
+        "
         :disabled="isDisabled"
       >
-        {{ 'atomic-swap-quote-assets-form.create-btn' | globalize }}
+        {{ 'marketplace-offer-quote-assets-form.create-btn' | globalize }}
       </button>
     </div>
   </form>
@@ -151,7 +153,7 @@ const EVENTS = {
 const UAH_CODE = 'UAH'
 
 export default {
-  name: 'atomic-swap-quote-assets-form',
+  name: 'marketplace-offer-quote-assets-form',
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
@@ -285,8 +287,8 @@ export default {
     getDestinationLabel (type) {
       return globalize(
         type === PAYMENT_METHODS.coinpayments.value
-          ? 'atomic-swap-quote-assets-form.address-lbl'
-          : 'atomic-swap-quote-assets-form.card-number-lbl'
+          ? 'marketplace-offer-quote-assets-form.address-lbl'
+          : 'marketplace-offer-quote-assets-form.card-number-lbl'
       )
     },
 
@@ -306,11 +308,11 @@ export default {
 <style lang="scss" scoped>
 @import '~@/vue/forms/app-form';
 
-.atomic-swap-quote-assets-form__add-asset {
+.marketplace-offer-quote-assets-form__add-asset {
   margin-top: 1rem;
 }
 
-.atomic-swap-quote-assets-form__add-asset-btn {
+.marketplace-offer-quote-assets-form__add-asset-btn {
   cursor: pointer;
   white-space: nowrap;
   position: relative;
@@ -333,11 +335,11 @@ export default {
   }
 }
 
-.atomic-swap-quote-assets-form__asset-wrp {
+.marketplace-offer-quote-assets-form__asset-wrp {
   margin-top: 3rem;
 }
 
-.atomic-swap-quote-assets-form__delete-asset-btn {
+.marketplace-offer-quote-assets-form__delete-asset-btn {
   margin-top: 1.4rem;
   margin-left: 0.6rem;
   max-width: 2.4rem;
@@ -356,17 +358,17 @@ export default {
   }
 }
 
-.atomic-swap-quote-assets-form__delete-asset-icon {
+.marketplace-offer-quote-assets-form__delete-asset-icon {
   font-size: 2.4rem;
 }
 
-.atomic-swap-quote-assets-form__assets-subheading-wrp {
+.marketplace-offer-quote-assets-form__assets-subheading-wrp {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.atomic-swap-quote-assets-form__assets-subheading {
+.marketplace-offer-quote-assets-form__assets-subheading {
   margin-top: 0;
 }
 </style>

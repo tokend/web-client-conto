@@ -56,7 +56,7 @@ const AMOUNT_VALIDATION_TYPE = {
   incoming: 'incoming',
   outgoing: 'outgoing',
   issuance: 'issuance',
-  atomicSwap: 'atomicSwap',
+  marketplaceOffer: 'marketplaceOffer',
 }
 
 export default {
@@ -139,7 +139,7 @@ export default {
           result = this.assetRecord.availableForIssuance
           break
 
-        case AMOUNT_VALIDATION_TYPE.atomicSwap:
+        case AMOUNT_VALIDATION_TYPE.marketplaceOffer:
           result = MathUtil.add(
             this.assetRecord.availableForIssuance, this.balance
           )

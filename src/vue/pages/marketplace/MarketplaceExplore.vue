@@ -4,21 +4,21 @@
       <input-field
         :white-autofill="false"
         v-model="search"
-        :label="'atomic-swaps-explore.search-lbl' | globalize"
+        :label="'marketplace-explore.search-lbl' | globalize"
         :trim="false"
       />
     </div>
     <template v-if="isLoaded">
       <template v-if="isLoadFailed">
         <error-message
-          :message="'atomic-swaps-explore.loading-error-msg' | globalize"
+          :message="'marketplace-explore.loading-error-msg' | globalize"
         />
       </template>
 
       <template v-else>
         <template v-if="list.length">
           <card-list v-slot="{ item }" :list="list">
-            <atomic-swap-card
+            <marketplace-offer-card
               :atomic-swap-ask="item"
               @buy="buyAsset(item)"
               @vue-details="selectItem(item)"
@@ -30,8 +30,8 @@
           <no-data-message
             class="marketplace-explore__no-data-message"
             icon-name="swap-horizontal"
-            :title="'atomic-swaps-explore.no-list-title' | globalize"
-            :message="'atomic-swaps-explore.no-list-msg' | globalize"
+            :title="'marketplace-explore.no-list-title' | globalize"
+            :message="'marketplace-explore.no-list-msg' | globalize"
           />
         </template>
       </template>
@@ -56,23 +56,24 @@
         :is-shown.sync="isBuyFormDrawerShown"
       >
         <template slot="heading">
-          {{ 'atomic-swaps-explore.buying' |
-            globalize({asset: atomicSwapToBrowse.baseAssetName}) }}
+          {{ 'marketplace-explore.buying' |
+            globalize({asset: marketplaceOfferToBrowse.baseAssetName}) }}
         </template>
-        <atomic-swap-form
+        <marketplace-offer-form
           @update-list="updateList()"
           @update-list-and-close-drawer="(isBuyFormDrawerShown = false) ||
             updateList()"
-          :atomic-swap-ask="atomicSwapToBrowse"
+          :atomic-swap-ask="marketplaceOfferToBrowse"
         />
       </drawer>
-      <drawer :is-shown.sync="isAtomicSwapDetailsDrawerShown">
+      <drawer :is-shown.sync="isMarketplaceOfferDetailsDrawerShown">
         <template slot="heading">
-          {{ 'atomic-swaps-explore.atomic-swap-drawer-title' | globalize }}
+          {{ 'marketplace-explore.marketplace-offer-drawer-title' |
+            globalize }}
         </template>
 
-        <atomic-swap-viewer
-          :current-atomic-swap-ask="atomicSwapToBrowse"
+        <marketplace-offer-viewer
+          :current-atomic-swap-ask="marketplaceOfferToBrowse"
           @close-drawer-and-update-list="closeDrawerAndUpdateList()"
         />
       </drawer>
@@ -83,11 +84,11 @@
 <script>
 import CollectionLoader from '@/vue/common/CollectionLoader'
 import Drawer from '@/vue/common/Drawer'
-import AtomicSwapCard from './AtomicSwapCard'
-import AtomicSwapViewer from './AtomicSwapViewer'
+import MarketplaceOfferCard from './MarketplaceOfferCard'
+import MarketplaceOfferViewer from './MarketplaceOfferViewer'
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import UpdateList from '@/vue/mixins/update-list.mixin'
-import AtomicSwapForm from '@modules/atomic-swap-form'
+import MarketplaceOfferForm from '@modules/marketplace-offer-form'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
 import CardList from '@/vue/common/CardList'
 import ErrorMessage from '@/vue/common/ErrorMessage'
@@ -108,10 +109,10 @@ export default {
   components: {
     CollectionLoader,
     Drawer,
-    AtomicSwapCard,
-    AtomicSwapViewer,
+    MarketplaceOfferCard,
+    MarketplaceOfferViewer,
     NoDataMessage,
-    AtomicSwapForm,
+    MarketplaceOfferForm,
     SkeletonCardsLoader,
     CardList,
     ErrorMessage,
@@ -131,8 +132,8 @@ export default {
       isLoadFailed: false,
       list: [],
       isBuyFormDrawerShown: false,
-      isAtomicSwapDetailsDrawerShown: false,
-      atomicSwapToBrowse: {},
+      isMarketplaceOfferDetailsDrawerShown: false,
+      marketplaceOfferToBrowse: {},
       filters: {
         isOwnedByCurrentUser: false,
       },
@@ -214,18 +215,18 @@ export default {
           },
         })
       } else {
-        this.atomicSwapToBrowse = item
+        this.marketplaceOfferToBrowse = item
         this.isBuyFormDrawerShown = true
       }
     },
 
     selectItem (item) {
-      this.atomicSwapToBrowse = item
-      this.isAtomicSwapDetailsDrawerShown = true
+      this.marketplaceOfferToBrowse = item
+      this.isMarketplaceOfferDetailsDrawerShown = true
     },
 
     closeDrawerAndUpdateList () {
-      this.isAtomicSwapDetailsDrawerShown = false
+      this.isMarketplaceOfferDetailsDrawerShown = false
       this.isBuyFormDrawerShown = false
       this.emitUpdateList('atomicSwaps:updateList')
     },

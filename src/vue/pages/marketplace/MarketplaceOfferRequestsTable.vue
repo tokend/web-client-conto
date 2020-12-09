@@ -1,26 +1,26 @@
 <template>
-  <div class="atomic-swap-requests-table app__table">
+  <div class="marketplace-offer-requests-table app__table">
     <table>
       <thead>
         <tr>
           <th>
-            {{ 'atomic-swaps-requests-table.buyer-th' | globalize }}
+            {{ 'marketplace-offer-requests-table.buyer-th' | globalize }}
           </th>
           <th>
-            {{ 'atomic-swaps-requests-table.amount-th' | globalize }}
+            {{ 'marketplace-offer-requests-table.amount-th' | globalize }}
           </th>
           <th>
-            {{ 'atomic-swaps-requests-table.discount-th' | globalize }}
+            {{ 'marketplace-offer-requests-table.discount-th' | globalize }}
           </th>
           <th>
-            {{ 'atomic-swaps-requests-table.total-price-th' | globalize }}
+            {{ 'marketplace-offer-requests-table.total-price-th' | globalize }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in atomicSwapRequests" :key="item.id">
+        <tr v-for="item in marketplaceOfferRequests" :key="item.id">
           <td
-            class="atomic-swap-requests-table__buyer-cell"
+            class="marketplace-offer-requests-table__buyer-cell"
             :title="item.senderAccountId"
           >
             <email-getter
@@ -47,12 +47,12 @@
 import EmailGetter from '@/vue/common/EmailGetter'
 
 export default {
-  name: 'atomic-swap-requests-table',
+  name: 'marketplace-offer-requests-table',
   components: {
     EmailGetter,
   },
   props: {
-    atomicSwapRequests: {
+    marketplaceOfferRequests: {
       type: Array, /** {@link BuyRequestRecord} **/
       required: true,
     },
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .atomic-swap-requests-table__buyer-cell {
+  .marketplace-offer-requests-table__buyer-cell {
     max-width: 15rem;
   }
 </style>

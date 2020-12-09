@@ -1,20 +1,20 @@
 <template>
-  <div class="atomic-swap-viewer">
-    <atomic-swap-attributes :atomic-swap-ask="currentAtomicSwapAsk" />
-    <template v-if="isAtomicSwapOwner">
-      <atomic-swap-actions
+  <div class="marketplace-offer-viewer">
+    <marketplace-offer-attributes :atomic-swap-ask="currentAtomicSwapAsk" />
+    <template v-if="isMarketplaceOfferOwner">
+      <marketplace-offer-actions
         :atomic-swap-ask="currentAtomicSwapAsk"
         @close-drawer-and-update-list="$emit(EVENTS.closeDrawerAndUpdateList)"
       />
-      <atomic-swap-requests :atomic-swap-ask="currentAtomicSwapAsk" />
+      <marketplace-offer-requests :atomic-swap-ask="currentAtomicSwapAsk" />
     </template>
   </div>
 </template>
 
 <script>
-import AtomicSwapAttributes from './AtomicSwapAttributes'
-import AtomicSwapRequests from './AtomicSwapRequests'
-import AtomicSwapActions from './AtomicSwapActions'
+import MarketplaceOfferAttributes from './MarketplaceOfferAttributes'
+import MarketplaceOfferRequests from './MarketplaceOfferRequests'
+import MarketplaceOfferActions from './MarketplaceOfferActions'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
@@ -24,12 +24,12 @@ const EVENTS = {
 }
 
 export default {
-  name: 'atomic-swap-viewer',
+  name: 'marketplace-offer-viewer',
 
   components: {
-    AtomicSwapAttributes,
-    AtomicSwapActions,
-    AtomicSwapRequests,
+    MarketplaceOfferAttributes,
+    MarketplaceOfferActions,
+    MarketplaceOfferRequests,
   },
 
   props: {
@@ -49,7 +49,7 @@ export default {
     ...mapGetters({
       accountId: vuexTypes.accountId,
     }),
-    isAtomicSwapOwner () {
+    isMarketplaceOfferOwner () {
       return this.currentAtomicSwapAsk.ownerId === this.accountId
     },
   },

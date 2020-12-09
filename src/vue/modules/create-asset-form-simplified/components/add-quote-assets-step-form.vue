@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <atomic-swap-quote-assets-form
+    <marketplace-offer-quote-assets-form
       :is-disabled.sync="isDisabled"
       @submit="submit"
     />
@@ -38,7 +38,7 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import AtomicSwapQuoteAssetsForm from '@/vue/forms/AtomicSwapQuoteAssetsForm'
+import MarketplaceOfferQuoteAssetsForm from '@/vue/forms/MarketplaceOfferQuoteAssetsForm'
 
 import {
   amountRange,
@@ -58,7 +58,7 @@ const EVENTS = {
 export default {
   name: 'add-quote-assets-step-form',
   components: {
-    AtomicSwapQuoteAssetsForm,
+    MarketplaceOfferQuoteAssetsForm,
   },
   mixins: [FormMixin],
   props: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="atomic-swap-card">
+  <div class="marketplace-offer-card">
     <card>
       <card-logo
         slot="media"
@@ -24,14 +24,14 @@
           class="app__button-flat"
           @click="$emit(EVENTS.buy)"
         >
-          {{ 'atomic-swap-card.buy-lbl' | globalize }}
+          {{ 'marketplace-offer-card.buy-lbl' | globalize }}
         </button>
         <button
           v-ripple
           class="app__button-flat"
           @click="$emit(EVENTS.vueDetails)"
         >
-          {{ 'atomic-swap-card.details-lbl' | globalize }}
+          {{ 'marketplace-offer-card.details-lbl' | globalize }}
         </button>
       </template>
     </card>
@@ -51,7 +51,7 @@ const EVENTS = {
 }
 
 export default {
-  name: 'atomic-swap-card',
+  name: 'marketplace-offer-card',
   components: {
     Card,
     CardLogo,
