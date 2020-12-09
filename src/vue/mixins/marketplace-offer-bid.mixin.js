@@ -3,8 +3,8 @@ import { api } from '@/api'
 
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
-import { ATOMIC_SWAP_REQUEST_TYPES } from '@/js/const/atomic-swap.const'
-import { AtomicSwapBidRecord } from '@/js/records/entities/atomic-swap-bid.record'
+import { MARKETPLACE_OFFER_REQUEST_TYPES } from '@/js/const/marketplace-offer-request-types.const'
+import { MarketplaceOfferBidRecord } from '@/js/records/entities/marketplace-offer-bid.record'
 
 export default {
   mixins: [ IdentityGetterMixin ],
@@ -17,7 +17,7 @@ export default {
 
   methods: {
     // eslint-disable-next-line max-len
-    async createAtomicSwapBidOperation (amount, paymentMethodId, atomicSwapAskId, promoCode, email) {
+    async createMarketplaceOfferBidOperation (amount, paymentMethodId, marketplaceOfferAskId, promoCode, email) {
       let accountId = this.accountId
 
       if (email) {
@@ -29,28 +29,29 @@ export default {
         }
       }
 
-      const atomicSwapBidOperation = this.buildCreateAtomicSwapBidOperation(
-        amount,
-        paymentMethodId,
-        atomicSwapAskId,
-        promoCode,
-        accountId
-      )
+      const marketplaceOfferBidOperation =
+        this.buildCreateMarketplaceOfferBidOperation(
+          amount,
+          paymentMethodId,
+          marketplaceOfferAskId,
+          promoCode,
+          accountId
+        )
       const { data } = await api.post(
         '/integrations/marketplace/buy',
-        atomicSwapBidOperation
+        marketplaceOfferBidOperation
       )
-      return new AtomicSwapBidRecord(data)
+      return new MarketplaceOfferBidRecord(data)
     },
 
     // eslint-disable-next-line max-len
-    buildCreateAtomicSwapBidOperation (amount, paymentMethodId, atomicSwapAskId, promoCode, accountId) {
+    buildCreateMarketplaceOfferBidOperation (amount, paymentMethodId, marketplaceOfferAskId, promoCode, accountId) {
       return {
         data: {
-          type: ATOMIC_SWAP_REQUEST_TYPES.createBuyRequest,
+          type: MARKETPLACE_OFFER_REQUEST_TYPES.createBuyRequest,
           attributes: {
             amount: amount,
-            offer_id: Number(atomicSwapAskId),
+            offer_id: Number(marketplaceOfferAskId),
             payment_method_id: Number(paymentMethodId),
             sender_account_id: accountId,
             ...(promoCode

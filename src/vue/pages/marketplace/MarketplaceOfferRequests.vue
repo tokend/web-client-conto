@@ -47,7 +47,7 @@ import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTabl
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import MarketplaceOfferRequestsTable from './MarketplaceOfferRequestsTable'
 
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -65,7 +65,7 @@ export default {
     MarketplaceOfferRequestsTable,
   },
   props: {
-    atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
+    marketplaceOfferAsk: { type: MarketplaceOfferAskRecord, required: true },
   },
   data () {
     return {
@@ -89,7 +89,7 @@ export default {
           {
             filter: {
               'seller': this.accountId,
-              'offer': this.atomicSwapAsk.id,
+              'offer': this.marketplaceOfferAsk.id,
               'status': BUY_REQUEST_STATUSES.paid.value,
             },
             include: ['request_details', 'request_details.quote_asset'],

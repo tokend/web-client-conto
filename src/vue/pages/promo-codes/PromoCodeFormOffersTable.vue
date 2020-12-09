@@ -73,7 +73,7 @@ export default {
 
   props: {
     offers: {
-      type: Array, /** {@link AtomicSwapAskRecord} **/
+      type: Array, /** {@link MarketplaceOfferAskRecord} **/
       required: true,
     },
   },

@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
-import { store, vuexTypes } from '@/vuex/index'
+import { store, vuexTypes } from '@/vuex'
 
-export class AtomicSwapAskRecord {
+export class MarketplaceOfferAskRecord {
   constructor (record) {
     this._record = record
 

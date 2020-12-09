@@ -61,13 +61,13 @@ export default {
   },
 
   beforeDestroy () {
-    this.resetUpdateListEvent('atomicSwaps:updateList')
+    this.resetUpdateListEvent('marketplace:updateList')
   },
 
   methods: {
     closeDrawerAndUpdateList () {
       this.isMarketplaceOfferCreateDrawerShown = false
-      this.emitUpdateList('atomicSwaps:updateList')
+      this.emitUpdateList('marketplace:updateList')
     },
   },
 }

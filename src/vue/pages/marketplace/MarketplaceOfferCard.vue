@@ -7,11 +7,12 @@
         :logo-text="asset.name"
       />
       <template slot="header">
-        {{ atomicSwapAsk.baseAssetName }}
+        {{ marketplaceOfferAsk.baseAssetName }}
       </template>
       <template slot="accent-title">
-        <span :title="atomicSwapAsk.price | formatMoney">
-          {{ atomicSwapAsk.price | formatMoney }} {{ statsQuoteAsset.code }}
+        <span :title="marketplaceOfferAsk.price | formatMoney">
+          {{ marketplaceOfferAsk.price | formatMoney }}
+          {{ statsQuoteAsset.code }}
         </span>
       </template>
       <template slot="content">
@@ -19,7 +20,7 @@
       </template>
       <template slot="actions">
         <button
-          v-if="atomicSwapAsk.ownerId !== accountId"
+          v-if="marketplaceOfferAsk.ownerId !== accountId"
           v-ripple
           class="app__button-flat"
           @click="$emit(EVENTS.buy)"
@@ -41,7 +42,7 @@
 <script>
 import Card from '@/vue/common/Card'
 import CardLogo from '@/vue/common/CardLogo'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
@@ -58,8 +59,8 @@ export default {
   },
 
   props: {
-    atomicSwapAsk: {
-      type: AtomicSwapAskRecord,
+    marketplaceOfferAsk: {
+      type: MarketplaceOfferAskRecord,
       required: true,
     },
   },
@@ -75,7 +76,7 @@ export default {
       vuexTypes.accountId,
     ]),
     asset () {
-      return this.assetByCode(this.atomicSwapAsk.baseAssetCode)
+      return this.assetByCode(this.marketplaceOfferAsk.baseAssetCode)
     },
   },
 }

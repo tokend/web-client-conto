@@ -154,7 +154,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { Bus } from '@/js/helpers/event-bus'
 
 const EVENTS = {
@@ -245,7 +245,7 @@ export default {
             owner: this.accountId,
           },
         })
-        this.userOffers = data.map(i => new AtomicSwapAskRecord(i))
+        this.userOffers = data.map(i => new MarketplaceOfferAskRecord(i))
       } catch (error) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(error)

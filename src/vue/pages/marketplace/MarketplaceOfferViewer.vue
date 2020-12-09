@@ -1,12 +1,16 @@
 <template>
   <div class="marketplace-offer-viewer">
-    <marketplace-offer-attributes :atomic-swap-ask="currentAtomicSwapAsk" />
+    <marketplace-offer-attributes
+      :marketplace-offer-ask="currentMarketplaceOfferAsk"
+    />
     <template v-if="isMarketplaceOfferOwner">
       <marketplace-offer-actions
-        :atomic-swap-ask="currentAtomicSwapAsk"
+        :marketplace-offer-ask="currentMarketplaceOfferAsk"
         @close-drawer-and-update-list="$emit(EVENTS.closeDrawerAndUpdateList)"
       />
-      <marketplace-offer-requests :atomic-swap-ask="currentAtomicSwapAsk" />
+      <marketplace-offer-requests
+        :marketplace-offer-ask="currentMarketplaceOfferAsk"
+      />
     </template>
   </div>
 </template>
@@ -15,7 +19,7 @@
 import MarketplaceOfferAttributes from './MarketplaceOfferAttributes'
 import MarketplaceOfferRequests from './MarketplaceOfferRequests'
 import MarketplaceOfferActions from './MarketplaceOfferActions'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
 
@@ -33,8 +37,8 @@ export default {
   },
 
   props: {
-    currentAtomicSwapAsk: {
-      type: AtomicSwapAskRecord,
+    currentMarketplaceOfferAsk: {
+      type: MarketplaceOfferAskRecord,
       required: true,
     },
   },
@@ -50,7 +54,7 @@ export default {
       accountId: vuexTypes.accountId,
     }),
     isMarketplaceOfferOwner () {
-      return this.currentAtomicSwapAsk.ownerId === this.accountId
+      return this.currentMarketplaceOfferAsk.ownerId === this.accountId
     },
   },
 }

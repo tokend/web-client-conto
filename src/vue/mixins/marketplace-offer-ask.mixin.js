@@ -4,7 +4,7 @@ import { api } from '@/api'
 
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
-import { ATOMIC_SWAP_REQUEST_TYPES } from '@/js/const/atomic-swap.const'
+import { MARKETPLACE_OFFER_REQUEST_TYPES } from '@/js/const/marketplace-offer-request-types.const'
 import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
@@ -24,16 +24,19 @@ export default {
   },
 
   methods: {
-    async createAtomicSwapAsk ({ baseAssetCode, amount, price, quoteAssets }) {
+    async createMarketplaceOfferAsk (
+      { baseAssetCode, amount, price, quoteAssets }
+    ) {
       const paymentTx = await this.getPaymentTx(baseAssetCode, amount)
 
-      const atomicSwapAskOperation = this.buildCreateAtomicSwapAskOperation(
-        paymentTx,
-        baseAssetCode,
-        price,
-        quoteAssets
-      )
-      await api.postWithSignature('/integrations/marketplace/offers', atomicSwapAskOperation)
+      const marketplaceOfferAskOperation =
+        this.buildCreateMarketplaceOfferAskOperation(
+          paymentTx,
+          baseAssetCode,
+          price,
+          quoteAssets
+        )
+      await api.postWithSignature('/integrations/marketplace/offers', marketplaceOfferAskOperation)
     },
 
     getPaymentOperation (destinationAccountId, amount, baseAssetCode) {
@@ -59,11 +62,11 @@ export default {
     },
 
     // eslint-disable-next-line max-len
-    buildCreateAtomicSwapAskOperation (paymentTx, baseAssetCode, price, quoteAssets) {
+    buildCreateMarketplaceOfferAskOperation (paymentTx, baseAssetCode, price, quoteAssets) {
       const paymentQuoteAssets = quoteAssets.map(quoteAsset => {
         return {
           id: this.getCreatePaymentMethodId(quoteAsset),
-          type: ATOMIC_SWAP_REQUEST_TYPES.createPaymentMethod,
+          type: MARKETPLACE_OFFER_REQUEST_TYPES.createPaymentMethod,
           attributes: {
             asset: quoteAsset.asset.code,
             destination: quoteAsset.destination,
@@ -75,13 +78,13 @@ export default {
       const quoteAssetsKey = quoteAssets.map(quoteAsset => {
         return {
           id: this.getCreatePaymentMethodId(quoteAsset),
-          type: ATOMIC_SWAP_REQUEST_TYPES.createPaymentMethod,
+          type: MARKETPLACE_OFFER_REQUEST_TYPES.createPaymentMethod,
         }
       })
 
       const operation = {
         data: {
-          type: ATOMIC_SWAP_REQUEST_TYPES.createOffer,
+          type: MARKETPLACE_OFFER_REQUEST_TYPES.createOffer,
           attributes: {
             payment_tx_envelope: paymentTx,
             price: price,
@@ -111,7 +114,9 @@ export default {
         : quoteAsset.asset.code
     },
 
-    async updateAtomicSwapAsk ({ atomicSwapId, baseAssetCode, amount, price }) {
+    async updateMarketplaceOfferAsk (
+      { marketplaceOfferId, baseAssetCode, amount, price }
+    ) {
       let attributes = {}
 
       if (amount) {
@@ -123,9 +128,9 @@ export default {
         attributes.price = price
       }
 
-      await api.patchWithSignature(`/integrations/marketplace/offers/${atomicSwapId}`, {
+      await api.patchWithSignature(`/integrations/marketplace/offers/${marketplaceOfferId}`, {
         data: {
-          type: ATOMIC_SWAP_REQUEST_TYPES.createOffer,
+          type: MARKETPLACE_OFFER_REQUEST_TYPES.createOffer,
           attributes: attributes,
         },
       })

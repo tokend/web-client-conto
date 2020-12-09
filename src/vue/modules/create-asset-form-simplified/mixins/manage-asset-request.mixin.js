@@ -59,7 +59,7 @@ export default {
       )
 
       if (this.collectedAttributes.isSellable) {
-        await this.createAtomicSwapAsk({
+        await this.createMarketplaceOfferAsk({
           baseAssetCode: this.collectedAttributes.code,
           amount: this.collectedAttributes.amountToSell,
           price: this.collectedAttributes.price,

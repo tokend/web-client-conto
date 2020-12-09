@@ -10,9 +10,9 @@
           v-model="form.amount"
           name="update-marketplace-offer-amount"
           :max="maxAmount"
-          :min="atomicSwapAsk.amount"
+          :min="marketplaceOfferAsk.amount"
           :label="'update-marketplace-offer-form.amount-lbl' | globalize"
-          :asset="atomicSwapAsk.baseAssetCode"
+          :asset="marketplaceOfferAsk.baseAssetCode"
           :disabled="formMixin.isDisabled"
           is-max-button-shown
         />
@@ -58,7 +58,7 @@ import config from '@/config'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import {
@@ -77,7 +77,7 @@ export default {
   name: 'update-marketplace-offer-form',
   mixins: [FormMixin, MarketplaceOfferBidMixin],
   props: {
-    atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
+    marketplaceOfferAsk: { type: MarketplaceOfferAskRecord, required: true },
   },
   data: _ => ({
     form: {
@@ -105,17 +105,19 @@ export default {
     ]),
 
     isPriceChanged () {
-      return +this.form.price !== +this.atomicSwapAsk.price
+      return +this.form.price !== +this.marketplaceOfferAsk.price
     },
 
     isAmountChanged () {
-      return +this.form.amount !== +this.atomicSwapAsk.amount
+      return +this.form.amount !== +this.marketplaceOfferAsk.amount
     },
 
     maxAmount () {
       return MathUtil.add(
-        this.accountBalanceByCode(this.atomicSwapAsk.baseAssetCode).balance,
-        this.atomicSwapAsk.amount
+        this.accountBalanceByCode(
+          this.marketplaceOfferAsk.baseAssetCode
+        ).balance,
+        this.marketplaceOfferAsk.amount
       )
     },
   },
@@ -133,11 +135,13 @@ export default {
     populateForm () {
       this.form = {
         amount: amountToPrecision(
-          this.atomicSwapAsk.amount,
-          this.assetByCode(this.atomicSwapAsk.baseAssetCode).trailingDigitsCount
+          this.marketplaceOfferAsk.amount,
+          this.assetByCode(
+            this.marketplaceOfferAsk.baseAssetCode
+          ).trailingDigitsCount
         ),
         price: amountToPrecision(
-          this.atomicSwapAsk.price,
+          this.marketplaceOfferAsk.price,
           this.statsQuoteAsset.trailingDigitsCount
         ),
       }
@@ -148,14 +152,14 @@ export default {
       this.disableForm()
 
       const amount = this.isAmountChanged
-        ? MathUtil.subtract(this.form.amount, this.atomicSwapAsk.amount)
+        ? MathUtil.subtract(this.form.amount, this.marketplaceOfferAsk.amount)
         : ''
       const price = this.isPriceChanged ? this.form.price : ''
 
       try {
-        await this.updateAtomicSwapAsk({
-          atomicSwapId: this.atomicSwapAsk.id,
-          baseAssetCode: this.atomicSwapAsk.baseAssetCode,
+        await this.updateMarketplaceOfferAsk({
+          marketplaceOfferId: this.marketplaceOfferAsk.id,
+          baseAssetCode: this.marketplaceOfferAsk.baseAssetCode,
           amount: amount,
           price: price,
         })

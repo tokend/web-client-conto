@@ -8,15 +8,15 @@
               {{ 'marketplace-offer-attributes.base-asset-name' | globalize }}
             </td>
             <td>
-              {{ atomicSwapAsk.baseAssetName }}
+              {{ marketplaceOfferAsk.baseAssetName }}
             </td>
           </tr>
           <tr>
             <td>
               {{ 'marketplace-offer-attributes.amount-key' | globalize }}
             </td>
-            <td :title="atomicSwapAsk.amount | formatMoney">
-              {{ atomicSwapAsk.amount | formatBalance }}
+            <td :title="marketplaceOfferAsk.amount | formatMoney">
+              {{ marketplaceOfferAsk.amount | formatBalance }}
             </td>
           </tr>
 
@@ -24,9 +24,9 @@
             <td>
               {{ 'marketplace-offer-attributes.price-key' | globalize }}
             </td>
-            <td :title="atomicSwapAsk.price | formatMoney">
+            <td :title="marketplaceOfferAsk.price | formatMoney">
               {{ {
-                value: atomicSwapAsk.price,
+                value: marketplaceOfferAsk.price,
                 currency: statsQuoteAsset.code
               } | formatMoney
               }}
@@ -74,10 +74,10 @@
     </div>
 
     <template
-      v-if="accountId === atomicSwapAsk.ownerId"
+      v-if="accountId === marketplaceOfferAsk.ownerId"
     >
       <div
-        v-for="(quoteAsset, index) in atomicSwapAsk.quoteAssets"
+        v-for="(quoteAsset, index) in marketplaceOfferAsk.quoteAssets"
         class="app__table app__table--last-td-to-right"
         :key="quoteAsset.asset.code"
       >
@@ -112,12 +112,12 @@
       <p class="marketplace-offer-attributes__quote-asset-header">
         {{ 'marketplace-offer-attributes.buy-for' | globalize }}
         <template
-          v-for="(quoteAsset, index) in atomicSwapAsk.quoteAssets"
+          v-for="(quoteAsset, index) in marketplaceOfferAsk.quoteAssets"
         >
           {{
             quoteAsset.asset.code
           }}<template
-            v-if="atomicSwapAsk.quoteAssets.length - 1 != index"
+            v-if="marketplaceOfferAsk.quoteAssets.length - 1 != index"
           >
             ,
           </template>
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import Tooltip from '@/vue/common/Tooltip'
@@ -140,8 +140,8 @@ export default {
     Tooltip,
   },
   props: {
-    atomicSwapAsk: {
-      type: AtomicSwapAskRecord,
+    marketplaceOfferAsk: {
+      type: MarketplaceOfferAskRecord,
       required: true,
     },
   },
@@ -155,7 +155,7 @@ export default {
       vuexTypes.accountId,
     ]),
     url () {
-      return `${window.location.host}/pay?id=${this.atomicSwapAsk.id}`
+      return `${window.location.host}/pay?id=${this.marketplaceOfferAsk.id}`
     },
   },
   mounted () {

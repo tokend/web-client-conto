@@ -22,7 +22,7 @@
       </template>
 
       <template v-else>
-        <template v-if="atomicSwapAsk.isCanceled">
+        <template v-if="marketplaceOfferAsk.isCanceled">
           <no-data-message
             class="pay__no-data-message"
             icon-name="credit-card"
@@ -31,16 +31,16 @@
           />
         </template>
 
-        <template v-else-if="isNotFoundAtomicSwap">
+        <template v-else-if="isNotFoundMarketplaceOffer">
           <no-data-message
             class="pay__no-data-message"
             icon-name="credit-card"
-            :title="'pay-page.no-atomic-swap-title' | globalize"
-            :message="'pay-page.no-atomic-swap-msg' | globalize"
+            :title="'pay-page.no-marketplace-offer-title' | globalize"
+            :message="'pay-page.no-marketplace-offer-msg' | globalize"
           />
         </template>
 
-        <template v-else-if="!atomicSwapAsk.isAmountMoreThanZero">
+        <template v-else-if="!marketplaceOfferAsk.isAmountMoreThanZero">
           <no-data-message
             class="pay__no-data-message"
             icon-name="credit-card"
@@ -53,11 +53,11 @@
           <div class="pay__description">
             <asset-viewer
               class="pay__asset-viewer"
-              :asset-code="atomicSwapAsk.baseAssetCode"
+              :asset-code="marketplaceOfferAsk.baseAssetCode"
             />
             <pay-form
-              :atomic-swap-ask="atomicSwapAsk"
-              @reload-atomic-swap="getAtomicSwapAsk"
+              :marketplace-offer-ask="marketplaceOfferAsk"
+              @reload-marketplace-offer="getMarketplaceOfferAsk"
               class="pay__form"
             />
           </div>
@@ -84,7 +84,7 @@ import PaySkeleton from './pay/PaySkeleton'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { api } from '@/api'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
 import { errors } from '@tokend/js-sdk'
@@ -102,28 +102,28 @@ export default {
 
   data () {
     return {
-      atomicSwapAsk: {},
+      marketplaceOfferAsk: {},
       isLoaded: false,
       isLoadFailed: false,
-      isNotFoundAtomicSwap: false,
+      isNotFoundMarketplaceOffer: false,
       vueRoutes,
     }
   },
 
   async created () {
-    await this.getAtomicSwapAsk()
+    await this.getMarketplaceOfferAsk()
     this.isLoaded = true
   },
 
   methods: {
-    async getAtomicSwapAsk () {
+    async getMarketplaceOfferAsk () {
       try {
         const id = this.$route.query.id
         const { data } = await api.get(`/integrations/marketplace/offers/${id}`)
-        this.atomicSwapAsk = new AtomicSwapAskRecord(data)
+        this.marketplaceOfferAsk = new MarketplaceOfferAskRecord(data)
       } catch (e) {
         if (e instanceof errors.NotFoundError) {
-          this.isNotFoundAtomicSwap = true
+          this.isNotFoundMarketplaceOffer = true
         } else {
           this.isLoadFailed = true
         }

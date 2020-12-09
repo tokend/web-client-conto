@@ -15,7 +15,7 @@
           :disabled="formMixin.isDisabled"
         >
           <option
-            v-for="asset in baseAtomicSwapBalancesAssets"
+            v-for="asset in baseMarketplaceOfferBalancesAssets"
             :key="asset.code"
             :value="asset.code"
           >
@@ -143,7 +143,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      baseAtomicSwapBalancesAssets: vuexTypes.baseAtomicSwapBalancesAssets,
+      baseMarketplaceOfferBalancesAssets:
+        vuexTypes.baseMarketplaceOfferBalancesAssets,
       accountId: vuexTypes.accountId,
     }),
 
@@ -167,11 +168,11 @@ export default {
   },
 
   async created () {
-    this.form.asset = this.baseAtomicSwapBalancesAssets[0] || {}
+    this.form.asset = this.baseMarketplaceOfferBalancesAssets[0] || {}
   },
   methods: {
     setAssetByCode (code) {
-      this.form.asset = this.baseAtomicSwapBalancesAssets
+      this.form.asset = this.baseMarketplaceOfferBalancesAssets
         .find(item => item.code === code)
     },
 
@@ -185,7 +186,7 @@ export default {
           await api.postOperations(createIssuanceOperation)
         }
 
-        await this.createAtomicSwapAsk({
+        await this.createMarketplaceOfferAsk({
           baseAssetCode: this.form.asset.code,
           amount: this.form.amount,
           price: this.form.price,

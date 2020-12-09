@@ -41,7 +41,7 @@ import SkeletonLoaderTable from '@/vue/common/skeleton-loader/SkeletonLoaderTabl
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { api } from '@/api'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 
 export default {
@@ -77,7 +77,7 @@ export default {
     async loadOffer (id) {
       try {
         const { data } = await api.get(`/integrations/marketplace/offers/${id}`)
-        return new AtomicSwapAskRecord(data)
+        return new MarketplaceOfferAskRecord(data)
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)

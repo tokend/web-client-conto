@@ -2,7 +2,7 @@ import _get from 'lodash/get'
 import moment from 'moment'
 const TRANSACTION_TIME_MARGIN = 600 // seconds
 
-export class AtomicSwapBidRecord {
+export class MarketplaceOfferBidRecord {
   constructor (record) {
     this.id = record.id
     this.createdAt = record.createdAt || ''

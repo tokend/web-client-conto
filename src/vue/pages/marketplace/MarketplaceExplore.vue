@@ -19,7 +19,7 @@
         <template v-if="list.length">
           <card-list v-slot="{ item }" :list="list">
             <marketplace-offer-card
-              :atomic-swap-ask="item"
+              :marketplace-offer-ask="item"
               @buy="buyAsset(item)"
               @vue-details="selectItem(item)"
             />
@@ -63,7 +63,7 @@
           @update-list="updateList()"
           @update-list-and-close-drawer="(isBuyFormDrawerShown = false) ||
             updateList()"
-          :atomic-swap-ask="marketplaceOfferToBrowse"
+          :marketplace-offer-ask="marketplaceOfferToBrowse"
         />
       </drawer>
       <drawer :is-shown.sync="isMarketplaceOfferDetailsDrawerShown">
@@ -73,7 +73,7 @@
         </template>
 
         <marketplace-offer-viewer
-          :current-atomic-swap-ask="marketplaceOfferToBrowse"
+          :current-marketplace-offer-ask="marketplaceOfferToBrowse"
           @close-drawer-and-update-list="closeDrawerAndUpdateList()"
         />
       </drawer>
@@ -94,7 +94,7 @@ import CardList from '@/vue/common/CardList'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 import InputField from '@/vue/fields/InputField'
 
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vueRoutes } from '@/vue-router/routes'
 import { api } from '@/api'
@@ -158,7 +158,7 @@ export default {
 
   async created () {
     await this.loadAssets()
-    this.listenUpdateList('atomicSwaps:updateList', this.reloadList)
+    this.listenUpdateList('marketplace:updateList', this.reloadList)
   },
 
   methods: {
@@ -191,12 +191,12 @@ export default {
     },
 
     setList (newList) {
-      this.list = newList.map(i => new AtomicSwapAskRecord(i))
+      this.list = newList.map(i => new MarketplaceOfferAskRecord(i))
     },
 
     concatList (newChunk) {
       this.list = this.list.concat(
-        newChunk.map(i => new AtomicSwapAskRecord(i))
+        newChunk.map(i => new MarketplaceOfferAskRecord(i))
       )
     },
 
@@ -228,10 +228,10 @@ export default {
     closeDrawerAndUpdateList () {
       this.isMarketplaceOfferDetailsDrawerShown = false
       this.isBuyFormDrawerShown = false
-      this.emitUpdateList('atomicSwaps:updateList')
+      this.emitUpdateList('marketplace:updateList')
     },
     updateList () {
-      this.emitUpdateList('atomicSwaps:updateList')
+      this.emitUpdateList('marketplace:updateList')
     },
   },
 }

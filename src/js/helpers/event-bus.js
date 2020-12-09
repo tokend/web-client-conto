@@ -66,7 +66,7 @@ export class EventBus extends Vue {
       customersHideSelect: 'customers:hideSelect',
       assetsUpdateList: 'assets:updateList',
       assetsSetBusinessOwnerId: 'assets:setBusinessOwnerId',
-      atomicSwapsUpdateList: 'atomicSwaps:updateList',
+      marketplaceUpdateList: 'marketplace:updateList',
       updateAccountRole: 'updateAccountRole',
       promoCodesUpdateList: 'promoCodes:updateList',
     }

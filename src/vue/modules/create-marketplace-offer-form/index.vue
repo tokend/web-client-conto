@@ -9,14 +9,14 @@
 
       <template v-else>
         <template
-          v-if="baseAtomicSwapBalancesAssets.length &&
-            quoteAtomicSwapAssets.length">
+          v-if="baseMarketplaceOfferBalancesAssets.length &&
+            quoteMarketplaceOfferAssets.length">
           <create-marketplace-offer-form
             @created-marketplace-offer="$emit(EVENTS.createdMarketplaceOffer)"
           />
         </template>
 
-        <template v-else-if="!baseAtomicSwapBalancesAssets.length">
+        <template v-else-if="!baseMarketplaceOfferBalancesAssets.length">
           <!-- eslint-disable max-len -->
           <no-data-message
             icon-name="alert-circle"
@@ -72,8 +72,9 @@ export default {
 
   computed: {
     ...mapGetters({
-      baseAtomicSwapBalancesAssets: vuexTypes.baseAtomicSwapBalancesAssets,
-      quoteAtomicSwapAssets: vuexTypes.quoteAtomicSwapAssets,
+      baseMarketplaceOfferBalancesAssets:
+        vuexTypes.baseMarketplaceOfferBalancesAssets,
+      quoteMarketplaceOfferAssets: vuexTypes.quoteMarketplaceOfferAssets,
     }),
   },
 

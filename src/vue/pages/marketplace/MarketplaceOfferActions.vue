@@ -26,7 +26,7 @@
       </template>
 
       <update-marketplace-offer-form
-        :atomic-swap-ask="atomicSwapAsk"
+        :marketplace-offer-ask="marketplaceOfferAsk"
         @updated-marketplace-offer="
           (isUpdateMarketplaceOfferDrawerShown = false) ||
             $emit(EVENTS.closeDrawerAndUpdateList)
@@ -40,7 +40,7 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import UpdateMarketplaceOfferForm from '@/vue/forms/UpdateMarketplaceOfferForm'
 import Drawer from '@/vue/common/Drawer'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -57,7 +57,7 @@ export default {
   },
   mixins: [FormMixin],
   props: {
-    atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
+    marketplaceOfferAsk: { type: MarketplaceOfferAskRecord, required: true },
   },
   data: _ => ({
     isMarketplaceOfferCanceling: false,
@@ -71,7 +71,7 @@ export default {
       this.isMarketplaceOfferCanceling = true
 
       try {
-        await api.deleteWithSignature(`/integrations/marketplace/offers/${this.atomicSwapAsk.id}`)
+        await api.deleteWithSignature(`/integrations/marketplace/offers/${this.marketplaceOfferAsk.id}`)
         Bus.success('marketplace-offer-actions.marketplace-offer-canceled-msg')
         this.$emit(EVENTS.closeDrawerAndUpdateList)
       } catch (e) {

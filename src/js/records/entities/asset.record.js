@@ -137,11 +137,11 @@ export class AssetRecord {
       !!(this.policy & ASSET_POLICIES.withdrawableV2)
   }
 
-  get isBaseInAtomicSwap () {
+  get isBaseInMarketplace () {
     return !!(this.policy & ASSET_POLICIES.canBeBaseInAtomicSwap)
   }
 
-  get isQuoteInAtomicSwap () {
+  get isQuoteInMarketplace () {
     return !!(this.policy & ASSET_POLICIES.canBeQuoteInAtomicSwap)
   }
 

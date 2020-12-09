@@ -2,18 +2,18 @@
   <div>
     <div
       class="marketplace-offer-form__asset-description"
-      v-if="assetByCode(atomicSwapAsk.baseAssetCode).description"
+      v-if="assetByCode(marketplaceOfferAsk.baseAssetCode).description"
     >
       <p
         class="marketplace-offer-form__asset-description-lbl"
       >
         {{ 'buy-marketplace-offer-form.asset-description-lbl' | globalize }}:
       </p>
-      <p>{{ assetByCode(atomicSwapAsk.baseAssetCode).description }}</p>
+      <p>{{ assetByCode(marketplaceOfferAsk.baseAssetCode).description }}</p>
     </div>
     <buy-marketplace-offer-form
       v-if="!isMarketplaceOfferBidCreated"
-      :atomic-swap-ask="atomicSwapAsk"
+      :marketplace-offer-ask="marketplaceOfferAsk"
       :is-disabled="isDisabled"
       @submitted="handleMarketplaceOfferFormSubmitted"
     />
@@ -32,11 +32,11 @@ import BuyMarketplaceOfferForm from '@/vue/forms/BuyMarketplaceOfferForm'
 import FormMixin from '@/vue/mixins/form.mixin'
 import AddressViewer from '@/vue/common/address-viewer'
 import MarketplaceOfferBidMixin from '@/vue/mixins/marketplace-offer-bid.mixin'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
-import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
+import { MARKETPLACE_OFFER_BID_TYPES } from '@/js/const/marketplace-offer-bid-types.const'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
 
@@ -53,8 +53,8 @@ export default {
   },
   mixins: [FormMixin, MarketplaceOfferBidMixin],
   props: {
-    atomicSwapAsk: {
-      type: AtomicSwapAskRecord,
+    marketplaceOfferAsk: {
+      type: MarketplaceOfferAskRecord,
       required: true,
     },
   },
@@ -91,23 +91,24 @@ export default {
       this.isDisabled = true
       try {
         // eslint-disable-next-line max-len
-        const atomicSwapBid = await this.createAtomicSwapBidOperation(
-          this.form.amount,
-          this.form.paymentMethodId,
-          this.atomicSwapAsk.id,
-          this.form.promoCode
-        )
+        const marketplaceOfferBid =
+          await this.createMarketplaceOfferBidOperation(
+            this.form.amount,
+            this.form.paymentMethodId,
+            this.marketplaceOfferAsk.id,
+            this.form.promoCode
+          )
 
-        switch (atomicSwapBid.type) {
-          case ATOMIC_SWAP_BID_TYPES.redirect:
-            window.location.href = atomicSwapBid.payUrl
+        switch (marketplaceOfferBid.type) {
+          case MARKETPLACE_OFFER_BID_TYPES.redirect:
+            window.location.href = marketplaceOfferBid.payUrl
             break
-          case ATOMIC_SWAP_BID_TYPES.cryptoInvoice:
-            this.marketplaceOfferBidDetails = atomicSwapBid
+          case MARKETPLACE_OFFER_BID_TYPES.cryptoInvoice:
+            this.marketplaceOfferBidDetails = marketplaceOfferBid
             this.$emit(EVENTS.updateList)
             break
-          case ATOMIC_SWAP_BID_TYPES.internal:
-            await api.signAndSendTransaction(atomicSwapBid.tx)
+          case MARKETPLACE_OFFER_BID_TYPES.internal:
+            await api.signAndSendTransaction(marketplaceOfferBid.tx)
             Bus.success('buy-marketplace-offer-form.success-msg')
             this.$emit(EVENTS.updateListAndCloseDrawer)
             break

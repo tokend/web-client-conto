@@ -96,13 +96,14 @@ export const getters = {
     rootGetters[vuexTypes.accountBalances]
       .map(item => item.asset)
       .filter(item => item.owner === rootGetters[vuexTypes.accountId]),
-  [vuexTypes.baseAtomicSwapBalancesAssets]: (a, getters, b, rootGetters) =>
-    rootGetters[vuexTypes.accountOwnedAssetsBalances]
-      .map(item => item.asset)
-      .filter(item => item.isBaseInAtomicSwap),
-  [vuexTypes.quoteAtomicSwapAssets]: (a, getters, b, rootGetters) =>
+  [vuexTypes.baseMarketplaceOfferBalancesAssets]:
+    (a, getters, b, rootGetters) =>
+      rootGetters[vuexTypes.accountOwnedAssetsBalances]
+        .map(item => item.asset)
+        .filter(item => item.isBaseInMarketplace),
+  [vuexTypes.quoteMarketplaceOfferAssets]: (a, getters, b, rootGetters) =>
     rootGetters[vuexTypes.assets]
-      .filter(item => item.isQuoteInAtomicSwap),
+      .filter(item => item.isQuoteInMarketplace),
   [vuexTypes.baseAssets]: (a, getters, b, rootGetters) =>
     rootGetters[vuexTypes.assets]
       .filter(item => item.isBaseAsset),

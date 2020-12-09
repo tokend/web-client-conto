@@ -221,8 +221,8 @@ const getters = {
   statsQuoteAsset: 'statsQuoteAsset',
   ownedAssets: 'ownedAssets',
   ownedBalancesAssets: 'ownedBalancesAssets',
-  baseAtomicSwapBalancesAssets: 'baseAtomicSwapBalancesAssets',
-  quoteAtomicSwapAssets: 'quoteAtomicSwapAssets',
+  baseMarketplaceOfferBalancesAssets: 'baseMarketplaceOfferBalancesAssets',
+  quoteMarketplaceOfferAssets: 'quoteMarketplaceOfferAssets',
   baseAssets: 'baseAssets',
   activeOwnedAssets: 'activeOwnedAssets',
 

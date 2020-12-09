@@ -1,7 +1,7 @@
 <template>
   <div>
     <form
-      v-if="!isAtomicSwapBidCreated"
+      v-if="!isMarketplaceOfferBidCreated"
       novalidate
       class="pay-form app__form"
     >
@@ -25,19 +25,19 @@
       </div>
 
       <buy-marketplace-offer-form
-        class="pay-form__atomic-swap-bid"
+        class="pay-form__marketplace-offer-bid"
         @submitted="submit"
         :is-disabled="isDisabled"
-        :atomic-swap-ask="atomicSwapAsk"
+        :marketplace-offer-ask="marketplaceOfferAsk"
       />
     </form>
 
     <address-viewer
       v-else
       :asset-code="form.quoteAssetCode"
-      :amount="atomicSwapBidDetails.amount"
-      :address="atomicSwapBidDetails.address"
-      :end-time="atomicSwapBidDetails.endTime"
+      :amount="marketplaceOfferBidDetails.amount"
+      :address="marketplaceOfferBidDetails.address"
+      :end-time="marketplaceOfferBidDetails.endTime"
     />
   </div>
 </template>
@@ -50,8 +50,8 @@ import MarketplaceOfferBidMixin from '@/vue/mixins/marketplace-offer-bid.mixin'
 import config from '@/config'
 
 import { required, email, maxLength } from '@validators'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
-import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
+import { MARKETPLACE_OFFER_BID_TYPES } from '@/js/const/marketplace-offer-bid-types.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
@@ -60,7 +60,7 @@ import { api } from '@/api'
 import { MAX_FIELD_LENGTH } from '@/js/const/field-length.const'
 
 const EVENTS = {
-  reloadAtomicSwap: 'reload-atomic-swap',
+  reloadMarketplaceOffer: 'reload-marketplace-offer',
 }
 
 export default {
@@ -70,7 +70,12 @@ export default {
     AddressViewer,
   },
   mixins: [FormMixin, MarketplaceOfferBidMixin],
-  props: { atomicSwapAsk: { type: AtomicSwapAskRecord, required: true } },
+  props: {
+    marketplaceOfferAsk: {
+      type: MarketplaceOfferAskRecord,
+      required: true,
+    },
+  },
   data () {
     return {
       form: {
@@ -81,7 +86,7 @@ export default {
         promoCode: '',
       },
       isDisabled: false,
-      atomicSwapBidDetails: {
+      marketplaceOfferBidDetails: {
         address: '',
         endTime: -1,
         amount: '',
@@ -108,8 +113,8 @@ export default {
       vuexTypes.walletEmail,
     ]),
 
-    isAtomicSwapBidCreated () {
-      return Boolean(this.atomicSwapBidDetails.address)
+    isMarketplaceOfferBidCreated () {
+      return Boolean(this.marketplaceOfferBidDetails.address)
     },
   },
 
@@ -125,24 +130,24 @@ export default {
       this.isDisabled = true
       try {
         // eslint-disable-next-line max-len
-        const atomicSwapBid = await this.createAtomicSwapBidOperation(
+        const marketplaceOfferBid = await this.createMarketplaceOfferBidOperation(
           this.form.amount,
           this.form.paymentMethodId,
-          this.atomicSwapAsk.id,
+          this.marketplaceOfferAsk.id,
           this.form.promoCode,
           this.form.email
         )
-        switch (atomicSwapBid.type) {
-          case ATOMIC_SWAP_BID_TYPES.redirect:
-            window.location.href = atomicSwapBid.payUrl
+        switch (marketplaceOfferBid.type) {
+          case MARKETPLACE_OFFER_BID_TYPES.redirect:
+            window.location.href = marketplaceOfferBid.payUrl
             break
-          case ATOMIC_SWAP_BID_TYPES.cryptoInvoice:
-            this.atomicSwapBidDetails = atomicSwapBid
+          case MARKETPLACE_OFFER_BID_TYPES.cryptoInvoice:
+            this.marketplaceOfferBidDetails = marketplaceOfferBid
             break
-          case ATOMIC_SWAP_BID_TYPES.internal:
-            await api.signAndSendTransaction(atomicSwapBid.tx)
+          case MARKETPLACE_OFFER_BID_TYPES.internal:
+            await api.signAndSendTransaction(marketplaceOfferBid.tx)
             Bus.success('pay-form.success-msg')
-            this.$emit(EVENTS.reloadAtomicSwap)
+            this.$emit(EVENTS.reloadMarketplaceOffer)
             break
         }
       } catch (e) {
@@ -157,7 +162,7 @@ export default {
 <style lang="scss" scoped>
   @import '~@/vue/forms/app-form';
 
-  .pay-form__atomic-swap-bid {
+  .pay-form__marketplace-offer-bid {
     margin-top: 2.4rem;
   }
 </style>

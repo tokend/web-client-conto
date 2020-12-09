@@ -18,7 +18,7 @@
             :error-message="getBonusErrorMessage"
           >
             <option
-              v-for="quoteAsset in atomicSwapAsk.quoteAssets"
+              v-for="quoteAsset in marketplaceOfferAsk.quoteAssets"
               :key="quoteAsset.paymentMethodId"
               :value="quoteAsset.paymentMethodId"
             >
@@ -33,16 +33,16 @@
           <amount-input-field
             v-model="form.amount"
             name="buy-marketplace-offer-amount"
-            :asset="assetByCode(atomicSwapAsk.baseAssetCode)"
-            :max="atomicSwapAsk.amount"
+            :asset="assetByCode(marketplaceOfferAsk.baseAssetCode)"
+            :max="marketplaceOfferAsk.amount"
             :label="'buy-marketplace-offer-form.amount' | globalize({
-              asset: atomicSwapAsk.baseAssetName
+              asset: marketplaceOfferAsk.baseAssetName
             })"
             :disabled="isDisabled || isSelectedBonus"
           />
           <p class="app__form-field-description">
             {{ 'buy-marketplace-offer-form.available' | globalize({
-              amount: atomicSwapAsk.amount,
+              amount: marketplaceOfferAsk.amount,
               asset: '',
             }) }}
           </p>
@@ -68,7 +68,7 @@
           <readonly-field
             class="buy-marketplace-offer-form__price"
             :label="'buy-marketplace-offer-form.price' | globalize"
-            :value="`${formatMoney(atomicSwapAsk.price)} ${statsQuoteAsset.code}`"
+            :value="`${formatMoney(marketplaceOfferAsk.price)} ${statsQuoteAsset.code}`"
           />
           <!-- eslint-enable max-len -->
 
@@ -111,7 +111,7 @@ import ReadonlyField from '@/vue/fields/ReadonlyField'
 import config from '@/config'
 import debounce from 'lodash/debounce'
 
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { MarketplaceOfferAskRecord } from '@/js/records/entities/marketplace-offer-ask.record'
 import { formatMoney } from '@/vue/filters/formatMoney'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
@@ -139,7 +139,7 @@ export default {
   },
   mixins: [FormMixin],
   props: {
-    atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
+    marketplaceOfferAsk: { type: MarketplaceOfferAskRecord, required: true },
     isDisabled: { type: Boolean, default: false },
   },
   data () {
@@ -164,7 +164,7 @@ export default {
         amount: {
           amountRange: amountRange(
             config.MIN_AMOUNT,
-            this.atomicSwapAsk.amount
+            this.marketplaceOfferAsk.amount
           ),
           required,
         },
@@ -201,7 +201,7 @@ export default {
       handler: function () {
         this.totalPrice = MathUtil.multiply(
           this.form.amount || 0,
-          this.atomicSwapAsk.price
+          this.marketplaceOfferAsk.price
         )
         this.discount = 0
         this.debounceCalculateDiscountPrice()
@@ -209,7 +209,9 @@ export default {
     },
   },
   created () {
-    this.setPaymentMethodId(this.atomicSwapAsk.quoteAssets[0].paymentMethodId)
+    this.setPaymentMethodId(
+      this.marketplaceOfferAsk.quoteAssets[0].paymentMethodId
+    )
     this.debounceCalculateDiscountPrice = debounce(
       this.calculateDiscountPrice,
       300
@@ -225,7 +227,7 @@ export default {
 
     setPaymentMethodId (id) {
       this.form.paymentMethodId = id
-      this.form.quoteAssetCode = this.atomicSwapAsk
+      this.form.quoteAssetCode = this.marketplaceOfferAsk
         .getAssetCodeByPaymentMethodId(id)
     },
 
@@ -233,7 +235,7 @@ export default {
       this.isLoadingDiscount = true
       try {
         const { data } = await api.get('/integrations/marketplace/calculate-price', {
-          'offer': this.atomicSwapAsk.id,
+          'offer': this.marketplaceOfferAsk.id,
           'amount': this.form.amount,
           'payment-method': this.form.paymentMethodId,
           'promocode': this.form.promoCode,

@@ -70,7 +70,7 @@
                 :disabled="isDisabled"
               >
                 <option
-                  v-for="asset in quoteAtomicSwapAssets"
+                  v-for="asset in quoteMarketplaceOfferAssets"
                   :key="asset.code"
                   :value="asset.code"
                 >
@@ -217,7 +217,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      vuexTypes.quoteAtomicSwapAssets,
+      vuexTypes.quoteMarketplaceOfferAssets,
       vuexTypes.assetByCode,
       vuexTypes.accountId,
       vuexTypes.statsQuoteAsset,
@@ -225,7 +225,7 @@ export default {
   },
 
   async created () {
-    this.form.quoteAssets[0].asset = this.quoteAtomicSwapAssets[0] || {}
+    this.form.quoteAssets[0].asset = this.quoteMarketplaceOfferAssets[0] || {}
   },
   methods: {
     submit () {
@@ -271,7 +271,7 @@ export default {
     addQuoteAsset () {
       this.form.quoteAssets.push({
         destination: '',
-        asset: this.quoteAtomicSwapAssets[0],
+        asset: this.quoteMarketplaceOfferAssets[0],
         type: PAYMENT_METHODS.fourBill.value,
       })
     },
