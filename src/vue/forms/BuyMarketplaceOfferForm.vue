@@ -176,6 +176,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      vuexTypes.accountId,
       vuexTypes.assetByCode,
       vuexTypes.statsQuoteAsset,
       vuexTypes.isLoggedIn,
@@ -239,6 +240,7 @@ export default {
           'amount': this.form.amount,
           'payment-method': this.form.paymentMethodId,
           'promocode': this.form.promoCode,
+          'sender_id': this.accountId,
         })
         this.discount = data.discount
         this.totalPrice = data.totalPrice

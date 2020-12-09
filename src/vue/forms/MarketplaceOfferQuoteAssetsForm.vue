@@ -182,11 +182,7 @@ export default {
               cryptoAddressOrCreditCardNumber: (value, quoteAsset) => {
                 switch (quoteAsset.type) {
                   case PAYMENT_METHODS.fourBill.value: {
-                    if (value.length > 0) {
-                      return cardNumber(value)
-                    } else {
-                      return true
-                    }
+                    return cardNumber(value)
                   }
                   case PAYMENT_METHODS.coinpayments.value:
                     return address(quoteAsset.asset.code)(value)
