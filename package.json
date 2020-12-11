@@ -50,7 +50,7 @@
     "vue-markdown": "^2.2.4",
     "vue-resource": "^1.5.1",
     "vue-router": "3.2.0",
-    "vue-simplemde": "0.5.2",
+    "vue-simplemde": "1.1.2",
     "vuejs-clipper": "^1.1.4",
     "vuelidate": "^0.7.5",
     "vuex": "^3.1.2",

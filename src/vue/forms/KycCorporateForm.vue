@@ -67,6 +67,11 @@
         <markdown-field
           v-model="form.description"
           @input="former.setAttr('description', form.description)"
+          @blur="touchField('form.description')"
+          :error-message="getFieldErrorMessage(
+            'form.description',
+            { length: DESCRIPTION_MAX_LENGTH }
+          )"
         />
       </div>
     </div>
@@ -105,8 +110,9 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { required } from '@validators'
+import { required, maxLength } from '@validators'
 
+const DESCRIPTION_MAX_LENGTH = 8000
 const EVENTS = {
   submitted: 'submitted',
 }
@@ -133,6 +139,7 @@ export default {
         industry: attrs.industry || '',
         description: attrs.description || '',
       },
+      DESCRIPTION_MAX_LENGTH,
     }
   },
 
@@ -140,6 +147,9 @@ export default {
     return {
       form: {
         company: { required },
+        description: {
+          maxLength: maxLength(DESCRIPTION_MAX_LENGTH),
+        },
       },
     }
   },

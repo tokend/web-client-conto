@@ -37,6 +37,9 @@ for further information about branching and tagging conventions.
 - Old `ChangeRoleRecord`
 - Old `verification-form.mixin.js`
 
+#### Fixed
+- A bug with `MarkdownField` length
+
 ## [1.7.0] - 2020-07-16
 #### Added
 - Smart App Banner
