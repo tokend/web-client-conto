@@ -4,22 +4,6 @@ const mutations = {
   POP_STATE: 'POP_STATE',
   CLEAR_WALLET_AND_ACCOUNT: 'CLEAR_WALLET_AND_ACCOUNT',
 
-  // key-value
-  SET_KV_ENTRY_GENERAL_ROLE_ID: 'SET_KV_ENTRY_GENERAL_ROLE_ID',
-  SET_KV_ENTRY_CORPORATE_ROLE_ID: 'SET_KV_ENTRY_CORPORATE_ROLE_ID',
-  SET_KV_ENTRY_UNVERIFIED_ROLE_ID: 'SET_KV_ENTRY_UNVERIFIED_ROLE_ID',
-  SET_KV_ENTRY_BLOCKED_ROLE_ID: 'SET_KV_ENTRY_BLOCKED_ROLE_ID',
-  SET_KV_ENTRY_US_VERIFIED_ROLE_ID: 'SET_KV_ENTRY_US_VERIFIED_ROLE_ID',
-  SET_KV_ENTRY_US_ACCREDITED_ROLE_ID: 'SET_KV_ENTRY_US_ACCREDITED_ROLE_ID',
-  SET_KV_ASSET_TYPE_DEFAULT: 'SET_KV_ASSET_TYPE_DEFAULT',
-  SET_KV_ASSET_TYPE_KYC_REQUIRED: 'SET_KV_ASSET_TYPE_KYC_REQUIRED',
-  SET_KV_ASSET_TYPE_SECURITY: 'SET_KV_ASSET_TYPE_SECURITY',
-  SET_KV_POLL_TYPE_RESTRICTED: 'SET_KV_POLL_TYPE_RESTRICTED',
-  SET_KV_POLL_TYPE_UNRESTRICTED: 'SET_KV_POLL_TYPE_UNRESTRICTED',
-
-  SET_DEFAULT_QUOTE_ASSET: 'SET_DEFAULT_QUOTE_ASSET',
-  SET_KV_DEFAULT_SIGNER_ROLE_ID: 'SET_KV_DEFAULT_SIGNER_ROLE_ID',
-
   // account
   SET_ACCOUNT: 'SET_ACCOUNT',
   SET_ACCOUNT_BALANCES_DETAILS: 'SET_ACCOUNT_BALANCES_DETAILS',
@@ -32,11 +16,13 @@ const mutations = {
   SET_FACTORS: 'SET_FACTORS',
 
   // kyc
-  SET_KYC_LATEST_REQUEST: 'SET_KYC_LATEST_REQUEST',
-  SET_KYC_RELATED_REQUEST: 'SET_KYC_RELATED_REQUEST',
-  SET_KYC_LATEST_DATA: 'SET_KYC_LATEST_DATA',
-  SET_ACCOUNT_ROLE_RESETED: 'SET_ACCOUNT_ROLE_RESETED',
-  SET_KYC_LATEST_REQUEST_DATA: 'SET_KYC_LATEST_REQUEST_DATA',
+  SET_KYC_REQUEST: 'SET_KYC_REQUEST',
+  SET_KYC_BLOB: 'SET_KYC_BLOB',
+  SET_KYC_REQUEST_BLOB: 'SET_KYC_REQUEST_BLOB',
+
+  // kyc recovery
+  SET_KYC_RECOVERY_REQUEST: 'SET_KYC_RECOVERY_REQUEST',
+  SET_KYC_RECOVERY_REQUEST_BLOB: 'SET_KYC_RECOVERY_REQUEST_BLOB',
 
   // assets
   SET_ASSETS: 'SET_ASSETS',
@@ -70,10 +56,6 @@ const actions = {
   LOG_IN: 'LOG_IN',
   RESTORE_SESSION: 'RESTORE_SESSION',
 
-  // key-value
-  LOAD_KV_ENTRIES: 'LOAD_KV_ENTRIES',
-  LOAD_KV_ENTRIES_ACCOUNT_ROLE_IDS: 'LOAD_KV_ENTRIES_ACCOUNT_ROLE_IDS',
-
   // account
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
   LOAD_ACCOUNT_BALANCES_DETAILS: 'LOAD_ACCOUNT_BALANCES_DETAILS',
@@ -91,13 +73,14 @@ const actions = {
 
   // kyc
   LOAD_KYC: 'LOAD_KYC',
-  LOAD_KYC_LATEST_REQUEST: 'LOAD_KYC_LATEST_REQUEST',
-  LOAD_KYC_LATEST_REQUEST_DATA: 'LOAD_KYC_LATEST_REQUEST_DATA',
-  LOAD_KYC_RELATED_REQUEST: 'LOAD_KYC_RELATED_REQUEST',
-  LOAD_KYC_LATEST_DATA: 'LOAD_KYC_LATEST_DATA',
+  LOAD_KYC_REQUEST: 'LOAD_KYC_REQUEST',
+  LOAD_KYC_REQUEST_BLOB: 'LOAD_KYC_REQUEST_BLOB',
+  LOAD_KYC_BLOB: 'LOAD_KYC_BLOB',
 
   // kyc recovery
-  SEND_KYC_RECOVERY_REQUEST: 'SEND_KYC_RECOVERY_REQUEST',
+  LOAD_KYC_RECOVERY: 'LOAD_KYC_RECOVERY',
+  LOAD_KYC_RECOVERY_REQUEST: 'LOAD_KYC_RECOVERY_REQUEST',
+  LOAD_KYC_RECOVERY_REQUEST_BLOB: 'LOAD_KYC_RECOVERY_REQUEST_BLOB',
 
   // assets
   LOAD_ASSETS: 'LOAD_ASSETS',
@@ -130,20 +113,6 @@ const getters = {
   // root
   isLoggedIn: 'isLoggedIn',
 
-  // key-values
-  kvEntryGeneralRoleId: 'kvEntryGeneralRoleId',
-  kvEntryCorporateRoleId: 'kvEntryCorporateRoleId',
-  kvEntryUnverifiedRoleId: 'kvEntryUnverifiedRoleId',
-  kvEntryBlockedRoleId: 'kvEntryBlockedRoleId',
-  kvEntryUsVerifiedRoleId: 'kvEntryUsVerifiedRoleId',
-  kvEntryUsAccreditedRoleId: 'kvEntryUsAccreditedRoleId',
-  kvAssetTypeDefault: 'kvAssetTypeDefault',
-  kvAssetTypeKycRequired: 'kvAssetTypeKycRequired',
-  kvAssetTypeSecurity: 'kvAssetTypeSecurity',
-  kvPollTypeRestricted: 'kvPollTypeRestricted',
-  kvPollTypeUnrestricted: 'kvPollTypeUnrestricted',
-  kvDefaultSignerRoleId: 'kvDefaultSignerRoleId',
-
   // account
   account: 'account',
   accountId: 'accountId',
@@ -154,6 +123,9 @@ const getters = {
   accountRoleId: 'accountRoleId',
   accountDepositAddresses: 'accountDepositAddresses',
   accountKycBlob: 'accountKycBlob',
+  accountKycRecoveryStatus: 'accountKycRecoveryStatus',
+  isAccountKycRecoveryInProgress: 'isAccountKycRecoveryInProgress',
+  isAccountKycRecoveryInitiated: 'isAccountKycRecoveryInitiated',
 
   isAccountGeneral: 'isAccountGeneral',
   isAccountCorporate: 'isAccountCorporate',
@@ -186,25 +158,11 @@ const getters = {
   factorsTelegram: 'factorsTelegram',
 
   // kyc
-  kycState: 'kycState',
-  kycStateI: 'kycStateI',
-  kycRequestId: 'kycRequestId',
-  kycRequestRejectReason: 'kycRequestRejectReason',
-  kycRequestResetReason: 'kycRequestResetReason',
-  kycRequestExternalDetails: 'kycRequestExternalDetails',
-  kycRequestBlockReason: 'kycRequestBlockReason',
-  kycAccountRoleToSet: 'kycAccountRoleToSet',
-  kycPreviousRequestAccountRoleToSet: 'kycPreviousRequestAccountRoleToSet',
-  kycLatestData: 'kycLatestData',
-  kycLatestRequestBlobId: 'kycLatestRequestBlobId',
-  kycLatestRequestData: 'kycLatestRequestData',
-  kycAvatarKey: 'kycAvatarKey',
-  isAccountRoleReseted: 'isAccountRoleReseted',
-  isAccountAndRequestBlobIdentical: 'isAccountAndRequestBlobIdentical',
+  kyc: 'kyc',
+  kycRequest: 'kycRequest',
 
   // kyc recovery
-  accountKycRecoveryStatus: 'accountKycRecoveryStatus',
-  isKycRecoveryInProgress: 'isKycRecoveryInProgress',
+  kycRecoveryRequest: 'kycRecoveryRequest',
 
   // assets
   assets: 'assets',

@@ -1,291 +1,63 @@
 <template>
-  <div class="verification-corporate-form">
-    <p class="verification-corporate-form__account-info-title">
-      {{ 'verification-form.account-information-lbl' | globalize }}
+  <div class="verification-corporate">
+    <p class="verification-corporate__account-info-title">
+      {{ 'verification-corporate.account-information-lbl' | globalize }}
     </p>
-    <form
-      novalidate
-      class="app-form verification-corporate-form__tag"
-      @submit.prevent="isFormValid() && showConfirmation()"
-    >
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <input-field
-            white-autofill
-            v-model="form.company"
-            @blur="touchField('form.company')"
-            name="verification-corporate-company"
-            :label="'verification-form.company-lbl' | globalize"
-            :error-message="getFieldErrorMessage('form.company')"
-            :disabled="formMixin.isDisabled"
-          />
-        </div>
-      </div>
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <clipper-field
-            v-model="form.avatar"
-            name="verification-corporate-avatar"
-            :note="'verification-form.image-type-note' | globalize"
-            :document-type="DOCUMENT_TYPES.kycAvatar"
-            :label="'verification-form.avatar-lbl' | globalize"
-            :disabled="formMixin.isDisabled"
-            :ratio="1"
-          />
-        </div>
-      </div>
 
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <clipper-field
-            v-model="form.banner"
-            name="verification-corporate-avatar"
-            :note="'verification-form.image-type-note' | globalize"
-            :document-type="DOCUMENT_TYPES.bravo"
-            :label="'verification-form.banner-lbl' | globalize"
-            :disabled="formMixin.isDisabled"
-            :ratio="3/1"
-          />
-        </div>
-      </div>
-
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <input-field
-            white-autofill
-            v-model="form.industry"
-            name="verification-corporate-industry"
-            :label="'verification-form.industry-lbl' | globalize"
-            :disabled="formMixin.isDisabled"
-          />
-        </div>
-      </div>
-
-      <div class="app__form-row">
-        <div class="app__form-field">
-          <span class="verification-corporate-form__account-description-title">
-            {{ 'verification-form.description-lbl' | globalize }}
-          </span>
-          <markdown-field
-            v-model="form.description"
-            @blur="touchField('form.description')"
-            :error-message="getFieldErrorMessage(
-              'form.description',
-              { length: DESCRIPTION_MAX_LENGTH }
-            )"
-          />
-        </div>
-      </div>
-
-      <div class="app__form-actions">
-        <form-confirmation
-          v-if="formMixin.isConfirmationShown"
-          :is-pending="isFormSubmitting"
-          @ok="submit"
-          @cancel="hideConfirmation"
-        />
-        <button
-          v-ripple
-          v-else
-          type="submit"
-          class="verification-corporate-form__submit-btn app__button-raised"
-          :disabled="formMixin.isDisabled"
-        >
-          {{ (isExistingRequest
-            ? 'verification-form.update-btn'
-            : 'verification-form.create-btn'
-          ) | globalize }}
-        </button>
-      </div>
-    </form>
+    <kyc-corporate-form
+      class="verification-corporate__tag"
+      :former="former"
+      @submitted="onFormSubmit"
+    />
   </div>
 </template>
 
 <script>
-import VerificationFormMixin from '@/vue/mixins/verification-form.mixin'
-import _get from 'lodash/get'
-
-import { api } from '@/api'
-
-import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
-
-import { BLOB_TYPES } from '@tokend/js-sdk'
-
-import { uploadDocuments } from '@/js/helpers/upload-documents'
-import { DocumentContainer } from '@/js/helpers/DocumentContainer'
-
-import { Bus } from '@/js/helpers/event-bus'
-import { ErrorHandler } from '@/js/helpers/error-handler'
-
+import KycCorporateForm from '@/vue/forms/KycCorporateForm'
+import { scrollToTop } from '@/js/helpers/scroll-helpers'
+import { KycCorporateFormer } from '@/js/formers/KycCorporateFormer'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
-import { required, maxLength } from '@validators'
-
-const EMPTY_DOCUMENT = {
-  mime_type: '',
-  name: '',
-  key: '',
-}
-const DESCRIPTION_MAX_LENGTH = 8000
-
 export default {
-  name: 'verification-corporate-form',
-  mixins: [VerificationFormMixin],
-
-  data: _ => ({
-    form: {
-      company: '',
-      avatar: null,
-      banner: null,
-      industry: '',
-      description: '',
-    },
-    isFormSubmitting: false,
-    DOCUMENT_TYPES,
-    DESCRIPTION_MAX_LENGTH,
-  }),
-
-  validations () {
-    return {
-      form: {
-        company: { required },
-        description: {
-          maxLength: maxLength(DESCRIPTION_MAX_LENGTH),
-        },
-      },
-    }
+  name: 'verification-corporate',
+  components: {
+    KycCorporateForm,
   },
 
   computed: {
-    ...mapGetters({
-      kvEntryCorporateRoleId: vuexTypes.kvEntryCorporateRoleId,
-      isAccountRoleReseted: vuexTypes.isAccountRoleReseted,
-      accountRoleToSet: vuexTypes.kycAccountRoleToSet,
-      previousAccountRole: vuexTypes.kycPreviousRequestAccountRoleToSet,
-    }),
+    ...mapGetters({ kycRequest: vuexTypes.kycRequest }),
 
-    isFormPopulatable () {
-      return this.isAccountRoleReseted
-        ? this.previousAccountRole === this.kvEntryCorporateRoleId
-        : this.accountRoleToSet === this.kvEntryCorporateRoleId
+    former () {
+      return new KycCorporateFormer(this.kycRequest)
     },
-  },
-
-  created () {
-    if (this.isFormPopulatable) {
-      this.form = this.parseKycData(this.kycLatestRequestData)
-    }
   },
 
   methods: {
-    async submit () {
-      if (!this.isFormValid()) return
-
-      this.disableForm()
-      this.isFormSubmitting = true
-
-      try {
-        const documents = [
-          this.form.avatar,
-          this.form.banner,
-        ]
-        await uploadDocuments(documents)
-
-        const kycBlobId = await this.createKycBlob(BLOB_TYPES.kycCorporate)
-
-        const operation = this.createKycOperation(
-          kycBlobId,
-          this.kvEntryCorporateRoleId
-        )
-
-        await api.postOperations(operation)
-        Bus.emit('updateAccountRole')
-        await this.loadKyc()
-        Bus.success('verification-form.request-submitted-msg')
-        this.scrollTop()
-      } catch (e) {
-        ErrorHandler.process(e)
-      }
-
-      this.isFormSubmitting = false
-      this.hideConfirmation()
-      this.enableForm()
-    },
-
-    scrollTop () {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth',
-      })
-    },
-
-    createKycData () {
-      return {
-        company: this.form.company,
-        industry: this.form.industry,
-        description: this.form.description,
-        documents: {
-          [DOCUMENT_TYPES.kycAvatar]: this.form.avatar
-            ? this.form.avatar.getDetailsForSave()
-            : EMPTY_DOCUMENT,
-          [DOCUMENT_TYPES.bravo]: this.form.banner
-            ? this.form.banner.getDetailsForSave()
-            : EMPTY_DOCUMENT,
-        },
-      }
-    },
-
-    parseKycData (kycData) {
-      return {
-        company: kycData.company,
-        avatar: _get(kycData, `documents.${DOCUMENT_TYPES.kycAvatar}.key`)
-          ? new DocumentContainer(kycData.documents[DOCUMENT_TYPES.kycAvatar])
-          : null,
-        banner: _get(
-          kycData,
-          `documents.${DOCUMENT_TYPES.bravo}.key`
-        )
-          ? new DocumentContainer(
-            kycData.documents[DOCUMENT_TYPES.bravo]
-          )
-          : null,
-        industry: kycData.industry,
-        description: kycData.description,
-      }
+    async onFormSubmit () {
+      scrollToTop()
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@/vue/forms/app-form';
+@import '~@scss/mixins';
 
-.verification-corporate-form {
+.verification-corporate {
   margin-top: 4rem;
 }
 
-.verification-corporate-form__tag {
+.verification-corporate__account-info-title {
+  color: $col-text;
+  font-size: 1.3rem;
+}
+
+.verification-corporate__tag {
   margin-top: 1rem;
   background-color: $col-block-bg;
   padding: 2.4rem;
 
   @include box-shadow();
-}
-
-.verification-corporate-form__submit-btn {
-  margin-right: auto;
-  width: 100%;
-  max-width: 20rem;
-}
-
-.verification-corporate-form__account-info-title {
-  color: $col-text;
-  font-size: 1.3rem;
-}
-
-.verification-corporate-form__account-description-title {
-  color: $col-text;
 }
 </style>

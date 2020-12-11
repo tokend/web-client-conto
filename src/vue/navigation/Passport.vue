@@ -2,9 +2,9 @@
   <div class="passport">
     <button @click="toggleDropdown">
       <img
-        v-if="avatarLogoUrl"
+        v-if="kyc.avatar && kyc.avatar.publicUrl"
         class="passport__avatar passport__avatar-image"
-        :src="avatarLogoUrl"
+        :src="kyc.avatar.publicUrl"
       >
       <p
         v-else
@@ -112,7 +112,7 @@ export default {
   computed: {
     ...mapGetters({
       email: vuexTypes.walletEmail,
-      kycAvatarKey: vuexTypes.kycAvatarKey,
+      kyc: vuexTypes.kyc,
       isAccountCorporate: vuexTypes.isAccountCorporate,
       isAccountGeneral: vuexTypes.isAccountGeneral,
       isAccountBlocked: vuexTypes.isAccountBlocked,

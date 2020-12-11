@@ -1,6 +1,7 @@
 import { vuexTypes } from './types'
-import { api, loadingDataViaLoop } from '../api'
+import { api } from '@/api'
 import { BusinessRecord } from '@/js/records/entities/business.record'
+import { loadAllResponsePages } from '@/js/helpers/api-helpers'
 
 export const state = {
   myBusinesses: [],
@@ -39,7 +40,7 @@ export const actions = {
     const response = await api.getWithSignature(endpoint, {
       page: { limit: 100 },
     })
-    const data = await loadingDataViaLoop(response)
+    const data = await loadAllResponsePages(response)
 
     commit(vuexTypes.SET_MY_BUSINESSES, data)
   },

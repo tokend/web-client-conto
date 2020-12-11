@@ -6,48 +6,19 @@
       </h2>
 
       <div class="auth-page__content">
-        <general-kyc-form
-          @submitted="submit"
-          @logout="logOut"
-        />
+        <kyc-general-form />
       </div>
     </template>
   </div>
 </template>
 
 <script>
-import GeneralKycForm from '@/vue/forms/GeneralKycForm'
-import { mapActions, mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-import { vueRoutes } from '@/vue-router/routes'
+import KycGeneralForm from '@/vue/forms/KycGeneralForm'
 
 export default {
   name: 'signup-general-kyc',
   components: {
-    GeneralKycForm,
-  },
-
-  computed: {
-    ...mapGetters([
-      vuexTypes.walletAccountId,
-    ]),
-  },
-
-  methods: {
-    ...mapActions({
-      loadAccount: vuexTypes.LOAD_ACCOUNT,
-      logOutAccount: vuexTypes.LOG_OUT,
-
-    }),
-
-    async submit () {
-      await this.loadAccount(this.walletAccountId)
-      await this.$router.push(vueRoutes.app)
-    },
-
-    logOut () {
-      this.logOutAccount()
-    },
+    KycGeneralForm,
   },
 }
 </script>

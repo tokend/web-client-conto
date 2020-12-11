@@ -12,9 +12,7 @@
             tag="button"
             :to="vueRoutes.verificationGeneral"
             class="account-type-selector__item"
-            :disabled="kycState && kycAccountRole &&
-              !isKycTypeGeneral &&
-              kycState !== REQUEST_STATES_STR.permanentlyRejected"
+            :disabled="!kycRequest.isGeneralKycRecord"
           >
             <p class="account-type-selector__item-title">
               {{ 'verification-page.account-type-general-title' | globalize }}
@@ -42,8 +40,7 @@
               {{ 'verification-page.account-type-corporate-description' | globalize }}
             </p>
             <div class="account-type-selector__selected-icon">
-              <!-- eslint-disable-next-line max-len -->
-              <i class="mdi mdi-check account-type-selector__selected-icon-tag" />
+              <i class="mdi mdi-check" />
             </div>
           </router-link>
         </div>
@@ -88,29 +85,22 @@ import config from '@/config'
 // the guard when routing from the child's path to the parent's one.
 // Details: https://forum.vuejs.org/t/vue-router-beforeenter-doesnt-work-properly-for-children-path/20019
 function verificationGuard (to, from, next) {
-  const kycState = store.getters[vuexTypes.kycState]
-  const kycAccountRole = store.getters[vuexTypes.kycAccountRoleToSet]
-  const kvEntryCorporateRoleId = store.getters[vuexTypes.kvEntryCorporateRoleId]
-  const kvEntryGeneralRoleId = store.getters[vuexTypes.kvEntryGeneralRoleId]
+  const kycRequest = store.getters[vuexTypes.kycRequest]
+  const isToGeneralRoute = to.name === vueRoutes.verificationGeneral.name
+  const isToCorporateRoute = to.name === vueRoutes.verificationCorporate.name
 
-  if (!kycState || kycState === REQUEST_STATES_STR.permanentlyRejected) {
-    next()
-  } else {
-    switch (kycAccountRole) {
-      case kvEntryCorporateRoleId:
-        to.name === vueRoutes.verificationCorporate.name
-          ? next()
-          : next(vueRoutes.verificationCorporate)
-        break
-      case kvEntryGeneralRoleId:
-        to.name === vueRoutes.verificationGeneral.name
-          ? next()
-          : next(vueRoutes.verificationGeneral)
-        break
-      default:
-        next()
-        break
-    }
+  switch (true) {
+    case kycRequest.isGeneralKycRecord && !isToGeneralRoute:
+      next(vueRoutes.verificationGeneral)
+      break
+
+    case kycRequest.isCorporateKycRecord && !isToCorporateRoute:
+      next(vueRoutes.verificationCorporate)
+      break
+
+    default:
+      next()
+      break
   }
 }
 
@@ -134,24 +124,8 @@ export default {
       accountId: vuexTypes.accountId,
       isAccountBlocked: vuexTypes.isAccountBlocked,
 
-      kycState: vuexTypes.kycState,
-      kycAccountRole: vuexTypes.kycAccountRoleToSet,
-
-      kvEntryCorporateRoleId: vuexTypes.kvEntryCorporateRoleId,
-      kvEntryGeneralRoleId: vuexTypes.kvEntryGeneralRoleId,
-      kvEntryUsVerifiedRoleId: vuexTypes.kvEntryUsVerifiedRoleId,
-      kvEntryUsAccreditedRoleId: vuexTypes.kvEntryUsAccreditedRoleId,
+      kycRequest: vuexTypes.kycRequest,
     }),
-
-    isKycTypeGeneral () {
-      const generalTypeRoles = [
-        this.kvEntryGeneralRoleId,
-        this.kvEntryUsVerifiedRoleId,
-        this.kvEntryUsAccreditedRoleId,
-      ]
-
-      return generalTypeRoles.includes(this.kycAccountRole)
-    },
   },
 
   async beforeRouteEnter (to, from, next) {
@@ -183,7 +157,7 @@ export default {
 @import '~@scss/mixins';
 
 .verification__subtitle {
-  color: $col-text;
+  color: $col-primary;
   font-size: 1.3rem;
   margin-top: 4rem;
 }
@@ -205,6 +179,10 @@ export default {
   background-color: $col-block-bg;
   text-decoration: none;
 
+  @media (max-width: $sidebar-hide-bp) {
+    padding: 1.2rem;
+  }
+
   @include box-shadow();
 
   &[disabled] {
@@ -224,7 +202,7 @@ export default {
 }
 
 .account-type-selector__item-title {
-  color: $col-text;
+  color: $col-primary;
   font-size: 1.8rem;
 }
 

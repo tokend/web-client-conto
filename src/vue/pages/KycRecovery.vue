@@ -47,6 +47,8 @@ import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
 import { mapActions, mapMutations } from 'vuex'
+import { buildKycRecoveryOp } from '@/js/helpers/kyc-helpers'
+import { api } from '@/api'
 
 export default {
   name: 'kyc-recovery',
@@ -67,7 +69,6 @@ export default {
   methods: {
     ...mapActions({
       loadWallet: vuexTypes.LOAD_WALLET,
-      sendKycRecoveryRequest: vuexTypes.SEND_KYC_RECOVERY_REQUEST,
       initAccount: vuexTypes.INIT_ACCOUNT,
     }),
     ...mapMutations({
@@ -92,7 +93,7 @@ export default {
           password: this.password,
         })
 
-        await this.sendKycRecoveryRequest()
+        await api.postOperations(buildKycRecoveryOp())
         await this.initAccount()
         await this.$router.push({ name: 'app' })
       } catch (e) {

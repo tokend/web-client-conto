@@ -30,12 +30,17 @@ import { formatDateDMYT } from '@/vue/filters/formatDateDMYT'
 import { abbreviate } from '@/vue/filters/abbreviate'
 import { cropAddress } from '@/vue/filters/cropAddress'
 import { ErrorTracker } from '@/js/helpers/error-tracker'
+import { keyValues } from '@/key-values'
+import { initApi } from './api'
+import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
 
 async function init () {
+  await initApi()
+  await keyValues.load()
+
   i18n.onLanguageChanged(lang => {
     moment.locale(lang)
   })
-
   await i18n.init()
 
   log.setDefaultLevel(config.LOG_LEVEL)
@@ -64,6 +69,8 @@ async function init () {
   Vue.filter('formatCalendarInline', formatCalendarInline)
   Vue.filter('abbreviate', abbreviate)
   Vue.filter('cropAddress', cropAddress)
+
+  Vue.prototype.$DOCUMENT_TYPES = DOCUMENT_TYPES
 
   const store = buildStore()
 
