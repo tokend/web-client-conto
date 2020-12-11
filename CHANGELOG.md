@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 ## [Unreleased]
+#### Added
+- New helpers:
+  - `signers-helpers.js` - Includes logic for creating signers set
+  - `api-helpers.js` - Includes reusable actions with the API
+  - `kyc-helpers` - Includes kyc-related helpers
+  - `scroll-helpers.js` - At the moment only `scrollToTop()` action
+- Records:
+  - New `BlobRecord`
+  - New `KycRecord`
+  - New `KycCorporateRecord`
+  - New `KycGeneralRecord`
+  - New `KycRequestRecord`
+  - New `KycRecoveryRequestRecord`
+  - New `RequestRecord` getters: `isExists`, `updatableId`
+
+#### Changed
+- Extract `initApi()`, call it from the main.js, instead of App.vue
+  (the api should be initialized before the App rendered)
+- `loadingDataViaLoop()` => `loadAllResponsePages()`, moved to `api-helpers.js`
+- Formers:
+  - New `KycGeneralFormer` and `KycCorporateFormer`
+- Proxied `DOCUMENT_TYPES` via Vue prototype as `$DOCUMENT_TYPES`
+- `vuexTypes.LOAD_ACCOUNT`’s `accountId` arg is optional now
+
+#### Removed
+- `DocumentContainer` and `upload-documents.js`, (using SDK instead)
+- Old key-value module
+- Old `ChangeRoleRecord`
+- Old `verification-form.mixin.js`
+
 #### Fixed
 - A bug with `MarkdownField` length
 

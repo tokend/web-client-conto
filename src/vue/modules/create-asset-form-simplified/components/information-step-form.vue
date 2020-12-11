@@ -128,7 +128,7 @@ import moment from 'moment'
 import config from '@/config'
 
 import { DOCUMENT_TYPES } from '@/js/const/document-types.const'
-import { ASSET_POLICIES } from '@tokend/js-sdk'
+import { ASSET_POLICIES, Document } from '@tokend/js-sdk'
 
 import {
   required,
@@ -160,7 +160,7 @@ export default {
     form: {
       name: '',
       code: '',
-      logo: null,
+      logo: new Document(),
       policies: ASSET_POLICIES.canBeBaseInAtomicSwap |
         ASSET_POLICIES.transferable,
       description: '',

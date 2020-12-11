@@ -68,7 +68,8 @@
 
 <script>
 import FileField from '@/vue/fields/FileField'
-import { DocumentContainer } from '@/js/helpers/DocumentContainer'
+import { Document } from '@tokend/js-sdk'
+import { DOCUMENT_POLICIES } from '@/js/const/document-policies.const'
 
 const MAX_FILE_MEGABYTES = 32
 const IMAGE_FILE_EXTENSIONS = ['jpg', 'png', 'jpeg']
@@ -79,7 +80,7 @@ export default {
     FileField,
   },
   props: {
-    value: { type: DocumentContainer, default: null },
+    value: { type: Document, default: () => new Document() },
     label: { type: String, default: '' },
     documentType: { type: String, default: 'default' },
     maxSize: { type: Number, default: MAX_FILE_MEGABYTES },
@@ -105,32 +106,31 @@ export default {
   },
   methods: {
     tryCropImg (value) {
-      if (value) {
+      if (value.isEmpty) {
+        this.reset()
+      } else {
         this.originImg = value
         if (this.imgURL) URL.revokeObjectURL(this.imgURL)
         this.imgURL = window.URL.createObjectURL(value.file)
         this.isEditorOpened = true
-      } else {
-        this.reset()
       }
     },
     async cropImg () {
       const canvas = this.$refs.clipper.clip() // call component's clip method
       this.resultURL = canvas.toDataURL(this.originImg.mimeType, 1)
       const blob = this.dataURItoBlob(this.resultURL)
-      this.originImg = new DocumentContainer({
+      this.originImg = new Document({
         mimeType: blob.type,
         name: 'new__' + this.originImg.name,
-        type: this.documentType,
         file: blob,
-      })
+      }, DOCUMENT_POLICIES[this.documentType])
       this.isEditorOpened = false
       this.$emit('input', this.originImg)
     },
     reset () {
       if (this.imgURL) URL.revokeObjectURL(this.imgURL)
       this.imgURL = ''
-      this.originImg = null
+      this.originImg = new Document()
       this.isEditorOpened = false
       this.$emit('input', this.originImg)
     },

@@ -2,6 +2,10 @@ import _get from 'lodash/get'
 import { vuexTypes } from './types'
 import { api } from '../api'
 import { BalanceRecord } from '@/js/records/entities/balance.record'
+import { keyValues } from '@/key-values'
+import { getCurrentAccId } from '@/js/helpers/api-helpers'
+import { buildKycRecoveryOp } from '@/js/helpers/kyc-helpers'
+import { ACCOUNT_KYC_RECOVERY_STATES } from '@/js/const/account-kyc-recovery-states.const'
 
 export const state = {
   account: {},
@@ -20,6 +24,7 @@ export const mutations = {
 
 export const actions = {
   async [vuexTypes.LOAD_ACCOUNT] ({ commit }, accountId) {
+    accountId = accountId || getCurrentAccId()
     const response = await api.getWithSignature(`/v3/accounts/${accountId}`, {
       include: ['external_system_ids', 'balances', 'balances.state', 'balances.asset', 'kyc_data'],
     })
@@ -52,14 +57,13 @@ export const actions = {
     await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
 
     // eslint-disable-next-line max-len
-    const isKycRecoveryInProgress = rootGetters[vuexTypes.isKycRecoveryInProgress]
-    if (isKycRecoveryInProgress) {
-      await dispatch(vuexTypes.SEND_KYC_RECOVERY_REQUEST)
+    const isAccountKycRecoveryInProgress = rootGetters[vuexTypes.isAccountKycRecoveryInProgress]
+    if (isAccountKycRecoveryInProgress) {
+      await api.postOperations(buildKycRecoveryOp())
       // Load account for update kyc recovery status
       await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
     }
 
-    await dispatch(vuexTypes.LOAD_KV_ENTRIES)
     await dispatch(vuexTypes.LOAD_KYC)
 
     const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
@@ -104,26 +108,34 @@ export const getters = {
   [vuexTypes.accountDepositAddresses]: state =>
     state.account.externalSystemIds || {},
 
-  [vuexTypes.isAccountGeneral]: (a, getters, b, rootGetters) =>
-    getters[vuexTypes.accountRoleId] ===
-    rootGetters[vuexTypes.kvEntryGeneralRoleId],
-  [vuexTypes.isAccountUsAccredited]: (a, getters, b, rootGetters) =>
-    getters[vuexTypes.accountRoleId] ===
-    rootGetters[vuexTypes.kvEntryUsAccreditedRoleId],
-  [vuexTypes.isAccountUsVerified]: (a, getters, b, rootGetters) =>
-    getters[vuexTypes.accountRoleId] ===
-    rootGetters[vuexTypes.kvEntryUsVerifiedRoleId],
-  [vuexTypes.isAccountCorporate]: (a, getters, b, rootGetters) =>
-    getters[vuexTypes.accountRoleId] ===
-    rootGetters[vuexTypes.kvEntryCorporateRoleId],
-  [vuexTypes.isAccountUnverified]: (a, getters, b, rootGetters) =>
-    getters[vuexTypes.accountRoleId] ===
-    rootGetters[vuexTypes.kvEntryUnverifiedRoleId],
-  [vuexTypes.isAccountBlocked]: (a, getters, b, rootGetters) =>
-    getters[vuexTypes.accountRoleId] ===
-    rootGetters[vuexTypes.kvEntryBlockedRoleId],
+  [vuexTypes.isAccountGeneral]: (a, getters) =>
+    getters[vuexTypes.accountRoleId] === keyValues.generalRoleId,
+  [vuexTypes.isAccountUsAccredited]: (a, getters) =>
+    getters[vuexTypes.accountRoleId] === keyValues.usAccreditedRoleId,
+  [vuexTypes.isAccountUsVerified]: (a, getters) =>
+    getters[vuexTypes.accountRoleId] === keyValues.usVerifiedRoleId,
+  [vuexTypes.isAccountCorporate]: (a, getters) =>
+    getters[vuexTypes.accountRoleId] === keyValues.corporateRoleId,
+  [vuexTypes.isAccountUnverified]: (a, getters) =>
+    getters[vuexTypes.accountRoleId] === keyValues.unverifiedRoleId,
+  [vuexTypes.isAccountBlocked]: (a, getters) =>
+    getters[vuexTypes.accountRoleId] === keyValues.blockedRoleId,
   [vuexTypes.accountKycBlob]: state =>
     _get(state, 'account.kycData.kycData.blobId'),
+
+  [vuexTypes.accountKycRecoveryStatus]: state =>
+    _get(state.account, 'kycRecoveryStatus.value', 0),
+
+  [vuexTypes.isAccountKycRecoveryInProgress]: (_, getters) => {
+    const state = getters[vuexTypes.accountKycRecoveryStatus]
+    if (!state) return false
+    return Object.values(ACCOUNT_KYC_RECOVERY_STATES).includes(state)
+  },
+
+  [vuexTypes.isAccountKycRecoveryInitiated]: (_, getters) => {
+    const state = getters[vuexTypes.accountKycRecoveryStatus]
+    return state === ACCOUNT_KYC_RECOVERY_STATES.initiated
+  },
 }
 
 export default {
