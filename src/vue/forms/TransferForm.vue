@@ -178,9 +178,6 @@ export default {
       subject: '',
       isPaidForRecipient: false,
     },
-    view: {
-      opts: {},
-    },
     isLoaded: false,
     isLoadFailed: false,
     isFeesLoaded: false,
