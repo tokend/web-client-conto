@@ -1,6 +1,5 @@
 import { Former } from './Former'
 import { base } from '@tokend/js-sdk'
-// import { getCounterparty } from '@/js/helpers/fees-helper'
 
 /**
  * Collects the attributes for transfer-related operations

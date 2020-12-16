@@ -210,7 +210,6 @@ export default {
       vuexTypes.transferableAssetsBalances,
       vuexTypes.accountBalanceByCode,
       vuexTypes.walletEmail,
-      vuexTypes.usersIdentities,
     ]),
     balance () {
       const balance = this.accountBalanceByCode(this.form.asset.code)
