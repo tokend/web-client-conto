@@ -1,6 +1,6 @@
 import { Former } from './Former'
 import { base } from '@tokend/js-sdk'
-import { getCounterparty } from '@/js/helpers/fees-helper'
+// import { getCounterparty } from '@/js/helpers/fees-helper'
 
 /**
  * Collects the attributes for transfer-related operations
@@ -12,24 +12,21 @@ export class TransferFormer extends Former {
     get _defaultAttrs () {
       return {
         amount: '',
-        recipient: '',
+        destination: '',
+        sourceBalanceId: '',
+        fee: {
+          sourceFee: {
+            percent: '0',
+            fixed: '0',
+          },
+          destinationFee: {
+            percent: '0',
+            fixed: '0',
+          },
+        },
         subject: '',
         assetCode: '',
         isPaidFeeForRecipient: false,
-
-        sourceBalanceId: '',
-        destination: '',
-        recipientAccountId: '',
-        fee: {
-          sourceFee: {
-            percent: '',
-            fixed: '',
-          },
-          destinationFee: {
-            percent: '',
-            fixed: '',
-          },
-        },
       }
     }
 
@@ -38,7 +35,7 @@ export class TransferFormer extends Former {
 
       return base.PaymentBuilder.payment({
         sourceBalanceId: attrs.sourceBalanceId,
-        destination: attrs.recipientAccountId,
+        destination: attrs.destination,
         amount: attrs.amount,
         feeData: {
           sourceFee: {
@@ -54,25 +51,5 @@ export class TransferFormer extends Former {
         subject: attrs.subject,
         asset: attrs.assetCode,
       })
-    }
-
-    // async calculateFees (senderAccountId) {
-    //   await this._getCounterparty(this.attrs.recipient)
-
-    //   const response = await calculateFees({
-    //     assetCode: this.attrs.assetCode,
-    //     amount: this.attrs.amount,
-    //     type: FEE_TYPES.paymentFee,
-    //     recipientAccountId: this.attrs.recipientAccountId,
-    //     senderAccountId: senderAccountId,
-    //   })
-    //   return response
-    // }
-
-    async getCounterparty () {
-      const response = await getCounterparty(this.attrs.recipient)
-      this.attrs.recipientAccountId = response
-      this.attrs.destination = this.attrs.recipientAccountId
-      return response
     }
 }
