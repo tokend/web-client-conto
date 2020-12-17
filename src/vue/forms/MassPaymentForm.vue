@@ -70,13 +70,13 @@ import { required } from '@validators'
 
 import { CsvUtil } from '@/js/utils/csv.util'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { MassPaymentFormer } from '@/js/formers/MassPaymentFormer'
 import { Bus } from '@/js/helpers/event-bus'
 
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 import { api } from '@/api'
-import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils'
 import { globalize } from '@/vue/filters/globalize'
 
@@ -104,6 +104,7 @@ export default {
       default: _ => [],
     },
     amount: { type: [String, Number], default: '' },
+    former: { type: MassPaymentFormer, default: () => new MassPaymentFormer() },
   },
 
   data () {
@@ -145,7 +146,7 @@ export default {
 
   async created () {
     this.form.receivers = this.receivers.map(i => i.email).join(', ')
-
+    this.former.setAttr('receivers', this.form.receivers)
     try {
       await this.loadAssets()
       await this.loadCurrentBalances()
@@ -167,6 +168,7 @@ export default {
       this.disableForm()
 
       try {
+        this.former.setAttr('receivers', this.form.receivers)
         const operations = await this.buildOperationsToSubmit()
         if (this.isEmailNotRegistered) {
           Bus.error('mass-payment-form.mass-send-not-available')
@@ -231,16 +233,16 @@ export default {
       }
     },
 
-    async getOperationsByEmail (email, proxyPaymentAccountId) {
+    async getOperationsByEmail (email) {
       const receiverId = await this.getReceiverIdByEmail(email)
       if (receiverId) {
+        this.former.setAttr('destination', receiverId)
         return this.form.assets.map(asset => {
-          return this.getOperation({
-            destinationAccountId: receiverId,
-            subject: { subject: '' },
-            amount: asset.amount,
-            assetCode: asset.code,
-          })
+          const sourceBalanceId = this.accountBalanceByCode(asset.code).id
+          this.former.setAttr('sourceBalanceId', sourceBalanceId)
+          this.former.setAttr('assetCode', asset.code)
+          this.former.setAttr('amount', asset.amount)
+          return this.former.buildOps()
         })
       } else {
         this.isEmailNotRegistered = true
@@ -262,28 +264,6 @@ export default {
         emailsWithoutDuplicate.map(email => this.getOperationsByEmail(email))
       )
       return operations.flat()
-    },
-
-    getOperation ({ destinationAccountId, amount, assetCode, subject }) {
-      return base
-        .PaymentBuilder.payment({
-          sourceBalanceId: this.accountBalanceByCode(assetCode).id,
-          destination: destinationAccountId,
-          amount: String(amount),
-          feeData: {
-            sourceFee: {
-              percent: '0',
-              fixed: '0',
-            },
-            destinationFee: {
-              percent: '0',
-              fixed: '0',
-            },
-            sourcePaysForDest: false,
-          },
-          subject: JSON.stringify(subject),
-          asset: assetCode,
-        })
     },
   },
 }
