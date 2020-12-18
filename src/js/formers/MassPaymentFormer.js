@@ -16,7 +16,7 @@ export class MassPaymentFormer extends Former {
       amount: '',
       sourceBalanceId: '',
       destination: '',
-      feeData: {
+      fee: {
         sourceFee: {
           percent: '0',
           fixed: '0',
@@ -38,16 +38,16 @@ export class MassPaymentFormer extends Former {
       amount: String(this.attrs.amount),
       feeData: {
         sourceFee: {
-          percent: '0',
-          fixed: '0',
+          percent: this.attrs.fee.sourceFee.percent,
+          fixed: this.attrs.fee.sourceFee.fixed,
         },
         destinationFee: {
-          percent: '0',
-          fixed: '0',
+          percent: this.attrs.fee.destinationFee.percent,
+          fixed: this.attrs.fee.destinationFee.fixed,
         },
       },
-      isPaidFeeForRecipient: false,
-      subject: '',
+      isPaidFeeForRecipient: this.attrs.isPaidFeeForRecipient,
+      subject: this.attrs.subject,
       asset: this.attrs.assetCode,
     }
     return base.PaymentBuilder.payment(operation)
