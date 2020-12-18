@@ -283,33 +283,6 @@ export default {
 
       this.enableForm()
     },
-
-    // buildCreatePromoCodeOperation () {
-    //   const offers = this.form.offers
-    //     .map((offer) => {
-    //       return {
-    //         id: offer.id,
-    //         type: 'marketplace-offer',
-    //       }
-    //     })
-
-    //   return {
-    //     data: {
-    //       type: 'marketplace-create-promocode',
-    //       attributes: {
-    //         description: this.form.description,
-    //         code: this.form.code,
-    //         max_uses: Number(this.form.maxUses) || null,
-    //         discount: String(this.form.discount / 100),
-    //       },
-    //       relationships: {
-    //         offers: {
-    //           data: offers,
-    //         },
-    //       },
-    //     },
-    //   }
-    // },
   },
 }
 </script>
