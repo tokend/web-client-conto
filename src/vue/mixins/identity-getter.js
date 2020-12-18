@@ -130,5 +130,14 @@ export default {
       })
       return data.address
     },
+
+    async getReceiverIdByEmail (email, receivers) {
+      const receiver = receivers.find(i => i.email === email)
+      if (receiver) {
+        return receiver.accountId
+      } else {
+        return this.getAccountIdByIdentifier(email)
+      }
+    },
   },
 }

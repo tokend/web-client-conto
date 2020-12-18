@@ -224,17 +224,8 @@ export default {
       this.enableForm()
     },
 
-    async getReceiverIdByEmail (email) {
-      const receiver = this.receivers.find(i => i.email === email)
-      if (receiver) {
-        return receiver.accountId
-      } else {
-        return this.getAccountIdByIdentifier(email)
-      }
-    },
-
     async getOperationsByEmail (email) {
-      const receiverId = await this.getReceiverIdByEmail(email)
+      const receiverId = await this.getReceiverIdByEmail(email, this.receivers)
       if (receiverId) {
         this.former.setAttr('destination', receiverId)
         return this.form.assets.map(asset => {
@@ -263,6 +254,7 @@ export default {
       const operations = await Promise.all(
         emailsWithoutDuplicate.map(email => this.getOperationsByEmail(email))
       )
+
       return operations.flat()
     },
   },
