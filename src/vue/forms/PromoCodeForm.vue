@@ -215,6 +215,18 @@ export default {
     },
   },
 
+  watch: {
+    'form.offers' () {
+      const offers = this.form.offers.map((offer) => {
+        return {
+          id: offer.id,
+          type: 'marketplace-offer',
+        }
+      })
+      this.former.setAttr('offers', offers)
+    },
+  },
+
   async created () {
     await this.loadOffers()
     this.isLoaded = true
@@ -265,13 +277,6 @@ export default {
       this.disableForm()
 
       try {
-        const offers = this.form.offers.map((offer) => {
-          return {
-            id: offer.id,
-            type: 'marketplace-offer',
-          }
-        })
-        this.former.setAttr('offers', offers)
         const operation = this.former.buildOps()
         await api.postWithSignature('/integrations/marketplace/promocodes', operation)
 

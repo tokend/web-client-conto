@@ -12,6 +12,7 @@
             v-model="form.description"
             name="update-promo-code-form-description"
             @blur="touchField('form.description')"
+            @change="former.setAttr('description', form.description)"
             :label="'update-promo-code-form.description-lbl' | globalize"
             :error-message="getFieldErrorMessage('form.description',{
               length: DESCRIPTION_MAX_LENGTH
@@ -31,6 +32,7 @@
               minValue: MIN_PERCENT
             })"
             v-model="form.discount"
+            @change="former.setAttr('discount', form.discount)"
             :step="inputStep"
             :max="MAX_PERCENT_DISCOUNT"
             :min="MIN_PERCENT"
@@ -52,6 +54,7 @@
               maxValue: MAX_INT_32
             })"
             v-model="form.maxUses"
+            @change="former.setAttr('numberOfMaxUses', form.maxUses)"
             :max="MAX_INT_32"
             :min="minMaxUsesValue"
             type="number"
@@ -100,10 +103,10 @@ import {
   MIN_PERCENT,
 } from '@/js/const/numbers.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { PromoCodeFormer } from '@/js/formers/PromoCodeFormer'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
 import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
-import { MathUtil } from '@/js/utils'
 
 const EVENTS = {
   promoCodeUpdated: 'promo-code-updated',
@@ -120,6 +123,10 @@ export default {
     promoCode: {
       type: PromoCodeRecord,
       required: true,
+    },
+    former: {
+      type: PromoCodeFormer,
+      default: () => new PromoCodeFormer(),
     },
   },
 
@@ -147,7 +154,12 @@ export default {
   },
 
   created () {
-    this.populateForm()
+    this.former.populate(this.promoCode)
+    this.form = {
+      description: this.former.attrs.description,
+      maxUses: this.former.attrs.numberOfMaxUses,
+      discount: this.former.attrs.discount,
+    }
   },
 
   validations () {
@@ -177,19 +189,11 @@ export default {
   },
 
   methods: {
-    populateForm () {
-      this.form = {
-        description: this.promoCode.description,
-        maxUses: this.promoCode.maxUses,
-        discount: MathUtil.multiply(this.promoCode.discount, 100),
-      }
-    },
-
     async submit () {
       this.disableForm()
 
       try {
-        const operation = this.buildUpdatePromoCodeOperation()
+        const operation = this.former.buildOpUpdate()
         await api.patchWithSignature(
           `/integrations/marketplace/promocodes/${this.promoCode.id}`,
           operation
@@ -202,24 +206,6 @@ export default {
       }
 
       this.enableForm()
-    },
-
-    buildUpdatePromoCodeOperation () {
-      return {
-        data: {
-          attributes: {
-            discount: String(this.form.discount / 100),
-            ...(this.form.description
-              ? { description: this.form.description }
-              : {}
-            ),
-            ...(this.form.maxUses
-              ? { max_uses: Number(this.form.maxUses) }
-              : {}
-            ),
-          },
-        },
-      }
     },
   },
 }

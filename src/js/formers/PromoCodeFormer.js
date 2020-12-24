@@ -1,4 +1,5 @@
 import { Former } from './Former'
+import { MathUtil } from '@/js/utils'
 
 /**
  * Collects the attributes for promo-code operations
@@ -37,5 +38,41 @@ export class PromoCodeFormer extends Former {
       },
     }
     return data
+  }
+
+  buildOpUpdate () {
+    const data = {
+      data: {
+        attributes: {
+          discount: String(this.attrs.discount / 100),
+          ...(this.attrs.description
+            ? { description: this.attrs.description }
+            : ''
+          ),
+          ...(this.attrs.numberOfMaxUses
+            ? { max_uses: Number(this.attrs.numberOfMaxUses) }
+            : ''
+          ),
+        },
+      },
+    }
+    return data
+  }
+
+  /**
+     *
+     * @param {Object} source
+     * @param {String} description: promo code description
+     * @param {String} discount: discount
+     * @param {String} maxUses: number of max uses
+     * @param {String} code: promo code
+     * @param {String} offersId: offers` ids
+     */
+  populate (source) {
+    this.attrs.description = source.description || ''
+    this.attrs.discount = MathUtil.multiply(source.discount, 100) || ''
+    this.attrs.numberOfMaxUses = source.maxUses || null
+    this.attrs.promoCode = source.code || ''
+    this.attrs.offers = source.offersId || []
   }
 }
