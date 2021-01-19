@@ -34,14 +34,6 @@ const mutations = {
   // identities
   SET_IDENTITIES: 'SET_IDENTITIES',
 
-  // movements-history
-  SET_MOVEMENTS: 'SET_MOVEMENTS',
-  CONCAT_MOVEMENTS: 'CONCAT_MOVEMENTS',
-
-  // sponsorship-requests
-  SET_SPONSORSHIP_REQUESTS: 'SET_SPONSORSHIP_REQUESTS',
-  CONCAT_SPONSORSHIP_REQUESTS: 'CONCAT_SPONSORSHIP_REQUESTS',
-
   // businesses
   SET_MY_BUSINESSES: 'SET_MY_BUSINESSES',
   SET_ALL_BUSINESSES: 'SET_ALL_BUSINESSES',
@@ -94,14 +86,6 @@ const actions = {
 
   // identities
   LOAD_IDENTITIES_BY_ACCOUNT_ID: 'LOAD_IDENTITIES_BY_ACCOUNT_ID',
-
-  // movements-history
-  LOAD_MOVEMENTS: 'LOAD_MOVEMENTS',
-  LOAD_SHARE_MOVEMENTS: 'LOAD_SHARE_MOVEMENTS',
-
-  // sponsorship-requests
-  LOAD_SPONSORSHIP_REQUESTS: 'LOAD_SPONSORSHIP_REQUESTS',
-  APPROVE_OR_REJECT_SPONSORSHIP_REQUEST: 'APPROVE_OR_REJECT_SPONSORSHIP_REQUEST',
 
   // businesses
   LOAD_MY_BUSINESSES: 'LOAD_MY_BUSINESSES',
@@ -192,12 +176,6 @@ const getters = {
   emailByAccountId: 'emailByAccountId',
   phoneNumberByAccountId: 'phoneNumberByAccountId',
   telegramUsernameByAccountId: 'telegramUsernameByAccountId',
-
-  // movements-history
-  movements: 'movements',
-
-  // sponsorship-requests
-  sponsorshipRequests: 'sponsorshipRequests',
 
   // businesses
   myBusinesses: 'myBusinesses',

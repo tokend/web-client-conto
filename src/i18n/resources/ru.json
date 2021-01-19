@@ -603,17 +603,8 @@
     "pages-names": {
       "assets": "Баланс",
       "settings": "Настройки",
-      "movements": "История",
       "register-of-shares": "История",
-      "assets-movements": "Движение активов",
-      "customers": "Клиенты",
-      "customers-list": "Список клиентов",
-      "businesses": "Компании",
-      "sponsorship": "Спонсорство",
-      "atomic-swaps": "Магазин",
-      "promo-codes": "Промокоды",
-      "polls": "Опросы",
-      "statistics": "Статистика"
+      "polls": "Опросы"
     },
     "passport": {
       "account-us-accredited": "Аккредитованный инвестор (США)",
@@ -677,174 +668,6 @@
       "sale-name-lbl": "Имя краудфанда",
       "asset-sale-val": "{{asset}} краудфанд"
     },
-    "user-movements-history": {
-      "effects": {
-        "funded": "Финансировано",
-        "locked": "Заблокировано",
-        "issued": "Выпущено",
-        "charged": "Списано",
-        "unlocked": "Разблокировано",
-        "withdrawn": "Выведено",
-        "charged-from-locked": "Списано с заблокированного",
-        "matched": "Офер совпал",
-        "unknown": "Неизвестный тип"
-      },
-      "operations": {
-        "check-sale-state": "Краудфанд закрылся",
-        "investment": "Участие в краудфанде",
-        "create-issuance-request": "Выпущено",
-        "create-withdraw-request": "Вывод запрошен",
-        "review-request": "Запрос рассмотрен",
-        "create-aml-alert-request": "Оповещение о ПОД",
-        "manage-asset-pair": "Пара обновлена",
-        "manage-offer": "Сделка обновлена",
-        "payment": "Оплата",
-        "unknown": "Неизвестный тип"
-      },
-      "type-th": "Тип",
-      "amount-th": "Количество",
-      "date-th": "Дата",
-      "operation-th": "Операция",
-      "initializing-msg": "Инициализация…",
-      "movements-load-failed-msg": "Не удалось загрузить движения активов. Пожалуйста, попробуйте позже или свяжитесь с владельцем системы.",
-      "loading-movements-msg": "Пожалуйста, подождите, пока мы загружаем движения активов",
-      "latest-activity": "Последние действия",
-      "no-movements-title": "Нет истории движений активов",
-      "no-movements-msg": "Здесь будет история движения активов.",
-      "type-lbl": "Тип",
-      "operation-lbl": "Операция",
-      "date-lbl": "Дата",
-      "amount-lbl": "Количество",
-      "fixed-fee-lbl": "Фиксированная комиссия",
-      "calculated-percent-fee-lbl": "Процентная комиссия (рассчитана)",
-      "total-fee-lbl": "Суммарная комиссия",
-      "reason-lbl": "Причина",
-      "reference-lbl": "Референс",
-      "sale-id-lbl": "Идентификатор краудфанда",
-      "sale-state-lbl": "Состояние краудфанда",
-      "sale-closed-msg": "Краудфанд достиг цели и был закрыт",
-      "sale-canceled-msg": "Краудфанд не достиг цели и был отменен",
-      "source-fixed-fee-lbl": "Фиксированная комиссия отправителя",
-      "source-calculated-percent-fee-lbl": "Процентная комиссия отправителя (рассчитана)",
-      "destination-fixed-fee-lbl": "Фиксированная комиссия получателя",
-      "destination-calculated-percent-fee-lbl": "Процентная комиссия получателя (рассчитана)",
-      "source-pays-for-destination-lbl": "Отправитель оплатил комиссию получателя",
-      "subject-lbl": "Назначение трансфера",
-      "payment-sender-lbl": "Отправитель трансфера",
-      "payment-sender-id-lbl": "Идентификатор отправителя трансфера",
-      "payment-recipient-lbl": "Получатель трансфера",
-      "payment-recipient-id-lbl": "Идентификатор получателя трансфера",
-      "request-state-lbl": "Состояние запроса",
-      "request-rejected-msg": "Запрос отклонен",
-      "request-approved-msg": "Запрос подтвержден",
-      "request-reviewed-msg": "Запрос рассмотрен",
-      "order-book-id-lbl": "Идентификатор книги ордеров (сейла)",
-      "secondary-market-msg": "Вторичный рынок",
-      "base-amount-lbl": "Количество базового актива",
-      "quote-amount-lbl": "Количество котируемого актива",
-      "offer-id-lbl": "Идентификатор офера",
-      "price-lbl": "Цена",
-      "offer-state-lbl": "Состояние офера",
-      "offer-still-placed-msg": "Офер размещен",
-      "offer-deleted-msg": "Офер удален или совпал",
-      "offer-direction-lbl": "Направление офера",
-      "offer-buy-asset-msg": "Купить {{asset}}",
-      "offer-sell-asset-msg": "Продать {{asset}}",
-      "asset-pair-lbl": "Торговая пара",
-      "asset-pair-value": "{{base}}/{{quote}}",
-      "physical-price-lbl": "Физическая цена",
-      "current-price-lbl": "Текущая цена",
-      "tradeable-lbl": "Торговля разрешена",
-      "not-tradeable-lbl": "Торговля запрещена",
-      "restricted-on-ph-price-lbl": "Ограничена по физической цене",
-      "not-restricted-on-ph-price-lbl": "Не ограничена по физической цене",
-      "restricted-on-cur-price-lbl": "Ограничена по текущей цене",
-      "not-restricted-on-cur-price-lbl": "Не ограничена по текущей цене"
-    },
-    "movements-history": {
-      "effects": {
-        "funded": "Финансировано",
-        "locked": "Заблокировано",
-        "issued": "Выпущено",
-        "charged": "Списано",
-        "unlocked": "Разблокировано",
-        "withdrawn": "Выведено",
-        "charged-from-locked": "Списано с заблокированного",
-        "matched": "Офер совпал",
-        "unknown": "Неизвестный тип"
-      },
-      "operations": {
-        "create-issuance-request": "Выпущено",
-        "create-withdraw-request": "Вывод запрошен",
-        "review-request": "Запрос рассмотрен",
-        "create-aml-alert-request": "Оповещение о ПОД",
-        "manage-asset-pair": "Пара обновлена",
-        "manage-offer": "Сделка обновлена",
-        "payment": "Оплата",
-        "unknown": "Неизвестный тип",
-        "check-sale-state": "Краудфанд закрылся",
-        "investment": "Участие в краудфанде"
-      },
-      "type-th": "Тип",
-      "amount-th": "Количество",
-      "date-th": "Дата",
-      "operation-th": "Операция",
-      "initializing-msg": "Инициализация…",
-      "movements-load-failed-msg": "Не удалось загрузить движения активов. Пожалуйста, попробуйте позже или свяжитесь с владельцем системы.",
-      "loading-movements-msg": "Пожалуйста, подождите, пока мы загружаем движения активов",
-      "latest-activity": "Последние действия",
-      "no-movements-title": "Нет истории движений активов",
-      "no-movements-msg": "Здесь будет история движения активов.",
-      "type-lbl": "Тип",
-      "operation-lbl": "Операция",
-      "date-lbl": "Дата",
-      "amount-lbl": "Количество",
-      "fixed-fee-lbl": "Фиксированная комиссия",
-      "calculated-percent-fee-lbl": "Процентная комиссия (рассчитана)",
-      "total-fee-lbl": "Суммарная комиссия",
-      "reason-lbl": "Причина",
-      "reference-lbl": "Референс",
-      "source-fixed-fee-lbl": "Фиксированная комиссия отправителя",
-      "source-calculated-percent-fee-lbl": "Процентная комиссия отправителя (рассчитана)",
-      "destination-fixed-fee-lbl": "Фиксированная комиссия получателя",
-      "destination-calculated-percent-fee-lbl": "Процентная комиссия получателя (рассчитана)",
-      "source-pays-for-destination-lbl": "Отправитель оплатил комиссию получателя",
-      "subject-lbl": "Назначение трансфера",
-      "payment-sender-lbl": "Отправитель трансфера",
-      "payment-sender-id-lbl": "Идентификатор отправителя трансфера",
-      "payment-recipient-lbl": "Получатель трансфера",
-      "payment-recipient-id-lbl": "Идентификатор получателя трансфера",
-      "request-state-lbl": "Состояние запроса",
-      "request-rejected-msg": "Запрос отклонен",
-      "request-approved-msg": "Запрос подтвержден",
-      "request-reviewed-msg": "Запрос рассмотрен",
-      "order-book-id-lbl": "Идентификатор книги ордеров (сейла)",
-      "secondary-market-msg": "Вторичный рынок",
-      "base-amount-lbl": "Количество базового актива",
-      "quote-amount-lbl": "Количество котируемого актива",
-      "offer-id-lbl": "Идентификатор офера",
-      "price-lbl": "Цена",
-      "offer-state-lbl": "Состояние офера",
-      "offer-still-placed-msg": "Офер размещен",
-      "offer-deleted-msg": "Офер удален или совпал",
-      "offer-direction-lbl": "Направление офера",
-      "offer-buy-asset-msg": "Купить {{asset}}",
-      "offer-sell-asset-msg": "Продать {{asset}}",
-      "asset-pair-lbl": "Торговая пара",
-      "asset-pair-value": "{{base}}/{{quote}}",
-      "physical-price-lbl": "Физическая цена",
-      "current-price-lbl": "Текущая цена",
-      "tradeable-lbl": "Торговля разрешена",
-      "not-tradeable-lbl": "Торговля запрещена",
-      "restricted-on-ph-price-lbl": "Ограничена по физической цене",
-      "not-restricted-on-ph-price-lbl": "Не ограничена по физической цене",
-      "restricted-on-cur-price-lbl": "Ограничена по текущей цене",
-      "not-restricted-on-cur-price-lbl": "Не ограничена по текущей цене",
-      "sale-id-lbl": "Идентификатор краудфанда",
-      "sale-state-lbl": "Состояние краудфанда",
-      "sale-closed-msg": "Краудфанд достиг цели и был закрыт",
-      "sale-canceled-msg": "Краудфанд не достиг цели и был отменен"
-    },
     "transfer-form": {
       "loading-msg": "Загружаем…",
       "loading-error-msg": "Произошла ошибка при загрузке.",
@@ -865,86 +688,6 @@
       "recipient-not-found": "Получатель не найден",
       "approving-msg": "Этот пользователь не существует в системе. Вы уверены, что хотите отправить?"
     },
-    "assets-page": {
-      "create-asset-title": "Создать",
-      "loading-msg": "Загрузка…",
-      "loading-error-msg": "Произошла ошибка при загрузке.",
-      "no-assets-title": "Нет активов",
-      "no-assets-msg": "Нет доступных активов",
-      "no-balances-title": "Нет активов в балансах",
-      "no-balances-msg": "У вас еще нет активов в балансах",
-      "create-btn": "Создать",
-      "my-assets-title": "Мои активы",
-      "explore-title": "Активы компании",
-      "balances-title": "Мой кошелек",
-      "business-filter-label": "Компания"
-    },
-    "create-asset-form": {
-      "next-btn": "Далее",
-      "create-btn": "Создать",
-      "create-request-btn": "Создать запрос",
-      "update-request-btn": "Обновить запрос",
-      "name-lbl": "Название актива",
-      "code-lbl": "Код актива",
-      "max-issuance-amount-lbl": "Максимальная сумма выпуска",
-      "asset-type-lbl": "Тип актива",
-      "logo-lbl": "Значок актива",
-      "logo-note": "JPG или PNG, не менее 120x120 пикселей",
-      "transferable-lbl": "Можно передавать",
-      "withdrawable-lbl": "Можно выводить",
-      "can-be-base-in-atomic-swap-lbl": "Может быть базовым активом в прямом обмене",
-      "can-be-quote-in-atomic-swap-lbl": "Можно быть котируемым активом в прямом обмене",
-      "verification-not-required-lbl": "Не требуется подтверждение аккаунта",
-      "security-asset-lbl": "Security (требуется аккредитация для резидентов США)",
-      "verification-required-lbl": "Подтверждение аккаунта",
-      "additional-issuance-check": "Я хочу выполнить дополнительную эмиссию позже",
-      "restrict-max-amount-check": "Я хочу ограничить максимальную сумму активов",
-      "pre-issuance-signer-lbl": "ID подписчика предэмиссии",
-      "pre-issuance-disclaimer": "**ПРЕДУПРЕЖДЕНИЕ!** Пожалуйста, сохраните текущий секретный ключ, чтобы выполнить предварительную выдачу после восстановления или смены пароля. Для предварительного выпуска вашего актива используйте приложение для выдачи в автономном режиме. Подробнее <a target=\"_blank\" href=\"https://docs.tokend.io/#operation/token_lifecycle\"> здесь </a> (открывается в новой вкладке).",
-      "use-my-account-id-btn": "Мой",
-      "preissued-amount-lbl": "Предэмитировано",
-      "terms-lbl": "Соглашение",
-      "terms-note": "JPG, PNG, PDF, максимум 5 МБ.",
-      "request-submitted-msg": "Запрос успешно выполнен",
-      "pre-issuance-guide-link": "Подробнее о предварительной выдаче (предэмиссии)",
-      "stellar-integration-subheading": "Сеть Stellar",
-      "issuance-subheading": "Выпуск",
-      "deposit-lbl": "Депозит",
-      "withdraw-lbl": "Вывод",
-      "credit-alphanum4-stellar-asset-type-lbl": "Alphanumeric 4",
-      "credit-alphanum12-stellar-asset-type-lbl": "Alphanumeric 12",
-      "native-stellar-asset-type-lbl": "Родной",
-      "stellar-asset-type-lbl": "Тип",
-      "stellar-asset-code-lbl": "Код актива",
-      "integration-with-stellar-check": "Я хочу интегрироваться с Stellar",
-      "restrict-who-can-use": "Я хочу ограничить, кто может использовать этот актив",
-      "terms-subheading": "Соглашение",
-      "permissions-subheading": "Разрешения",
-      "description-lbl": "Описание актива (необязательно)",
-      "price-lbl": "Цена в {{quoteAsset}}",
-      "can-be-bought-lbl": "Может быть куплен",
-      "amount-to-sell-lbl": "Количество на продажу",
-      "advanced-step": "Информация для магазина",
-      "information-step": "Информация об активе",
-      "expiration-date-lbl": "Дата истечения срока действия (необязательно)"
-    },
-    "update-asset-form-simplified": {
-      "load-failed-msg": "Произошла ошибка при загрузке.",
-      "request-submitted-msg": "Актив успешно обновлен",
-      "name-lbl": "Название актива",
-      "logo-lbl": "Значок актива",
-      "logo-note": "JPG или PNG, не менее 120x120 пикселей",
-      "transferable-lbl": "Можно передавать",
-      "description-lbl": "Описание",
-      "update-btn": "Обновить",
-      "expiration-date-lbl": "Дата истечения срока действия"
-    },
-    "assets-list": {
-      "update-asset-title": "Обновить актив",
-      "details-title": "Детали актива",
-      "list-item-balance-line": "Баланс: {{value, balance}}",
-      "no-balance-msg": "Нет баланса"
-    },
     "request-states": {
       "approved-state": "Подтвержден",
       "rejected-state": "Отклонен",
@@ -963,49 +706,6 @@
       "rejected-incoming-msg": "Запрос отклонен по причине: {{reason}}",
       "canceled-incoming-msg": "Запрос отменен",
       "permanently-rejected-incoming-msg": "Запрос отклонен навсегда по причине: {{reason}}"
-    },
-    "asset-details": {
-      "balance-title": "Баланс",
-      "description-title": "Описание",
-      "converted-balance-title": "Конвертированный баланс",
-      "maximum-title": "Максимум",
-      "issued-title": "Выпущено",
-      "available-title": "Доступна для выпуска",
-      "transferable-title": "Можно передавать",
-      "withdrawable-title": "Можно выводить",
-      "deposit-method-title": "Способ депозита",
-      "requires-kyc-title": "Требуется KYC",
-      "present-msg": "Да",
-      "absent-msg": "Нет",
-      "default-msg": "По умолчанию",
-      "coinpayments-msg": "Coinpayments",
-      "non-depositable-msg": "Депозит невозможен",
-      "asset-type": "Тип актива",
-      "verification-required-title": "Требуется подтверждение аккаунта",
-      "does-not-require-verification-title": "Не требуется подтверждение аккаунта",
-      "security-asset-title": "Security",
-      "terms-title": "Соглашение",
-      "download-terms-btn": "Скачать соглашение",
-      "no-terms-msg": "Нет соглашения",
-      "add-balance-btn": "Добавить в балансы",
-      "already-in-your-balance-btn": "Баланс добавлен",
-      "update-btn": "Обновить",
-      "balance-added-msg": "Баланс добавлен",
-      "maturity-date": "Maturity Date",
-      "annual-return": "Годовой доход в процентах",
-      "expected-revenue": "Ожидаемый доход в год",
-      "verification-required-err": "Вам необходимо подтвердить свой аккаунт, чтобы добавить этот актив в баланс",
-      "stellar-asset-code-title": "Код актива в Stellar",
-      "stellar-asset-type-title": "Тип актива в Stellar",
-      "stellar-withdraw-title": "Stellar вывод",
-      "stellar-deposit-title": "Stellar депозит",
-      "credit-alphanum4-stellar-asset-type-lbl": "Буквенно-цифровой 4",
-      "credit-alphanum12-stellar-asset-type-lbl": "Буквенно-цифровой 12",
-      "native-stellar-asset-type-lbl": "Нативный",
-      "yes-msg": "Да",
-      "no-msg": "Нет",
-      "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
-      "can-be-quote-in-atomic-swap-title": "Может быть котируемым активом в предложении"
     },
     "file-field": {
       "upload-file-title": "Перетяните файл или кликните",
@@ -1130,53 +830,6 @@
     "clipboard-field": {
       "copied": "Скопировано"
     },
-    "atomic-swaps": {
-      "create-atomic-swap-bth": "Создать предложение",
-      "new-atomic-swap": "Новое предложение"
-    },
-    "atomic-swaps-requests": {
-      "purchases": "Покупки",
-      "loading-error-msg": "Произошла ошибка при загрузке.",
-      "no-data-title": "Нет покупок",
-      "no-data-msg":"Здесь будет история покупки вашего предложения"
-    },
-    "atomic-swaps-requests-table": {
-      "buyer-th": "Покупатель",
-      "amount-th": "Количество",
-      "discount-th": "Скидка",
-      "total-price-th": "Итоговая цена"
-    },
-    "create-atomic-swap-form": {
-      "asset-lbl": "Актив",
-      "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже",
-      "amount-lbl": "Количество",
-      "available-amount-hint": "Доступно: {{amount, money}}",
-      "create-btn": "Создать",
-      "price-lbl": "Цена ({{asset}})",
-      "available-balance": "Баланс: {{amount, number}}",
-      "no-base-atomic-swap-assets-title": "Нет базовых активов",
-      "no-base-atomic-swap-assets-msg": "Пожалуйста, создайте актив, который может быть базовым в предложении, чтобы создать прямую покупку",
-      "no-quote-atomic-swap-assets-title": "Нет котируемых активов",
-      "no-quote-atomic-swap-assets-msg": "Пожалуйста, создайте актив, который может быть котируемым в предложении, чтобы создать прямую покупку",
-      "created-atomic-swap-msg": "Предложение успешно создано"
-    },
-    "atomic-swap-quote-assets-form": {
-      "assets-subheading": "Котируемый актив {{number}}",
-      "add-asset-btn": "Добавить котируемый актив",
-      "address-lbl": "Адрес",
-      "card-number-lbl": "Номер карты",
-      "asset-lbl": "Актив",
-      "type-lbl": "Способ оплаты",
-      "create-btn": "Создать"
-    },
-    "customers-page": {
-      "invite-btn": "Пригласить клиента",
-      "export-btn": "Экспорт",
-      "mass-invitation-drawer-heading": "Пригласите клиентов",
-      "mass-issuance-drawer-heading": "Выпустить активы",
-      "mass-payment-drawer-heading": "Отправить активы",
-      "customers-list-page": "Список клиентов"
-    },
     "mass-payment-form": {
       "how-to-receivers-paragraph": "Перечислите имейлы получателей в поле ниже. Каждый из перечисленных получит значение равное указанному в поле “Количество”. Если доступного к выпуску количества актива недостаточно, операция не будет выполнена и никто из перечисленных не получит активы. Клиенты, которые не были найдены, не получат выпуск активов, но все остальные — получат.",
       "receivers-lbl": "Получатели",
@@ -1225,99 +878,11 @@
       "email-th": "Имейл",
       "added-th": "Добавлен"
     },
-    "customers-list": {
-      "customer-drawer-title": "Клиент",
-      "no-data-msg": "Нет клиентов. Пригласите своих клиентов, после чего они появятся в этом списке.",
-      "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
-      "no-data-title": "Нет клиентов"
-    },
-    "businesses": {
-      "all-tab": "Все компании",
-      "my-tab": "Мои компании",
-      "current-tab": "Текущая компания"
-    },
-    "businesses-all": {
-      "no-list-title": "Нет компаний",
-      "no-list-msg": "Здесь будет список компаний",
-      "business-details-title": "Детали компании",
-      "business-assets-title": "Активы компании",
-      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
-    },
-    "business-viewer": {
-      "add-btn": "Добавить компанию",
-      "business-added-successfully-notification": "Компания успешно добавлена",
-      "shop": "Магазин",
-      "loading-msg": "Загружаем…",
-      "no-business-title": "Нет такой компании",
-      "no-business-msg": "Невозможно загрузить описание компании.",
-      "shop-btn": "Магазин",
-      "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
-    },
-    "business-attributes": {
-      "id-key": "Идентификатор",
-      "owner-key": "Владелец",
-      "industry-key": "Индустрия"
-    },
-    "businesses-my": {
-      "no-list-title": "Нет компаний",
-      "no-list-msg": "Здесь будет список компаний, с которыми вы ассоциированы",
-      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже."
-    },
-    "atomic-swaps-explore": {
-      "owned-by-me-filter-lbl": "Принадлежит мне",
-      "buying": "Покупка {{asset}}",
-      "atomic-swap-drawer-title": "Детали предложения",
-      "no-list-title": "Нет предложений",
-      "no-list-msg": "Здесь будут предложения",
-      "loading-error-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже.",
-      "search-lbl": "Поиск"
-    },
-    "buy-atomic-swap-form":{
-      "available": "Доступно для покупки {{amount, money}} {{asset}}",
-      "asset-in-which-buying": "Cпособ оплаты",
-      "amount": "Количество {{asset}}",
-      "buy": "Купить",
-      "price": "Цена",
-      "total-price": "Итоговая цена",
-      "error-msg": "Запрос на оплату прошел успешно. Не удается загрузить адрес для оплаты.",
-      "load-failed-msg": "Произошла ошибка при загрузке.",
-      "loading-msg": "Пожалуйста подождите пока мы загрузим ваши данные.",
-      "asset-description-lbl": "Описание актива",
-      "promo-code-lbl": "Промокод",
-      "discount": "Скидка",
-      "calculating-msg": "Рассчитываем...",
-      "success-msg": "Покупка успешна",
-      "buy-for-bonus": "Только авторизованые пользователи могут покупать активы за бонусы"
-    },
     "kyc-recovery": {
       "submit-again-lbl": "Отпарвить заново",
       "request-submitted-msg": "Ваш запрос находится в очереди на рассмотрение. Пожалуйста, дождитесь результата рассмотрения запроса администратором.",
       "email-code": "Введите код, отправленный вам по электронной почте",
       "tfa-code": "Введите 2FA код"
-    },
-    "atomic-swap-attributes": {
-      "id-key": "Идентификатор",
-      "owner-key": "Владелец",
-      "base-asset-key": "Код базового актива",
-      "base-asset-name": "Имя базового актива",
-      "amount-key": "Доступно",
-      "quote-asset-key": "Код",
-      "price-key": "Цена",
-      "address-key": "Адрес",
-      "quote-assets-subheading": "Котируемый актив №{{ number }}",
-      "destination-key": "Назначение",
-      "buy-for": "Вы можете купить за:",
-      "link-to-buy-asset": "Ссылка на покупку актива",
-      "link-copied": "Скопировано"
-    },
-    "atomic-swap-actions": {
-      "cancel-btn": "Отменить предложение",
-      "yes-msg": "Да",
-      "no-msg": "Нет",
-      "cancellation-msg": "Уверены, что хотите отменить предложение?",
-      "atomic-swap-canceled-msg": "Предложение отменено",
-      "update-atomic-swap-drawer-title": "Обновление предложения",
-      "update-btn": "Обновить предложение"
     },
     "abbreviation-numbers": {
       "thousand": "тыс",
@@ -1333,29 +898,6 @@
       "first-name-lbl": "Имя",
       "last-name-lbl": "Фамилия",
       "request-submitted-msg": "Запрос успешно отправлен"
-    },
-    "sponsorship-requests": {
-      "loading-msg": "Загружаем ваши запросы…",
-      "loading-error-msg": "Произошла ошибка при загрузке.",
-      "details-title": "Запрос на спонсирование",
-      "sponsor-business-header": "Спонсирующая компания",
-      "consumer-business-header": "Спонисруемая компания",
-      "sponsor-asset-name-header": "Спонсирующий актив",
-      "sponsor-business-key": "Спонсирующая компания",
-      "consumer-business-key": "Спонисруемая компания",
-      "sponsor-asset-name-key": "Спонсирующий актив",
-      "amount-key": "Количество",
-      "asset-code-header": "Актив",
-      "amount-header": "Количество",
-      "request-state-header": "Статус",
-      "review-btn": "Рассмотреть",
-      "no-history-title": "Нет запросов",
-      "no-history-desc": "Здесь будет список ваших запросов на спонсирование",
-      "request-id": "Идентификатор запроса",
-      "approve-btn": "Подтвердить",
-      "reject-btn": "Отклонить",
-      "request-rejected-msg": "Запрос был отклонен",
-      "request-approved-msg": "Запрос подтвержден"
     },
     "pay-page": {
       "pay-title": "Покупка",
@@ -1374,31 +916,6 @@
     "asset-viewer": {
       "description-title": "Описание"
     },
-    "business-assets-viewer": {
-      "no-data-title": "Нет активов",
-      "no-data-msg": "У компании еще нет активов.",
-      "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы."
-    },
-    "business-assets-table": {
-      "asset-name-th": "Имя актива",
-      "number-of-holders-th": "Количество держателей",
-      "sponsor-btn": "Спонсировать"
-    },
-    "sponsorship-form": {
-      "form-heading": "Спонсирование",
-      "asset-lbl": "Актив",
-      "amount-lbl": "Количество для 1 держателя",
-      "total-amount": "Общее количество",
-      "create-contract-btn": "Создать контракт",
-      "create-contract-successful": "Контракт успешно создан",
-      "no-assets-msg-title": "Нет активов",
-      "no-assets-msg-description":"К сожалению, у вас нет активов, которые можно было бы отправить."
-    },
-    "sponsorship-page": {
-      "businesses-tab": "Компании",
-      "incoming-requests-tab": "Входящие запросы",
-      "outgoing-requests-tab": "Исходящие запросы"
-    },
     "request-status": {
       "approved-incoming-msg": "Запрос подтвержден",
       "pending-incoming-msg": "Запрос ждет вашего рассмотрения. Пожалуйста подтвердите или отклоните этот запрос",
@@ -1416,150 +933,14 @@
       "no-qr-code-msg": "Пожалуйста, введите количество для отображения QR кода",
       "qr-code-msg": "Отсканируйте этот QR код в мобильном приложении"
     },
-    "asset-actions": {
-      "asset-deleted-msg": "Актив успешно удален"
-    },
-    "business": {
-      "no-business-msg": "Невозможно загрузить описание компании.",
-      "no-business-title": "Нет такой компании",
-      "shop": "Магазин",
-      "loading-msg": "Загрузка...",
-      "load-failed-msg": "Произошла ошибка при загрузке"
-    },
-    "promo-codes-page": {
-      "create-btn": "Создать",
-      "create-promo-code-title": "Создание промокода"
-    },
-    "promo-code-form": {
-      "create-btn": "Создать",
-      "code-lbl": "Код",
-      "description-lbl": "Описание(Необязательно)",
-      "max-uses-lbl": "Количество использований(Необязательно)",
-      "discount-lbl": "Скидка(%)",
-      "no-offers-msg-title": "Нет предложений",
-      "no-offers-msg-description": "К сожалению, у вас нет предложений. Пожалуйста, создайте предложение и попробуйте снова.",
-      "created-successfully-notification": "Промокод успешно создан",
-      "loading": "Загрузка",
-      "error-msg": "Произошла ошибка при загрузке."
-    },
-    "promo-codes-list": {
-      "no-list-title": "Нет промокодов",
-      "no-list-msg": "Здесь будет список промокодов",
-      "promo-code-drawer-title": "Детали промокода",
-      "load-failed-msg": "Произошла ошибка при загрузке. Пожалуйста, попробуйте позже"
-    },
-    "promo-code-viewer": {
-      "delete-btn": "Удалить",
-      "promo-code-deleted-successfully-notification": "Промокод успешно удален",
-      "delete-promo-code-message": "Вы действительно хотите удалить промокод?",
-      "update-btn": "Обновить",
-      "update-promo-code-drawer-title": "Обновление промокода"
-    },
-    "promo-code-offers-table": {
-      "name-th": "Имя",
-      "amount-th": "Количество",
-      "price-th": "Цена"
-    },
-    "promo-code-offers-viewer": {
-      "offers-title": "Предложения",
-      "error-msg": "Произошла ошибка при загрузке списка. Пожалуйста, свяжитесь с владельцем системы.",
-      "no-data-title": "Нет выбранных предложений",
-      "no-data-msg": "У промокода нет выбранных предложений."
-    },
-    "promo-code-form-offers-table": {
-      "name-th": "Имя",
-      "amount-th": "Количество",
-      "price-th": "Цена",
-      "offers-title": "Предложения"
-    },
-    "promo-code-attributes": {
-      "code-key": "Код",
-      "description-key": "Описание",
-      "discount-key": "Скидка",
-      "max-uses-key": "Количество использований",
-      "used-key": "Использовано"
-    },
-    "movements-top-bar": {
-      "business-filter-label": "Компания",
-      "asset-filter-label": "Актив"
-    },
-    "atomic-swap-card": {
-      "available": "Доступно: {{ amount, balance }}",
-      "price": "Цена: {{ amount, number }} {{code}}",
-      "buy-lbl": "Купить",
-      "details-lbl": "Детали"
-    },
-    "asset-card": {
-      "details-lbl": "Детали",
-      "transfer-lbl": "Отправить"
-    },
-    "promo-code-card": {
-      "discount": "Скидка: {{ amount, percent }}",
-      "details-lbl": "Детали"
-    },
-    "business-card": {
-      "add-lbl": "Добавить",
-      "details-lbl": "Детали",
-      "invest-lbl": "Инвестировать"
-    },
-    "statistics-page": {
-      "sales-history-tab": "История продаж",
-      "general-tab": "Общая статистика"
-    },
-    "statistics-filters": {
-      "asset-code-lbl": "Код актива",
-      "promo-code-lbl": "Промокод",
-      "date-from-lbl": "Начало периода",
-      "date-to-lbl": "Конец периода",
-      "buy-request-status-lbl": "Статус запроса"
-    },
-    "statistics-sales-history": {
-      "no-assets-title": "Нет активов",
-      "no-assets-msg": "У компании еще нет активов.",
-      "no-data-title": "Нет истории продаж",
-      "no-data-msg": "Здесь будет история продаж.",
-      "error-msg":"Произошла ошибка при загрузке списка."
-    },
-    "statistics-sales-history-table": {
-      "buyer-th": "Покупатель",
-      "date-th": "Дата",
-      "amount-th": "Количество",
-      "status-th": "Статус"
-    },
     "select-field": {
       "all-option": "Все"
-    },
-    "statistics-sales-history-table-row": {
-      "rejected-status-td": "Отклонен",
-      "paid-status-td": "Оплачен",
-      "timeout-status-td": "Не оплачен",
-      "pending-status-th": "Ожидание оплаты"
     },
     "buy-request-statuses": {
       "rejected": "Отклонен",
       "paid": "Оплачен",
       "timeout": "Не оплачен",
       "pending": "Ожидание оплаты"
-    },
-    "statistics-sales-history-attributes-viewer": {
-      "date-key":"Дата",
-      "amount-key":"Количество",
-      "discount-key":"Скидка",
-      "total-price-key":"Итоговая цена",
-      "buyer-key":"Покупатель",
-      "promo-code-key":"Промокод"
-    },
-    "statistics-general": {
-      "no-assets-title": "Нет активов",
-      "no-assets-msg": "У компании еще нет активов.",
-      "no-data-title": "Нет истории проданных активов",
-      "no-data-msg": "Здесь будет история проданных активов.",
-      "error-msg": "Произошла ошибка при загрузке списка."
-    },
-    "statistics-general-table": {
-      "asset-th": "Актив",
-      "total-sold-th": "Всего продано",
-      "total-proceeds-th": "Общий доход"
     },
     "customers-filters": {
       "status-lbl": "Статус",
@@ -1593,19 +974,6 @@
       "title": "Платеж не прошел",
       "failed-msg": "Произошла ошибка при покупке актива"
     },
-    "assets-movements": {
-      "asset-filter-label": "Актив"
-    },
-    "asset-buyback-viewer": {
-      "buyback-title": "Выкуп актива",
-      "error-msg": "Произошла ошибка при загрузке",
-      "buyback-btn": "Создать выкуп",
-      "update-btn": "Обновить",
-      "delete-btn": "Удалить",
-      "offer-loading": "Загрузка...",
-      "delete-offer-message": "Вы уверенны что хотите удалить предложение выкупа?",
-      "offer-deleted-msg": "Предложение выкупа успешно удалено"
-    },
     "buyback-form": {
       "form-heading": "Выкуп",
       "amount-lbl": "Количество",
@@ -1636,20 +1004,6 @@
       "add-asset-btn": "Добавить актив",
       "send-btn": "Отправить",
       "balance": "Доступно {{amount, money}}"
-    },
-    "update-promo-code-form": {
-      "update-btn": "Обновить",
-      "description-lbl": "Описание",
-      "max-uses-lbl": "Количество использований",
-      "discount-lbl": "Скидка(%)",
-      "updated-successfully-notification": "Промокод успешно обновлен",
-      "used": "Использовано: {{ used }}"
-    },
-    "update-atomic-swap-form": {
-      "amount-lbl": "Количество",
-      "price-lbl": "Цена ({{asset}})",
-      "updated-atomic-swap-msg": "Предложение успешно обновлено",
-      "update-btn": "Обновить"
     },
     "poll-requests": {
       "details-title": "Запросы на создание опросов",

@@ -599,17 +599,8 @@
     "pages-names": {
       "assets": "Balances",
       "settings": "Settings",
-      "movements": "History",
       "register-of-shares": "History",
-      "assets-movements": "Assets movements",
-      "customers": "Customers",
-      "customers-list": "Customers list",
-      "businesses": "Companies",
-      "sponsorship": "Sponsorship",
-      "atomic-swaps": "Shop",
-      "promo-codes": "Promo Codes",
-      "polls": "Polls",
-      "statistics": "Statistics"
+      "polls": "Polls"
     },
     "passport": {
       "account-unverified": "Unverified account",
@@ -673,174 +664,6 @@
       "sale-name-lbl": "Crowdfunding name",
       "asset-sale-val": "{{asset}} crowdfunding"
     },
-    "user-movements-history": {
-      "effects": {
-        "funded": "Funded",
-        "locked": "Locked",
-        "issued": "Issued",
-        "charged": "Charged",
-        "unlocked": "Unlocked",
-        "withdrawn": "Withdrawn",
-        "charged-from-locked": "Charged from locked",
-        "matched": "Matched",
-        "unknown": "Unknown type"
-      },
-      "operations": {
-        "check-sale-state": "Crowdfunding closed",
-        "investment": "Crowdfunding contribution",
-        "create-issuance-request": "Issuance",
-        "create-withdraw-request": "Withdraw requested",
-        "review-request": "Request reviewed",
-        "create-aml-alert-request": "AML alert",
-        "manage-asset-pair": "Pair updated",
-        "manage-offer": "Offer",
-        "payment": "Payment",
-        "unknown": "Unknown type"
-      },
-      "type-th": "Type",
-      "amount-th": "Amount",
-      "date-th": "Date",
-      "operation-th": "Operation",
-      "initializing-msg": "Initializing…",
-      "movements-load-failed-msg": "Failed to load account movements. Please try again later",
-      "loading-movements-msg": "Please wait while we loading your movements",
-      "latest-activity": "Latest activity",
-      "no-movements-title": "No movements history",
-      "no-movements-msg": "No items here yet",
-      "type-lbl": "Type",
-      "operation-lbl": "Operation",
-      "date-lbl": "Date",
-      "amount-lbl": "Amount",
-      "fixed-fee-lbl": "Fixed fee",
-      "calculated-percent-fee-lbl": "Percent fee (calculated)",
-      "total-fee-lbl": "Total fee",
-      "sale-id-lbl": "Crowdfunding ID",
-      "sale-state-lbl": "Crowdfunding state",
-      "sale-closed-msg": "Crowdfunding funded and closed",
-      "sale-canceled-msg": "Crowdfunding not funded and canceled",
-      "reason-lbl": "Reason",
-      "reference-lbl": "Reference",
-      "source-fixed-fee-lbl": "Source fixed fee",
-      "source-calculated-percent-fee-lbl": "Source percent fee (calculated)",
-      "destination-fixed-fee-lbl": "Destination fixed fee",
-      "destination-calculated-percent-fee-lbl": "Destination percent fee (calculated)",
-      "source-pays-for-destination-lbl": "Source pays for destination",
-      "subject-lbl": "Subject",
-      "payment-sender-lbl": "Payment sender",
-      "payment-sender-id-lbl": "Payment sender ID",
-      "payment-recipient-lbl": "Payment recipient",
-      "payment-recipient-id-lbl": "Payment recipient ID",
-      "request-state-lbl": "Request state",
-      "request-rejected-msg": "Request rejected",
-      "request-approved-msg": "Request approved",
-      "request-reviewed-msg": "Request reviewed",
-      "order-book-id-lbl": "Order book (Sale) ID",
-      "secondary-market-msg": "Secondary market",
-      "base-amount-lbl": "Base amount",
-      "quote-amount-lbl": "Quote amount",
-      "offer-id-lbl": "Offer ID",
-      "price-lbl": "Price",
-      "offer-state-lbl": "Offer state",
-      "offer-still-placed-msg": "Offer still placed",
-      "offer-deleted-msg": "Offer deleted or matched",
-      "offer-direction-lbl": "Offer direction",
-      "offer-buy-asset-msg": "Buy {{asset}}",
-      "offer-sell-asset-msg": "Sell {{asset}}",
-      "asset-pair-lbl": "Asset pair",
-      "asset-pair-value": "{{base}}/{{quote}}",
-      "physical-price-lbl": "Physical price",
-      "current-price-lbl": "Current price",
-      "tradeable-lbl": "Can be traded on secondary market",
-      "not-tradeable-lbl": "Can not be traded on secondary market",
-      "restricted-on-ph-price-lbl": "Is restricted on physical price",
-      "not-restricted-on-ph-price-lbl": "Is not restricted on physical price",
-      "restricted-on-cur-price-lbl": "Is restricted on current price",
-      "not-restricted-on-cur-price-lbl": "Is not restricted on current price"
-    },
-    "movements-history": {
-      "effects": {
-        "funded": "Funded",
-        "locked": "Locked",
-        "issued": "Issued",
-        "charged": "Charged",
-        "unlocked": "Unlocked",
-        "withdrawn": "Withdrawn",
-        "charged-from-locked": "Charged from locked",
-        "matched": "Matched",
-        "unknown": "Unknown type"
-      },
-      "operations": {
-        "create-issuance-request": "Issuance",
-        "create-withdraw-request": "Withdraw requested",
-        "review-request": "Request reviewed",
-        "create-aml-alert-request": "AML alert",
-        "manage-asset-pair": "Pair updated",
-        "manage-offer": "Offer",
-        "payment": "Payment",
-        "unknown": "Unknown type",
-        "check-sale-state": "Crowdfunding closed",
-        "investment": "Crowdfunding contribution"
-      },
-      "type-th": "Type",
-      "amount-th": "Amount",
-      "date-th": "Date",
-      "operation-th": "Operation",
-      "initializing-msg": "Initializing…",
-      "movements-load-failed-msg": "Failed to load account movements. Please try again later",
-      "loading-movements-msg": "Please wait while we loading your movements",
-      "latest-activity": "Latest activity",
-      "no-movements-title": "No movements history",
-      "no-movements-msg": "No items here yet",
-      "type-lbl": "Type",
-      "operation-lbl": "Operation",
-      "date-lbl": "Date",
-      "amount-lbl": "Amount",
-      "fixed-fee-lbl": "Fixed fee",
-      "calculated-percent-fee-lbl": "Percent fee (calculated)",
-      "total-fee-lbl": "Total fee",
-      "sale-id-lbl": "Crowdfunding ID",
-      "sale-state-lbl": "Crowdfunding state",
-      "sale-closed-msg": "Crowdfunding funded and closed",
-      "sale-canceled-msg": "Crowdfunding not funded and canceled",
-      "reason-lbl": "Reason",
-      "reference-lbl": "Reference",
-      "source-fixed-fee-lbl": "Source fixed fee",
-      "source-calculated-percent-fee-lbl": "Source percent fee (calculated)",
-      "destination-fixed-fee-lbl": "Destination fixed fee",
-      "destination-calculated-percent-fee-lbl": "Destination percent fee (calculated)",
-      "source-pays-for-destination-lbl": "Source pays for destination",
-      "subject-lbl": "Subject",
-      "payment-sender-lbl": "Payment sender",
-      "payment-sender-id-lbl": "Payment sender ID",
-      "payment-recipient-lbl": "Payment recipient",
-      "payment-recipient-id-lbl": "Payment recipient ID",
-      "request-state-lbl": "Request state",
-      "request-rejected-msg": "Request rejected",
-      "request-approved-msg": "Request approved",
-      "request-reviewed-msg": "Request reviewed",
-      "order-book-id-lbl": "Order book (Sale) ID",
-      "secondary-market-msg": "Secondary market",
-      "base-amount-lbl": "Base amount",
-      "quote-amount-lbl": "Quote amount",
-      "offer-id-lbl": "Offer ID",
-      "price-lbl": "Price",
-      "offer-state-lbl": "Offer state",
-      "offer-still-placed-msg": "Offer still placed",
-      "offer-deleted-msg": "Offer deleted or matched",
-      "offer-direction-lbl": "Offer direction",
-      "offer-buy-asset-msg": "Buy {{asset}}",
-      "offer-sell-asset-msg": "Sell {{asset}}",
-      "asset-pair-lbl": "Asset pair",
-      "asset-pair-value": "{{base}}/{{quote}}",
-      "physical-price-lbl": "Physical price",
-      "current-price-lbl": "Current price",
-      "tradeable-lbl": "Can be traded on secondary market",
-      "not-tradeable-lbl": "Can not be traded on secondary market",
-      "restricted-on-ph-price-lbl": "Is restricted on physical price",
-      "not-restricted-on-ph-price-lbl": "Is not restricted on physical price",
-      "restricted-on-cur-price-lbl": "Is restricted on current price",
-      "not-restricted-on-cur-price-lbl": "Is not restricted on current price"
-    },
     "transfer-form": {
       "loading-msg": "Loading",
       "loading-error-msg": "There was an error while loading.",
@@ -861,86 +684,6 @@
       "recipient-not-found": "Recipient not found",
       "approving-msg": "This user does not exist in system. Are you sure want to send?"
     },
-    "assets-page": {
-      "explore-title": "Explore assets",
-      "balances-title": "My balances",
-      "create-asset-title": "Create asset",
-      "loading-msg": "Loading",
-      "loading-error-msg": "There was an error while loading.",
-      "no-assets-title": "No assets",
-      "no-assets-msg": "There are no available assets",
-      "no-balances-title": "No balances",
-      "no-balances-msg": "You do not have any balances yet",
-      "create-btn": "Create",
-      "my-assets-title": "My assets",
-      "business-filter-label": "Company"
-    },
-    "create-asset-form": {
-      "next-btn": "Next",
-      "create-btn": "Create",
-      "create-request-btn": "Create request",
-      "update-request-btn": "Update request",
-      "information-step": "Asset information",
-      "name-lbl": "Asset name",
-      "code-lbl": "Asset code",
-      "max-issuance-amount-lbl": "Max issuance amount",
-      "asset-type-lbl": "Permission type",
-      "logo-lbl": "Asset icon",
-      "logo-note": "JPG or PNG, no less than 120x120 px",
-      "transferable-lbl": "Transferable",
-      "withdrawable-lbl": "Withdrawable",
-      "can-be-base-in-atomic-swap-lbl": "Can be base in atomic swap",
-      "can-be-quote-in-atomic-swap-lbl": "Can be quote in atomic swap",
-      "verification-not-required-lbl": "Does not require verification",
-      "security-asset-lbl": "Security (requires accreditation for US residents)",
-      "verification-required-lbl": "Requires verification",
-      "additional-issuance-check": "I want to make additional issuance later",
-      "restrict-max-amount-check": "I want to restrict max asset amount",
-      "pre-issuance-signer-lbl": "Pre-issuance asset signer ID",
-      "pre-issuance-disclaimer": "**WARNING!** Please, save your current secret seed to make pre-issuance after recovery or password change. To pre-issue your asset use offline issuance application. See more details <a target=\"_blank\" href=\"https://docs.tokend.io/#operation/token_lifecycle\">here</a> (opens in a new tab).",
-      "use-my-account-id-btn": "Use mine",
-      "preissued-amount-lbl": "Initial pre-issued amount",
-      "terms-lbl": "Upload terms",
-      "terms-note": "JPG, PNG, PDF, max 5 mb.",
-      "request-submitted-msg": "Your request was successfully approved",
-      "pre-issuance-guide-link": "More on pre-issuance",
-      "stellar-integration-subheading": "Stellar network",
-      "issuance-subheading": "Issuance",
-      "deposit-lbl": "Deposit",
-      "withdraw-lbl": "Withdraw",
-      "credit-alphanum4-stellar-asset-type-lbl": "Alphanumeric 4",
-      "credit-alphanum12-stellar-asset-type-lbl": "Alphanumeric 12",
-      "native-stellar-asset-type-lbl": "Native",
-      "stellar-asset-type-lbl": "Type",
-      "stellar-asset-code-lbl": "Asset code",
-      "integration-with-stellar-check": "I want to integrate with Stellar network",
-      "restrict-who-can-use": "I want to restrict who can use this asset",
-      "terms-subheading": "Terms",
-      "permissions-subheading": "Permissions",
-      "description-lbl": "Asset description (optional)",
-      "price-lbl": "Price in {{quoteAsset}}",
-      "can-be-bought-lbl": "Can be bought",
-      "amount-to-sell-lbl": "Amount to sell",
-      "advanced-step": "Shop info",
-      "expiration-date-lbl": "Expiration date (optional)"
-    },
-    "update-asset-form-simplified": {
-      "load-failed-msg": "There was an error while loading.",
-      "request-submitted-msg": "Your asset was successfully updated.",
-      "name-lbl": "Asset name",
-      "logo-lbl": "Asset icon",
-      "logo-note": "JPG or PNG, no less than 120x120 px",
-      "description-lbl": "Description",
-      "transferable-lbl": "Transferable",
-      "update-btn": "Update",
-      "expiration-date-lbl": "Expiration date"
-    },
-    "assets-list": {
-      "update-asset-title": "Update asset",
-      "details-title": "Asset details",
-      "list-item-balance-line": "Balance: {{value, balance}}",
-      "no-balance-msg": "No balance"
-    },
     "request-states": {
       "approved-state": "Approved",
       "rejected-state": "Rejected",
@@ -959,49 +702,6 @@
       "rejected-incoming-msg": "This request was rejected with reason: {{reason}}",
       "canceled-incoming-msg": "This request was cancelled",
       "permanently-rejected-incoming-msg": "This request was rejected permanently with reason: {{reason}}"
-    },
-    "asset-details": {
-      "balance-title": "Balance",
-      "description-title": "Description",
-      "converted-balance-title": "Converted balance",
-      "maximum-title": "Maximum",
-      "issued-title": "Issued",
-      "available-title": "Available",
-      "transferable-title": "Transferable",
-      "withdrawable-title": "Withdrawable",
-      "deposit-method-title": "Deposit method",
-      "requires-kyc-title": "Requires KYC",
-      "present-msg": "Yes",
-      "absent-msg": "No",
-      "default-msg": "Default",
-      "coinpayments-msg": "Coinpayments",
-      "non-depositable-msg": "Non-depositable",
-      "asset-type": "Asset type",
-      "verification-required-title": "Requires verification",
-      "does-not-require-verification-title": "Does not require verification",
-      "security-asset-title": "Security",
-      "terms-title": "Terms",
-      "download-terms-btn": "Download terms",
-      "no-terms-msg": "No terms",
-      "add-balance-btn": "Add to my balances",
-      "already-in-your-balance-btn": "Already in your balances",
-      "update-btn": "Update",
-      "balance-added-msg": "Added to your balances",
-      "maturity-date": "Maturity Date",
-      "annual-return": "Annual return in percents",
-      "expected-revenue": "Expected revenue per year",
-      "verification-required-err": "You need to verify your account to add this asset to your balances",
-      "stellar-asset-code-title": "Stellar asset code",
-      "stellar-asset-type-title": "Stellar asset type",
-      "stellar-withdraw-title": "Stellar withdraw",
-      "stellar-deposit-title": "Stellar deposit",
-      "credit-alphanum4-stellar-asset-type-lbl": "Alphanumeric 4",
-      "credit-alphanum12-stellar-asset-type-lbl": "Alphanumeric 12",
-      "native-stellar-asset-type-lbl": "Native",
-      "yes-msg": "Yes",
-      "no-msg": "No",
-      "can-be-base-in-atomic-swap-title": "Can be base in offering",
-      "can-be-quote-in-atomic-swap-title": "Can be quote in offering"
     },
     "file-field": {
       "upload-file-title": "Drag a file here or click to browse",
@@ -1131,103 +831,6 @@
       "not-set-msg": "Not set",
       "set-asset-msg": "Default quote asset successfully set"
     },
-    "atomic-swaps": {
-      "create-atomic-swap-bth": "Create",
-      "new-atomic-swap": "New offer"
-    },
-    "atomic-swaps-requests": {
-      "purchases": "Purchases",
-      "loading-error-msg": "There was an error while loading.",
-      "no-data-title": "No purchases",
-      "no-data-msg": "Here will be the purchase history of your offer"
-    },
-    "atomic-swaps-requests-table": {
-      "buyer-th": "Buyer",
-      "amount-th": "Amount",
-      "discount-th": "Discount",
-      "total-price-th": "Total price"
-    },
-    "create-atomic-swap-form": {
-      "asset-lbl": "Asset",
-      "load-failed-msg": "There was an error while loading. Please, try again later",
-      "amount-lbl": "Amount",
-      "available-amount-hint": "Available: {{amount, money}}",
-      "create-btn": "Create",
-      "price-lbl": "Price ({{asset}})",
-      "available-balance": "Balance: {{amount, number}}",
-      "no-base-atomic-swap-assets-title": "No base offering assets yet",
-      "no-base-atomic-swap-assets-msg": "Please create an asset to create offering",
-      "no-quote-atomic-swap-assets-title": "No quote offering assets yet",
-      "no-quote-atomic-swap-assets-msg": "Please create an asset to create offering",
-      "created-atomic-swap-msg": "Offering successfully created"
-    },
-    "atomic-swap-quote-assets-form": {
-      "assets-subheading": "Quote asset {{ number }}",
-      "add-asset-btn": "Add quote asset",
-      "address-lbl": "Address",
-      "card-number-lbl": "Card number",
-      "asset-lbl": "Asset",
-      "type-lbl": "Payment method",
-      "create-btn": "Create"
-    },
-    "atomic-swaps-explore": {
-      "buying": "Buying {{asset}}",
-      "atomic-swap-drawer-title": "Offer details",
-      "no-list-title": "No offers yet",
-      "no-list-msg": "Here will be the list of offers",
-      "owned-by-me-filter-lbl": "Owned by me",
-      "loading-error-msg": "There was an error while loading.",
-      "search-lbl": "Search"
-    },
-    "buy-atomic-swap-form": {
-      "available": "Available {{amount, money}} {{asset}}",
-      "asset-in-which-buying": "Payment method",
-      "amount": "Amount to buy {{asset}}",
-      "buy": "Buy",
-      "price": "Amount to pay",
-      "total-price": "Total amount to pay",
-      "error-msg": "Payment request was successful. Cannot load address for payment.",
-      "load-failed-msg": "There was an error while loading.",
-      "loading-msg": "Please wait while we loading your data.",
-      "asset-description-lbl": "Asset description",
-      "promo-code-lbl": "Promo Code",
-      "discount": "Discount",
-      "calculating-msg": "Calculating...",
-      "success-msg": "Payment successfully",
-      "buy-for-bonus": "Only authorized users can buy asset for bonuse"
-    },
-    "atomic-swap-actions": {
-      "cancel-btn": "Cancel offer",
-      "yes-msg": "Yes",
-      "no-msg": "No",
-      "cancellation-msg": "Are you sure to cancel the offer?",
-      "atomic-swap-canceled-msg": "Your offer successfully cancelled",
-      "update-atomic-swap-drawer-title": "Update offer",
-      "update-btn": "Update offer"
-    },
-    "atomic-swap-attributes": {
-      "id-key": "ID",
-      "owner-key": "Owner",
-      "base-asset-key": "Base asset code",
-      "base-asset-name": "Base asset name",
-      "amount-key": "Amount",
-      "quote-asset-key": "Code",
-      "price-key": "Price",
-      "address-key": "Address",
-      "quote-assets-subheading": "Quote asset #{{ number }}",
-      "destination-key": "Destination",
-      "buy-for": "You can buy for:",
-      "link-to-buy-asset": "Link to buy asset",
-      "link-copied": "Copied"
-    },
-    "customers-page": {
-      "invite-btn": "Invite client",
-      "export-btn": "Export",
-      "mass-invitation-drawer-heading": "Invite customers",
-      "mass-issuance-drawer-heading": "Mass issuance",
-      "mass-payment-drawer-heading": "Mass send",
-      "customers-list-page": "Customers list"
-    },
     "mass-payment-form": {
       "how-to-receivers-paragraph": "List all receivers emails in the box below. Each receiver will gain the amount you specified in the “Amount” field. If the available amount is insufficient the operation will fail and no asset will be issued to anyone. Not found users and the ones that do not have balance in the selected asset will not receive the issuance but all the others will.",
       "receivers-lbl": "Receivers",
@@ -1276,44 +879,6 @@
       "email-th": "Email",
       "added-th": "Added"
     },
-    "customers-list": {
-      "customer-drawer-title": "View customer",
-      "no-data-msg": "You have no associated customers yet. Invite some and they will appear in this list.",
-      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
-      "no-data-title": "No associated customers yet"
-    },
-    "businesses": {
-      "all-tab": "All companies",
-      "my-tab": "My companies",
-      "current-tab": "Current company"
-    },
-    "businesses-all": {
-      "no-list-title": "No companies here yet",
-      "no-list-msg": "Here will be the list of companies",
-      "business-details-title": "Company details",
-      "business-assets-title": "Company assets",
-      "loading-error-msg": "There was an error while loading."
-    },
-    "business-viewer": {
-      "add-btn": "Add company",
-      "shop-btn": "Shop",
-      "business-added-successfully-notification": "Company has been added successfully",
-      "shop": "Shop",
-      "loading-msg": "Loading...",
-      "no-business-title": "There is no such company",
-      "no-business-msg": "Can not load company description.",
-      "load-failed-msg": "There was an error while loading."
-    },
-    "business-attributes": {
-      "id-key": "ID",
-      "owner-key": "Owner",
-      "industry-key": "Industry"
-    },
-    "businesses-my": {
-      "no-list-title": "No companies here yet",
-      "no-list-msg": "Here will be the list of companies associated with you",
-      "loading-error-msg": "There was an error while loading."
-    },
     "kyc-recovery": {
       "submit-again-lbl": "Submit again",
       "request-submitted-msg": "Your request has been submitted successfully. Please wait for review.",
@@ -1335,29 +900,6 @@
       "last-name-lbl": "Last name",
       "request-submitted-msg": "Your request has been submitted successfully"
     },
-    "sponsorship-requests": {
-      "loading-msg": "Loading sponsorship requests…",
-      "loading-error-msg": "There was an error while loading.",
-      "details-title": "Sponsorship request",
-      "sponsor-business-header": "Sponsor company",
-      "consumer-business-header": "Consumer company",
-      "sponsor-asset-name-header": "Company asset name",
-      "sponsor-business-key": "Sponsor company",
-      "consumer-business-key": "Consumer company",
-      "sponsor-asset-name-key": "Company asset name",
-      "amount-key": "Amount",
-      "asset-code-header": "Asset code",
-      "amount-header": "Amount",
-      "request-state-header": "Request state",
-      "review-btn": "Review",
-      "no-history-title": "No request history",
-      "no-history-desc": "Here will be the list of sponsorship requests",
-      "request-id": "Request ID",
-      "approve-btn": "Approve",
-      "reject-btn": "Reject",
-      "request-rejected-msg": "Your request was successfully rejected",
-      "request-approved-msg": "Your request was successfully approved"
-    },
     "pay-page": {
       "pay-title": "Pay",
       "no-atomic-swap-title": "No such offer found",
@@ -1374,31 +916,6 @@
     },
     "asset-viewer": {
       "description-title": "Description"
-    },
-    "business-assets-viewer": {
-      "no-data-title": "No assets yet",
-      "no-data-msg": "Company don't have any assets yet.",
-      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue."
-    },
-    "business-assets-table": {
-      "asset-name-th": "Asset name",
-      "number-of-holders-th": "Number of holders",
-      "sponsor-btn": "Sponsor"
-    },
-    "sponsorship-form": {
-      "form-heading": "Sponsorship",
-      "asset-lbl": "Asset",
-      "amount-lbl": "Amount per 1 holder",
-      "total-amount": "Total amount",
-      "create-contract-btn": "Create contract",
-      "create-contract-successful": "Contract created successfully",
-      "no-assets-msg-title": "No assets yet",
-      "no-assets-msg-description": "Unfortunately, you do not have any assets with balance now."
-    },
-    "sponsorship-page": {
-      "businesses-tab": "Companies",
-      "incoming-requests-tab": "Incoming requests",
-      "outgoing-requests-tab": "Outgoing requests"
     },
     "request-status": {
       "approved-incoming-msg": "This request was approved",
@@ -1417,150 +934,14 @@
       "no-qr-code-msg": "Please enter the amount to display the QR code",
       "qr-code-msg": "Scan this QR code in a mobile application"
     },
-    "asset-actions": {
-      "asset-deleted-msg": "Asset successfully deleted"
-    },
-    "business": {
-      "no-business-msg": "Can not load company description.",
-      "no-business-title": "There is no such company",
-      "shop": "Shop",
-      "loading-msg": "Loading...",
-      "load-failed-msg": "There was an error while loading."
-    },
-    "promo-codes-page": {
-      "create-btn": "Create",
-      "create-promo-code-title": "Create Promo Code"
-    },
-    "promo-code-form": {
-      "create-btn": "Create",
-      "code-lbl": "Code",
-      "description-lbl": "Description(Optional)",
-      "max-uses-lbl": "Max uses(Optional)",
-      "discount-lbl": "Discount(%)",
-      "no-offers-msg-title": "No offers yet",
-      "no-offers-msg-description": "Unfortunately, you do not have any offers now, please create an offer and try again.",
-      "created-successfully-notification": "Promo Code was created successfully",
-      "loading": "Loading",
-      "error-msg": "An error occurred while loading."
-    },
-    "promo-codes-list": {
-      "no-list-title": "No Promo Codes yet",
-      "no-list-msg": "Here will be the list of Promo Codes",
-      "promo-code-drawer-title": "Promo Code details",
-      "load-failed-msg": "There was an error while loading. Please, try again later"
-    },
-    "promo-code-viewer": {
-      "delete-btn": "Delete",
-      "promo-code-deleted-successfully-notification": "Promo Code successfully deleted",
-      "delete-promo-code-message": "Are you sure you want to delete the Promo Code?",
-      "update-btn": "Update",
-      "update-promo-code-drawer-title": "Update Promo Code"
-    },
-    "promo-code-offers-table": {
-      "name-th": "Name",
-      "amount-th": "Amount",
-      "price-th": "Price"
-    },
-    "promo-code-offers-viewer": {
-      "offers-title": "Offers",
-      "error-msg": "An error occurred while loading the list, please contact system owner to resolve the issue.",
-      "no-data-title": "No offers yet",
-      "no-data-msg": "Promo Code doesn't have any offers yet."
-    },
-    "promo-code-form-offers-table": {
-      "name-th": "Name",
-      "amount-th": "Amount",
-      "price-th": "Price",
-      "offers-title": "Offers"
-    },
-    "promo-code-attributes": {
-      "code-key": "Code",
-      "description-key": "Description",
-      "discount-key": "Discount",
-      "max-uses-key": "Max uses",
-      "used-key": "Used"
-    },
-    "atomic-swap-card": {
-      "available": "Available: {{ amount, balance }}",
-      "price": "Price: {{ amount, number }} {{code}}",
-      "buy-lbl": "Buy",
-      "details-lbl": "Details"
-    },
-    "asset-card": {
-      "details-lbl": "Details",
-      "transfer-lbl": "Send"
-    },
-    "promo-code-card": {
-      "discount": "Discount: {{ amount, percent }}",
-      "details-lbl": "Details"
-    },
-    "business-card": {
-      "add-lbl": "Add",
-      "details-lbl": "Details",
-      "invest-lbl": "Invest"
-    },
-    "movements-top-bar": {
-      "business-filter-label": "Company",
-      "asset-filter-label": "Asset"
-    },
-    "statistics-page": {
-      "sales-history-tab": "Sales history",
-      "general-tab": "General statistics"
-    },
-    "statistics-filters": {
-      "asset-code-lbl": "Asset code",
-      "promo-code-lbl": "Promo Code",
-      "date-from-lbl": "Period start",
-      "date-to-lbl": "Period end",
-      "buy-request-status-lbl": "Request status"
-    },
-    "statistics-sales-history": {
-      "no-assets-title": "No assets yet",
-      "no-assets-msg": "Company don't have any assets yet.",
-      "no-data-title": "No sales history",
-      "no-data-msg": "Here will be your sales history",
-      "error-msg": "An error occurred while loading the list."
-    },
-    "statistics-sales-history-table": {
-      "buyer-th": "Buyer",
-      "date-th": "Date",
-      "amount-th": "Amount",
-      "status-th": "Status"
-    },
     "select-field": {
       "all-option": "All"
-    },
-    "statistics-sales-history-table-row": {
-      "rejected-status-td": "Rejected",
-      "paid-status-td": "Paid",
-      "timeout-status-td": "Not paid",
-      "pending-status-td": "Pending"
     },
     "buy-request-statuses": {
       "rejected": "Rejected",
       "paid": "Paid",
       "timeout": "Not paid",
       "pending": "Pending"
-    },
-    "statistics-sales-history-attributes-viewer": {
-      "date-key": "Date",
-      "amount-key": "Amount",
-      "discount-key": "Discount",
-      "total-price-key": "Total price",
-      "buyer-key": "Buyer",
-      "promo-code-key": "Promo Code"
-    },
-    "statistics-general": {
-      "no-assets-title": "No assets yet",
-      "no-assets-msg": "Company don't have any assets yet.",
-      "no-data-title": "No sold assets history yet",
-      "no-data-msg": "Here will be your sold assets history",
-      "error-msg": "An error occurred while loading the list."
-    },
-    "statistics-general-table": {
-      "asset-th": "Asset",
-      "total-sold-th": "Total sold",
-      "total-proceeds-th": "Total proceeds"
     },
     "customers-filters": {
       "status-lbl": "Status",
@@ -1594,19 +975,6 @@
       "title": "Payment failed",
       "failed-msg": "An error occurred while purchasing the asset"
     },
-    "assets-movements": {
-      "asset-filter-label": "Asset"
-    },
-    "asset-buyback-viewer": {
-      "buyback-title": "Buyback",
-      "error-msg": "An error occurred while loading.",
-      "buyback-btn": "Create buyback",
-      "update-btn": "Update buyback",
-      "delete-btn": "Delete",
-      "offer-loading": "Loading...",
-      "delete-offer-message": "Are you sure you want to delete the buyback offer?",
-      "offer-deleted-msg": "Offer successfully deleted"
-    },
     "buyback-form": {
       "form-heading": "Buyback",
       "amount-lbl": "Amount",
@@ -1637,20 +1005,6 @@
       "add-asset-btn": "Add asset",
       "send-btn": "Send",
       "balance": "Available: {{amount, money}}"
-    },
-    "update-promo-code-form": {
-      "update-btn": "Update",
-      "description-lbl": "Description",
-      "max-uses-lbl": "Max uses",
-      "discount-lbl": "Discount(%)",
-      "updated-successfully-notification": "Promo Code was updated successfully",
-      "used": "Used: {{ used }}"
-    },
-    "update-atomic-swap-form": {
-      "amount-lbl": "Amount",
-      "price-lbl": "Price ({{asset}})",
-      "updated-atomic-swap-msg": "Offer successfully updated",
-      "update-btn": "Update"
     },
     "poll-requests": {
       "details-title": "Poll creation request",

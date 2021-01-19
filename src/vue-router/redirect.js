@@ -44,7 +44,7 @@ function handlePurchasedAssetRedirect (decodedPurchasedAssetInfo, next) {
 
   if (isLoggedIn) {
     next({
-      ...vueRoutes.assetsExplore,
+      ...vueRoutes.polls,
       params: { isAssetPurchased: isPurchasedSuccessful },
     })
   } else {

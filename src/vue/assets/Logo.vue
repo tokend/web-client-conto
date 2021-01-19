@@ -28,11 +28,7 @@ export default {
       return DEFAULT_LOGO_URL
     },
     logoRout () {
-      if (this.isAccountCorporate) {
-        return vueRoutes.customers
-      } else {
-        return vueRoutes.businesses
-      }
+      return vueRoutes.polls
     },
   },
 }

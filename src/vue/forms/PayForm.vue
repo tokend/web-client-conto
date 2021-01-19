@@ -24,12 +24,12 @@
         </div>
       </div>
 
-      <buy-atomic-swap-form
+      <!-- <buy-atomic-swap-form
         class="pay-form__atomic-swap-bid"
         @submitted="submit"
         :is-disabled="isDisabled"
         :atomic-swap-ask="atomicSwapAsk"
-      />
+      /> -->
     </form>
 
     <address-viewer
@@ -44,7 +44,7 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import BuyAtomicSwapForm from '@/vue/forms/BuyAtomicSwapForm'
+// import BuyAtomicSwapForm from '@/vue/forms/BuyAtomicSwapForm'
 import AddressViewer from '@/vue/common/address-viewer'
 import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
 import config from '@/config'
@@ -66,7 +66,7 @@ const EVENTS = {
 export default {
   name: 'pay-form',
   components: {
-    BuyAtomicSwapForm,
+    // BuyAtomicSwapForm,
     AddressViewer,
   },
   mixins: [FormMixin, AtomicSwapBidMixin],

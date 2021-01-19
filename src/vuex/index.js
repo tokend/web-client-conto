@@ -9,8 +9,6 @@ import kyc from './kyc.module'
 import kycRecovery from './kyc-recovery.module'
 import identities from './identities.module'
 import businesses from './businesses.module'
-import movementsHistory from './movements-history.module'
-import sponsorshipRequests from './sponsorship-requests.module'
 import idleHandler from './idle-handler.module'
 import pollRequests from '@/vue/modules/requests/poll-requests/store'
 import { vuexTypes } from '@/vuex/types'
@@ -83,8 +81,6 @@ function buildStore () {
       kyc,
       identities,
       idleHandler,
-      movementsHistory,
-      sponsorshipRequests,
       businesses,
       kycRecovery,
       'poll-requests': pollRequests,
