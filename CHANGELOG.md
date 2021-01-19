@@ -13,6 +13,10 @@ for further information about branching and tagging conventions.
   - `api-helpers.js` - Includes reusable actions with the API
   - `kyc-helpers` - Includes kyc-related helpers
   - `scroll-helpers.js` - At the moment only `scrollToTop()` action
+- Formers:
+  - New `KycGeneralFormer`
+  - New `KycCorporateFormer`
+  - New `TradeFormer`
 - Records:
   - New `BlobRecord`
   - New `KycRecord`
@@ -26,8 +30,6 @@ for further information about branching and tagging conventions.
 - Extract `initApi()`, call it from the main.js, instead of App.vue
   (the api should be initialized before the App rendered)
 - `loadingDataViaLoop()` => `loadAllResponsePages()`, moved to `api-helpers.js`
-- Formers:
-  - New `KycGeneralFormer` and `KycCorporateFormer`
 - Proxied `DOCUMENT_TYPES` via Vue prototype as `$DOCUMENT_TYPES`
 - `vuexTypes.LOAD_ACCOUNT`’s `accountId` arg is optional now
 
