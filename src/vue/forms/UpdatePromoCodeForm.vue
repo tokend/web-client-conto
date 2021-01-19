@@ -64,7 +64,7 @@
           />
           <p class="app__form-field-description">
             {{ 'update-promo-code-form.used' | globalize({
-              used: promoCode.used,
+              used: former.attrs.numberOfUses,
             }) }}
           </p>
         </div>
@@ -106,7 +106,6 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { PromoCodeFormer } from '@/js/formers/PromoCodeFormer'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
-import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
 
 const EVENTS = {
   promoCodeUpdated: 'promo-code-updated',
@@ -120,28 +119,26 @@ export default {
   mixins: [FormMixin],
 
   props: {
-    promoCode: {
-      type: PromoCodeRecord,
-      required: true,
-    },
     former: {
       type: PromoCodeFormer,
       default: () => new PromoCodeFormer(),
     },
   },
 
-  data: _ => ({
-    form: {
-      discount: '',
-      description: '',
-      maxUses: null,
-    },
-    MAX_INT_32,
-    MAX_PERCENT_DISCOUNT,
-    MIN_PERCENT,
-    DESCRIPTION_MAX_LENGTH,
-    config,
-  }),
+  data () {
+    return {
+      form: {
+        discount: this.former.attrs.discount,
+        description: this.former.attrs.description,
+        maxUses: this.former.attrs.numberOfMaxUses,
+      },
+      MAX_INT_32,
+      MAX_PERCENT_DISCOUNT,
+      MIN_PERCENT,
+      DESCRIPTION_MAX_LENGTH,
+      config,
+    }
+  },
 
   computed: {
     inputStep () {
@@ -149,17 +146,8 @@ export default {
     },
 
     minMaxUsesValue () {
-      return this.promoCode.used + 1
+      return this.former.attrs.numberOfUses + 1
     },
-  },
-
-  created () {
-    this.former.populate(this.promoCode)
-    this.form = {
-      description: this.former.attrs.description,
-      maxUses: this.former.attrs.numberOfMaxUses,
-      discount: this.former.attrs.discount,
-    }
   },
 
   validations () {
@@ -167,13 +155,13 @@ export default {
       form: {
         description: {
           required: requiredIf(function () {
-            return Boolean(this.promoCode.description)
+            return Boolean(this.former.attrs.description)
           }),
           maxLength: maxLength(DESCRIPTION_MAX_LENGTH),
         },
         maxUses: {
           required: requiredIf(function () {
-            return Boolean(this.promoCode.maxUses)
+            return Boolean(this.former.attrs.maxUses)
           }),
           integer,
           minValue: minValue(this.minMaxUsesValue),
@@ -195,7 +183,7 @@ export default {
       try {
         const operation = this.former.buildOpUpdate()
         await api.patchWithSignature(
-          `/integrations/marketplace/promocodes/${this.promoCode.id}`,
+          `/integrations/marketplace/promocodes/${this.former.attrs.promoCodeId}`,
           operation
         )
 

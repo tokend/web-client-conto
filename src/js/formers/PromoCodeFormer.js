@@ -14,7 +14,9 @@ export class PromoCodeFormer extends Former {
       type: 'marketplace-create-promocode',
       description: '',
       promoCode: '',
-      numberOfMaxUses: '',
+      promoCodeId: '0',
+      numberOfUses: '0',
+      numberOfMaxUses: null,
       discount: '',
       offers: [],
     }
@@ -45,17 +47,12 @@ export class PromoCodeFormer extends Former {
       data: {
         attributes: {
           discount: String(this.attrs.discount / 100),
-          ...(this.attrs.description
-            ? { description: this.attrs.description }
-            : ''
-          ),
-          ...(this.attrs.numberOfMaxUses
-            ? { max_uses: Number(this.attrs.numberOfMaxUses) }
-            : ''
-          ),
+          description: this.attrs.description,
+          max_uses: Number(this.attrs.numberOfMaxUses),
         },
       },
     }
+
     return data
   }
 
@@ -69,10 +66,14 @@ export class PromoCodeFormer extends Former {
      * @param {String} offersId: offers` ids
      */
   populate (source) {
-    this.attrs.description = source.description || ''
-    this.attrs.discount = MathUtil.multiply(source.discount, 100) || ''
-    this.attrs.numberOfMaxUses = source.maxUses || null
-    this.attrs.promoCode = source.code || ''
-    this.attrs.offers = source.offersId || []
+    this.attrs = this._defaultAttrs
+
+    this.attrs.description = source.description
+    this.attrs.discount = MathUtil.multiply(source.discount, 100)
+    this.attrs.numberOfMaxUses = source.maxUses
+    this.attrs.promoCode = source.code
+    this.attrs.promoCodeId = source.id
+    this.attrs.numberOfUses = +source.used
+    this.attrs.offers = source.offersId
   }
 }
