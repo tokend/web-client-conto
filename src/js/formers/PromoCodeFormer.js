@@ -23,13 +23,26 @@ export class PromoCodeFormer extends Former {
   }
 
   buildOps () {
+    if (+this.attrs.promoCodeId) {
+      const data = {
+        data: {
+          attributes: {
+            discount: String(this.attrs.discount / 100),
+            description: this.attrs.description,
+            max_uses: Number(this.attrs.numberOfMaxUses),
+          },
+        },
+      }
+      return data
+    }
+
     const data = {
       data: {
         type: this.attrs.type,
         attributes: {
           description: this.attrs.description,
           code: this.attrs.promoCode,
-          max_uses: Number(this.attrs.numberOfMaxUses) || null,
+          max_uses: Number(this.attrs.numberOfMaxUses),
           discount: String(this.attrs.discount / 100),
         },
         relationships: {
@@ -39,20 +52,6 @@ export class PromoCodeFormer extends Former {
         },
       },
     }
-    return data
-  }
-
-  buildOpUpdate () {
-    const data = {
-      data: {
-        attributes: {
-          discount: String(this.attrs.discount / 100),
-          description: this.attrs.description,
-          max_uses: Number(this.attrs.numberOfMaxUses),
-        },
-      },
-    }
-
     return data
   }
 
@@ -73,7 +72,7 @@ export class PromoCodeFormer extends Former {
     this.attrs.numberOfMaxUses = source.maxUses
     this.attrs.promoCode = source.code
     this.attrs.promoCodeId = source.id
-    this.attrs.numberOfUses = +source.used
+    this.attrs.numberOfUses = source.used
     this.attrs.offers = source.offersId
   }
 }

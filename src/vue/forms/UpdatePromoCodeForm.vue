@@ -181,7 +181,7 @@ export default {
       this.disableForm()
 
       try {
-        const operation = this.former.buildOpUpdate()
+        const operation = this.former.buildOps()
         await api.patchWithSignature(
           `/integrations/marketplace/promocodes/${this.former.attrs.promoCodeId}`,
           operation
