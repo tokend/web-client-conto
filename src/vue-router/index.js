@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import _get from 'lodash/get'
 import { store, vuexTypes } from '@/vuex'
 import { vueRoutes } from '@/vue-router/routes'
-import { resolveRedirect } from '@/vue-router/redirect'
 
 import AppContent from '@/vue/AppContent'
 
@@ -24,11 +23,6 @@ const router = new Router({
     {
       path: '*',
       redirect: '/',
-    },
-    {
-      path: '/r/*',
-      name: 'horizon-redirect',
-      beforeEnter: resolveRedirect,
     },
     {
       path: '/terms',
@@ -174,12 +168,7 @@ function redirectRouteGuard (to, from, next) {
 
   if (isLoggedIn && !isAccountUnverified) {
     if (to.name === vueRoutes.app.name) {
-      const isAccountCorporate = store.getters[vuexTypes.isAccountCorporate]
-      if (isAccountCorporate) {
-        next(vueRoutes.settings)
-      } else {
-        next(vueRoutes.polls)
-      }
+      next(vueRoutes.polls)
     } else {
       next()
     }

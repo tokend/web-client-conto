@@ -189,30 +189,14 @@ $col-table-scroll-side-shadow: rgba(0, 0, 0, 0.2);
 $col-loader-text: $col-text;
 $col-loader-icon: $col-primary-inactive;
 
-// details colors:
-$col-details-label: rgba($col-text, 0.7);
-$col-details-value: $col-text;
-$col-details-border: rgba($col-primary, 0.2);
-
 // no-data-message colors:
 $col-no-data-message-text: $col-text;
 $col-no-data-message-description: rgba($col-text, 0.7);
 $col-no-data-message-icon-color: rgba($col-text, 0.4);
 
-// error-message colors:
-$col-error-message-text: rgba($col-error, 0.8);
-$col-error-message-description: rgba($col-error, 0.7);
-$col-error-message-icon-color: rgba($col-error, 0.4);
-
 // top bar colors
 $col-top-bar-text: $col-text;
 $col-top-bar-tab: $_lightPurple;
-
-// asset card colors
-$col-asset-card-background: $_white;
-$col-asset-card-header-background: $_athensGray;
-$col-asset-card-text-primary: $col-text;
-$col-asset-card-text-secondary: $col-text-secondary;
 
 // tabs colors:
 $col-tabs-txt: $col-primary;
@@ -230,14 +214,6 @@ $col-request-approved: $_cyan;
 $col-request-pending: $_orangePeel;
 $col-request-rejected: $_lightRed;
 
-// asset logo
-$col-asset-logo-background: $_white;
-$col-asset-logo-text: $col-text;
-
-// promo code logo
-$col-promo-code-logo-background: $_white;
-$col-promo-code-logo-text: $col-primary;
-
 // terms colors
 $col-terms-title: $col-primary;
 $col-terms-block-bg: $col-block-bg;
@@ -246,20 +222,6 @@ $col-terms-list-item: $_thinPurple;
 $col-terms-text: $col-secondary;
 $col-terms-link: $col-link;
 
-// downloads colors
-$col-downloads-title: $col-primary;
-$col-downloads-block-bg: $col-block-bg;
-$col-downloads-header: $col-primary;
-$col-downloads-text: $col-secondary;
-$col-downloads-line: $_athensGray;
-$col-downloads-link: $col-link;
-
-// movement history colors:
-$col-incoming: $_green;
-$col-outgoing: $_lightRed;
-$col-locked: $_orangePeel;
-$col-unlocked: $_orangePeel;
-
 // skeleton-loader
 $col-background-skeleton-loader: rgba($col-text, 0.10);
 
@@ -267,7 +229,3 @@ $col-background-skeleton-loader: rgba($col-text, 0.10);
 $col-tooltip-wrapper-msg-bg: rgba($_black, 0.9);
 $col-tooltip-wrapper-msg-text: $_white;
 $col-tooltip-wrapper-border-style: transparent transparent $col-tooltip-wrapper-msg-bg transparent;
-
-// bussiness-description
-$col-bussiness-description-logo-background: $_athensGray;
-$col-bussiness-description-background: $_white;

@@ -33,11 +33,6 @@
 
       <section class="sidebar__links-section">
         <nav class="sidebar__links-group">
-          <p
-            class="sidebar__links-group-title"
-          >
-            {{ "sidebar.section-general" | globalize }}
-          </p>
           <router-link
             key="polls"
             v-ripple

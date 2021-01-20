@@ -610,13 +610,10 @@
       "balances-subheading": "Баланс",
       "show-more-link": "Показать больше",
       "account-unverified": "Неподтвержденный аккаунт",
-      "account-corporate": "Аккаунт бизнеса",
-      "company-btn": "Компания"
+      "account-corporate": "Аккаунт бизнеса"
     },
     "sidebar": {
-      "section-explore": "Просмотреть",
-      "section-account": "Аккаунт",
-      "section-general": "Раздел покупателя"
+      "section-account": "Аккаунт"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",

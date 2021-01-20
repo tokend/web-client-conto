@@ -58,21 +58,6 @@
         <div class="passport__dropdown-actions-wrp">
           <button
             class="app__button-flat passport__dropdown-btn"
-            @click="goSupport"
-          >
-            {{ 'footer.support-apps' | globalize }}
-          </button>
-
-          <button
-            v-if="isAccountCorporate"
-            class="passport__dropdown-btn app__button-flat"
-            @click="openCompanyPage"
-          >
-            {{ 'passport.company-btn' | globalize }}
-          </button>
-
-          <button
-            class="app__button-flat passport__dropdown-btn"
             @click="goSettings"
           >
             {{ 'passport.settings-btn' | globalize }}
@@ -196,20 +181,6 @@ export default {
     async goSettings () {
       this.closeDropdown()
       await this.$router.push(vueRoutes.settings)
-    },
-
-    goSupport () {
-      window.open(config.SUPPORT_URL, '_blank')
-    },
-
-    async openCompanyPage () {
-      this.closeDropdown()
-      await this.$router.push({
-        ...vueRoutes.business,
-        params: {
-          id: this.accountId,
-        },
-      })
     },
   },
 }

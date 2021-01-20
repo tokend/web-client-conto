@@ -610,13 +610,10 @@
       "settings-btn": "Settings",
       "sign-out-btn": "Sign out",
       "balances-subheading": "Balances",
-      "show-more-link": "Show more",
-      "company-btn": "Company"
+      "show-more-link": "Show more"
     },
     "sidebar": {
-      "section-explore": "Explorations",
-      "section-account": "My account",
-      "section-general": "Customer tab"
+      "section-account": "My account"
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
