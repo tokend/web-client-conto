@@ -497,7 +497,6 @@
       "add-phone-number-btn": "Add phone number",
       "add-telegram-title": "Add telegram username",
       "add-telegram-btn": "Add telegram username",
-      "default-quote-asset-title": "Default quote asset",
       "company-link-title": "Company link",
       "view-company-link-btn": "View company link",
       "company-link-label": "Company link"
@@ -597,9 +596,7 @@
       "submit-processing": "Processing…"
     },
     "pages-names": {
-      "assets": "Balances",
       "settings": "Settings",
-      "register-of-shares": "History",
       "polls": "Polls"
     },
     "passport": {
@@ -623,9 +620,7 @@
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
-      "terms": "Terms",
-      "download-apps": "Downloads",
-      "support-apps": "Support"
+      "terms": "Terms"
     },
     "op-pages": {
       "filters-prefix": "Show:",
@@ -664,26 +659,6 @@
       "sale-name-lbl": "Crowdfunding name",
       "asset-sale-val": "{{asset}} crowdfunding"
     },
-    "transfer-form": {
-      "loading-msg": "Loading",
-      "loading-error-msg": "There was an error while loading.",
-      "no-assets-heading": "No assets yet",
-      "no-assets": "Your wallet doesn't contain any transferable assets yet. You can discover some on the asset list.",
-      "discover-assets-btn": "Discover assets",
-      "form-heading": "Send",
-      "asset-lbl": "Asset",
-      "balance": "Balance is {{amount, money}} {{asset}}",
-      "amount-lbl": "Amount",
-      "insufficient-sales": "Insufficient balance",
-      "recipient-lbl": "Recipient email or phone or telegram username",
-      "subject-lbl": "Add note",
-      "continue-btn": "Continue",
-      "recheck-form": "Please recheck the form before proceeding",
-      "submit-btn": "Send",
-      "payment-successful": "Transfer successful",
-      "recipient-not-found": "Recipient not found",
-      "approving-msg": "This user does not exist in system. Are you sure want to send?"
-    },
     "request-states": {
       "approved-state": "Approved",
       "rejected-state": "Rejected",
@@ -720,164 +695,20 @@
       "save-lbl": "Save",
       "cancel-lbl": "Cancel"
     },
-    "whitelist-invite-form": {
-      "email-lbl": "User's email",
-      "invite-btn": "Invite client",
-      "invite-hint": "Invite a user to the crowdfunding whitelist. After invitation he/she will be able to contribute in the crowdfunding",
-      "user-invited-msg": "The user was successfully invited to the crowdfunding whitelist"
-    },
-    "coinpayments-deposit": {
-      "amount-lbl": "Amount",
-      "address-lbl": "Address:",
-      "payload-lbl": "Payload:",
-      "request-address-lbl": "Request the address",
-      "no-address-msg": "No available addresses to deposit yet. Please try again later.",
-      "time-left-msg": "Time left",
-      "time-over-msg": "Time over",
-      "loading-msg": "Please wait while we loading your data.",
-      "load-failed-msg": "Failed to load account data. Please try again later",
-      "address-ready-msg": "Please send {{amount, money}} to the address provided below. Note that any other asset sent to this address will be irretrievably lost."
-    },
     "email-getter": {
       "loading-msg": "Loading…",
       "master-account": "Master",
       "copied": "Copied"
     },
-    "downloads-page": {
-      "go-back-btn": "Go back",
-      "title": "Downloads",
-      "mobile-apps-header": "All your assets right on your phone",
-      "mobile-apps-desc": "To access your assets everywhere, get the {{appName}} app on your mobile device.",
-      "pre-issuance-learn-more-link": "Learn more",
-      "pre-issuance-apps-header": "Pre-issue your assets offline",
-      "pre-issuance-apps-desc": "To pre authorize your assets to be issued, get the Offline Device Pre-issuance tool on your computer.",
-      "pre-issuance-app-sources-link": "Source code"
-    },
     "terms-page": {
       "go-back-btn": "Go back",
       "title": "Terms & conditions"
-    },
-    "assets": {
-      "balances-loading-msg": "Loading your balances…",
-      "assets-loading-msg": "Loading assets…",
-      "loading-error-msg": "There was an error while loading.",
-      "no-assets-title": "No assets",
-      "no-assets-msg": "There are no available assets",
-      "no-created-assets-msg": "You did not create any assets yet",
-      "no-balances-title": "No balances",
-      "no-balances-msg": "You do not have any balances yet",
-      "list-item-balance-line": "Balance: {{value, money}}",
-      "no-balance-msg": "No balance",
-      "details-drawer-title": "Asset details",
-      "update-drawer-title": "Update asset",
-      "add-balance-btn": "Add to my balances",
-      "balance-added-msg": "Added to your balances",
-      "us-accreditation-required-msg": "U.S. citizens are required to verify their accreditation before holding this asset",
-      "verification-required-msg": "You need to verify your account to hold this asset",
-      "update-btn": "Update",
-      "delete-btn": "Delete",
-      "no-terms-msg": "No terms",
-      "balance-title": "Balance",
-      "description-title": "Description",
-      "maximum-title": "Maximum",
-      "available-title": "Available",
-      "transferable-title": "Transferable",
-      "withdrawable-title": "Withdrawable",
-      "deposit-method-title": "Deposit method",
-      "verification-required-title": "Requires verification",
-      "asset-type": "Asset type",
-      "does-not-require-verification-title": "Does not require verification",
-      "security-asset-title": "Security",
-      "present-msg": "Yes",
-      "absent-msg": "No",
-      "default-msg": "Default",
-      "coinpayments-msg": "Coinpayments",
-      "non-depositable-msg": "Non-depositable",
-      "terms-title": "Terms",
-      "download-terms-btn": "Download terms",
-      "already-in-your-balance-btn": "Already in your balances",
-      "owner-lbl": "Owner",
-      "view-shares-btn": "View shares",
-      "stellar-asset-code-title": "Stellar asset code",
-      "stellar-asset-type-title": "Stellar asset type",
-      "stellar-withdraw-title": "Stellar withdraw",
-      "stellar-deposit-title": "Stellar deposit",
-      "credit-alphanum4-stellar-asset-type-lbl": "Alphanumeric 4",
-      "credit-alphanum12-stellar-asset-type-lbl": "Alphanumeric 12",
-      "native-stellar-asset-type-lbl": "Native",
-      "yes-msg": "Yes",
-      "no-msg": "No",
-      "send-btn": "Send",
-      "issue-btn": "Issue",
-      "redeem-btn": "Redeem",
-      "converted-balance-title": "Converted balance",
-      "vendor-code": "Vendor code",
-      "can-be-base-in-atomic-swap-title": "Can be base in offering",
-      "can-be-quote-in-atomic-swap-title": "Can be quote in offering",
-      "delete-asset-message": "Are you sure you want to delete the asset?",
-      "expiration-date-title": "Expiration date",
-      "asset-purchased-successfully": "Asset purchased successfully",
-      "payment-failed": "Payment failed",
-      "refund-btn": "Refund",
-      "buy-order-loading": "Loading..."
     },
     "warning-banner": {
       "blocked-desc": "Your account was blocked by administrator. Blocking reason: {{reason}}"
     },
     "clipboard-field": {
       "copied": "Copied"
-    },
-    "default-quote-asset-select-field": {
-      "not-set-msg": "Not set",
-      "set-asset-msg": "Default quote asset successfully set"
-    },
-    "mass-payment-form": {
-      "how-to-receivers-paragraph": "List all receivers emails in the box below. Each receiver will gain the amount you specified in the “Amount” field. If the available amount is insufficient the operation will fail and no asset will be issued to anyone. Not found users and the ones that do not have balance in the selected asset will not receive the issuance but all the others will.",
-      "receivers-lbl": "Receivers",
-      "no-assets-msg-title": "No issuable assets yet",
-      "no-assets-msg-description": "Unfortunately, you do not have any assets now, please create an asset and try again.",
-      "payment-successfully-notification": "Mass send performed successfully.",
-      "no-receivers-found": "Receivers you provided not found or cannot receive the send. Please ensure you specified the valid receivers list and try again.",
-      "overpayment-error-notif": "The total amount {{assets}} is bigger than the available for send amount. Please decrease the amount to send and try again.",
-      "error-msg": "An error occurred while loading.",
-      "loading-msg": "Loading...",
-      "mass-send-not-available": "Mass sending to unregistered accounts is not available"
-    },
-    "mass-invitation-form": {
-      "how-to-invitees-paragraph": "List all invitees emails in the box below.",
-      "invitees-lbl": "Invitees",
-      "submit-btn": "Invite",
-      "invited-successfully-notification": "Mass invitation performed successfully.",
-      "no-invitees-found": "Receivers you provided not found or cannot receive the invitation. Please ensure you specified the valid receivers list and try again.",
-      "invalid-emails": "You provided invalid email. Please ensure you specified the valid emails and try again."
-    },
-    "customer-attributes": {
-      "id-key": "ID",
-      "email-key": "Email",
-      "first-name-key": "First name",
-      "last-name-key": "Last name",
-      "status-key": "Status",
-      "balance-key": "{{assetCode}} balance",
-      "not-registered-status-val": "Not registered",
-      "active-status-val": "Active",
-      "blocked-status-val": "Blocked",
-      "added-key": "Added"
-    },
-    "customers-table": {
-      "customer-th": "Customer",
-      "balances-th": "Balances",
-      "status-th": "Status",
-      "details-btn": "Show details",
-      "not-registered-status-td": "Not registered",
-      "active-status-td": "Active",
-      "blocked-status-td": "Blocked",
-      "enable-mass-issuance-btn": "Select for issuance",
-      "do-mass-issue-btn": "Perform issuance",
-      "enable-mass-payment-btn": "Select for send",
-      "do-mass-payment-btn": "Perform send",
-      "cancel-mass-issue-btn": "Cancel",
-      "email-th": "Email",
-      "added-th": "Added"
     },
     "kyc-recovery": {
       "submit-again-lbl": "Submit again",
@@ -900,111 +731,8 @@
       "last-name-lbl": "Last name",
       "request-submitted-msg": "Your request has been submitted successfully"
     },
-    "pay-page": {
-      "pay-title": "Pay",
-      "no-atomic-swap-title": "No such offer found",
-      "no-atomic-swap-msg": "Please make sure the link is correct",
-      "offer-canceled-title": "Offer was canceled",
-      "offer-canceled-msg": "The owner canceled this offer",
-      "no-amount-title": "Offer was sold out",
-      "no-amount-msg": "Contact the owner of the offer",
-      "load-failed-msg": "There was an error while loading."
-    },
-    "pay-form": {
-      "email-lbl": "Email",
-      "success-msg": "Payment successfully"
-    },
-    "asset-viewer": {
-      "description-title": "Description"
-    },
-    "request-status": {
-      "approved-incoming-msg": "This request was approved",
-      "pending-incoming-msg": "This request is waiting for your review. Please approve or reject it",
-      "permanently-rejected-incoming-msg": "This request was rejected permanently"
-    },
-    "multiselect-field": {
-      "select-all": "Select all",
-      "all-selected-value-label": "All selected",
-      "select-something-value-label": "Select something..."
-    },
-    "redeem-form": {
-      "form-heading": "Redeem",
-      "amount-lbl": "Amount",
-      "no-qr-code-title": "Your QR code will be here",
-      "no-qr-code-msg": "Please enter the amount to display the QR code",
-      "qr-code-msg": "Scan this QR code in a mobile application"
-    },
     "select-field": {
       "all-option": "All"
-    },
-    "buy-request-statuses": {
-      "rejected": "Rejected",
-      "paid": "Paid",
-      "timeout": "Not paid",
-      "pending": "Pending"
-    },
-    "customers-filters": {
-      "status-lbl": "Status",
-      "search-lbl": "Search",
-      "not-registered-status-lbl": "Not registered",
-      "active-status-lbl": "Active",
-      "balances-lbl": "Balances"
-    },
-    "successful-payment": {
-      "title": "Succesful payment",
-      "description-header": "Congratulations!",
-      "successful-purchased-msg": "You have successfully purchased {{ amount, number }} {{ assetName }} and now it is in your {{appName}} account!",
-      "how-to-start-msg": "How to start",
-      "sign-up-or-login-link-part-1": "Sign up",
-      "sign-up-or-login-link-part-2": "or",
-      "sign-up-or-login-link-part-3": "login",
-      "sign-up-or-login-link-part-4": "for {{appName}} using your",
-      "go-to-wallet-msg": "Go to the “Wallet” section and see your ticket.",
-      "use-wallet-msg": "Now you can use the digital wallet to store, transfer, and redeem the ticket.",
-      "transfer-msg": "Transfer by using the recipients’ email.",
-      "redeem-msg": "Redeem by showing the QR code.",
-      "use-apps-msg": "You can use web-version, or you can install {{appName}} mobile application.",
-      "conto-for-android-msg": "{{appName}} for Android:",
-      "contact-us-msg": "If you have any questions or difficulties, please contact us",
-      "asset-loading": "Asset information is loading",
-      "loading-error-msg": "There was an error while loading.",
-      "no-link-title": "Incorrect link",
-      "no-link-msg": "Сheck your link and try again"
-    },
-    "failed-payment": {
-      "title": "Payment failed",
-      "failed-msg": "An error occurred while purchasing the asset"
-    },
-    "buyback-form": {
-      "form-heading": "Buyback",
-      "amount-lbl": "Amount",
-      "price-lbl": "Price in {{quoteAsset}}",
-      "create-buyback-btn": "Create",
-      "update-buyback-btn": "Update",
-      "offer-updated-msg": "Offer successfully updated",
-      "offer-created-msg": "Offer successfully created",
-      "total-amount": "Total amount"
-    },
-    "refund-asset-form": {
-      "form-heading": "Refund",
-      "price-lbl": "Price in {{quoteAsset}}",
-      "amount-lbl": "Amount",
-      "total-amount": "We get",
-      "refund-btn": "Refund",
-      "asset-sold-msg": "Refund has been completed"
-    },
-    "payment-methods": {
-      "4bill": "Card",
-      "coinpayments": "Cryptocurrency",
-      "internal": "Bonus"
-    },
-    "multiple-assets-send-form": {
-      "assets-subheading": "Asset {{ number }}",
-      "asset-lbl": "Asset",
-      "amount-lbl": "Amount per 1 holder",
-      "add-asset-btn": "Add asset",
-      "send-btn": "Send",
-      "balance": "Available: {{amount, money}}"
     },
     "poll-requests": {
       "details-title": "Poll creation request",
@@ -1122,7 +850,8 @@
     "poll-participants": {
       "email-lbl": "Email",
       "choice-lbl": "Choice",
-      "no-request-history-desc": "Here will be the list of poll participants"
+      "no-request-history-desc": "Here will be the list of poll participants",
+      "no-request-history-title":"No poll history"
     },
     "poll-attributes": {
       "id-key": "Poll ID",

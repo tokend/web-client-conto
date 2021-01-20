@@ -69,25 +69,6 @@ describe('account.module', () => {
       await actions[vuexTypes.LOAD_ACCOUNT](store, 'ACCOUNT_ID_STUB')
       expect(store.commit.args).to.deep.equal(Object.entries(expectedMutations))
     })
-
-    it('LOAD_ACCOUNT_BALANCES_DETAILS commits proper set of mutations',
-      async () => {
-        const balancesMock = MockWrapper
-          .makeJsonapiResponseData(balancesDetailsJSON)
-        sinon.stub(api, 'getWithSignature').resolves({ data: balancesMock })
-
-        const balances = balancesMock.states.map(state => state.balance)
-        const assetsPayload = balances.map(b => b.asset)
-
-        await actions[vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS](store)
-
-        expect(store.commit).to.have.been.calledWithExactly(
-          vuexTypes.UPDATE_ASSETS, assetsPayload, { root: true }
-        )
-        expect(store.commit).to.have.been.calledWithExactly(
-          vuexTypes.SET_ACCOUNT_BALANCES_DETAILS, balancesMock.states
-        )
-      })
   })
 
   describe('getters', () => {

@@ -2,13 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import account from './account.module'
-import assets from './assets.module'
 import factors from './factors.module'
 import wallet from './wallet.module'
 import kyc from './kyc.module'
 import kycRecovery from './kyc-recovery.module'
 import identities from './identities.module'
-import businesses from './businesses.module'
 import idleHandler from './idle-handler.module'
 import pollRequests from '@/vue/modules/requests/poll-requests/store'
 import { vuexTypes } from '@/vuex/types'
@@ -75,13 +73,11 @@ function buildStore () {
     ...rootModule,
     modules: {
       account,
-      assets,
       factors,
       wallet,
       kyc,
       identities,
       idleHandler,
-      businesses,
       kycRecovery,
       'poll-requests': pollRequests,
     },

@@ -8,21 +8,6 @@
       >
         {{ 'footer.terms' | globalize }}
       </router-link>
-
-      <router-link
-        class="footer__link"
-        :to="vueRoutes.downloads"
-      >
-        {{ 'footer.download-apps' | globalize }}
-      </router-link>
-
-      <a
-        class="footer__link"
-        :href="config.SUPPORT_URL"
-        target="_blank"
-      >
-        {{ 'footer.support-apps' | globalize }}
-      </a>
     </div>
     <div>
       <span class="footer__text">

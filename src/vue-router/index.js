@@ -7,8 +7,6 @@ import { resolveRedirect } from '@/vue-router/redirect'
 
 import AppContent from '@/vue/AppContent'
 
-import Pay from '@/vue/pages/Pay'
-
 import Polls from '@/vue/pages/Polls'
 import PollsAll from '@/vue/pages/PollsAll'
 import PollRequestsModule from '@/vue/modules/requests/poll-requests'
@@ -17,8 +15,6 @@ import Security from '@/vue/pages/Security'
 import Verification from '@/vue/pages/Verification'
 import VerificationCorporate from '@/vue/pages/VerificationCorporate'
 import VerificationGeneral from '@/vue/pages/VerificationGeneral'
-import SuccessfulPayment from '@/vue/pages/SuccessfulPayment'
-import FailedPayment from '@/vue/pages/FailedPayment'
 
 Vue.use(Router)
 
@@ -38,26 +34,6 @@ const router = new Router({
       path: '/terms',
       name: vueRoutes.terms.name,
       component: resolve => require(['@/vue/pages/Terms'], resolve),
-    },
-    {
-      path: '/downloads',
-      name: vueRoutes.downloads.name,
-      component: resolve => require(['@/vue/pages/Downloads'], resolve),
-    },
-    {
-      path: '/pay',
-      name: vueRoutes.pay.name,
-      component: Pay,
-    },
-    {
-      path: '/successful-payment',
-      name: vueRoutes.successfulPayment.name,
-      component: SuccessfulPayment,
-    },
-    {
-      path: '/failed-payment',
-      name: vueRoutes.failedPayment.name,
-      component: FailedPayment,
     },
     {
       path: '/auth',

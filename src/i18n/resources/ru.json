@@ -497,14 +497,9 @@
       "add-phone-number-btn": "Добавить номер телефона",
       "add-telegram-title": "Добавление имя пользователя телеграм",
       "add-telegram-btn": "Добавить имя пользователя телеграм",
-      "default-quote-asset-title": "Котируемый актив по умолчанию",
       "company-link-title": "Ссылка компании",
       "view-company-link-btn": "Посмотреть",
       "company-link-label": "Ссылка компании"
-    },
-    "default-quote-asset-select-field": {
-      "not-set-msg": "Не установлен",
-      "set-asset-msg": "Котируемый актив по умолчанию успешно установлен"
     },
     "phone-number-form": {
       "phone-number-lbl": "Номер телефона",
@@ -601,9 +596,7 @@
       "submit-processing": "Выполняем…"
     },
     "pages-names": {
-      "assets": "Баланс",
       "settings": "Настройки",
-      "register-of-shares": "История",
       "polls": "Опросы"
     },
     "passport": {
@@ -627,9 +620,7 @@
     },
     "footer": {
       "copyright": "{{year}} © Distributed Lab.",
-      "terms": "Соглашение",
-      "download-apps": "Загрузки",
-      "support-apps": "Помощь"
+      "terms": "Соглашение"
     },
     "op-pages": {
       "filters-prefix": "Показать:",
@@ -668,26 +659,6 @@
       "sale-name-lbl": "Имя краудфанда",
       "asset-sale-val": "{{asset}} краудфанд"
     },
-    "transfer-form": {
-      "loading-msg": "Загружаем…",
-      "loading-error-msg": "Произошла ошибка при загрузке.",
-      "no-assets-heading": "Упс!",
-      "no-assets": "Ваш кошелек еще не содержит активов доступных для отправки. Вы можете найти таковые в списке активов.",
-      "discover-assets-btn": "Найти активы",
-      "form-heading": "Отправить",
-      "asset-lbl": "Актив",
-      "balance": "Доступно {{amount, money}} {{asset}}",
-      "amount-lbl": "Количество",
-      "insufficient-sales": "Недостаточно средств",
-      "recipient-lbl": "Имейл или телефон или имя пользователя телеграм получателя",
-      "subject-lbl": "Добавить примечание (опционально)",
-      "continue-btn": "Далее",
-      "recheck-form": "Пожалуйста, перепроверьте форму.",
-      "submit-btn": "Отправить",
-      "payment-successful": "Активы отправлены",
-      "recipient-not-found": "Получатель не найден",
-      "approving-msg": "Этот пользователь не существует в системе. Вы уверены, что хотите отправить?"
-    },
     "request-states": {
       "approved-state": "Подтвержден",
       "rejected-state": "Отклонен",
@@ -724,159 +695,20 @@
       "save-lbl": "Сохранить",
       "cancel-lbl": "Отмена"
     },
-    "whitelist-invite-form": {
-      "invite-hint": "Пригласите пользователя в белый список. После приглашения они смогут инвестировать в сейл",
-      "email-lbl": "Имейл пользователя",
-      "invite-btn": "Пригласить клиента",
-      "user-invited-msg": "Пользователь был успешно приглашен"
-    },
-    "coinpayments-deposit": {
-      "amount-lbl": "Количество",
-      "address-lbl": "Адрес:",
-      "payload-lbl": "Пейлоад:",
-      "request-address-lbl": "Запросить адрес",
-      "no-address-msg": "Нет доступных адресов для депозита. Пожалуйста, попробуйте позже.",
-      "time-left-msg": "Осталось времени",
-      "time-over-msg": "Время вышло",
-      "loading-msg": "Загружаем…",
-      "load-failed-msg": "Не удалось загрузить данные аккаунта. Пожалуйста, попробуйте позже",
-      "address-ready-msg": "Пожалуйста, отправьте {{amount, money}} по указанному ниже адресу. Обратите внимание, что любой другой актив, отправленный на этот адрес, будет безвозвратно утерян."
-    },
     "email-getter": {
       "loading-msg": "Загружаем…",
       "master-account": "Мастер",
       "copied": "Скопировано"
     },
-    "downloads-page": {
-      "go-back-btn": "Назад",
-      "title": "Загрузки",
-      "mobile-apps-header": "Все ваши активы прямо на вашем телефоне",
-      "mobile-apps-desc": "Чтобы получить доступ к своим ресурсам повсюду, установите приложение {{appName}} на свое мобильное устройство.",
-      "pre-issuance-learn-more-link": "Узнать больше",
-      "pre-issuance-apps-header": "Предварительная выдача активов в автономном режиме",
-      "pre-issuance-apps-desc": "Чтобы предварительно авторизовать выдачу активов, установите инструмент предварительной выдачи на своем компьютере",
-      "pre-issuance-app-sources-link": "Исходный код"
-    },
     "terms-page": {
       "go-back-btn": "Назад",
       "title": "Условия использования"
-    },
-    "assets": {
-      "balances-loading-msg": "Загрузка…",
-      "assets-loading-msg": "Загрузка…",
-      "loading-error-msg": "Произошла ошибка при загрузке.",
-      "no-assets-title": "Нет активов",
-      "no-assets-msg": "Нет доступных активов",
-      "no-created-assets-msg": "Вы еще не создали активов",
-      "no-balances-title": "Нет активов в балансах",
-      "no-balances-msg": "У вас еще нет активов в балансах",
-      "list-item-balance-line": "Баланс: {{value, money}}",
-      "no-balance-msg": "Нет баланса",
-      "details-drawer-title": "Детали актива",
-      "update-drawer-title": "Обновить актив",
-      "add-balance-btn": "Добавить в балансы",
-      "balance-added-msg": "Добавлено в балансы",
-      "us-accreditation-required-msg": "Необходимо подтверждение аккредитации для граждан США",
-      "verification-required-msg": "Вы должны предварительно подтвердить свой аккаунт",
-      "update-btn": "Обновить",
-      "delete-btn": "Удалить",
-      "no-terms-msg": "Нет соглашения",
-      "balance-title": "Баланс",
-      "description-title": "Описание",
-      "maximum-title": "Максимум",
-      "available-title": "Доступно для выпуска",
-      "transferable-title": "Можно передавать",
-      "withdrawable-title": "Можно выводить",
-      "deposit-method-title": "Способ депозита",
-      "verification-required-title": "Требуется подтверждение аккаунта",
-      "asset-type": "Тип актива",
-      "does-not-require-verification-title": "Не требуется подтверждение аккаунта",
-      "security-asset-title": "Security",
-      "present-msg": "Да",
-      "absent-msg": "Нет",
-      "default-msg": "По умолчанию",
-      "coinpayments-msg": "Coinpayments",
-      "non-depositable-msg": "Депозит невозможен",
-      "terms-title": "Соглашение",
-      "download-terms-btn": "Скачать соглашение",
-      "already-in-your-balance-btn": "Баланс добавлен",
-      "owner-lbl": "Владелец",
-      "view-shares-btn": "Посмотреть акции",
-      "stellar-asset-code-title": "Код актива в Stellar",
-      "stellar-asset-type-title": "Тип актива в Stellar",
-      "stellar-withdraw-title": "Stellar вывод",
-      "stellar-deposit-title": "Stellar депозит",
-      "credit-alphanum4-stellar-asset-type-lbl": "Alphanumeric 4",
-      "credit-alphanum12-stellar-asset-type-lbl": "Alphanumeric 12",
-      "native-stellar-asset-type-lbl": "Родной",
-      "yes-msg": "Да",
-      "no-msg": "Нет",
-      "send-btn": "Отправить",
-      "issue-btn": "Выпустить",
-      "redeem-btn": "Погасить",
-      "converted-balance-title": "Конвертированный баланс",
-      "vendor-code": "Артикул",
-      "can-be-base-in-atomic-swap-title": "Может быть базовым активом в предложении",
-      "can-be-quote-in-atomic-swap-title": "Может быть котируемым активом в предложении",
-      "delete-asset-message": "Вы действительно хотите удалить актив?",
-      "expiration-date-title": "Действителен до",
-      "asset-purchased-successfully": "Актив успешно куплен",
-      "payment-failed": "Оплата не прошла",
-      "refund-btn": "Возврат"
     },
     "warning-banner": {
       "blocked-desc": "Ваш аккаунт был заблокирован администратором. Причина блокировки: {{reason}}"
     },
     "clipboard-field": {
       "copied": "Скопировано"
-    },
-    "mass-payment-form": {
-      "how-to-receivers-paragraph": "Перечислите имейлы получателей в поле ниже. Каждый из перечисленных получит значение равное указанному в поле “Количество”. Если доступного к выпуску количества актива недостаточно, операция не будет выполнена и никто из перечисленных не получит активы. Клиенты, которые не были найдены, не получат выпуск активов, но все остальные — получат.",
-      "receivers-lbl": "Получатели",
-      "no-assets-msg-title": "Нет активов",
-      "no-assets-msg-description": "К сожалению, у вас нет активов, которые можно было бы отправить. Пожалуйста, создайте актив и попробуйте снова.",
-      "payment-successfully-notification": "Активы отправлены.",
-      "no-receivers-found": "Никто из перечисленных не может получить отправленные активы. Пожалуйста, перепроверьте список получателей и попробуйте еще раз.",
-      "overpayment-error-notif": "Сумма отправки {{assets}} превышает количество доступное к отправке. Пожалуйста, уменьшите объем отправки и попробуйте снова.",
-      "error-msg": "Произошла ошибка при загрузке.",
-      "loading-msg": "Загрузка...",
-      "mass-send-not-available": "Массовая отправка на незарегистрированные аккаунты недоступна"
-    },
-    "mass-invitation-form": {
-      "how-to-invitees-paragraph": "Перечислите имейлы клиентов в поле ниже.",
-      "invitees-lbl": "Приглашаемые",
-      "submit-btn": "Пригласить",
-      "invited-successfully-notification": "Приглашения разосланы.",
-      "no-invitees-found": "Никто из перечисленных не может получить приглашение. Пожалуйста, перепроверьте список приглашаемых и попробуйте еще раз.",
-      "invalid-emails": "Вы указали неверный имейл. Пожалуйста, перепроверьте список и попробуйте еще раз."
-    },
-    "customer-attributes": {
-      "id-key": "Идентификатор",
-      "email-key": "Имейл",
-      "first-name-key": "Имя",
-      "last-name-key": "Фамилия",
-      "status-key": "Статус",
-      "balance-key": "Баланс {{assetCode}}",
-      "not-registered-status-val": "Не зарегистрирован",
-      "active-status-val": "Активен",
-      "blocked-status-val": "Заблокирован",
-      "added-key": "Добавлен"
-    },
-    "customers-table": {
-      "customer-th": "Клиент",
-      "balances-th": "Баланс",
-      "status-th": "Статус",
-      "details-btn": "Детальнее",
-      "not-registered-status-td": "Не зарегистрирован",
-      "active-status-td": "Активен",
-      "blocked-status-td": "Заблокирован",
-      "enable-mass-issuance-btn": "Выбрать для эмиссии",
-      "do-mass-issue-btn": "Выполнить эмиссию",
-      "enable-mass-payment-btn": "Выбрать для отправки",
-      "do-mass-payment-btn": "Выполнить отправку",
-      "cancel-mass-issue-btn": "Отменить",
-      "email-th": "Имейл",
-      "added-th": "Добавлен"
     },
     "kyc-recovery": {
       "submit-again-lbl": "Отпарвить заново",
@@ -899,111 +731,8 @@
       "last-name-lbl": "Фамилия",
       "request-submitted-msg": "Запрос успешно отправлен"
     },
-    "pay-page": {
-      "pay-title": "Покупка",
-      "no-atomic-swap-title": "Такое предложение не найдено",
-      "no-atomic-swap-msg": "Пожалуйста, убедитесь, что ссылка верна",
-      "offer-canceled-title": "Предложение было отменено",
-      "offer-canceled-msg": "Владелец отменил это предложение",
-      "no-amount-title": "Предложение было распродано",
-      "no-amount-msg": "Обратитесь к владельцу предложения",
-      "load-failed-msg": "Произошла ошибка при загрузке."
-    },
-    "pay-form": {
-      "email-lbl":"Email",
-      "success-msg": "Покупка успешна"
-    },
-    "asset-viewer": {
-      "description-title": "Описание"
-    },
-    "request-status": {
-      "approved-incoming-msg": "Запрос подтвержден",
-      "pending-incoming-msg": "Запрос ждет вашего рассмотрения. Пожалуйста подтвердите или отклоните этот запрос",
-      "permanently-rejected-incoming-msg": "Запрос отклонен навсегда"
-    },
-    "multiselect-field": {
-      "select-all": "Выбрать все",
-      "all-selected-value-label": "Выбрано все",
-      "select-something-value-label": "Выберите что-то..."
-    },
-    "redeem-form": {
-      "form-heading": "Погашение",
-      "amount-lbl": "Количество",
-      "no-qr-code-title": "Здесь будет Ваш QR код",
-      "no-qr-code-msg": "Пожалуйста, введите количество для отображения QR кода",
-      "qr-code-msg": "Отсканируйте этот QR код в мобильном приложении"
-    },
     "select-field": {
       "all-option": "Все"
-    },
-    "buy-request-statuses": {
-      "rejected": "Отклонен",
-      "paid": "Оплачен",
-      "timeout": "Не оплачен",
-      "pending": "Ожидание оплаты"
-    },
-    "customers-filters": {
-      "status-lbl": "Статус",
-      "search-lbl": "Поиск",
-      "not-registered-status-lbl": "Не зарегистрирован",
-      "active-status-lbl": "Активен",
-      "balances-lbl": "Балансы"
-    },
-    "successful-payment": {
-      "title": "Успешный платеж",
-      "description-header": "Поздравляем!",
-      "successful-purchased-msg": "Вы успешно приобрели {{ amount, number }} {{ assetName }} и теперь он в вашем цифровом кошельке в {{appName}}!",
-      "how-to-start-msg": "С чего начать",
-      "sign-up-or-login-link-part-1": "Зарегистрируйтесь",
-      "sign-up-or-login-link-part-2": "в {{appName}} или",
-      "sign-up-or-login-link-part-3": "войдите",
-      "sign-up-or-login-link-part-4": ", используя вашу почту",
-      "go-to-wallet-msg": "Перейдите в раздел “Кошелек” и увидите свой билет.",
-      "use-wallet-msg": "Готово, теперь вы можете использовать свой цифровой кошелек для хранения, передачи и погашения полученого актива.",
-      "transfer-msg": "Удобно передавайте актив по email.",
-      "redeem-msg": "Погашайте актив, показав QR-код!",
-      "use-apps-msg": "Вы можете использовать web-версию {{appName}}, а можете установить мобильное приложение.",
-      "conto-for-android-msg": "{{appName}} для Android",
-      "contact-us-msg": "Если у вас остались вопросы или возникли сложности, обращайтесь",
-      "asset-loading": "Загружаеться информация об активе",
-      "loading-error-msg": "Произошла ошибка при загрузке.",
-      "no-link-title": "Неверная ссылка",
-      "no-link-msg": "Проверьте вашу ссылку и попробуйте еще раз"
-    },
-    "failed-payment": {
-      "title": "Платеж не прошел",
-      "failed-msg": "Произошла ошибка при покупке актива"
-    },
-    "buyback-form": {
-      "form-heading": "Выкуп",
-      "amount-lbl": "Количество",
-      "price-lbl": "Цена в {{quoteAsset}}",
-      "create-buyback-btn": "Создать",
-      "update-buyback-btn": "Обновить",
-      "offer-updated-msg": "Предложение выкупа успешно обновлено",
-      "offer-created-msg": "Предложение выкупа успешно создано",
-      "total-amount": "Общее количество"
-    },
-    "refund-asset-form": {
-      "form-heading": "Возврат",
-      "price-lbl": "Цена в {{quoteAsset}}",
-      "amount-lbl": "Количество",
-      "total-amount": "Мы получим",
-      "refund-btn": "Возврат",
-      "asset-sold-msg": "Возврат выполнен"
-    },
-    "payment-methods": {
-      "4bill": "Карта",
-      "coinpayments": "Криптовалюта",
-      "internal": "Бонус"
-    },
-    "multiple-assets-send-form": {
-      "assets-subheading": "Актив {{ number }}",
-      "asset-lbl": "Актив",
-      "amount-lbl": "Количество актива каждому получателю",
-      "add-asset-btn": "Добавить актив",
-      "send-btn": "Отправить",
-      "balance": "Доступно {{amount, money}}"
     },
     "poll-requests": {
       "details-title": "Запросы на создание опросов",
@@ -1121,7 +850,8 @@
     "poll-participants": {
       "email-lbl": "Имейл",
       "choice-lbl": "Голос",
-      "no-request-history-desc": "Здесь будет список участников опроса"
+      "no-request-history-desc": "Здесь будет список участников опроса",
+      "no-request-history-title":"Нет истории опросов"
     },
     "poll-attributes": {
       "id-key": "Идентификатор опроса",

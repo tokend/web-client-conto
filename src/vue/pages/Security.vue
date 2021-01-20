@@ -151,16 +151,6 @@
         </template>
       </a>
     </div>
-
-    <!-- eslint-disable-next-line max-len -->
-    <template v-if="isAccountCorporate">
-      <div class="security-page__row">
-        <p class="security-page__row-title">
-          {{ 'security-page.default-quote-asset-title' | globalize }}
-        </p>
-        <default-quote-asset />
-      </div>
-    </template>
   </div>
 </template>
 
@@ -172,7 +162,6 @@ import ChangePasswordForm from '@/vue/forms/ChangePasswordForm'
 import PhoneNumberForm from '@/vue/forms/PhoneNumberForm'
 import TfaForm from '@/vue/forms/TfaForm'
 import TelegramForm from '@/vue/forms/TelegramForm'
-import DefaultQuoteAsset from '@/vue/fields/DefaultQuoteAssetSelectField'
 
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
@@ -199,7 +188,6 @@ export default {
     TfaForm,
     PhoneNumberForm,
     TelegramForm,
-    DefaultQuoteAsset,
   },
   data: _ => ({
     isDrawerShown: false,

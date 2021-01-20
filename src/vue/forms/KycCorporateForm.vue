@@ -197,3 +197,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import './app-form';
+</style>

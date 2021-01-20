@@ -24,22 +24,11 @@ const mutations = {
   SET_KYC_RECOVERY_REQUEST: 'SET_KYC_RECOVERY_REQUEST',
   SET_KYC_RECOVERY_REQUEST_BLOB: 'SET_KYC_RECOVERY_REQUEST_BLOB',
 
-  // assets
-  SET_ASSETS: 'SET_ASSETS',
-  UPDATE_ASSETS: 'UPDATE_ASSETS',
-
   // idle
   UPDATE_LOGOUT_AT: 'UPDATE_LOGOUT_AT',
 
   // identities
   SET_IDENTITIES: 'SET_IDENTITIES',
-
-  // businesses
-  SET_MY_BUSINESSES: 'SET_MY_BUSINESSES',
-  SET_ALL_BUSINESSES: 'SET_ALL_BUSINESSES',
-  CONCAT_ALL_BUSINESSES: 'CONCAT_ALL_BUSINESSES',
-  SELECT_BUSINESS_TO_BROWSE: 'SELECT_BUSINESS_TO_BROWSE',
-  CLEAR_BUSINESS_TO_BROWSE: 'CLEAR_BUSINESS_TO_BROWSE',
 }
 
 const actions = {
@@ -50,7 +39,6 @@ const actions = {
 
   // account
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
-  LOAD_ACCOUNT_BALANCES_DETAILS: 'LOAD_ACCOUNT_BALANCES_DETAILS',
   INIT_ACCOUNT: 'INIT_ACCOUNT',
 
   // wallet
@@ -74,9 +62,6 @@ const actions = {
   LOAD_KYC_RECOVERY_REQUEST: 'LOAD_KYC_RECOVERY_REQUEST',
   LOAD_KYC_RECOVERY_REQUEST_BLOB: 'LOAD_KYC_RECOVERY_REQUEST_BLOB',
 
-  // assets
-  LOAD_ASSETS: 'LOAD_ASSETS',
-
   // idle
   START_IDLE: 'START_IDLE',
   LOGOUT_IDLE: 'LOGOUT_IDLE',
@@ -86,11 +71,6 @@ const actions = {
 
   // identities
   LOAD_IDENTITIES_BY_ACCOUNT_ID: 'LOAD_IDENTITIES_BY_ACCOUNT_ID',
-
-  // businesses
-  LOAD_MY_BUSINESSES: 'LOAD_MY_BUSINESSES',
-  LOAD_ALL_BUSINESSES: 'LOAD_ALL_BUSINESSES',
-  LOAD_BUSINESS: 'LOAD_BUSINESS',
 }
 
 const getters = {
@@ -100,10 +80,6 @@ const getters = {
   // account
   account: 'account',
   accountId: 'accountId',
-  accountBalances: 'accountBalances',
-  accountBalancesByOwner: 'accountBalancesByOwner',
-  accountOwnedAssetsBalances: 'accountOwnedAssetsBalances',
-  accountBalanceByCode: 'accountBalanceByCode',
   accountRoleId: 'accountRoleId',
   accountDepositAddresses: 'accountDepositAddresses',
   accountKycBlob: 'accountKycBlob',
@@ -148,26 +124,6 @@ const getters = {
   // kyc recovery
   kycRecoveryRequest: 'kycRecoveryRequest',
 
-  // assets
-  assets: 'assets',
-  assetByCode: 'assetByCode',
-  assetsByOwner: 'assetsByOwner',
-  balancesAssets: 'balancesAssets',
-  balancesAssetsByOwner: 'balancesAssetsByOwner',
-  balancesBaseAssets: 'balancesBaseAssets',
-  depositableAssets: 'depositableAssets',
-  coinpaymentsAssets: 'coinpaymentsAssets',
-  transferableAssetsBalancesByOwner: 'transferableAssetsBalancesByOwner',
-  transferableAssetsBalances: 'transferableAssetsBalances',
-  withdrawableBalancesAssets: 'withdrawableBalancesAssets',
-  statsQuoteAsset: 'statsQuoteAsset',
-  ownedAssets: 'ownedAssets',
-  ownedBalancesAssets: 'ownedBalancesAssets',
-  baseAtomicSwapBalancesAssets: 'baseAtomicSwapBalancesAssets',
-  quoteAtomicSwapAssets: 'quoteAtomicSwapAssets',
-  baseAssets: 'baseAssets',
-  activeOwnedAssets: 'activeOwnedAssets',
-
   // idle-handler
   logoutAt: 'logoutAt',
 
@@ -176,14 +132,6 @@ const getters = {
   emailByAccountId: 'emailByAccountId',
   phoneNumberByAccountId: 'phoneNumberByAccountId',
   telegramUsernameByAccountId: 'telegramUsernameByAccountId',
-
-  // businesses
-  myBusinesses: 'myBusinesses',
-  allBusinesses: 'allBusinesses',
-  businessToBrowse: 'businessToBrowse',
-  isBusinessToBrowse: 'isBusinessToBrowse',
-  businessStatsQuoteAsset: 'businessStatsQuoteAsset',
-  isMyBusiness: 'isMyBusiness',
 }
 
 export const vuexTypes = {

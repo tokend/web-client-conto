@@ -208,13 +208,6 @@ $col-error-message-icon-color: rgba($col-error, 0.4);
 $col-top-bar-text: $col-text;
 $col-top-bar-tab: $_lightPurple;
 
-// form stepper colors
-$col-form-stepper-text: $col-primary;
-$col-form-stepper-icon: $col-text-on-dark-bg;
-$col-form-stepper-icon-background: $col-primary;
-$col-form-stepper-tab-active: $col-primary;
-$col-form-stepper-tab-border: $_thinPurple;
-
 // asset card colors
 $col-asset-card-background: $_white;
 $col-asset-card-header-background: $_athensGray;
@@ -244,10 +237,6 @@ $col-asset-logo-text: $col-text;
 // promo code logo
 $col-promo-code-logo-background: $_white;
 $col-promo-code-logo-text: $col-primary;
-
-// asset logo
-$col-asset-logo-dark-background: $_silverChalice;
-$col-asset-logo-dark-text: $_white;
 
 // terms colors
 $col-terms-title: $col-primary;

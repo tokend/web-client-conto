@@ -1,7 +1,6 @@
 import _get from 'lodash/get'
 import { vuexTypes } from './types'
 import { api } from '../api'
-import { BalanceRecord } from '@/js/records/entities/balance.record'
 import { keyValues } from '@/key-values'
 import { getCurrentAccId } from '@/js/helpers/api-helpers'
 import { buildKycRecoveryOp } from '@/js/helpers/kyc-helpers'
@@ -31,28 +30,6 @@ export const actions = {
     commit(vuexTypes.SET_ACCOUNT, response.data)
   },
 
-  async [vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS] (
-    { commit, rootGetters, getters }
-  ) {
-    const accountId = getters[vuexTypes.accountId]
-    // eslint-disable-next-line max-len
-    const businessStatsQuoteAsset = rootGetters[vuexTypes.businessStatsQuoteAsset]
-
-    const endpoint = `/v3/accounts/${accountId}/converted_balances/${businessStatsQuoteAsset}`
-    const { data } = await api.getWithSignature(endpoint, {
-      include: ['states', 'balance', 'balance.state', 'balance.asset'],
-    })
-
-    const balances = data.states.map(state => state.balance)
-
-    commit(
-      vuexTypes.UPDATE_ASSETS,
-      balances.map(b => b.asset),
-      { root: true }
-    )
-    commit(vuexTypes.SET_ACCOUNT_BALANCES_DETAILS, data.states)
-  },
-
   async [vuexTypes.INIT_ACCOUNT] ({ getters, dispatch, rootGetters }) {
     await dispatch(vuexTypes.LOAD_ACCOUNT, getters[vuexTypes.walletAccountId])
 
@@ -65,43 +42,12 @@ export const actions = {
     }
 
     await dispatch(vuexTypes.LOAD_KYC)
-
-    const isAccountCorporate = getters[vuexTypes.isAccountCorporate]
-    if (isAccountCorporate) {
-      await dispatch(
-        vuexTypes.LOAD_BUSINESS,
-        rootGetters[vuexTypes.accountId]
-      )
-    }
-    await dispatch(vuexTypes.LOAD_MY_BUSINESSES)
-    await dispatch(vuexTypes.LOAD_ASSETS)
-    await dispatch(vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS)
   },
 }
 
 export const getters = {
   [vuexTypes.account]: state => state.account,
   [vuexTypes.accountId]: state => state.account.id,
-  [vuexTypes.accountBalances]: state => state.balancesDetails
-    .map(item => new BalanceRecord(item, item.balance.asset.trailingDigits)),
-  [vuexTypes.accountBalancesByOwner]: (state, getters) => owner => {
-    return getters[vuexTypes.accountBalances]
-      .filter(item => item.asset.owner === owner)
-  },
-  [vuexTypes.accountOwnedAssetsBalances]: state => state.balancesDetails
-    .map(item => new BalanceRecord(item, item.balance.asset.trailingDigits))
-    .filter(i => i.asset.owner === state.account.id) || [],
-  [vuexTypes.transferableAssetsBalancesByOwner]: (a, getters, b, rootGetters) =>
-    accountId =>
-      getters[vuexTypes.accountBalances]
-        .filter(item => item.asset.isTransferable)
-        .filter(item => item.asset.owner === accountId),
-  [vuexTypes.transferableAssetsBalances]: (a, getters) =>
-    getters[vuexTypes.accountBalances]
-      .filter(item => item.asset.isTransferable),
-  [vuexTypes.accountBalanceByCode]: state => code => state.balancesDetails
-    .map(item => new BalanceRecord(item, item.balance.asset.trailingDigits))
-    .find(i => i.asset.code === code) || {},
   [vuexTypes.accountRoleId]: state => Number(
     _get(state.account, 'role.id')
   ),

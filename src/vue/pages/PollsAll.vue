@@ -89,7 +89,7 @@
 
 <script>
 import { vuexTypes } from '@/vuex'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
 import CollectionLoader from '@/vue/common/CollectionLoader'
@@ -156,10 +156,6 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      loadBalances: vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
-    }),
-
     async getList () {
       this.isLoading = true
 

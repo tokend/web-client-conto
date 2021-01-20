@@ -1,13 +1,11 @@
 import { vuexTypes, rootModule } from './index'
 
 import account from './account.module'
-import assets from './assets.module'
 import factors from './factors.module'
 import kyc from './kyc.module'
 import wallet from './wallet.module'
 import idleHandler from './idle-handler.module'
 import identities from './identities.module'
-import businesses from './businesses.module'
 import kycRecovery from './kyc-recovery.module'
 
 describe('vuex types unit tests', () => {
@@ -26,9 +24,6 @@ describe('vuex types unit tests', () => {
     for (const key of getModuleKeys(account)) {
       expect(vuexTypes).to.have.property(key)
     }
-    for (const key of getModuleKeys(assets)) {
-      expect(vuexTypes).to.have.property(key)
-    }
     for (const key of getModuleKeys(kyc)) {
       expect(vuexTypes).to.have.property(key)
     }
@@ -44,9 +39,6 @@ describe('vuex types unit tests', () => {
     for (const key of getModuleKeys(idleHandler)) {
       expect(vuexTypes).to.have.property(key)
     }
-    for (const key of getModuleKeys(businesses)) {
-      expect(vuexTypes).to.have.property(key)
-    }
     for (const key of getModuleKeys(kycRecovery)) {
       expect(vuexTypes).to.have.property(key)
     }
@@ -56,13 +48,11 @@ describe('vuex types unit tests', () => {
     const moduleKeys = [
       ...getModuleKeys(rootModule),
       ...getModuleKeys(account),
-      ...getModuleKeys(assets),
       ...getModuleKeys(kyc),
       ...getModuleKeys(factors),
       ...getModuleKeys(wallet),
       ...getModuleKeys(identities),
       ...getModuleKeys(idleHandler),
-      ...getModuleKeys(businesses),
       ...getModuleKeys(kycRecovery),
     ]
 

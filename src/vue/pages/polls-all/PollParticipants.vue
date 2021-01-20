@@ -27,7 +27,7 @@
       v-else
       class="statistics-sales-history__no-assets-msg"
       icon-name="chart-areaspline"
-      :title="'statistics-sales-history.no-assets-title' | globalize"
+      :title="'poll-participants.no-request-history-title' | globalize"
       :message="'poll-participants.no-request-history-desc' | globalize"
     />
   </div>

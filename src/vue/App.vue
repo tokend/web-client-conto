@@ -116,14 +116,11 @@ export default {
 
   methods: {
     ...mapActions({
-      loadAssets: vuexTypes.LOAD_ASSETS,
       loadAccount: vuexTypes.LOAD_ACCOUNT,
       decryptSecretSeed: vuexTypes.DECRYPT_SECRET_SEED,
       startIdle: vuexTypes.START_IDLE,
       logoutSession: vuexTypes.LOGOUT_SESSION,
       restoreSession: vuexTypes.RESTORE_SESSION,
-      loadBusiness: vuexTypes.LOAD_BUSINESS,
-      loadMyBusinesses: vuexTypes.LOAD_MY_BUSINESSES,
     }),
     ...mapMutations({
       popState: vuexTypes.POP_STATE,
@@ -133,10 +130,7 @@ export default {
       if (this.isLoggedIn) {
         await this.restoreSession()
         await this.loadAccount(this.walletAccountId)
-        await this.loadMyBusinesses()
       }
-      if (this.isAccountCorporate) this.loadBusiness(this.walletAccountId)
-      await this.loadAssets()
     },
 
     async getDecryptedSecretSeed () {
