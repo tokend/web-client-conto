@@ -3,7 +3,6 @@ import { mutations, actions, getters } from './account.module'
 import { vuexTypes } from './types'
 
 import accountJSON from '../test/mocks/account'
-import balancesDetailsJSON from '../test/mocks/account-balances-details'
 import { api } from '@/api'
 
 describe('account.module', () => {
