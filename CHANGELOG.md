@@ -21,13 +21,15 @@ for further information about branching and tagging conventions.
   - New `KycRequestRecord`
   - New `KycRecoveryRequestRecord`
   - New `RequestRecord` getters: `isExists`, `updatableId`
+- Formers:
+  - New `KycGeneralFormer`
+  - New `KycCorporateFormer`
+  - New `MassPaymentFormer`
 
 #### Changed
 - Extract `initApi()`, call it from the main.js, instead of App.vue
   (the api should be initialized before the App rendered)
 - `loadingDataViaLoop()` => `loadAllResponsePages()`, moved to `api-helpers.js`
-- Formers:
-  - New `KycGeneralFormer` and `KycCorporateFormer`
 - Proxied `DOCUMENT_TYPES` via Vue prototype as `$DOCUMENT_TYPES`
 - `vuexTypes.LOAD_ACCOUNT`’s `accountId` arg is optional now
 

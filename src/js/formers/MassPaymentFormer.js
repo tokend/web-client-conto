@@ -11,7 +11,6 @@ export class MassPaymentFormer extends Former {
 
   get _defaultAttrs () {
     return {
-      receivers: [],
       assetCode: '',
       amount: '',
       sourceBalanceId: '',

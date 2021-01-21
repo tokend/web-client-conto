@@ -133,7 +133,6 @@ export default {
     ...mapGetters([
       vuexTypes.transferableAssetsBalances,
       vuexTypes.accountBalanceByCode,
-      vuexTypes.accountId,
       vuexTypes.assetByCode,
     ]),
 
@@ -146,7 +145,6 @@ export default {
 
   async created () {
     this.form.receivers = this.receivers.map(i => i.email).join(', ')
-    this.former.setAttr('receivers', this.form.receivers)
     try {
       await this.loadAssets()
       await this.loadCurrentBalances()
@@ -168,7 +166,6 @@ export default {
       this.disableForm()
 
       try {
-        this.former.setAttr('receivers', this.form.receivers)
         const operations = await this.buildOperationsToSubmit()
         if (this.isEmailNotRegistered) {
           Bus.error('mass-payment-form.mass-send-not-available')
