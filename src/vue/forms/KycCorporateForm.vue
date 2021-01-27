@@ -165,6 +165,8 @@ export default {
       this.disableForm()
       try {
         const ops = await this.former.buildOps()
+        console.log('ops', ops)
+        console.log('...ops', ...ops)
         await api.postOperations(...ops)
 
         if (this.former.isUpdateOpBuilder) {

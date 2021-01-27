@@ -32,6 +32,7 @@
             <multiple-assets-send-form
               :is-disabled.sync="formMixin.isDisabled"
               :assets="transferableBalancesAssets"
+              :former="former"
               @submit="(form.assets = $event) && submit()"
             />
           </form>
@@ -143,8 +144,16 @@ export default {
     },
   },
 
+  watch: {
+    'form.receivers': async function () {
+      let emails = this.getParsedEmailsWithoutDuplicates()
+      this.former.setAttr('destinations', await this.getReceiversIds(emails))
+    },
+  },
+
   async created () {
     this.form.receivers = this.receivers.map(i => i.email).join(', ')
+
     try {
       await this.loadAssets()
       await this.loadCurrentBalances()
@@ -166,7 +175,10 @@ export default {
       this.disableForm()
 
       try {
-        const operations = await this.buildOperationsToSubmit()
+        console.log('submit')
+        const operations = await this.former.buildOps()
+        console.log('operations', operations)
+        // console.log('operations.flat()', operations.flat())
         if (this.isEmailNotRegistered) {
           Bus.error('mass-payment-form.mass-send-not-available')
           this.enableForm()
@@ -201,11 +213,15 @@ export default {
 
         // Core cannot handle more than 100 operations per transaction
         const chunkArray = _chunk(operations, NUMBER_OF_OPERATIONS)
-
+        console.log('chunkArray', chunkArray)
         await Promise.all(chunkArray.map(
-          array => api.postOperations(...array)
+          array => {
+            console.log('array', array)
+            console.log('...array', ...array)
+            api.postOperations(...array)
+          }
         ))
-
+        console.log('after')
         await this.loadCurrentBalances()
         this.clearFieldsWithOverriding({
           receivers: this.form.receivers,
@@ -221,23 +237,22 @@ export default {
       this.enableForm()
     },
 
-    async getOperationsByEmail (email) {
-      const receiverId = await this.getReceiverIdByEmail(email, this.receivers)
-      if (receiverId) {
-        this.former.setAttr('destination', receiverId)
-        return this.form.assets.map(asset => {
-          const sourceBalanceId = this.accountBalanceByCode(asset.code).id
-          this.former.setAttr('sourceBalanceId', sourceBalanceId)
-          this.former.setAttr('assetCode', asset.code)
-          this.former.setAttr('amount', asset.amount)
-          return this.former.buildOps()
+    async getReceiversIds (emails) {
+      let result = []
+      for (const email of emails) {
+        let receiverId = await this.getAccountIdByIdentifier(email)
+        if (!receiverId) {
+          this.isEmailNotRegistered = true
+        }
+        result.push({
+          email: email,
+          receiverId: receiverId,
         })
-      } else {
-        this.isEmailNotRegistered = true
       }
+      return result
     },
 
-    async buildOperationsToSubmit () {
+    getParsedEmailsWithoutDuplicates () {
       const emails = CsvUtil.parseConcat(this.form.receivers, {
         trim: true,
         filterEmpty: true,
@@ -245,14 +260,7 @@ export default {
       })
 
       this.isEmailNotRegistered = false
-
-      const emailsWithoutDuplicate = [...new Set(emails)]
-
-      const operations = await Promise.all(
-        emailsWithoutDuplicate.map(email => this.getOperationsByEmail(email))
-      )
-
-      return operations.flat()
+      return [...new Set(emails)]
     },
   },
 }

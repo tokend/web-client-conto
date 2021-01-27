@@ -111,6 +111,7 @@ import FormMixin from '@/vue/mixins/form.mixin'
 import { required } from '@validators'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { MassPaymentFormer } from '@/js/formers/MassPaymentFormer'
 
 const EVENTS = {
   submit: 'submit',
@@ -122,6 +123,7 @@ export default {
   props: {
     isDisabled: { type: Boolean, default: false },
     assets: { type: Array /** {@link AssetRecord} **/, required: true },
+    former: { type: MassPaymentFormer, required: true },
   },
   data: _ => ({
     form: {
@@ -155,8 +157,15 @@ export default {
     },
   },
 
+  watch: {
+    'form.assets' () {
+      this.former.setAttr('assetCodeAndAmount', this.form.assets)
+    },
+  },
+
   async created () {
     this.form.assets[0].code = this.assets[0].code
+    this.former.setAttr('assetCodeAndAmount', this.form.assets)
   },
   methods: {
     submit () {
