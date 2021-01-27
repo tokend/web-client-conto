@@ -67,7 +67,8 @@ export class MassPaymentFormer extends Former {
       }
     }
     if (operations.length) {
-      let results = base.PaymentBuilder.payment(...operations)
+      let results = operations.map(operation =>
+        base.PaymentBuilder.payment(operation))
       return results
     }
   }

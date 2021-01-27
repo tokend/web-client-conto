@@ -175,10 +175,7 @@ export default {
       this.disableForm()
 
       try {
-        console.log('submit')
         const operations = await this.former.buildOps()
-        console.log('operations', operations)
-        // console.log('operations.flat()', operations.flat())
         if (this.isEmailNotRegistered) {
           Bus.error('mass-payment-form.mass-send-not-available')
           this.enableForm()
@@ -213,15 +210,10 @@ export default {
 
         // Core cannot handle more than 100 operations per transaction
         const chunkArray = _chunk(operations, NUMBER_OF_OPERATIONS)
-        console.log('chunkArray', chunkArray)
         await Promise.all(chunkArray.map(
-          array => {
-            console.log('array', array)
-            console.log('...array', ...array)
-            api.postOperations(...array)
-          }
+          array => api.postOperations(...array)
         ))
-        console.log('after')
+
         await this.loadCurrentBalances()
         this.clearFieldsWithOverriding({
           receivers: this.form.receivers,
