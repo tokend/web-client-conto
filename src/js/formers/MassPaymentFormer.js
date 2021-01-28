@@ -1,6 +1,5 @@
 import { Former } from './Former'
 import { base } from '@tokend/js-sdk'
-import { getAccountBalanceIdByCode } from '@/js/helpers/balance'
 
 /**
  * Collects the attributes for mass-payment operations
@@ -11,12 +10,13 @@ export class MassPaymentFormer extends Former {
   attrs = this.attrs || this._defaultAttrs
 
   /**
-   * @param {Array} assetCodeAndAmount [ { code: '', amount: '' } ]
+   * @param {Array} assets
+   *   [{ code: '', amount: '', balanceId: '' } ]
    * @param {Array} destinations [ { receiverId: '' } ]
    */
   get _defaultAttrs () {
     return {
-      assetCodeAndAmount: [],
+      assets: [],
       destinations: [],
       fee: {
         sourceFee: {
@@ -35,14 +35,14 @@ export class MassPaymentFormer extends Former {
 
   async buildOps () {
     const operations = []
-    for (let i = 0; i < this.attrs.destinations.length; i++) {
-      for (let j = 0; j < this.attrs.assetCodeAndAmount.length; j++) {
-        if (this.attrs.destinations[i].receiverId) {
+    this.attrs.destinations.forEach((element) => {
+      this.attrs.assets.forEach((asset) => {
+        if (element.receiverId) {
           let operation = {
             sourceBalanceId:
-              getAccountBalanceIdByCode(this.attrs.assetCodeAndAmount[j].code),
-            destination: this.attrs.destinations[i].receiverId,
-            amount: String(this.attrs.assetCodeAndAmount[j].amount),
+              asset.balanceId,
+            destination: element.receiverId,
+            amount: String(asset.amount),
             feeData: {
               sourceFee: {
                 percent: this.attrs.fee.sourceFee.percent,
@@ -55,12 +55,13 @@ export class MassPaymentFormer extends Former {
             },
             isPaidFeeForRecipient: this.attrs.isPaidFeeForRecipient,
             subject: this.attrs.subject,
-            asset: this.attrs.assetCodeAndAmount[j].code,
+            asset: asset.code,
           }
           operations.push(operation)
         }
-      }
-    }
+      })
+    })
+
     if (operations.length) {
       let results = operations.map(operation =>
         base.PaymentBuilder.payment(operation))

@@ -127,7 +127,7 @@ export default {
   },
   data: _ => ({
     form: {
-      assets: [ { code: '', amount: '' } ],
+      assets: [ { code: '', amount: '', balanceId: '' } ],
     },
   }),
 
@@ -158,14 +158,16 @@ export default {
   },
 
   watch: {
-    'form.assets' () {
-      this.former.setAttr('assetCodeAndAmount', this.form.assets)
+    'form.assets.code' () {
+      this.former.setAttr('assets', this.form.assets)
     },
   },
 
-  async created () {
+  created () {
     this.form.assets[0].code = this.assets[0].code
-    this.former.setAttr('assetCodeAndAmount', this.form.assets)
+    this.form.assets[0].balanceId =
+      this.accountBalanceByCode(this.form.assets[0].code).id
+    this.former.setAttr('assets', this.form.assets)
   },
   methods: {
     submit () {
@@ -185,12 +187,15 @@ export default {
 
     setAssetCode (code, index) {
       this.form.assets[index].code = code
+      this.form.assets[index].balanceId =
+        this.accountBalanceByCode(code).id
     },
 
     addAsset () {
       this.form.assets.push({
         amount: '',
         code: this.assets[0].code,
+        balanceId: this.accountBalanceByCode(this.assets[0].code).id,
       })
     },
 
