@@ -1,6 +1,6 @@
 import { Former } from './Former'
 import { base } from '@tokend/js-sdk'
-import { store, vuexTypes } from '@/vuex'
+import { getAccountBalanceIdByCode } from '@/js/helpers/balance'
 
 /**
  * Collects the attributes for mass-payment operations
@@ -16,10 +16,8 @@ export class MassPaymentFormer extends Former {
   get _defaultAttrs () {
     return {
       assetCodeAndAmount: [],
-      sourceBalanceId: '',
       destinations: [
         {
-          email: '',
           receiverId: '',
         },
       ],
@@ -42,28 +40,28 @@ export class MassPaymentFormer extends Former {
     const operations = []
     for (let i = 0; i < this.attrs.destinations.length; i++) {
       for (let j = 0; j < this.attrs.assetCodeAndAmount.length; j++) {
-        let operation = {
-          sourceBalanceId:
-            // eslint-disable-next-line max-len
-            store.getters[vuexTypes.accountBalanceByCode](this.attrs.assetCodeAndAmount[j].code).id,
-          destination: this.attrs.destinations[i].receiverId,
-          amount: String(this.attrs.assetCodeAndAmount[j].amount),
-          feeData: {
-            sourceFee: {
-              percent: this.attrs.fee.sourceFee.percent,
-              fixed: this.attrs.fee.sourceFee.fixed,
+        if (this.attrs.destinations[i].receiverId) {
+          let operation = {
+            sourceBalanceId:
+              getAccountBalanceIdByCode(this.attrs.assetCodeAndAmount[j].code),
+            destination: this.attrs.destinations[i].receiverId,
+            amount: String(this.attrs.assetCodeAndAmount[j].amount),
+            feeData: {
+              sourceFee: {
+                percent: this.attrs.fee.sourceFee.percent,
+                fixed: this.attrs.fee.sourceFee.fixed,
+              },
+              destinationFee: {
+                percent: this.attrs.fee.destinationFee.percent,
+                fixed: this.attrs.fee.destinationFee.fixed,
+              },
             },
-            destinationFee: {
-              percent: this.attrs.fee.destinationFee.percent,
-              fixed: this.attrs.fee.destinationFee.fixed,
-            },
-          },
-          isPaidFeeForRecipient: this.attrs.isPaidFeeForRecipient,
-          subject: this.attrs.subject,
-          asset: this.attrs.assetCodeAndAmount[j].code,
+            isPaidFeeForRecipient: this.attrs.isPaidFeeForRecipient,
+            subject: this.attrs.subject,
+            asset: this.attrs.assetCodeAndAmount[j].code,
+          }
+          operations.push(operation)
         }
-
-        operations.push(operation)
       }
     }
     if (operations.length) {

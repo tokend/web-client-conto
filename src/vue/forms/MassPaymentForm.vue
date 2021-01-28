@@ -237,7 +237,6 @@ export default {
           this.isEmailNotRegistered = true
         }
         result.push({
-          email: email,
           receiverId: receiverId,
         })
       }
