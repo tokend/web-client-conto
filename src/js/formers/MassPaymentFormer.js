@@ -12,15 +12,12 @@ export class MassPaymentFormer extends Former {
 
   /**
    * @param {Array} assetCodeAndAmount [ { code: '', amount: '' } ]
+   * @param {Array} destinations [ { receiverId: '' } ]
    */
   get _defaultAttrs () {
     return {
       assetCodeAndAmount: [],
-      destinations: [
-        {
-          receiverId: '',
-        },
-      ],
+      destinations: [],
       fee: {
         sourceFee: {
           percent: '0',

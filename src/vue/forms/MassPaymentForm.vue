@@ -210,6 +210,7 @@ export default {
 
         // Core cannot handle more than 100 operations per transaction
         const chunkArray = _chunk(operations, NUMBER_OF_OPERATIONS)
+
         await Promise.all(chunkArray.map(
           array => api.postOperations(...array)
         ))
