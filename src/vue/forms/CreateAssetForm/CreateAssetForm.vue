@@ -24,8 +24,8 @@
 <script>
 import ManageAssetRequestMixin from './mixins/manage-asset-request.mixin'
 
-import InformationStepForm from './components/information-step-form'
-import AddQuoteAssetsStepForm from './components/add-quote-assets-step-form'
+import InformationStepForm from './components/InformationStepForm'
+import AddQuoteAssetsStepForm from './components/AddQuoteAssetsStepForm'
 import FormStepper from '@/vue/common/FormStepper'
 
 import { Bus } from '@/js/helpers/event-bus'
@@ -48,7 +48,7 @@ const STEPS = {
 }
 
 export default {
-  name: 'create-asset-form-simplified-module',
+  name: 'create-asset-form-simplified',
   components: {
     InformationStepForm,
     AddQuoteAssetsStepForm,
@@ -104,7 +104,7 @@ export default {
           return
         }
         this.isDisabled = true
-
+        // console.log('this.requestId', this.requestId)
         await this.submitCreateAssetRequest(this.requestId)
         Bus.success('create-asset-form.request-submitted-msg')
         this.$emit(EVENTS.submitted)

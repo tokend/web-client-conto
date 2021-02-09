@@ -40,6 +40,8 @@ export default {
      * @param {string|number} requestId - request Id
      */
     async submitCreateAssetRequest (requestId) {
+      // console.log('requestId', requestId)
+      // console.log('this.collectedAttributes', this.collectedAttributes)
       await Document.uploadDocumentsDeep(this.collectedAttributes)
 
       await api.postOperations(
