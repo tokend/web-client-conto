@@ -12,6 +12,7 @@
           :step="inputStep"
           :max="MAX_AMOUNT"
           @blur="touchField('form.amountToSell')"
+          @change="former.setAttr('amountToSell', form.amountToSell)"
           name="create-asset-form-amount-to-sell"
           :label="'create-asset-form.amount-to-sell-lbl' | globalize({
             quoteAsset: businessStatsQuoteAsset
@@ -32,6 +33,7 @@
     <atomic-swap-quote-assets-form
       :is-disabled.sync="isDisabled"
       @submit="submit"
+      :former="former"
     />
   </form>
 </template>
@@ -48,6 +50,7 @@ import {
 import config from '@/config'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
 
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
@@ -63,6 +66,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
+    former: { type: CreateAssetFormer, required: true },
   },
 
   data: _ => ({

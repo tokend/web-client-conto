@@ -143,6 +143,7 @@ import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { globalize } from '@/vue/filters/globalize'
 import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
+import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
 
 const EVENTS = {
   submit: 'submit',
@@ -155,6 +156,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
+    former: { type: CreateAssetFormer, required: true },
   },
   data: _ => ({
     form: {
@@ -222,9 +224,16 @@ export default {
     ]),
   },
 
+  watch: {
+    'form.quoteAssets' () {
+      this.former.setAttr('quoteAssets', this.form.quoteAssets)
+    },
+  },
+
   async created () {
     this.form.quoteAssets[0].asset = this.quoteAtomicSwapAssets[0] || {}
   },
+
   methods: {
     submit () {
       this.$emit(EVENTS.submit, this.form)

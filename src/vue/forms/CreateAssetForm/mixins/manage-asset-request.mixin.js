@@ -39,13 +39,11 @@ export default {
      * Submits "create asset request" operation
      * @param {string|number} requestId - request Id
      */
-    async submitCreateAssetRequest (requestId) {
-      // console.log('requestId', requestId)
-      // console.log('this.collectedAttributes', this.collectedAttributes)
+    async submitCreateAssetRequest () {
       await Document.uploadDocumentsDeep(this.collectedAttributes)
 
       await api.postOperations(
-        this.$buildAssetCreationRequestOperation(requestId),
+        this.$buildAssetCreationRequestOperation(),
         this.$buildPairCreationRequestOperation(),
       )
 
@@ -64,9 +62,9 @@ export default {
       }
     },
 
-    $buildAssetCreationRequestOperation (requestId) {
+    $buildAssetCreationRequestOperation () {
       const opts = {
-        requestID: requestId ? String(requestId) : NEW_CREATE_ASSET_REQUEST_ID,
+        requestID: NEW_CREATE_ASSET_REQUEST_ID,
         trailingDigitsCount: config.DECIMAL_POINTS,
         code: this.collectedAttributes.code,
         policies: this.collectedAttributes.policies,

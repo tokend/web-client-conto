@@ -20,7 +20,7 @@ export class CreateAssetFormer extends Former {
       isSellable: false,
       policies: 33,
       amountToSell: '',
-      collectedAttributes: {},
+      quoteAssets: {},
     }
   }
 

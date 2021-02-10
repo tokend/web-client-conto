@@ -10,12 +10,14 @@
         :is-disabled.sync="isDisabled"
         @submit="submit"
         @update-is-sellable="setIsSellableAsset"
+        :former="former"
       />
 
       <add-quote-assets-step-form
         v-show="currentStep === STEPS.advanced.number"
         :is-disabled.sync="isDisabled"
         @submit="submit"
+        :former="former"
       />
     </form-stepper>
   </div>
@@ -30,6 +32,7 @@ import FormStepper from '@/vue/common/FormStepper'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -55,6 +58,13 @@ export default {
     FormStepper,
   },
   mixins: [ManageAssetRequestMixin],
+
+  props: {
+    former: {
+      type: CreateAssetFormer,
+      default: () => new CreateAssetFormer(),
+    },
+  },
 
   data: _ => ({
     isDisabled: false,
@@ -104,8 +114,7 @@ export default {
           return
         }
         this.isDisabled = true
-        // console.log('this.requestId', this.requestId)
-        await this.submitCreateAssetRequest(this.requestId)
+        await this.submitCreateAssetRequest()
         Bus.success('create-asset-form.request-submitted-msg')
         this.$emit(EVENTS.submitted)
       } catch (e) {
