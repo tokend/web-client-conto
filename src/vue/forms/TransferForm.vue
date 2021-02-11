@@ -48,6 +48,7 @@
                 <amount-input-field
                   v-model="form.amount"
                   name="transfer-amount"
+                  @change="former.setAttr('amount', form.amount)"
                   validation-type="outgoing"
                   :max="balance.balance"
                   :label="'transfer-form.amount-lbl' | globalize"
@@ -76,6 +77,7 @@
                 <textarea-field
                   name="transfer-description"
                   v-model="form.subject"
+                  @input="former.setAttr('subject', form.subject)"
                   :label="'transfer-form.subject-lbl' | globalize({
                     length: MAX_SUBJECT_LENGTH
                   })"
@@ -95,7 +97,7 @@
               </template>
               <button
                 v-ripple
-                v-if="!formMixin.isConfirmationShown"
+                v-else
                 type="submit"
                 class="app__form-submit-btn app__button-raised"
                 :disabled="formMixin.isDisabled"
@@ -134,6 +136,7 @@ import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import { vueRoutes } from '@/vue-router/routes'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { TransferFormer } from '@/js/formers/TransferFormer'
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { base } from '@tokend/js-sdk'
@@ -166,6 +169,7 @@ export default {
   ],
   props: {
     assetToTransfer: { type: String, default: '' },
+    former: { type: TransferFormer, default: () => new TransferFormer() },
   },
   data: () => ({
     MAX_SUBJECT_LENGTH,
@@ -176,10 +180,6 @@ export default {
       amount: '',
       recipient: '',
       subject: '',
-      isPaidForRecipient: false,
-    },
-    view: {
-      opts: {},
     },
     isLoaded: false,
     isLoadFailed: false,
@@ -212,7 +212,9 @@ export default {
       vuexTypes.walletEmail,
     ]),
     balance () {
-      return this.accountBalanceByCode(this.form.asset.code)
+      const balance = this.accountBalanceByCode(this.form.asset.code)
+      this.former.setAttr('sourceBalanceId', balance.id)
+      return balance
     },
     assets () {
       return this.transferableAssetsBalances
@@ -239,13 +241,14 @@ export default {
       if (!this.isFormValid()) return
       this.formMixin.isConfirmationShown = false
       try {
-        await api.postOperations(this.buildPaymentOperation())
+        const operation = this.former.buildOps()
+        await api.postOperations(operation)
 
         Bus.success('transfer-form.payment-successful')
         this.$emit(EVENTS.operationSubmitted)
 
         await this.loadCurrentBalances()
-        this.rerenderForm()
+        this.isFeesLoaded = false
       } catch (error) {
         ErrorHandler.process(error)
       }
@@ -253,12 +256,15 @@ export default {
     },
     async trySend () {
       if (!this.isFormValid()) return
+
       this.disableForm()
       const recipientAccountId =
         await this.getCounterparty(this.form.recipient)
+
       if (recipientAccountId) {
         this.isSendingOnNotExistAccount = false
         this.recipientAccountId = recipientAccountId
+        this.former.setAttr('destination', this.recipientAccountId)
         this.submit()
       } else {
         if (this.formMixin.isConfirmationShown) {
@@ -275,6 +281,7 @@ export default {
           this.formMixin.isConfirmationShown = false
           // eslint-disable-next-line max-len
           this.recipientAccountId = await this.createAccountAndGetAccountIdByEmail(this.form.recipient)
+          this.former.setAttr('destination', this.recipientAccountId)
           this.submit()
         } catch (e) {
           ErrorHandler.process(e)
@@ -292,44 +299,8 @@ export default {
       }
     },
     hideConfirmationForm () {
-      this.enableForm()
-      this.formMixin.isConfirmationShown = false
+      this.hideConfirmation()
       this.isSendingOnNotExistAccount = false
-    },
-    buildPaymentOperation () {
-      // let subject = {
-      //   subject: this.form.subject,
-      // }
-      // if (this.isSendingOnNotExistAccount) {
-      //   subject.sender = this.accountId
-      //   subject.email = this.form.recipient
-      // }
-      // subject = JSON.stringify(subject)
-      return base.PaymentBuilder.payment({
-        sourceBalanceId: this.balance.id,
-        destination: this.recipientAccountId,
-        amount: this.form.amount,
-        feeData: {
-          sourceFee: {
-            percent: '0',
-            fixed: '0',
-          },
-          destinationFee: {
-            percent: '0',
-            fixed: '0',
-          },
-          sourcePaysForDest: this.form.isPaidForRecipient,
-        },
-        subject: this.form.subject,
-        asset: this.form.asset.code,
-      })
-    },
-    rerenderForm () {
-      this.isFeesLoaded = false
-      setTimeout(() => {
-        this.clearFields()
-        this.setAsset()
-      }, 1)
     },
     setAsset (payload) {
       const assetCode = payload || this.assetToTransfer
@@ -337,6 +308,7 @@ export default {
         .find(asset => asset.code === assetCode) ||
         this.assets[0] ||
         {}
+      this.former.setAttr('assetCode', this.form.asset.code)
     },
   },
 }

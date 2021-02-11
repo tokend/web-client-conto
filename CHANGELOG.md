@@ -13,6 +13,10 @@ for further information about branching and tagging conventions.
   - `api-helpers.js` - Includes reusable actions with the API
   - `kyc-helpers` - Includes kyc-related helpers
   - `scroll-helpers.js` - At the moment only `scrollToTop()` action
+- Formers:
+  - New `KycGeneralFormer`
+  - New `KycCorporateFormer`
+  - New `TradeFormer`
 - Records:
   - New `BlobRecord`
   - New `KycRecord`
