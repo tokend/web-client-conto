@@ -3,9 +3,7 @@ import { Document, base } from '@tokend/js-sdk'
 import config from '@/config'
 import { keyValues } from '@/key-values'
 import { DateUtil } from '@/js/utils'
-import { api } from '@/api'
 import { NEW_CREATE_ASSET_REQUEST_ID } from '@/js/const/asset.const'
-import { buildPairCreationRequestOperation } from '@/js/helpers/pair-creation'
 
 /**
  * Collects the attributes for create asset operation
@@ -30,15 +28,9 @@ export class CreateAssetFormer extends Former {
     }
   }
 
-  async buildOp () {
+  async buildOps () {
     await Document.uploadDocuments([this.attrs.logo])
-    await api.postOperations(
-      this._buildAssetCreationRequestOperation(),
-      buildPairCreationRequestOperation(this.attrs.assetCode, this.attrs.price)
-    )
-  }
 
-  _buildAssetCreationRequestOperation () {
     const opts = {
       requestID: NEW_CREATE_ASSET_REQUEST_ID,
       trailingDigitsCount: config.DECIMAL_POINTS,

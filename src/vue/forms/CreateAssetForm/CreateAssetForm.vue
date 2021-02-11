@@ -35,6 +35,7 @@ import { ErrorHandler } from '@/js/helpers/error-handler'
 import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
 import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
 import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation'
+import { buildPairCreationRequestOperation } from '@/js/helpers/pair-creation'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { api } from '@/api'
@@ -120,9 +121,14 @@ export default {
         }
         this.isDisabled = true
 
-        await this.former.buildOp()
+        let operation = await this.former.buildOps()
+        await api.postOperations(operation)
         await api.postOperations(
-          await buildIssuanceCreationOperation(this.former.attrs.assetCode),
+          await buildIssuanceCreationOperation(this.former.attrs.assetCode)
+        )
+        buildPairCreationRequestOperation(
+          this.former.attrs.assetCode,
+          this.former.attrs.price
         )
 
         if (this.former.attrs.isSellable) {
