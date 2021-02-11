@@ -1,5 +1,11 @@
 import { Former } from './Former'
-import { Document } from '@tokend/js-sdk'
+import { Document, base } from '@tokend/js-sdk'
+import config from '@/config'
+import { keyValues } from '@/key-values'
+import { DateUtil } from '@/js/utils'
+import { NEW_CREATE_ASSET_REQUEST_ID } from '@/js/const/asset.const'
+import { buildPairCreationRequestOperation } from '@/js/helpers/pair-creation'
+import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation'
 
 /**
  * Collects the attributes for create asset operation
@@ -26,5 +32,42 @@ export class CreateAssetFormer extends Former {
 
   async buildOp () {
     await Document.uploadDocuments([this.attrs.logo])
+    this._buildAssetCreationRequestOperation()
+    buildPairCreationRequestOperation()
+    buildIssuanceCreationOperation(this.attrs.assetCode)
+
+    if (this.attrs.isSellable) {
+      await this.createAtomicSwapAsk({
+        baseAssetCode: this.attrs.assetCode,
+        amount: this.attrs.amountToSell,
+        price: this.attrs.price,
+        quoteAssets: this.attrs.quoteAssets,
+      })
+    }
+  }
+
+  _buildAssetCreationRequestOperation () {
+    const opts = {
+      requestID: NEW_CREATE_ASSET_REQUEST_ID,
+      trailingDigitsCount: config.DECIMAL_POINTS,
+      code: this.attrs.assetCode,
+      policies: this.attrs.policies,
+      assetType: String(keyValues.assetTypeDefault),
+      maxIssuanceAmount: config.MAX_AMOUNT,
+      preissuedAssetSigner: config.NULL_ASSET_SIGNER,
+      initialPreissuedAmount: config.MAX_AMOUNT,
+      creatorDetails: {
+        name: this.attrs.assetName,
+        logo: this.attrs.logo,
+        stellar: {},
+        description: this.attrs.description,
+        ...(this.attrs.expirationDate
+          ? { 'expires_at': DateUtil.toTimestamp(this.attrs.expirationDate) }
+          : {}
+        ),
+      },
+    }
+
+    return base.ManageAssetBuilder.assetCreationRequest(opts)
   }
 }

@@ -232,6 +232,7 @@ export default {
 
   async created () {
     this.form.quoteAssets[0].asset = this.quoteAtomicSwapAssets[0] || {}
+    this.former.setAttr('quoteAssets', this.form.quoteAssets)
   },
 
   methods: {
