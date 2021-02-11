@@ -3,9 +3,9 @@ import { Document, base } from '@tokend/js-sdk'
 import config from '@/config'
 import { keyValues } from '@/key-values'
 import { DateUtil } from '@/js/utils'
+import { api } from '@/api'
 import { NEW_CREATE_ASSET_REQUEST_ID } from '@/js/const/asset.const'
 import { buildPairCreationRequestOperation } from '@/js/helpers/pair-creation'
-import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation'
 
 /**
  * Collects the attributes for create asset operation
@@ -32,18 +32,10 @@ export class CreateAssetFormer extends Former {
 
   async buildOp () {
     await Document.uploadDocuments([this.attrs.logo])
-    this._buildAssetCreationRequestOperation()
-    buildPairCreationRequestOperation()
-    buildIssuanceCreationOperation(this.attrs.assetCode)
-
-    if (this.attrs.isSellable) {
-      await this.createAtomicSwapAsk({
-        baseAssetCode: this.attrs.assetCode,
-        amount: this.attrs.amountToSell,
-        price: this.attrs.price,
-        quoteAssets: this.attrs.quoteAssets,
-      })
-    }
+    await api.postOperations(
+      this._buildAssetCreationRequestOperation(),
+      buildPairCreationRequestOperation(this.attrs.assetCode, this.attrs.price)
+    )
   }
 
   _buildAssetCreationRequestOperation () {

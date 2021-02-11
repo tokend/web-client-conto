@@ -33,9 +33,11 @@ import FormStepper from '@/vue/common/FormStepper'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
-
+import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
+import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { api } from '@/api'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -57,7 +59,8 @@ export default {
     AddQuoteAssetsStepForm,
     FormStepper,
   },
-  mixins: [ManageAssetRequestMixin],
+
+  mixins: [ManageAssetRequestMixin, AtomicSwapAskMixin],
 
   props: {
     former: {
@@ -77,6 +80,8 @@ export default {
     ...mapGetters([
       vuexTypes.accountId,
       vuexTypes.businessStatsQuoteAsset,
+      vuexTypes.accountBalanceId,
+      vuexTypes.accountBalanceByCode,
     ]),
 
     getSteps () {
@@ -114,7 +119,21 @@ export default {
           return
         }
         this.isDisabled = true
-        await this.submitCreateAssetRequest()
+
+        await this.former.buildOp()
+        await api.postOperations(
+          await buildIssuanceCreationOperation(this.former.attrs.assetCode),
+        )
+
+        if (this.former.attrs.isSellable) {
+          await this.createAtomicSwapAsk({
+            baseAssetCode: this.former.attrs.assetCode,
+            amount: this.former.attrs.amountToSell,
+            price: this.former.attrs.price,
+            quoteAssets: this.former.attrs.quoteAssets,
+          })
+        }
+
         Bus.success('create-asset-form.request-submitted-msg')
         this.$emit(EVENTS.submitted)
       } catch (e) {

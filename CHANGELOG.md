@@ -17,6 +17,7 @@ for further information about branching and tagging conventions.
   - New `KycGeneralFormer`
   - New `KycCorporateFormer`
   - New `TradeFormer`
+  - New `CreateAssetFormer`
 - Records:
   - New `BlobRecord`
   - New `KycRecord`
@@ -25,8 +26,6 @@ for further information about branching and tagging conventions.
   - New `KycRequestRecord`
   - New `KycRecoveryRequestRecord`
   - New `RequestRecord` getters: `isExists`, `updatableId`
-- Formers:
-  - New `CreateAssetFormer`
 
 #### Changed
 - Extract `initApi()`, call it from the main.js, instead of App.vue
