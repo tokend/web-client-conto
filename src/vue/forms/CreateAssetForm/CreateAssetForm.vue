@@ -36,8 +36,7 @@ import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
 import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
 import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation'
 import { buildPairCreationRequestOperation } from '@/js/helpers/pair-creation'
-import { mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
+import { createAtomicSwapAsk } from '@/js/helpers/atomic-swap-helper'
 import { api } from '@/api'
 
 const EVENTS = {
@@ -78,13 +77,6 @@ export default {
   }),
 
   computed: {
-    ...mapGetters([
-      vuexTypes.accountId,
-      vuexTypes.businessStatsQuoteAsset,
-      vuexTypes.accountBalanceId,
-      vuexTypes.accountBalanceByCode,
-    ]),
-
     getSteps () {
       return {
         information: {
@@ -124,15 +116,17 @@ export default {
         let operation = await this.former.buildOps()
         await api.postOperations(operation)
         await api.postOperations(
-          await buildIssuanceCreationOperation(this.former.attrs.assetCode)
+          buildPairCreationRequestOperation(
+            this.former.attrs.assetCode,
+            this.former.attrs.price
+          )
         )
-        buildPairCreationRequestOperation(
-          this.former.attrs.assetCode,
-          this.former.attrs.price
+        await api.postOperations(
+          await buildIssuanceCreationOperation(this.former.attrs.assetCode)
         )
 
         if (this.former.attrs.isSellable) {
-          await this.createAtomicSwapAsk({
+          await createAtomicSwapAsk({
             baseAssetCode: this.former.attrs.assetCode,
             amount: this.former.attrs.amountToSell,
             price: this.former.attrs.price,
