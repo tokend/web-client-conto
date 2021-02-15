@@ -10,6 +10,7 @@
       <template v-else>
         <information-step-form
           :record="request || asset"
+          :former="former"
           :is-disabled.sync="isDisabled"
           @submit="submit"
         />
@@ -23,13 +24,18 @@
 </template>
 
 <script>
-import ManageAssetRequestMixin from './mixins/manage-asset-request.mixin'
-import SkeletonLoaderStepForm from './components/skeleton-loader-step-form'
-import InformationStepForm from './components/information-step-form'
+import {
+  getUpdateAssetRequestById,
+  getUpdatableRequest,
+} from '@/js/helpers/update-asset-request-helper'
+import SkeletonLoaderStepForm from './components/SkeletonLoaderStepForm'
+import InformationStepForm from './components/InformationStepForm'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
+import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { UpdateAssetFormer } from '@/js/formers/UpdateAssetFormer'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
@@ -38,13 +44,12 @@ const EVENTS = {
 }
 
 export default {
-  name: 'update-asset-form-module',
+  name: 'update-asset-form',
   components: {
     InformationStepForm,
     SkeletonLoaderStepForm,
     ErrorMessage,
   },
-  mixins: [ManageAssetRequestMixin],
   props: {
     requestId: {
       type: String,
@@ -53,6 +58,10 @@ export default {
     assetCode: {
       type: String,
       default: '',
+    },
+    former: {
+      type: UpdateAssetFormer,
+      default: () => new UpdateAssetFormer(),
     },
   },
 
@@ -81,6 +90,7 @@ export default {
     async init () {
       try {
         await this.loadUpdateAssetRecord()
+        this.former.populate(this.request || this.asset)
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -101,22 +111,22 @@ export default {
       let request
 
       if (this.requestId) {
-        request = await this.getUpdateAssetRequestById(
+        request = await getUpdateAssetRequestById(
           this.requestId,
           this.accountId
         )
       } else if (this.assetCode) {
-        request = await this.getUpdatableRequest(this.assetCode, this.accountId)
+        request = await getUpdatableRequest(this.assetCode, this.accountId)
       }
 
       return request
     },
 
-    async submit (form) {
+    async submit () {
       this.isDisabled = true
       try {
-        this.collectAssetAttributes(form)
-        await this.submitUpdateAssetRequest(this.requestId)
+        const operation = await this.former.buildOp()
+        await api.postOperations(operation)
         Bus.success('update-asset-form-simplified.request-submitted-msg')
         this.$emit(EVENTS.submitted)
       } catch (e) {

@@ -17,6 +17,7 @@ for further information about branching and tagging conventions.
   - New `KycGeneralFormer`
   - New `KycCorporateFormer`
   - New `TradeFormer`
+  - New `UpdateAssetFormer`
 - Records:
   - New `BlobRecord`
   - New `KycRecord`
@@ -38,6 +39,8 @@ for further information about branching and tagging conventions.
 - Old key-value module
 - Old `ChangeRoleRecord`
 - Old `verification-form.mixin.js`
+- Modules:
+  - `update-asset-form-simplified`
 
 #### Fixed
 - A bug with `MarkdownField` length

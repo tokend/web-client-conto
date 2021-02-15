@@ -60,7 +60,7 @@
         {{ 'assets.update-drawer-title' | globalize }}
       </template>
 
-      <update-asset-form-simplified-module
+      <update-asset-form
         v-if="selectedBalance.asset"
         :asset-code="selectedBalance.asset.code"
         @submitted="(isAssetUpdateDrawerShown = false) ||
@@ -92,7 +92,7 @@ import CardList from '@/vue/common/CardList'
 import AssetAttributesViewer from '../shared/components/asset-attributes-viewer'
 import AssetActions from './components/asset-actions'
 import SkeletonCardsLoader from '@/vue/common/skeleton-loader/SkeletonCardsLoader'
-import UpdateAssetFormSimplifiedModule from '@modules/update-asset-form-simplified'
+import UpdateAssetForm from '@/vue/forms/UpdateAssetForm'
 import AssetCard from './components/asset-card'
 import TransferForm from '@/vue/forms/TransferForm'
 import UpdateList from '@/vue/mixins/update-list.mixin'
@@ -112,7 +112,7 @@ export default {
     AssetAttributesViewer,
     AssetActions,
     SkeletonCardsLoader,
-    UpdateAssetFormSimplifiedModule,
+    UpdateAssetForm,
     AssetCard,
     TransferForm,
     AssetBuybackViewer,
