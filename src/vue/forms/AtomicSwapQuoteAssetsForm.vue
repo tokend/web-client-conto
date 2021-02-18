@@ -143,7 +143,7 @@ import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { globalize } from '@/vue/filters/globalize'
 import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
-import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
 
 const EVENTS = {
   submit: 'submit',
@@ -156,7 +156,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
-    former: { type: CreateAssetFormer, required: true },
+    former: { type: AtomicSwapFormer, required: true },
   },
   data: _ => ({
     form: {
@@ -233,11 +233,12 @@ export default {
   async created () {
     this.form.quoteAssets[0].asset = this.quoteAtomicSwapAssets[0] || {}
     this.former.setAttr('quoteAssets', this.form.quoteAssets)
+    this.former.setAttr('priceAsset', this.statsQuoteAsset.code)
   },
 
   methods: {
     submit () {
-      this.$emit(EVENTS.submit, this.form)
+      this.$emit(EVENTS.submit)
     },
 
     isAssetRepeated (assetCode, type) {

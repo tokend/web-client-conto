@@ -143,7 +143,7 @@ import {
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
+import { AssetFormer } from '@/js/formers/AssetFormer'
 
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
@@ -160,7 +160,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
-    former: { type: CreateAssetFormer, required: true },
+    former: { type: AssetFormer, required: true },
   },
 
   data: _ => ({
@@ -225,7 +225,6 @@ export default {
 
   methods: {
     updateIsSellable () {
-      this.former.setAttr('isSellable', this.form.isSellable)
       this.$emit(EVENTS.updateIsSellable, this.form.isSellable)
     },
     getAssetCode () {

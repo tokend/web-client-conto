@@ -101,8 +101,8 @@ import { BusinessAssetRecord } from '@/js/records/entities/business-asset.record
 import { api } from '@/api'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { MathUtil } from '@/js/utils'
-import { base } from '@tokend/js-sdk'
 import { Bus } from '@/js/helpers/event-bus'
+import { getPaymentOperation } from '@/js/helpers/payment-operation-helper'
 
 const EVENTS = {
   contractCreated: 'contract-created',
@@ -183,7 +183,12 @@ export default {
       this.isFormSubmitting = true
       try {
         const { data: paymentAccount } = await api.getWithSignature('/integrations/sponsorship/info')
-        const paymentOperation = this.buildPaymentOperation(paymentAccount.id)
+        const paymentOperation = getPaymentOperation({
+          destinationAccountId: paymentAccount.id,
+          amount: this.totalAmount,
+          assetCode: this.form.assetCode,
+          subject: '',
+        })
         const paymentTx = await api.getTransaction(paymentOperation)
         const contract = this.buildContract(paymentTx)
         await api.postWithSignature('/integrations/sponsorship/contracts', contract)
@@ -207,27 +212,6 @@ export default {
         max_users_count: this.businessAsset.holders,
         tx: paymentTx,
       }
-    },
-
-    buildPaymentOperation (paymentAccount) {
-      return base.PaymentBuilder.payment({
-        sourceBalanceId: this.assetBalance.id,
-        destination: paymentAccount,
-        amount: this.totalAmount,
-        feeData: {
-          sourceFee: {
-            percent: '0',
-            fixed: '0',
-          },
-          destinationFee: {
-            percent: '0',
-            fixed: '0',
-          },
-          sourcePaysForDest: false,
-        },
-        subject: '',
-        asset: this.form.assetCode,
-      })
     },
   },
 

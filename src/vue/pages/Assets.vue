@@ -101,7 +101,7 @@ export default {
     await this.loadMyBusinesses()
 
     if (this.isAccountCorporate && this.ownedAssets.length > 0) {
-      this.setBusinessOwnerId(this.accountId)
+      this.setBusinessOwnerId()
     }
   },
 

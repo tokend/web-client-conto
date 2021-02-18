@@ -25,7 +25,7 @@
       </template>
 
       <update-atomic-swap-form
-        :atomic-swap-ask="atomicSwapAsk"
+        :former="former"
         @updated-atomic-swap="(isUpdateAtomicSwapDrawerShown = false) ||
           $emit(EVENTS.closeDrawerAndUpdateList)"
       />
@@ -37,7 +37,7 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import UpdateAtomicSwapForm from '@/vue/forms/UpdateAtomicSwapForm'
 import Drawer from '@/vue/common/Drawer'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
@@ -54,7 +54,7 @@ export default {
   },
   mixins: [FormMixin],
   props: {
-    atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
+    former: { type: AtomicSwapFormer, required: true },
   },
   data: _ => ({
     isAtomicSwapCanceling: false,
@@ -68,7 +68,7 @@ export default {
       this.isAtomicSwapCanceling = true
 
       try {
-        await api.deleteWithSignature(`/integrations/marketplace/offers/${this.atomicSwapAsk.id}`)
+        await api.deleteWithSignature(`/integrations/marketplace/offers/${this.former.attrs.requestId}`)
         Bus.success('atomic-swap-actions.atomic-swap-canceled-msg')
         this.$emit(EVENTS.closeDrawerAndUpdateList)
       } catch (e) {

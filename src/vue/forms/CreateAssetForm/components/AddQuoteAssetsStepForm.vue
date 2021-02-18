@@ -32,7 +32,7 @@
 
     <atomic-swap-quote-assets-form
       :is-disabled.sync="isDisabled"
-      @submit="submit"
+      @submit="isFormValid() && submit()"
       :former="former"
     />
   </form>
@@ -50,7 +50,7 @@ import {
 import config from '@/config'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
-import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
 
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
@@ -66,13 +66,12 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
-    former: { type: CreateAssetFormer, required: true },
+    former: { type: AtomicSwapFormer, required: true },
   },
 
   data: _ => ({
     form: {
       amountToSell: '',
-      quoteAssets: [],
     },
     MIN_AMOUNT: config.MIN_AMOUNT,
     MAX_AMOUNT: config.MAX_AMOUNT,
@@ -100,11 +99,8 @@ export default {
   },
 
   methods: {
-    submit (form) {
-      if (this.isFormValid()) {
-        this.form.quoteAssets = form.quoteAssets
-        this.$emit(EVENTS.submit, this.form)
-      }
+    submit () {
+      this.$emit(EVENTS.submit)
     },
   },
 }

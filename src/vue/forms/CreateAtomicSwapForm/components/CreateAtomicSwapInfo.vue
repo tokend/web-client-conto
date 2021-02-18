@@ -43,6 +43,7 @@
         <amount-input-field
           v-model="form.amount"
           name="create-atomic-swap-amount"
+          @change="former.setAttr('amountToSell', form.amount)"
           :validation-type="getValidationType"
           :label="'create-atomic-swap-form.amount-lbl' | globalize"
           :asset="form.asset"
@@ -60,6 +61,7 @@
           :max="MAX_PRICE"
           :min="minPrice"
           @blur="touchField('form.price')"
+          @change="former.setAttr('price', form.price)"
           name="create-atomic-swap-quote-asset-price"
           :label="'create-atomic-swap-form.price-lbl' | globalize({
             asset: statsQuoteAsset.code
@@ -74,15 +76,16 @@
     </div>
     <atomic-swap-quote-assets-form
       :is-disabled.sync="formMixin.isDisabled || isHaveBalance"
-      @submit="setQuoteAssets($event) || submit()"
+      :former="former"
+      @submit="submit()"
     />
   </form>
 </template>
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
 import AtomicSwapQuoteAssetsForm from '@/vue/forms/AtomicSwapQuoteAssetsForm'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
 import config from '@/config'
 
 import {
@@ -95,8 +98,9 @@ import { vuexTypes } from '@/vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { api } from '@/api'
-import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils/math.util'
+import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation-helper'
+import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
 const EVENTS = {
   createdAtomicSwap: 'created-atomic-swap',
@@ -108,17 +112,22 @@ const VALIDATION_TYPES = {
 }
 
 export default {
-  name: 'create-atomic-swap-form',
+  name: 'create-atomic-swap-info',
   components: {
     AtomicSwapQuoteAssetsForm,
   },
-  mixins: [FormMixin, AtomicSwapAskMixin],
+  mixins: [FormMixin],
+  props: {
+    former: {
+      type: AtomicSwapFormer,
+      default: () => new AtomicSwapFormer(),
+    },
+  },
   data: _ => ({
     form: {
       asset: {},
       amount: '',
       price: '',
-      quoteAssets: [],
     },
     isLoaded: false,
     isLoadFailed: false,
@@ -145,6 +154,8 @@ export default {
     ...mapGetters({
       baseAtomicSwapBalancesAssets: vuexTypes.baseAtomicSwapBalancesAssets,
       accountId: vuexTypes.accountId,
+      statsQuoteAsset: vuexTypes.statsQuoteAsset,
+      accountBalanceByCode: vuexTypes.accountBalanceByCode,
     }),
 
     accountBalance () {
@@ -164,15 +175,24 @@ export default {
         ? VALIDATION_TYPES.atomicSwap
         : VALIDATION_TYPES.outgoing
     },
+
+    minPrice () {
+      return this.statsQuoteAsset.trailingDigitsCount
+        ? inputStepByDigitsCount(this.statsQuoteAsset.trailingDigitsCount)
+        : inputStepByDigitsCount(config.DECIMAL_POINTS)
+    },
   },
 
   async created () {
     this.form.asset = this.baseAtomicSwapBalancesAssets[0] || {}
+    this.former.setAttr('assetCode', this.form.asset.code)
+    this.former.setAttr('priceAsset', this.statsQuoteAsset.code)
   },
   methods: {
     setAssetByCode (code) {
       this.form.asset = this.baseAtomicSwapBalancesAssets
         .find(item => item.code === code)
+      this.former.setAttr('assetCode', this.form.asset.code)
     },
 
     async submit () {
@@ -181,16 +201,16 @@ export default {
 
       try {
         if (this.isAssetOwner && this.isAmountMoreThanBalance()) {
-          const createIssuanceOperation = this.buildCreateIssuanceOperation()
-          await api.postOperations(createIssuanceOperation)
+          const buildIssuance = await buildIssuanceCreationOperation({
+            assetCode: this.former.attrs.assetCode,
+            amount: this.getIssuanceAmount(),
+            receiver: this.accountBalance.id,
+          })
+          await api.postOperations(buildIssuance)
         }
 
-        await this.createAtomicSwapAsk({
-          baseAssetCode: this.form.asset.code,
-          amount: this.form.amount,
-          price: this.form.price,
-          quoteAssets: this.form.quoteAssets,
-        })
+        const operation = await this.former.buildOp()
+        await api.postWithSignature('/integrations/marketplace/offers', operation)
         Bus.success('create-atomic-swap-form.created-atomic-swap-msg')
         this.$emit(EVENTS.createdAtomicSwap)
       } catch (e) {
@@ -198,23 +218,6 @@ export default {
       }
 
       this.enableForm()
-    },
-
-    buildCreateIssuanceOperation () {
-      const operation = base.CreateIssuanceRequestBuilder
-        .createIssuanceRequest({
-          asset: this.form.asset.code,
-          amount: this.getIssuanceAmount(),
-          receiver: this.accountBalance.id,
-          reference: this.getReference(),
-          creatorDetails: {},
-        })
-
-      return operation
-    },
-
-    getReference () {
-      return btoa(Math.random())
     },
 
     getIssuanceAmount () {
@@ -225,10 +228,6 @@ export default {
 
     isAmountMoreThanBalance () {
       return MathUtil.compare(this.form.amount, this.accountBalance.balance) > 0
-    },
-
-    setQuoteAssets (form) {
-      this.form.quoteAssets = form.quoteAssets
     },
   },
 }

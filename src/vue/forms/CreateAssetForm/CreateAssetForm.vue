@@ -8,36 +8,35 @@
       <information-step-form
         v-show="currentStep === STEPS.information.number"
         :is-disabled.sync="isDisabled"
-        @submit="submit"
         @update-is-sellable="setIsSellableAsset"
-        :former="former"
+        @submit="tryToSubmit"
+        :former="formerForAsset"
       />
 
       <add-quote-assets-step-form
         v-show="currentStep === STEPS.advanced.number"
         :is-disabled.sync="isDisabled"
         @submit="submit"
-        :former="former"
+        :former="formerForAtomicSwap"
       />
     </form-stepper>
   </div>
 </template>
 
 <script>
-import ManageAssetRequestMixin from './mixins/manage-asset-request.mixin'
-
 import InformationStepForm from './components/InformationStepForm'
 import AddQuoteAssetsStepForm from './components/AddQuoteAssetsStepForm'
 import FormStepper from '@/vue/common/FormStepper'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { CreateAssetFormer } from '@/js/formers/CreateAssetFormer'
-import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
-import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation'
-import { buildPairCreationRequestOperation } from '@/js/helpers/pair-creation'
-import { createAtomicSwapAsk } from '@/js/helpers/atomic-swap-helper'
+import { AssetFormer } from '@/js/formers/AssetFormer'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
+import { buildIssuanceCreationOperation } from '@/js/helpers/issuance-creation-helper'
 import { api } from '@/api'
+import config from '@/config'
+import { mapGetters, mapActions } from 'vuex'
+import { vuexTypes } from '@/vuex'
 
 const EVENTS = {
   submitted: 'submitted',
@@ -53,19 +52,21 @@ const STEPS = {
 }
 
 export default {
-  name: 'create-asset-form-simplified',
+  name: 'create-asset-form',
   components: {
     InformationStepForm,
     AddQuoteAssetsStepForm,
     FormStepper,
   },
 
-  mixins: [ManageAssetRequestMixin, AtomicSwapAskMixin],
-
   props: {
-    former: {
-      type: CreateAssetFormer,
-      default: () => new CreateAssetFormer(),
+    formerForAsset: {
+      type: AssetFormer,
+      default: () => new AssetFormer(),
+    },
+    formerForAtomicSwap: {
+      type: AtomicSwapFormer,
+      default: () => new AtomicSwapFormer(),
     },
   },
 
@@ -77,6 +78,10 @@ export default {
   }),
 
   computed: {
+    ...mapGetters({
+      accountBalanceByCode: vuexTypes.accountBalanceByCode,
+      statsQuoteAsset: vuexTypes.statsQuoteAsset,
+    }),
     getSteps () {
       return {
         information: {
@@ -97,6 +102,10 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      loadBalances: vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
+    }),
+
     moveToNextStep () {
       this.currentStep++
       if (this.$el.parentElement) {
@@ -104,34 +113,37 @@ export default {
       }
     },
 
-    async submit (form) {
+    tryToSubmit () {
+      if (this.isSellableAsset) {
+        this.moveToNextStep()
+      } else {
+        this.submit()
+      }
+    },
+
+    async submit () {
       try {
-        this.collectAssetAttributes(form)
-        if (form.isSellable) {
-          this.moveToNextStep()
-          return
-        }
         this.isDisabled = true
 
-        let operation = await this.former.buildOps()
-        await api.postOperations(operation)
-        await api.postOperations(
-          buildPairCreationRequestOperation(
-            this.former.attrs.assetCode,
-            this.former.attrs.price
-          )
-        )
-        await api.postOperations(
-          await buildIssuanceCreationOperation(this.former.attrs.assetCode)
-        )
+        const operations = await this.formerForAsset.buildOps()
+        await api.postOperations(...operations)
 
-        if (this.former.attrs.isSellable) {
-          await createAtomicSwapAsk({
-            baseAssetCode: this.former.attrs.assetCode,
-            amount: this.former.attrs.amountToSell,
-            price: this.former.attrs.price,
-            quoteAssets: this.former.attrs.quoteAssets,
-          })
+        await this.loadBalances()
+
+        const buildIssuance = await buildIssuanceCreationOperation({
+          assetCode: this.formerForAsset.attrs.assetCode,
+          amount: config.MAX_AMOUNT,
+          receiver:
+            this.accountBalanceByCode(this.formerForAsset.attrs.assetCode).id,
+        })
+        await api.postOperations(buildIssuance)
+
+        if (this.isSellableAsset) {
+          this.formerForAtomicSwap.setAttr('assetCode', this.formerForAsset.attrs.assetCode)
+          this.formerForAtomicSwap.setAttr('price', this.formerForAsset.attrs.price)
+
+          let operation = await this.formerForAtomicSwap.buildOp()
+          await api.postWithSignature('/integrations/marketplace/offers', operation)
         }
 
         Bus.success('create-asset-form.request-submitted-msg')
