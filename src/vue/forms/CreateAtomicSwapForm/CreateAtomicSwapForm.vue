@@ -11,7 +11,7 @@
         <template
           v-if="baseAtomicSwapBalancesAssets.length &&
             quoteAtomicSwapAssets.length">
-          <create-atomic-swap-info
+          <create-atomic-swap-form-info
             @created-atomic-swap="$emit(EVENTS.createdAtomicSwap)"
           />
         </template>
@@ -45,7 +45,7 @@
 <script>
 import NoDataMessage from '@/vue/common/NoDataMessage'
 import CreateAtomicSwapFormSkeletonLoader from './components/CreateAtomicSwapFormSkeletonLoader'
-import CreateAtomicSwapInfo from './components/CreateAtomicSwapInfo'
+import CreateAtomicSwapFormInfo from './components/CreateAtomicSwapFormInfo'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { mapActions, mapGetters } from 'vuex'
@@ -61,7 +61,7 @@ export default {
   components: {
     NoDataMessage,
     CreateAtomicSwapFormSkeletonLoader,
-    CreateAtomicSwapInfo,
+    CreateAtomicSwapFormInfo,
     ErrorMessage,
   },
   data: _ => ({

@@ -6,6 +6,7 @@ import { getPaymentTx } from '@/js/helpers/paymentTx-helper'
  * Collects the attributes for atomic swap operations
  * @class
  * @implements {Former}
+ * @param {Array} quoteAssets: [{asset, destination, type}]
  */
 export class AtomicSwapFormer extends Former {
   attrs = this.attrs || this._defaultAttrs
@@ -22,7 +23,7 @@ export class AtomicSwapFormer extends Former {
   }
 
   async buildOp () {
-    let operation = {}
+    let operation
 
     if (this.attrs.requestId) {
       operation = this._buildOpUpdate()
@@ -39,7 +40,7 @@ export class AtomicSwapFormer extends Former {
       this.attrs.amountToSell,
     )
 
-    const quoteAssetsKey = this.attrs.quoteAssets.map(quoteAsset => {
+    const quoteAssetsKeys = this.attrs.quoteAssets.map(quoteAsset => {
       return {
         id: this._getCreatePaymentMethodId(quoteAsset),
         type: ATOMIC_SWAP_REQUEST_TYPES.createPaymentMethod,
@@ -57,7 +58,7 @@ export class AtomicSwapFormer extends Former {
         },
         relationships: {
           payment_methods: {
-            data: quoteAssetsKey,
+            data: quoteAssetsKeys,
           },
         },
       },

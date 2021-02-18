@@ -2,7 +2,7 @@
   <form
     novalidate
     class="app__form information-step-form"
-    @submit.prevent="submit()"
+    @submit.prevent="isFormValid() && $emit(EVENTS.submit)"
   >
     <div class="app__form-row">
       <div class="app__form-field">
@@ -120,6 +120,7 @@ export default {
       description: '',
       expirationDate: '',
     },
+    EVENTS,
     DOCUMENT_TYPES,
     NAME_MAX_LENGTH,
     DESCRIPTION_MAX_LENGTH,
@@ -149,14 +150,6 @@ export default {
       policies: this.former.attrs.policies,
       expirationDate: this.former.attrs.expirationDate,
     }
-  },
-
-  methods: {
-    submit () {
-      if (this.isFormValid()) {
-        this.$emit(EVENTS.submit)
-      }
-    },
   },
 }
 </script>

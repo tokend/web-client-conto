@@ -30,21 +30,20 @@ export class AssetFormer extends Former {
   async buildOps () {
     await Document.uploadDocuments([this.attrs.logo])
 
-    let operations = []
-
     if (this._isUpdateOp) {
-      const updateAssetOp = this._buildOpUpdate()
-      return updateAssetOp
+      const operation = this._buildOpUpdate()
+      return operation
     }
 
-    const createAssetOp = this._buildOpCreate()
-    operations.push(createAssetOp)
+    let operations = []
 
-    const buildPairOp = buildPairCreationRequestOperation(
-      this.attrs.assetCode,
-      this.attrs.price
+    operations.push(
+      this._buildOpCreate(),
+      buildPairCreationRequestOperation(
+        this.attrs.assetCode,
+        this.attrs.price
+      )
     )
-    operations.push(buildPairOp)
 
     return operations
   }

@@ -38,8 +38,9 @@ for further information about branching and tagging conventions.
 - `loadingDataViaLoop()` => `loadAllResponsePages()`, moved to `api-helpers.js`
 - Proxied `DOCUMENT_TYPES` via Vue prototype as `$DOCUMENT_TYPES`
 - `vuexTypes.LOAD_ACCOUNT`’s `accountId` arg is optional now
-- Moved base.PaymentBuilder.payment in `payment-operation-helper` from `TransferFormer`
+- Moved creating payment op in `payment-operation-helper` from `TransferFormer`
 - Changed displaying of all balances in `Assets.vue`
+- Changed file-field to clipper-field in `InformationStepForm` when update asset
 
 #### Removed
 - `DocumentContainer` and `upload-documents.js`, (using SDK instead)

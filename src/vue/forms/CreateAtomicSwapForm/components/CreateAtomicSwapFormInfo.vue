@@ -112,7 +112,7 @@ const VALIDATION_TYPES = {
 }
 
 export default {
-  name: 'create-atomic-swap-info',
+  name: 'create-atomic-swap-form-info',
   components: {
     AtomicSwapQuoteAssetsForm,
   },

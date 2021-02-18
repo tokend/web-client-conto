@@ -2,7 +2,7 @@
   <form
     novalidate
     class="app__form atomic-swap-quote-assets-form"
-    @submit.prevent="submit()"
+    @submit.prevent="$emit(EVENTS.submit)"
   >
     <div
       class="atomic-swap-quote-assets-form__asset-wrp"
@@ -166,6 +166,7 @@ export default {
     isLoadFailed: false,
     isFormSubmitting: false,
     PAYMENT_METHODS,
+    EVENTS,
   }),
 
   validations () {
@@ -237,10 +238,6 @@ export default {
   },
 
   methods: {
-    submit () {
-      this.$emit(EVENTS.submit)
-    },
-
     isAssetRepeated (assetCode, type) {
       const repeatedAssets = this.form.quoteAssets
         .reduce((count, quoteAsset) => {

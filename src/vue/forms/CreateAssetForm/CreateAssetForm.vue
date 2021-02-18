@@ -80,7 +80,6 @@ export default {
   computed: {
     ...mapGetters({
       accountBalanceByCode: vuexTypes.accountBalanceByCode,
-      statsQuoteAsset: vuexTypes.statsQuoteAsset,
     }),
     getSteps () {
       return {
@@ -114,11 +113,7 @@ export default {
     },
 
     tryToSubmit () {
-      if (this.isSellableAsset) {
-        this.moveToNextStep()
-      } else {
-        this.submit()
-      }
+      return this.isSellableAsset ? this.moveToNextStep() : this.submit()
     },
 
     async submit () {

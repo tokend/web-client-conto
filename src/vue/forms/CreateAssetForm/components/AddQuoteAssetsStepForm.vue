@@ -32,7 +32,7 @@
 
     <atomic-swap-quote-assets-form
       :is-disabled.sync="isDisabled"
-      @submit="isFormValid() && submit()"
+      @submit="isFormValid() && $emit(EVENTS.submit)"
       :former="former"
     />
   </form>
@@ -73,6 +73,7 @@ export default {
     form: {
       amountToSell: '',
     },
+    EVENTS,
     MIN_AMOUNT: config.MIN_AMOUNT,
     MAX_AMOUNT: config.MAX_AMOUNT,
   }),
@@ -95,12 +96,6 @@ export default {
     ]),
     inputStep () {
       return inputStepByDigitsCount(config.DECIMAL_POINTS)
-    },
-  },
-
-  methods: {
-    submit () {
-      this.$emit(EVENTS.submit)
     },
   },
 }

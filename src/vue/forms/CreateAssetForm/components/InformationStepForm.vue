@@ -2,7 +2,7 @@
   <form
     novalidate
     class="app__form information-step-form"
-    @submit.prevent="submit()"
+    @submit.prevent="isFormValid() && $emit(EVENTS.submit)"
   >
     <div class="app__form-row">
       <div class="app__form-field">
@@ -102,7 +102,7 @@
         <tick-field
           v-model="form.isSellable"
           :disabled="isDisabled"
-          @input="updateIsSellable"
+          @input="$emit(EVENTS.updateIsSellable, form.isSellable)"
         >
           {{ 'create-asset-form.can-be-bought-lbl' | globalize }}
         </tick-field>
@@ -224,20 +224,11 @@ export default {
   },
 
   methods: {
-    updateIsSellable () {
-      this.$emit(EVENTS.updateIsSellable, this.form.isSellable)
-    },
     getAssetCode () {
       let hash = md5.create()
       const assetInformation = this.form.name + this.accountId + +new Date()
       hash.update(assetInformation)
       return hash.toString().substring(0, 6).toUpperCase()
-    },
-
-    submit () {
-      if (this.isFormValid()) {
-        this.$emit(EVENTS.submit, this.form)
-      }
     },
   },
 }

@@ -67,14 +67,9 @@ export default {
   },
 
   async created () {
-    try {
-      this.isLoaded = true
-      let asset = this.getAssetByCode(this.assetCode)
-      this.former.populate(asset)
-    } catch (e) {
-      this.isLoadFailed = true
-      ErrorHandler.processWithoutFeedback(e)
-    }
+    this.isLoaded = true
+    let asset = this.getAssetByCode(this.assetCode)
+    this.former.populate(asset)
   },
 
   methods: {
