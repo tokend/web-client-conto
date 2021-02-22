@@ -10,6 +10,7 @@
           <amount-input-field
             v-model="form.price"
             name="buyback-form-price"
+            @change="former.setAttr('price', form.price)"
             :label="'buyback-form.price-lbl' | globalize({
               quoteAsset: statsQuoteAsset.code
             })"
@@ -24,6 +25,7 @@
           <amount-input-field
             v-model="form.amount"
             name="buyback-form-amount"
+            @change="former.setAttr('amount', form.amount)"
             :label="'buyback-form.amount-lbl' | globalize"
             :asset="assetCode"
             :disabled="formMixin.isDisabled"
@@ -67,7 +69,6 @@
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
 import ReadonlyField from '@/vue/fields/ReadonlyField'
-import BuybackAndRefundAssetMixin from '@/vue/mixins/buyback-and-refund-asset.mixin'
 
 import { maxValueBig } from '@validators'
 import { mapGetters } from 'vuex'
@@ -78,7 +79,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils'
 import { formatMoney } from '@/vue/filters/formatMoney'
-import { OfferRecord } from '@/js/records/entities/offer.record'
+import { BuybackFormer } from '@/js/formers/BuybackFormer'
 
 const EVENTS = {
   operationSubmitted: 'operation-submitted',
@@ -89,11 +90,11 @@ export default {
   components: {
     ReadonlyField,
   },
-  mixins: [FormMixin, BuybackAndRefundAssetMixin],
+  mixins: [FormMixin],
 
   props: {
     assetCode: { type: String, required: true },
-    buybackOffer: { type: OfferRecord, default: () => {} },
+    former: { type: BuybackFormer, required: true },
   },
 
   data: _ => ({
@@ -118,10 +119,12 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.assetByCode,
+      vuexTypes.accountBalanceByCode,
+      vuexTypes.statsQuoteAsset,
     ]),
 
     isUpdateMode () {
-      return Boolean(this.buybackOffer.id)
+      return Boolean(this.former.attrs.requestId)
     },
 
     totalAmount () {
@@ -144,11 +147,11 @@ export default {
   created () {
     if (this.isUpdateMode) {
       this.form.amount = amountToPrecision(
-        this.buybackOffer.baseAmount,
+        this.former.attrs.amount,
         this.assetByCode(this.assetCode).trailingDigitsCount
       )
       this.form.price = amountToPrecision(
-        this.buybackOffer.price,
+        this.former.attrs.price,
         this.statsQuoteAsset.trailingDigitsCount
       )
     }
@@ -159,9 +162,11 @@ export default {
       if (!this.isFormValid()) return
       this.disableForm()
       try {
-        const operations = await this.getOfferOperations()
+        this.former.setAttr('isBuy', true)
+        const operations = this.former.buildOp()
         await api.postOperations(...operations)
         this.$emit(EVENTS.operationSubmitted)
+
         if (this.isUpdateMode) {
           Bus.success('buyback-form.offer-updated-msg')
         } else {
@@ -171,26 +176,6 @@ export default {
         ErrorHandler.process(e)
       }
       this.enableForm()
-    },
-
-    async getOfferOperations () {
-      let operations = []
-
-      if (this.buybackOffer.id) {
-        operations.push(this.cancelOffer({
-          offerId: this.buybackOffer.id,
-          assetCode: this.assetCode,
-        }))
-      }
-
-      operations.push(this.createOffer({
-        amount: this.form.amount,
-        price: this.form.price,
-        isBuy: true,
-        assetCode: this.assetCode,
-      }))
-
-      return operations
     },
   },
 

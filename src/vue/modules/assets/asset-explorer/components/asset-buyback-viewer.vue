@@ -71,7 +71,7 @@
       <buyback-form
         @operation-submitted="(isBuybackDrawerShown = false) || loadBuybackOffer()"
         :asset-code="assetCode"
-        :buyback-offer="buybackOffer"
+        :former="former"
       />
       <!-- eslint-enable max-len -->
     </drawer>
@@ -84,7 +84,6 @@ import ErrorMessage from '@/vue/common/ErrorMessage'
 import Drawer from '@/vue/common/Drawer'
 import BuybackForm from '@/vue/forms/BuybackForm'
 import FormConfirmation from '@/vue/common/FormConfirmation'
-import BuybackAndRefundAssetMixin from '@/vue/mixins/buyback-and-refund-asset.mixin'
 
 import { api } from '@/api'
 import { mapGetters } from 'vuex'
@@ -92,6 +91,7 @@ import { vuexTypes } from '@/vuex'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
 import { OfferRecord } from '@/js/records/entities/offer.record'
+import { BuybackFormer } from '@/js/formers/BuybackFormer'
 
 const EVENTS = {
   createBuyback: 'create-buyback',
@@ -106,16 +106,18 @@ export default {
     BuybackForm,
     FormConfirmation,
   },
-  mixins: [BuybackAndRefundAssetMixin],
   props: {
     assetCode: {
       type: String,
       required: true,
     },
+    former: {
+      type: BuybackFormer,
+      default: () => new BuybackFormer(),
+    },
   },
   data () {
     return {
-      buybackOffer: {},
       isLoaded: false,
       isLoadFailed: false,
       EVENTS,
@@ -128,15 +130,24 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.accountId,
+      vuexTypes.accountBalanceByCode,
+      vuexTypes.statsQuoteAsset,
     ]),
 
     isBuybackOfferExists () {
-      return Boolean(this.buybackOffer.id)
+      return Boolean(this.former.attrs.requestId)
     },
   },
 
   async created () {
     await this.loadBuybackOffer()
+    this.former.setAttr('baseBalance',
+      this.accountBalanceByCode(this.assetCode).id)
+
+    const quoteBalance =
+      this.accountBalanceByCode(this.statsQuoteAsset.code)
+    this.former.setAttr('quoteBalance', quoteBalance.id)
+
     this.isLoaded = true
   },
 
@@ -153,7 +164,8 @@ export default {
             base_asset: this.assetCode,
           },
         })
-        this.buybackOffer = new OfferRecord(offers[0])
+        const buybackOffer = new OfferRecord(offers[0])
+        this.former.populate(buybackOffer)
       } catch (e) {
         this.isLoadFailed = true
         ErrorHandler.processWithoutFeedback(e)
@@ -163,10 +175,7 @@ export default {
     async deleteOffer () {
       this.isOfferDeleting = true
       try {
-        const operation = this.cancelOffer({
-          offerId: this.buybackOffer.id,
-          assetCode: this.assetCode,
-        })
+        const operation = this.former.buildOpCancelOffer()
         await api.postOperations(operation)
         await this.loadBuybackOffer()
         Bus.success('asset-buyback-viewer.offer-deleted-msg')

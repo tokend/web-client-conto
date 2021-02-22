@@ -24,6 +24,7 @@
           <amount-input-field
             v-model="form.amount"
             name="refund-asset-form-amount"
+            @change="former.setAttr('amount', form.amount)"
             :max="getMaxAmount"
             :label="'refund-asset-form.amount-lbl' | globalize"
             :asset="assetCode"
@@ -58,7 +59,6 @@
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
 import ReadonlyField from '@/vue/fields/ReadonlyField'
-import BuybackAndRefundAssetMixin from '@/vue/mixins/buyback-and-refund-asset.mixin'
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
@@ -68,7 +68,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils'
 import { formatMoney } from '@/vue/filters/formatMoney'
-import { OrderRecord } from '@/js/records/entities/order.record'
+import { BuybackFormer } from '@/js/formers/BuybackFormer'
 
 const EVENTS = {
   operationSubmitted: 'operation-submitted',
@@ -79,11 +79,11 @@ export default {
   components: {
     ReadonlyField,
   },
-  mixins: [FormMixin, BuybackAndRefundAssetMixin],
+  mixins: [FormMixin],
 
   props: {
     assetCode: { type: String, required: true },
-    buyOrder: { type: OrderRecord, default: () => {} },
+    former: { type: BuybackFormer, required: true },
   },
 
   data: _ => ({
@@ -99,6 +99,7 @@ export default {
     ...mapGetters([
       vuexTypes.assetByCode,
       vuexTypes.accountBalanceByCode,
+      vuexTypes.statsQuoteAsset,
     ]),
 
     totalAmount () {
@@ -110,9 +111,10 @@ export default {
     },
 
     getMaxAmount () {
-      let maxAmount = this.accountBalanceByCode(this.assetCode).balance
-      if (maxAmount > this.buyOrder.baseAmount) {
-        maxAmount = this.buyOrder.baseAmount
+      let maxAmount =
+        this.accountBalanceByCode(this.assetCode).balance
+      if (maxAmount > this.former.attrs.amount) {
+        maxAmount = this.former.attrs.amount
       }
       return maxAmount
     },
@@ -124,7 +126,7 @@ export default {
 
   created () {
     this.form.price = amountToPrecision(
-      this.buyOrder.price,
+      this.former.attrs.price,
       this.statsQuoteAsset.trailingDigitsCount
     )
   },
@@ -134,13 +136,11 @@ export default {
       if (!this.isFormValid()) return
       this.disableForm()
       try {
-        const operation = this.createOffer({
-          amount: this.form.amount,
-          price: this.form.price,
-          isBuy: false,
-          assetCode: this.assetCode,
-        })
-        await api.postOperations(operation)
+        this.former.setAttr('isBuy', false)
+        this.former.setAttr('requestId', '')
+
+        const operation = this.former.buildOp()
+        await api.postOperations(...operation)
         this.$emit(EVENTS.operationSubmitted)
         Bus.success('refund-asset-form.asset-sold-msg')
       } catch (e) {
