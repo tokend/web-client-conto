@@ -137,7 +137,6 @@ export default {
       this.disableForm()
       try {
         this.former.setAttr('isBuy', false)
-        this.former.setAttr('requestId', '')
 
         const operation = this.former.buildOp()
         await api.postOperations(...operation)

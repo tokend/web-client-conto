@@ -24,7 +24,7 @@ export class BuybackFormer extends Former {
     buildOp () {
       let operations = []
 
-      if (this.attrs.requestId) {
+      if (+this.attrs.requestId) {
         operations.push(this.buildOpCancelOffer())
       }
 
