@@ -2,6 +2,7 @@ import { Former } from './Former'
 import { base } from '@tokend/js-sdk'
 import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
 import { OfferRecord } from '@/js/records/entities/offer.record'
+import { OrderRecord } from '@/js/records/entities/order.record'
 
 /**
  * Collects the attributes for buyback operation
@@ -62,13 +63,24 @@ export class BuybackFormer extends Former {
     populate (source) {
       this.attrs = this.attrs || this._defaultAttrs
 
+      switch (source.constructor) {
+        case OfferRecord: this._populateFromOfferRecord(source); break
+        case OrderRecord: this._populateFromOrderRecord(source); break
+        default: throw TypeError('Unknown source type')
+      }
+    }
+
+    /** @param {OfferRecord} source */
+    _populateFromOfferRecord (source) {
       this.attrs.requestId = source.id
       this.attrs.price = source.price
+      this.attrs.amount = String(source.quoteAmount / source.price)
+    }
 
-      if (source.constructor === OfferRecord) {
-        this.attrs.amount = String(source.quoteAmount / source.price)
-      } else {
-        this.attrs.amount = ''
-      }
+    /** @param {OrderRecord} source */
+    _populateFromOrderRecord (source) {
+      this.attrs.requestId = source.id
+      this.attrs.price = source.price
+      this.attrs.amount = ''
     }
 }
