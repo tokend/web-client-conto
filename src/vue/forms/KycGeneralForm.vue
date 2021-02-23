@@ -156,7 +156,7 @@ export default {
     },
 
     async afterSignUpKycSubmit () {
-      await this.loadAccount(this.walletAccountId)
+      await this.loadAccount()
       await this.$router.push(vueRoutes.app)
     },
 

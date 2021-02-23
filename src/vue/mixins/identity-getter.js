@@ -1,6 +1,7 @@
 import { api } from '@/api'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { validatePhoneNumber } from '@validators'
 
 import AccountGetterMixin from './account-getter'
 
@@ -32,12 +33,14 @@ export default {
       if (typeof identifier !== 'string') {
         throw new TypeError(`getAccountIdByIdentifier(): 'email' arg should be a string, got ${identifier}`)
       }
+      if (validatePhoneNumber(identifier)) {
+        identifier = '+' + identifier
+      }
 
       const { data } = await api.get('/identities', {
         filter: { identifier: identifier.toLowerCase() },
         page: { limit: 1 },
       })
-
       if (data && data[0]) {
         this.SET_IDENTITIES(data[0])
         return data[0].address
