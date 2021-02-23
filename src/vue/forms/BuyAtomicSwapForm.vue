@@ -235,7 +235,7 @@ export default {
         const { data } = await api.get('/integrations/marketplace/calculate-price', {
           'offer': this.atomicSwapAsk.id,
           'amount': this.form.amount || 0,
-          'payment-method': this.form.paymentMethodId,
+          'payment_method': this.form.paymentMethodId,
           'promocode': this.form.promoCode,
           'sender_id': this.accountId,
         })
