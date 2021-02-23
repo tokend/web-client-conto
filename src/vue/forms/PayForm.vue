@@ -29,6 +29,7 @@
         @submitted="submit"
         :is-disabled="isDisabled"
         :atomic-swap-ask="atomicSwapAsk"
+        :former="former"
       />
     </form>
 
@@ -46,7 +47,6 @@
 import FormMixin from '@/vue/mixins/form.mixin'
 import BuyAtomicSwapForm from '@/vue/forms/BuyAtomicSwapForm'
 import AddressViewer from '@/vue/common/address-viewer'
-import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
 import config from '@/config'
 
 import { required, email, maxLength } from '@validators'
@@ -58,6 +58,8 @@ import { mapGetters } from 'vuex'
 import { Bus } from '@/js/helpers/event-bus'
 import { api } from '@/api'
 import { MAX_FIELD_LENGTH } from '@/js/const/field-length.const'
+import { BuyAtomicSwapFormer } from '@/js/formers/BuyAtomicSwapFormer'
+import { AtomicSwapBidRecord } from '@/js/records/entities/atomic-swap-bid.record'
 
 const EVENTS = {
   reloadAtomicSwap: 'reload-atomic-swap',
@@ -69,16 +71,22 @@ export default {
     BuyAtomicSwapForm,
     AddressViewer,
   },
-  mixins: [FormMixin, AtomicSwapBidMixin],
-  props: { atomicSwapAsk: { type: AtomicSwapAskRecord, required: true } },
+  mixins: [FormMixin],
+  props: {
+    atomicSwapAsk: {
+      type: AtomicSwapAskRecord,
+      required: true,
+    },
+    former: {
+      type: BuyAtomicSwapFormer,
+      default: () => new BuyAtomicSwapFormer(),
+    },
+  },
   data () {
     return {
       form: {
         email: '',
-        amount: '',
         quoteAssetCode: '',
-        paymentMethodId: '',
-        promoCode: '',
       },
       isDisabled: false,
       atomicSwapBidDetails: {
@@ -106,6 +114,7 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.walletEmail,
+      vuexTypes.isLoggedIn,
     ]),
 
     isAtomicSwapBidCreated () {
@@ -118,20 +127,18 @@ export default {
   },
 
   methods: {
-    async submit (form) {
+    async submit () {
       if (!this.isFormValid()) return
-      Object.assign(this.form, form)
 
       this.isDisabled = true
       try {
-        // eslint-disable-next-line max-len
-        const atomicSwapBid = await this.createAtomicSwapBidOperation(
-          this.form.amount,
-          this.form.paymentMethodId,
-          this.atomicSwapAsk.id,
-          this.form.promoCode,
-          this.form.email
+        const opts = this.former.buildOp()
+        const { data } = await api.post(
+          '/integrations/marketplace/buy',
+          opts
         )
+        const atomicSwapBid = new AtomicSwapBidRecord(data)
+
         switch (atomicSwapBid.type) {
           case ATOMIC_SWAP_BID_TYPES.redirect:
             window.location.href = atomicSwapBid.payUrl
