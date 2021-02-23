@@ -55,9 +55,7 @@ export class PromoCodeFormer extends Former {
     return dataForCreate
   }
 
-  /**
-     * @param {PromoCodeRecord} source
-     */
+  /** @param {PromoCodeRecord} source */
   populate (source) {
     this.attrs = this._defaultAttrs
 
