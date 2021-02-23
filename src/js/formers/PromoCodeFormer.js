@@ -24,7 +24,7 @@ export class PromoCodeFormer extends Former {
 
   buildOps () {
     if (+this.attrs.promoCodeId) {
-      const data = {
+      const dataForUpdate = {
         data: {
           attributes: {
             discount: String(this.attrs.discount / 100),
@@ -33,10 +33,10 @@ export class PromoCodeFormer extends Former {
           },
         },
       }
-      return data
+      return dataForUpdate
     }
 
-    const data = {
+    const dataForCreate = {
       data: {
         type: this.attrs.type,
         attributes: {
@@ -52,17 +52,11 @@ export class PromoCodeFormer extends Former {
         },
       },
     }
-    return data
+    return dataForCreate
   }
 
   /**
-     *
-     * @param {Object} source
-     * @param {String} description: promo code description
-     * @param {String} discount: discount
-     * @param {String} maxUses: number of max uses
-     * @param {String} code: promo code
-     * @param {String} offersId: offers` ids
+     * @param {PromoCodeRecord} source
      */
   populate (source) {
     this.attrs = this._defaultAttrs
