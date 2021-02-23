@@ -171,7 +171,7 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit(EVENTS.submit, this.form.assets)
+      this.$emit(EVENTS.submit)
     },
 
     isAssetRepeated (assetCode) {

@@ -33,7 +33,7 @@
               :is-disabled.sync="formMixin.isDisabled"
               :assets="transferableBalancesAssets"
               :former="former"
-              @submit="(form.assets = $event) && submit()"
+              @submit="submit()"
             />
           </form>
         </template>
@@ -146,8 +146,9 @@ export default {
 
   watch: {
     'form.receivers': async function () {
-      let emails = this.getParsedEmailsWithoutDuplicates()
-      this.former.setAttr('destinations', await this.getReceiversIds(emails))
+      const emails = this.getParsedEmailsWithoutDuplicates()
+      const destinations = await this.getReceiversIds(emails)
+      this.former.setAttr('destinations', destinations)
     },
   },
 
@@ -188,7 +189,7 @@ export default {
 
         let overpaymentAssets = []
 
-        this.form.assets.forEach(asset => {
+        this.former.attrs.assets.forEach(asset => {
           const isOverpayment = MathUtil.compare(
             MathUtil.multiply(operations.length, asset.amount),
             this.accountBalanceByCode(asset.code).balance,
@@ -218,7 +219,7 @@ export default {
         await this.loadCurrentBalances()
         this.clearFieldsWithOverriding({
           receivers: this.form.receivers,
-          assets: this.form.assets,
+          assets: this.former.attrs.assets,
         })
         this.$emit(EVENTS.submitted)
         Bus.success('mass-payment-form.payment-successfully-notification')
@@ -231,17 +232,17 @@ export default {
     },
 
     async getReceiversIds (emails) {
-      let result = []
+      let receiversIds = []
       for (const email of emails) {
-        let receiverId = await this.getAccountIdByIdentifier(email)
+        const receiverId = await this.getAccountIdByIdentifier(email)
         if (!receiverId) {
           this.isEmailNotRegistered = true
         }
-        result.push({
+        receiversIds.push({
           receiverId: receiverId,
         })
       }
-      return result
+      return receiversIds
     },
 
     getParsedEmailsWithoutDuplicates () {

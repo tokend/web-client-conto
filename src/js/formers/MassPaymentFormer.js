@@ -35,13 +35,13 @@ export class MassPaymentFormer extends Former {
 
   async buildOps () {
     const operations = []
-    this.attrs.destinations.forEach((element) => {
+    this.attrs.destinations.forEach((destination) => {
       this.attrs.assets.forEach((asset) => {
-        if (element.receiverId) {
-          let operation = {
+        if (destination.receiverId) {
+          const operation = {
             sourceBalanceId:
               asset.balanceId,
-            destination: element.receiverId,
+            destination: destination.receiverId,
             amount: String(asset.amount),
             feeData: {
               sourceFee: {
@@ -63,7 +63,7 @@ export class MassPaymentFormer extends Former {
     })
 
     if (operations.length) {
-      let results = operations.map(operation =>
+      const results = operations.map(operation =>
         base.PaymentBuilder.payment(operation))
       return results
     }
