@@ -137,7 +137,7 @@ export default {
           this.formerForAtomicSwap.setAttr('assetCode', this.formerForAsset.attrs.assetCode)
           this.formerForAtomicSwap.setAttr('price', this.formerForAsset.attrs.price)
 
-          let operation = await this.formerForAtomicSwap.buildOp()
+          let operation = await this.formerForAtomicSwap.buildOps()
           await api.postWithSignature('/integrations/marketplace/offers', operation)
         }
 

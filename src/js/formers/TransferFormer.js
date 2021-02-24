@@ -11,7 +11,6 @@ export class TransferFormer extends Former {
       return {
         amount: '',
         destination: '',
-        sourceBalanceId: '',
         subject: '',
         assetCode: '',
       }

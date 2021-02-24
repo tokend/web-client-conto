@@ -50,10 +50,13 @@ export default {
       type: String,
       default: '',
     },
+    former: {
+      type: AssetFormer,
+      default: () => new AssetFormer(),
+    },
   },
 
   data: _ => ({
-    former: new AssetFormer(),
     informationStepForm: {},
     isLoaded: false,
     isLoadFailed: false,

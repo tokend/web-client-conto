@@ -17,12 +17,12 @@ export class AtomicSwapFormer extends Former {
       assetCode: '',
       price: '',
       amountToSell: '',
-      priceAsset: '',
+      priceAssetCode: '',
       quoteAssets: [],
     }
   }
 
-  async buildOp () {
+  async buildOps () {
     let operation
 
     if (this.attrs.requestId) {
@@ -53,7 +53,7 @@ export class AtomicSwapFormer extends Former {
         attributes: {
           payment_tx_envelope: paymentTx,
           price: this.attrs.price,
-          price_asset: this.attrs.priceAsset,
+          price_asset: this.attrs.priceAssetCode,
           base_asset: this.attrs.assetCode,
         },
         relationships: {
@@ -103,7 +103,7 @@ export class AtomicSwapFormer extends Former {
   _getCreatePaymentMethodId (quoteAsset) {
     // fix duplicate two some asset code with different type
     return quoteAsset.type === PAYMENT_METHODS.internal.value
-      ? `I${this.attrs.priceAsset}`
+      ? `I${this.attrs.priceAssetCode}`
       : quoteAsset.asset.code
   }
 
@@ -115,7 +115,7 @@ export class AtomicSwapFormer extends Former {
     this.attrs.assetCode = source.baseAssetCode
     this.attrs.price = source.price
     this.attrs.amountToSell = source.amount
-    this.attrs.priceAsset = source.priceAsset
+    this.attrs.priceAssetCode = source.priceAsset
     this.attrs.quoteAssets = source.quoteAssets
   }
 }

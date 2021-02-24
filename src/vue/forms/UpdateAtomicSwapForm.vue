@@ -160,7 +160,7 @@ export default {
       this.former.setAttr('amountToSell', amount)
 
       try {
-        const attributes = await this.former.buildOp()
+        const attributes = await this.former.buildOps()
         await api.patchWithSignature(`/integrations/marketplace/offers/${this.former.attrs.requestId}`, {
           data: {
             type: ATOMIC_SWAP_REQUEST_TYPES.createOffer,

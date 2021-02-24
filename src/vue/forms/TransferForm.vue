@@ -212,9 +212,7 @@ export default {
       vuexTypes.walletEmail,
     ]),
     balance () {
-      const balance = this.accountBalanceByCode(this.form.asset.code)
-      this.former.setAttr('sourceBalanceId', balance.id)
-      return balance
+      return this.accountBalanceByCode(this.form.asset.code)
     },
     assets () {
       return this.transferableAssetsBalances

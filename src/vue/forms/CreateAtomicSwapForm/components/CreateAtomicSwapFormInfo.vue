@@ -186,7 +186,7 @@ export default {
   async created () {
     this.form.asset = this.baseAtomicSwapBalancesAssets[0] || {}
     this.former.setAttr('assetCode', this.form.asset.code)
-    this.former.setAttr('priceAsset', this.statsQuoteAsset.code)
+    this.former.setAttr('priceAssetCode', this.statsQuoteAsset.code)
   },
   methods: {
     setAssetByCode (code) {
@@ -209,7 +209,7 @@ export default {
           await api.postOperations(buildIssuance)
         }
 
-        const operation = await this.former.buildOp()
+        const operation = await this.former.buildOps()
         await api.postWithSignature('/integrations/marketplace/offers', operation)
         Bus.success('create-atomic-swap-form.created-atomic-swap-msg')
         this.$emit(EVENTS.createdAtomicSwap)
