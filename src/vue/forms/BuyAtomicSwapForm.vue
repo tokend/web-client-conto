@@ -32,6 +32,7 @@
           <amount-input-field
             v-model="form.amount"
             name="buy-atomic-swap-amount"
+            @change="former.setAttr('amount', form.amount)"
             :asset="assetByCode(atomicSwapAsk.baseAssetCode)"
             :max="atomicSwapAsk.amount"
             :label="'buy-atomic-swap-form.amount' | globalize({
@@ -53,6 +54,7 @@
           <input-field
             v-model="form.promoCode"
             name="buy-atomic-swap-promo-code"
+            @change="former.setAttr('promoCode', form.promoCode)"
             :label="'buy-atomic-swap-form.promo-code-lbl' | globalize"
             @blur="touchField('form.promoCode')"
             :error-message="getFieldErrorMessage('form.promoCode')"
@@ -124,6 +126,7 @@ import { globalize } from '@/vue/filters/globalize'
 import { formatPercent } from '@/vue/filters/formatPercent'
 import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
 import { MathUtil } from '@/js/utils'
+import { BuyAtomicSwapFormer } from '@/js/formers/BuyAtomicSwapFormer'
 
 const PROMOCODE_ERROR_FIELD = 'promocode'
 const EVENTS = {
@@ -140,6 +143,7 @@ export default {
   props: {
     atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
     isDisabled: { type: Boolean, default: false },
+    former: { type: BuyAtomicSwapFormer, required: true },
   },
   data () {
     return {
@@ -177,7 +181,6 @@ export default {
     ...mapGetters([
       vuexTypes.assetByCode,
       vuexTypes.statsQuoteAsset,
-      vuexTypes.isLoggedIn,
       vuexTypes.accountId,
     ]),
 
@@ -214,17 +217,20 @@ export default {
       this.calculateDiscountPrice,
       300
     )
+    this.former.setAttr('atomicSwapId', this.atomicSwapAsk.id)
+    this.former.setAttr('senderId', this.accountId)
   },
   methods: {
     formatMoney,
     formatPercent,
 
     submit () {
-      this.$emit(EVENTS.submitted, this.form)
+      this.$emit(EVENTS.submitted)
     },
 
     setPaymentMethodId (id) {
       this.form.paymentMethodId = id
+      this.former.setAttr('paymentMethodId', this.form.paymentMethodId)
       this.form.quoteAssetCode = this.atomicSwapAsk
         .getAssetCodeByPaymentMethodId(id)
     },

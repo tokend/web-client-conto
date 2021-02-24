@@ -14,6 +14,7 @@
     <buy-atomic-swap-form
       v-if="!isAtomicSwapBidCreated"
       :atomic-swap-ask="atomicSwapAsk"
+      :former="former"
       :is-disabled="isDisabled"
       @submitted="handleAtomicSwapFormSubmitted"
     />
@@ -31,7 +32,6 @@
 import BuyAtomicSwapForm from '@/vue/forms/BuyAtomicSwapForm'
 import FormMixin from '@/vue/mixins/form.mixin'
 import AddressViewer from '@/vue/common/address-viewer'
-import AtomicSwapBidMixin from '@/vue/mixins/atomic-swap-bid.mixin'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { vuexTypes } from '@/vuex'
@@ -39,6 +39,8 @@ import { mapGetters } from 'vuex'
 import { ATOMIC_SWAP_BID_TYPES } from '@/js/const/atomic-swap-bid-types.const'
 import { api } from '@/api'
 import { Bus } from '@/js/helpers/event-bus'
+import { AtomicSwapBidRecord } from '@/js/records/entities/atomic-swap-bid.record'
+import { BuyAtomicSwapFormer } from '@/js/formers/BuyAtomicSwapFormer'
 
 const EVENTS = {
   updateList: 'update-list',
@@ -51,20 +53,21 @@ export default {
     BuyAtomicSwapForm,
     AddressViewer,
   },
-  mixins: [FormMixin, AtomicSwapBidMixin],
+  mixins: [FormMixin],
   props: {
     atomicSwapAsk: {
       type: AtomicSwapAskRecord,
       required: true,
     },
+    former: {
+      type: BuyAtomicSwapFormer,
+      default: () => new BuyAtomicSwapFormer(),
+    },
   },
   data () {
     return {
       form: {
-        amount: '',
         quoteAssetCode: '',
-        paymentMethodId: '',
-        promoCode: '',
       },
       isDisabled: false,
       atomicSwapBidDetails: {
@@ -84,19 +87,17 @@ export default {
     },
   },
   methods: {
-    async handleAtomicSwapFormSubmitted (form) {
+    async handleAtomicSwapFormSubmitted () {
       if (!this.isFormValid()) return
-      Object.assign(this.form, form)
 
       this.isDisabled = true
       try {
-        // eslint-disable-next-line max-len
-        const atomicSwapBid = await this.createAtomicSwapBidOperation(
-          this.form.amount,
-          this.form.paymentMethodId,
-          this.atomicSwapAsk.id,
-          this.form.promoCode
+        const opts = this.former.buildOp()
+        const { data } = await api.post(
+          '/integrations/marketplace/buy',
+          opts
         )
+        const atomicSwapBid = new AtomicSwapBidRecord(data)
 
         switch (atomicSwapBid.type) {
           case ATOMIC_SWAP_BID_TYPES.redirect:
