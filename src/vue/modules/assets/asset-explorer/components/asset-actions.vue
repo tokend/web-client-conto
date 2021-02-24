@@ -78,7 +78,7 @@
       </template>
       <refund-asset-form
         :asset-code="asset.code"
-        :buy-order="buyOrder"
+        :former="former"
         @operation-submitted="(isRefundAssetDrawerShown = false) ||
           (loadBuyOrder() && $emit(EVENTS.assetRefunded))
         "
@@ -103,6 +103,7 @@ import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { SECONDARY_MARKET_ORDER_BOOK_ID } from '@/js/const/offers'
 import { OrderRecord } from '@/js/records/entities/order.record'
+import { BuybackFormer } from '@/js/formers/BuybackFormer'
 
 const EVENTS = {
   updateAsset: 'update-asset',
@@ -123,6 +124,7 @@ export default {
   },
   props: {
     asset: { type: AssetRecord, required: true },
+    former: { type: BuybackFormer, default: () => new BuybackFormer() },
   },
   data: _ => ({
     isRedeemDrawerShown: false,
@@ -130,7 +132,6 @@ export default {
     isAssetDeleting: false,
     isConfirmationShown: false,
     EVENTS,
-    buyOrder: {},
     isRefundAssetDrawerShown: false,
     isLoaded: true,
   }),
@@ -139,6 +140,7 @@ export default {
     ...mapGetters([
       vuexTypes.accountId,
       vuexTypes.statsQuoteAsset,
+      vuexTypes.accountBalanceByCode,
     ]),
 
     isAssetOwner () {
@@ -146,7 +148,7 @@ export default {
     },
 
     isBuyOrderExists () {
-      return Boolean(this.buyOrder.id)
+      return Boolean(this.former.attrs.requestId)
     },
   },
 
@@ -154,6 +156,11 @@ export default {
     if (!this.isAssetOwner) {
       await this.loadBuyOrder()
     }
+    this.former.setAttr('baseBalance',
+      this.accountBalanceByCode(this.asset.code).id)
+
+    this.former.setAttr('quoteBalance',
+      this.accountBalanceByCode(this.statsQuoteAsset.code).id)
   },
 
   methods: {
@@ -196,7 +203,8 @@ export default {
           include: ['buy_entries'],
         })
 
-        this.buyOrder = new OrderRecord(orderBook.buyEntries[0])
+        const buyOrder = new OrderRecord(orderBook.buyEntries[0])
+        this.former.populate(buyOrder)
       } catch (error) {
         ErrorHandler.processWithoutFeedback(error)
       }
