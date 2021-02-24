@@ -217,7 +217,7 @@ export default {
       this.calculateDiscountPrice,
       300
     )
-    this.former.setAttr('offerId', this.atomicSwapAsk.id)
+    this.former.setAttr('atomicSwapId', this.atomicSwapAsk.id)
     this.former.setAttr('senderId', this.accountId)
   },
   methods: {

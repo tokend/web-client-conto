@@ -12,7 +12,7 @@ export class BuyAtomicSwapFormer extends Former {
       return {
         senderId: '',
         paymentMethodId: '',
-        offerId: '',
+        atomicSwapId: '',
         amount: '',
         type: '',
         promoCode: '',
@@ -25,7 +25,7 @@ export class BuyAtomicSwapFormer extends Former {
           type: ATOMIC_SWAP_REQUEST_TYPES.createBuyRequest,
           attributes: {
             amount: this.attrs.amount,
-            offer_id: Number(this.attrs.offerId),
+            offer_id: Number(this.attrs.atomicSwapId),
             payment_method_id: Number(this.attrs.paymentMethodId),
             sender_account_id: this.attrs.senderId,
             ...(this.attrs.promoCode
