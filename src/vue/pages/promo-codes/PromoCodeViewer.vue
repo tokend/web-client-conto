@@ -42,7 +42,7 @@
       <update-promo-code-form
         @promo-code-updated="(isUpdatePromoCodeFormShown = false) ||
           $emit(EVENTS.closeDrawerAndUpdateList)"
-        :promo-code="promoCode"
+        :former="new PromoCodeFormer(promoCode)"
       />
     </drawer>
   </div>
@@ -54,6 +54,7 @@ import FormConfirmation from '@/vue/common/FormConfirmation'
 import UpdatePromoCodeForm from '@/vue/forms/UpdatePromoCodeForm'
 import Drawer from '@/vue/common/Drawer'
 
+import { PromoCodeFormer } from '@/js/formers/PromoCodeFormer'
 import { PromoCodeRecord } from '@/js/records/entities/promo-code.record'
 import { ErrorHandler } from '@/js/helpers/error-handler'
 import { Bus } from '@/js/helpers/event-bus'
@@ -88,6 +89,7 @@ export default {
   }),
 
   methods: {
+    PromoCodeFormer,
     async deletePromoCode () {
       this.isPromoCodeDeleting = true
       try {

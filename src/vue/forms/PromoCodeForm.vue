@@ -19,6 +19,7 @@
                 <input-field
                   v-model="form.code"
                   @blur="touchField('form.code')"
+                  @change="former.setAttr('promoCode', form.code)"
                   name="promo-code-code"
                   :label="'promo-code-form.code-lbl' | globalize"
                   :error-message="getFieldErrorMessage('form.code', {
@@ -36,6 +37,7 @@
                   v-model="form.description"
                   name="promo-code-form-description"
                   @blur="touchField('form.description')"
+                  @change="former.setAttr('description', form.description)"
                   :label="'promo-code-form.description-lbl' | globalize"
                   :error-message="getFieldErrorMessage('form.description', {
                     length: DESCRIPTION_MAX_LENGTH
@@ -50,6 +52,7 @@
                 <input-field
                   white-autofill
                   @blur="touchField('form.discount')"
+                  @change="former.setAttr('discount', form.discount)"
                   :error-message="getFieldErrorMessage('form.discount', {
                     maxValue: MAX_PERCENT_DISCOUNT,
                     minValue: MIN_PERCENT
@@ -71,6 +74,7 @@
                 <input-field
                   white-autofill
                   @blur="touchField('form.maxUses')"
+                  @change="former.setAttr('numberOfMaxUses', form.maxUses)"
                   :error-message="getFieldErrorMessage('form.maxUses', {
                     minValue: MIN_INTEGER_VALUE,
                     maxValue: MAX_INT_32
@@ -151,6 +155,7 @@ import {
   MIN_PERCENT,
 } from '@/js/const/numbers.const'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { PromoCodeFormer } from '@/js/formers/PromoCodeFormer'
 import { api } from '@/api'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
@@ -175,6 +180,10 @@ export default {
   },
 
   mixins: [FormMixin],
+
+  props: {
+    former: { type: PromoCodeFormer, default: () => new PromoCodeFormer() },
+  },
 
   data: _ => ({
     form: {
@@ -203,6 +212,18 @@ export default {
 
     inputStep () {
       return inputStepByDigitsCount(config.DECIMAL_POINTS)
+    },
+  },
+
+  watch: {
+    'form.offers' () {
+      const offers = this.form.offers.map((offer) => {
+        return {
+          id: offer.id,
+          type: 'marketplace-offer',
+        }
+      })
+      this.former.setAttr('offers', offers)
     },
   },
 
@@ -256,7 +277,7 @@ export default {
       this.disableForm()
 
       try {
-        const operation = this.buildCreatePromoCodeOperation()
+        const operation = this.former.buildOps()
         await api.postWithSignature('/integrations/marketplace/promocodes', operation)
 
         this.$emit(EVENTS.closeDrawerAndUpdateList)
@@ -266,33 +287,6 @@ export default {
       }
 
       this.enableForm()
-    },
-
-    buildCreatePromoCodeOperation () {
-      const offers = this.form.offers
-        .map((offer) => {
-          return {
-            id: offer.id,
-            type: 'marketplace-offer',
-          }
-        })
-
-      return {
-        data: {
-          type: 'marketplace-create-promocode',
-          attributes: {
-            description: this.form.description,
-            code: this.form.code,
-            max_uses: Number(this.form.maxUses) || null,
-            discount: String(this.form.discount / 100),
-          },
-          relationships: {
-            offers: {
-              data: offers,
-            },
-          },
-        },
-      }
     },
   },
 }
