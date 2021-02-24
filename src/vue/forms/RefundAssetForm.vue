@@ -97,7 +97,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      vuexTypes.assetByCode,
       vuexTypes.accountBalanceByCode,
       vuexTypes.statsQuoteAsset,
     ]),
@@ -138,7 +137,7 @@ export default {
       try {
         this.former.setAttr('isBuy', false)
 
-        const operation = this.former.buildOp()
+        const operation = this.former.buildOps()
         await api.postOperations(...operation)
         this.$emit(EVENTS.operationSubmitted)
         Bus.success('refund-asset-form.asset-sold-msg')

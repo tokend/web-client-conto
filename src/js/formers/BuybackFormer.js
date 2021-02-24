@@ -11,6 +11,7 @@ import { OrderRecord } from '@/js/records/entities/order.record'
  */
 export class BuybackFormer extends Former {
     attrs = this.attrs || this._defaultAttrs
+
     get _defaultAttrs () {
       return {
         requestId: '0',
@@ -19,10 +20,11 @@ export class BuybackFormer extends Former {
         baseBalance: '',
         quoteBalance: '',
         isBuy: true,
+        fees: '0',
       }
     }
 
-    buildOp () {
+    buildOps () {
       let operations = []
 
       if (+this.attrs.requestId) {
@@ -53,7 +55,7 @@ export class BuybackFormer extends Former {
         isBuy: this.attrs.isBuy,
         baseBalance: this.attrs.baseBalance,
         quoteBalance: this.attrs.quoteBalance,
-        fee: '0',
+        fee: this.attrs.fees,
       }
 
       return base.ManageOfferBuilder.manageOffer(opts)

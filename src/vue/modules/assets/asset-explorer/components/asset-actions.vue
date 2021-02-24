@@ -159,9 +159,8 @@ export default {
     this.former.setAttr('baseBalance',
       this.accountBalanceByCode(this.asset.code).id)
 
-    const quoteBalance =
-      this.accountBalanceByCode(this.statsQuoteAsset.code)
-    this.former.setAttr('quoteBalance', quoteBalance.id)
+    this.former.setAttr('quoteBalance',
+      this.accountBalanceByCode(this.statsQuoteAsset.code).id)
   },
 
   methods: {

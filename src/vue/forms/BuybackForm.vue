@@ -163,7 +163,7 @@ export default {
       this.disableForm()
       try {
         this.former.setAttr('isBuy', true)
-        const operations = this.former.buildOp()
+        const operations = this.former.buildOps()
         await api.postOperations(...operations)
         this.$emit(EVENTS.operationSubmitted)
 
