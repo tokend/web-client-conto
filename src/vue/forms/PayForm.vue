@@ -35,7 +35,7 @@
 
     <address-viewer
       v-else
-      :asset-code="form.quoteAssetCode"
+      :asset-code="statsQuoteAsset.code"
       :amount="atomicSwapBidDetails.amount"
       :address="atomicSwapBidDetails.address"
       :end-time="atomicSwapBidDetails.endTime"
@@ -86,7 +86,6 @@ export default {
     return {
       form: {
         email: '',
-        quoteAssetCode: '',
       },
       isDisabled: false,
       atomicSwapBidDetails: {
@@ -115,6 +114,7 @@ export default {
     ...mapGetters([
       vuexTypes.walletEmail,
       vuexTypes.isLoggedIn,
+      vuexTypes.statsQuoteAsset,
     ]),
 
     isAtomicSwapBidCreated () {
