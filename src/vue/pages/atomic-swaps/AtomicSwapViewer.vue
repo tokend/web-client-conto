@@ -3,7 +3,7 @@
     <atomic-swap-attributes :atomic-swap-ask="currentAtomicSwapAsk" />
     <template v-if="isAtomicSwapOwner">
       <atomic-swap-actions
-        :atomic-swap-ask="currentAtomicSwapAsk"
+        :former="new AtomicSwapFormer(currentAtomicSwapAsk)"
         @close-drawer-and-update-list="$emit(EVENTS.closeDrawerAndUpdateList)"
       />
       <atomic-swap-requests :atomic-swap-ask="currentAtomicSwapAsk" />
@@ -15,6 +15,7 @@
 import AtomicSwapAttributes from './AtomicSwapAttributes'
 import AtomicSwapRequests from './AtomicSwapRequests'
 import AtomicSwapActions from './AtomicSwapActions'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
 import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
 import { vuexTypes } from '@/vuex'
 import { mapGetters } from 'vuex'
@@ -52,6 +53,10 @@ export default {
     isAtomicSwapOwner () {
       return this.currentAtomicSwapAsk.ownerId === this.accountId
     },
+  },
+
+  methods: {
+    AtomicSwapFormer,
   },
 }
 </script>

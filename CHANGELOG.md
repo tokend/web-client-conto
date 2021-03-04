@@ -13,10 +13,16 @@ for further information about branching and tagging conventions.
   - `api-helpers.js` - Includes reusable actions with the API
   - `kyc-helpers` - Includes kyc-related helpers
   - `scroll-helpers.js` - At the moment only `scrollToTop()` action
+  - `issuance-creation-helper` - Includes operation for creating issuance
+  - `paymentTx-helper` - Includes logic for creating paymentTx for atomic swap operation
+  - `pair-creation-helper` - Includes logic for creating the pair for assets
+  - `payment-operation-helper` - Includes logic for creating payment operation
 - Formers:
   - New `KycGeneralFormer`
   - New `KycCorporateFormer`
   - New `TradeFormer`
+  - New `AssetFormer`
+  - New `AtomicSwapFormer`
 - Records:
   - New `BlobRecord`
   - New `KycRecord`
@@ -32,12 +38,23 @@ for further information about branching and tagging conventions.
 - `loadingDataViaLoop()` => `loadAllResponsePages()`, moved to `api-helpers.js`
 - Proxied `DOCUMENT_TYPES` via Vue prototype as `$DOCUMENT_TYPES`
 - `vuexTypes.LOAD_ACCOUNT`’s `accountId` arg is optional now
+- Moved creating payment op in `payment-operation-helper` from `TransferFormer`
+- Changed displaying of all balances in `Assets.vue`
+- Changed file-field to clipper-field in `InformationStepForm` when update asset
 
 #### Removed
 - `DocumentContainer` and `upload-documents.js`, (using SDK instead)
 - Old key-value module
 - Old `ChangeRoleRecord`
 - Old `verification-form.mixin.js`
+- Modules:
+  - `create-asset-form-simplified`
+  - `update-asset-form-simplified`
+  - `create-atomic-swap-form`
+- Mixins:
+  - `create-atomic-ask`
+- Requests: 
+  - `UpdateAssetRequest`
 
 #### Fixed
 - A bug with `MarkdownField` length

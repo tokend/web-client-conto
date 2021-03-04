@@ -2,7 +2,7 @@
   <form
     novalidate
     class="app__form atomic-swap-quote-assets-form"
-    @submit.prevent="submit()"
+    @submit.prevent="$emit(EVENTS.submit)"
   >
     <div
       class="atomic-swap-quote-assets-form__asset-wrp"
@@ -143,6 +143,7 @@ import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import { globalize } from '@/vue/filters/globalize'
 import { PAYMENT_METHODS } from '@/js/const/payment-methods.const'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
 
 const EVENTS = {
   submit: 'submit',
@@ -155,6 +156,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
+    former: { type: AtomicSwapFormer, required: true },
   },
   data: _ => ({
     form: {
@@ -164,6 +166,7 @@ export default {
     isLoadFailed: false,
     isFormSubmitting: false,
     PAYMENT_METHODS,
+    EVENTS,
   }),
 
   validations () {
@@ -222,14 +225,19 @@ export default {
     ]),
   },
 
+  watch: {
+    'form.quoteAssets' () {
+      this.former.setAttr('quoteAssets', this.form.quoteAssets)
+    },
+  },
+
   async created () {
     this.form.quoteAssets[0].asset = this.quoteAtomicSwapAssets[0] || {}
+    this.former.setAttr('quoteAssets', this.form.quoteAssets)
+    this.former.setAttr('priceAssetCode', this.statsQuoteAsset.code)
   },
-  methods: {
-    submit () {
-      this.$emit(EVENTS.submit, this.form)
-    },
 
+  methods: {
     isAssetRepeated (assetCode, type) {
       const repeatedAssets = this.form.quoteAssets
         .reduce((count, quoteAsset) => {

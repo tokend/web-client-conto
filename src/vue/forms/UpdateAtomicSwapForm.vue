@@ -10,9 +10,9 @@
           v-model="form.amount"
           name="update-atomic-swap-amount"
           :max="maxAmount"
-          :min="atomicSwapAsk.amount"
+          :min="former.attrs.amountToSell"
           :label="'update-atomic-swap-form.amount-lbl' | globalize"
-          :asset="atomicSwapAsk.baseAssetCode"
+          :asset="former.attrs.assetCode"
           :disabled="formMixin.isDisabled"
           is-max-button-shown
         />
@@ -27,6 +27,7 @@
           :max="MAX_PRICE"
           :min="minPrice"
           @blur="touchField('form.price')"
+          @change="former.setAttr('price', form.price)"
           name="update-atomic-swap-quote-asset-price"
           :label="'update-atomic-swap-form.price-lbl' | globalize({
             asset: statsQuoteAsset.code
@@ -53,12 +54,12 @@
 
 <script>
 import FormMixin from '@/vue/mixins/form.mixin'
-import AtomicSwapAskMixin from '@/vue/mixins/atomic-swap-ask.mixin'
 import config from '@/config'
+import { api } from '@/api'
 
 import { Bus } from '@/js/helpers/event-bus'
 import { ErrorHandler } from '@/js/helpers/error-handler'
-import { AtomicSwapAskRecord } from '@/js/records/entities/atomic-swap-ask.record'
+import { AtomicSwapFormer } from '@/js/formers/AtomicSwapFormer'
 import { mapActions, mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
 import {
@@ -68,6 +69,8 @@ import {
 } from '@validators'
 import { amountToPrecision } from '@/js/helpers/amount'
 import { MathUtil } from '@/js/utils/math.util'
+import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
+import { ATOMIC_SWAP_REQUEST_TYPES } from '@/js/const/atomic-swap.const'
 
 const EVENTS = {
   updatedAtomicSwap: 'updated-atomic-swap',
@@ -75,9 +78,9 @@ const EVENTS = {
 
 export default {
   name: 'update-atomic-swap-form',
-  mixins: [FormMixin, AtomicSwapAskMixin],
+  mixins: [FormMixin],
   props: {
-    atomicSwapAsk: { type: AtomicSwapAskRecord, required: true },
+    former: { type: AtomicSwapFormer, required: true },
   },
   data: _ => ({
     form: {
@@ -102,26 +105,43 @@ export default {
   computed: {
     ...mapGetters([
       vuexTypes.assetByCode,
+      vuexTypes.statsQuoteAsset,
+      vuexTypes.accountBalanceByCode,
     ]),
 
     isPriceChanged () {
-      return +this.form.price !== +this.atomicSwapAsk.price
+      return +this.form.price !== +this.former.attrs.price
     },
 
     isAmountChanged () {
-      return +this.form.amount !== +this.atomicSwapAsk.amount
+      return +this.form.amount !== +this.former.attrs.amountToSell
     },
 
     maxAmount () {
       return MathUtil.add(
-        this.accountBalanceByCode(this.atomicSwapAsk.baseAssetCode).balance,
-        this.atomicSwapAsk.amount
+        this.accountBalanceByCode(this.former.attrs.assetCode).balance,
+        this.former.attrs.amountToSell
       )
+    },
+
+    minPrice () {
+      return this.statsQuoteAsset.trailingDigitsCount
+        ? inputStepByDigitsCount(this.statsQuoteAsset.trailingDigitsCount)
+        : inputStepByDigitsCount(config.DECIMAL_POINTS)
     },
   },
 
   created () {
-    this.populateForm()
+    this.form = {
+      amount: amountToPrecision(
+        this.former.attrs.amountToSell,
+        this.assetByCode(this.former.attrs.assetCode).trailingDigitsCount
+      ),
+      price: amountToPrecision(
+        this.former.attrs.price,
+        this.statsQuoteAsset.trailingDigitsCount
+      ),
+    }
     this.loadAccountBalances()
   },
 
@@ -130,34 +150,22 @@ export default {
       loadAccountBalances: vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
     }),
 
-    populateForm () {
-      this.form = {
-        amount: amountToPrecision(
-          this.atomicSwapAsk.amount,
-          this.assetByCode(this.atomicSwapAsk.baseAssetCode).trailingDigitsCount
-        ),
-        price: amountToPrecision(
-          this.atomicSwapAsk.price,
-          this.statsQuoteAsset.trailingDigitsCount
-        ),
-      }
-    },
-
     async submit () {
       if (!this.isFormValid()) return
       this.disableForm()
 
       const amount = this.isAmountChanged
-        ? MathUtil.subtract(this.form.amount, this.atomicSwapAsk.amount)
-        : ''
-      const price = this.isPriceChanged ? this.form.price : ''
+        ? MathUtil.subtract(this.form.amount, this.former.attrs.amountToSell)
+        : '0'
+      this.former.setAttr('amountToSell', amount)
 
       try {
-        await this.updateAtomicSwapAsk({
-          atomicSwapId: this.atomicSwapAsk.id,
-          baseAssetCode: this.atomicSwapAsk.baseAssetCode,
-          amount: amount,
-          price: price,
+        const attributes = await this.former.buildOps()
+        await api.patchWithSignature(`/integrations/marketplace/offers/${this.former.attrs.requestId}`, {
+          data: {
+            type: ATOMIC_SWAP_REQUEST_TYPES.createOffer,
+            attributes: attributes,
+          },
         })
         Bus.success('update-atomic-swap-form.updated-atomic-swap-msg')
         this.$emit(EVENTS.updatedAtomicSwap)

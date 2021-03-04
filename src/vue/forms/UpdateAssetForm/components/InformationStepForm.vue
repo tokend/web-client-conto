@@ -2,7 +2,7 @@
   <form
     novalidate
     class="app__form information-step-form"
-    @submit.prevent="submit()"
+    @submit.prevent="isFormValid() && $emit(EVENTS.submit)"
   >
     <div class="app__form-row">
       <div class="app__form-field">
@@ -10,6 +10,7 @@
           white-autofill
           v-model="form.name"
           @blur="touchField('form.name')"
+          @change="former.setAttr('assetName', form.name)"
           name="update-asset-name"
           :label="'update-asset-form-simplified.name-lbl' | globalize"
           :error-message="getFieldErrorMessage(
@@ -28,6 +29,7 @@
           white-autofill
           v-model="form.description"
           @blur="touchField('form.description')"
+          @change="former.setAttr('description', form.description)"
           name="update-asset-form-simplified-description"
           :label="'update-asset-form-simplified.description-lbl' | globalize"
           :error-message="getFieldErrorMessage('form.description')"
@@ -42,6 +44,7 @@
         <!-- eslint-disable max-len -->
         <date-field
           v-model="form.expirationDate"
+          @input="former.setAttr('expirationDate', form.expirationDate)"
           :label="'update-asset-form-simplified.expiration-date-lbl' | globalize"
           :disable-before="moment().subtract(1, 'days').toISOString()"
           :disabled="isDisabled"
@@ -52,14 +55,16 @@
 
     <div class="app__form-row">
       <div class="app__form-field">
-        <file-field
+        <clipper-field
           name="update-asset-logo"
           v-model="form.logo"
+          @input="former.setAttr('logo', form.logo)"
           :note="'update-asset-form-simplified.logo-note' | globalize"
           :document-type="DOCUMENT_TYPES.assetLogo"
           :label="'update-asset-form-simplified.logo-lbl' | globalize"
           :min-width="120"
           :min-height="120"
+          :ratio="1"
           :disabled="isDisabled"
         />
       </div>
@@ -88,12 +93,8 @@ import {
   maxLength,
 } from '@validators'
 
-import { mapGetters } from 'vuex'
-import { vuexTypes } from '@/vuex'
-
-import { UpdateAssetRequest } from '../wrappers/update-asset-request'
-import { AssetRecord } from '@/js/records/entities/asset.record'
 import { Document } from '@tokend/js-sdk'
+import { AssetFormer } from '@/js/formers/AssetFormer'
 
 const EVENTS = {
   submit: 'submit',
@@ -106,8 +107,8 @@ export default {
   name: 'information-step-form',
   mixins: [FormMixin],
   props: {
-    record: { type: [AssetRecord, UpdateAssetRequest], default: null },
     isDisabled: { type: Boolean, default: false },
+    former: { type: AssetFormer, required: true },
   },
 
   data: _ => ({
@@ -119,6 +120,7 @@ export default {
       description: '',
       expirationDate: '',
     },
+    EVENTS,
     DOCUMENT_TYPES,
     NAME_MAX_LENGTH,
     DESCRIPTION_MAX_LENGTH,
@@ -139,37 +141,15 @@ export default {
     }
   },
 
-  computed: {
-    ...mapGetters([
-      vuexTypes.statsQuoteAsset,
-      vuexTypes.accountId,
-    ]),
-  },
-
   created () {
-    if (this.record) {
-      this.populateForm()
+    this.form = {
+      name: this.former.attrs.assetName,
+      code: this.former.attrs.assetCode,
+      description: this.former.attrs.description,
+      logo: new Document(this.former.attrs.logo),
+      policies: this.former.attrs.policies,
+      expirationDate: this.former.attrs.expirationDate,
     }
-  },
-
-  methods: {
-
-    populateForm () {
-      this.form = {
-        name: this.record.name,
-        code: this.record.code,
-        description: this.record.description,
-        logo: new Document(this.record.logo),
-        policies: this.record.policy,
-        expirationDate: this.record.expirationDate,
-      }
-    },
-
-    submit () {
-      if (this.isFormValid()) {
-        this.$emit(EVENTS.submit, this.form)
-      }
-    },
   },
 }
 </script>

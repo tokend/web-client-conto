@@ -2,7 +2,7 @@
   <form
     novalidate
     class="app__form information-step-form"
-    @submit.prevent="submit()"
+    @submit.prevent="isFormValid() && $emit(EVENTS.submit)"
   >
     <div class="app__form-row">
       <div class="app__form-field">
@@ -10,6 +10,7 @@
           white-autofill
           v-model="form.name"
           @blur="touchField('form.name')"
+          @change="former.setAttr('assetName', form.name)"
           name="create-asset-name"
           :label="'create-asset-form.name-lbl' | globalize"
           :error-message="getFieldErrorMessage(
@@ -28,6 +29,7 @@
           white-autofill
           v-model="form.description"
           @blur="touchField('form.description')"
+          @change="former.setAttr('description', form.description)"
           name="create-asset-form-description"
           :label="'create-asset-form.description-lbl' | globalize"
           :error-message="getFieldErrorMessage('form.description')"
@@ -46,6 +48,7 @@
           :step="inputStep"
           :max="MAX_AMOUNT"
           @blur="touchField('form.price')"
+          @change="former.setAttr('price', form.price)"
           name="create-asset-form-price"
           :label="'create-asset-form.price-lbl' | globalize({
             quoteAsset: businessStatsQuoteAsset
@@ -69,6 +72,7 @@
       <div class="app__form-field">
         <date-field
           v-model="form.expirationDate"
+          @input="former.setAttr('expirationDate', form.expirationDate)"
           :label="'create-asset-form.expiration-date-lbl' | globalize"
           :disable-before="moment().subtract(1, 'days').toISOString()"
           :disabled="isDisabled"
@@ -81,6 +85,7 @@
         <clipper-field
           name="create-asset-logo"
           v-model="form.logo"
+          @input="former.setAttr('logo', form.logo)"
           :note="'create-asset-form.logo-note' | globalize"
           :document-type="DOCUMENT_TYPES.assetLogo"
           :label="'create-asset-form.logo-lbl' | globalize"
@@ -138,6 +143,7 @@ import {
 
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { AssetFormer } from '@/js/formers/AssetFormer'
 
 import { inputStepByDigitsCount } from '@/js/helpers/input-trailing-digits-count'
 
@@ -154,6 +160,7 @@ export default {
   mixins: [FormMixin],
   props: {
     isDisabled: { type: Boolean, default: false },
+    former: { type: AssetFormer, required: true },
   },
 
   data: _ => ({
@@ -210,6 +217,10 @@ export default {
         this.form.expirationDate = moment().format('YYYY-MM-DD HH:mm')
       }
     },
+    'form.name' () {
+      this.form.code = this.getAssetCode()
+      this.former.setAttr('assetCode', this.form.code)
+    },
   },
 
   methods: {
@@ -218,13 +229,6 @@ export default {
       const assetInformation = this.form.name + this.accountId + +new Date()
       hash.update(assetInformation)
       return hash.toString().substring(0, 6).toUpperCase()
-    },
-
-    submit () {
-      if (this.isFormValid()) {
-        this.form.code = this.getAssetCode()
-        this.$emit(EVENTS.submit, this.form)
-      }
     },
   },
 }

@@ -1,6 +1,5 @@
 import { Former } from './Former'
-import { base } from '@tokend/js-sdk'
-
+import { getPaymentOperation } from '@/js/helpers/payment-operation-helper'
 /**
  * Collects the attributes for transfer-related operations
  * @class
@@ -12,43 +11,18 @@ export class TransferFormer extends Former {
       return {
         amount: '',
         destination: '',
-        sourceBalanceId: '',
-        fee: {
-          sourceFee: {
-            percent: '0',
-            fixed: '0',
-          },
-          destinationFee: {
-            percent: '0',
-            fixed: '0',
-          },
-        },
         subject: '',
         assetCode: '',
-        isPaidFeeForRecipient: false,
       }
     }
 
     buildOps () {
-      const attrs = this.attrs
-
-      return base.PaymentBuilder.payment({
-        sourceBalanceId: attrs.sourceBalanceId,
-        destination: attrs.destination,
-        amount: attrs.amount,
-        feeData: {
-          sourceFee: {
-            percent: attrs.fee.sourceFee.percent,
-            fixed: attrs.fee.sourceFee.fixed,
-          },
-          destinationFee: {
-            percent: attrs.fee.destinationFee.percent,
-            fixed: attrs.fee.destinationFee.fixed,
-          },
-          sourcePaysForDest: attrs.isPaidFeeForRecipient,
-        },
-        subject: attrs.subject,
-        asset: attrs.assetCode,
+      const operation = getPaymentOperation({
+        destinationAccountId: this.attrs.destination,
+        amount: this.attrs.amount,
+        assetCode: this.attrs.assetCode,
+        subject: this.attrs.subject,
       })
+      return operation
     }
 }

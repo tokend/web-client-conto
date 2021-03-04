@@ -33,7 +33,7 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
-import CreateAtomicSwapForm from '@/vue/modules/create-atomic-swap-form'
+import CreateAtomicSwapForm from '@/vue/forms/CreateAtomicSwapForm'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'

@@ -11,7 +11,7 @@
         <template
           v-if="baseAtomicSwapBalancesAssets.length &&
             quoteAtomicSwapAssets.length">
-          <create-atomic-swap-form
+          <create-atomic-swap-form-info
             @created-atomic-swap="$emit(EVENTS.createdAtomicSwap)"
           />
         </template>
@@ -44,8 +44,8 @@
 
 <script>
 import NoDataMessage from '@/vue/common/NoDataMessage'
-import CreateAtomicSwapFormSkeletonLoader from './components/create-atomic-swap-form-skeleton-loader'
-import CreateAtomicSwapForm from './components/create-atomic-swap-form'
+import CreateAtomicSwapFormSkeletonLoader from './components/CreateAtomicSwapFormSkeletonLoader'
+import CreateAtomicSwapFormInfo from './components/CreateAtomicSwapFormInfo'
 import ErrorMessage from '@/vue/common/ErrorMessage'
 
 import { mapActions, mapGetters } from 'vuex'
@@ -57,11 +57,11 @@ const EVENTS = {
 }
 
 export default {
-  name: 'create-atomic-swap-form-module',
+  name: 'create-atomic-swap-form',
   components: {
     NoDataMessage,
     CreateAtomicSwapFormSkeletonLoader,
-    CreateAtomicSwapForm,
+    CreateAtomicSwapFormInfo,
     ErrorMessage,
   },
   data: _ => ({
@@ -79,7 +79,7 @@ export default {
 
   async created () {
     try {
-      await this.loadAssets()
+      await this.loadBalances()
     } catch (e) {
       this.isLoadFailed = true
       ErrorHandler.processWithoutFeedback(e)
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      loadAssets: vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
+      loadBalances: vuexTypes.LOAD_ACCOUNT_BALANCES_DETAILS,
     }),
   },
 }

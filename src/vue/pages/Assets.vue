@@ -56,7 +56,7 @@
 <script>
 import TopBar from '@/vue/common/TopBar'
 import Drawer from '@/vue/common/Drawer'
-import CreateAssetForm from '@modules/create-asset-form-simplified'
+import CreateAssetForm from '@/vue/forms/CreateAssetForm'
 import UpdateList from '@/vue/mixins/update-list.mixin'
 import SelectField from '@/vue/fields/SelectField'
 
@@ -101,7 +101,7 @@ export default {
     await this.loadMyBusinesses()
 
     if (this.isAccountCorporate && this.ownedAssets.length > 0) {
-      this.setBusinessOwnerId(this.accountId)
+      this.setBusinessOwnerId()
     }
   },
 
