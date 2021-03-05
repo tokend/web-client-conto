@@ -24,7 +24,7 @@
 import NoDataMessage from '@/vue/common/NoDataMessage'
 
 import MovementsHistory from '@/vue/modules/movements-history'
-import MovementsTopBar from '@modules/movements-top-bar'
+import MovementsTopBar from '@/vue/common/MovementsTopBar'
 
 export default {
   name: 'movements-page',
