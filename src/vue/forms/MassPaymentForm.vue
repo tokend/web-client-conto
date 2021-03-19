@@ -32,7 +32,8 @@
             <multiple-assets-send-form
               :is-disabled.sync="formMixin.isDisabled"
               :assets="transferableBalancesAssets"
-              @submit="(form.assets = $event) && submit()"
+              :former="former"
+              @submit="submit()"
             />
           </form>
         </template>
@@ -70,13 +71,13 @@ import { required } from '@validators'
 
 import { CsvUtil } from '@/js/utils/csv.util'
 import { ErrorHandler } from '@/js/helpers/error-handler'
+import { MassPaymentFormer } from '@/js/formers/MassPaymentFormer'
 import { Bus } from '@/js/helpers/event-bus'
 
 import { mapGetters, mapActions } from 'vuex'
 import { vuexTypes } from '@/vuex'
 
 import { api } from '@/api'
-import { base } from '@tokend/js-sdk'
 import { MathUtil } from '@/js/utils'
 import { globalize } from '@/vue/filters/globalize'
 
@@ -104,6 +105,7 @@ export default {
       default: _ => [],
     },
     amount: { type: [String, Number], default: '' },
+    former: { type: MassPaymentFormer, default: () => new MassPaymentFormer() },
   },
 
   data () {
@@ -132,7 +134,6 @@ export default {
     ...mapGetters([
       vuexTypes.transferableAssetsBalances,
       vuexTypes.accountBalanceByCode,
-      vuexTypes.accountId,
       vuexTypes.assetByCode,
     ]),
 
@@ -140,6 +141,14 @@ export default {
       return this.transferableAssetsBalances
         .filter(i => +i.balance > 0)
         .map(i => i.asset)
+    },
+  },
+
+  watch: {
+    'form.receivers': async function () {
+      const emails = this.getParsedEmailsWithoutDuplicates()
+      const destinations = await this.getReceiversIds(emails)
+      this.former.setAttr('destinations', destinations)
     },
   },
 
@@ -167,7 +176,7 @@ export default {
       this.disableForm()
 
       try {
-        const operations = await this.buildOperationsToSubmit()
+        const operations = await this.former.buildOps()
         if (this.isEmailNotRegistered) {
           Bus.error('mass-payment-form.mass-send-not-available')
           this.enableForm()
@@ -180,7 +189,7 @@ export default {
 
         let overpaymentAssets = []
 
-        this.form.assets.forEach(asset => {
+        this.former.attrs.assets.forEach(asset => {
           const isOverpayment = MathUtil.compare(
             MathUtil.multiply(operations.length, asset.amount),
             this.accountBalanceByCode(asset.code).balance,
@@ -210,7 +219,7 @@ export default {
         await this.loadCurrentBalances()
         this.clearFieldsWithOverriding({
           receivers: this.form.receivers,
-          assets: this.form.assets,
+          assets: this.former.attrs.assets,
         })
         this.$emit(EVENTS.submitted)
         Bus.success('mass-payment-form.payment-successfully-notification')
@@ -222,32 +231,21 @@ export default {
       this.enableForm()
     },
 
-    async getReceiverIdByEmail (email) {
-      const receiver = this.receivers.find(i => i.email === email)
-      if (receiver) {
-        return receiver.accountId
-      } else {
-        return this.getAccountIdByIdentifier(email)
-      }
-    },
-
-    async getOperationsByEmail (email, proxyPaymentAccountId) {
-      const receiverId = await this.getReceiverIdByEmail(email)
-      if (receiverId) {
-        return this.form.assets.map(asset => {
-          return this.getOperation({
-            destinationAccountId: receiverId,
-            subject: { subject: '' },
-            amount: asset.amount,
-            assetCode: asset.code,
-          })
+    async getReceiversIds (emails) {
+      let receiversIds = []
+      for (const email of emails) {
+        const receiverId = await this.getAccountIdByIdentifier(email)
+        if (!receiverId) {
+          this.isEmailNotRegistered = true
+        }
+        receiversIds.push({
+          receiverId: receiverId,
         })
-      } else {
-        this.isEmailNotRegistered = true
       }
+      return receiversIds
     },
 
-    async buildOperationsToSubmit () {
+    getParsedEmailsWithoutDuplicates () {
       const emails = CsvUtil.parseConcat(this.form.receivers, {
         trim: true,
         filterEmpty: true,
@@ -255,35 +253,7 @@ export default {
       })
 
       this.isEmailNotRegistered = false
-
-      const emailsWithoutDuplicate = [...new Set(emails)]
-
-      const operations = await Promise.all(
-        emailsWithoutDuplicate.map(email => this.getOperationsByEmail(email))
-      )
-      return operations.flat()
-    },
-
-    getOperation ({ destinationAccountId, amount, assetCode, subject }) {
-      return base
-        .PaymentBuilder.payment({
-          sourceBalanceId: this.accountBalanceByCode(assetCode).id,
-          destination: destinationAccountId,
-          amount: String(amount),
-          feeData: {
-            sourceFee: {
-              percent: '0',
-              fixed: '0',
-            },
-            destinationFee: {
-              percent: '0',
-              fixed: '0',
-            },
-            sourcePaysForDest: false,
-          },
-          subject: JSON.stringify(subject),
-          asset: assetCode,
-        })
+      return [...new Set(emails)]
     },
   },
 }

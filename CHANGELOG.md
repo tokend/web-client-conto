@@ -25,6 +25,10 @@ for further information about branching and tagging conventions.
   - New `KycRequestRecord`
   - New `KycRecoveryRequestRecord`
   - New `RequestRecord` getters: `isExists`, `updatableId`
+- Formers:
+  - New `KycGeneralFormer`
+  - New `KycCorporateFormer`
+  - New `MassPaymentFormer`
 
 #### Changed
 - Extract `initApi()`, call it from the main.js, instead of App.vue

@@ -111,6 +111,7 @@ import FormMixin from '@/vue/mixins/form.mixin'
 import { required } from '@validators'
 import { mapGetters } from 'vuex'
 import { vuexTypes } from '@/vuex'
+import { MassPaymentFormer } from '@/js/formers/MassPaymentFormer'
 
 const EVENTS = {
   submit: 'submit',
@@ -122,10 +123,11 @@ export default {
   props: {
     isDisabled: { type: Boolean, default: false },
     assets: { type: Array /** {@link AssetRecord} **/, required: true },
+    former: { type: MassPaymentFormer, required: true },
   },
   data: _ => ({
     form: {
-      assets: [ { code: '', amount: '' } ],
+      assets: [ { code: '', amount: '', balanceId: '' } ],
     },
   }),
 
@@ -155,12 +157,21 @@ export default {
     },
   },
 
-  async created () {
+  watch: {
+    'form.assets.code' () {
+      this.former.setAttr('assets', this.form.assets)
+    },
+  },
+
+  created () {
     this.form.assets[0].code = this.assets[0].code
+    this.form.assets[0].balanceId =
+      this.accountBalanceByCode(this.form.assets[0].code).id
+    this.former.setAttr('assets', this.form.assets)
   },
   methods: {
     submit () {
-      this.$emit(EVENTS.submit, this.form.assets)
+      this.$emit(EVENTS.submit)
     },
 
     isAssetRepeated (assetCode) {
@@ -176,12 +187,15 @@ export default {
 
     setAssetCode (code, index) {
       this.form.assets[index].code = code
+      this.form.assets[index].balanceId =
+        this.accountBalanceByCode(code).id
     },
 
     addAsset () {
       this.form.assets.push({
         amount: '',
         code: this.assets[0].code,
+        balanceId: this.accountBalanceByCode(this.assets[0].code).id,
       })
     },
 
