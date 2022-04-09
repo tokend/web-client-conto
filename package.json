@@ -40,7 +40,7 @@
     "js-md5": "^0.7.3",
     "lodash": "4.17.19",
     "loglevel": "1.6.2",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "moment-timezone": "0.5.25",
     "nprogress": "0.2.0",
     "qrcode.vue": "1.6.2",
