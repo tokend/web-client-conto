@@ -25,6 +25,7 @@ for further information about branching and tagging conventions.
   - New `KycRequestRecord`
   - New `KycRecoveryRequestRecord`
   - New `RequestRecord` getters: `isExists`, `updatableId`
+- Print error with meta in console
 
 #### Changed
 - Extract `initApi()`, call it from the main.js, instead of App.vue
