@@ -101,7 +101,7 @@
     "responsive-loader": "^1.2.0",
     "sass-loader": "^7.0.1",
     "semver": "6.1.1",
-    "sharp": "^0.23.3",
+    "sharp": "^0.30.5",
     "sinon": "9.0.0",
     "sinon-chai": "3.5.0",
     "stylelint": "10.0.1",
