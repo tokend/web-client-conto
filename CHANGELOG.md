@@ -39,6 +39,8 @@ for further information about branching and tagging conventions.
 - Old key-value module
 - Old `ChangeRoleRecord`
 - Old `verification-form.mixin.js`
+- Modules:
+  - `atomic-swap-form`
 
 #### Fixed
 - A bug with `MarkdownField` length
